@@ -308,12 +308,9 @@ impl List {
                 waiting_view(settings, &text, false)
             }
             LoadingState::Ready(_) => {
-                let search_packages = text_input(
-                    "Search packages...",
-                    &self.input_value,
-                )
-                .on_input(Message::SearchInputChanged)
-                .padding(5);
+                let search_packages = text_input("Search packages...", &self.input_value)
+                    .on_input(Message::SearchInputChanged)
+                    .padding(5);
 
                 let user_picklist = pick_list(
                     selected_device.user_list.clone(),

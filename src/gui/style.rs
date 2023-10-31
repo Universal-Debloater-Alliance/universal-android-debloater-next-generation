@@ -335,7 +335,12 @@ impl text_input::StyleSheet for Theme {
         }
     }
 
-    fn disabled_color(&self, _: &<Self as iced::widget::text_input::StyleSheet>::Style) -> iced::Color { todo!() }
+    fn disabled_color(
+        &self,
+        _: &<Self as iced::widget::text_input::StyleSheet>::Style,
+    ) -> iced::Color {
+        todo!()
+    }
 
     fn disabled(&self, _style: &Self::Style) -> text_input::Appearance {
         text_input::Appearance {
