@@ -100,14 +100,14 @@ impl About {
 
         let website_btn = button("Github page")
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Frigyes06/universal-android-debloater",
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
             )))
             .padding(5)
             .style(style::Button::Primary);
 
         let issue_btn = button("Have an issue?")
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Frigyes06/universal-android-debloater/issues",
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
             )))
             .padding(5)
             .style(style::Button::Primary);
@@ -119,7 +119,7 @@ impl About {
 
         let wiki_btn = button("Wiki")
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/0x192/universal-android-debloater/wiki",
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
             )))
             .padding(5)
             .style(style::Button::Primary);

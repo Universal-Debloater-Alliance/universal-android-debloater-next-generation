@@ -31,7 +31,7 @@ That's the main point, right?
 - [x] Multi-device support: you can connect multiple phones at the same time
 - [x] All your actions are logged, so you never forget what you've done
 
-NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/0x192/universal-android-debloater/wiki/FAQ))
+NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
 
 ## Universal Debloat Lists
 
@@ -79,7 +79,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 
 ## How to use it
 
-- **Read the [FAQ](https://github.com/0x192/universal-android-debloater/wiki/FAQ)!**
+- **Read the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ)!**
 - **Do a proper backup of your data! You can never be too careful!**
 - Enable _Developer Options_ on your smartphone.
 - Turn on _USB Debugging_ from the developer panel.
@@ -153,7 +153,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   </details>
   </p>
 
-- Download the latest release of UAD GUI for your Operating System [here](https://github.com/0x192/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
+- Download the latest release of UAD GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
 **NOTE:** Chinese phones users may need to use the AOSP list for removing some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been
@@ -167,7 +167,7 @@ an update to your phone as some _uninstalled_ system apps could be reinstalled.
 Hey-hey-hey! Don't go away so fast! This is a community project.
 That means I need you! I'm sure you want to make this project better anyway.
 
-==> [How to contribute](https://github.com/0x192/universal-android-debloater/wiki)
+==> [How to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki)
 
 ## Special thanks
 

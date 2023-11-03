@@ -271,14 +271,14 @@ impl Settings {
 
         let unavailable_btn = button(text("Unavailable").size(13))
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/0x192/universal-android-debloater/wiki/FAQ#\
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#\
                     why-is-the-disable-mode-setting-not-available-for-my-device",
             )))
             .height(22)
             .style(style::Button::Unavailable);
 
         // Disabling package without root isn't really possible before Android Oreo (8.0)
-        // see https://github.com/0x192/universal-android-debloater/wiki/ADB-reference
+        // see https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
         let disable_mode_checkbox = checkbox(
             "Clear and disable packages instead of uninstalling them",
             self.device.disable_mode,
