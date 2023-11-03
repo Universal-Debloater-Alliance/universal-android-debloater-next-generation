@@ -204,7 +204,7 @@ pub fn apply_pkg_state_commands(
     selected_user: &User,
     phone: &Phone,
 ) -> Vec<String> {
-    // https://github.com/0x192/universal-android-debloater/wiki/ADB-reference
+    // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
         PackageState::Enabled => {
