@@ -23399,5 +23399,23 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.tethering.inprocess.overlay",
+    "list": "Aosp",
+    "description": "Related to the Tethering module,\nwhich allows an Android device to share its internet connection with other connected client devices.\nThis package contains classes and components that are used for in-process overlay functionality within the Tethering module.\nhttps://source.android.com/docs/core/ota/modular-system/tethering",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.tethering.overlay",
+    "list": "Aosp",
+    "description": "Component of the Network, Tethering module.\nPackage is not a publicly documented.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
