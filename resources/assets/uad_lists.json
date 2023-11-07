@@ -23345,5 +23345,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.bluetooth.overlay",
+    "list": "Oem",
+    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
