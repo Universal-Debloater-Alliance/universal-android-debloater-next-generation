@@ -23273,5 +23273,59 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.wifi.dialog",
+    "list": "Aosp",
+    "description": "A package that contains the activity responsible for launching user dialogs related to Wi-Fi settings.\nThis package is part of the AOSP and is used in the Settings app to handle Wi-Fi-related dialog interactions.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.mainline.resources.overlay",
+    "list": "Aosp",
+    "description": "Related to the Wi-Fi module in the AOSP. The Wi-Fi module is a part of Project Mainline,\nWhich allows for updates to specific system components outside of the normal Android release cycle.\nThe package contains resources and overlays that are used to customize the Wi-Fi module.\nThese overlays can be used to override default configurations and customize the behavior of the Wi-Fi module\nhttps://source.android.com/docs/core/ota/modular-system/wifi\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.resources.overlay",
+    "list": "Aosp",
+    "description": "Contains resources that can be overlaid or customized to modify the behavior of the Wi-Fi module.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.resources.xiaomi",
+    "list": "Oem",
+    "description": "Package in MIUI Android refers to a specific package related to the Wi-Fi functionality on Xiaomi devices running the MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.system.mainline.resources.overlay",
+    "list": "Aosp",
+    "description": "Related to the Wi-Fi module and its resources overlay.\nThe Wi-Fi module in Android is updatable, meaning it can receive updates to functionality outside of the normal Android release cycle.\nThe module provides a consistent Wi-Fi experience across Android devices and allows for fixes to interoperability issues through module updates\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.system.resources.overlay",
+    "list": "Aosp",
+    "description": "Contains resources that can be overlaid to customize the Wi-Fi module's behavior.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 ]
