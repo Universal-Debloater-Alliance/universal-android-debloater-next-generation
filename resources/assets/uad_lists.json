@@ -23417,5 +23417,45 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmscontactprovider",
+    "list": "Google",
+    "description": "GMS Contact Provider,\nREMOVEING THIS MIGHT BOOTLOOP YOUR DEVICE!\nUsed to manage contacts and contact-related data on Android devices.\nhttps://developer.android.com/guide/topics/providers/contacts-provider",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmssettingprovider",
+    "list": "Google",
+    "description": "GMS settings provider overlay. REMOVEING THIS MIGHT BOOTLOOP YOUR DEVICE!\nIt is a system package that is pre-installed on Android devices and is responsible for providing settings related to Google Mobile Services.\nhttps://source.android.com/docs/core/permissions/preinstalled-packages\nhttps://source.android.com/docs/core/ota/modular-system/permissioncontroller\nhttps://source.android.com/docs/core/runtime/rros",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmssettings",
+    "list": "Google",
+    "description": "GMS settings overlay. REMOVEING THIS MIGHT BOOTLOOP YOUR DEVICE!",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmstelecomm",
+    "list": "Google",
+    "description": "GMS Telecomm. REMOVEING THIS MIGHT BOOTLOOP YOUR DEVICE!",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmstelephony",
+    "list": "Google",
+    "description": "REMOVEING THIS MIGHT BOOTLOOP YOUR DEVICE!\nRefers to a specific package related to telephony functionality in Google Mobile Services.\nhttps://developer.android.com/reference/android/telephony/package-summary\nhttps://developer.android.com/reference/android/telecom/package-summary",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
