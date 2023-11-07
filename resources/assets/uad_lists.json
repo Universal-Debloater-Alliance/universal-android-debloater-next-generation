@@ -23354,5 +23354,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.incallui.overlay",
+    "list": "Aosp",
+    "description": "Related to the InCallUI module.\nInCallUI is responsible for managing the user interface and functionality of the in-call screen during phone calls on Android devices.\nhttps://developer.android.com/reference/android/telecom/InCallService",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
