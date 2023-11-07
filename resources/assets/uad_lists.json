@@ -23376,7 +23376,16 @@
   {
     "id": "com.android.managedprovisioning.overlay",
     "list": "Aosp",
-    "description": "Related to managed provisioning,\nWhich is a framework UI flow that ensures users are adequately informed of the implications of setting a device owner or managed profile.\nManaged provisioning is a process that allows IT administrators to deploy devices to corporate users using various methods\nSuch as cloud services, QR code, or Near Field Communication (NFC) provisioning",
+    "description": "Related to managed provisioning,\nWhich is a framework UI flow that ensures users are adequately informed of the implications of setting a device owner or managed profile.\nManaged provisioning is a process that allows IT administrators to deploy devices to corporate users using various methods\nSuch as cloud services, QR code, or Near Field Communication (NFC) provisioning\nhttps://source.android.com/docs/devices/admin/provision",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.inprocess.overlay",
+    "list": "Aosp",
+    "description": "Related to the Network Stack module,\nwhich is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
