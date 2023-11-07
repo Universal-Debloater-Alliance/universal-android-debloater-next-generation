@@ -23327,5 +23327,23 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "android.aosp.overlay",
+    "list": "Aosp",
+    "description": "Refers to the Runtime Resource Overlay (RRO) framework that is built into the AOSP.\nRRO allows for the dynamic modification of an app's resources at runtime,\nEnabling the customization of the app's appearance and behavior without modifying its source code\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "android.miui.overlay",
+    "list": "Oem",
+    "description": "Refers to a specific package within the MIUI overlay,\nThe package contains various resources and components that are used to customize the appearance and behavior of the MIUI interface.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
