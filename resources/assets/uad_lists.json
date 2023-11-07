@@ -23480,5 +23480,32 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.mainline.adservices",
+    "list": "Aosp",
+    "description": "Project mainline AdServices module\nOne of the available modules in Project Mainline.\nThis module focuses on delivering updates related to advertising services on Android devices\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nhttps://source.android.com/docs/core/ota/modular-system",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.adservices.api",
+    "list": "Aosp",
+    "description": "Android is related to the AdServices module, which is a part of the Android Open Source Project (AOSP).\nThis module supports the Privacy Sandbox initiative, which aims to protect user privacy online while providing tools for companies and developers to build successful digital businesses\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nhttps://developer.android.com/design-for-safety/privacy-sandbox/setup-api-access",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe",
+  },
+  {
+    "id": "com.google.android.sdksandbox",
+    "list": "Aosp",
+    "description": "The SDK sandbox feature enables each app to have its own SDK sandbox process, providing a secure and isolated environment for loading and running SDKs.\nIt helps prevent conflicts and ensures that SDKs do not interfere with each other or the main app\nhttps://developer.android.com/design-for-safety/privacy-sandbox/reference/sdksandbox/package-summary\nhttps://developer.android.com/design-for-safety/privacy-sandbox/reference/sdksandbox/SdkSandboxManager\nhttps://developer.android.com/reference/android/app/sdksandbox/package-summary",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
