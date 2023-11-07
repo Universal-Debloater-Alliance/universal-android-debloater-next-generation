@@ -23273,5 +23273,239 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.wifi.dialog",
+    "list": "Aosp",
+    "description": "A package that contains the activity responsible for launching user dialogs related to Wi-Fi settings.\nThis package is part of the AOSP and is used in the Settings app to handle Wi-Fi-related dialog interactions.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.mainline.resources.overlay",
+    "list": "Aosp",
+    "description": "Related to the Wi-Fi module in the AOSP. The Wi-Fi module is a part of Project Mainline,\nWhich allows for updates to specific system components outside of the normal Android release cycle.\nThe package contains resources and overlays that are used to customize the Wi-Fi module.\nThese overlays can be used to override default configurations and customize the behavior of the Wi-Fi module\nhttps://source.android.com/docs/core/ota/modular-system/wifi\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.resources.overlay",
+    "list": "Aosp",
+    "description": "Contains resources that can be overlaid or customized to modify the behavior of the Wi-Fi module.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.resources.xiaomi",
+    "list": "Oem",
+    "description": "Package in MIUI Android refers to a specific package related to the Wi-Fi functionality on Xiaomi devices running the MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.system.mainline.resources.overlay",
+    "list": "Aosp",
+    "description": "Related to the Wi-Fi module and its resources overlay.\nThe Wi-Fi module in Android is updatable, meaning it can receive updates to functionality outside of the normal Android release cycle.\nThe module provides a consistent Wi-Fi experience across Android devices and allows for fixes to interoperability issues through module updates\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.wifi.system.resources.overlay",
+    "list": "Aosp",
+    "description": "Contains resources that can be overlaid to customize the Wi-Fi module's behavior.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "android.aosp.overlay",
+    "list": "Aosp",
+    "description": "Refers to the Runtime Resource Overlay (RRO) framework that is built into the AOSP.\nRRO allows for the dynamic modification of an app's resources at runtime,\nEnabling the customization of the app's appearance and behavior without modifying its source code\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "android.miui.overlay",
+    "list": "Oem",
+    "description": "Refers to a specific package within the MIUI overlay,\nThe package contains various resources and components that are used to customize the appearance and behavior of the MIUI interface.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.bluetooth.overlay",
+    "list": "Oem",
+    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.incallui.overlay",
+    "list": "Aosp",
+    "description": "Related to the InCallUI module.\nInCallUI is responsible for managing the user interface and functionality of the in-call screen during phone calls on Android devices.\nhttps://developer.android.com/reference/android/telecom/InCallService",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.inputsettings.overlay.miui",
+    "list": "Oem",
+    "description": "Related to the input settings overlay in the MIUI user interface.\nA custom Android overlay developed by Xiaomi for their smartphones.\nIt provides a unique user experience with various customization options and features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.managedprovisioning.overlay",
+    "list": "Aosp",
+    "description": "Related to managed provisioning,\nWhich is a framework UI flow that ensures users are adequately informed of the implications of setting a device owner or managed profile.\nManaged provisioning is a process that allows IT administrators to deploy devices to corporate users using various methods\nSuch as cloud services, QR code, or Near Field Communication (NFC) provisioning\nhttps://source.android.com/docs/devices/admin/provision",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.inprocess.overlay",
+    "list": "Aosp",
+    "description": "Related to the Network Stack module,\nwhich is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.overlay",
+    "list": "Aosp",
+    "description": "Component of the Network Stack module.\nThe Network Stack module is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.tethering.inprocess.overlay",
+    "list": "Aosp",
+    "description": "Related to the Tethering module,\nwhich allows an Android device to share its internet connection with other connected client devices.\nThis package contains classes and components that are used for in-process overlay functionality within the Tethering module.\nhttps://source.android.com/docs/core/ota/modular-system/tethering",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.networkstack.tethering.overlay",
+    "list": "Aosp",
+    "description": "Component of the Network, Tethering module.\nPackage is not a publicly documented.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmscontactprovider",
+    "list": "Google",
+    "description": "GMS Contact Provider,\nREMOVING THIS MIGHT BOOTLOOP YOUR DEVICE!\nUsed to manage contacts and contact-related data on Android devices.\nhttps://developer.android.com/guide/topics/providers/contacts-provider",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmssettingprovider",
+    "list": "Google",
+    "description": "GMS settings provider overlay. REMOVING THIS MIGHT BOOTLOOP YOUR DEVICE!\nIt is a system package that is pre-installed on Android devices and is responsible for providing settings related to Google Mobile Services.\nhttps://source.android.com/docs/core/permissions/preinstalled-packages\nhttps://source.android.com/docs/core/ota/modular-system/permissioncontroller\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmssettings",
+    "list": "Google",
+    "description": "GMS settings overlay. REMOVING THIS MIGHT BOOTLOOP YOUR DEVICE!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmstelecomm",
+    "list": "Google",
+    "description": "GMS Telecomm. REMOVING THIS MIGHT BOOTLOOP YOUR DEVICE!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.gmstelephony",
+    "list": "Google",
+    "description": "REMOVING THIS MIGHT BOOTLOOP YOUR DEVICE!\nRefers to a specific package related to telephony functionality in Google Mobile Services.\nhttps://developer.android.com/reference/android/telephony/package-summary\nhttps://developer.android.com/reference/android/telecom/package-summary",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.systemui",
+    "list": "Aosp",
+    "description": "Contain the overlay files and resources specific to the System UI customization.\nThese overlay files can be used to modify various aspects of the System UI, including the navigation bar, status bar, lockscreen, and volume dialog.\nhttps://source.android.com/docs/automotive/hmi/system_ui\nhttps://source.android.com/docs/automotive/hmi/system_ui/management_system",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.phone.overlay.miui",
+    "list": "Oem",
+    "description": "Contains specific modifications and enhancements made by MIUI to the phone app's user interface and functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.mainline.adservices",
+    "list": "Aosp",
+    "description": "Project mainline AdServices module\nOne of the available modules in Project Mainline.\nThis module focuses on delivering updates related to advertising services on Android devices\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nhttps://source.android.com/docs/core/ota/modular-system",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.adservices.api",
+    "list": "Aosp",
+    "description": "Android is related to the AdServices module, which is a part of the Android Open Source Project (AOSP).\nThis module supports the Privacy Sandbox initiative, which aims to protect user privacy online while providing tools for companies and developers to build successful digital businesses\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nhttps://developer.android.com/design-for-safety/privacy-sandbox/setup-api-access",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.sdksandbox",
+    "list": "Aosp",
+    "description": "The SDK sandbox feature enables each app to have its own SDK sandbox process, providing a secure and isolated environment for loading and running SDKs.\nIt helps prevent conflicts and ensures that SDKs do not interfere with each other or the main app\nhttps://developer.android.com/design-for-safety/privacy-sandbox/reference/sdksandbox/package-summary\nhttps://developer.android.com/design-for-safety/privacy-sandbox/reference/sdksandbox/SdkSandboxManager\nhttps://developer.android.com/reference/android/app/sdksandbox/package-summary",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
