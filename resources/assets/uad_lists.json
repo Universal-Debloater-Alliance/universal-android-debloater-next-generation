@@ -23372,5 +23372,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.android.managedprovisioning.overlay",
+    "list": "Aosp",
+    "description": "Related to managed provisioning,\nWhich is a framework UI flow that ensures users are adequately informed of the implications of setting a device owner or managed profile.\nManaged provisioning is a process that allows IT administrators to deploy devices to corporate users using various methods\nSuch as cloud services, QR code, or Near Field Communication (NFC) provisioning",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
