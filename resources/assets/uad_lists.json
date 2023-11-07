@@ -23457,5 +23457,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.overlay.systemui",
+    "list": "Aosp",
+    "description": "Contain the overlay files and resources specific to the System UI customization.\nThese overlay files can be used to modify various aspects of the System UI, including the navigation bar, status bar, lockscreen, and volume dialog.\nhttps://source.android.com/docs/automotive/hmi/system_ui\nhttps://source.android.com/docs/automotive/hmi/system_ui/management_system",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.phone.overlay.miui",
+    "list": "Oem",
+    "description": "Contains specific modifications and enhancements made by MIUI to the phone app's user interface and functionality.",
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
