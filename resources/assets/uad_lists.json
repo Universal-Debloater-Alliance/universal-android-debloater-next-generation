@@ -23525,5 +23525,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.android.uwb.resources",
+    "list": "Aosp",
+    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
