@@ -23507,5 +23507,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "android.miui.poco.launcher.res",
+    "list": "Oem",
+    "description": "Resources package of the POCO Launcher.\nPOCO Launcher is a customized launcher designed for Poco phones, a software experience developed by Xiaomi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 ]
