@@ -23552,5 +23552,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.mediatek.gbaservice",
+    "list": "Misc",
+    "description": "This app package is specific to devices that use MediaTek processors.\nLikely related to providing services or features specific to MediaTek processors.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
