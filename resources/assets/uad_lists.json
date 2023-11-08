@@ -23507,5 +23507,59 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "android.miui.poco.launcher.res",
+    "list": "Oem",
+    "description": "Resources package of the POCO Launcher.\nPOCO Launcher is a customized launcher designed for Poco phones, a software experience developed by Xiaomi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.imsserviceentitlement",
+    "list": "Aosp",
+    "description": "IMS Service Entitlement feature.\nThis feature was introduced in Android 12 and is designed to support the TS.43 Service Entitlement Configuration,\nA GSMA (GSM Association) specification that defines the entitlement verification step for the activation of services\nSuch as Voice-over-Wi-Fi (VoWiFi), Voice-over-LTE (VoLTE), SMS over IP (SMSoIP), and On-Device Service Activation (ODSA) of eSIM companion devices\nhttps://source.android.com/docs/core/connect/ims-service-entitlement",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.uwb.resources",
+    "list": "Aosp",
+    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.mediatek.duraspeed",
+    "list": "Misc",
+    "description": "Developed by MediaTek Inc.\nDuraSpeed is a tools app designed to optimize the speed and performance of foreground apps by restricting background apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.mediatek.capctrl.service",
+    "list": "Misc",
+    "description": "MediaTek (MTK) system on a chip (SoC) platform for Android devices.\nIt is related to corporate deployment and device control.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.mediatek.gbaservice",
+    "list": "Misc",
+    "description": "This app package is specific to devices that use MediaTek processors.\nLikely related to providing services or features specific to MediaTek processors.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
