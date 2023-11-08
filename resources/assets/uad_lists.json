@@ -23543,5 +23543,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.mediatek.capctrl.service",
+    "list": "Misc",
+    "description": "MediaTek (MTK) system on a chip (SoC) platform for Android devices.\nIt is related to corporate deployment and device control.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
