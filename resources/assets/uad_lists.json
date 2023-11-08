@@ -23534,5 +23534,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  {
+    "id": "com.mediatek.duraspeed",
+    "list": "Misc",
+    "description": "Developed by MediaTek Inc.\nDuraSpeed is a tools app designed to optimize the speed and performance of foreground apps by restricting background apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 ]
