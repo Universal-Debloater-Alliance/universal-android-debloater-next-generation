@@ -23516,5 +23516,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.android.imsserviceentitlement",
+    "list": "Aosp",
+    "description": "IMS Service Entitlement feature.\nThis feature was introduced in Android 12 and is designed to support the TS.43 Service Entitlement Configuration,\nA GSMA (GSM Association) specification that defines the entitlement verification step for the activation of services\nSuch as Voice-over-Wi-Fi (VoWiFi), Voice-over-LTE (VoLTE), SMS over IP (SMSoIP), and On-Device Service Activation (ODSA) of eSIM companion devices\nhttps://source.android.com/docs/core/connect/ims-service-entitlement",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 ]
