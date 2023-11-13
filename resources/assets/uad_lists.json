@@ -11391,7 +11391,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "caution"
+    "removal": "Expert"
   },
   {
     "id": "com.verizon.cloudsetupwizard",
