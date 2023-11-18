@@ -8659,12 +8659,12 @@
   },
   {
     "id": "com.android.shell",
-    "list": "Oem",
-    "description": "bugreport screenshot, bugreport to cant load file.",
+    "list": "Aosp",
+    "description": "Shell\nUnix shell that receives ADB commands sent from a PC.\nThis is what UAD uses to execute commands on Android devices. Proobably a bad idea to disable ;)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   {
     "id": "com.android.statementservice",
