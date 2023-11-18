@@ -911,11 +911,11 @@
   {
     "id": "com.wdstechnology.android.kryten",
     "list": "Oem",
-    "description": "OTA Access Point Configuration. Might break OTA updates but on some xiaomi devices it doesnt exist, so what exacly does it do?",
+    "description": "OTA Access Point Configuration. Its only hidden configurations to ota, its not needed for updates.\nIn the case of OTA updates, com.miui.core is responsible",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.xiaomi.aiasst.service",
@@ -8829,15 +8829,6 @@
     "removal": "Advanced"
   },
   {
-    "id": "com.oneplus.commonoverlay.com.oneplus",
-    "list": "Oem",
-    "description": "Oneplus System Theme pack\nGuessing it's a pack of themes for Oneplus-specific system components, based on the name.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  {
     "id": "com.oneplus.communication.data",
     "list": "Oem",
     "description": "Oneplus call recorder service. Feature accessible from the stock dialer app",
@@ -11557,17 +11548,17 @@
   },
   {
     "id": "com.samsung.android.wifi.softap.resources",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "I found only configs value to wifi that can be important",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   {
     "id": "com.sec.android.Cdfs",
     "list": "Pending",
-    "description": "",
+    "description": "CDFS MODE Launcher, its CdfsService Problably needed for usb mtp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11620,12 +11611,12 @@
   },
   {
     "id": "com.samsung.vklayer.sm8250",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Vulkan GPU DRIVER",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   {
     "id": "com.samsung.android.app.sharelive",
@@ -11665,12 +11656,12 @@
   },
   {
     "id": "com.samsung.android.dialer",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Stock Samsung Phone dialer",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.hdmapp",
@@ -11679,12 +11670,12 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   {
     "id": "com.samsung.android.localeoverlaymanager",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Locale Overlay Manager\nHas overlays about FOTA updates, Cleaning up files, checking setup complete",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11692,39 +11683,39 @@
   },
   {
     "id": "com.samsung.android.mcfds",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Continuity Service\nChat with other peoples. This app is available on Galaxy Store.\nhttps://galaxystore.samsung.com/prepost/000006390343?appId=com.samsung.android.mcfds",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.samsung.android.motionphoto.viewer",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Motion photo viewer that only you can watch videos on it\nalso diagmonagent logs founded.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.networkstack",
     "list": "Pending",
-    "description": "",
+    "description": "I guess its needed for wifi and it can be important app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   {
     "id": "com.samsung.android.networkstack.tethering.overlay",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "only found wifi configs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   {
     "id": "com.samsung.android.providers.contacts",
@@ -11772,22 +11763,13 @@
     "removal": "Expert"
   },
   {
-    "id": "com.samsung.android.server.wifi.mobilewips",
-    "list": "Pending",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  {
     "id": "com.samsung.android.service.stplatform",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "SmartThings Framework\nI guess its app for installing sponsored apps. Useless Framework.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.samsung.android.setting.multisound",
@@ -11818,15 +11800,6 @@
   },
   {
     "id": "com.samsung.android.wifi.softapwpathree.resources",
-    "list": "Pending",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  {
-    "id": "com.samsung.euicc",
     "list": "Pending",
     "description": "",
     "dependencies": [],
@@ -12043,15 +12016,6 @@
   },
   {
     "id": "com.android.providers.tctdatahubprovider",
-    "list": "Pending",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  {
-    "id": "com.tcl.android.launcher.a_overlay",
     "list": "Pending",
     "description": "",
     "dependencies": [],
@@ -16350,7 +16314,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.trustonic.teeservice",
@@ -16377,7 +16341,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "org.simalliance.openmobileapi.uicc2terminal",
@@ -16386,7 +16350,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "org.simalliance.openmobileapi.service",
@@ -16395,7 +16359,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.mediatek",
@@ -16436,11 +16400,11 @@
   {
     "id": "com.mediatek.gpslocationupdate",
     "list": "Misc",
-    "description": "I wonder if it is really only a logging app. \nCan someone try to remove it and use a GPS app to see if it still works?\nCan someone share the apk? (from a Xiaomi/Huawei phone)\n",
+    "description": "info about gps and notification\nproblably not needed for location.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.mediatek.location.lppe.main",
@@ -26352,7 +26316,7 @@
   },
   {
     "id": "com.hoffnung",
-    "description": "TPMS\nRemote Config Test.",
+    "description": "TPMS\nRemote Config Test. Instead Uninstall better Disable this app\nbecause it uninstalling cause screen flicker",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26424,7 +26388,7 @@
   },
   {
     "id": "tech.palm.id",
-    "description": "TECNO ID\nIts for account? A lot bloated.",
+    "description": "TECNO ID\nIts for account? A lot bloated.\nInstead Uninstall better Disable app because Uninstalling cause Settings app crash",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28386,7 +28350,7 @@
   },
   {
     "id": "com.samsung.android.dsms",
-    "description": "Dsms\nDual Messenger related.",
+    "description": "Dsms\nHidden diagmonagent logs components.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28585,15 +28549,6 @@
   {
     "id": "com.samsung.qosindicator",
     "description": "QOS - quality of service, but it's only for diagnostics.",
-    "removal": "Recommended",
-    "list": "Oem",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": []
-  },
-  {
-    "id": "com.sec.android.Preconfig",
-    "description": "Preconfig\nHidden debugging, logs, CSC codes.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -32668,12 +32623,12 @@
   },
   {
     "id": "com.samsung.android.cameraxservice",
-    "list": "Pending",
-    "description": "CBattery drain related on S10",
+    "list": "Oem",
+    "description": "Its hidden app for testing camera things also its camera calibration",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.samsung.android.kgclient",
@@ -33650,7 +33605,7 @@
   {
     "id": "com.oplus.pay",
     "list": "Oem",
-    "description": "Secure Payment\nLets you pay with your phone. Privacy issue aside, you should probably not trust their security: https://www.bitdefender.com/blog/hotforsecurity/hackers-attack-oneplus-again-this-time-stealing-customer-details",
+    "description": "Secure Payment\nLets you pay with your phone. Privacy issue aside, you should probably not trust their security: https://www.bitdefender.com/blog/hotforsecurity/hackers-attack-oneplus-again-this-time-stealing-customer-details\nsome users cant uninstall this app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35486,11 +35441,11 @@
   {
     "id": "android.miui.poco.launcher.res",
     "list": "Oem",
-    "description": "Resources package of the POCO Launcher.\nPOCO Launcher is a customized launcher designed for Poco phones, a software experience developed by Xiaomi.",
+    "description": "Useless config to default com.miui.home launcher.\nIt's unused! Like com.mi.globallayout, it's not a joke.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.android.uwb.resources",
@@ -35505,6 +35460,1104 @@
     "id": "com.mediatek.gbaservice",
     "list": "Misc",
     "description": "Generic Bootstrapping Architecture. A ‘common ground’ of code used for many MediaTek apps.\nCan be removed if all other MediaTek apps are removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.carrier.logcollector",
+    "list": "Oem",
+    "description": "its the same like diagmonagent, collects dumplogs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.dropbox.android",
+    "list": "Oem",
+    "description": "dropbox app\nhttps://play.google.com/store/apps/details?id=com.dropbox.android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.ws.dm",
+    "list": "Oem",
+    "description": "its the same like com.wssyncmldm\nSoftware update\nFetch System OTA updates\nWorks along with com.sec.android.soagent\nRequired on Samsung Smartphones for OTA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.wt.version_query",
+    "list": "Oem",
+    "description": "theres something about updates but this apk size is too small\nand includes some secret codes, founded in xiaomi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wifi.h2e.resources",
+    "list": "Oem",
+    "description": "needed for wifi, has config values for that",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.sec.android.app.wfdbroker",
+    "list": "Oem",
+    "description": "I found its for connecting to tv also settings\nbut app size is too small for doing these things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.ap.hero.weathernewsjp",
+    "list": "Oem",
+    "description": "japanese samsung weather app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.vivotouchscreen.synadeltadiff",
+    "list": "Oem",
+    "description": "tests touch screen",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.wingtech.stability",
+    "list": "Oem",
+    "description": "Stability Test. Tests hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.cleanmaster.sdk",
+    "list": "Oem",
+    "description": "(discontinued) old clean master app that cleans phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "sg.gov.mnd.OneService",
+    "list": "Oem",
+    "description": "map app with a lot tracking\nhttps://play.google.com/store/apps/details?id=sg.gov.mnd.OneService",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.auth.sampleauthenticatorservice",
+    "list": "Misc",
+    "description": "its only Sample,\nnothing important found in the code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.auth.sampleextauthservice",
+    "list": "Misc",
+    "description": "its only Sample,\nnothing important found in the code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.auth.secureextauthservice",
+    "list": "Misc",
+    "description": "its only Sample,\nnothing important found in the code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.auth.securesampleauthservice",
+    "list": "Misc",
+    "description": "its only Sample,\nnothing important found in the code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.shutdownlistner",
+    "list": "Misc",
+    "description": "uses library com.qualcomm.qcrilhook and logs shutdown phone but its not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.tcpdumpservice",
+    "list": "Oem",
+    "description": "only found app name tcpdumpservice\ntheres no code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.motorola.omadm.usc",
+    "list": "Carrier",
+    "description": "OMA Device Management for Verizon \nHandles configuration of the device (including first time use), enabling and disabling features provided by carriers.\nhttps://en.wikipedia.org/wiki/OMA_Device_Management\nI believe it's only useful if you want to use a Verizon service with a non branded phone (not sure at all)\nhttps://www.androidpolice.com/2015/03/10/android-5-1-includes-new-carrier-provisioning-api-allows-carriers-easier-methods-of-setting-up-services-on-devices-they-dont-control/\nDisplays annoying notifications if you unlocked your bootloader",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.test.LTEfunctionality",
+    "list": "Oem",
+    "description": "LTE, VoLTE testing app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.locationhistory",
+    "list": "Oem",
+    "description": "its only location logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.emergencyreporthelper",
+    "list": "Oem",
+    "description": "Only for KOREA emergency report.\nAlso no activities, only warn.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.goodix.deltadiff",
+    "list": "Oem",
+    "description": "Its app for testing things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "fr.bouyguestelecom.agent.custo",
+    "list": "Oem",
+    "description": "This app wanna include ads to your gallery only.\nFounded only ads and crashlytics components.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mediatek.mt6853.gamedriver",
+    "list": "Oem",
+    "description": "Mediatek GPU Driver",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.mediatek.mt6886.gamedriver",
+    "list": "Oem",
+    "description": "Mediatek GPU Driver",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.hs20provider",
+    "list": "Oem",
+    "description": "only found useless hotspot logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huaqin.batteryinfo",
+    "list": "Misc",
+    "description": "Tests hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huaqin.clearefs",
+    "list": "Misc",
+    "description": "Debugging logs Wifi, Bluethooth",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.felicatest",
+    "list": "Oem",
+    "description": "FeliCa Test, hidden debugs,logs HAL_Nfc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.nttdocomo.android.felicaremotelock",
+    "list": "Oem",
+    "description": "FeliCa Remote security things, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.felicalock",
+    "list": "Oem",
+    "description": "FeliCa Password NFC things, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mediatek.factorymode",
+    "list": "Misc",
+    "description": "Tests hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.facatfunction",
+    "list": "Oem",
+    "description": "FacAtFunction\nUI Display, Sensors Tests",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.extsettings",
+    "list": "Oem",
+    "description": "Needed for hotspot, some chinese phones uses qualcomm names apps",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oppo.em5g",
+    "list": "Oem",
+    "description": "EM NR5G\n5G Disable Mode, Problably needed for mobile data internet.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.sec.esdk.elm",
+    "list": "Oem",
+    "description": "ELM Agent\nHidden ELM for Developers Logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.vklayer.sm8350",
+    "list": "Oem",
+    "description": "GPU Driver",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.ucs.ucspinpad",
+    "list": "Oem",
+    "description": "UcsPinpad\nIn this app u can setup pin,puk\nUCS is a company which has partnered with Samsung to provide licenses for Samsung Knox",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.providers.tasks",
+    "list": "Oem",
+    "description": "Tasks provider\nThis app have nothing in code, only name and useless permissions",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.vivo.stepcount",
+    "list": "Oem",
+    "description": "Step Count Application\nIts hard to say what app actually doing\nlooks like a useless frameworks to widgets and swipe menu",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.SPlannerAppWidget",
+    "list": "Oem",
+    "description": "Calendar Widget",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.sdk.spenv10",
+    "list": "Oem",
+    "description": "Samsung Pen engine, Pen settings, SPen Engine Update.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.snsimagecache",
+    "list": "Oem",
+    "description": "SnsImageCache\nA lot logs, problably its for image cache. A lot samsung phones dont have it so its safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.bcocr",
+    "list": "Oem",
+    "description": "Business card recognition\nSomething about business cards\nnot very useful",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.visualars",
+    "list": "Oem",
+    "description": "Smart Touch Call\nA lot bloated with google api stuff",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.sm.provider",
+    "list": "Oem",
+    "description": "Smart Manager Provider\nSCPM Client? A lot debugging stuff",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.smartface.overlay",
+    "list": "Oem",
+    "description": "Not needed overlay to smartface",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.settingsmaps",
+    "list": "Oem",
+    "description": "My places\nI found Search location also theres other stuff about location but its not needed I guess",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.ims.android",
+    "list": "Oem",
+    "description": "IMS Framework\nNeeded for Wifi calling",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.email.widget",
+    "list": "Oem",
+    "description": "Email Widget on some old samsung phones like S6",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.email.ui",
+    "list": "Oem",
+    "description": "Email app with bad privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.email.sync",
+    "list": "Oem",
+    "description": "Sync to Email app, bad privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.email.composer",
+    "list": "Oem",
+    "description": "another app related to Email app, bad privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.scloud.backup",
+    "list": "Oem",
+    "description": "Samsung Backup only for Samsung Cloud",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.saspmodemailerprovider",
+    "list": "Oem",
+    "description": "docomo mail\nno activities, looks like more useless frameworks also its only for japanese",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.nttdocomo.android.rwpushcontroller",
+    "list": "Carrier",
+    "description": "rwpushcontroller\nAnother FeliCa Networks app, with japanese language\nUseless frameworks",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.rsupport.rsperm.ntt",
+    "list": "Oem",
+    "description": "Remote support service\nI found only permissions and not explained buttons in the code this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.romantic2",
+    "list": "Oem",
+    "description": "Sweet theme",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oppo.nw",
+    "list": "Oem",
+    "description": "RadioInfo\nOnly has radioinfo activity. Not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.tetherservice",
+    "list": "Oem",
+    "description": "Needed for tethering, some chinese phones uses qualcomm names apps instead of normal",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.qualcomm.qti.tm",
+    "list": "Oem",
+    "description": "Task manager\nhidden app for chinese phones",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qti.backupagent",
+    "list": "Oem",
+    "description": "Backup Agent\nhidden app for chinese phones backups SMS,MMS,Contacts",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.qs",
+    "list": "Oem",
+    "description": "Quick settings to mobile data internet, some chinese phones uses qualcomm names apps instead of normal",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.qti.primarycardcontroller",
+    "list": "Oem",
+    "description": "Sim card things about detected or switching, some chinese phones uses qualcomm names apps instead of normal",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.sec.android.Preconfig",
+    "list": "Oem",
+    "description": "On some phones founded testing things menu and on some not found any hidden menu\nbut its app for secret codes to testing hardware things",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.poweroffhandlerapp",
+    "list": "Oem",
+    "description": "I found only lockDevice and Shutdown Phone Animation",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.popupuireceiver",
+    "list": "Oem",
+    "description": "Not needed popupui with battery animation charging or other system notifications.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "android.autoinstalls.config.Xiaomi.land",
+    "list": "Oem",
+    "description": "land is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "android.autoinstalls.config.oppo",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  {
+    "id": "com.sec.android.stub.paywithpaypal",
+    "list": "Oem",
+    "description": "Pay with PayPal\nHidden app that wanna to install PayPal to your phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.app.parentalcare",
+    "list": "Oem",
+    "description": "Parental control to block apps on new samsung phones",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.heytap.usercenter.overlay",
+    "list": "Oem",
+    "description": "overlay needed to usercenter app has resources",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oppo.gmail.overlay",
+    "list": "Oem",
+    "description": "I found in code only words Vodafone email, email setup wizard. Not needed overlay",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.ims.dm",
+    "list": "Oem",
+    "description": "IMS DM\nHidden network debugging",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mediatek.entitlement.fcm",
+    "list": "Misc",
+    "description": "Its only FCM(Firebase Cloud Messaging). No activities, google firebase. Not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.omadmspr",
+    "list": "Oem",
+    "description": "OMADM\nhas activation things and firmware updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.qualcomm.qti.notificationservice",
+    "list": "Oem",
+    "description": "High Battery Temperature\nWrong named package, theres only high temperature notification.\nIts app for some chinese phones",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.nextbit.app",
+    "list": "Carrier",
+    "description": "docomo LIVE UX backup\nIts on some japanese phones",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.theme.natural",
+    "list": "Oem",
+    "description": "Natural theme",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.server.wifi.mobilewips",
+    "list": "Oem",
+    "description": "MobileWips\nDetects suspicious activities on Wi-Fi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.mobiletv",
+    "list": "Oem",
+    "description": "Hidden testing mobiletv\nhttps://apkcombo.com/pt/mobiletv/com.samsung.mobiletv/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.sec.mtv",
+    "list": "Oem",
+    "description": "Hidden testing mobiletv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.felicanetworks.mfm",
+    "list": "Carrier",
+    "description": "Setup Chinese felicanetworks",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.minimode.res",
+    "list": "Oem",
+    "description": "Minimode will be not available when this app be removed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.securemsm.mdtp",
+    "list": "Oem",
+    "description": "MdtpService\nonly logs founded",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.providers.mapcon",
+    "list": "Oem",
+    "description": "Mapcon Provider\nOnly name app founded.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.arcsoft.magicshotstudio",
+    "list": "Oem",
+    "description": "Its app for photos",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.kies",
+    "list": "Oem",
+    "description": "No activities, only useless frameworks in classes.dex",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.diotek.diodict4.EDictionary",
+    "list": "Oem",
+    "description": "Dictionary app, only for japanese and korea",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "jp.co.omronsoft.mushroom.CommonPhrase",
+    "list": "Oem",
+    "description": "Japanese Phrases app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.inputmethod.iwnnime.japan",
+    "list": "Oem",
+    "description": "Samsung Japanese keyboard",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.InputEventApp",
+    "list": "Oem",
+    "description": "Hidden testing things also no activities",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.japan.initonce",
+    "list": "Oem",
+    "description": "InitOnce\nI found in code only name app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.nttdocomo.android.iconcier_contents",
+    "list": "Carrier",
+    "description": "Diagnostics things only in this japanese app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.huxextension",
+    "list": "Carrier",
+    "description": "Hux Extension\nVerizon activation, registration",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.hancom.office.viewer",
+    "list": "Oem",
+    "description": "(discontinued) old Hancom Office Viewer",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.uievolution.gguide.android",
+    "list": "Oem",
+    "description": "This hidden chinese app means nothing",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.GeoLookout",
+    "list": "Oem",
+    "description": "Geo News\nfor korea or japanese",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mediatek.location.mtkgeofence",
+    "list": "Misc",
+    "description": "Mtk Geofence\nOnly logs in code",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.app.telephonyui.esimclient",
+    "list": "Oem",
+    "description": "only has ESimClient Webview Activity",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.dualclockdigital",
+    "list": "Oem",
+    "description": "Dual Clock Widget",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sonyericsson.android.drm.drmlicenseservice",
+    "list": "Oem",
+    "description": "Theres only Drm License Activity, only downloads license, also japanese",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.automotive.drivelinkremote",
+    "list": "Oem",
+    "description": "DriveLinkRemote\nI found only Hello world!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.automotive.drivelink",
+    "list": "Oem",
+    "description": "Car mode\nIts hidden app and has a lot duplicate settings. Not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.digitalclockeasy",
+    "list": "Oem",
+    "description": "Clock (digital easy) widget",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.digitalclock",
+    "list": "Oem",
+    "description": "Clock (digital) widget",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.dck.timesync",
+    "list": "Oem",
+    "description": "DckTimeSyncService\nOnly logs founded",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.ConnectivityUxOverlay",
+    "list": "Oem",
+    "description": "Overlay to wifi icon",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.ConnectivityOverlay",
+    "list": "Oem",
+    "description": "Needed for wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.miui.miwallpaper.overlay.lundun",
+    "list": "Oem",
+    "description": "app that doesnt do anything, no code. Safe to remove.\n You will need remove it 2 times.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.commonimsservice",
+    "list": "Oem",
+    "description": "Stat notify volte",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oppo.customize",
+    "list": "Oem",
+    "description": "Only Hello world! found in app also things to com.orange.aura.oobe",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.classic2",
+    "list": "Oem",
+    "description": "Classic theme",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.sec.android.casual2",
+    "list": "Oem",
+    "description": "Casual theme",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.qualcomm.qti.carrierconfigure",
+    "list": "Oem",
+    "description": "Carrier Configure, Configures carrier, only for some china phones uses qualcomm names",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.stability.camerastability",
+    "list": "Oem",
+    "description": "CameraStability\nHidden camera test",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.providers.assisteddialing",
+    "list": "Oem",
+    "description": "Assisted Dialing\nI found mcc countrycode OTA lookup, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.app.updatecenter",
+    "list": "Oem",
+    "description": "App update\nInstalls app updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mediatek.apmonitor",
+    "list": "Oem",
+    "description": "APM Service\nhas only logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.androidforwork",
+    "list": "Aosp",
+    "description": "Assistant Android Work\nNot needed, theres only user consent activity about that:\n(Your organization controls your device and keeps it secure)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.widgetapp.ap.hero.accuweather",
+    "list": "Oem",
+    "description": "Weather app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.tourviewer",
+    "list": "Oem",
+    "description": "3d tour image, Virtual tour, Viewer used to view photos taken with the Galaxy S5 camera's Virtual Tour Shot mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
