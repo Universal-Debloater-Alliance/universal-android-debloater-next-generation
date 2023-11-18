@@ -22278,15 +22278,6 @@
   {
     "id": "com.mobile.iroaming",
     "list": "Oem",
-    "description": "com.modemdebug\nHidden running in the background debugs for data traffic and all that, not useful for the average person.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.mobile.iroaming",
-    "list": "Oem",
     "description": "Data Store\nOnly useful if you need roaming mobile data when travelling overseas. Has a lot of dangerous permissions and phone home to Vivo domains.\n\nPithus analysis: https://beta.pithus.org/report/d7cfa53942159a0e9c1bf3643b5f38496daee4c0225e8155249db9fdc979187c",
     "dependencies": [],
     "neededBy": [],
