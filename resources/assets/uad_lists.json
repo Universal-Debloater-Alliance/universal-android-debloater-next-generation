@@ -911,7 +911,7 @@
   {
     "id": "com.wdstechnology.android.kryten",
     "list": "Oem",
-    "description": "OTA Access Point Configuration. Its only hidden configurations to ota, its not needed for updates",
+    "description": "OTA Access Point Configuration. Its only hidden configurations to ota, its not needed for updates.\nIn the case of OTA updates, com.miui.core is responsible",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11549,7 +11549,7 @@
   {
     "id": "com.samsung.android.wifi.softap.resources",
     "list": "Oem",
-    "description": "Needed for wifi",
+    "description": "I found only configs value to wifi that can be important",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11558,7 +11558,7 @@
   {
     "id": "com.sec.android.Cdfs",
     "list": "Pending",
-    "description": "",
+    "description": "CDFS MODE Launcher, its CdfsService Problably needed for usb mtp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11612,7 +11612,7 @@
   {
     "id": "com.samsung.vklayer.sm8250",
     "list": "Oem",
-    "description": "GPU DRIVER",
+    "description": "Vulkan GPU DRIVER",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11656,12 +11656,12 @@
   },
   {
     "id": "com.samsung.android.dialer",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Stock Samsung Phone dialer",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.hdmapp",
@@ -11674,8 +11674,8 @@
   },
   {
     "id": "com.samsung.android.localeoverlaymanager",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Locale Overlay Manager\nHas overlays about FOTA updates, Cleaning up files, checking setup complete",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11684,7 +11684,7 @@
   {
     "id": "com.samsung.android.mcfds",
     "list": "Oem",
-    "description": "Continuity Service\nChat with other peoples. This app is available on Galaxy Store.",
+    "description": "Continuity Service\nChat with other peoples. This app is available on Galaxy Store.\nhttps://galaxystore.samsung.com/prepost/000006390343?appId=com.samsung.android.mcfds",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11692,17 +11692,17 @@
   },
   {
     "id": "com.samsung.android.motionphoto.viewer",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Motion photo viewer that only you can watch videos on it\nalso diagmonagent logs founded.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.networkstack",
     "list": "Pending",
-    "description": "",
+    "description": "I guess its needed for wifi and it can be important app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32624,7 +32624,7 @@
   {
     "id": "com.samsung.android.cameraxservice",
     "list": "Oem",
-    "description": "Its app for testing camera things",
+    "description": "Its hidden app for testing camera things also its camera calibration",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35504,7 +35504,7 @@
   {
     "id": "com.samsung.android.wifi.h2e.resources",
     "list": "Oem",
-    "description": "needed for wifi",
+    "description": "needed for wifi, has config values for that",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35549,7 +35549,7 @@
   {
     "id": "com.cleanmaster.sdk",
     "list": "Oem",
-    "description": "(discontinued) old app that cleans phone.",
+    "description": "(discontinued) old clean master app that cleans phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35603,7 +35603,7 @@
   {
     "id": "com.qualcomm.shutdownlistner",
     "list": "Misc",
-    "description": "uses library com.qualcomm.qcrilhook but its not needed.",
+    "description": "uses library com.qualcomm.qcrilhook and logs shutdown phone but its not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35612,7 +35612,7 @@
   {
     "id": "com.sec.tcpdumpservice",
     "list": "Oem",
-    "description": "only found app name tcpdumpservice",
+    "description": "only found app name tcpdumpservice\ntheres no code",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35666,7 +35666,7 @@
   {
     "id": "fr.bouyguestelecom.agent.custo",
     "list": "Oem",
-    "description": "This app wanna include ads to your gallery only.\nIts useless because I found only ads and crashlytics components.",
+    "description": "This app wanna include ads to your gallery only.\nFounded only ads and crashlytics components.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35909,7 +35909,7 @@
   {
     "id": "com.samsung.android.email.widget",
     "list": "Oem",
-    "description": "Email Widget",
+    "description": "Email Widget on some old samsung phones like S6",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35990,7 +35990,7 @@
   {
     "id": "com.oppo.nw",
     "list": "Oem",
-    "description": "RadioInfo\nNot needed",
+    "description": "RadioInfo\nOnly has radioinfo activity. Not needed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35999,7 +35999,7 @@
   {
     "id": "com.qualcomm.qti.tetherservice",
     "list": "Oem",
-    "description": "Needed for tethering, some chinese phones uses qualcomm names apps",
+    "description": "Needed for tethering, some chinese phones uses qualcomm names apps instead of normal",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36026,7 +36026,7 @@
   {
     "id": "com.qualcomm.qti.qs",
     "list": "Oem",
-    "description": "Quick settings to mobile data internet, some chinese phones uses qualcomm names apps",
+    "description": "Quick settings to mobile data internet, some chinese phones uses qualcomm names apps instead of normal",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36035,7 +36035,7 @@
   {
     "id": "com.qti.primarycardcontroller",
     "list": "Oem",
-    "description": "Sim card things about detected or switching, some chinese phones uses qualcomm names apps",
+    "description": "Sim card things about detected or switching, some chinese phones uses qualcomm names apps instead of normal",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36044,7 +36044,7 @@
   {
     "id": "com.sec.android.Preconfig",
     "list": "Oem",
-    "description": "not found any hidden menu but its app for secret codes to testing hardware things",
+    "description": "On some phones founded testing things menu and on some not found any hidden menu\nbut its app for secret codes to testing hardware things",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36098,7 +36098,7 @@
   {
     "id": "com.samsung.android.app.parentalcare",
     "list": "Oem",
-    "description": "Parental control to block apps",
+    "description": "Parental control to block apps on new samsung phones",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36107,7 +36107,7 @@
   {
     "id": "com.heytap.usercenter.overlay",
     "list": "Oem",
-    "description": "overlay needed to usercenter app",
+    "description": "overlay needed to usercenter app has resources",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36188,7 +36188,7 @@
   {
     "id": "com.samsung.mobiletv",
     "list": "Oem",
-    "description": "Hidden testing mobiletv",
+    "description": "Hidden testing mobiletv\nhttps://apkcombo.com/pt/mobiletv/com.samsung.mobiletv/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36538,7 +36538,7 @@
   },
   {
     "id": "com.google.android.androidforwork",
-    "list": "Oem",
+    "list": "Aosp",
     "description": "Assistant Android Work\nNot needed, theres only user consent activity about that:\n(Your organization controls your device and keeps it secure)",
     "dependencies": [],
     "neededBy": [],
@@ -36557,7 +36557,7 @@
   {
     "id": "com.sec.android.app.tourviewer",
     "list": "Oem",
-    "description": "Problably hidden 3d tour image, Virtual tour",
+    "description": "3d tour image, Virtual tour, Viewer used to view photos taken with the Galaxy S5 camera's Virtual Tour Shot mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
