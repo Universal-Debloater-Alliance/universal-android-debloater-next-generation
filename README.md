@@ -12,12 +12,12 @@ could happen to your phone.
 This is a complete rewrite in Rust of the [UAD project](https://gitlab.com/W1nst0n/universal-android-debloater),
 which aims to improve privacy and battery performance by removing unnecessary
 and obscure system apps.
-This can also contribute to improve security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface).
+This can also contribute to improving security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface).
 
-Packages are as well documented as possible in order to provide a better
+Packages are as well documented as possible to provide a better
 understanding of what you can delete or not. The worst issue that could happen
-is removing an essential system package needed during boot causing then an unfortunate
-bootloop. After about 5 failed system boots, the phone will automatically reboot
+is removing an essential system package needed during boot causing an unfortunate
+boot loop. After about 5 failed system boots, the phone will automatically reboot
 in recovery mode, and you'll have to perform a FACTORY RESET. Make a backup first!
 
 In any case, you **CANNOT** brick your device with this software!
@@ -31,7 +31,7 @@ That's the main point, right?
 - [x] Multi-device support: you can connect multiple phones at the same time
 - [x] All your actions are logged, so you never forget what you've done
 
-NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
+NB: System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
 
 ## Universal Debloat Lists
 
@@ -68,7 +68,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 * [X] Xiaomi
 * [X] ZTE
 
-## Mobile carriers debloat lists
+## Mobile carrier debloat lists
 
 | Country | Carriers                        |
 | ------- | ------------------------------- |
@@ -138,9 +138,9 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   <details>
   <summary>WINDOWS</summary>
 
-  - Download [android platform tools](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
+  - Download [Android platform tools](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
     and unzip it somewhere.
-  - [Add the android platform tools to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+  - [Add the Android platform tools to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
     **OR** make sure to launch UAD from the same directory.
 
   - [Install USB drivers for your device](https://developer.android.com/studio/run/oem-usb#Drivers)
@@ -155,7 +155,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 
 - Download the latest release of UAD GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
-**NOTE:** Chinese phones users may need to use the AOSP list for removing some stock
+**NOTE**:** Chinese phone users may need to use the AOSP list for removing some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been
 using the name of AOSP packages for their own (modified & closed-source) apps.
 

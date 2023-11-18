@@ -317,7 +317,7 @@
   {
     "id": "com.sonymobile.deviceconfigtool",
     "list": "Oem",
-    "description": "Configuration agent\nSeems to do things cloud related but it's unclear.\nhttps://knowledge.protektoid.com/apps/com.sonymobile.deviceconfigtool/91e44f1e19b364411776d758ff3b27f703bd4b60c9399c43c124f37d0c30df27\n",
+    "description": "Configuration agent\nSeems to do things cloud-related but it's unclear.\nhttps://knowledge.protektoid.com/apps/com.sonymobile.deviceconfigtool/91e44f1e19b364411776d758ff3b27f703bd4b60c9399c43c124f37d0c30df27\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -389,7 +389,7 @@
   {
     "id": "com.sonymobile.glovemode",
     "list": "Oem",
-    "description": "Sony Glove mode\nLets you use your smart phone and touch the screen while wearing regular gloves.\n",
+    "description": "Sony Glove mode\nLets you use your smartphone and touch the screen while wearing regular gloves.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -443,7 +443,7 @@
   {
     "id": "com.sonymobile.intelligent.observer",
     "list": "Oem",
-    "description": "IntelligentObserver\n???? (but intelligent stuff are safe to remove)\n",
+    "description": "IntelligentObserver\n???? (but intelligent stuff is safe to remove)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -614,7 +614,7 @@
   {
     "id": "com.sonymobile.xperiaxlivewallpaper.product.res.overlay",
     "list": "Oem",
-    "description": "Some overlay for a live wallaper from Sony? Overlays are usually themes, but not sure about this one as theming seems weird for live wallpapers. Could be that Sony automatically generates theme packages for all or most system apps, which might generate some unnecessary packages.",
+    "description": "Some overlay for a live wallpaper from Sony? Overlays are usually themes, but not sure about this one as theming seems weird for live wallpapers. Could be that Sony automatically generates theme packages for all or most system apps, which might generate some unnecessary packages.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -713,7 +713,7 @@
   {
     "id": "com.ape.wikolegal",
     "list": "Oem",
-    "description": "Provides legal for first time setup in Wiko mobile",
+    "description": "Provides legal for first-time setup in Wiko mobile",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -722,7 +722,7 @@
   {
     "id": "com.wiko.packageinstaller",
     "list": "Oem",
-    "description": "Provides first time app install for Wiko mobile",
+    "description": "Provides first-time app install for Wiko mobile",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1190,7 +1190,7 @@
   {
     "id": "com.motorola.vzw.phone.extensions",
     "list": "Carrier",
-    "description": "Free HD wallpaper from verizon\n",
+    "description": "Free HD wallpaper from Verizon\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1235,7 +1235,7 @@
   {
     "id": "com.motorola.omadm.vzw",
     "list": "Carrier",
-    "description": "OMA Device Management for Verizon \nHandles configuration of the device (including first time use), enabling and disabling features provided by carriers.\nhttps://en.wikipedia.org/wiki/OMA_Device_Management\nI believe it's only useful if you want to use a Verizon service with a non branded phone (not sure at all)\nhttps://www.androidpolice.com/2015/03/10/android-5-1-includes-new-carrier-provisioning-api-allows-carriers-easier-methods-of-setting-up-services-on-devices-they-dont-control/\nDisplays annoying notifications if you unlocked your bootloader\n",
+    "description": "OMA Device Management for Verizon \nHandles configuration of the device (including first-time use), enabling and disabling features provided by carriers.\nhttps://en.wikipedia.org/wiki/OMA_Device_Management\nI believe it's only useful if you want to use a Verizon service with a non branded phone (not sure at all)\nhttps://www.androidpolice.com/2015/03/10/android-5-1-includes-new-carrier-provisioning-api-allows-carriers-easier-methods-of-setting-up-services-on-devices-they-dont-control/\nDisplays annoying notifications if you unlocked your bootloader\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1415,7 +1415,7 @@
   {
     "id": "com.sprint.ms.cdm",
     "list": "Carrier",
-    "description": "Sprint Device Manager\nMobile Device Management (MDM) allows company’s IT department to reach inside your phone in the background, allowing them to ensure \nyour device is secure, know where it is, and remotely erase your data if the phone is stolen.\nYou should NEVER install a MDM tool on your phone. Never.\nhttps://onezero.medium.com/dont-put-your-work-email-on-your-personal-phone-ef7fef956c2f\nhttps://blog.cdemi.io/never-accept-an-mdm-policy-on-your-personal-phone/\n",
+    "description": "Sprint Device Manager\nMobile Device Management (MDM) allows the company’s IT department to reach inside your phone in the background, allowing them to ensure \nyour device is secure, know where it is, and remotely erase your data if the phone is stolen.\nYou should NEVER install a MDM tool on your phone. Never.\nhttps://onezero.medium.com/dont-put-your-work-email-on-your-personal-phone-ef7fef956c2f\nhttps://blog.cdemi.io/never-accept-an-mdm-policy-on-your-personal-phone/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2126,7 +2126,7 @@
   {
     "id": "com.huawei.android.remotecontroller",
     "list": "Oem",
-    "description": "Huawei Smart Controller app.\nLets you you add, customize, and set up remote controls, allowing control of your electronic appliances through your phone. \n",
+    "description": "Huawei Smart Controller app.\nLets you add, customize, and set up remote controls, allowing control of your electronic appliances through your phone. \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2153,7 +2153,7 @@
   {
     "id": "com.huawei.android.wfdirect",
     "list": "Oem",
-    "description": "Wi-Fi Direct feature.\nNote: Wifi direct enables devices to establish a direct Wi-Fi connection (without a router) over which the two can send and receive files. \n",
+    "description": "Wi-Fi Direct feature.\nNote: Wifi Direct enables devices to establish a direct Wi-Fi connection (without a router) over which the two can send and receive files. \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3126,7 +3126,7 @@
   {
     "id": "com.motorola.bug2go",
     "list": "Oem",
-    "description": "Bugs reporting app that sends info about crash report.\n",
+    "description": "Bugs reporting app that sends info about the crash report.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4476,7 +4476,7 @@
   {
     "id": "com.samsung.android.livestickers",
     "list": "Oem",
-    "description": "Deco Pic (accessible through AR Zone)\nCamera app with stickers and snapchat-like filters\n",
+    "description": "Deco Pic (accessible through AR Zone)\nCamera app with stickers and Snapchat-like filters\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4539,7 +4539,7 @@
   {
     "id": "com.samsung.android.mdx.quickboard",
     "list": "Oem",
-    "description": "Media & Devices feature\nKind of a hub for managing medias played on smart devices (e.g play music to 2 Bluetooth devices simultaneously with Dual audio)\nhttps://www.samsung.com/latin_en/support/mobile-devices/media-and-device-feature/\nHas a lot of permissions and asks for ACCESS_COARSE_LOCATION, QUERY_ALL_PACKAGES.\nWARNING: Removing this package does not prevent you to connect your phones to smart devices, but oddly enough causes the brightness slider in the notification panel to not be displayed in landscape orientation (it's still shown in portrait) on some devices.\n",
+    "description": "Media & Devices feature\nKind of a hub for managing media played on smart devices (e.g play music to 2 Bluetooth devices simultaneously with Dual audio)\nhttps://www.samsung.com/latin_en/support/mobile-devices/media-and-device-feature/\nHas a lot of permissions and asks for ACCESS_COARSE_LOCATION, QUERY_ALL_PACKAGES.\nWARNING: Removing this package does not prevent you to connect your phones to smart devices, but oddly enough causes the brightness slider in the notification panel to not be displayed in landscape orientation (it's still shown in portrait) on some devices.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4710,7 +4710,7 @@
   {
     "id": "com.samsung.android.stickerplugin",
     "list": "Oem",
-    "description": "StickerPlugin\nNot sure if this package also provides stickers for camera. I don't have it so I can't test\nhttps://developer.samsung.com/galaxy/stickers\n",
+    "description": "StickerPlugin\nNot sure if this package also provides stickers for the camera. I don't have it so I can't test\nhttps://developer.samsung.com/galaxy/stickers\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4971,7 +4971,7 @@
   {
     "id": "com.samsung.android.visioncloudagent",
     "list": "Oem",
-    "description": "VisionCloudAgent\nCloud Agent is a service which automatically upload on the cloud the photos you take on your phone. It connects to your \"Samsung account\".\nIt is related to Dropbox.\nGiven the Vision in the package name there is a link with Bixby.\n",
+    "description": "VisionCloudAgent\nCloud Agent is a service which automatically uploads on the cloud the photos you take on your phone. It connects to your \"Samsung account\".\nIt is related to Dropbox.\nGiven the Vision in the package name there is a link with Bixby.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5142,7 +5142,7 @@
   {
     "id": "com.samsung.groupcast",
     "list": "Oem",
-    "description": "Samsung Group Play (discontinued)\nAllows you to share pictures , documents and music files with many people at same time  if everyone is connected to a Wi-Fi network. \nhttps://www.samsung.com/in/support/mobile-devices/what-is-group-play-in-samsung-smartphones/\n",
+    "description": "Samsung Group Play (discontinued)\nAllows you to share pictures, documents and music files with many people at same time  if everyone is connected to a Wi-Fi network. \nhttps://www.samsung.com/in/support/mobile-devices/what-is-group-play-in-samsung-smartphones/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5151,7 +5151,7 @@
   {
     "id": "com.samsung.helphub",
     "list": "Oem",
-    "description": "Not sure if this package still exist.\nProvide help \n",
+    "description": "Not sure if this package still exists.\nProvide help \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5250,7 +5250,7 @@
   {
     "id": "com.samsung.logwriter",
     "list": "Oem",
-    "description": "LogWriter\nWrites data in a logs SQL database.\nRuns at boot and is triggered when an download from an Iron Source (Iron Source is an Israeli advertising company)\napp is completed (probably \"com.aura.oobe.samsung\")\n",
+    "description": "LogWriter\nWrites data in a logs SQL database.\nRuns at boot and is triggered when a download from an Iron Source (Iron Source is an Israeli advertising company)\napp is completed (probably \"com.aura.oobe.samsung\")\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5565,7 +5565,7 @@
   {
     "id": "com.sec.android.app.parser",
     "list": "Oem",
-    "description": "DRParser Mode \nSecret code parser\nSupport for hidden samsung apps launched via secret codes\n",
+    "description": "DRParser Mode \nSecret code parser\nSupport for hidden Samsung apps launched via secret codes\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5709,7 +5709,7 @@
   {
     "id": "com.sec.android.app.translator",
     "list": "Oem",
-    "description": "Samsung Translater (S Translater)\nhttps://www.samsung.com/africa_en/support/mobile-devices/what-is-s-translator-and-how-does-it-work/\n",
+    "description": "Samsung Translator (S Translator)\nhttps://www.samsung.com/africa_en/support/mobile-devices/what-is-s-translator-and-how-does-it-work/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6564,7 +6564,7 @@
   {
     "id": "com.samsung.android.app.contacts",
     "list": "Oem",
-    "description": "Samsung contacts app\nSafe to debloat if you use another contacts app\nNOTE : If you do, you will no longer be able to access Contacts from the Samsung dialer app.\n",
+    "description": "Samsung contacts app\nSafe to debloat if you use other contacts app\nNOTE : If you do, you will no longer be able to access Contacts from the Samsung dialer app.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9507,7 +9507,7 @@
   {
     "id": "com.oneplus.appupgrader",
     "list": "Oem",
-    "description": "Built-in App Updates\nBased on the name I'm guessing it's an upater for built-in Oneplus apps?\nSeems safe to disable, but only seems to run on boot, so there's little to be gained from disabling.",
+    "description": "Built-in App Updates\nBased on the name I'm guessing it's an updater for built-in Oneplus apps?\nSeems safe to disable, but only seems to run on boot, so there's little to be gained from disabling.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10218,7 +10218,7 @@
   {
     "id": "com.qualcomm.qtil.aptxals",
     "list": "Misc",
-    "description": "Something to do with the AptX bluetooh audio streaming codec?\nRuns in the background as part of the system.",
+    "description": "Something to do with the AptX Bluetooth audio streaming codec?\nRuns in the background as part of the system.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10236,7 +10236,7 @@
   {
     "id": "com.qualcomm.qtil.aptxui",
     "list": "Misc",
-    "description": "Something to do with selecting codec for bluetooh audio streaming?\nRuns in the background as part of the system.",
+    "description": "Something to do with selecting codec for Bluetooth audio streaming?\nRuns in the background as part of the system.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -21423,7 +21423,7 @@
   {
     "id": "com.oplus.games",
     "list": "Oem",
-    "description": "Games (https://play.google.com/store/apps/details?id=com.oplus.games)\nOccasionally runs in the background as part of the system.\nAllows you to launch your game library, check game stats(such as playtime), activate game overlay features and performance settings to tweak game/battery performance during gaming.\nThis is the only way to access the recording buffer functionality (records the last X seconds into RAM and saves them when you tap save), so keep enabled if you need that or any of the other features.Note: new package name of com.oneplus.gamespace (since the merge between Oppo and OnePlus. Oplus = Oppo+OnePlus",
+    "description": "Games (https://play.google.com/store/apps/details?id=com.oplus.games)\nOccasionally runs in the background as part of the system.\nAllows you to launch your game library, check game stats(such as playtime), activate game overlay features and performance settings to tweak game/battery performance during gaming.\nThis is the only way to access the recording buffer functionality (records the last X seconds into RAM and saves them when you tap save), so keep enabled if you need that or any of the other features. Note: new package name of com.oneplus.gamespace (since the merge between Oppo and OnePlus. Oplus = Oppo+OnePlus",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
