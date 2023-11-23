@@ -12,11 +12,11 @@ could happen to your phone.
 This is a complete rewrite in Rust of the [UAD project](https://gitlab.com/W1nst0n/universal-android-debloater),
 which aims to improve privacy and battery performance by removing unnecessary
 and obscure system apps.
-This can also contribute to improve security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface).
+This can also contribute to improving security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface).
 
-Packages are as well documented as possible in order to provide a better
-understanding of what you can delete or not. The worst issue that could happen
-is removing an essential system package needed during boot causing then an unfortunate
+Packages are as well documented as possible to provide a better understanding
+of what you can delete or not. The worst issue that could happen is removing
+an essential system package needed during boot causing then an unfortunate
 bootloop. After about 5 failed system boots, the phone will automatically reboot
 in recovery mode, and you'll have to perform a FACTORY RESET. Make a backup first!
 
@@ -87,7 +87,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 - Enable _Developer Options_ on your smartphone.
 - Turn on _USB Debugging_ from the developer panel.
 - From the settings, disconnect from any OEM accounts (when you delete an OEM
-  account package it could lock you on the lockscreen because the phone can't
+  account package it could lock you on the lock screen because the phone can't
   associate your identity anymore)
 - Install ADB (see the instructions by clicking on your OS below):
   <p>
@@ -158,7 +158,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 
 - Download the latest release of UAD GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
-**NOTE:** Chinese phones users may need to use the AOSP list for removing some stock
+**NOTE:** Chinese phone users may need to use the AOSP list to remove some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been
 using the name of AOSP packages for their own (modified & closed-source) apps.
 
