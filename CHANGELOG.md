@@ -10,11 +10,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The sections should follow the order `Apps`, `Added`, `Changed`, `Fixed`, `Packaging`
 and `Removed`.
 
+## [0.6.2] - Pending
+
+### Apps
+- [[#39](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/39)] Added new Wi-Fi related packages, custom Bluetooth overlay package, Google system packages, and systemui package
+- [[#40](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/40)] Added new package for MediaTek devices and the POCO Launcher resources, IMS Service Entitlement feature, UWB communication feature, Mediatek Duraspeed, and Mediatek Soc Package.
+- [[#44](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/44)] Added a lot of new packages
+- [[#46](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/46)] Added more packages and updated descriptions
+
 ## [0.6.1] - Released
 
 ### Apps
-- [[#21](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/21)] added android.autoinstalls.config.Xiaomi.model package
-- [[#23](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/23)] modified the description for ASOP camera app.
+- [[#21](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/21)] Added android.autoinstalls.config.Xiaomi.model package
+- [[#23](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/23)] Modified the description for ASOP camera app.
 - [[#25](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/25)] Added and edited packages
 - [[#27](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/27)] Added com.android.cellbroadcastreceiver.module
 
@@ -28,13 +36,13 @@ and `Removed`.
 ## [0.6.0] - Released
 
 ### Apps
-- [[#13](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/13)] com.telus.myaccount package
-- [[#15](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/15)] more Wiko oem packages/
+- [[#13](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/13)] Addedcom.telus.myaccount package.
+- [[#15](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/15)] Added More Wiko oem packages.
 
 ### Fixed
 - [[#14](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/14)] Fixed typos in uad_list.json
 - [[#18](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/18)] Fixed ADB command to include all packages, not just system packages. Also fixed uad_list update url.
-- TikTok app description
+- TikTok app description.
 
 ## [0.5.2] - Released
 
