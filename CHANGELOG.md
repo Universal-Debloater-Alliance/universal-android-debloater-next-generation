@@ -1,5 +1,7 @@
 # Changelog
 
+**THIS IS AN UNOFFICIAL FORK**
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -8,11 +10,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The sections should follow the order `Apps`, `Added`, `Changed`, `Fixed`, `Packaging`
 and `Removed`.
 
-## [0.6] - Unreleased
+## [0.6.1] - Released
+
+### Apps
+- [[#21](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/21)] added android.autoinstalls.config.Xiaomi.model package
+- [[#23](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/23)] modified the description for ASOP camera app.
+- [[#25](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/25)] Added and edited packages
+- [[#27](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/27)] Added com.android.cellbroadcastreceiver.module
+
+### Fixed
+- [[#35](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/35)] OpenGL Drivers
+
+### Changed
+- [[#34](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/34)] Updated links to new repo
+- [[#26](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/26)] Updated GUI libraries.
+
+## [0.6.0] - Released
+
+### Apps
+- [[#13](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/13)] com.telus.myaccount package
+- [[#15](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/15)] more Wiko oem packages/
+
+### Fixed
+- [[#14](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/14)] Fixed typos in uad_list.json
+- [[#18](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/18)] Fixed ADB command to include all packages, not just system packages. Also fixed uad_list update url.
+- TikTok app description
+
+## [0.5.2] - Released
 
 **WARNING: Settings specification has changed. Previous user settings will be erased**.
 
 ### Added
+- [[#11](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/11)] All of AnonymousWP's patches. This release notes will probably be restarted as issue counter is reset on fork.
+
 - [[#374](https://github.com/0x192/universal-android-debloater/pull/374)] **Device-specific persistent configuration:** Some settings are now device-specific which means you can maintain different settings across several devices.
 
 - [[#447](https://github.com/0x192/universal-android-debloater/pull/447)] **Backup/Restore the state of a device:** Quick and easy way to save the state of all the system apps on a device and restore it.

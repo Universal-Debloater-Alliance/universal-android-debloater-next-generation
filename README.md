@@ -31,7 +31,7 @@ That's the main point, right?
 - [x] Multi-device support: you can connect multiple phones at the same time
 - [x] All your actions are logged, so you never forget what you've done
 
-NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/0x192/universal-android-debloater/wiki/FAQ))
+NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
 
 ## Universal Debloat Lists
 
@@ -42,31 +42,34 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 - [x] Qualcomm / Mediatek / Miscellaneous
 
 ## Manufacturers debloat lists
-
-- [ ] Archos
-- [x] Asus
-- [ ] Blackberry
-- [ ] Gionee
-- [x] LG
-- [x] Google
-- [ ] iQOO
-- [x] Fairphone
-- [ ] HTC
-- [x] Huawei
-- [x] Motorola
-- [x] Nokia
-- [x] OnePlus
-- [x] Oppo
-- [x] Realme
-- [x] Samsung
-- [x] Sony
-- [x] Tecno
-- [ ] TCL
-- [x] Unihertz
-- [x] Vivo/iQOO
-- [ ] Wiko
-- [x] Xiaomi
-- [x] ZTE
+* [ ] Archos
+* [X] Asus
+* [ ] Blackberry
+* [X] Fairphone
+* [ ] Gionee
+* [X] Google
+* [x] Honor
+* [ ] HTC
+* [X] Huawei
+* [X] iQOO
+* [X] LG
+* [X] Lenovo
+* [X] Motorola
+* [X] Nokia
+* [X] Nubia
+* [X] Nothing Phone
+* [X] OnePlus
+* [X] Oppo
+* [X] Realme
+* [X] Samsung
+* [X] Sony
+* [X] Tecno
+* [X] TCL
+* [X] Unihertz
+* [X] Vivo/iQOO
+* [X] Wiko
+* [X] Xiaomi
+* [X] ZTE
 
 ## Mobile carriers debloat lists
 
@@ -79,14 +82,14 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 
 ## How to use it
 
-- **Read the [FAQ](https://github.com/0x192/universal-android-debloater/wiki/FAQ)!**
+- **Read the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ)!**
 - **Do a proper backup of your data! You can never be too careful!**
 - Enable _Developer Options_ on your smartphone.
 - Turn on _USB Debugging_ from the developer panel.
 - From the settings, disconnect from any OEM accounts (when you delete an OEM
   account package it could lock you on the lockscreen because the phone can't
   associate your identity anymore)
-- Install ADB (see the intructions by clicking on your OS below):
+- Install ADB (see the instructions by clicking on your OS below):
   <p>
   <details>
   <summary>LINUX</summary>
@@ -131,8 +134,8 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
     brew install android-platform-tools
     ```
 
-    </details>
-    </p>
+  </details>
+  </p>
 
   <p>
   <details>
@@ -150,12 +153,10 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
      adb devices
     ```
 
-    </details>
-    </p>
+  </details>
+  </p>
 
-- Download the latest release of UAD GUI for your Operating System [here](https://github.com/0x192/universal-android-debloater/releases).
-  Take the `opengl` version only if the default version (with a Vulkan backend)
-  doesn't launch.
+- Download the latest release of UAD GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
 **NOTE:** Chinese phones users may need to use the AOSP list for removing some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been
@@ -169,7 +170,7 @@ an update to your phone as some _uninstalled_ system apps could be reinstalled.
 Hey-hey-hey! Don't go away so fast! This is a community project.
 That means I need you! I'm sure you want to make this project better anyway.
 
-==> [How to contribute](https://github.com/0x192/universal-android-debloater/wiki)
+==> [How to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki)
 
 ## Special thanks
 
