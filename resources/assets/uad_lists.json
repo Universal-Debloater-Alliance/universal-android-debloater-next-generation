@@ -14393,11 +14393,11 @@
   {
     "id": "com.qualcomm.qcrilmsgtunnel",
     "list": "Misc",
-    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim its safe to remove.",
+    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim its safe to remove. Breaks calls after a reboot.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.qualcomm.simcontacts",
