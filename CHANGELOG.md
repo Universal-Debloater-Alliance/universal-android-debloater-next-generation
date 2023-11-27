@@ -13,6 +13,10 @@ and `Removed`.
 ## [0.6.2] - Pending
 
 ### Apps
+
+- [[#61](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/61)] pkg(`com.samsung.android.providers.contacts`): improve description
+- [[#59](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/59)] pkg(`com.qualcomm.qcrilmsgtunnel`): change removal and description
+- [[#58](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/58)] pkg(`com.google.android.googlequicksearchbox`): improve description
 - [[#39](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/39)] Added new Wi-Fi related packages, custom Bluetooth overlay package, Google system packages, and systemui package
 - [[#40](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/40)] Added new package for MediaTek devices and the POCO Launcher resources, IMS Service Entitlement feature, UWB communication feature, Mediatek Duraspeed, and Mediatek Soc Package.
 - [[#44](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/44)] Added a lot of new packages
