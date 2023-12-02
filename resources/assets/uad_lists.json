@@ -14789,7 +14789,7 @@
   {
     "id": "com.mediatek.duraspeed",
     "list": "Misc",
-    "description": "Its hidden app where you can boost your games? Anyway its not available for normal users.",
+    "description": "Provide some features that can speed up boost a games\nAnyway its not available for some devices\nRemove will break duraspeed features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
