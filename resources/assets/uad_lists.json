@@ -28242,8 +28242,8 @@
   {
     "id": "com.miui.miinput",
     "Label": "Input settings",
-    "description": "Only for Chinese. Also have duplicated settings activities, gestures.",
-    "removal": "Recommended",
+    "description": "Provide additional gestures settings and activities settings.\nRemove will break all additional gestures settings.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
