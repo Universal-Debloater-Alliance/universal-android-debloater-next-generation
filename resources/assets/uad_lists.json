@@ -14789,11 +14789,11 @@
   {
     "id": "com.mediatek.duraspeed",
     "list": "Misc",
-    "description": "Its hidden app where you can boost your games? Anyway its not available for normal users.",
+    "description": "Provides some features that can boost the performance in games.\nAnyway, it's not available for some devices\nRemoving will break duraspeed features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.mediatek.smartratswitch.service",
@@ -28242,8 +28242,8 @@
   {
     "id": "com.miui.miinput",
     "Label": "Input settings",
-    "description": "Only for Chinese. Also have duplicated settings activities, gestures.",
-    "removal": "Recommended",
+    "description": "Provides additional gestures settings and activities settings.\nRemoving will break all additional gestures settings.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
