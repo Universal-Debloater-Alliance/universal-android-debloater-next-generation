@@ -14789,11 +14789,11 @@
   {
     "id": "com.mediatek.duraspeed",
     "list": "Misc",
-    "description": "Provide some features that can speed up boost a games\nAnyway its not available for some devices\nRemove will break duraspeed features.",
+    "description": "Provides some features that can boost the performance in games.\nAnyway, it's not available for some devices\nRemoving will break duraspeed features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.mediatek.smartratswitch.service",
@@ -28242,7 +28242,7 @@
   {
     "id": "com.miui.miinput",
     "Label": "Input settings",
-    "description": "Provide additional gestures settings and activities settings.\nRemove will break all additional gestures settings.",
+    "description": "Provides additional gestures settings and activities settings.\nRemoving will break all additional gestures settings.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
