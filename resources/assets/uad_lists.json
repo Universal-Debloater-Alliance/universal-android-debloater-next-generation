@@ -14393,11 +14393,11 @@
   {
     "id": "com.qualcomm.qcrilmsgtunnel",
     "list": "Misc",
-    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim its safe to remove.",
+    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim its safe to remove.\nWARNING: On some phones, this will result in the inability to make a call.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.qualcomm.simcontacts",
@@ -17610,7 +17610,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.xiaomi.mirecycle",
@@ -18076,11 +18076,11 @@
   {
     "id": "com.miui.guardprovider",
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably perform a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\n",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably perform a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore remove disable security things in miui security app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.miui.systemui.carriers.overlay",
@@ -19147,11 +19147,11 @@
   {
     "id": "com.huawei.camerakit.impl",
     "list": "Oem",
-    "description": "HwCameraKit\nCameraKit? Its needed for camera because it have some modes and resolutions?\nidk what I would say by code.",
+    "description": "HwCameraKit\nIn code founded that its for testing camera things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.android.systemui.feature_cover",
@@ -28241,9 +28241,8 @@
   },
   {
     "id": "com.miui.miinput",
-    "Label": "Input settings",
-    "description": "Provides additional gestures settings and activities settings.\nRemoving will break all additional gestures settings.",
-    "removal": "Advanced",
+    "description": "Only for Chinese. Also has duplicated settings activities, gestures.",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -29685,7 +29684,7 @@
   },
   {
     "id": "com.android.hotwordenrollment.xgoogle",
-    "list": "Google",
+    "list": "Aosp",
     "description": "\"OK Google\" detection service.\n",
     "dependencies": [],
     "neededBy": [],
@@ -30829,11 +30828,11 @@
   {
     "id": "com.google.android.overlay.gmsgsaconfig",
     "list": "Oem",
-    "description": "Overlay theme for gmsgsaconfig? Probably an RRO? https://source.android.com/devices/architecture/rros",
+    "description": "Not needed overlay, only has code to set googlequicksearchbox as default assistant",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.google.android.gms.location.history",
@@ -32344,7 +32343,7 @@
   },
   {
     "id": "com.android.hotwordenrollment.okgoogle",
-    "list": "Google",
+    "list": "Aosp",
     "description": "\"OK Google\" detection service.",
     "dependencies": [],
     "neededBy": [],
@@ -36558,6 +36557,375 @@
     "id": "com.sec.android.app.tourviewer",
     "list": "Oem",
     "description": "3d tour image, Virtual tour, Viewer used to view photos taken with the Galaxy S5 camera's Virtual Tour Shot mode.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.airlink",
+    "list": "Oem",
+    "description": "Air link service, its problably needed for Wireless Projection.\nNo activities, only more debugging stuff, location things, logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.android.airsharing",
+    "list": "Oem",
+    "description": "Wireless Projection\nMiracast, Require Huawei Mobile Services, also its so bloated, also found unused frameworks HUAWEI GameCenter",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.audioaccessorymanager",
+    "list": "Oem",
+    "description": "Audio Accessory Manager\nA lot stuff: huawei health, huawei music, earphones.\nProblably useful when you got HUAWEI FreeBuds.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.calculator",
+    "list": "Oem",
+    "description": "Calculator app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.coauthservice",
+    "list": "Oem",
+    "description": "HwCoAuthService\nFounded Applock, lockscreen password, face recognition things, fingerprint, not sure if its worth removing it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.contentsensor",
+    "list": "Oem",
+    "description": "ContentSensor\nIts app only for call logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.controlcenter",
+    "list": "Oem",
+    "description": "Smart Collaboration\nCollaboration between devices. Needed for Multi-Screen, Wireless Projection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.def",
+    "list": "Oem",
+    "description": "DEF\nUnused? message things:Allows the app public keys on connected devices, getting status, access information",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.deviceauth",
+    "list": "Oem",
+    "description": "TrustedDeviceAuth\nI guess its for authentication keys",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.devicegroupmanage",
+    "list": "Oem",
+    "description": "(Unused?)HwGroupManager\nIts app without activities, only device info things",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.devicemanager",
+    "list": "Oem",
+    "description": "Needed for huawei account. I found only things: installing service?, Linked devices, Multi-Device management, connection code, metrics",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.distributed.kms",
+    "list": "Oem",
+    "description": "HwDistributedKeyManager\nHas random frameworks, problably needed for huawei account, authentication",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.dmsdp",
+    "list": "Oem",
+    "description": "Multi-Device management\nThis service allows you to virtually expand your devices capabilities\nby connecting to other devices and using them as an extension of this device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.entitlement",
+    "list": "Oem",
+    "description": "needed for messages bluethooth, wifi, hotspot, Terms of Agreement, Authentication",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.huawei.featurelayer.featureframework",
+    "list": "Oem",
+    "description": "FeatureFramework\nAllows the app to check for feature updates.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.harmonyos.foundation",
+    "list": "Oem",
+    "description": "foundation\nThird-party service names, its a trackers.\nAlso founded com.huawei.cloud.hianalytics.aspg\nand connects to metrics hicloud site.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hilink.framework",
+    "list": "Oem",
+    "description": "AI Life Service\nUsed for smart devices and to run smart scenes.\nIts more useful in china.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hms5gkit.agentservice",
+    "list": "Oem",
+    "description": "Hw5GKitAgentService\nOnly debugging code founded that apk id is invalid, disable parameter error, other error things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hwddmp",
+    "list": "Oem",
+    "description": "HwDDMP\nDebugging app, notifications about application errors",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hwdiagnosis",
+    "list": "Oem",
+    "description": "HwDiagnosis\nNo activities, only code about diagnosis and logs\nalso device info and send to huawei servers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.localbackup",
+    "list": "Oem",
+    "description": "Huawei Backup\nhas a lot permissions and can backup your data",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.msdp",
+    "list": "Oem",
+    "description": "Multimodal Sensor Data Platform\nNeeded for camera\nairlink?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.multimedia.hivideoplayengine",
+    "list": "Oem",
+    "description": "hivideoplayengine\nHwVideoKitImpl, Not sure if its needed for video player",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.ohos.famanager",
+    "list": "Oem",
+    "description": "only random names agc_... and fa panel name",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.ohos.hiwindow",
+    "list": "Oem",
+    "description": "HiWindow\nHave loading, waiting png files\nits shows on collaboration devices, hardware things, screen projection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.onehopsvcclient",
+    "list": "Oem",
+    "description": "OneHopSvcClient\nTagService, has only tracking things, hmskit that has not exist site from huawei.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.onehopsvchost",
+    "list": "Oem",
+    "description": "OneHopSvcHost\nTriggerservice, has only tracking things, hmskit that has not exist site from huawei.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.permissioncontroller.overlay",
+    "list": "Oem",
+    "description": "founded help app permissions - only link to google site in code, overlay to permission things like buttons, dialogs, etc.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.huawei.privatespace",
+    "list": "Oem",
+    "description": "Privacy Space for files",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.profile",
+    "list": "Oem",
+    "description": "Profile Services\nIts app needed for HUAWEI ID, depends on HMSCore, also has analytics and trackers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.remotepassword",
+    "list": "Oem",
+    "description": "RemotePassword\nremotepassword: errors, invalid, null, errors generally\nalso subscribe info, device info. Better remove that.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.searchservice",
+    "list": "Oem",
+    "description": "Fusion Search Service\nNeeded for searching? founded that uses com.huawei.hwddmp this app is for debugging errors\nalso founded trackers components that connects to huawei servers unneccesary",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.securitypluginbase",
+    "list": "Oem",
+    "description": "HwSecurityPluginBase\nAntivirus Service supports bad antiviruses, HwLog, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.trustedthingsauth",
+    "list": "Oem",
+    "description": "HwTrustedThingsAuth\nOnly name app founded in code, has permissions:\nbluethooth, execute_reg, use_auth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.waudio",
+    "list": "Oem",
+    "description": "waudio\nWi-Fi Speaker, Speaker playback, WLAN speaker\nThis app is only for chinese because founded chinese app lists that support it\nand depends on AI Life app problably.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "ohos.media.medialibrary",
+    "list": "Oem",
+    "description": "MediaLibrary\nhas hwddmp components com.huawei.hwddmp debbuging errors, remote device manager that depends on huawei account",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hdopen.vivicitta",
+    "list": "Carrier",
+    "description": "Futótárs\nApp for training, so bloated and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hu.telekom.telekomapp",
+    "list": "Carrier",
+    "description": "Telekom\nApp for subscriptions, so bloated (a lot spying) and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hu.telekom.telekomtv",
+    "list": "Carrier",
+    "description": "Mobilvásárlás\nApp for watch tv on phone, so bloated (a lot spying) and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "telekom.hu.android.mobilvasarlas",
+    "list": "Carrier",
+    "description": "Mobilvásárlás\nApp for shopping or paying, so bloated and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "tmobile.hu.android.epgmiab",
+    "list": "Carrier",
+    "description": "Műsorújság\nAnother app to tv things, so bloated and from T-Mobile, not needed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
