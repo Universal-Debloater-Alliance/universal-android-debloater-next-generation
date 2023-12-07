@@ -10631,7 +10631,7 @@
   {
     "id": "com.qualcomm.qti.seemp.service",
     "list": "Misc",
-    "description": "Useless code and its for verify packages probably.",
+    "description": "Useless code and it's probably to verify packages.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10946,7 +10946,7 @@
   {
     "id": "com.google.android.overlay.managedprovisioning",
     "list": "Aosp",
-    "description": "In code I have seen lists of some system apps and stuff of managedprovisioning user.\nSafe to remove if you removed (com.android.managedprovisioning).\nBut probably it doesnt affect on anything.",
+    "description": "In code I have seen lists of some system apps and stuff of `managedprovisioning` user.\nSafe to remove if you removed `com.android.managedprovisioning`.\nBut it probably doesn't affect anything.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11360,7 +11360,7 @@
   {
     "id": "com.qualcomm.qti.xrvd.service",
     "list": "Misc",
-    "description": "XRVD\nThe real name of this app is XRVDTest. It have accessibility testing,\ncollects some data?, its something for developers probably.",
+    "description": "XRVD\nThe real name of this app is XRVDTest. It has accessibility testing,\ncollects some data? It's something for developers probably.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11557,8 +11557,8 @@
   },
   {
     "id": "com.sec.android.Cdfs",
-    "list": "Pending",
-    "description": "CDFS MODE Launcher, its CdfsService Probably needed for usb mtp",
+    "list": "Oem",
+    "description": "CDFS MODE Launcher, it's CdfsService. Probably needed for USB MTP.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14474,7 +14474,7 @@
   {
     "id": "vendor.qti.qesdk.sysservice",
     "list": "Misc",
-    "description": "Its for debug and logs\nbut in the code I see VDebug\nVivo probably uses qualcomm for some features.",
+    "description": "It's for debugging and logs. But in the code I see VDebug. Vivo probably uses Qualcomm for some features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14501,7 +14501,7 @@
   {
     "id": "com.qti.dcf",
     "list": "Misc",
-    "description": "I found only: DCF Allows an application to share content using Bluetooth.\nThe application is only allowed to broadcast the content it has already granted access to\nremote devices. These things are not available for users.\nQualcomm only said these things, but where is the code?\nThis app is without code so its safe to remove.",
+    "description": "I found only: DCF Allows an application to share content using Bluetooth.\nThe application is only allowed to broadcast the content as it already has access to remote devices. These things are not available for users.\nQualcomm only said these things, but where is the code?\nThis app is without code so it's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14636,7 +14636,7 @@
   {
     "id": "com.qualcomm.qti.optinoverlay",
     "list": "Misc",
-    "description": "Useless frameworks for com.qualcomm.location.XT its probably dialogs.\nAnyway its only legal notices.",
+    "description": "Useless frameworks for com.qualcomm.location.XT it's probably dialogues.\nAnyway it's only legal notices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14825,7 +14825,7 @@
   {
     "id": "com.mediatek.voicecommand",
     "list": "Misc",
-    "description": "Its for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.",
+    "description": "It's for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.\nMaybe related to https://www.mediatek.com/products/smart-home/voice-assistant-devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14834,7 +14834,7 @@
   {
     "id": "com.mediatek.voiceunlock",
     "list": "Misc",
-    "description": "Its for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.",
+    "description": "It's for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.\nMaybe related to https://www.mediatek.com/products/smart-home/voice-assistant-devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16400,7 +16400,7 @@
   {
     "id": "com.mediatek.gpslocationupdate",
     "list": "Misc",
-    "description": "info about gps and notification\nprobably not needed for location.",
+    "description": "Info about gps and notifications. Probably not needed for location.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16805,7 +16805,7 @@
   {
     "id": "com.miuix.editor",
     "list": "Oem",
-    "description": "textaction\nIts probably used for FrequentPhrase(com.miui.phrase) but also Frequent Phrases is unknown app so its safe to remove.",
+    "description": "textaction\nIt's probably used for FrequentPhrase(`com.miui.phrase`) but also Frequent Phrases is unknown app so it's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18562,7 +18562,7 @@
   {
     "id": "com.asus.gamewidget",
     "list": "Oem",
-    "description": "Game genie\nits probably useful for gaming.\nhttps://play.google.com/store/apps/details?id=com.asus.gamewidget",
+    "description": "Game genie\nProbably useful for gaming.\nhttps://play.google.com/store/apps/details?id=com.asus.gamewidget",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18571,7 +18571,7 @@
   {
     "id": "com.asus.gamewidget.service",
     "list": "Oem",
-    "description": "Game genie service\nGame genie service needed for (com.asus.gamewidget)\nits probably useful for gaming.",
+    "description": "Game genie service\nGame genie service needed for (`com.asus.gamewidget`)\nIt's probably useful for gaming.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19120,7 +19120,7 @@
   {
     "id": "com.huawei.assetsync",
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? its needed for hisync probably?\nit dont have any code so it can be removed.",
+    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? There's no code so it can be removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19138,7 +19138,7 @@
   {
     "id": "com.huawei.multimedia.audioengine",
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? its needed for hisync probably?\nIts for Huawei Mobile services? it have in code analytics and assistant so its for spying.",
+    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? It's for Huawei Mobile Services? It has code analytics and assistant so it might be for spying.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19511,7 +19511,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.zui.gallery",
@@ -20029,7 +20029,7 @@
   {
     "id": "com.lge.eula.downloader",
     "description": "Privacy Policy Update\nNot tested but probably safe to remove.",
-    "removal": "Expert",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -20055,7 +20055,7 @@
   },
   {
     "id": "com.lge.gamepad",
-    "description": "LG Game Pad\nIts probably for TV. Not useful for game.",
+    "description": "LG Game Pad\nIt's probably for TV. Not useful for games.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20064,7 +20064,7 @@
   },
   {
     "id": "com.lge.gametools",
-    "description": "GameTools\nNot tested but its for probably useful for games.",
+    "description": "GameTools\nNot tested it's for probably useful for games.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20471,7 +20471,7 @@
   },
   {
     "id": "com.lge.NfcSettings",
-    "description": "NFC settings\nProbably its in the settings.",
+    "description": "NFC settings\nLikely in the settings.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20642,7 +20642,7 @@
   },
   {
     "id": "com.meizu.assistant",
-    "description": "Aicy Glance meizu assistant\nprobably chinese assistant.",
+    "description": "Aicy Glance meizu assistant\nProbably Chinese assistant.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20897,7 +20897,7 @@
   },
   {
     "id": "com.meizu.media.imageservice",
-    "description": "PhotoService\nProbably for needed for Photos app.",
+    "description": "PhotoService\nProbably needed for Photos app.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -21052,7 +21052,7 @@
   },
   {
     "id": "com.motorola.camera3.consent.ai",
-    "description": "Camera consent AI\nCamera consent AI? artificial intelligence models? Probably addional features to camera app",
+    "description": "Camera consent AI\nCamera consent AI? Artificial Intelligence models? Probably additonal features to camera app",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -23294,7 +23294,7 @@
   },
   {
     "id": "cn.nubia.gamenotes",
-    "description": "Game Notes\nGame Notes? Probably its optional thing.",
+    "description": "Game Notes\nGame Notes? Probably an optional thing.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
