@@ -36571,5 +36571,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.mi.global.pocostore",
+    "list": "Oem",
+    "description": "POCO Store\nIts a official POCO online store.\nhttps://play.google.com/store/apps/details?id=com.mi.global.pocostore",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 ]
