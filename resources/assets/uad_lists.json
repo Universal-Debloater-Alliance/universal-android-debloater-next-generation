@@ -36562,5 +36562,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.mi.global.pocobbs",
+    "list": "Oem",
+    "description": "Poco Community\nIts only forum and community app for POCO phones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 ]
