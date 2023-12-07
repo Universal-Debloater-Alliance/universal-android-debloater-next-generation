@@ -36580,5 +36580,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.miui.mediaeditor",
+    "list": "Oem",
+    "description": "Xiaomi Gallery Editor\nExtension for MIUI Gallery that use for edit photos and videos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 ]
