@@ -29591,7 +29591,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   {
     "id": "com.miui.securitycenter",
