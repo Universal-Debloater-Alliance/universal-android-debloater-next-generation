@@ -10,10 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 The sections should follow the order `Apps`, `Added`, `Changed`, `Fixed`, `Packaging`
 and `Removed`.
 
-## [0.6.2] - Pending
+## [0.6.2] - Released
 
 ### Apps
 
+- [[#65](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/65)] improved package descriptions
 - [[#61](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/61)] pkg(`com.samsung.android.providers.contacts`): improve description
 - [[#59](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/59)] pkg(`com.qualcomm.qcrilmsgtunnel`): change removal and description
 - [[#58](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/58)] pkg(`com.google.android.googlequicksearchbox`): improve description
@@ -21,6 +22,14 @@ and `Removed`.
 - [[#40](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/40)] Added new package for MediaTek devices and the POCO Launcher resources, IMS Service Entitlement feature, UWB communication feature, Mediatek Duraspeed, and Mediatek Soc Package.
 - [[#44](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/44)] Added a lot of new packages
 - [[#46](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/46)] Added more packages and updated descriptions
+
+### Fixed
+
+- [[#72](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/72)] Reduced startup window size
+
+### Changed
+
+- [[#71](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/pull/71)] Reversed #18 to only list system packages
 
 ## [0.6.1] - Released
 
