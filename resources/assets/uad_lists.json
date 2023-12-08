@@ -938,7 +938,7 @@
   {
     "id": "com.miui.contentcatcher",
     "list": "Oem",
-    "description": "Application Extension Service\nIt's password manager in settings, requires Mi Account to Autofill and it syncs to your account.",
+    "description": "Application Extension Service\nIt's a password manager in settings, requires Mi Account to Autofill and it syncs to your account.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1082,11 +1082,11 @@
   {
     "id": "com.miui.packageinstaller",
     "list": "Oem",
-    "description": "Package installer\nHardcoded in Xiaomi china Rom.\nCause BOOTLOOP.\nIt's weird when after a month this app is gone from my phone for no reason and Android enabled stock package installer.",
+    "description": "Package installer\nHardcoded in Xiaomi China Rom.\nCauses BOOTLOOP on Chinese ROM When remove.\nIt's weird when after a month this app is gone from my phone for no reason and Android enabled stock package installer.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Advanced"
   },
   {
     "id": "om.xiaomi.gnss.polaris",
@@ -16778,7 +16778,7 @@
   {
     "id": "com.miui.huanji",
     "list": "Oem",
-    "description": "Mi Mover (https://play.google.com/store/apps/details?id=com.miui.huanji)\nLets you transfer your contacts, messages, personal files, all the installed apps (but not their data) \nand all the settings (app + system) from an android phone to a Xiaomi phone.\nThe two phones will establish a direct wifi connection.\n",
+    "description": "Mi Mover (https://play.google.com/store/apps/details?id=com.miui.huanji)\nLets you transfer your contacts, messages, personal files, all the installed apps (but not it's data). Also all the settings (app + system) from an Android phone to a Xiaomi phone.\nThe two phones will establish a direct Wi-Fi connection.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16805,7 +16805,7 @@
   {
     "id": "com.miuix.editor",
     "list": "Oem",
-    "description": "textaction\nIt's probably used for FrequentPhrase(com.miui.phrase) but also Frequent Phrases is an unknown app so its safe to remove.",
+    "description": "textaction\nIt's probably used for FrequentPhrase(`com.miui.phrase`) but also Frequent Phrases is an unknown app so its safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16859,7 +16859,7 @@
   {
     "id": "com.miui.miwallpaper.overlay",
     "list": "Oem",
-    "description": "app that doesn't do anything, no code. Safe to remove.\n You will need remove it 2 times.",
+    "description": "App that doesn't do anything, no code. Safe to remove.\n You will need to remove it twice.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16868,7 +16868,7 @@
   {
     "id": "com.miui.miwallpaper.overlay.customize",
     "list": "Oem",
-    "description": "app that doesn't do anything, no code. Safe to remove.",
+    "description": "App that doesn't do anything, no code. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16886,7 +16886,7 @@
   {
     "id": "com.miui.smsextra",
     "list": "Oem",
-    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called com.android.mms)\nYou can remove it if you don't use the default SMS app (and you should)\nRun in the background once the phone is booted, has access to the internet and interact with Cloud Manager.\n",
+    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called (`com.android.mms`)\nYou can remove it if you don't use the default SMS app (and you shouldn't  ). Run in the background once the phone is booted, has access to the internet and interact with Cloud Manager.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
