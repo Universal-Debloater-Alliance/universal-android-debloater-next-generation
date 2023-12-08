@@ -938,7 +938,7 @@
   {
     "id": "com.miui.contentcatcher",
     "list": "Oem",
-    "description": "Application Extension Service\nIts password manager in settings, require Mi Account to Autofill and it syncs to your account.",
+    "description": "Application Extension Service\nIt's password manager in settings, requires Mi Account to Autofill and it syncs to your account.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1019,7 +1019,7 @@
   {
     "id": "com.miui.securityinputmethod",
     "list": "Oem",
-    "description": "Mi Secure Keyboard\nUseless keyboard used to secure your password when logging in.",
+    "description": "Mi Secure Keyboard\nA useless keyboard used to secure your password when logging in.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1055,7 +1055,7 @@
   {
     "id": "com.miui.vipservice",
     "list": "Oem",
-    "description": "My services\nCustomer support maybe not available for users.",
+    "description": "My services\nCustomer support maybe not be available for users.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1082,7 +1082,7 @@
   {
     "id": "com.miui.packageinstaller",
     "list": "Oem",
-    "description": "Package installer\nHardcoded in xiaomi china rom.\nCause BOOTLOOP.\nIts weird when after month this app is gone from my phone for no reason and android enabled stock package installer.",
+    "description": "Package installer\nHardcoded in Xiaomi china Rom.\nCause BOOTLOOP.\nIt's weird when after a month this app is gone from my phone for no reason and Android enabled stock package installer.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16778,7 +16778,7 @@
   {
     "id": "com.miui.huanji",
     "list": "Oem",
-    "description": "Mi Mover (https://play.google.com/store/apps/details?id=com.miui.huanji)\nLets you transfer your contacts, messages, personal files, all the installed apps (but not their data) \nand all the settings (app + system) from an android phone to a Xiaomi phone.\nThe 2 phones will establish a direct wifi connection.\n",
+    "description": "Mi Mover (https://play.google.com/store/apps/details?id=com.miui.huanji)\nLets you transfer your contacts, messages, personal files, all the installed apps (but not their data) \nand all the settings (app + system) from an android phone to a Xiaomi phone.\nThe two phones will establish a direct wifi connection.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16805,7 +16805,7 @@
   {
     "id": "com.miuix.editor",
     "list": "Oem",
-    "description": "textaction\nIts problably used for FrequentPhrase(com.miui.phrase) but also Frequent Phrases is unknown app so its safe to remove.",
+    "description": "textaction\nIt's probably used for FrequentPhrase(com.miui.phrase) but also Frequent Phrases is an unknown app so its safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16814,7 +16814,7 @@
   {
     "id": "com.miui.greenguard",
     "list": "Oem",
-    "description": "Security Guard Service\nThe app includes three different antivirus brands built in that the user can choose from to keep their phone protected: Avast, AVL and Tencent. \nUpon selecting the app, the user selects one of these providers as the default Anti-Virus engine to scan the device.\nIt the app that scan an app before installing it\nNOTE : A vulnerability was found in 2019 : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\n",
+    "description": "Security Guard Service\nThe app includes three different antivirus brands built in that the user can choose from to keep their phone protected: Avast, AVL, and Tencent. \nUpon selecting the app, the user selects one of these providers as the default Anti-Virus engine to scan the device.\nIt the app that scans an app before installing it\nNOTE : A vulnerability was found in 2019 : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16859,7 +16859,7 @@
   {
     "id": "com.miui.miwallpaper.overlay",
     "list": "Oem",
-    "description": "app that doesnt do anything, no code. Safe to remove.\n You will need remove it 2 times.",
+    "description": "app that doesn't do anything, no code. Safe to remove.\n You will need remove it 2 times.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16868,7 +16868,7 @@
   {
     "id": "com.miui.miwallpaper.overlay.customize",
     "list": "Oem",
-    "description": "app that doesnt do anything, no code. Safe to remove.",
+    "description": "app that doesn't do anything, no code. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16886,7 +16886,7 @@
   {
     "id": "com.miui.smsextra",
     "list": "Oem",
-    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called com.android.mms)\nYou can remove it if you don't use the default SMS app (and you should)\nRun in background once the phone is booted, has access to internet and interact with Cloud Manager\n",
+    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called com.android.mms)\nYou can remove it if you don't use the default SMS app (and you should)\nRun in the background once the phone is booted, has access to the internet and interact with Cloud Manager.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16904,7 +16904,7 @@
   {
     "id": "com.miui.translation.xmcloud",
     "list": "Oem",
-    "description": "Translation stuff. Does not impact global translation for non-chinesse users.\n",
+    "description": "Translation stuff. Does not impact global translation for non-Chinese users.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16913,7 +16913,7 @@
   {
     "id": "com.miui.translationservice",
     "list": "Oem",
-    "description": "Translation stuff. Does not impact global translation for non-chinesse users.\n",
+    "description": "Translation stuff. Does not impact global translation for non-Chinese users.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16958,7 +16958,7 @@
   {
     "id": "com.miui.backup",
     "list": "Oem",
-    "description": "MIUI Backup\nLocal Backup/Restore feature (Settings > Additional Settings > Local backups)\nIt seems this app can communicate with Mi Drop\nThis app has 73 permissions and can obviously do everything it want.\n",
+    "description": "MIUI Backup\nLocal Backup/Restore feature (Settings > Additional Settings > Local backups)\nIt seems this app can communicate with Mi Drop\nThis app has 73 permissions and can obviously do everything it wants.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17066,7 +17066,7 @@
   {
     "id": "com.miui.miservice",
     "list": "Oem",
-    "description": "Services & feedback\nUsed to send feedbacks (and data) to Xiaomi. Integration in Wechat\nSeems to be able to launch 'Baidu location service'\nHas too much permisions, runs in background all the time and can be removed without issue\n",
+    "description": "Services & feedback\nUsed to send feedbacks (and data) to Xiaomi. Integration in Wechat\nSeems to be able to launch 'Baidu location service'\nHas too many permissions, runs in the background all the time and can be removed without issue.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17147,7 +17147,7 @@
   {
     "id": "com.miui.spock",
     "list": "Oem",
-    "description": "Analytics app which constantly runs in background.\nSends identifiable data to Xiaomi servers\nSee https://www.virustotal.com/gui/file/70400d0055e1924966fb8367cafddc175dee914bbdc227342c9dd86fb3aa829f/details\nIt leaks system version, device model, exact firmware build + some few mysterious IDs\n",
+    "description": "Analytics app which constantly runs in the background.\nSends identifiable data to Xiaomi servers.\nSee https://www.virustotal.com/gui/file/70400d0055e1924966fb8367cafddc175dee914bbdc227342c9dd86fb3aa829f/details\nIt leaks system version, device model, exact firmware build + some few mysterious IDs\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17228,7 +17228,7 @@
   {
     "id": "com.miui.voiceassistoverlay",
     "list": "Oem",
-    "description": "The overlay won't show up when you trigger it, which makes the voice to command features largely inaccessible.",
+    "description": "The overlay won't show up when you trigger it, which makes the voice-to-command features largely inaccessible.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17282,7 +17282,7 @@
   {
     "id": "com.miui.wallpaper.overlay",
     "list": "Oem",
-    "description": "app that doesnt do anything, no code. Safe to remove.\n You will need remove it 2 times.",
+    "description": "App that doesnt do anything, no code. Safe to remove.\n You will need remove it 2 times.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17291,7 +17291,7 @@
   {
     "id": "com.miui.wallpaper.overlay.customize",
     "list": "Oem",
-    "description": "app that doesnt do anything, no code. Safe to remove.",
+    "description": "App that doesnt do anything, no code. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17741,7 +17741,7 @@
   {
     "id": "com.miui.wmsvc",
     "list": "Oem",
-    "description": "WMService\nRuns at boot, has access to internet + GPS\nI quickly looked at the decompiled code and saw some unsanitized SQL inputs, which is BAD! (vulnerable to SQL injection)\nTries to get your android unique Google advertising ID from Google Play Services.\nFeeds and launches the spying/analytics app \"com.miui.hybrid\".\nDoesn't seem to do anything important, only tracking.\nWARNING: Some people said removing this package causes bootloop, others said it doesn't. Can someone check this? I think it should be okay to remove if you remove all other dependent Xiaomi packages(bloat).",
+    "description": "WMService\nRuns at boot and has access to internet + GPS\nI quickly looked at the decompiled code and saw some unsanitized SQL inputs, which is BAD! (vulnerable to SQL injection)\nTries to get your android unique Google advertising ID from Google Play Services.\nFeeds and launches the spying/analytics app \"com.miui.hybrid\".\nDoesn't seem to do anything important, only tracking.\nWARNING: Some people said removing this package causes bootloop, others said it doesn't. Can someone check this? I think it should be okay to remove if you remove all other dependent Xiaomi packages(bloat).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17932,7 +17932,7 @@
   {
     "id": "com.miui.home",
     "list": "Oem",
-    "description": "MIUI System Launcher\nIt's basically the home screen, the way icons apps are organized and displayed.\n\nNote: If you remove this package on devices based on MIUI 12+ with Android 11+, you will loose navigation gestures and recent apps view EVEN with a 3rd party launcher...\nhttps://web.archive.org/web/20220926221620/https://libreddit.spike.codes/r/Xiaomi/comments/o6vk5z/miui_12125_and_android_11_gestures/\n\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\n",
+    "description": "MIUI System Launcher\nIt's basically the home screen, the way icons and apps are organized and displayed.\n\nNote: If you remove this package on devices based on MIUI 12+ with Android 11+, you will lose navigation gestures and recent apps view EVEN with a 3rd party launcher...\nhttps://web.archive.org/web/20220926221620/https://libreddit.spike.codes/r/Xiaomi/comments/o6vk5z/miui_12125_and_android_11_gestures/\n\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17986,7 +17986,7 @@
   {
     "id": "com.miui.misound",
     "list": "Oem",
-    "description": "Earphones (it's the name of the app)\nProvides the sounds section in Settings and is needed for the equalizing\nSome people removed this package but I personaly don't think it's worth it. This package isn't really an issue\n(no dangerous permissions and does not run in background all the time)\nYou can still remove it. You'll be just fine if you really don't need it.\n",
+    "description": "Earphones (it's the name of the app)\nProvides the sounds section in Settings and is needed for the equalizing\nSome people removed this package but I personaly don't think it's worth it. This package isn't really an issue\n(no dangerous permissions and does not run in the background all the time)\nYou can still remove it. You'll be just fine if you really don't need it.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17995,7 +17995,7 @@
   {
     "id": "com.miui.notification",
     "list": "Oem",
-    "description": "Notifications are working without this app.\nIt is possible to access the app notification settings with long pressing on the notification without the app. However notification settings in the settings menu will be broken without this package. The app is mandatory to enable notifications of apps that have been disabled before.\nNote: embeds a tracking statistics service\n(usage tracking : `id`,`pkgName`,`latestSentTime`,`sentCount`,`avgSentDaily`,`avgSentWeekly)",
+    "description": "Notifications are working without this app.\nIt is possible to access the app notification settings by long pressing on the notification without the app. However notification settings in the settings menu will be broken without this package. The app is mandatory to enable notifications of apps that have been disabled before.\nNote: embeds a tracking statistics service\n(usage tracking : `id`,`pkgName`,`latestSentTime`,`sentCount`,`avgSentDaily`,`avgSentWeekly)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18076,7 +18076,7 @@
   {
     "id": "com.miui.guardprovider",
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably perform a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\n",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
