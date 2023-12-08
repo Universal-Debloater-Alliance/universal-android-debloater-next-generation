@@ -36566,7 +36566,7 @@
   {
     "id": "com.mi.global.pocobbs",
     "list": "Oem",
-    "description": "Poco Community\nIts only forum and community app for POCO phones.",
+    "description": "Poco Community\nIt's only a forum and community app for POCO phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36575,7 +36575,7 @@
   {
     "id": "com.mi.global.pocostore",
     "list": "Oem",
-    "description": "POCO Store\nIts a official POCO online store.\nhttps://play.google.com/store/apps/details?id=com.mi.global.pocostore",
+    "description": "POCO Store\nIt's an official POCO online store.\nhttps://play.google.com/store/apps/details?id=com.mi.global.pocostore",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36584,7 +36584,7 @@
   {
     "id": "com.miui.mediaeditor",
     "list": "Oem",
-    "description": "Xiaomi Gallery Editor\nExtension for MIUI Gallery that use for edit photos and videos.",
+    "description": "Xiaomi Gallery Editor\nExtension for MIUI Gallery that's used to edit photos and videos.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
