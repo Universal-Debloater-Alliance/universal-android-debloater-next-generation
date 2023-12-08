@@ -120,6 +120,32 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   sudo zypper install android-tools
   ```
 
+  Gentoo Base:
+
+  ```bash
+  sudo emerge -av dev-util/android-tools
+  ```
+
+  NixOS Base:
+
+  ```bash
+  sudo nix-shell -p android-tools
+  ```
+  
+  Alpine Linux or FreeBSD Base:
+
+  ```bash
+  sudo pkg install android-tools
+  ```
+  
+  Fedora Base:
+  
+  ```bash
+  sudo dnf install android-tools
+  ```
+  
+  Replace sudo with doas depending on what you use
+  
   </details>
   </p>
 
