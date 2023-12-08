@@ -16886,7 +16886,7 @@
   {
     "id": "com.miui.smsextra",
     "list": "Oem",
-    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called (`com.android.mms`)\nYou can remove it if you don't use the default SMS app (and you shouldn't  ). Run in the background once the phone is booted, has access to the internet and interact with Cloud Manager.\n",
+    "description": "Dependency for MIUI Messaging (MIUI SMS app misleadingly called (`com.android.mms`)\nYou can remove it if you don't use the default SMS app (and you shouldn't). Run in the background once the phone is booted, has access to the internet and interact with Cloud Manager.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
