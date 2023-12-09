@@ -12503,20 +12503,20 @@
   {
     "id": "com.lge.eula",
     "list": "Oem",
-    "description": "LG EULA (Terms of Use) accessible in the settings.\nEULA = https://en.wikipedia.org/wiki/End-user_license_agreement\n",
+    "description": "LG EULA (Terms of Use) accessible in the settings.\nEULA = https://en.wikipedia.org/wiki/End-user_license_agreement\nNeeded by LG HD Audio Recorder or it will force close (maybe used by some other stock app?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.lge.eulaprovider",
     "list": "Oem",
-    "description": "License Provider\nNeeded by com.lge.eula.\n",
+    "description": "License Provider\nNeeded by com.lge.eula.\nNeeded by LG HD Audio Recorder or it will force close (maybe used by some other stock app?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.lge.fmradio",
@@ -32705,7 +32705,7 @@
   {
     "id": "com.lge.task",
     "list": "Oem",
-    "description": "Task storage\nProbably related to the task app (another bloatware). I say its safe to remove if you don't use it.",
+    "description": "LG Tasks\nNeeded by LG Calendar or it will force close.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
