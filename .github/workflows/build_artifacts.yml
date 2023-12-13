@@ -31,7 +31,7 @@ jobs:
           - update_feature: no-self-update
             update_name: "-noseflupdate"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: rui314/setup-mold@v1 # faster linker
       - uses: actions/cache@v3
