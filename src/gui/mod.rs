@@ -355,7 +355,7 @@ impl UadGui {
     pub fn start() -> iced::Result {
         Self::run(Settings {
             window: Window {
-                size: (1050, 800),
+                size: (820, 640),
                 resizable: true,
                 decorations: true,
                 ..iced::window::Settings::default()
