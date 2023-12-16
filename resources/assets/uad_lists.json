@@ -911,7 +911,7 @@
   {
     "id": "com.wdstechnology.android.kryten",
     "list": "Oem",
-    "description": "OTA Access Point Configuration. Its only hidden configurations to ota, its not needed for updates.\nIn the case of OTA updates, com.miui.core is responsible",
+    "description": "OTA Access Point Configuration. it's only hidden configurations to ota, it's not needed for updates.\nIn the case of OTA updates, com.miui.core is responsible",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1937,7 +1937,7 @@
   {
     "id": "com.dti.tim",
     "list": "Carrier",
-    "description": "Mobile Service Manager\nIt's a system app that can't be opened but keeps running in the background. It can install/uninstall apps without notifying you, access internet, run at the boot of the system, kill background processes, ads and other permissions.\nIts only bloatware, OTA updates work the same without it. Uninstalling didn't give any negative side-effects.",
+    "description": "Mobile Service Manager\nIt's a system app that can't be opened but keeps running in the background. It can install/uninstall apps without notifying you, access internet, run at the boot of the system, kill background processes, ads and other permissions.\nit's only bloatware, OTA updates work the same without it. Uninstalling didn't give any negative side-effects.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2279,7 +2279,7 @@
     {
     "id": "com.huawei.android.dsdscardmanager",
     "list": "Oem",
-    "description": "Dual card management\nIts sim card management in huawei settings.\nAfter remove sim card managment in settings will not work.",
+    "description": "Dual card management\nit's sim card management in huawei settings.\nAfter remove sim card managment in settings will not work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2333,7 +2333,7 @@
   {
     "id": "com.huawei.android.hwupgradeguide",
     "list": "Oem",
-    "description": "hwupgradeguide\nIts guide menu at first start AppGallery.",
+    "description": "hwupgradeguide\nit's guide menu at first start AppGallery.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2486,7 +2486,7 @@
   {
     "id": "com.huawei.behaviorauth",
     "list": "Oem",
-    "description": "BehaviorAuth\nIt seems to be related to verifying the authenticity of user behavior and enhancing password security. User can disable it so its safe to remove.\nhttps://www.android-hilfe.de/forum/huawei-p30-p30-pro-p30-lite.3510/was-ist-die-behaviorauth-app-fuer-das-p30.1008750.html",
+    "description": "BehaviorAuth\nIt seems to be related to verifying the authenticity of user behavior and enhancing password security. User can disable it so it's safe to remove.\nhttps://www.android-hilfe.de/forum/huawei-p30-p30-pro-p30-lite.3510/was-ist-die-behaviorauth-app-fuer-das-p30.1008750.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7688,7 +7688,7 @@
   {
     "id": "com.android.sdksandbox",
     "list": "Aosp",
-    "description": "Introduced in Android 13 privacy sandbox beta disabled on default.\nCauses bootloop. Maybe this component is not only for privacy... (I think its for testing privacy sandbox using Android Studio.)\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nCause BOOTLOOP.",
+    "description": "Introduced in Android 13 privacy sandbox beta disabled on default.\nCauses bootloop. Maybe this component is not only for privacy... (I think it's for testing privacy sandbox using Android Studio.)\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nCause BOOTLOOP.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8318,7 +8318,7 @@
   {
     "id": "com.android.remoteprovisioner",
     "list": "Aosp",
-    "description": "RemoteProvisioner. Have random stuff: security, notifications, accessibility, test modes, data usage, metrics, logs.\nIts something new introduced in android 13.\nAt this time this app is not available for users.\nAnd looks very useless.",
+    "description": "RemoteProvisioner. Have random stuff: security, notifications, accessibility, test modes, data usage, metrics, logs.\nIts something new introduced in Android 13.\nAt this time this app is not available for users.\nAnd looks very useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9326,7 +9326,7 @@
   {
     "id": "com.mediatek.mdmlsample",
     "list": "Misc",
-    "description": "It looks like debugging app.\nBut I found some words SUBSCRIBE_TRAP, OTA, VoLTE\nOther data is a lot of debugging code so its not needed.",
+    "description": "It looks like debugging app.\nBut I found some words SUBSCRIBE_TRAP, OTA, VoLTE\nOther data is a lot of debugging code so it's not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9533,7 +9533,7 @@
   {
     "id": "com.android.cellbroadcastreceiver.overlay.common",
     "list": "Aosp",
-    "description": "In code I found unused things: show_brazil_settings, show_cmas_settings, show_etws_settings.\nIts unavailable and useless.",
+    "description": "In code I found unused things: show_brazil_settings, show_cmas_settings, show_etws_settings.\nit's unavailable and useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10559,7 +10559,7 @@
   {
     "id": "com.qualcomm.qti.improvetouch.service",
     "list": "Misc",
-    "description": "In code I found only something about touchprocessor and its not looks useless,\nits just should improve touch but not sure if its only for developers.",
+    "description": "In code I found only something about touchprocessor and it does not look useless,\nIt just should improve touch but not sure if it's only for developers.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10613,7 +10613,7 @@
   {
     "id": "com.qualcomm.qti.accesscache",
     "list": "Misc",
-    "description": "CarrierAccessCacheService\nWell its only name app and no code.",
+    "description": "CarrierAccessCacheService\nWell it's only name app and no code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10622,7 +10622,7 @@
   {
     "id": "com.qualcomm.qti.loadcarrier",
     "list": "Misc",
-    "description": "CarrierLoadService\nHave only things like a: Find carrier, carrier switch.\nIts useless.",
+    "description": "CarrierLoadService\nHave only things like a: Find carrier, carrier switch.\nit's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10640,7 +10640,7 @@
   {
     "id": "com.qualcomm.qti.seemp.service",
     "list": "Misc",
-    "description": "Useless code and its for verify packages problably.",
+    "description": "Useless code and it's probably to verify packages.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10937,7 +10937,7 @@
   {
     "id": "com.google.android.networkstack.tethering.overlay",
     "list": "Aosp",
-    "description": "Its needed for tethering?. I found: arrays.xml\narray name (config_tether_usb_regexs)\nitem rndis d\nitem usb d",
+    "description": "it's needed for tethering?. I found: arrays.xml\narray name (config_tether_usb_regexs)\nitem rndis d\nitem usb d",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10955,7 +10955,7 @@
   {
     "id": "com.google.android.overlay.managedprovisioning",
     "list": "Aosp",
-    "description": "In code I have seen lists of some system apps and stuff of managedprovisioning user.\nSafe to remove if you removed (com.android.managedprovisioning).\nBut problably it doesnt affect on anything.",
+    "description": "In code I have seen lists of some system apps and stuff of `managedprovisioning` user.\nSafe to remove if you removed `com.android.managedprovisioning`.\nBut it probably doesn't affect anything.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10973,7 +10973,7 @@
   {
     "id": "com.google.android.overlay.gmsconfig",
     "list": "Google",
-    "description": "Useless configurations about webview, wifi and bluethooth to scan for better location.\neverything works without it.",
+    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location.\neverything works without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10982,7 +10982,7 @@
   {
     "id": "com.google.android.overlay.gmsconfig.asi",
     "list": "Google",
-    "description": "Its another component of\nAndroid System Intelligence (previously Device Personalization Services)",
+    "description": "it's another component of\nAndroid System Intelligence (previously Device Personalization Services)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11009,7 +11009,7 @@
   {
     "id": "com.google.android.overlay.gmsconfig.geotz",
     "list": "Google",
-    "description": "Provides Geolocation Time Zone detection.\nand its used by (com.google.android.overlay.gmsconfig.common)?\nNo effects after remove.",
+    "description": "Provides Geolocation Time Zone detection.\nand it's used by (com.google.android.overlay.gmsconfig.common)?\nNo effects after remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11045,7 +11045,7 @@
   {
     "id": "com.google.android.overlay.gmsconfig.searchlauncherqs",
     "list": "Google",
-    "description": "Useless gmsconfig. Its config default launcher but not needed.",
+    "description": "Useless gmsconfig. it's config default launcher but not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11081,7 +11081,7 @@
   {
     "id": "com.google.android.overlay.modules.documentsui",
     "list": "Aosp",
-    "description": "In code only found: `is_launcher_enabled` false\nOn pixel phones this app overlay not exist.\nIts only maded to hide app icon (com.google.android.documentsui)\nNo effects after remove(so icon will be not back), its useless.",
+    "description": "In code only found: `is_launcher_enabled` false\nOn pixel phones this app overlay not exist.\nit's only made to hide app icon (com.google.android.documentsui)\nNo effects after remove(so icon will be not back), it's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11099,7 +11099,7 @@
   {
     "id": "com.android.server.telecom.overlay.miui",
     "list": "Oem",
-    "description": "Manage calls\nIts used for manage calls ui.\nIts important overlay to calling.",
+    "description": "Manage calls\nit's used for manage calls ui.\nit's important overlay to calling.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11108,7 +11108,7 @@
   {
     "id": "com.huaqin.btlogger",
     "list": "Oem",
-    "description": "btlogger\ncit bluethooth logging",
+    "description": "btlogger\ncit bluetooth logging",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11171,7 +11171,7 @@
   {
     "id": "com.qualcomm.qti.xrcb",
     "list": "Misc",
-    "description": "Receive xrcb network signals for radio side. \nIts about emergency alerts, weather alerts, public announcements, and other information.",
+    "description": "Receive xrcb network signals for radio side. \nit's about emergency alerts, weather alerts, public announcements, and other information.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11180,7 +11180,7 @@
   {
     "id": "com.qti.slaservice",
     "list": "Misc",
-    "description": "Service Level Agreement (SLA) protocol that analyzes network performance, quality of service, \nand provides users with various parameters of network quality of service, \nsuch as: jitter delay, file transfer rate, TCP latency. BUT its placebo.\nuses permission com.miui.analytics.onetrack.TRACK_EVENT also have a lot chinese stuff.",
+    "description": "Service Level Agreement (SLA) protocol that analyzes network performance, quality of service, \nand provides users with various parameters of network quality of service, \nsuch as: jitter delay, file transfer rate, TCP latency. BUT it's placebo.\nuses permission com.miui.analytics.onetrack.TRACK_EVENT also have a lot chinese stuff.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11198,7 +11198,7 @@
   {
     "id": "com.qti.qualcomm.deviceinfo",
     "list": "Misc",
-    "description": "Device Info\nHidden device info activity not available for users.\nIts safe to remove and you will not lose device info in settings.",
+    "description": "Device Info\nHidden device info activity not available for users.\nit's safe to remove and you will not lose device info in settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11225,7 +11225,7 @@
   {
     "id": "com.qualcomm.qti.performancemode",
     "list": "Misc",
-    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nIts on xiaomi, oneplus.\nRemove are not bricks performance mode.",
+    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nit's on xiaomi, oneplus.\nRemove are not bricks performance mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11279,7 +11279,7 @@
   {
     "id": "com.qualcomm.qti.qccauthmgr",
     "list": "Misc",
-    "description": "QCC-AUTHMGR\nIt have something to (com.qualcomm.qti.smq).\nFeedback stuff, something about key: blacklist, download or whatever.\nAll looks like telemetry and its all not available for users.",
+    "description": "QCC-AUTHMGR\nIt have something to (com.qualcomm.qti.smq).\nFeedback stuff, something about key: blacklist, download or whatever.\nAll looks like telemetry and it's all not available for users.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11333,7 +11333,7 @@
   {
     "id": "com.mediatek.miravision.ui",
     "list": "Misc",
-    "description": "Its for SmartScreen and display effects.\nBUT I think its not available and its so bloated.",
+    "description": "it's for SmartScreen and display effects.\nBUT I think it's not available and it's so bloated.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11360,7 +11360,7 @@
   {
     "id": "com.qualcomm.qti.workloadclassifier",
     "list": "Misc",
-    "description": "Runs \"WLCService\" in the background.\nI assume this has to do with CPU scheduling. Probably important for efficiency, if not basic operation.\nIn code I found: its for performance and security? it categorize apps maybe for optimization.\nIts named workloadclassifier so it should do that. reads the list of installed applications, storage space.\nIts still unknown.",
+    "description": "Runs \"WLCService\" in the background.\nI assume this has to do with CPU scheduling. Probably important for efficiency, if not basic operation.\nIn code I found: it's for performance and security? it categorize apps maybe for optimization.\nit's named workloadclassifier so it should do that. reads the list of installed applications, storage space.\nit's still unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11369,7 +11369,7 @@
   {
     "id": "com.qualcomm.qti.xrvd.service",
     "list": "Misc",
-    "description": "XRVD\nThe real name of this app is XRVDTest. It have accessibility testing,\ncollects some data?, its something for developers problably.",
+    "description": "XRVD\nThe real name of this app is XRVDTest. It has accessibility testing,\ncollects some data? It's something for developers probably.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11566,8 +11566,8 @@
   },
   {
     "id": "com.sec.android.Cdfs",
-    "list": "Pending",
-    "description": "CDFS MODE Launcher, its CdfsService Problably needed for usb mtp",
+    "list": "Oem",
+    "description": "CDFS MODE Launcher, it's CdfsService Probably needed for usb mtp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11711,7 +11711,7 @@
   {
     "id": "com.samsung.android.networkstack",
     "list": "Pending",
-    "description": "I guess its needed for wifi and it can be important app",
+    "description": "I guess it's needed for wifi and it can be important app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11774,7 +11774,7 @@
   {
     "id": "com.samsung.android.service.stplatform",
     "list": "Oem",
-    "description": "SmartThings Framework\nI guess its app for installing sponsored apps. Useless Framework.",
+    "description": "SmartThings Framework\nI guess it's app for installing sponsored apps. Useless Framework.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14312,7 +14312,7 @@
   {
     "id": "com.qti.confuridialer",
     "list": "Misc",
-    "description": "Conference call service for digital signal (SIP/VoIP).\nIts hidden and no one uses it.",
+    "description": "Conference call service for digital signal (SIP/VoIP).\nit's hidden and no one uses it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14339,7 +14339,7 @@
   {
     "id": "com.qualcomm.qti.qcolor",
     "list": "Misc",
-    "description": "QColor\nQTI enhanced color mode? I found 1 png file, color service, its not needed for any app.",
+    "description": "QColor\nQTI enhanced color mode? I found 1 png file, color service, it's not needed for any app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14402,7 +14402,7 @@
   {
     "id": "com.qualcomm.qcrilmsgtunnel",
     "list": "Misc",
-    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim its safe to remove. Breaks calls after a reboot.",
+    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim it's safe to remove. Breaks calls after a reboot.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14438,7 +14438,7 @@
   {
     "id": "com.qti.powermodule",
     "list": "Misc",
-    "description": "Its for powersaving? have more debugging stuff than powersaving.",
+    "description": "it's for powersaving? have more debugging stuff than powersaving.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14483,7 +14483,7 @@
   {
     "id": "vendor.qti.qesdk.sysservice",
     "list": "Misc",
-    "description": "Its for debug and logs\nbut in the code I see VDebug\nVivo problably uses qualcomm for some features.",
+    "description": "It's for debugging and logs. But in the code I see VDebug. Vivo probably uses Qualcomm for some features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14501,7 +14501,7 @@
   {
     "id": "com.qualcomm.qti.gpudrivers.sm6150.api30",
     "list": "Misc",
-    "description": "Adreno Graphics Drivers\nGPU drivers for Snapdragon 675.\nBut actually I have Snapdragon 732G\nits weird but keep it.",
+    "description": "Adreno Graphics Drivers\nGPU drivers for Snapdragon 675.\nBut actually I have Snapdragon 732G\nit's weird but keep it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14510,7 +14510,7 @@
   {
     "id": "com.qti.dcf",
     "list": "Misc",
-    "description": "I found only: DCF Allows an application to share content using Bluethooth.\nThe application is only allowed to broadcast the content it has already granted access to\nremote devices. These things are not available for users.\nQualcomm only said these things, but where is the code?\nThis app is without code so its safe to remove.",
+    "description": "I found only: DCF Allows an application to share content using Bluetooth.\nThe application is only allowed to broadcast the content as it already has access to remote devices. These things are not available for users.\nQualcomm only said these things, but where is the code?\nThis app is without code so it's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14519,7 +14519,7 @@
   {
     "id": "com.qti.qcc",
     "list": "Misc",
-    "description": "QCC\nHave a lot of stuff about logs, testing framework for Android with Robolectric, LTE Broadcast.\nIntroduced in android 13.\nHave png file qdma = Qualcomm Device Management and Analytics.\nSo its only spyware.",
+    "description": "QCC\nHave a lot of stuff about logs, testing framework for Android with Robolectric, LTE Broadcast.\nIntroduced in android 13.\nHave png file qdma = Qualcomm Device Management and Analytics.\nSo it's only spyware.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14537,7 +14537,7 @@
   {
     "id": "com.qualcomm.qti.server.qtiwifi",
     "list": "Misc",
-    "description": "Its made for analytics.\nThis service can be used to have oem specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
+    "description": "it's made for analytics.\nThis service can be used to have oem specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14546,7 +14546,7 @@
   {
     "id": "com.qualcomm.qtil.btdsda",
     "list": "Misc",
-    "description": "Hidden bluethooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things?",
+    "description": "Hidden bluetooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14627,7 +14627,7 @@
   {
     "id": "com.qti.dpmserviceapp",
     "list": "Misc",
-    "description": "Data Power Manager for the radio?\nUsed to improve energy efficiency?\nIn code I found something like this:\ndpm hal server, read procid\nIts still unknown.",
+    "description": "Data Power Manager for the radio?\nUsed to improve energy efficiency?\nIn code I found something like this:\ndpm hal server, read procid\nit's still unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14645,7 +14645,7 @@
   {
     "id": "com.qualcomm.qti.optinoverlay",
     "list": "Misc",
-    "description": "Useless frameworks for com.qualcomm.location.XT its problably dialogs.\nAnyway its only legal notices.",
+    "description": "Useless frameworks for com.qualcomm.location.XT it's probably dialogues.\nAnyway it's only legal notices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14663,7 +14663,7 @@
   {
     "id": "com.mediatek.carrierexpress",
     "list": "Misc",
-    "description": "Hidden operator configuration. Its Carrier Express app?\nalso in code there a lot stuff about Custom Operator.\nI dont know why it should be useful when it only has notifications:\nSIM card detected or Switching the carrier etc.\nIts useless.",
+    "description": "Hidden operator configuration. it's Carrier Express app?\nalso in code there a lot stuff about Custom Operator.\nI dont know why it should be useful when it only has notifications:\nSIM card detected or Switching the carrier etc.\nit's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14681,7 +14681,7 @@
   {
     "id": "com.qualcomm.qti.qwes.AndroidService",
     "list": "Misc",
-    "description": "qms, qwes its used for collecting user data.",
+    "description": "qms, qwes it's used for collecting user data.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14699,7 +14699,7 @@
   {
     "id": "com.qualcomm.location.XT",
     "list": "Misc",
-    "description": "Qualcomm IZat. Its hidden XT Activity. Location for Qualcomm. It's a bad idea to keep it.\nPeriodically sends a unique software ID, location (lat, long, alt, and their uncertainty), nearby cellular towers and Wi-Fi hotspots and their signal strength to Qualcomm servers.\nhttps://www.qualcomm.com/site/privacy/services",
+    "description": "Qualcomm IZat. it's hidden XT Activity. Location for Qualcomm. It's a bad idea to keep it.\nPeriodically sends a unique software ID, location (lat, long, alt, and their uncertainty), nearby cellular towers and Wi-Fi hotspots and their signal strength to Qualcomm servers.\nhttps://www.qualcomm.com/site/privacy/services",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14769,9 +14769,9 @@
     "removal": "Unsafe"
   },
   {
-    "id": "com.mediatek.bluethooth.dtt",
+    "id": "com.mediatek.bluetooth.dtt",
     "list": "Misc",
-    "description": "Bluethooth logging.",
+    "description": "Bluetooth logging.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14834,7 +14834,7 @@
   {
     "id": "com.mediatek.voicecommand",
     "list": "Misc",
-    "description": "Its for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProblably you need that for voice recognition but not sure.",
+    "description": "It's for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.\nMaybe related to https://www.mediatek.com/products/smart-home/voice-assistant-devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14843,7 +14843,7 @@
   {
     "id": "com.mediatek.voiceunlock",
     "list": "Misc",
-    "description": "Its for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProblably you need that for voice recognition but not sure.",
+    "description": "It's for voice commands like control music playing or voice control for alarm, camera.\nBut how to get access to it?\nProbably you need that for voice recognition but not sure.\nMaybe related to https://www.mediatek.com/products/smart-home/voice-assistant-devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14852,7 +14852,7 @@
   {
     "id": "com.huaqin.sarcontroller",
     "list": "Misc",
-    "description": "It have something like sar sensor, idk if its for testing\nbut mainactivity have chinese words and sar is for radio regulations?",
+    "description": "It have something like sar sensor, idk if it's for testing\nbut mainactivity have chinese words and sar is for radio regulations?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14879,7 +14879,7 @@
   {
     "id": "com.example.myapplication",
     "list": "Misc",
-    "description": "Hidden app for testing:\nBattery, WiFi, Bluethooth",
+    "description": "Hidden app for testing:\nBattery, WiFi, Bluetooth",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14906,7 +14906,7 @@
   {
     "id": "com.mediatek.telephony",
     "list": "Misc",
-    "description": "allows you to get information about the available \nSIMs/subscriptions and listen for changes or activity on the SIM cards, such as call or data activity or \nconnected cell details. In addition, the API enables apps to create SMS messages and send them using \na specific SIM card. Its not useful.",
+    "description": "allows you to get information about the available \nSIMs/subscriptions and listen for changes or activity on the SIM cards, such as call or data activity or \nconnected cell details. In addition, the API enables apps to create SMS messages and send them using \na specific SIM card. it's not useful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14915,7 +14915,7 @@
   {
     "id": "com.mediatek.gnss.nonframeworklbs",
     "list": "Misc",
-    "description": "Have hidden activity and its maybe for debug location requests, modem, VoWiFi and more.\nNot useful.",
+    "description": "Have hidden activity and it's maybe for debug location requests, modem, VoWiFi and more.\nNot useful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15077,7 +15077,7 @@
   {
     "id": "com.qualcomm.qti.remoteSimlockAuth",
     "list": "Misc",
-    "description": "Enable you to lock/unlock your eSIM remotely.\nSeems more of a security risk to me than anything else.\nIts used to phishing.",
+    "description": "Enable you to lock/unlock your eSIM remotely.\nSeems more of a security risk to me than anything else.\nit's used to phishing.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16409,7 +16409,7 @@
   {
     "id": "com.mediatek.gpslocationupdate",
     "list": "Misc",
-    "description": "info about gps and notification\nproblably not needed for location.",
+    "description": "Info about gps and notifications. Probably not needed for location.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16814,7 +16814,7 @@
   {
     "id": "com.miuix.editor",
     "list": "Oem",
-    "description": "textaction\nIt's probably used for FrequentPhrase(`com.miui.phrase`) but also Frequent Phrases is an unknown app so its safe to remove.",
+    "description": "textaction\nIt's probably used for FrequentPhrase(`com.miui.phrase`) but also Frequent Phrases is unknown app so it's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17615,11 +17615,11 @@
   {
     "id": "com.xiaomi.micloud.sdk",
     "list": "Oem",
-    "description": "Mi Cloud sdk \nsdk = Software development kit\nSeems to be a dependency for \"com.miui.gallery\" (the MIUI may not work if you remove this package)\n",
+    "description": "Mi Cloud sdk \nsdk = Software development kit\nSeems to be a dependency for \"com.miui.gallery\" (MIUI auto reboots android after remove this package)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   {
     "id": "com.xiaomi.mirecycle",
@@ -17977,7 +17977,7 @@
   {
     "id": "com.miui.mediafeature",
     "list": "Oem",
-    "description": "MediaFeature合集\nIs this something for media? Unused app, problably for China.",
+    "description": "MediaFeature合集\nIs this something for media? Unused app, probably for China.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18040,7 +18040,7 @@
   {
     "id": "com.xiaomi.bluetooth",
     "list": "Oem",
-    "description": "MIUI Bluetooth Control\nYou must keep this if you want Bluethooth to work properly.",
+    "description": "MIUI Bluetooth Control\nYou must keep this if you want Bluetooth to work properly.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18085,11 +18085,11 @@
   {
     "id": "com.miui.guardprovider",
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\n",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.miui.systemui.carriers.overlay",
@@ -18157,7 +18157,7 @@
   {
     "id": "com.miui.miwallpaper.overlay.qr",
     "list": "Oem",
-    "description": "Useless app to default lock wallpaper path? Problably unused. Safe to remove.",
+    "description": "Useless app to default lock wallpaper path? Probably unused. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18166,7 +18166,7 @@
   {
     "id": "com.miui.miwallpaper.telcel.overlay",
     "list": "Oem",
-    "description": "Useless app to telcel wallpaper? Problably unused. Safe to remove.",
+    "description": "Useless app to telcel wallpaper? Probably unused. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18202,7 +18202,7 @@
   {
     "id": "com.asus.asusbacktap",
     "list": "Oem",
-    "description": "Back tap\nIts for Accessibility component feature.\nBack tap will not be available in settings after remove.",
+    "description": "Back tap\nit's for Accessibility component feature.\nBack tap will not be available in settings after remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18229,7 +18229,7 @@
   {
     "id": "com.asus.configupdater",
     "list": "Oem",
-    "description": "ASUS Config Updater\nSome people have removed this. Needed for ASUS autoupdate apps problably, also found debugging code.",
+    "description": "ASUS Config Updater\nSome people have removed this. Needed for ASUS autoupdate apps probably, also found debugging code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18247,7 +18247,7 @@
   {
     "id": "com.futuredial.asusdatatransfer",
     "list": "Oem",
-    "description": "ASUS Phone Clone\nIts app to move your data to new or old phone.",
+    "description": "ASUS Phone Clone\nit's app to move your data to new or old phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18256,7 +18256,7 @@
   {
     "id": "com.asus.livedemoservice",
     "list": "Oem",
-    "description": "Demo Mode\nEnables retail demonstration mode. Its not a feature for normal users.",
+    "description": "Demo Mode\nEnables retail demonstration mode. it's not a feature for normal users.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18310,7 +18310,7 @@
   {
     "id": "com.asus.hbm",
     "list": "Oem",
-    "description": "High Brightness Mode\nIt can be found problably in settings. Still unknown.",
+    "description": "High Brightness Mode\nIt can be found probably in settings. Still unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18337,7 +18337,7 @@
   {
     "id": "com.asus.asusoptiflex",
     "list": "Oem",
-    "description": "ASUS Opti Flex\nIts something for settings? Still unknown.",
+    "description": "ASUS Opti Flex\nit's something for settings? Still unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18427,7 +18427,7 @@
   {
     "id": "com.asus.visualmaster",
     "list": "Oem",
-    "description": "Tru2Life\nIts app for color modes.",
+    "description": "Tru2Life\nit's app for color modes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18562,7 +18562,7 @@
   {
     "id": "com.asus.focusapplistener",
     "list": "Oem",
-    "description": "Focus app\nNeeded for optimization, problably.",
+    "description": "Focus app\nNeeded for optimization, probably.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18571,7 +18571,7 @@
   {
     "id": "com.asus.gamewidget",
     "list": "Oem",
-    "description": "Game genie\nits problably useful for gaming.\nhttps://play.google.com/store/apps/details?id=com.asus.gamewidget",
+    "description": "Game genie\nProbably useful for gaming.\nhttps://play.google.com/store/apps/details?id=com.asus.gamewidget",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18580,7 +18580,7 @@
   {
     "id": "com.asus.gamewidget.service",
     "list": "Oem",
-    "description": "Game genie service\nGame genie service needed for (com.asus.gamewidget)\nits problably useful for gaming.",
+    "description": "Game genie service\nGame genie service needed for (`com.asus.gamewidget`)\nIt's probably useful for gaming.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18607,7 +18607,7 @@
   {
     "id": "com.asus.imagesearch",
     "list": "Oem",
-    "description": "Image search\nIts so bloated.",
+    "description": "Image search\nit's so bloated.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18976,7 +18976,7 @@
   {
     "id": "com.asus.weathertime",
     "list": "Oem",
-    "description": "ASUS Weather\nIts for weather. Have Firebase Analytics.",
+    "description": "ASUS Weather\nit's for weather. Have Firebase Analytics.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19084,7 +19084,7 @@
   {
     "id": "com.huawei.autoinstallapkfrommcc",
     "list": "Oem",
-    "description": "Auto Install apk from mcc\nAuto Install apk from mcc? Its only information and logs.",
+    "description": "Auto Install apk from mcc\nAuto Install apk from mcc? it's only information and logs.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19129,7 +19129,7 @@
   {
     "id": "com.huawei.assetsync",
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? its needed for hisync problably?\nit dont have any code so it can be removed.",
+    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? There's no code so it can be removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19147,7 +19147,7 @@
   {
     "id": "com.huawei.multimedia.audioengine",
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? its needed for hisync problably?\nIts for Huawei Mobile services? it have in code analytics and assistant so its for spying.",
+    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? It's for Huawei Mobile Services? It has code analytics and assistant so it might be for spying.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19156,11 +19156,11 @@
   {
     "id": "com.huawei.camerakit.impl",
     "list": "Oem",
-    "description": "HwCameraKit\nCameraKit? Its needed for camera because it have some modes and resolutions?\nidk what I would say by code.",
+    "description": "HwCameraKit\nIn the code it was found that it's for testing camera functions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.android.systemui.feature_cover",
@@ -19228,7 +19228,7 @@
   {
     "id": "com.huawei.tmecustomize",
     "list": "Oem",
-    "description": "TME\nTme Activity. Hidden carrier config sim.\nI think its useless but you need to test.",
+    "description": "TME\nTme Activity. Hidden carrier config sim.\nI think it's useless but you need to test.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19237,7 +19237,7 @@
   {
     "id": "com.android.huawei.projectmenu",
     "list": "Oem",
-    "description": "ProjectMenu\nHidden settings not available for users. Its useless.",
+    "description": "ProjectMenu\nHidden settings not available for users. it's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -19516,11 +19516,11 @@
   {
     "id": "com.zui.freeform.sidebar",
     "list": "Oem",
-    "description": "Unused frameworks. Problably split screen for apps will not work, not tested.",
+    "description": "Unused frameworks? Probably split screen for apps will not work, not tested.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.zui.gallery",
@@ -20037,8 +20037,8 @@
   },
   {
     "id": "com.lge.eula.downloader",
-    "description": "Privacy Policy Update\nNot tested but problably safe to remove.",
-    "removal": "Expert",
+    "description": "Privacy Policy Update\nNot tested but probably safe to remove.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -20064,7 +20064,7 @@
   },
   {
     "id": "com.lge.gamepad",
-    "description": "LG Game Pad\nIts problably for TV. Not useful for game.",
+    "description": "LG Game Pad\nIt's probably for TV. Not useful for games.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20073,7 +20073,7 @@
   },
   {
     "id": "com.lge.gametools",
-    "description": "GameTools\nNot tested but its for problably useful for games.",
+    "description": "GameTools\nNot tested it's for probably useful for games.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20153,7 +20153,7 @@
     "labels": []
   },
   {
-    "id": "com.lge.bluethoothsetting",
+    "id": "com.lge.bluetoothsetting",
     "description": "Needed for Bluetooth.",
     "removal": "Expert",
     "list": "Oem",
@@ -20200,7 +20200,7 @@
   },
   {
     "id": "com.lge.cmas",
-    "description": "Emergency Alerts\nIts only for alerts so its safe to remove.",
+    "description": "Emergency Alerts\nit's only for alerts so it's safe to remove.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -20245,7 +20245,7 @@
   },
   {
     "id": "com.lge.dsmanager",
-    "description": "Dual Screen Updater\nIf you dont use dual screen feature then its safe to remove?",
+    "description": "Dual Screen Updater\nIf you dont use dual screen feature then it's safe to remove?",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20480,7 +20480,7 @@
   },
   {
     "id": "com.lge.NfcSettings",
-    "description": "NFC settings\nProblably its in the settings.",
+    "description": "NFC settings\nLikely in the settings.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -20651,7 +20651,7 @@
   },
   {
     "id": "com.meizu.assistant",
-    "description": "Aicy Glance meizu assistant\nproblably chinese assistant.",
+    "description": "Aicy Glance meizu assistant\nProbably Chinese assistant.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20660,7 +20660,7 @@
   },
   {
     "id": "com.android.flyme.bridge.softsim",
-    "description": "Its for softsim? No activities, looks like a useless framework.",
+    "description": "it's for softsim? No activities, looks like a useless framework.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20679,7 +20679,7 @@
   },
   {
     "id": "com.meizu.customizecenter",
-    "description": "Needed for themes but its so bloated.",
+    "description": "Needed for themes but it's so bloated.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -20697,7 +20697,7 @@
   },
   {
     "id": "com.meizu.flyme.easylauncher",
-    "description": "Easy Mode\nIts for launcher in easy mode.",
+    "description": "Easy Mode\nit's for launcher in easy mode.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20734,7 +20734,7 @@
   },
   {
     "id": "com.meizu.flymelab",
-    "description": "Flyme Lab\nIts something for video window or full screen.",
+    "description": "Flyme Lab\nit's something for video window or full screen.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20906,8 +20906,8 @@
   },
   {
     "id": "com.meizu.media.imageservice",
-    "description": "PhotoService\nProblably for needed for Photos app.",
-    "removal": "Expert",
+    "description": "PhotoService\nProbably needed for Photos app.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21061,7 +21061,7 @@
   },
   {
     "id": "com.motorola.camera3.consent.ai",
-    "description": "Camera consent AI\nCamera consent AI? artificial intelligence models? Problably addional features to camera app",
+    "description": "Camera consent AI\nCamera consent AI? Artificial Intelligence models? Probably additonal features to camera app",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -21089,7 +21089,7 @@
   },
   {
     "id": "com.motorola.appforecast",
-    "description": "Performance\nStorage cleanup, RAM boost problably useless.",
+    "description": "Performance\nStorage cleanup, RAM boost probably useless.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -21270,7 +21270,7 @@
   },
   {
     "id": "com.motorola.systemui.desk",
-    "description": "DesktopSystemUI\nIts for desktop maybe when connect to screen phone.",
+    "description": "DesktopSystemUI\nit's for desktop maybe when connect to screen phone.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -21611,8 +21611,8 @@
     "labels": []
   },
   {
-    "id": "com.android.bluethooth.bthelper",
-    "description": "BtHelper\nIts only for Apple Air Pods. Its used to check the battery level of AirPods headphones.",
+    "id": "com.android.bluetooth.bthelper",
+    "description": "BtHelper\nit's only for Apple Air Pods. it's used to check the battery level of AirPods headphones.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -21963,7 +21963,7 @@
   },
   {
     "id": "com.motorola.handwritingcalculator",
-    "description": "Handwriting calculator\nIts not needed.",
+    "description": "Handwriting calculator\nit's not needed.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -22505,7 +22505,7 @@
   },
   {
     "id": "cn.nubia.advanced",
-    "description": "Hidden advanced test bluethooth, WiFi",
+    "description": "Hidden advanced test bluetooth, WiFi",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -22549,7 +22549,7 @@
     "labels": []
   },
   {
-    "id": "cn.nubia.bluethooth.opp",
+    "id": "cn.nubia.bluetooth.opp",
     "description": "Needed for Bluetooth",
     "removal": "Expert",
     "list": "Oem",
@@ -23024,7 +23024,7 @@
   },
   {
     "id": "cn.nubia.share",
-    "description": "share video\nNubia share video. You can share video by this app problably.",
+    "description": "share video\nNubia share video. You can share video by this app probably.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -23168,7 +23168,7 @@
   },
   {
     "id": "cn.nubia.doubleapp",
-    "description": "App duplicator\nIts duplicating app feature that can be found in settings",
+    "description": "App duplicator\nit's duplicating app feature that can be found in settings",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23303,8 +23303,8 @@
   },
   {
     "id": "cn.nubia.gamenotes",
-    "description": "Game Notes\nGame Notes? Problably its optional thing.",
-    "removal": "Expert",
+    "description": "Game Notes\nGame Notes? Probably an optional thing.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23691,7 +23691,7 @@
   },
   {
     "id": "com.coloros.directui",
-    "description": "Brenoo touch\nSmart things it can be found in settings problably.",
+    "description": "Brenoo touch\nSmart things it can be found in settings.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23809,7 +23809,7 @@
   },
   {
     "id": "com.coloros.focusmode",
-    "description": "Focus mode\nIts option that can be found in settings.",
+    "description": "Focus mode\nit's option that can be found in settings.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23818,7 +23818,7 @@
   },
   {
     "id": "com.coloros.healthcheck",
-    "description": "Health check\nHealth check? Problably hidden.",
+    "description": "Health check\nHealth check? Probably hidden.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24216,7 +24216,7 @@
   },
   {
     "id": "com.coloros.smartdrive",
-    "description": "Breeno smart drive\nIts for smart things.",
+    "description": "Breeno smart drive\nit's for smart things.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24441,7 +24441,7 @@
   },
   {
     "id": "org.codeaurora.btmultisim",
-    "description": "Its app without code.",
+    "description": "it's app without code.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24639,7 +24639,7 @@
   },
   {
     "id": "com.android.angle",
-    "description": "Have only empty main activity. Its not a joke.",
+    "description": "Have only empty main activity. it's not a joke.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24657,7 +24657,7 @@
   },
   {
     "id": "com.google.android.carriersetup",
-    "description": "Its only needed on first-boot setup",
+    "description": "it's only needed on first-boot setup",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24675,7 +24675,7 @@
   },
   {
     "id": "com.google.android.apps.cbrsnetworkmonitor",
-    "description": "Its used for spying on you. (citizen broadband network monitor)\nRequire google play services and have location permission.",
+    "description": "it's used for spying on you. (citizen broadband network monitor)\nRequire google play services and have location permission.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24702,7 +24702,7 @@
   },
   {
     "id": "com.android.sdm.plugins.diagmon",
-    "description": "diagnostic plugin\nIts app for hidden diagnostics.",
+    "description": "diagnostic plugin\nit's app for hidden diagnostics.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24747,7 +24747,7 @@
   },
   {
     "id": "com.google.android.factoryota",
-    "description": "Factory OTA Mode\nIts for testing OTA.",
+    "description": "Factory OTA Mode\nit's for testing OTA.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24801,7 +24801,7 @@
   },
   {
     "id": "com.google.android.pixelnfc",
-    "description": "I think its useless frameworks.",
+    "description": "I think it's useless frameworks.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -24945,7 +24945,7 @@
   },
   {
     "id": "com.google.android.flipendo.auto_generated_rro_product__",
-    "description": "Data connection 5G? its for extreme battery saver.",
+    "description": "Data connection 5G? it's for extreme battery saver.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -24954,7 +24954,7 @@
   },
   {
     "id": "com.google.android.flipendo.auto_generated_rro_vendor__",
-    "description": "Data connection 5G? its for extreme battery saver.",
+    "description": "Data connection 5G? it's for extreme battery saver.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -24981,7 +24981,7 @@
   },
   {
     "id": "com.android.bips.overlay.pixel",
-    "description": "its overlay only to icon color.",
+    "description": "it's overlay only to icon color.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24990,7 +24990,7 @@
   },
   {
     "id": "com.android.captiveportallogin.overlay",
-    "description": "its overlay only to icon color.",
+    "description": "it's overlay only to icon color.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25026,7 +25026,7 @@
   },
   {
     "id": "com.android.hbmsvmanager.auto_generated_rro_product__",
-    "description": "unused png files, calibration. its from (com.android.hbmsvmanager)",
+    "description": "unused png files, calibration. it's from (com.android.hbmsvmanager)",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25071,7 +25071,7 @@
   },
   {
     "id": "com.google.android.overlay.pixelconfig2018",
-    "description": "Useless default configs? You can lose some basic functionality so its not worth touching it.",
+    "description": "Useless default configs? You can lose some basic functionality so it's not worth touching it.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -25080,7 +25080,7 @@
   },
   {
     "id": "com.google.android.overlay.pixelconfig2019",
-    "description": "Useless default configs? You can lose some basic functionality so its not worth touching it.",
+    "description": "Useless default configs? You can lose some basic functionality so it's not worth touching it.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -25089,7 +25089,7 @@
   },
   {
     "id": "com.google.android.overlay.pixelconfig2019midyear",
-    "description": "Useless default configs? You can lose some basic functionality so its not worth touching it.",
+    "description": "Useless default configs? You can lose some basic functionality so it's not worth touching it.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -25098,7 +25098,7 @@
   },
   {
     "id": "com.google.android.overlay.pixelconfigcommon",
-    "description": "Useless default configs? You can lose some basic functionality so its not worth touching it.",
+    "description": "Useless default configs? You can lose some basic functionality so it's not worth touching it.",
     "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
@@ -25566,7 +25566,7 @@
   },
   {
     "id": "com.tcl.kidsmode",
-    "description": "Kids Mode\nIts app for limit spending time on apps for kids problably.",
+    "description": "Kids Mode\nIt's an app for limiting spending time on apps for kids probably.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25843,7 +25843,7 @@
   },
   {
     "id": "com.tct.smart.ircontrol",
-    "description": "IR Remote\nI think its useless.",
+    "description": "IR Remote\nI think it's useless.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25899,7 +25899,7 @@
   },
   {
     "id": "com.tct.screenshotex",
-    "description": "Screenshot\nIts used for screenshots and editing them.",
+    "description": "Screenshot\nit's used for screenshots and editing them.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -25908,7 +25908,7 @@
   },
   {
     "id": "com.tct.setupwizard",
-    "description": "Setup Wizard\nIts needed only for first-boot setup.",
+    "description": "Setup Wizard\nit's needed only for first-boot setup.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25935,7 +25935,7 @@
   },
   {
     "id": "com.tct.usercare",
-    "description": "Support Center\nIts for TCL users support center app.",
+    "description": "Support Center\nit's for TCL users support center app.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25944,7 +25944,7 @@
   },
   {
     "id": "com.tct.smart.switchphone",
-    "description": "Switch Phone\nIts app for Move apps to new or old phone.",
+    "description": "Switch Phone\nit's app for Move apps to new or old phone.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25981,7 +25981,7 @@
   },
   {
     "id": "com.tcl.token",
-    "description": "Token\nIts for ECID number but its safe to remove. Secret code 7383243.",
+    "description": "Token\nit's for ECID number but it's safe to remove. Secret code 7383243.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25999,7 +25999,7 @@
   },
   {
     "id": "com.tct.contacts.transfer",
-    "description": "Transfer To Phone Contacts\nIts additional thing.",
+    "description": "Transfer To Phone Contacts\nit's additional thing.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26008,7 +26008,7 @@
   },
   {
     "id": "com.tct.logger",
-    "description": "User Support\nIts for logs.",
+    "description": "User Support\nit's for logs.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26152,7 +26152,7 @@
   },
   {
     "id": "com.transsion.applock",
-    "description": "AppLock\nIts bloated with google api.",
+    "description": "AppLock\nit's bloated with google api.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26161,7 +26161,7 @@
   },
   {
     "id": "com.transsion.kolun.aiservice",
-    "description": "Its for testing things and debugging.",
+    "description": "it's for testing things and debugging.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26179,7 +26179,7 @@
   },
   {
     "id": "com.transsion.connectx.mirror.source",
-    "description": "its something for cast setting, file transfer setting, smart connect to pc by TCCP",
+    "description": "it's something for cast setting, file transfer setting, smart connect to pc by TCCP",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26233,7 +26233,7 @@
   },
   {
     "id": "com.facemoji.lite.transsion",
-    "description": "Emoji Keyboard\nHave ads and its not good for privacy.",
+    "description": "Emoji Keyboard\nHave ads and it's not good for privacy.",
     "removal": "Advanced",
     "suggestions": "keyboards",
     "list": "Oem",
@@ -26243,7 +26243,7 @@
   },
   {
     "id": "com.transsion.repaircard",
-    "description": "E-warranty Card\nIts another things for china!",
+    "description": "E-warranty Card\nit's another things for china!",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26261,7 +26261,7 @@
   },
   {
     "id": "com.transsion.avatar",
-    "description": "Is this for T-moji avatar services? Its useless.",
+    "description": "Is this for T-moji avatar services? it's useless.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26280,7 +26280,7 @@
   },
   {
     "id": "com.transsion.os.typeface",
-    "description": "FontManager\nNot sure if its needed or not.",
+    "description": "FontManager\nNot sure if it's needed or not.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -26307,7 +26307,7 @@
   },
   {
     "id": "com.transsion.hilauncher",
-    "description": "HiOS Launcher\nIt have google analytics and its so bloated.",
+    "description": "HiOS Launcher\nIt have google analytics and it's so bloated.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -26334,7 +26334,7 @@
   },
   {
     "id": "com.transsion.letswitch",
-    "description": "Mobile Cloner\nIts problably useful when you switch to other phone to move your apps.",
+    "description": "Mobile Cloner\nit's probably useful when you switch to other phone to move your apps.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26361,7 +26361,7 @@
   },
   {
     "id": "com.tran.netcon",
-    "description": "Netcon\nIts unneccessary",
+    "description": "Netcon\nit's unneccessary",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26370,7 +26370,7 @@
   },
   {
     "id": "com.transsion.overlaysuw",
-    "description": "Its needed only on first-boot setup.",
+    "description": "it's needed only on first-boot setup.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26388,7 +26388,7 @@
   },
   {
     "id": "com.transsion.ossettingsext",
-    "description": "OSSettings\nIts needed for some settings and problably its important app.",
+    "description": "OSSettings\nit's needed for some settings and probably it's important app.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -26397,7 +26397,7 @@
   },
   {
     "id": "tech.palm.id",
-    "description": "TECNO ID\nIts for account? A lot bloated.\nInstead Uninstall better Disable app because Uninstalling cause Settings app crash",
+    "description": "TECNO ID\nit's for account? A lot bloated.\nInstead Uninstall better Disable app because Uninstalling cause Settings app crash",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26481,7 +26481,7 @@
   },
   {
     "id": "com.transsion.teop",
-    "description": "Its app for testing and logs",
+    "description": "it's app for testing and logs",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26677,7 +26677,7 @@
   },
   {
     "id": "com.transsion.zahooc",
-    "description": "Za-Hooc\nIts for secure card and Theft Alert.",
+    "description": "Za-Hooc\nit's for secure card and Theft Alert.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26939,7 +26939,7 @@
   },
   {
     "id": "com.vivo.gamewatch",
-    "description": "GameWatch\nContains a lot of Chinese code and its hidden?",
+    "description": "GameWatch\nContains a lot of Chinese code and it's hidden?",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27155,7 +27155,7 @@
   },
   {
     "id": "com.vivo.smartunlock",
-    "description": "smart unlock device\nIts used for unlock device using bluethooth devices problably.",
+    "description": "smart unlock device\nit's used for unlock device using bluetooth devices probably.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27363,7 +27363,7 @@
   },
   {
     "id": "com.volte.config",
-    "description": "VoLTEconfig\nVoLTE config. Problably hidden and not needed. Looks like a Chinese.",
+    "description": "VoLTEconfig\nVoLTE config. Probably hidden and not needed. Looks like a Chinese.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27381,7 +27381,7 @@
   },
   {
     "id": "com.vivo.wifiengineermode",
-    "description": "Needed for WiFi info? its engineermode so problably not.",
+    "description": "Needed for WiFi info? it's engineermode so probably not.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27454,7 +27454,7 @@
   },
   {
     "id": "com.vivo.phoneinstructions",
-    "description": "Phone Instructions\nIts used to app clone for phone instructions.",
+    "description": "Phone Instructions\nit's used to app clone for phone instructions.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27546,7 +27546,7 @@
   },
   {
     "id": "com.vivo.video.floating",
-    "description": "Face beauty for video call\nits a features for video call vivo.",
+    "description": "Face beauty for video call\nit's a features for video call vivo.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27609,7 +27609,7 @@
   },
   {
     "id": "com.vivo.nightpearl",
-    "description": "Always on Display\nAlways on display, its available in settings.",
+    "description": "Always on Display\nAlways on display, it's available in settings.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27708,7 +27708,7 @@
   },
   {
     "id": "com.vivo.vhome",
-    "description": "Smart Remote\nits for smart things.",
+    "description": "Smart Remote\nit's for smart things.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27771,7 +27771,7 @@
   },
   {
     "id": "com.vivo.unionpay",
-    "description": "Payment v-Coin\nIts for china problably.",
+    "description": "Payment v-Coin\nit's for china probably.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27998,7 +27998,7 @@
   },
   {
     "id": "com.spreadtrum.proxy.nfwlocation",
-    "description": "Carrier location\nCarrier location? Sends location to carrier problably. Useless Map Collections, also problably its for testing location.",
+    "description": "Carrier location\nCarrier location? Sends location to carrier probably. Useless Map Collections, also probably it's for testing location.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28250,9 +28250,8 @@
   },
   {
     "id": "com.miui.miinput",
-    "Label": "Input settings",
-    "description": "Provides additional gestures settings and activities settings.\nRemoving will break all additional gestures settings.",
-    "removal": "Advanced",
+    "description": "Only for Chinese. Also has duplicated settings activities, gestures.",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -28305,7 +28304,7 @@
   },
   {
     "id": "com.samsung.android.brightnessbackupservice",
-    "description": "Backup brightness configuration\nNot sure if its for powersaving.",
+    "description": "Backup brightness configuration\nNot sure if it's for powersaving.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -28368,7 +28367,7 @@
   },
   {
     "id": "com.snap.camerakit.plugin.v1",
-    "description": "Camera Kit\nIts used for effects.\nhttps://play.google.com/store/apps/details?id=com.snap.camerakit.plugin.v1",
+    "description": "Camera Kit\nit's used for effects.\nhttps://play.google.com/store/apps/details?id=com.snap.camerakit.plugin.v1",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28377,7 +28376,7 @@
   },
   {
     "id": "com.samsung.android.gru",
-    "description": "Galaxy Resource Updater\nNeeded for galaxy store problably and not sure but also for system updates?",
+    "description": "Galaxy Resource Updater\nNeeded for galaxy store probably and not sure but also for system updates?",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -28980,7 +28979,7 @@
   },
   {
     "id": "com.oplus.stdsp",
-    "description": "Device Security Service\nIts a basic service module that helps users discover security risks in their devices and generate appropriate security policies. Detect xposed, and log suite related, needless to say, deactivate.",
+    "description": "Device Security Service\nit's a basic service module that helps users discover security risks in their devices and generate appropriate security policies. Detect xposed, and log suite related, needless to say, deactivate.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -29099,7 +29098,7 @@
   },
   {
     "id": "com.sec.mhs.smarttethering",
-    "description": "Auto Hotspot\nNeeded for hotspots problably.",
+    "description": "Auto Hotspot\nNeeded for hotspots probably.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -29108,7 +29107,7 @@
   },
   {
     "id": "com.fingerprints.imagecollection",
-    "description": "Its hidden image collection of fingerprint and sensor test.",
+    "description": "it's hidden image collection of fingerprint and sensor test.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -29126,7 +29125,7 @@
   },
   {
     "id": "com.vivo.healthwidget",
-    "description": "Health kit\nIts only widgets.",
+    "description": "Health kit\nit's only widgets.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -29135,7 +29134,7 @@
   },
   {
     "id": "com.vivo.globalsearch",
-    "description": "Global Search\nIts chinese searching.",
+    "description": "Global Search\nit's chinese searching.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -29415,7 +29414,7 @@
   },
   {
     "id": "com.google.android.gmsintegration",
-    "description": "Its Google Sample Home Screen. Useless.",
+    "description": "it's Google Sample Home Screen. Useless.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -29694,7 +29693,7 @@
   },
   {
     "id": "com.android.hotwordenrollment.xgoogle",
-    "list": "Google",
+    "list": "Aosp",
     "description": "\"OK Google\" detection service.\n",
     "dependencies": [],
     "neededBy": [],
@@ -30784,7 +30783,7 @@
   {
     "id": "com.google.android.ext.shared",
     "list": "Aosp",
-    "description": "Android Shared Library.\nMaybe people thinking its safe to remove or its useless because its empty.\nbut it cause bootloop on my miui 14.",
+    "description": "Android Shared Library.\nMaybe people thinking it's safe to remove or it's useless because it's empty.\nbut it cause bootloop on my miui 14.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30838,11 +30837,11 @@
   {
     "id": "com.google.android.overlay.gmsgsaconfig",
     "list": "Oem",
-    "description": "Overlay theme for gmsgsaconfig? Probably an RRO? https://source.android.com/devices/architecture/rros",
+    "description": "Not needed overlay, only has code to set `googlequicksearchbox`(Google App) as default assistant",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.google.android.gms.location.history",
@@ -31018,7 +31017,7 @@
   {
     "id": "com.google.android.captiveportallogin",
     "list": "Google",
-    "description": "Its the same as(com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
+    "description": "it's the same as(com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31045,7 +31044,7 @@
   {
     "id": "com.google.android.overlay.modules.ext.services",
     "list": "Aosp",
-    "description": "Its overlay that depends on (com.google.android.ext.services)\nCause bootloop.",
+    "description": "it's overlay that depends on (com.google.android.ext.services)\nCause bootloop.",
     "dependencies": [
         "com.google.android.ext.services"
     ],
@@ -32353,7 +32352,7 @@
   },
   {
     "id": "com.android.hotwordenrollment.okgoogle",
-    "list": "Google",
+    "list": "Aosp",
     "description": "\"OK Google\" detection service.",
     "dependencies": [],
     "neededBy": [],
@@ -32633,7 +32632,7 @@
   {
     "id": "com.samsung.android.cameraxservice",
     "list": "Oem",
-    "description": "Its hidden app for testing camera things also its camera calibration",
+    "description": "it's hidden app for testing camera things also it's camera calibration",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32732,7 +32731,7 @@
   {
     "id": "com.lge.touchcontrol",
     "list": "Oem",
-    "description": "I have never seen this menu in the settings app. I say its safe to remove. I can't think of any use case for this setting, it just allows you to change where you're allowed to touch the screen",
+    "description": "I have never seen this menu in the settings app. I say it's safe to remove. I can't think of any use case for this setting, it just allows you to change where you're allowed to touch the screen",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33209,7 +33208,7 @@
   {
     "id": "com.transsion.childmode",
     "list": "Oem",
-    "description": "Kids Mode\nPhone monitoring app to control what the user the can do on the phone. Intrusive and use Firebase so its sends data back to Google servers.\n\nPithus analysis: https://beta.pithus.org/report/ca30c6d1d7c7625e0850c4114dfea5aab5118d391191d2c074cde1414bbccd8c",
+    "description": "Kids Mode\nPhone monitoring app to control what the user the can do on the phone. Intrusive and use Firebase so it's sends data back to Google servers.\n\nPithus analysis: https://beta.pithus.org/report/ca30c6d1d7c7625e0850c4114dfea5aab5118d391191d2c074cde1414bbccd8c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33362,7 +33361,7 @@
   {
     "id": "com.android.settings.overlay.common",
     "list": "Oem",
-    "description": "Color mode config you can find it in settings\nIts something about: natural, boosted, saturated, adaptive.",
+    "description": "Color mode config you can find it in settings\nit's something about: natural, boosted, saturated, adaptive.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33884,7 +33883,7 @@
   {
   "id": "com.android.supl",
   "list": "Oem",
-  "description": "SUPL20Service\nGPS still works without it. Problably needed to location in China.",
+  "description": "SUPL20Service\nGPS still works without it. Probably needed to location in China.",
   "dependencies": [],
   "neededBy": [],
   "labels": [],
@@ -34109,7 +34108,7 @@
   {
     "id": "com.google.android.overlay.settingsProvider",
     "list": "Oem",
-    "description": "Have some stuff about google gms: backup.BackupTransportService.\nUseless backup things, without it backup and cloud work.\nMaybe its used for backup settings, but probably not, and if its, I don't think you need it.",
+    "description": "Have some stuff about google gms: backup.BackupTransportService.\nUseless backup things, without it backup and cloud work.\nMaybe it's used for backup settings, but probably not, and if it is, I don't think you need it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35045,7 +35044,7 @@
   {
     "id": "com.miui.core.internal.editor.services",
     "list": "Oem",
-    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? Its used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? Its useless or important?",
+    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? it's used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? it's useless or important?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35054,7 +35053,7 @@
   {
     "id": "com.miui.core.internal.services",
     "list": "Oem",
-    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat is this mean? I have must to check com.miui.core what it does\nand its for ota updates but I'm not sure. (yes miui core have ota updates components)",
+    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat is this mean? I have must to check com.miui.core what it does\nand it's for ota updates but I'm not sure. (yes miui core have ota updates components)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35099,7 +35098,7 @@
   {
     "id": "com.android.wifi.resources.xiaomi",
     "list": "Oem",
-    "description": "Have some configs to network about: disconnected scan interval schedule\nwifi11axsupportoverride, config_wifi_tcp_buffers\nyou should keep this because its maybe from settings.",
+    "description": "Have some configs to network about: disconnected scan interval schedule\nwifi11axsupportoverride, config_wifi_tcp_buffers\nyou should keep this because it's maybe from settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35180,7 +35179,7 @@
   {
     "id": "com.android.overlay.gmscontactprovider",
     "list": "Oem",
-    "description": "Checked in miui 14.\nIncorrect named thing to sync metadata contacts or gms?\nmetadata_sync_pacakge com.google.android.gms\nNo effects after remove.\n(detected on miui 14 with android 13 phones)\nIts a unused overlay.",
+    "description": "Checked in miui 14.\nIncorrect named thing to sync metadata contacts or gms?\nmetadata_sync_pacakge com.google.android.gms\nNo effects after remove.\n(detected on miui 14 with android 13 phones)\nit's an unused overlay.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35189,7 +35188,7 @@
   {
     "id": "com.android.overlay.gmssettingprovider",
     "list": "Oem",
-    "description": "Checked in miui 14.\nHave some stuff about google gms: backup.BackupTransportService.\nUseless backup things, without it backup and cloud work.\nMaybe its used for backup settings, but probably not, and if its, I don't think you need it.\n(detected on miui 14 with android 13 phones)\nIts a unused overlay.",
+    "description": "Checked in miui 14.\nHave some stuff about google gms: backup.BackupTransportService.\nUseless backup things, without it backup and cloud work.\nMaybe it's used for backup settings, but probably not, and if it is, I don't think you need it.\n(detected on miui 14 with android 13 phones)\nIt's an unused overlay.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35261,7 +35260,7 @@
   {
     "id": "com.google.android.sdksandbox",
     "list": "Aosp",
-    "description": "Introduced in Android 13 privacy sandbox beta disabled on default.\nCauses bootloop. Maybe this component is not only for privacy... (I think its for testing privacy sandbox using Android Studio.)\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nCause BOOTLOOP.",
+    "description": "Introduced in Android 13 privacy sandbox beta disabled on default.\nCauses bootloop. Maybe this component is not only for privacy... (I think it's for testing privacy sandbox using Android Studio.)\nhttps://source.android.com/docs/core/ota/modular-system/adservices\nCause BOOTLOOP.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35288,7 +35287,7 @@
   {
     "id": "com.dti.bouyguestelecom",
     "list": "Carrier",
-    "description": "Bouygues AppCloud\nIts problably for install apps but its useless and have ads and a lot permissions.",
+    "description": "Bouygues AppCloud\nit's probably for install apps but it's useless and have ads and a lot permissions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35297,7 +35296,7 @@
   {
     "id": "com.altice.android.myapps",
     "list": "Carrier",
-    "description": "MyApps\nIts problably for install apps but its useless.",
+    "description": "MyApps\nit's probably for install apps but it's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35306,7 +35305,7 @@
   {
     "id": "com.sfr.android.sfrjeux",
     "list": "Carrier",
-    "description": "My Games\nIts not useful app for games and better uninstall it",
+    "description": "My Games\nit's not useful app for games and better uninstall it",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35360,7 +35359,7 @@
   {
     "id": "com.dti.motorola",
     "list": "Carrier",
-    "description": "Mobile Services Manager\nIts something for install apps but its useless and a lot permissions.",
+    "description": "Mobile Services Manager\nit's something for install apps but it's useless and a lot permissions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35378,7 +35377,7 @@
   {
     "id": "com.dti.cricket",
     "list": "Carrier",
-    "description": "Its app for installing recommanded apps? Its only used on first-boot setup and its useless.",
+    "description": "it's app for installing recommended apps? it's only used on first-boot setup and it's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35387,7 +35386,7 @@
   {
     "id": "com.cricketwireless.minus",
     "list": "Carrier",
-    "description": "Cricket partner tab? better remove it. It problably have news or partner customization to chrome.",
+    "description": "Cricket partner tab? better remove it. It probably have news or partner customization to chrome.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35396,7 +35395,7 @@
   {
     "id": "com.att.deviceunlock",
     "list": "Carrier",
-    "description": "Device Unlock\nUseless app from AT&T. Its only for unlock device.",
+    "description": "Device Unlock\nUseless app from AT&T. it's only for unlock device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35405,7 +35404,7 @@
   {
     "id": "com.oem.euiccpartnerapp",
     "list": "Carrier",
-    "description": "EuiccPartnerApp\nNeeded for eSIM (eUICC)?\nI think its useless.",
+    "description": "EuiccPartnerApp\nNeeded for eSIM (eUICC)?\nI think it's useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35414,7 +35413,7 @@
   {
     "id": "com.inmobi.installer",
     "list": "Carrier",
-    "description": "Its installer advertising company app.",
+    "description": "it's installer advertising company app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35423,7 +35422,7 @@
   {
     "id": "com.verizon.services",
     "list": "Carrier",
-    "description": "AppDirectedSMS\nOMA Device Management for Verizon.\nIts for wifi calling, sms",
+    "description": "AppDirectedSMS\nOMA Device Management for Verizon.\nit's for wifi calling, sms",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35432,7 +35431,7 @@
   {
     "id": "com.dti.amx",
     "list": "Carrier",
-    "description": "Its used to choose app install? A lot trackers, permissions.\nUseless.",
+    "description": "it's used to choose app install? A lot trackers, permissions.\nUseless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35477,7 +35476,7 @@
   {
     "id": "com.samsung.carrier.logcollector",
     "list": "Oem",
-    "description": "its the same like diagmonagent, collects dumplogs",
+    "description": "it's the same like diagmonagent, collects dumplogs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35495,7 +35494,7 @@
   {
     "id": "com.ws.dm",
     "list": "Oem",
-    "description": "its the same like com.wssyncmldm\nSoftware update\nFetch System OTA updates\nWorks along with com.sec.android.soagent\nRequired on Samsung Smartphones for OTA.",
+    "description": "it's the same like com.wssyncmldm\nSoftware update\nFetch System OTA updates\nWorks along with com.sec.android.soagent\nRequired on Samsung Smartphones for OTA.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35522,7 +35521,7 @@
   {
     "id": "com.sec.android.app.wfdbroker",
     "list": "Oem",
-    "description": "I found its for connecting to tv also settings\nbut app size is too small for doing these things.",
+    "description": "I found it's for connecting to tv also settings\nbut app size is too small for doing these things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35576,7 +35575,7 @@
   {
     "id": "com.qualcomm.qti.auth.sampleauthenticatorservice",
     "list": "Misc",
-    "description": "its only Sample,\nnothing important found in the code",
+    "description": "it's only Sample,\nnothing important found in the code",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35585,7 +35584,7 @@
   {
     "id": "com.qualcomm.qti.auth.sampleextauthservice",
     "list": "Misc",
-    "description": "its only Sample,\nnothing important found in the code",
+    "description": "it's only Sample,\nnothing important found in the code",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35594,7 +35593,7 @@
   {
     "id": "com.qualcomm.qti.auth.secureextauthservice",
     "list": "Misc",
-    "description": "its only Sample,\nnothing important found in the code",
+    "description": "it's only Sample,\nnothing important found in the code",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35603,7 +35602,7 @@
   {
     "id": "com.qualcomm.qti.auth.securesampleauthservice",
     "list": "Misc",
-    "description": "its only Sample,\nnothing important found in the code",
+    "description": "it's only Sample,\nnothing important found in the code",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35612,7 +35611,7 @@
   {
     "id": "com.qualcomm.shutdownlistner",
     "list": "Misc",
-    "description": "uses library com.qualcomm.qcrilhook and logs shutdown phone but its not needed.",
+    "description": "uses library com.qualcomm.qcrilhook and logs shutdown phone but it's not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35648,7 +35647,7 @@
   {
     "id": "com.samsung.locationhistory",
     "list": "Oem",
-    "description": "its only location logs",
+    "description": "it's only location logs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35666,7 +35665,7 @@
   {
     "id": "com.goodix.deltadiff",
     "list": "Oem",
-    "description": "Its app for testing things.",
+    "description": "it's app for testing things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35720,7 +35719,7 @@
   {
     "id": "com.huaqin.clearefs",
     "list": "Misc",
-    "description": "Debugging logs Wifi, Bluethooth",
+    "description": "Debugging logs Wifi, Bluetooth",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35783,7 +35782,7 @@
   {
     "id": "com.oppo.em5g",
     "list": "Oem",
-    "description": "EM NR5G\n5G Disable Mode, Problably needed for mobile data internet.",
+    "description": "EM NR5G\n5G Disable Mode, Probably needed for mobile data internet.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35828,7 +35827,7 @@
   {
     "id": "com.vivo.stepcount",
     "list": "Oem",
-    "description": "Step Count Application\nIts hard to say what app actually doing\nlooks like a useless frameworks to widgets and swipe menu",
+    "description": "Step Count Application\nit's hard to say what app actually doing\nlooks like a useless frameworks to widgets and swipe menu",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35855,7 +35854,7 @@
   {
     "id": "com.sec.android.app.snsimagecache",
     "list": "Oem",
-    "description": "SnsImageCache\nA lot logs, problably its for image cache. A lot samsung phones dont have it so its safe to remove",
+    "description": "SnsImageCache\nA lot logs, probably it's for image cache. A lot samsung phones dont have it so it's safe to remove",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35900,7 +35899,7 @@
   {
     "id": "com.sec.android.settingsmaps",
     "list": "Oem",
-    "description": "My places\nI found Search location also theres other stuff about location but its not needed I guess",
+    "description": "My places\nI found Search location also theres other stuff about location but it's not needed I guess",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35963,7 +35962,7 @@
   {
     "id": "com.sec.android.app.saspmodemailerprovider",
     "list": "Oem",
-    "description": "docomo mail\nno activities, looks like more useless frameworks also its only for japanese",
+    "description": "docomo mail\nno activities, looks like more useless frameworks also it's only for japanese",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36053,7 +36052,7 @@
   {
     "id": "com.sec.android.Preconfig",
     "list": "Oem",
-    "description": "On some phones founded testing things menu and on some not found any hidden menu\nbut its app for secret codes to testing hardware things",
+    "description": "On some phones founded testing things menu and on some not found any hidden menu\nbut it's app for secret codes to testing hardware things",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36143,7 +36142,7 @@
   {
     "id": "com.mediatek.entitlement.fcm",
     "list": "Misc",
-    "description": "Its only FCM(Firebase Cloud Messaging). No activities, google firebase. Not needed.",
+    "description": "it's only FCM(Firebase Cloud Messaging). No activities, google firebase. Not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36161,7 +36160,7 @@
   {
     "id": "com.qualcomm.qti.notificationservice",
     "list": "Oem",
-    "description": "High Battery Temperature\nWrong named package, theres only high temperature notification.\nIts app for some chinese phones",
+    "description": "High Battery Temperature\nWrong named package, theres only high temperature notification.\nit's app for some chinese phones",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36170,7 +36169,7 @@
   {
     "id": "com.nextbit.app",
     "list": "Carrier",
-    "description": "docomo LIVE UX backup\nIts on some japanese phones",
+    "description": "docomo LIVE UX backup\nit's on some japanese phones",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36251,7 +36250,7 @@
   {
     "id": "com.arcsoft.magicshotstudio",
     "list": "Oem",
-    "description": "Its app for photos",
+    "description": "it's app for photos",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36404,7 +36403,7 @@
   {
     "id": "com.sec.android.automotive.drivelink",
     "list": "Oem",
-    "description": "Car mode\nIts hidden app and has a lot duplicate settings. Not needed",
+    "description": "Car mode\nit's hidden app and has a lot duplicate settings. Not needed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36598,5 +36597,572 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  {
+    "id": "com.qualcomm.qcom_qmi",
+    "list": "Misc",
+    "description": "qchat logo png founded also Hello World! and app_name Qchat_QMI\nthis app has no code and no activities so safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.visionobjects.resourcemanager",
+    "list": "Oem",
+    "description": "Handwriting DB Updater (discontinued?)\nLanguage Updater from site http://samsungresources.visionobjects.com/\nBut it's tracker. I guess it's to Handwriting Service but not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.taskmanager",
+    "list": "Oem",
+    "description": "Hidden app that shows uninstall unused apps(+boring notifications that may be disabled)\nand button to (other, in the same app)task manager(shows ram and buttons kill user apps).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "pl.tmobile.miboa",
+    "list": "Carrier",
+    "description": "My T-Mobile\nHas login activity and MailBox.\nA lot metrics, analytics.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "pl.tmobile.panel",
+    "list": "Carrier",
+    "description": "MyBox\nRequire sim card to run app\nit's app store(discontinued?)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "ro.cosmote.aps.wnwlite",
+    "list": "Carrier",
+    "description": "TopApps(discontinued)\nit's non english app. Installs recommended apps?\nI can't launch the app because it displays an error that it can't connect to the Internet, even when Wi-Fi is on.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.federatedcompute.services",
+    "list": "Aosp",
+    "description": "FederatedCompute\nAnother component of OnDevicePersonalization. But this app learns things about users.\nIntroduced in Android 14(`com.google.android.federatedcompute` Introduced in Android 13).\nhttps://source.android.com/docs/core/ota/modular-system/ondevicepersonalization",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.ext.adservices.api",
+    "list": "Aosp",
+    "description": "Another component of Android AdServices.\nIntroduced in Android 14.\nhttps://source.android.com/docs/core/ota/modular-system/adservices",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.health.connect.backuprestore",
+    "list": "Aosp",
+    "description": "Backups data from Health Connect app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.healthconnect.controller",
+    "list": "Aosp",
+    "description": "Health Connect\nManage the health and fitness data on your phone, and control which apps can access it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.virtualmachine.res",
+    "list": "Aosp",
+    "description": "unknown app with no code that only has permissions to Use, Manage, Debug: Virtual Machine.\nIntroduced in Android 14.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.rkpdapp",
+    "list": "Aosp",
+    "description": "RemoteProvisioner. Have random stuff: security, notifications, accessibility, test modes, data usage, metrics, logs.\nIntroduced in android 14(it's the same app like `com.android.remoteprovisioner` Introduced in android 13).\nAgain this app is not available for users.\nAnd looks very useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.apps.googlecamera.fishfood",
+    "list": "Aosp",
+    "description": "ApertureLensLauncher\nNot sure how it works but redirects to google app lens `com.google.android.googlequicksearchbox`.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.systemui.accessibility.accessibilitymenu",
+    "list": "Aosp",
+    "description": "Hidden menu that only shows 2 buttons:\nLarge buttons - that increases size of accessibility menu buttons,\nand Help - that redirects to support google com site accessibility.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "org.lineageos.profiles",
+    "list": "Oem",
+    "description": "Profiles Trust Provider\nOnly has activity where you can select Profiles: None, Automobile, Default, Silent.\nAlso this app running in the background.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "org.calyxos.backup.contacts",
+    "list": "Oem",
+    "description": "Local Contacts Backup\nRunning in the background.\nApp without UI, only has frameworks that cant be used?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "org.lineageos.setupwizard",
+    "list": "Oem",
+    "description": "Setup Wizard\nNeeded only on first-boot setup.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.credentialmanager",
+    "list": "Aosp",
+    "description": "Credential Manager\nManages with Passwords, passkeys.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.stevesoltys.seedvault",
+    "list": "Oem",
+    "description": "Seedvault\nRunning in the background.\nit's app for Backup, Restore your data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "org.lineageos.backgrounds",
+    "list": "Oem",
+    "description": "Wallpapers\nHas only pre-installed wallpapers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.airlink",
+    "list": "Oem",
+    "description": "Air link service, it's probably needed for Wireless Projection.\nNo activities, only more debugging stuff, location things, logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.android.airsharing",
+    "list": "Oem",
+    "description": "Wireless Projection\nMiracast, Requires Huawei Mobile Services, also it's so bloated, also found unused frameworks HUAWEI GameCenter",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.audioaccessorymanager",
+    "list": "Oem",
+    "description": "Audio Accessory Manager\nA lot stuff: Huawei health, Huawei music, earphones.\nProbably only useful when you got Huawei FreeBuds.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.calculator",
+    "list": "Oem",
+    "description": "Calculator app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.coauthservice",
+    "list": "Oem",
+    "description": "HwCoAuthService\nApplock, lockscreen password, face recognition things, fingerprint, not sure if it's worth removing it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.contentsensor",
+    "list": "Oem",
+    "description": "ContentSensor\nLooks like this app has a lot chinese code and collects a lot stuff about user like apps installed, app info, connects to huawei hivoice sites",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.controlcenter",
+    "list": "Oem",
+    "description": "Smart Collaboration\nCollaboration between devices. Needed for Multi-Screen, Wireless Projection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.def",
+    "list": "Oem",
+    "description": "DEF\nUnused? message things:allows the app public keys on connected devices, getting status, access information",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.deviceauth",
+    "list": "Oem",
+    "description": "TrustedDeviceAuth\nI guess it's for authentication keys",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.devicegroupmanage",
+    "list": "Oem",
+    "description": "(Unused?)HwGroupManager\nIt's an app without activities, only device info things",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.devicemanager",
+    "list": "Oem",
+    "description": "Needed for Huawei account. I found only things: installing service?, Linked devices, Multi-Device management, connection code, metrics",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.distributed.kms",
+    "list": "Oem",
+    "description": "HwDistributedKeyManager\nHas random frameworks, probably needed for huawei account, authentication",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.dmsdp",
+    "list": "Oem",
+    "description": "Multi-Device management\nThis service allows you to virtually expand your devices capabilities\nby connecting to other devices and using them as an extension of this device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.entitlement",
+    "list": "Oem",
+    "description": "Needed for messages Bluetooth, wifi, hotspot, Terms of Agreement, Authentication?\nOn some phone's it has some features, and on some not.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.featurelayer.featureframework",
+    "list": "Oem",
+    "description": "FeatureFramework\nAllows the app to check for feature updates.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.harmonyos.foundation",
+    "list": "Oem",
+    "description": "foundation\nThird-party service names, it's a tracker.\nAlso found `com.huawei.cloud.hianalytics.aspg`\nand connects to metrics hicloud site.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hilink.framework",
+    "list": "Oem",
+    "description": "AI Life Service\nUsed for smart devices and to run smart scenes.\nIt's more useful in China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hms5gkit.agentservice",
+    "list": "Oem",
+    "description": "Hw5GKitAgentService\nOnly debugging code found that APK id is invalid, disable parameter error, other error things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hwddmp",
+    "list": "Oem",
+    "description": "HwDDMP\nDebugging app, notifications about application errors",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.hwdiagnosis",
+    "list": "Oem",
+    "description": "HwDiagnosis\nNo activities, only code about diagnosis and logs\nAlso device info and is send to Huawei servers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.localbackup",
+    "list": "Oem",
+    "description": "Huawei Backup\nhas a lot permissions and can backup your data",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.msdp",
+    "list": "Oem",
+    "description": "Multimodal Sensor Data Platform\nNeeded for camera\nairlink?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.multimedia.hivideoplayengine",
+    "list": "Oem",
+    "description": "hivideoplayengine\nHwVideoKitImpl, Not sure if it's needed for video player",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.ohos.famanager",
+    "list": "Oem",
+    "description": "only random names agc_... and `fa panel` name, it's FaManager that actually dont know what are doing\nAlso founded code to Harmony Application\nSize app is too small.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.ohos.hiwindow",
+    "list": "Oem",
+    "description": "HiWindow\nHave loading, waiting png files\ncollaboration devices, hardware things, screen projection on activities shows Window Shell.\nAfter remove you will lose animations and loading screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.onehopsvcclient",
+    "list": "Oem",
+    "description": "OneHopSvcClient\nTagService, has only tracking things, hmskit that does not exist on the site of of Huawei.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.onehopsvchost",
+    "list": "Oem",
+    "description": "OneHopSvcHost\nTriggerservice, has only tracking things, hmskit that does not exist on the site of Huawei.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.permissioncontroller.overlay",
+    "list": "Oem",
+    "description": "Found help app permissions - only link to Google site in code, overlay to permission things like buttons, dialogs, etc.\nBut it's not needed?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.huawei.privatespace",
+    "list": "Oem",
+    "description": "Privacy Space for files",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.huawei.profile",
+    "list": "Oem",
+    "description": "Profile Services\nIt's an app needed for HUAWEI ID, depends on HMSCore, also has analytics and trackers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.remotepassword",
+    "list": "Oem",
+    "description": "RemotePassword\nremotepassword: errors, invalid, null, errors generally\nalso subscribe info, device info. Better remove that.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.searchservice",
+    "list": "Oem",
+    "description": "Fusion Search Service\nNeeded for searching? Found out that it uses `com.huawei.hwddmp` this app is for debugging errors\nalso found trackers components that connects to Huawei servers unnecessarily.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.securitypluginbase",
+    "list": "Oem",
+    "description": "HwSecurityPluginBase\nAntivirus Service supports bad antiviruses, HwLog, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.trustedthingsauth",
+    "list": "Oem",
+    "description": "HwTrustedThingsAuth\nOnly name app found in code, has permissions:\nBluetooth, execute_reg, use_auth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.huawei.waudio",
+    "list": "Oem",
+    "description": "waudio\nWi-Fi Speaker, Speaker playback, WLAN speaker\nThis app is only for Chinese users because I found a Chinese app list that supports it\nand depends on AI Life app probably.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "ohos.media.medialibrary",
+    "list": "Oem",
+    "description": "MediaLibrary\nhas hwddmp components `com.huawei.hwddmp` debugging errors, remote device manager that depends on Huawei account",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.systemui.overlay",
+    "list": "Aosp",
+    "description": "System UI Overlay. DO NOT remove this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.huawei.hisuite",
+    "list": "Oem",
+    "description": "Can be uninstalled via settings. App to connect with the desktop program to Backup/Restore, flash firmware, etc.\nhttps://consumer.huawei.com/en/support/hisuite/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hdopen.vivicitta",
+    "list": "Carrier",
+    "description": "Companion\nApp for training, so bloated and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hu.telekom.telekomapp",
+    "list": "Carrier",
+    "description": "Telekom\nApp for subscriptions, so bloated (a lot spying) and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "hu.telekom.telekomtv",
+    "list": "Carrier",
+    "description": "Mobile shopping\nApp for watch tv on phone, so bloated (a lot spying) and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "telekom.hu.android.mobilvasarlas",
+    "list": "Carrier",
+    "description": "Mobile shopping\nApp for shopping or paying, so bloated and from T-Mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "tmobile.hu.android.epgmiab",
+    "list": "Carrier",
+    "description": "Newsreel\nAnother app to tv things, so bloated and from T-Mobile, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 ]
