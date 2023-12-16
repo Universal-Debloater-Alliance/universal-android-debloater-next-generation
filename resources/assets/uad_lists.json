@@ -5879,11 +5879,11 @@
   {
     "id": "com.sec.android.app.SecSetupWizard",
     "list": "Oem",
-    "description": "Samsung Setup Wizard\nThe first time you turn your device on, a Welcome screen is displayed. It guides you through the basics of setting up your device.\nIt's the setup for Samsung services.\n",
+    "description": "Samsung Setup Wizard\nThe first time you turn your device on, a welcome screen is displayed. It guides you through the basics of setting up your device. It's the setup for Samsung services. Both `com.sec.phone` & `com.sec.android.app.SecSetupWizard` must be enabled to be able to add new ESIMs to device. Otherwise menu will spin indefinitely.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.sec.android.app.servicemodeapp",
@@ -6509,11 +6509,11 @@
   {
     "id": "com.sec.phone",
     "list": "Oem",
-    "description": "another test/debug app used to test the proper functioning of phone calls.\n",
+    "description": "Another test/debug app used to test the proper functioning of phone calls. On Samsung, both `com.sec.phone` & `com.sec.android.app.SecSetupWizard` must be enabled to be able to add new ESIMs to device. Otherwise menu will spin indefinitely.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.sec.readershub",
