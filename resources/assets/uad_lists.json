@@ -20038,7 +20038,7 @@
   {
     "id": "com.lge.eula.downloader",
     "description": "Privacy Policy Update\nNot tested but probably safe to remove.",
-    "removal": "Expert",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -20907,7 +20907,7 @@
   {
     "id": "com.meizu.media.imageservice",
     "description": "PhotoService\nProbably needed for Photos app.",
-    "removal": "Expert",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23304,7 +23304,7 @@
   {
     "id": "cn.nubia.gamenotes",
     "description": "Game Notes\nGame Notes? Probably an optional thing.",
-    "removal": "Expert",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23691,7 +23691,7 @@
   },
   {
     "id": "com.coloros.directui",
-    "description": "Brenoo touch\nSmart things it can be found in settings probably.",
+    "description": "Brenoo touch\nSmart things it can be found in settings.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25566,7 +25566,7 @@
   },
   {
     "id": "com.tcl.kidsmode",
-    "description": "Kids Mode\nit's app for limit spending time on apps for kids probably.",
+    "description": "Kids Mode\nIt's an app for limiting spending time on apps for kids probably.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -36758,7 +36758,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.stevesoltys.seedvault",
@@ -36893,7 +36893,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.huawei.entitlement",
@@ -37015,7 +37015,7 @@
   {
     "id": "com.huawei.onehopsvchost",
     "list": "Oem",
-    "description": "OneHopSvcHost\nTriggerservice, has only tracking things, hmskit that does not exist on the site of of Huawei.",
+    "description": "OneHopSvcHost\nTriggerservice, has only tracking things, hmskit that does not exist on the site of Huawei.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37096,7 +37096,7 @@
   {
     "id": "ohos.media.medialibrary",
     "list": "Oem",
-    "description": "MediaLibrary\nhas hwddmp components `com.huawei.hwddmp` debuging errors, remote device manager that depends on Huawei account",
+    "description": "MediaLibrary\nhas hwddmp components `com.huawei.hwddmp` debugging errors, remote device manager that depends on Huawei account",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37104,7 +37104,7 @@
   },
   {
     "id": "com.android.systemui.overlay",
-    "list": "Oem",
+    "list": "Aosp",
     "description": "System UI Overlay. DO NOT remove this.",
     "dependencies": [],
     "neededBy": [],
