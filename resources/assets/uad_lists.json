@@ -4223,7 +4223,7 @@
   {
     "id": "com.samsung.android.app.routines",
     "list": "Oem",
-    "description": "Samsung bixby routines (https://www.samsung.com/global/galaxy/what-is/bixby-routines/)\nAutomating actions triggered by context clues: location, time, or event\n",
+    "description": "Samsung Modes and Routines (previously aka Bixby Routines) (https://www.samsung.com/global/galaxy/what-is/bixby-routines/)\nAutomating actions triggered by context clues: location, time, or event\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4402,6 +4402,15 @@
   },
   {
     "id": "com.samsung.android.aware.service",
+    "list": "Oem",
+    "description": "Samsung Quick Share Agent\nUse Wifi direct to share files between 2 Samsung Galaxy phones (it's only for Samsung Galaxy users)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.app.sharelive",
     "list": "Oem",
     "description": "Samsung Quick Share\nUse Wifi direct to share files between 2 Samsung Galaxy phones (it's only for Samsung Galaxy users)\nQuick Share also lets you temporarily upload files to Samsung Cloud\nThere are better alternatives (compatible with all Android devices and free and open-source):\nFor instance: https://f-droid.org/packages/com.genonbeta.TrebleShot/\n",
     "dependencies": [],
@@ -4763,7 +4772,7 @@
   {
     "id": "com.samsung.android.mdx.kit",
     "list": "Oem",
-    "description": "MDE Service Framework\nMDE = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with \"com.samsung.android.mobileservice\" and \"com.osp.app.signin\"\n",
+    "description": "MDE Service Framework / Quick Share Connectivity\nMDE = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with \"com.samsung.android.mobileservice\" and \"com.osp.app.signin\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4781,7 +4790,7 @@
   {
     "id": "com.samsung.android.mobileservice",
     "list": "Oem",
-    "description": "Its name was Samsung Experience Service, before One UI 1.0 (Samsung Experience version 10.0, Android 8.1). Now, it's Group Sharing. Both have similar functionality, but the legacy version was more akin to Samsung Core Services (citation needed). Handles your Samsung account and is needed to use some Samsung apps features.\nIt allows you to use multiple Samsung apps, such as Samsung Health, Samsung Pay, Galaxy Apps, Samsung Members, and SmartThings, \nwith your Samsung account credentials.\nhttps://techshift.net/what-is-samsung-group-sharing/",
+    "description": "Group Sharing (earlier Samsung Experience Service, before One UI 1.0). The legacy version was similar to Samsung Core Services (citation needed).\nCan remove safely if you don't use any group sharing features (shared albums in gallery, etc.).\nHandles your Samsung account and is needed to use some Samsung apps features.\nIt allows you to use multiple Samsung apps, such as Samsung Health, Samsung Pay, Galaxy Apps, Samsung Members, and SmartThings, \nwith your Samsung account credentials.\nhttps://techshift.net/what-is-samsung-group-sharing/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11521,12 +11530,12 @@
   },
   {
     "id": "com.samsung.android.service.tagservice",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Tags in Samsung Gallery app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.camerasdkservice",
@@ -11773,8 +11782,8 @@
   },
   {
     "id": "com.samsung.android.setting.multisound",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "Samsung Separate app sound\nUsed to split audio different apps between phone speaker and bluetooth speaker. Pretty handy.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14222,7 +14231,7 @@
   {
     "id": "com.microsoft.appmanager",
     "list": "Misc",
-    "description": "Your Phone Companion - Link to Windows (https://play.google.com/store/apps/details?id=com.microsoft.appmanager)\nMicrosoft app for synchronising your phone with a W10 PC.\n",
+    "description": "Link to Windows (https://play.google.com/store/apps/details?id=com.microsoft.appmanager)\nMicrosoft app for synchronising your phone with a Windows PC.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28395,7 +28404,7 @@
   },
   {
     "id": "com.samsung.android.vtcamerasettings",
-    "description": "Video call effects\nKeep the focus on you during video calls by blurring the background or covering it with an image or color.",
+    "description": "Video call effects\nKeep the focus on you during video calls by blurring the background or covering it with an image or color.\nUnfortunately, only supports a few apps (Google Meet, WhatsApp, Zoom).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
