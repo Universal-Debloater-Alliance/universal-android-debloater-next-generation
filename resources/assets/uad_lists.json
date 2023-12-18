@@ -11319,7 +11319,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.qualcomm.qti.qcom_accesslogkit",
@@ -25044,8 +25044,8 @@
   },
   {
     "id": "com.android.networkstack.overlay",
-    "description": "Random useless code to com.android.networkstack",
-    "removal": "Recommended",
+    "description": "WiFi will not work after remove.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -37164,5 +37164,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.coloros.sau",
+    "description": "System Upgrade Services\nNeeded to update ColorOS.",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
   }
 ]
