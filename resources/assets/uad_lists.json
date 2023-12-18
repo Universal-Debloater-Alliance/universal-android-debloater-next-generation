@@ -37167,7 +37167,7 @@
   },
   {
     "id": "com.coloros.sau",
-    "description": "System Upgrade Services\nNeeded to update colorOS.",
+    "description": "System Upgrade Services\nNeeded to update ColorOS.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
