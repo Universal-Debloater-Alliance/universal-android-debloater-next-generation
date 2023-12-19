@@ -28394,8 +28394,8 @@
   },
   {
     "id": "com.samsung.android.sdk.ocr",
-    "description": "OCRDataProvider\nNeeded for Handwriting Service probably.",
-    "removal": "Recommended",
+    "description": "It's for OCR (Optical Character Recognition), used among Samsung apps like the gallery, without this, you can't extract text from images.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
