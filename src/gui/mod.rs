@@ -8,6 +8,7 @@ use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
 use crate::core::utils::string_to_theme;
 
+use iced::font;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
 use views::settings::{Message as SettingsMessage, Settings as SettingsView};
@@ -64,6 +65,7 @@ pub enum Message {
     LoadDevices(Vec<Phone>),
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
+    FontLoaded(Result<(), iced::font::Error>),
     Nothing,
 }
 
@@ -77,6 +79,9 @@ impl Application for UadGui {
         (
             Self::default(),
             Command::batch([
+                // Used in crate::gui::widgets::navigation_menu::ICONS. Name is `icomoon`.
+                font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
+                    .map(Message::FontLoaded),
                 Command::perform(get_devices_list(), Message::LoadDevices),
                 Command::perform(
                     async move { get_latest_release() },
@@ -314,6 +319,13 @@ impl Application for UadGui {
                     }
                     Err(_) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
                 };
+                Command::none()
+            }
+            Message::FontLoaded(result) => {
+                if let Err(error) = result {
+                    error!("Couldn't load font: {error:?}");
+                }
+
                 Command::none()
             }
             Message::Nothing => Command::none(),
