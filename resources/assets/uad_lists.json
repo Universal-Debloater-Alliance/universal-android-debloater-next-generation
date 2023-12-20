@@ -5681,11 +5681,11 @@
   {
     "id": "com.sec.android.app.apex",
     "list": "Oem",
-    "description": "Samsung ApexService\nEnables taking motion photos and provides a motion photos player/viewer\nhttps://www.samsung.com/global/galaxy/what-is/motion-photo/\nIt also does face recognition in the gallery.",
+    "description": "Samsung ApexService\nEnables taking motion photos and provides a motion photos player/viewer\nhttps://www.samsung.com/global/galaxy/what-is/motion-photo/\nIt also does face recognition in the gallery. Without this package, motion photos will not work, see\nhttps://www.samsung.com/au/support/mobile-devices/motion-photos",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.sec.android.app.applinker",
