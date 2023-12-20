@@ -30,7 +30,7 @@ toml = "^0"
 dirs = "^5.0.0"
 ureq = { version = "*", features = ["json"] }
 retry = "^2.0.0"
-iced = "^0.10.0"
+iced = { version = "^0.10.0", features = ["advanced"] }
 iced_native = "^0.10.3"
 iced_glow = { version = "^0.8.0", optional = true }
 
