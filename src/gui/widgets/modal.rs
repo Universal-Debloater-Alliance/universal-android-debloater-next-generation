@@ -1,5 +1,5 @@
 use iced_native::alignment::Alignment;
-use iced_native::widget::{self, Tree};
+use iced::advanced::widget::{self, Tree};
 use iced_native::{
     event, layout, mouse, overlay, renderer, Clipboard, Color, Element, Event, Layout, Length,
     Point, Rectangle, Shell, Size, Widget,
