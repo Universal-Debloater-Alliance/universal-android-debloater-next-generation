@@ -5,11 +5,12 @@ pub use crate::gui::views::about::Message as AboutMessage;
 pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingState};
 use crate::gui::{style, Message};
 use iced::widget::{button, container, pick_list, row, text, Space, Text};
-use iced::{alignment, Alignment, Element, Font, Length, Renderer};
+use iced::{alignment, font, Alignment, Element, Font, Length, Renderer};
 
-pub const ICONS: Font = Font::External {
-    name: "Icons",
-    bytes: include_bytes!("../../../resources/assets/icons.ttf"),
+/// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
+pub const ICONS: Font = Font {
+    family: font::Family::Name("icomoon"),
+    ..Font::DEFAULT
 };
 
 pub fn nav_menu<'a>(
