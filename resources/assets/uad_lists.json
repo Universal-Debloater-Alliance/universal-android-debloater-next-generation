@@ -1989,6 +1989,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.samsung.attribution",
+    "list": "Oem",
+    "description": "Related to data collection (?):\nhttps://developer.samsung.com/galaxy-store/galaxy-store-statistics/user-attribution.html",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.sec.android.app.ewidgetatt",
     "list": "Carrier",
     "description": "Entertainment Widget\nAT&T Widget for OneUI\n",
@@ -4995,6 +5004,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.samsung.android.scpm",
+    "list": "Oem",
+    "description": "Samsung Cloud Platform Manager\nRelated to Samsung Cloud. Safe to remove if you don't use it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.samsung.android.sconnect",
     "list": "Oem",
     "description": "Samsung Quick connect (discontinued ?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi\nthat support multiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
@@ -5286,6 +5304,15 @@
     "id": "com.samsung.android.widgetapp.yahooedge.sport",
     "list": "Oem",
     "description": "Special edge panel widget for Yahoo Sport\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.widget.pictureframe",
+    "list": "Oem",
+    "description": "Samsung gallery widget, shows your selected photos as widget",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9250,6 +9277,15 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.adaptivebrightnessgo",
+    "list": "Oem",
+    "description": "Not related to adaptive brightness in the sliding bar. The APK is called `CameraLightSensor`, so I guess it's for the camera.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   {
     "id": "com.fw.upgrade.sysoper",
@@ -36296,6 +36332,15 @@
     "id": "com.samsung.InputEventApp",
     "list": "Oem",
     "description": "Hidden testing things also no activities",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.inputshare",
+    "list": "Oem",
+    "description": "MultiControl\nIts use is to connect 2 devices and control one with the other.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
