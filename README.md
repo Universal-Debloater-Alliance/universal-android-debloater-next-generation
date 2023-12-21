@@ -105,7 +105,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   sudo apt install android-sdk-platform-tools
   ```
 
-  Arch-Linux Base:
+  Arch Linux Base:
 
   ```bash
   sudo pacman -S android-tools
@@ -135,7 +135,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   sudo nix-shell -p android-tools
   ```
   
-  Alpine Linux or FreeBSD Base:
+  Alpine Linux, Adélie or FreeBSD Base:
 
   ```bash
   sudo pkg install android-tools
@@ -145,6 +145,30 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   
   ```bash
   sudo dnf install android-tools
+  ```
+
+  PCLinuxOS, Vine Linux or ALT Linux Base:
+  
+  ```bash
+  sudo apt-get install android-tools
+  ```
+  
+  Solus Base:
+  
+  ```bash
+  sudo eopkg install android-tools
+  ```
+
+  Void Base:
+  
+  ```bash
+  sudo xbps-install -Su android-tools
+  ```
+  
+  OpenWrt Base:
+  
+  ```bash
+  sudo opkg install adb
   ```
   
   Replace sudo with doas depending on what you use
