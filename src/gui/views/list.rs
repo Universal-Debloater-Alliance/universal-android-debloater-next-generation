@@ -514,7 +514,7 @@ impl List {
                 tooltip(
                     text("\u{EA0C}")
                         .font(ICONS)
-                        .width(17)
+                        .width(22)
                         .horizontal_alignment(alignment::Horizontal::Center)
                         .style(style::Text::Commentary),
                     "Let's say you choose user 0. If a selected package on user 0\n\

@@ -22,7 +22,7 @@ pub fn nav_menu<'a>(
     let apps_refresh_btn = button(
         Text::new("\u{E900}")
             .font(ICONS)
-            .width(17)
+            .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
     )
     .on_press(Message::RefreshButtonPressed)
