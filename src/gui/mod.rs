@@ -372,7 +372,7 @@ impl UadGui {
                 decorations: true,
                 ..iced::window::Settings::default()
             },
-            default_text_size: 17.0,
+            default_text_size: 16.0,
             ..Settings::default()
         })
     }

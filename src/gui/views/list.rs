@@ -309,6 +309,7 @@ impl List {
             }
             LoadingState::Ready(_) => {
                 let search_packages = text_input("Search packages...", &self.input_value)
+                    .width(160)
                     .on_input(Message::SearchInputChanged)
                     .padding(5);
 
@@ -410,7 +411,7 @@ impl List {
 
                 let unavailable = container(
                     column![
-                        text("ADB is not authorized to access this user!").size(22)
+                        text("ADB is not authorized to access this user!").size(20)
                             .style(style::Text::Danger),
                         text("The most likely reason is that it is the user of your work profile (also called Secure Folder on Samsung devices). There's really no solution, other than completely disabling your work profile in your device settings.")
                             .style(style::Text::Commentary)
@@ -488,13 +489,13 @@ impl List {
                         self.selected_user,
                         Message::ModalUserSelected,
                     )
-                    .size(23),
+                    .size(24),
                 )
             },
         );
 
         let title_ctn =
-            container(row![text("Review your selection").size(25)].align_items(Alignment::Center))
+            container(row![text("Review your selection").size(24)].align_items(Alignment::Center))
                 .width(Length::Fill)
                 .style(style::Container::Frame)
                 .padding([10, 0, 10, 0])
@@ -513,10 +514,9 @@ impl List {
                 tooltip(
                     text("\u{EA0C}")
                         .font(ICONS)
-                        .width(17)
+                        .width(22)
                         .horizontal_alignment(alignment::Horizontal::Center)
-                        .style(style::Text::Commentary)
-                        .size(17),
+                        .style(style::Text::Commentary),
                     "Let's say you choose user 0. If a selected package on user 0\n\
                         is set to be uninstalled and if this same package is disabled on user 10,\n\
                         then the package on both users will be uninstalled.",
@@ -524,7 +524,6 @@ impl List {
                 )
                 .gap(20)
                 .padding(10)
-                .size(17)
                 .style(style::Container::Tooltip)
             ]
             .spacing(10),
@@ -572,12 +571,12 @@ impl List {
                                                     self.phone_packages[selection.0][selection.1]
                                                         .removal
                                                 )]
-                                                .width(100),
+                                                .width(120),
                                                 row![text(
                                                     self.phone_packages[selection.0][selection.1]
                                                         .uad_list
                                                 )]
-                                                .width(60),
+                                                .width(70),
                                                 row![text(
                                                     self.phone_packages[selection.0][selection.1]
                                                         .name
@@ -603,7 +602,7 @@ impl List {
                                                     PackageState::All => text("Impossible")
                                                         .style(style::Text::Danger),
                                                 },]
-                                                .width(60),
+                                                .width(80),
                                             ]
                                             .width(Length::Fill)
                                             .spacing(20),
@@ -802,7 +801,7 @@ fn recap<'a>(
 ) -> Element<'a, Message, Renderer<Theme>> {
     container(
         row![
-            text(removal).size(25).width(Length::FillPortion(1)),
+            text(removal).size(24).width(Length::FillPortion(1)),
             vertical_rule(5),
             row![
                 if settings.device.disable_mode {
