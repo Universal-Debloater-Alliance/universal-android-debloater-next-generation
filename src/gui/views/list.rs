@@ -578,7 +578,7 @@ impl List {
                                                     self.phone_packages[selection.0][selection.1]
                                                         .uad_list
                                                 )]
-                                                .width(60),
+                                                .width(70),
                                                 row![text(
                                                     self.phone_packages[selection.0][selection.1]
                                                         .name
