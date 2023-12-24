@@ -1,9 +1,7 @@
-use iced_native::alignment::Alignment;
-use iced_native::widget::{self, Tree};
-use iced_native::{
-    event, layout, mouse, overlay, renderer, Clipboard, Color, Element, Event, Layout, Length,
-    Point, Rectangle, Shell, Size, Widget,
-};
+use iced::advanced::widget::{self, Tree, Widget};
+use iced::advanced::{layout, overlay, renderer, Clipboard, Layout, Shell};
+use iced::mouse::{self, Cursor};
+use iced::{advanced, event, Alignment, Color, Element, Event, Length, Point, Rectangle, Size};
 
 /// A widget that centers a modal element over some base element
 pub struct Modal<'a, Message, Renderer> {
@@ -38,7 +36,7 @@ impl<'a, Message, Renderer> Modal<'a, Message, Renderer> {
 
 impl<'a, Message, Renderer> Widget<Message, Renderer> for Modal<'a, Message, Renderer>
 where
-    Renderer: iced_native::Renderer,
+    Renderer: advanced::Renderer,
     Message: Clone,
 {
     fn children(&self) -> Vec<Tree> {
@@ -66,10 +64,11 @@ where
         state: &mut Tree,
         event: Event,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor_position: Cursor,
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
+        _viewport: &Rectangle,
     ) -> event::Status {
         self.base.as_widget_mut().on_event(
             &mut state.children[0],
@@ -79,6 +78,7 @@ where
             renderer,
             clipboard,
             shell,
+            _viewport,
         )
     }
 
@@ -86,10 +86,10 @@ where
         &self,
         state: &Tree,
         renderer: &mut Renderer,
-        theme: &<Renderer as iced_native::Renderer>::Theme,
+        theme: &Renderer::Theme,
         style: &renderer::Style,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor: Cursor,
         viewport: &Rectangle,
     ) {
         self.base.as_widget().draw(
@@ -98,7 +98,7 @@ where
             theme,
             style,
             layout,
-            cursor_position,
+            cursor,
             viewport,
         );
     }
@@ -124,14 +124,14 @@ where
         &self,
         state: &Tree,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor: Cursor,
         viewport: &Rectangle,
         renderer: &Renderer,
     ) -> mouse::Interaction {
         self.base.as_widget().mouse_interaction(
             &state.children[0],
             layout,
-            cursor_position,
+            cursor,
             viewport,
             renderer,
         )
@@ -160,7 +160,7 @@ struct Overlay<'a, 'b, Message, Renderer> {
 impl<'a, 'b, Message, Renderer> overlay::Overlay<Message, Renderer>
     for Overlay<'a, 'b, Message, Renderer>
 where
-    Renderer: iced_native::Renderer,
+    Renderer: advanced::Renderer,
     Message: Clone,
 {
     fn layout(&self, renderer: &Renderer, _bounds: Size, position: Point) -> layout::Node {
@@ -181,7 +181,7 @@ where
         &mut self,
         event: Event,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor: Cursor,
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
@@ -191,9 +191,11 @@ where
         #[allow(clippy::equatable_if_let)]
         if let Some(message) = self.on_blur.as_ref() {
             if let Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = &event {
-                if !content_bounds.contains(cursor_position) {
-                    shell.publish(message.clone());
-                    return event::Status::Captured;
+                if let Some(cursor_position) = cursor.position() {
+                    if !content_bounds.contains(cursor_position) {
+                        shell.publish(message.clone());
+                        return event::Status::Captured;
+                    }
                 }
             }
         }
@@ -202,10 +204,11 @@ where
             self.tree,
             event,
             layout.children().next().unwrap(),
-            cursor_position,
+            cursor,
             renderer,
             clipboard,
             shell,
+            &layout.bounds(),
         )
     }
 
@@ -215,12 +218,12 @@ where
         theme: &Renderer::Theme,
         style: &renderer::Style,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor: Cursor,
     ) {
         renderer.fill_quad(
             renderer::Quad {
                 bounds: layout.bounds(),
-                border_radius: renderer::BorderRadius::from(0.0),
+                border_radius: iced::BorderRadius::from(0.0),
                 border_width: 0.0,
                 border_color: Color::TRANSPARENT,
             },
@@ -236,7 +239,7 @@ where
             theme,
             style,
             layout.children().next().unwrap(),
-            cursor_position,
+            cursor,
             &layout.bounds(),
         );
     }
@@ -258,14 +261,14 @@ where
     fn mouse_interaction(
         &self,
         layout: Layout<'_>,
-        cursor_position: Point,
+        cursor: Cursor,
         viewport: &Rectangle,
         renderer: &Renderer,
     ) -> mouse::Interaction {
         self.content.as_widget().mouse_interaction(
             self.tree,
             layout.children().next().unwrap(),
-            cursor_position,
+            cursor,
             viewport,
             renderer,
         )
@@ -274,7 +277,7 @@ where
 
 impl<'a, Message, Renderer> From<Modal<'a, Message, Renderer>> for Element<'a, Message, Renderer>
 where
-    Renderer: 'a + iced_native::Renderer,
+    Renderer: 'a + advanced::Renderer,
     Message: 'a + Clone,
 {
     fn from(modal: Modal<'a, Message, Renderer>) -> Self {
