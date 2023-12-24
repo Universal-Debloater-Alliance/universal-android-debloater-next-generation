@@ -24,7 +24,7 @@ pub fn nav_menu<'a>(
             .font(ICONS)
             .width(17)
             .horizontal_alignment(alignment::Horizontal::Center)
-            .size(17),
+            .size(16),
     )
     .on_press(Message::RefreshButtonPressed)
     .padding(5)

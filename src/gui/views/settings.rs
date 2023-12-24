@@ -193,7 +193,7 @@ impl Settings {
                         Some(string_to_theme(&self.general.theme)),
                         Message::ApplyTheme,
                     )
-                    .size(23),
+                    .size(24),
                 )
             });
         let theme_ctn = container(radio_btn_theme)
@@ -212,7 +212,7 @@ impl Settings {
         let expert_mode_descr =
             text("Most of unsafe packages are known to bootloop the device if removed.")
                 .style(style::Text::Commentary)
-                .size(15);
+                .size(16);
 
         let general_ctn = container(column![expert_mode_checkbox, expert_mode_descr].spacing(10))
             .padding(10)
@@ -236,7 +236,7 @@ impl Settings {
 
         let multi_user_mode_descr = row![
             text("This will not affect the following protected work profile users: ")
-                .size(15)
+                .size(16)
                 .style(style::Text::Commentary),
             text(
                 phone
@@ -247,7 +247,7 @@ impl Settings {
                     .collect::<Vec<String>>()
                     .join(", ")
             )
-            .size(15)
+            .size(16)
             .style(style::Text::Danger)
         ];
 
@@ -267,9 +267,9 @@ impl Settings {
         let disable_mode_descr =
             text("In some cases, it can be better to disable a package instead of uninstalling it")
                 .style(style::Text::Commentary)
-                .size(15);
+                .size(16);
 
-        let unavailable_btn = button(text("Unavailable").size(13))
+        let unavailable_btn = button(text("Unavailable").size(14))
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#\
                     why-is-the-disable-mode-setting-not-available-for-my-device",
@@ -392,24 +392,24 @@ impl Settings {
 
         let content = if phone.adb_id.clone().is_empty() {
             column![
-                text("Theme").size(25),
+                text("Theme").size(26),
                 theme_ctn,
-                text("General").size(25),
+                text("General").size(26),
                 general_ctn,
-                text("Current device").size(25),
+                text("Current device").size(26),
                 no_device_ctn(),
-                text("Backup / Restore").size(25),
+                text("Backup / Restore").size(26),
                 no_device_ctn(),
             ]
             .width(Length::Fill)
             .spacing(20)
         } else {
             column![
-                text("Theme").size(25),
+                text("Theme").size(26),
                 theme_ctn,
-                text("General").size(25),
+                text("General").size(26),
                 general_ctn,
-                text("Current device").size(25),
+                text("Current device").size(26),
                 warning_ctn,
                 device_specific_ctn,
                 backup_restore_ctn,
