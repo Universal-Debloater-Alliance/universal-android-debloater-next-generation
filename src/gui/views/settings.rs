@@ -211,8 +211,7 @@ impl Settings {
 
         let expert_mode_descr =
             text("Most of unsafe packages are known to bootloop the device if removed.")
-                .style(style::Text::Commentary)
-                .size(16);
+                .style(style::Text::Commentary);
 
         let general_ctn = container(column![expert_mode_checkbox, expert_mode_descr].spacing(10))
             .padding(10)
@@ -236,7 +235,6 @@ impl Settings {
 
         let multi_user_mode_descr = row![
             text("This will not affect the following protected work profile users: ")
-                .size(16)
                 .style(style::Text::Commentary),
             text(
                 phone
@@ -247,7 +245,6 @@ impl Settings {
                     .collect::<Vec<String>>()
                     .join(", ")
             )
-            .size(16)
             .style(style::Text::Danger)
         ];
 
@@ -266,8 +263,7 @@ impl Settings {
 
         let disable_mode_descr =
             text("In some cases, it can be better to disable a package instead of uninstalling it")
-                .style(style::Text::Commentary)
-                .size(16);
+                .style(style::Text::Commentary);
 
         let unavailable_btn = button(text("Unavailable").size(14))
             .on_press(Message::UrlPressed(PathBuf::from(

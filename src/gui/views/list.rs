@@ -516,8 +516,7 @@ impl List {
                         .font(ICONS)
                         .width(17)
                         .horizontal_alignment(alignment::Horizontal::Center)
-                        .style(style::Text::Commentary)
-                        .size(16),
+                        .style(style::Text::Commentary),
                     "Let's say you choose user 0. If a selected package on user 0\n\
                         is set to be uninstalled and if this same package is disabled on user 10,\n\
                         then the package on both users will be uninstalled.",
@@ -525,7 +524,6 @@ impl List {
                 )
                 .gap(20)
                 .padding(10)
-                .size(16)
                 .style(style::Container::Tooltip)
             ]
             .spacing(10),

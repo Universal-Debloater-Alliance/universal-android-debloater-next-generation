@@ -23,8 +23,7 @@ pub fn nav_menu<'a>(
         Text::new("\u{E900}")
             .font(ICONS)
             .width(17)
-            .horizontal_alignment(alignment::Horizontal::Center)
-            .size(16),
+            .horizontal_alignment(alignment::Horizontal::Center),
     )
     .on_press(Message::RefreshButtonPressed)
     .padding(5)
