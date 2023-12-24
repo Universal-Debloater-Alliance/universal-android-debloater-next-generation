@@ -9,7 +9,9 @@ use crate::gui::style;
 use crate::gui::views::list::PackageInfo;
 use crate::gui::widgets::package_row::PackageRow;
 
-use iced::widget::{button, checkbox, column, container, pick_list, radio, row, text, Space};
+use iced::widget::{
+    button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space,
+};
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
 use std::path::PathBuf;
 
@@ -418,7 +420,7 @@ impl Settings {
             .spacing(20)
         };
 
-        container(content)
+        container(scrollable(content))
             .padding(10)
             .width(Length::Fill)
             .height(Length::Fill)
