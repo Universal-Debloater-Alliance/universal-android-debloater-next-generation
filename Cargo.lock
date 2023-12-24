@@ -2805,7 +2805,6 @@ dependencies = [
  "flate2",
  "iced",
  "iced_glow",
- "iced_native",
  "log",
  "regex",
  "retry",
