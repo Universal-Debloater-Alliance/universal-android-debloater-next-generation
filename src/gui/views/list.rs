@@ -309,6 +309,7 @@ impl List {
             }
             LoadingState::Ready(_) => {
                 let search_packages = text_input("Search packages...", &self.input_value)
+                    .width(160)
                     .on_input(Message::SearchInputChanged)
                     .padding(5);
 
