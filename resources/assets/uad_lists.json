@@ -10829,7 +10829,7 @@
   {
     "id": "com.android.hotspot2.osulogin",
     "list": "Aosp",
-    "description": "OsuLogin. Hotspot (hidden?) login service.",
+    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30977,6 +30977,15 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.hotspot2.osulogin",
+    "list": "Aosp",
+    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   {
     "id": "com.google.android.ims",
