@@ -7,7 +7,7 @@ could happen to your phone.
 
 **This software is still in an early stage of development. Check out the issues, and feel free to contribute!**
 
-**For the most up-to-date information and real-time communication, please join our discord!**
+**For real-time communication please consider joining our Discord server!**
 [![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
 
 ## Summary
