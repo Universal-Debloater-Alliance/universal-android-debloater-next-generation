@@ -7,6 +7,9 @@ could happen to your phone.
 
 **This software is still in an early stage of development. Check out the issues, and feel free to contribute!**
 
+**For the most up-to-date information and real-time communication, please join our discord!**
+[![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
+
 ## Summary
 
 This is a complete rewrite in Rust of the [UAD project](https://gitlab.com/W1nst0n/universal-android-debloater),
