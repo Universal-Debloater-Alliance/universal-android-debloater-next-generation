@@ -288,7 +288,7 @@ impl List {
     ) -> Element<Message, Renderer<Theme>> {
         match &self.loading_state {
             LoadingState::DownloadingList(_) => {
-                let text = "Downloading latest UAD lists from Github. Please wait...";
+                let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
                 waiting_view(settings, text, true)
             }
             LoadingState::FindingPhones(_) => {
@@ -300,7 +300,7 @@ impl List {
                 waiting_view(settings, text, false)
             }
             LoadingState::_UpdatingUad(_) => {
-                let text = "Updating UAD. Please wait...";
+                let text = "Updating UAD-ng. Please wait...";
                 waiting_view(settings, text, false)
             }
             LoadingState::RestoringDevice(output) => {

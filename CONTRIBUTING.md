@@ -2,7 +2,7 @@
 
 ## For who is this guide?
 
-This guide is meant for users who want to contribute to the codebase of Universal Android Debloater, whether that is the application code or the JSON-file for adding packages. To keep all processes streamlined and consistent, we're asking you to stick to this guide whenever contributing.
+This guide is meant for users who want to contribute to the codebase of Universal Android Debloater New Generation, whether that is the application code or the JSON-file for adding packages. To keep all processes streamlined and consistent, we're asking you to stick to this guide whenever contributing.
 
 ## What are the guidelines?
 

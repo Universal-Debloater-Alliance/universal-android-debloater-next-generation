@@ -2796,7 +2796,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "uad_gui"
+name = "uad_ng"
 version = "0.6.2"
 dependencies = [
  "chrono",
