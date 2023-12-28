@@ -33116,6 +33116,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.transsion.magazineservice.xos",
+    "list": "Oem",
+    "description": "Magazine Lockscreen XOS\nResource-hog bloatware that uses a lot of telemetry. For lock screen to look at pictures... https://play.google.com/store/apps/details?id=com.transsion.magazineservice.xos",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.idea.questionnare",
     "list": "Misc",
     "description": "[NEED MORE INFO / NEED APK] Quizz app from MobileIdea company?",
