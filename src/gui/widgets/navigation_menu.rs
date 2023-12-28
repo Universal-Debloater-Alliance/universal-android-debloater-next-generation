@@ -40,7 +40,7 @@ pub fn nav_menu<'a>(
             Text::new("Updating please wait...")
         } else {
             Text::new(format!(
-                "New UAD-ND version available {} -> {}",
+                "New UAD-ng version available {} -> {}",
                 env!("CARGO_PKG_VERSION"),
                 r.tag_name
             ))

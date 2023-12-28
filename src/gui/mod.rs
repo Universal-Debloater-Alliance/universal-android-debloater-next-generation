@@ -96,7 +96,7 @@ impl Application for UadGui {
     }
 
     fn title(&self) -> String {
-        String::from("Universal Android Debloater New Generation")
+        String::from("Universal Android Debloater Next Generation")
     }
     fn update(&mut self, msg: Message) -> Command<Message> {
         match msg {
