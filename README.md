@@ -3,7 +3,7 @@
 **DISCLAIMER**: Use at your own risk. I am not responsible for anything that
 could happen to your phone.
 
-<img src="/resources/screenshots/v0.5.0.png" width="850" alt="uad_screenshot">
+<img src="/resources/screenshots/v0.6.2.png" width="850" alt="uad_screenshot">
 
 **This software is still in an early stage of development. Check out the issues, and feel free to contribute!**
 
