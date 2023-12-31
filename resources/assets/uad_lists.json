@@ -7508,7 +7508,7 @@
   {
     "id": "com.android.htmlviewer",
     "list": "Aosp",
-    "description": "Allows apps to load URLs into the WebView, which allows web content to be displayed directly in the app..\nWARNING: Removing this causes a bootloop on some MIUI 12.5.4+ phones.",
+    "description": "Allows apps to load URLs into the WebView, which allows web content to be displayed directly in the app.\nWARNING: Removing this causes a bootloop on some MIUI 12.5.4+ phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11261,7 +11261,7 @@
   {
     "id": "com.qualcomm.qti.performancemode",
     "list": "Misc",
-    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nit's on xiaomi, oneplus.\nRemove are not bricks performance mode.",
+    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nit's on xiaomi, oneplus.\nRemoval does not brick performance mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31062,7 +31062,7 @@
   {
     "id": "com.google.android.captiveportallogin",
     "list": "Google",
-    "description": "it's the same as(com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
+    "description": "it's the same as (com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
