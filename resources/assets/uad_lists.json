@@ -37254,5 +37254,50 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.android.safetyregulatoryinfo",
+    "list": "Aosp",
+    "description": "Shows regulatory and general safety information in Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.settings.husky",
+    "list": "Oem",
+    "description": "Settings specific to Google Pixel 8 Pro hardware.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.aicore",
+    "list": "Google",
+    "description": "Required for most AI features on Google Pixel devices such as magic eraser, best take, now playing etc.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.apps.diagnosticstool",
+    "list": "Oem",
+    "description": "Google Pixel diagnostics tool.\n Exclusive to Pixel Watch 1 & 2 along with Pixel 6 series and later running Wear OS 4/Android 14.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.apps.dreamliner",
+    "list": "Oem",
+    "description": "Google Pixel AI wallpaper.\n Exclusive to Pixel 6 series and later running Android 14.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 ]
