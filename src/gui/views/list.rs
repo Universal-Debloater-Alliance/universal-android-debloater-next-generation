@@ -14,7 +14,7 @@ use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use iced::widget::{
-    button, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
+    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
     text_input, tooltip, vertical_rule, Space,
 };
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
@@ -53,6 +53,7 @@ pub struct List {
     selected_removal: Option<Removal>,
     selected_list: Option<UadList>,
     selected_user: Option<User>,
+    all_selected: bool,
     pub input_value: String,
     description: String,
     selection_modal: bool,
@@ -167,6 +168,7 @@ impl List {
                         );
                     }
                 }
+                self.all_selected = selected;
                 Command::none()
             }
             Message::SearchInputChanged(letter) => {
@@ -313,6 +315,13 @@ impl List {
                     .on_input(Message::SearchInputChanged)
                     .padding(5);
 
+                let select_all_checkbox =
+                    checkbox("", self.all_selected, Message::ToggleAllSelected)
+                        .style(style::CheckBox::SettingsEnabled);
+
+                // auto aligns the select all checkbox
+                let pre_padding = Space::new(Length::Fixed(0.0), Length::Shrink);
+
                 let user_picklist = pick_list(
                     selected_device.user_list.clone(),
                     self.selected_user,
@@ -337,6 +346,8 @@ impl List {
                 );
 
                 let control_panel = row![
+                    pre_padding,
+                    select_all_checkbox,
                     search_packages,
                     user_picklist,
                     divider,
@@ -389,25 +400,10 @@ impl List {
                     .padding(5)
                 };
 
-                let select_all_btn = button("Select all")
-                    .padding(5)
-                    .on_press(Message::ToggleAllSelected(true))
-                    .style(style::Button::Primary);
-
-                let unselect_all_btn = button("Unselect all")
-                    .padding(5)
-                    .on_press(Message::ToggleAllSelected(false))
-                    .style(style::Button::Primary);
-
-                let action_row = row![
-                    select_all_btn,
-                    unselect_all_btn,
-                    Space::new(Length::Fill, Length::Shrink),
-                    review_selection,
-                ]
-                .width(Length::Fill)
-                .spacing(10)
-                .align_items(Alignment::Center);
+                let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
+                    .width(Length::Fill)
+                    .spacing(10)
+                    .align_items(Alignment::Center);
 
                 let unavailable = container(
                     column![
