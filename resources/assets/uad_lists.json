@@ -37245,5 +37245,14 @@
     "dependencies": [],
     "neededBy": [],
     "labels": []
+  },
+  {
+    "id": "com.android.DeviceAsWebcam",
+    "list": "Oem",
+    "description": "Allows using certain Pixel phones as a USB webcam.\nMay break USB function picker.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 ]
