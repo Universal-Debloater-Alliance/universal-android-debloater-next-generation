@@ -316,10 +316,20 @@ impl List {
                     .padding(5);
 
                 let select_all_checkbox =
-                    checkbox("Select all", self.all_selected, Message::ToggleAllSelected)
-                        .style(style::CheckBox::SettingsEnabled);
+                    checkbox("", self.all_selected, Message::ToggleAllSelected)
+                        .style(style::CheckBox::SettingsEnabled)
+                        .spacing(0); // no label, so remove space entirely
 
-                let col_sel_all = row![select_all_checkbox].padding(8);
+                let col_sel_all = row![tooltip(
+                    select_all_checkbox,
+                    if self.all_selected {
+                        "Deselect all"
+                    } else {
+                        "Select all"
+                    },
+                    tooltip::Position::Top,
+                )]
+                .padding(8);
 
                 let user_picklist = pick_list(
                     selected_device.user_list.clone(),
@@ -355,7 +365,7 @@ impl List {
                 ]
                 .width(Length::Fill)
                 .align_items(Alignment::Center)
-                .spacing(10)
+                .spacing(6)
                 .padding([0, 16, 0, 0]);
 
                 let packages =
