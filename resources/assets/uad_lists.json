@@ -28286,8 +28286,8 @@
   },
   {
     "id": "com.miui.miinput",
-    "description": "Only for Chinese. Also has duplicated settings activities, gestures.",
-    "removal": "Recommended",
+    "description": "Removing this package breaks \"Gesture shortcuts\" under \"Additional settings\".",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
