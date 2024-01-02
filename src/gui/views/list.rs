@@ -328,7 +328,9 @@ impl List {
                         "Select all"
                     },
                     tooltip::Position::Top,
-                )]
+                )
+                .style(style::Container::Tooltip)
+                .gap(4)]
                 .padding(8);
 
                 let user_picklist = pick_list(
