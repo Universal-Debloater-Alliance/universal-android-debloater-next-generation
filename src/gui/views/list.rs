@@ -319,7 +319,7 @@ impl List {
                     checkbox("Select all", self.all_selected, Message::ToggleAllSelected)
                         .style(style::CheckBox::SettingsEnabled);
 
-                let pre_padding = Space::new(Length::Fixed(0.0), Length::Shrink);
+                let col_sel_all = row![select_all_checkbox].padding(8);
 
                 let user_picklist = pick_list(
                     selected_device.user_list.clone(),
@@ -345,8 +345,7 @@ impl List {
                 );
 
                 let control_panel = row![
-                    pre_padding,
-                    select_all_checkbox,
+                    col_sel_all,
                     search_packages,
                     user_picklist,
                     divider,
