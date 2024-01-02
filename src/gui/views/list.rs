@@ -316,10 +316,9 @@ impl List {
                     .padding(5);
 
                 let select_all_checkbox =
-                    checkbox("", self.all_selected, Message::ToggleAllSelected)
+                    checkbox("Select all", self.all_selected, Message::ToggleAllSelected)
                         .style(style::CheckBox::SettingsEnabled);
 
-                // auto aligns the select all checkbox
                 let pre_padding = Space::new(Length::Fixed(0.0), Length::Shrink);
 
                 let user_picklist = pick_list(
