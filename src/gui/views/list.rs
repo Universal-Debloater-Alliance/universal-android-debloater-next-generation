@@ -14,7 +14,7 @@ use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use iced::widget::{
-    button, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
+    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
     text_input, tooltip, vertical_rule, Space,
 };
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
@@ -53,6 +53,7 @@ pub struct List {
     selected_removal: Option<Removal>,
     selected_list: Option<UadList>,
     selected_user: Option<User>,
+    all_selected: bool,
     pub input_value: String,
     description: String,
     selection_modal: bool,
@@ -167,6 +168,7 @@ impl List {
                         );
                     }
                 }
+                self.all_selected = selected;
                 Command::none()
             }
             Message::SearchInputChanged(letter) => {
@@ -309,9 +311,27 @@ impl List {
             }
             LoadingState::Ready(_) => {
                 let search_packages = text_input("Search packages...", &self.input_value)
-                    .width(160)
+                    .width(Length::Fill)
                     .on_input(Message::SearchInputChanged)
                     .padding(5);
+
+                let select_all_checkbox =
+                    checkbox("", self.all_selected, Message::ToggleAllSelected)
+                        .style(style::CheckBox::SettingsEnabled)
+                        .spacing(0); // no label, so remove space entirely
+
+                let col_sel_all = row![tooltip(
+                    select_all_checkbox,
+                    if self.all_selected {
+                        "Deselect all"
+                    } else {
+                        "Select all"
+                    },
+                    tooltip::Position::Top,
+                )
+                .style(style::Container::Tooltip)
+                .gap(4)]
+                .padding(8);
 
                 let user_picklist = pick_list(
                     selected_device.user_list.clone(),
@@ -319,8 +339,6 @@ impl List {
                     Message::UserSelected,
                 )
                 .width(85);
-
-                let divider = Space::new(Length::Fill, Length::Shrink);
 
                 let list_picklist =
                     pick_list(&UadList::ALL[..], self.selected_list, Message::ListSelected);
@@ -337,16 +355,16 @@ impl List {
                 );
 
                 let control_panel = row![
+                    col_sel_all,
                     search_packages,
                     user_picklist,
-                    divider,
                     removal_picklist,
                     package_state_picklist,
                     list_picklist,
                 ]
                 .width(Length::Fill)
                 .align_items(Alignment::Center)
-                .spacing(10)
+                .spacing(6)
                 .padding([0, 16, 0, 0]);
 
                 let packages =
@@ -389,25 +407,10 @@ impl List {
                     .padding(5)
                 };
 
-                let select_all_btn = button("Select all")
-                    .padding(5)
-                    .on_press(Message::ToggleAllSelected(true))
-                    .style(style::Button::Primary);
-
-                let unselect_all_btn = button("Unselect all")
-                    .padding(5)
-                    .on_press(Message::ToggleAllSelected(false))
-                    .style(style::Button::Primary);
-
-                let action_row = row![
-                    select_all_btn,
-                    unselect_all_btn,
-                    Space::new(Length::Fill, Length::Shrink),
-                    review_selection,
-                ]
-                .width(Length::Fill)
-                .spacing(10)
-                .align_items(Alignment::Center);
+                let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
+                    .width(Length::Fill)
+                    .spacing(10)
+                    .align_items(Alignment::Center);
 
                 let unavailable = container(
                     column![
