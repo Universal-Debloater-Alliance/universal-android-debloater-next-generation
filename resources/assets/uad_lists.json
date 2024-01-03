@@ -7508,7 +7508,7 @@
   {
     "id": "com.android.htmlviewer",
     "list": "Aosp",
-    "description": "Allows apps to load URLs into the WebView, which allows web content to be displayed directly in the app..\nWARNING: Removing this causes a bootloop on some MIUI 12.5.4+ phones.",
+    "description": "Allows apps to load URLs into the WebView, which allows web content to be displayed directly in the app.\nWARNING: Removing this causes a bootloop on some MIUI 12.5.4+ phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10829,7 +10829,7 @@
   {
     "id": "com.android.hotspot2.osulogin",
     "list": "Aosp",
-    "description": "OsuLogin. Hotspot (hidden?) login service.",
+    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11261,7 +11261,7 @@
   {
     "id": "com.qualcomm.qti.performancemode",
     "list": "Misc",
-    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nit's on xiaomi, oneplus.\nRemove are not bricks performance mode.",
+    "description": "Performance Mode\nHidden Performance Mode activity not available for users.\nit's on xiaomi, oneplus.\nRemoval does not brick performance mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28286,8 +28286,8 @@
   },
   {
     "id": "com.miui.miinput",
-    "description": "Only for Chinese. Also has duplicated settings activities, gestures.",
-    "removal": "Recommended",
+    "description": "Removing this package breaks \"Gesture shortcuts\" under \"Additional settings\".",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -30979,6 +30979,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.google.android.hotspot2.osulogin",
+    "list": "Aosp",
+    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
     "id": "com.google.android.ims",
     "list": "Google",
     "description": "Carrier Services (https://play.google.com/store/apps/details?id=com.google.android.ims)\nRuns in the background.\nPlay store description claims power savings in addition to the features, but I don't see how that could be the case.\nIMS(Ip Multimedia Subsystem) is an open industry standard for voice and multimedia communications over packet-based IP networks (VoLTE/VoIP/Wifi calling).\nSafe to remove.",
@@ -31053,7 +31062,7 @@
   {
     "id": "com.google.android.captiveportallogin",
     "list": "Google",
-    "description": "it's the same as(com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
+    "description": "it's the same as (com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33107,6 +33116,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.transsion.magazineservice.xos",
+    "list": "Oem",
+    "description": "Magazine Lockscreen XOS\nResource-hog bloatware that uses a lot of telemetry. For lock screen to look at pictures... https://play.google.com/store/apps/details?id=com.transsion.magazineservice.xos",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.idea.questionnare",
     "list": "Misc",
     "description": "[NEED MORE INFO / NEED APK] Quizz app from MobileIdea company?",
@@ -33334,7 +33352,7 @@
   {
     "id": "com.huawei.systemmanager",
     "list": "Oem",
-    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found).",
+    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
