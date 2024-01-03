@@ -311,7 +311,7 @@ impl List {
             }
             LoadingState::Ready(_) => {
                 let search_packages = text_input("Search packages...", &self.input_value)
-                    .width(160)
+                    .width(Length::Fill)
                     .on_input(Message::SearchInputChanged)
                     .padding(5);
 
@@ -340,8 +340,6 @@ impl List {
                 )
                 .width(85);
 
-                let divider = Space::new(Length::Fill, Length::Shrink);
-
                 let list_picklist =
                     pick_list(&UadList::ALL[..], self.selected_list, Message::ListSelected);
                 let package_state_picklist = pick_list(
@@ -360,7 +358,6 @@ impl List {
                     col_sel_all,
                     search_packages,
                     user_picklist,
-                    divider,
                     removal_picklist,
                     package_state_picklist,
                     list_picklist,
