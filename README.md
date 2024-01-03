@@ -1,4 +1,4 @@
-# Universal Android Debloater GUI
+# Universal Android Debloater Next Generation GUI
 
 **DISCLAIMER**: Use at your own risk. I am not responsible for anything that
 could happen to your phone.
@@ -6,6 +6,9 @@ could happen to your phone.
 <img src="/resources/screenshots/v0.6.2.png" width="850" alt="uad_screenshot">
 
 **This software is still in an early stage of development. Check out the issues, and feel free to contribute!**
+
+**For real-time communication, consider joining our Discord server:**
+[![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
 
 ## Summary
 
@@ -170,7 +173,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   - Download [android platform tools](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
     and unzip it somewhere.
   - [Add the android platform tools to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
-    **OR** make sure to launch UAD from the same directory.
+    **OR** make sure to launch UAD-ng from the same directory.
 
   - [Install USB drivers for your device](https://developer.android.com/studio/run/oem-usb#Drivers)
   - Check your device is detected:
@@ -182,7 +185,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   </details>
   </p>
 
-- Download the latest release of UAD GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
+- Download the latest release of UAD-ng GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
 **NOTE:** Chinese phone users may need to use the AOSP list to remove some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been

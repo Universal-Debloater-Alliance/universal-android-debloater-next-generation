@@ -4,7 +4,7 @@ use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
 pub use crate::gui::views::about::Message as AboutMessage;
 pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingState};
 use crate::gui::{style, Message};
-use iced::widget::{button, container, pick_list, row, text, Space, Text};
+use iced::widget::{button, container, pick_list, row, text, tooltip, Space, Text};
 use iced::{alignment, font, Alignment, Element, Font, Length, Renderer};
 
 /// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
@@ -29,6 +29,10 @@ pub fn nav_menu<'a>(
     .padding(5)
     .style(style::Button::Refresh);
 
+    let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps", tooltip::Position::Bottom)
+        .style(style::Container::Tooltip)
+        .gap(4);
+
     let reboot_btn = button("Reboot")
         .on_press(Message::RebootButtonPressed)
         .padding(5)
@@ -40,7 +44,7 @@ pub fn nav_menu<'a>(
             Text::new("Updating please wait...")
         } else {
             Text::new(format!(
-                "New UAD version available {} -> {}",
+                "New UAD-ng version available {} -> {}",
                 env!("CARGO_PKG_VERSION"),
                 r.tag_name
             ))
@@ -78,7 +82,7 @@ pub fn nav_menu<'a>(
 
     let row = match selected_device {
         Some(phone) => row![
-            apps_refresh_btn,
+            apps_refresh_tooltip,
             reboot_btn,
             pick_list(device_list, Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
@@ -92,7 +96,7 @@ pub fn nav_menu<'a>(
         .spacing(10),
         None => row![
             reboot_btn,
-            apps_refresh_btn,
+            apps_refresh_tooltip,
             device_list_text,
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,

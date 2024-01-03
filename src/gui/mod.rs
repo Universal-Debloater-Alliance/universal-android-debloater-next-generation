@@ -96,7 +96,7 @@ impl Application for UadGui {
     }
 
     fn title(&self) -> String {
-        String::from("Universal Android Debloater")
+        String::from("Universal Android Debloater Next Generation")
     }
     fn update(&mut self, msg: Message) -> Command<Message> {
         match msg {
@@ -268,7 +268,7 @@ impl Application for UadGui {
                 ))))
             }
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD update has been download!");
+                debug!("UAD-ng update has been download!");
 
                 #[cfg(feature = "self-update")]
                 if let Ok((relaunch_path, cleanup_path)) = res {
@@ -303,11 +303,11 @@ impl Application for UadGui {
                             if let Err(e) = remove_file(cleanup_path) {
                                 error!("Could not remove temp update file: {}", e);
                             }
-                            error!("Failed to update UAD: {}", error);
+                            error!("Failed to update UAD-ng: {}", error);
                         }
                     }
                 } else {
-                    error!("Failed to update UAD!");
+                    error!("Failed to update UAD-ng!");
                 }
                 Command::none()
             }
