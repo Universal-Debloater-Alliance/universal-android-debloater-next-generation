@@ -229,17 +229,17 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
 pub const fn bin_name() -> &'static str {
     #[cfg(target_os = "windows")]
     {
-        "uad_gui.exe"
+        "uad-ng.exe"
     }
 
     #[cfg(target_os = "macos")]
     {
-        "uad_gui-macos"
+        "uad-ng-macos"
     }
 
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
     {
-        "uad_gui-linux"
+        "uad-ng-linux"
     }
 }
 

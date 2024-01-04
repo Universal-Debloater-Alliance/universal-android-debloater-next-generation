@@ -61,7 +61,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
 }
 
 pub fn setup_uad_dir(dir: Option<PathBuf>) -> PathBuf {
-    let dir = dir.unwrap().join("uad-ng");
+    let dir = dir.unwrap().join("uad");
     fs::create_dir_all(&dir).expect("Can't create cache directory");
     dir
 }
