@@ -9461,7 +9461,7 @@
   {
     "id": "com.mediatek.dataprotection",
     "list": "Misc",
-    "description": "Possibly related to user partition encryption / decryption.\nA device should works flawlesly without it.",
+    "description": "Possibly related to user partition encryption/decryption.\nA device should works flawlessly without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9479,7 +9479,7 @@
   {
     "id": "android.overlay.common",
     "list": "Aosp",
-    "description": "It has some important settings and configurations related to android.",
+    "description": "It has some important settings and configurations related to Android.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9488,7 +9488,7 @@
   {
     "id": "android.overlay.target",
     "list": "Aosp",
-    "description": "It has some important settings and configurations related to android.",
+    "description": "It has some important settings and configurations related to Android.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9506,7 +9506,7 @@
   {
     "id": "com.android.nearby.halfsheet",
     "list": "Aosp",
-    "description": "Useless frameworks related to wifi connection, usb tethering, auto and usage.\nEvery version has random code and app not running in the background.",
+    "description": "Useless frameworks to Wi-Fi connections, USB tethering, auto, usage.\nEvery version has random code and the app is not running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30837,7 +30837,7 @@
   {
     "id": "com.google.android.nearby.halfsheet",
     "list": "Aosp",
-    "description": "Useless frameworks to wifi connection, usb tethering, auto, usage.\nevery version have random code and app not running in the background.\nlooks like a very useless.",
+    "description": "Useless frameworks to Wi-Fi connections, USB tethering, auto, usage.\nEvery version has random code and the app is not running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
