@@ -133,19 +133,17 @@ pub async fn perform_adb_commands(
     }
 }
 
-#[allow(clippy::option_if_let_else)]
 pub fn user_flag(user_id: Option<&User>) -> String {
-    match user_id {
-        Some(user_id) => format!(" --user {}", user_id.id),
-        None => "".to_string(),
-    }
+    user_id
+        .map(|user| format!(" --user {}", user.id))
+        .unwrap_or_default()
 }
 
 pub fn list_all_system_packages(user_id: Option<&User>) -> String {
     let action = format!("pm list packages -s -u{}", user_flag(user_id));
 
     adb_shell_command(true, &action)
-        .unwrap_or_else(|_| String::new())
+        .unwrap_or_default()
         .replace("package:", "")
 }
 
