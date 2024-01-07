@@ -58,6 +58,11 @@ jobs:
       - name: Tarball Linux/MacOS binary
         if: matrix.os != 'windows-latest'
         run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,}
+      - name: Create checksums for binaries and archives
+        run: > 
+          sha256sum bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}.exe | tee bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}-checksum.txt 
+          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}-checksum 
+          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}-checksum
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
