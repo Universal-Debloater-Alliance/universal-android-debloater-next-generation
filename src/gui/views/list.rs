@@ -26,20 +26,15 @@ pub struct PackageInfo {
     pub removal: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub enum LoadingState {
     DownloadingList,
+    #[default]
     FindingPhones,
     LoadingPackages,
     _UpdatingUad,
     Ready,
     RestoringDevice(String),
-}
-
-impl Default for LoadingState {
-    fn default() -> Self {
-        Self::FindingPhones
-    }
 }
 
 #[derive(Default, Debug, Clone)]
