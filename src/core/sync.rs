@@ -238,11 +238,8 @@ pub fn apply_pkg_state_commands(
         },
         PackageState::All => vec![],
     };
-    if phone.android_sdk < 21 {
-        request_builder(&commands, &package.name, None)
-    } else {
-        request_builder(&commands, &package.name, Some(selected_user))
-    }
+    let user = (phone.android_sdk < 21).then_some(selected_user);
+    request_builder(&commands, &package.name, user)
 }
 
 pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
