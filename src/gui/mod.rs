@@ -215,16 +215,14 @@ impl Application for UadGui {
                 match msg {
                     AboutMessage::UpdateUadLists => {
                         self.update_state.uad_list = UadListState::Downloading;
-                        self.apps_view.loading_state =
-                            ListLoadingState::DownloadingList(String::new());
+                        self.apps_view.loading_state = ListLoadingState::DownloadingList;
                         self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
                     }
                     AboutMessage::DoSelfUpdate => {
                         #[cfg(feature = "self-update")]
                         if self.update_state.self_update.latest_release.is_some() {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
-                            self.apps_view.loading_state =
-                                ListLoadingState::_UpdatingUad(String::new());
+                            self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
                             let bin_name = bin_name().to_owned();
                             let release = self
                                 .update_state
@@ -256,7 +254,7 @@ impl Application for UadGui {
                     s_device.android_sdk, s_device.model
                 );
                 info!("{:-^65}", "-");
-                self.apps_view.loading_state = ListLoadingState::FindingPhones(String::new());
+                self.apps_view.loading_state = ListLoadingState::FindingPhones;
 
                 #[allow(unused_must_use)]
                 {
