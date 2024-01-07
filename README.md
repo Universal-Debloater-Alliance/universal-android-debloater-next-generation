@@ -1,4 +1,4 @@
-# Universal Android Debloater Next Generation GUI
+# Universal Android Debloater Next Generation
 
 **DISCLAIMER**: Use at your own risk. I am not responsible for anything that
 could happen to your phone.
@@ -12,19 +12,12 @@ could happen to your phone.
 
 ## Summary
 
-This is a complete rewrite in Rust of the [UAD project](https://gitlab.com/W1nst0n/universal-android-debloater),
-which aims to improve privacy and battery performance by removing unnecessary
-and obscure system apps.
+This is a detached fork of the [UAD project](https://github.com/0x192/universal-android-debloater), which aims to improve privacy and battery performance by removing unnecessary and obscure system apps.
 This can also contribute to improving security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface).
 
-Packages are as well documented as possible to provide a better understanding
-of what you can delete or not. The worst issue that could happen is removing
-an essential system package needed during boot causing then an unfortunate
-bootloop. After about 5 failed system boots, the phone will automatically reboot
-in recovery mode, and you'll have to perform a FACTORY RESET. Make a backup first!
+Packages are as well documented as possible to provide a better understanding of what you can delete or not. The worst issue that could happen is removing an essential system package needed during boot causing then an unfortunate bootloop. After about 5 failed system boots, the phone will automatically reboot in recovery mode, and you'll have to perform a FACTORY RESET. Make a backup first!
 
-In any case, you **CANNOT** brick your device with this software!
-That's the main point, right?
+In any case, you **CANNOT** brick your device with this software! That's the main point, right?
 
 ## Features
 
@@ -185,7 +178,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
   </details>
   </p>
 
-- Download the latest release of UAD-ng GUI for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
+- Download the latest release of UAD-ng for your Operating System [here](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/releases). Take the `opengl` version only if the default version (with a Vulkan backend) doesn't launch.
 
 **NOTE:** Chinese phone users may need to use the AOSP list to remove some stock
 apps because those Chinese manufacturers (especially Xiaomi and Huawei) have been

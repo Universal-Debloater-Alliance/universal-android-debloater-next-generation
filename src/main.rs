@@ -57,13 +57,15 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
     let file_dispatcher = fern::Dispatch::new()
         .format(make_formatter(false))
         .level(default_log_level)
-        .level_for("uad_gui", log::LevelFilter::Debug)
+        // Rust compiler makes module names use _ instead of -
+        .level_for("uad_ng", log::LevelFilter::Debug)
         .chain(log_file);
 
     let stdout_dispatcher = fern::Dispatch::new()
         .format(make_formatter(true))
         .level(default_log_level)
-        .level_for("uad_gui", log::LevelFilter::Warn)
+        // Rust compiler makes module names use _ instead of -
+        .level_for("uad_ng", log::LevelFilter::Warn)
         .chain(std::io::stdout());
 
     fern::Dispatch::new()

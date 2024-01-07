@@ -51,15 +51,15 @@ jobs:
         run: mkdir -p bin
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-latest'
-        run: mv target/release/uad_gui.exe bin/uad_gui-${{ matrix.build_target }}${{ matrix.renderer }}.exe
+        run: mv target/release/uad-ng.exe bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}.exe
       - name: Renaming binaries [Others]
         if: matrix.os != 'windows-latest'
-        run: mv target/release/uad_gui bin/uad_gui${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
+        run: mv target/release/uad-ng bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
       - name: Tarball Linux/MacOS binary
         if: matrix.os != 'windows-latest'
-        run: tar -czf bin/uad_gui${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,}
+        run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,}
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: uad_gui${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
-          path: bin/uad_gui-*
+          name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
+          path: bin/uad-ng-*

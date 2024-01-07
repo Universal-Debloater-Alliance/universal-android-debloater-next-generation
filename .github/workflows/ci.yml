@@ -2,16 +2,16 @@ name: Continuous Integration
 on:
   push:
     paths:
-      - "**.rs"
-      - "Cargo.lock"
-      - "Cargo.toml"
-      - "**.json"
+      - Cargo.lock
+      - Cargo.toml
+      - resources/assets/*.ttf
+      - src/**
   pull_request:
     paths:
-      - "**.rs"
-      - "Cargo.lock"
-      - "Cargo.toml"
-      - "**.json"
+      - Cargo.lock
+      - Cargo.toml
+      - resources/assets/*.ttf
+      - src/**
 
 jobs:
   lint:

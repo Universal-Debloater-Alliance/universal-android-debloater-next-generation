@@ -28,13 +28,12 @@ pub fn fetch_packages(
         uad_list = UadList::Unlisted;
         removal = Removal::Unlisted;
 
-        if uad_lists.contains_key(p_name) {
-            description = &uad_lists.get(p_name).unwrap().description;
-            if description.is_empty() {
-                description = "[No description] : CONTRIBUTION WELCOMED";
-            };
-            uad_list = uad_lists.get(p_name).unwrap().list;
-            removal = uad_lists.get(p_name).unwrap().removal;
+        if let Some(package) = uad_lists.get(p_name) {
+            if !package.description.is_empty() {
+                description = &package.description
+            }
+            uad_list = package.list;
+            removal = package.removal;
         }
 
         if enabled_system_packages.contains(p_name) {
@@ -61,7 +60,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
 }
 
 pub fn setup_uad_dir(dir: Option<PathBuf>) -> PathBuf {
-    let dir = dir.unwrap().join("uad-ng");
+    let dir = dir.unwrap().join("uad");
     fs::create_dir_all(&dir).expect("Can't create cache directory");
     dir
 }
