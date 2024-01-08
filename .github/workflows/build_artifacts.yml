@@ -60,8 +60,8 @@ jobs:
         run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,}
       - name: Create checksums for binaries and archives [Windows]
         if: matrix.os == 'windows-latest'
-      - name: Create checksums for binaries and archives [Others]
         run: sha256sum bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}.exe | tee bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}-checksum.txt
+      - name: Create checksums for binaries and archives [Others]
         if: matrix.os != 'windows-latest'
         run: >
           sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}-checksum 
