@@ -289,17 +289,17 @@ impl List {
                 waiting_view(settings, text, true)
             }
             LoadingState::FindingPhones => {
-                waiting_view(settings, "Finding connected devices...", true)
+                waiting_view(settings, "Finding connected devices...", false)
             }
             LoadingState::LoadingPackages => {
                 let text = "Pulling packages from the device. Please wait...";
-                waiting_view(settings, text, true)
+                waiting_view(settings, text, false)
             }
             LoadingState::_UpdatingUad => {
-                waiting_view(settings, "Updating UAD-ng. Please wait...", true)
+                waiting_view(settings, "Updating UAD-ng. Please wait...", false)
             }
             LoadingState::RestoringDevice(device) => {
-                waiting_view(settings, &format!("Restoring device: {device}"), true)
+                waiting_view(settings, &format!("Restoring device: {device}"), false)
             }
             LoadingState::Ready => {
                 let search_packages = text_input("Search packages...", &self.input_value)
