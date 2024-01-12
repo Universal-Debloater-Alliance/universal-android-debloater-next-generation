@@ -26,20 +26,15 @@ pub struct PackageInfo {
     pub removal: String,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Default, Debug, Clone)]
 pub enum LoadingState {
-    DownloadingList(String),
-    FindingPhones(String),
-    LoadingPackages(String),
-    _UpdatingUad(String),
-    Ready(String),
+    DownloadingList,
+    #[default]
+    FindingPhones,
+    LoadingPackages,
+    _UpdatingUad,
+    Ready,
     RestoringDevice(String),
-}
-
-impl Default for LoadingState {
-    fn default() -> Self {
-        Self::FindingPhones(String::new())
-    }
 }
 
 #[derive(Default, Debug, Clone)]
@@ -129,7 +124,7 @@ impl List {
                     selected_device.android_sdk, selected_device.model
                 );
                 info!("{:-^65}", "-");
-                self.loading_state = LoadingState::DownloadingList(String::new());
+                self.loading_state = LoadingState::DownloadingList;
                 Command::perform(
                     Self::init_apps_view(remote, selected_device.clone()),
                     Message::LoadPhonePackages,
@@ -137,7 +132,7 @@ impl List {
             }
             Message::LoadPhonePackages(list_box) => {
                 let (uad_list, list_state) = list_box;
-                self.loading_state = LoadingState::LoadingPackages(String::new());
+                self.loading_state = LoadingState::LoadingPackages;
                 self.uad_lists = uad_list.clone();
                 *list_update_state = list_state;
                 Command::perform(
@@ -153,7 +148,7 @@ impl List {
                 self.selected_list = Some(UadList::All);
                 self.selected_user = Some(User::default());
                 Self::filter_package_lists(self);
-                self.loading_state = LoadingState::Ready(String::new());
+                self.loading_state = LoadingState::Ready;
                 Command::none()
             }
             Message::ToggleAllSelected(selected) => {
@@ -289,27 +284,24 @@ impl List {
         selected_device: &Phone,
     ) -> Element<Message, Renderer<Theme>> {
         match &self.loading_state {
-            LoadingState::DownloadingList(_) => {
+            LoadingState::DownloadingList => {
                 let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
                 waiting_view(settings, text, true)
             }
-            LoadingState::FindingPhones(_) => {
-                let text = "Finding connected devices...";
-                waiting_view(settings, text, false)
+            LoadingState::FindingPhones => {
+                waiting_view(settings, "Finding connected devices...", false)
             }
-            LoadingState::LoadingPackages(_) => {
+            LoadingState::LoadingPackages => {
                 let text = "Pulling packages from the device. Please wait...";
                 waiting_view(settings, text, false)
             }
-            LoadingState::_UpdatingUad(_) => {
-                let text = "Updating UAD-ng. Please wait...";
-                waiting_view(settings, text, false)
+            LoadingState::_UpdatingUad => {
+                waiting_view(settings, "Updating UAD-ng. Please wait...", false)
             }
-            LoadingState::RestoringDevice(output) => {
-                let text = format!("Restoring device: {output}");
-                waiting_view(settings, &text, false)
+            LoadingState::RestoringDevice(device) => {
+                waiting_view(settings, &format!("Restoring device: {device}"), false)
             }
-            LoadingState::Ready(_) => {
+            LoadingState::Ready => {
                 let search_packages = text_input("Search packages...", &self.input_value)
                     .width(Length::Fill)
                     .on_input(Message::SearchInputChanged)

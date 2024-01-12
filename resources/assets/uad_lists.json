@@ -17372,7 +17372,7 @@
   {
     "id": "com.mi.android.globalminusscreen",
     "list": "Oem",
-    "description": "App Vault (https://play.google.com/store/apps/details?id=com.mi.android.globalminusscreen)\nGoogle Feed replica from Xiaomi\nCompletely useless app which displays all the trending stories from the web + a bunch of other stupid things.\n",
+    "description": "Default App Vault package\nSends notifications and can't be uninstalled through the Apps tab. Can be downloaded back from Play Store if needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
