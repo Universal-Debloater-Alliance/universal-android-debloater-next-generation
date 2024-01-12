@@ -7148,7 +7148,7 @@
   {
     "id": "com.samsung.android.honeyboard",
     "list": "Oem",
-    "description": "Samsung keyboard\nWARNING: do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nOpenBoard is FOSS, based on the AOSP keyboard and have direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.",
+    "description": "Samsung keyboard\nWARNING: do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nOpenBoard is FOSS, based on the AOSP keyboard and has direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15923,7 +15923,7 @@
   {
     "id": "com.touchtype.swiftkey",
     "list": "Misc",
-    "description": "Swiftkey Keyboard (https://play.google.com/store/apps/details?id=com.touchtype.swiftkey)\nKeyboard app by TouchType, a Microsoft subsidiary (https://en.wikipedia.org/wiki/SwiftKey)\n4 Trackers + 11 Permissions: https://reports.exodus-privacy.eu.org/en/reports/com.touchtype.swiftkey/latest/\nNOTE: default keyboard on some Nokia and Huawei phones. Make sure you have another keyboard app before disabling this.\nOpenBoard is FOSS, based on the AOSP keyboard and have direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/",
+    "description": "Swiftkey Keyboard (https://play.google.com/store/apps/details?id=com.touchtype.swiftkey)\nKeyboard app by TouchType, a Microsoft subsidiary (https://en.wikipedia.org/wiki/SwiftKey)\n4 Trackers + 11 Permissions: https://reports.exodus-privacy.eu.org/en/reports/com.touchtype.swiftkey/latest/\nNOTE: default keyboard on some Nokia and Huawei phones. Make sure you have another keyboard app before disabling this.\nOpenBoard is FOSS, based on the AOSP keyboard and has direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31017,7 +31017,7 @@
   {
     "id": "com.google.android.inputmethod.latin",
     "list": "Google",
-    "description": "Gboard – the Google Keyboard (https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin)\nSometimes the only keyboard app on a phone; Make sure you have another installed before you disable.\nOpenBoard is FOSS, based on the AOSP keyboard and have direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/",
+    "description": "Gboard – the Google Keyboard (https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin)\nSometimes the only keyboard app on a phone; Make sure you have another installed before you disable.\nOpenBoard is FOSS, based on the AOSP keyboard and has direct boot support:\nhttps://f-droid.org/packages/org.dslul.openboard.inputmethod.latin/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
