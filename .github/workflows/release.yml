@@ -4,19 +4,13 @@ on:
   push:
     branches:
       - main
-    paths:
-      - Cargo.lock
-      - Cargo.toml
-      - resources/assets/*.ttf
-      - src/**
-    tags-ignore:
-      - dev-build
-
-env:
-  dev_tag: dev-build
+    tags:
+      - v?[0-9]+.[0-9]+.[0-9]+ # semver
+      - '!dev-build' # not dev-build
 
 jobs:
   build:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
     uses: ./.github/workflows/build_artifacts.yml
   release:
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
@@ -36,18 +30,3 @@ jobs:
           body_path: ${{ github.workspace }}/CHANGELOG.md
           files: bin/*/uad-ng-*
           prerelease: true
-      # - name: Update dev-build tag
-      #   if: ${{ github.event_name == 'push' }}
-      #   run: |
-      #     git tag -d ${{ env.dev_tag }} || true
-      #     git push origin :refs/tags/${{ env.dev_tag }} || true
-      #     git tag ${{ env.dev_tag }}
-      #     git push origin ${{ env.dev_tag }}
-      # - name: Create dev-build release
-      #   if: ${{ github.event_name == 'push' }}
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     generate_release_notes: true
-      #     files: bin/*/uad-ng-*
-      #     prerelease: true
-      #     tag_name: ${{ env.dev_tag }}

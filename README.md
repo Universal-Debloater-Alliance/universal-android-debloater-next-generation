@@ -1,6 +1,6 @@
 # Universal Android Debloater Next Generation
 
-**DISCLAIMER**: Use at your own risk. I am not responsible for anything that
+**DISCLAIMER**: Use at your own risk. We're not responsible for anything that
 could happen to your phone.
 
 <img src="/resources/screenshots/v0.6.2.png" width="850" alt="uad_screenshot">
@@ -17,7 +17,7 @@ This can also contribute to improving security by reducing [the attack surface](
 
 Packages are as well documented as possible to provide a better understanding of what you can delete or not. The worst issue that could happen is removing an essential system package needed during boot causing then an unfortunate bootloop. After about 5 failed system boots, the phone will automatically reboot in recovery mode, and you'll have to perform a FACTORY RESET. Make a backup first!
 
-In any case, you **CANNOT** brick your device with this software! That's the main point, right?
+In any case, you **CANNOT** hard-brick your device with this software! That's the main point, right?
 
 ## Features
 
@@ -190,7 +190,7 @@ an update to your phone as some _uninstalled_ system apps could be reinstalled.
 ## How to contribute
 
 Hey-hey-hey! Don't go away so fast! This is a community project.
-That means I need you! I'm sure you want to make this project better anyway.
+That means we need you! We're sure you want to make this project better anyway.
 
 ==> [How to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki)
 
