@@ -27,7 +27,7 @@ In any case, you **CANNOT** hard-brick your device with this software! That's th
 - [x] Multi-device support: you can connect multiple phones at the same time
 - [x] All your actions are logged, so you never forget what you've done
 
-NB : System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
+NB: System apps cannot truly be uninstalled without root (see the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ))
 
 ## Universal Debloat Lists
 
@@ -80,6 +80,7 @@ NB : System apps cannot truly be uninstalled without root (see the [FAQ](https:/
 
 - **Read the [FAQ](https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ)!**
 - **Do a proper backup of your data! You can never be too careful!**
+  - Stuck in a bootloop? Check out [this FAQ item](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/FAQ#help-my-phone-is-stuck-in-a-bootloop).
 - Enable _Developer Options_ on your smartphone.
 - Turn on _USB Debugging_ from the developer panel.
 - From the settings, disconnect from any OEM accounts (when you delete an OEM
