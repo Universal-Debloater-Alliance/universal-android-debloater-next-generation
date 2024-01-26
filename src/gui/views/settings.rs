@@ -85,7 +85,14 @@ impl Settings {
                 Command::none()
             }
             Message::LoadDeviceSettings => {
-                let backups = list_available_backups(&BACKUP_DIR.join(phone.adb_id.clone()));
+                let backups = list_available_backups(&BACKUP_DIR.join(&phone.adb_id));
+                let backup = BackupSettings {
+                    backups: backups.clone(),
+                    selected: backups.first().cloned(),
+                    users: phone.user_list.clone(),
+                    selected_user: phone.user_list.first().copied(),
+                    backup_state: String::new(),
+                };
                 match Config::load_configuration_file()
                     .devices
                     .iter()
@@ -93,26 +100,14 @@ impl Settings {
                 {
                     Some(device) => {
                         self.device = device.clone();
-                        self.device.backup = BackupSettings {
-                            backups: backups.clone(),
-                            selected: backups.first().cloned(),
-                            users: phone.user_list.clone(),
-                            selected_user: phone.user_list.first().copied(),
-                            backup_state: String::new(),
-                        };
+                        self.device.backup = backup;
                     }
                     None => {
                         self.device = DeviceSettings {
                             device_id: phone.adb_id.clone(),
                             multi_user_mode: phone.android_sdk > 21,
                             disable_mode: false,
-                            backup: BackupSettings {
-                                backups: backups.clone(),
-                                selected: backups.first().cloned(),
-                                users: phone.user_list.clone(),
-                                selected_user: phone.user_list.first().copied(),
-                                backup_state: String::new(),
-                            },
+                            backup,
                         }
                     }
                 };
