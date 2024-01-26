@@ -5382,6 +5382,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.samsung.ecomm.global.in",
+    "list": "Oem",
+    "description": "Samsung Shop (https://play.google.com/store/apps/details?id=com.samsung.ecomm)\nApp where you can buy all (and only) Samsung products.\nhttps://www.samsung.com/us/explore/shop-samsung-app/\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.samsung.enhanceservice",
     "list": "Oem",
     "description": "Enhanced service is the process for Samsung cloud messaging (equivalent to iMessage on iOS).\nMessages on Samsung phones can be transmitted through either the network carrier or the non-archived Samsung service \n(which is transmitted over wireless data).\nThis features is available in stock samsung SMS app settings.\n",
