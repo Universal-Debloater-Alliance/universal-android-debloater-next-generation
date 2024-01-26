@@ -37245,5 +37245,194 @@
     "dependencies": [],
     "neededBy": [],
     "labels": []
+  },
+  {
+    "id": "android.autoinstalls.config.google.sabrina",
+    "list": "Oem",
+    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.providers.tv",
+    "list": "Oem",
+    "description": "TV Storage\nprovide TV listings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.tv.frameworkpackagestubs",
+    "list": "Oem",
+    "description": "Activity Stub\nHard to say by code, has browser provider and SQLite content.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.tv.settings",
+    "list": "Oem",
+    "description": "Needed for settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.droidlogic",
+    "list": "Oem",
+    "description": "DroidBtPair\nLooks like a important app for properly TV work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.apps.mediashell",
+    "list": "Oem",
+    "description": "Chromecast built-in\nNeeded to support broadcast?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.apps.tv.dreamx",
+    "list": "Oem",
+    "description": "Ambient Mode\nRunning wallpapers from this app like a videos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.apps.tv.launcherx",
+    "list": "Oem",
+    "description": "Google TV\nLauncher to TV, there's no replace.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.apps.tv.dreamx",
+    "list": "Oem",
+    "description": "Ambient Mode\nRunning wallpapers from this app like a videos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.apps.tv.netoscope",
+    "list": "Oem",
+    "description": "Connectivity Diagnostics\nDiagnosis not only connectivity but also time, not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.backdrop",
+    "list": "Oem",
+    "description": "Needed for screensaver.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.chromecast.chromecastservice",
+    "list": "Oem",
+    "description": "Needed for broadcast support?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.chromecast.setupcustomization",
+    "list": "Oem",
+    "description": "Needed for chromecast setup.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.katniss",
+    "list": "Oem",
+    "description": "Google app, no replacement?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tungsten.setupwraith",
+    "list": "Oem",
+    "description": "Setup to add Google account.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.tv.axel",
+    "list": "Oem",
+    "description": "Android TV Infrared Service\nNeeded for volume setup.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tv.dfuservice",
+    "list": "Oem",
+    "description": "Remote Control Update Service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tv.remote.service",
+    "list": "Oem",
+    "description": "Android TV Remote Service, pairing requests.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tv.remotecontrol.logging",
+    "list": "Oem",
+    "description": "Needed for logging?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tvlauncher",
+    "list": "Oem",
+    "description": "Nothing found on this app, but not sure if this app is required for Launcher.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tvrecommendations",
+    "list": "Oem",
+    "description": "Notification to Android11UpgradeReceiver.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 ]
