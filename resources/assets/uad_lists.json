@@ -4943,7 +4943,7 @@
   {
     "id": "com.samsung.android.smartface",
     "list": "Oem",
-    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nNOTE : This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
+    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to "Keep screen on while viewing" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4970,7 +4970,7 @@
   {
     "id": "com.samsung.android.sm",
     "list": "Oem",
-    "description": "Smart Manager app \nProvides pretty useless optimizing features using Chinese company Qihoo database.\nAutomatically scans and optimizes data usage to preserve battery levels, manage storage and RAM\nhttps://www.privateinternetaccess.com/blog/android-community-worried-about-presence-of-chinese-spyware-by-qihoo-360-in-samsung-smartphones-and-tablets/\nhttps://forum.xda-developers.com/galaxy-note-9/help/samsung-services-dialling-home-to-china-t3894033\n",
+    "description": "Smart Manager app\nProvides pretty useless optimizing features using Chinese company Qihoo database.\nAutomatically scans and optimizes data usage to preserve battery levels, manage storage and RAM\nhttps://www.privateinternetaccess.com/blog/android-community-worried-about-presence-of-chinese-spyware-by-qihoo-360-in-samsung-smartphones-and-tablets/\nhttps://forum.xda-developers.com/galaxy-note-9/help/samsung-services-dialling-home-to-china-t3894033\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5015,7 +5015,7 @@
   {
     "id": "com.samsung.android.sconnect",
     "list": "Oem",
-    "description": "Samsung Quick connect (discontinued ?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi\nthat support multiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
+    "description": "Samsung Quick connect (discontinued?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi that support\nmultiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5042,7 +5042,7 @@
   {
     "id": "com.samsung.android.mfi",
     "list": "Oem",
-    "description": "Galaxy Widget (https://play.google.com/store/apps/details?id=com.samsung.android.mfi)\nProvide you with quick access to information without requiring you to open the app that manages this information\nhttps://www.samsung.com/ie/support/mobile-devices/what-are-widgets-and-how-do-i-add-them-to-my-android-smartphone-or-tablet/\n",
+    "description": "Galaxy Widget (https://play.google.com/store/apps/details?id=com.samsung.android.mfi)\nJust shows you ads of some of Samsung's services or other apps/games.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5051,7 +5051,7 @@
   {
     "id": "com.samsung.android.service.peoplestripe",
     "list": "Oem",
-    "description": "People Edge\nGives you immediate access to your favorite contacts from the edge of your phone.\nhttps://www.samsung.com/global/galaxy/what-is/people-edge/\nhttps://videotron.tmtx.ca/en/topic/samsung_galaxys9/using_people_edge.html\nIt gives you immediate access to your favorite contacts from the edge panel.\n",
+    "description": "People Edge\nGives you immediate access to your favorite contacts from the edge of your phone.\nhttps://www.samsung.com/global/galaxy/what-is/people-edge/\nhttps://videotron.tmtx.ca/en/topic/samsung_galaxys9/using_people_edge.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5069,7 +5069,7 @@
   {
     "id": "com.samsung.android.smartcallprovider",
     "list": "Oem",
-    "description": "Samsung Smart Call\nProvides caller profile information to help consumers identify incoming calls and block unwanted ones.\nAlso related to the 'local places' feature in Samsung dialer.\nRelies on Hiya (see com.hiya.star)\nTL;DR : Really bad for privacy.\n",
+    "description": "Samsung Smart Call\nProvides caller profile information to help consumers identify incoming calls and block unwanted ones.\nAlso related to the 'local places' feature in Samsung dialer.\nRelies on Hiya (see com.hiya.star)\nTL;DR : Really bad for privacy.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5078,7 +5078,7 @@
   {
     "id": "com.samsung.android.smartmirroring",
     "list": "Oem",
-    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV\nhttps://www.samsung.com/us/apps/smart-view-2/. Dependency for com.samsung.android.video",
+    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV (https://www.samsung.com/us/apps/smart-view-2/)\nDependency for com.samsung.android.video",
     "dependencies": [],
     "neededBy": ["com.samsung.android.video"],
     "labels": [],
@@ -5087,7 +5087,7 @@
   {
     "id": "com.samsung.android.spayfw",
     "list": "Oem",
-    "description": "Samsung Pay Framework needed for Samsung Pay\nSamsung Pay is a mobile payment and digital wallet service by Samsung Electronics that lets users make payments using compatible phones and other Samsung-produced devices. See below.",
+    "description": "Samsung Pay Framework needed for Samsung Pay\nSamsung Pay is a mobile payment and digital wallet service by Samsung that lets users make payments using compatible phones and other Samsung-produced devices. See below.",
     "dependencies": [],
     "neededBy": ["com.samsung.android.spay"],
     "labels": [],
@@ -5096,7 +5096,7 @@
   {
     "id": "com.samsung.android.spay",
     "list": "Oem",
-    "description": "Samsung Pay (https://play.google.com/store/apps/details?id=com.samsung.android.spay)\nSamsung Pay is a mobile payment and digital wallet service by Samsung Electronics that lets users make payments using compatible phones \nand other Samsung-produced devices\nhttps://en.wikipedia.org/wiki/Samsung_Pay\nNOTE : Samsung Pay is KNOX dependant and will never work again if you root your phone.\nFYI : Your data are sold (https://www.sammobile.com/news/samsung-pay-new-privacy-policy-your-data-sold/)\n",
+    "description": "Samsung Pay (https://play.google.com/store/apps/details?id=com.samsung.android.spay)\nSamsung Pay is a mobile payment and digital wallet service by Samsung that lets users make payments using compatible phones and other Samsung-produced devices\nhttps://en.wikipedia.org/wiki/Samsung_Pay\nNOTE : Samsung Pay is KNOX dependant and will never work again if you root your phone.\nFYI : Your data is sold (https://www.sammobile.com/news/samsung-pay-new-privacy-policy-your-data-sold/)\n",
     "dependencies": ["com.sec.android.app.samsungapps", "com.samsung.android.spayfw"],
     "neededBy": [],
     "labels": [],
@@ -5105,7 +5105,7 @@
   {
     "id": "com.samsung.android.spaymini",
     "list": "Oem",
-    "description": "Samsung Pay Mini\nSame service as Samsung Pay but for online payments only and is available on all compatible android devices (not only Samsung devices)\nhttps://www.samsung.com/in/samsung-pay/mini/\n",
+    "description": "Samsung Pay Mini\nSame service as Samsung Pay but for online payments only and is available on all compatible android devices (not only Samsung devices)\nhttps://www.samsung.com/in/samsung-pay/mini/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5132,7 +5132,7 @@
   {
     "id": "com.samsung.android.ststub",
     "list": "Oem",
-    "description": "Allows users to control, automate, and monitor their home environment via mobile device. \nhttps://en.wikipedia.org/wiki/SmartThings\nREMINDER : stub = https://stackoverflow.com/questions/10648280/what-is-stub-and-aidl-for-in-java\n",
+    "description": "SmartThings\nAllows users to control, automate, and monitor their home environment via mobile device.\nhttps://en.wikipedia.org/wiki/SmartThings\nREMINDER: stub = https://stackoverflow.com/questions/10648280/what-is-stub-and-aidl-for-in-java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5204,7 +5204,7 @@
   {
     "id": "com.samsung.android.unifiedprofile",
     "list": "Oem",
-    "description": "My Profile\nRelated to Samsung Members?\n",
+    "description": "My Profile\n\nRelated to Samsung Members?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5249,7 +5249,7 @@
   {
     "id": "com.samsung.android.voc",
     "list": "Oem",
-    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.android.voc)\nThe other version is \"com.samsung.oh\".\n",
+    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.android.voc)\nThe other version is \"com.samsung.oh\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5348,7 +5348,7 @@
   {
     "id": "com.samsung.desktopsystemui",
     "list": "Oem",
-    "description": "Samsung DEX UI\nExtends your smartphone into a \"desktop computing experience\".\nhttps://developer.samsung.com/samsung-dex/how-it-works\n",
+    "description": "Samsung DeX UI\nExtends your smartphone into a \"desktop computing experience\".\nhttps://developer.samsung.com/samsung-dex/how-it-works\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5375,7 +5375,7 @@
   {
     "id": "com.samsung.ecomm",
     "list": "Oem",
-    "description": "Shop Samsung (https://play.google.com/store/apps/details?id=com.samsung.ecomm)\nApp where you can buy all (and only) Samsung products.\nhttps://www.samsung.com/us/explore/shop-samsung-app/\n",
+    "description": "Samsung Shop (https://play.google.com/store/apps/details?id=com.samsung.ecomm)\nApp where you can buy all (and only) Samsung products.\nhttps://www.samsung.com/us/explore/shop-samsung-app/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5510,7 +5510,7 @@
   {
     "id": "com.samsung.knox.securefolder",
     "list": "Oem",
-    "description": "Knox Secure Folder (https://play.google.com/store/apps/details?id=com.samsung.knox.securefolder)\nCreate a secure space on your device to encrypt and store your private data and apps.\nhttps://www.samsungknox.com/en/solutions/personal-apps/secure-folder\nNOTE: The key used to encrypt the files is not derived from the password you use to unlock the secure folder \nbut rather from a key stored in the hardware that is set in the factory.\n",
+    "description": "Secure Folder (https://play.google.com/store/apps/details?id=com.samsung.knox.securefolder)\nCreate a secure space on your device to encrypt and store your private data and apps.\nhttps://www.samsungknox.com/en/solutions/personal-apps/secure-folder\nNOTE: The key used to encrypt the files is not derived from the password you use to unlock the secure folder\nbut rather from a key stored in the hardware that is set in the factory.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5582,7 +5582,7 @@
   {
     "id": "com.samsung.safetyinformation",
     "list": "Oem",
-    "description": "Some safety information telling you not to put your phone in your eyes (it's not a joke)\n",
+    "description": "Safety information telling you not to put your phone in your eyes or other dangerous stuff\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5654,7 +5654,7 @@
   {
     "id": "com.samsung.visionprovider",
     "list": "Oem",
-    "description": "Provider for Bixby Vision (com.samsung.android.visionintelligence)\nManages access to data stored by itself, stored by other apps, and provide a way to share these data with other apps.\n",
+    "description": "Provider for Bixby Vision (com.samsung.android.visionintelligence)\nManages access to data stored by itself, stored by other apps, and provide a way to share these data with other apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5753,7 +5753,7 @@
   {
     "id": "com.sec.android.app.desktoplauncher",
     "list": "Oem",
-    "description": "Samsung DeX Home (launcher)\nDex Enables users to extend their device into a desktop-like experience by connecting a keyboard, mouse, and monitor.\n\"DeX\" is a contraction of \"Desktop eXperience\".\nhttps://en.wikipedia.org/wiki/Samsung_DeX\n",
+    "description": "Samsung DeX Home (launcher)\nDex enables users to extend their device into a desktop-like experience by connecting a keyboard, mouse, and monitor.\n\"DeX\" is a contraction of \"Desktop eXperience\".\nhttps://en.wikipedia.org/wiki/Samsung_DeX\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5807,7 +5807,7 @@
   {
     "id": "com.sec.android.app.hwmoduletest",
     "list": "Oem",
-    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it). \nFun low-level stuff to see in there\n",
+    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it).\nHas stuff to quickly check the phone hardware. Removing it does not break anything, but no point in removing it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5843,7 +5843,7 @@
   {
     "id": "com.sec.android.app.parser",
     "list": "Oem",
-    "description": "DRParser Mode \nSecret code parser\nSupport for hidden samsung apps launched via secret codes\n",
+    "description": "DRParser Mode\nSecret code parser\nSupport for hidden samsung apps launched via secret codes",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5888,7 +5888,7 @@
   {
     "id": "com.sec.android.app.sbrowser",
     "list": "Oem",
-    "description": "Samsung web browser (https://play.google.com/store/apps/details?id=com.sec.android.app.sbrowser)\n\nDon't use this browser. In their privacy policy: \"The information we obtain [...] include, identifiers associated with your devices, types of devices, web browser characteristics, device and operating system type and characteristics, language preferences, clickstream data, your interactions with Samsung Internet (such as the web pages you visit, links you click and features you use), dates and times of your use of Samsung Internet, and other information about your use of Samsung Internet\"\nhttps://developer.samsung.com/internet/privacy-policy-us.html",
+    "description": "Samsung Internet (https://play.google.com/store/apps/details?id=com.sec.android.app.sbrowser)\n\nDon't use this browser. In their privacy policy: \"The information we obtain [...] include, identifiers associated with your devices, types of devices, web browser characteristics, device and operating system type and characteristics, language preferences, clickstream data, your interactions with Samsung Internet (such as the web pages you visit, links you click and features you use), dates and times of your use of Samsung Internet, and other information about your use of Samsung Internet\"\nhttps://developer.samsung.com/internet/privacy-policy-us.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5897,7 +5897,7 @@
   {
     "id": "com.sec.android.app.sbrowser.lite",
     "list": "Oem",
-    "description": "Samsung web browser lite\nLite version of the Samsung browser (hah! Because the base one was too bloated?)\nDon't use this browser. In their privacy policy: \"The information we obtain [...] include, identifiers associated with your devices, types of devices, web browser characteristics, device and operating system type and characteristics, language preferences, clickstream data, your interactions with Samsung Internet (such as the web pages you visit, links you click and features you use), dates and times of your use of Samsung Internet, and other information about your use of Samsung Internet\"\nhttps://developer.samsung.com/internet/privacy-policy-us.html",
+    "description": "Samsung Internet Lite/Go\nLite version of the Samsung browser (hah! Because the base one was too bloated?)\nDon't use this browser. In their privacy policy: \"The information we obtain [...] include, identifiers associated with your devices, types of devices, web browser characteristics, device and operating system type and characteristics, language preferences, clickstream data, your interactions with Samsung Internet (such as the web pages you visit, links you click and features you use), dates and times of your use of Samsung Internet, and other information about your use of Samsung Internet\"\nhttps://developer.samsung.com/internet/privacy-policy-us.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5906,7 +5906,7 @@
   {
     "id": "com.sec.android.app.scloud",
     "list": "Oem",
-    "description": "I guess it's the core of Samsung scloud.\n",
+    "description": "I guess it's the core of Samsung Cloud.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5942,7 +5942,7 @@
   {
     "id": "com.sec.android.app.shealth",
     "list": "Oem",
-    "description": "Samsung Health (https://play.google.com/store/apps/details?id=com.sec.android.app.shealth)\nServes to track various aspects of daily life contributing to well being such as physical activity, diet, and sleep.\nhttps://en.wikipedia.org/wiki/Samsung_Health\nS Health data are stored in a Knox container (with HIPAA compliance)\n",
+    "description": "Samsung Health (https://play.google.com/store/apps/details?id=com.sec.android.app.shealth)\nServes to track various aspects of daily life contributing to well being such as physical activity, diet, and sleep.\nhttps://en.wikipedia.org/wiki/Samsung_Health\nS Health data is stored in a Knox container (with HIPAA compliance)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6086,7 +6086,7 @@
   {
     "id": "com.sec.android.easyMover.Agent",
     "list": "Oem",
-    "description": "Smart Switch Agent\nNeeded to use Smart Switch. See above.\n",
+    "description": "Smart Switch Agent\nNeeded to use Smart Switch. See \"com.sec.android.easyMover\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6518,7 +6518,7 @@
   {
     "id": "com.sec.location.nsflp2",
     "list": "Oem",
-    "description": "Samsung Location \nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along samsung apps.\n",
+    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along samsung apps.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6572,7 +6572,7 @@
   {
     "id": "com.sec.spp.push",
     "list": "Oem",
-    "description": "Samsung Push Service (https://play.google.com/store/apps/details?id=com.sec.spp.push)\nProvides updates and notifications for services exclusive to Samsung..\nhttps://www.samsunggeeks.com/2015/10/25/what-is-the-samsung-push-service/\n",
+    "description": "Samsung Push Service (https://play.google.com/store/apps/details?id=com.sec.spp.push)\nProvides updates and notifications for services exclusive to Samsung (more like Samsung ads).\nhttps://www.samsunggeeks.com/2015/10/25/what-is-the-samsung-push-service/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6612,7 +6612,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.monotype.android.font.samsungone",
@@ -6662,7 +6662,7 @@
   {
     "id": "com.osp.app.signin",
     "list": "Oem",
-    "description": "Samsung Account app\nLots of trackers in this app.\nHas a huge list of permissions. It is an essential app for a lot of samsung apps (which will be removed with the default selection in this list)\nSettings apps will crash if removed on Android 11/OneUI 3.0 (https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/39)\nThis issue happens only if you are running Android 11. If not, you can can (and should) remove this package!\n",
+    "description": "Samsung Account app\nLots of trackers in this app.\nHas a huge list of permissions. It is an essential app for a lot of samsung apps (which will be removed with the default selection in this list)\nSettings app will crash if removed on Android 11/OneUI 3.0+ (https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/39)\nThis issue happens only if you are running Android 11. If not, you can can (and should) remove this package!\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6725,7 +6725,7 @@
   {
     "id": "com.samsung.android.app.galaxyfinder",
     "list": "Oem",
-    "description": "S Finder is a search application that allows you to find what you want in an instant by searching the content on your Galaxy smartphone and on the web as well. (https://www.samsung.com/global/galaxy/what-is/s-finder/)\nNOTE: Removing this will breaks the search in the app drawer.\n",
+    "description": "S Finder is a search application that allows you to find what you want in an instant by searching the content on your Galaxy smartphone and on the web as well. (https://www.samsung.com/global/galaxy/what-is/s-finder/)\nNOTE: Removing this will remove the search in the app drawer.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
