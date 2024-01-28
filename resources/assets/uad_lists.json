@@ -37258,7 +37258,7 @@
   {
     "id": "com.android.providers.tv",
     "list": "Oem",
-    "description": "TV Storage\nprovide TV listings.",
+    "description": "TV Storage\nProvides TV listings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37285,7 +37285,7 @@
   {
     "id": "com.droidlogic",
     "list": "Oem",
-    "description": "DroidBtPair\nLooks like a important app for properly TV work.",
+    "description": "DroidBtPair\nLooks like an important app for the TV to work properly.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37294,7 +37294,7 @@
   {
     "id": "com.google.android.apps.mediashell",
     "list": "Oem",
-    "description": "Chromecast built-in\nNeeded to support broadcast?",
+    "description": "Chromecast built-in\nNeeded to support broadcast?\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.mediashell&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37303,7 +37303,7 @@
   {
     "id": "com.google.android.apps.tv.dreamx",
     "list": "Oem",
-    "description": "Ambient Mode\nRunning wallpapers from this app like a videos.",
+    "description": "Ambient Mode\nRunning wallpapers from this app like a slideshow.\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.tv.dreamx&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37312,25 +37312,16 @@
   {
     "id": "com.google.android.apps.tv.launcherx",
     "list": "Oem",
-    "description": "Google TV\nLauncher to TV, there's no replace.",
+    "description": "Google TV\nLauncher to TV, there's no replace probably.\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.tv.launcherx&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
-  },
-  {
-    "id": "com.google.android.apps.tv.dreamx",
-    "list": "Oem",
-    "description": "Ambient Mode\nRunning wallpapers from this app like a videos.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.google.android.apps.tv.netoscope",
     "list": "Oem",
-    "description": "Connectivity Diagnostics\nDiagnosis not only connectivity but also time, not needed.",
+    "description": "Connectivity Diagnostics\nDiagnoses not only connectivity but also time, not needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37339,7 +37330,7 @@
   {
     "id": "com.google.android.backdrop",
     "list": "Oem",
-    "description": "Needed for screensaver.",
+    "description": "Needed for screensaver.\nhttps://play.google.com/store/apps/details?id=com.google.android.backdrop&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37357,7 +37348,7 @@
   {
     "id": "com.google.android.chromecast.setupcustomization",
     "list": "Oem",
-    "description": "Needed for chromecast setup.",
+    "description": "Needed for Chromecast setup.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37366,20 +37357,20 @@
   {
     "id": "com.google.android.katniss",
     "list": "Oem",
-    "description": "Google app, no replacement?",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  {
-    "id": "com.google.android.tungsten.setupwraith",
-    "list": "Oem",
-    "description": "Setup to add Google account.",
+    "description": "Google app, no replacement?\nhttps://play.google.com/store/apps/details?id=com.google.android.katniss&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.tungsten.setupwraith",
+    "list": "Oem",
+    "description": "First boot setup TV.\nhttps://play.google.com/store/apps/details?id=com.google.android.tungsten.setupwraith&hl=en&gl=US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   {
     "id": "com.google.android.tv.axel",
@@ -37402,11 +37393,11 @@
   {
     "id": "com.google.android.tv.remote.service",
     "list": "Oem",
-    "description": "Android TV Remote Service, pairing requests.",
+    "description": "Android TV Remote Service, pairing requests from your phone.\nhttps://play.google.com/store/apps/details?id=com.google.android.tv.remote.service&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.google.android.tv.remotecontrol.logging",
@@ -37420,7 +37411,7 @@
   {
     "id": "com.google.android.tvlauncher",
     "list": "Oem",
-    "description": "Nothing found on this app, but not sure if this app is required for Launcher.",
+    "description": "Android TV Home\nhttps://play.google.com/store/apps/details?id=com.google.android.tvlauncher&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37429,10 +37420,10 @@
   {
     "id": "com.google.android.tvrecommendations",
     "list": "Oem",
-    "description": "Notification to Android11UpgradeReceiver.",
+    "description": "Android TV Core Services\nSometimes has only Notification to Android11UpgradeReceiver,\nand on some TV's has a lot frameworks, it's weird.\nhttps://play.google.com/store/apps/details?id=com.google.android.tvrecommendations&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   }
 ]
