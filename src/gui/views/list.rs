@@ -76,6 +76,22 @@ pub enum Message {
     ModalValidate,
 }
 
+pub struct SummaryEntry {
+    category: Removal,
+    discard: u8,
+    restore: u8,
+}
+
+impl From<Removal> for SummaryEntry {
+    fn from(category: Removal) -> Self {
+        Self {
+            category,
+            discard: 0,
+            restore: 0,
+        }
+    }
+}
+
 impl List {
     pub fn update(
         &mut self,
@@ -464,23 +480,23 @@ impl List {
         settings: &Settings,
         packages: &[PackageRow],
     ) -> Element<Message, Renderer<Theme>> {
-        // (nb_to_restore, nb_to_remove)
-        let mut h_recap: HashMap<Removal, (u8, u8)> = HashMap::new();
+        // 5 element slice is cheap
+        let mut summaries = Removal::CATEGORIES.map(SummaryEntry::from);
         for p in packages.iter().filter(|p| p.selected) {
-            if p.state == PackageState::Uninstalled || p.state == PackageState::Disabled {
-                h_recap.entry(p.removal).or_insert((0, 0)).1 += 1;
-            } else {
-                h_recap.entry(p.removal).or_insert((0, 0)).0 += 1;
+            let summary = &mut summaries[p.removal as usize];
+            match p.state {
+                PackageState::Uninstalled | PackageState::Disabled => summary.restore += 1,
+                _ => summary.discard += 1,
             }
         }
 
         let radio_btn_users = device.user_list.iter().filter(|&u| !u.protected).fold(
             row![].spacing(10),
-            |row, user| {
+            |row, &user| {
                 row.push(
                     radio(
                         format!("{}", user.clone()),
-                        *user,
+                        user,
                         self.selected_user,
                         Message::ModalUserSelected,
                     )
@@ -534,11 +550,10 @@ impl List {
         ]
         .padding([0, 15, 10, 10]);
 
-        let recap_view = Removal::ALL
+        let recap_view = summaries
             .iter()
-            .filter(|&&r| r != Removal::All)
             .fold(column![].spacing(6).width(Length::Fill), |col, r| {
-                col.push(recap(settings, &mut h_recap, *r))
+                col.push(recap(settings, r))
             });
 
         let selected_pkgs_ctn = container(
@@ -789,14 +804,10 @@ fn build_action_pkg_commands(
     commands
 }
 
-fn recap<'a>(
-    settings: &Settings,
-    recap: &mut HashMap<Removal, (u8, u8)>,
-    removal: Removal,
-) -> Element<'a, Message, Renderer<Theme>> {
+fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Renderer<Theme>> {
     container(
         row![
-            text(removal).size(24).width(Length::FillPortion(1)),
+            text(recap.category).size(24).width(Length::FillPortion(1)),
             vertical_rule(5),
             row![
                 if settings.device.disable_mode {
@@ -805,8 +816,7 @@ fn recap<'a>(
                     text("Uninstall").style(style::Text::Danger)
                 },
                 horizontal_space(Length::Fill),
-                text(recap.entry(removal).or_insert((0, 0)).0.to_string())
-                    .style(style::Text::Danger)
+                text(recap.discard).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
             vertical_rule(5),
@@ -817,7 +827,7 @@ fn recap<'a>(
                     text("Restore").style(style::Text::Ok)
                 },
                 horizontal_space(Length::Fill),
-                text(recap.entry(removal).or_insert((0, 0)).1.to_string()).style(style::Text::Ok)
+                text(recap.restore).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))
         ]

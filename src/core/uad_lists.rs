@@ -135,18 +135,25 @@ impl Opposite for PackageState {
 // Bad names. To be changed!
 #[derive(Default, Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Removal {
-    All,
     #[default]
     Recommended,
     Advanced,
     Expert,
     Unsafe,
     Unlisted,
+    All,
 }
 
 impl Removal {
     pub const ALL: [Self; 6] = [
         Self::All,
+        Self::Recommended,
+        Self::Advanced,
+        Self::Expert,
+        Self::Unsafe,
+        Self::Unlisted,
+    ];
+    pub const CATEGORIES: [Self; 5] = [
         Self::Recommended,
         Self::Advanced,
         Self::Expert,
