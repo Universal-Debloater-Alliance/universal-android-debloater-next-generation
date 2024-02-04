@@ -22152,8 +22152,8 @@
   },
   {
     "id": "com.nothing.cardservice",
-    "description": "NothingCardService\nIt's probably for test.",
-    "removal": "Recommended",
+    "description": "NothingCardService\nWARNING: breaks Nothing Widgets when switching to dark or light mode.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
