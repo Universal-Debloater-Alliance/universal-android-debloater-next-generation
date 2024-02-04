@@ -16607,7 +16607,7 @@
   {
     "id": "cn.wps.xiaomi.abroad.lite",
     "list": "Oem",
-    "description": "Mi Doc viewer\nDocuments (*.doc/docx, *.ppt/pptx, *.xls/xlsx, *.pdf, *.wps, and *.txt) viewer powered by WPS Office\nFYI: WPS is a Chinese closed-source software. It's as bad as Microsoft Office (privacy-wise)\nhttps://www.wps.com/privacy-policy\n",
+    "description": "Mi Doc viewer\nAllows users to view various types of documents on their Android devices like documents (*.doc/docx, *.ppt/pptx, *.xls/xlsx, *.pdf, *.wps, and *.txt) and it's powered by WPS Office\nFYI: WPS is a Chinese closed-source software. It's as bad as Microsoft Office (privacy-wise)\nhttps://www.wps.com/privacy-policy\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
