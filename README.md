@@ -15,6 +15,10 @@ could happen to your phone.
 This is a detached fork of the [UAD project](https://github.com/0x192/universal-android-debloater), which aims to improve privacy and battery performance by removing unnecessary and obscure system apps.
 This can also contribute to improving security by reducing [the attack surface](https://en.wikipedia.org/wiki/Attack_surface). Read the [wiki](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki) for more details on getting started.
 
+## Documentation
+
+For documentation, see [our Wiki](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki).
+
 ## Special thanks
 
 - [@0x192](https://github.com/0x192) who created the original UAD project.
