@@ -8,7 +8,9 @@ use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
 use crate::core::utils::string_to_theme;
 
+use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
+use iced::window::icon;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
 use views::settings::{Message as SettingsMessage, Settings as SettingsView};
@@ -363,11 +365,14 @@ impl Application for UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
+        let logo = include_bytes!("../../resources/assets/logo.png");
+
         Self::run(Settings {
             window: Window {
                 size: (820, 640),
                 resizable: true,
                 decorations: true,
+                icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
                 ..iced::window::Settings::default()
             },
             default_text_size: 16.0,
