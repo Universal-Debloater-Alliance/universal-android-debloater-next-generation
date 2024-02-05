@@ -5069,7 +5069,7 @@
   {
     "id": "com.samsung.android.smartcallprovider",
     "list": "Oem",
-    "description": "Samsung Smart Call\nProvides caller profile information to help consumers identify incoming calls and block unwanted ones.\nAlso related to the 'local places' feature in Samsung dialer.\nRelies on Hiya (see com.hiya.star)\nTL;DR : Really bad for privacy.",
+    "description": "Samsung Smart Call\nProvides caller profile information to help consumers identify incoming calls and block unwanted ones.\nAlso related to the 'local places' feature in Samsung dialer.\nRelies on Hiya (see com.hiya.star)\nTL;DR : really bad for your privacy.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5204,7 +5204,7 @@
   {
     "id": "com.samsung.android.unifiedprofile",
     "list": "Oem",
-    "description": "My Profile\n\nRelated to Samsung Members?\n",
+    "description": "My Profile\nRelated to Samsung Members?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5807,7 +5807,7 @@
   {
     "id": "com.sec.android.app.hwmoduletest",
     "list": "Oem",
-    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it).\nHas stuff to quickly check the phone hardware. Removing it does not break anything, but no point in removing it.",
+    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it).\nHas stuff to quickly check the phone's hardware. Removing it does not break anything, but no point in removing it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6518,7 +6518,7 @@
   {
     "id": "com.sec.location.nsflp2",
     "list": "Oem",
-    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along samsung apps.\n",
+    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6581,7 +6581,7 @@
   {
     "id": "com.sec.sve",
     "list": "Oem",
-    "description": "SecVideoEngineService is arguably a Samsung video engine service (handle enconding/decoding ?) for displaying video trough Samsung apps. \n3 permissions : RECORD_AUDIO, CAMERA, INTERACT_ACROSS_USERS_FULL\n\nNote: Removing it will break WiFi Calling.",
+    "description": "SecVideoEngineService is arguably a Samsung video engine service (handling enconding/decoding?) for displaying video through Samsung apps.\n3 permissions: RECORD_AUDIO, CAMERA, INTERACT_ACROSS_USERS_FULL\n\nNote: Removing it will break WiFi Calling.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
