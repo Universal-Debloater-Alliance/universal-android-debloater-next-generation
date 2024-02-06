@@ -15,3 +15,4 @@ changelog:
     - title: Fixed
       labels:
         - bug
+        - refactor
