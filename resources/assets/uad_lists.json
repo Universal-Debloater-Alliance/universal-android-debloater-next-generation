@@ -23727,8 +23727,8 @@
   },
   {
     "id": "com.coloros.colordirectservice",
-    "description": "Boo awareness screen\nSmart things, also have something to Brenoo touch",
-    "removal": "Recommended",
+    "description": "Oppo Screen Recognition\nAdjusts contrast based on the content you're watching/viewing. Also related to Oppo's voice assistant (China-only?)",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
