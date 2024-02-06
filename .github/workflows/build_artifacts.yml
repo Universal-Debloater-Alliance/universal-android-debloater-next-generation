@@ -32,7 +32,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: rui314/setup-mold@v1 # faster linker
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: |
             ~/.cargo/bin/
@@ -65,7 +65,7 @@ jobs:
           sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}-checksum 
           sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}.tar.gz | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}.tar.gz-checksum
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
           path: bin/uad-ng-*
