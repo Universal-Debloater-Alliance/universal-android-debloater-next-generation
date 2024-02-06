@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         build_target: [linux, macos, windows]
-        graphics: [glow, wgpu]
+        graphics: [wgpu]
         update_feature: [self-update, no-self-update]
         exclude:
           - build_target: windows
@@ -22,8 +22,6 @@ jobs:
             os: macos-latest
           - build_target: windows
             os: windows-latest
-          - graphics: glow
-            renderer: "-opengl"
           - graphics: wgpu
             renderer: "" # Vulkan but we don't want this in the binary filename
           - update_feature: self-update
