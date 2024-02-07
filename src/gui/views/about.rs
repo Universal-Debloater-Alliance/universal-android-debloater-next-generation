@@ -65,7 +65,7 @@ impl About {
             }, |r| if update_state.self_update.status == SelfUpdateStatus::Updating {
                 update_state.self_update.status.to_string()
             } else {
-                format!("(v{} available)", r.tag_name)
+                format!("({} available)", r.tag_name)
             });
 
         #[cfg(feature = "self-update")]
