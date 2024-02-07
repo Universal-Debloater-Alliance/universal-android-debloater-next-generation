@@ -264,7 +264,7 @@ impl Settings {
 
         let unavailable_btn = button(text("Unavailable").size(14))
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#\
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/FAQ#\
                     why-is-the-disable-mode-setting-not-available-for-my-device",
             )))
             .height(22)

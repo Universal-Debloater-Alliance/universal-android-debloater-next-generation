@@ -173,7 +173,7 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for UAD-ng update");
 
-    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases")
+    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases")
         .call()
     {
         Ok(res) => {
