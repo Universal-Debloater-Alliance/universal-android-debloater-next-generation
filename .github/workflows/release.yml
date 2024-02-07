@@ -24,9 +24,3 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: bin
-      - name: Create pre-release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: ${{ github.workspace }}/CHANGELOG.md
-          files: bin/*/uad-ng-*
-          prerelease: true
