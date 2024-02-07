@@ -27,7 +27,7 @@ jobs:
           - update_feature: self-update
             update_name: "" # we don't want this in the binary filename
           - update_feature: no-self-update
-            update_name: "-noseflupdate"
+            update_name: "-noselfupdate"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
