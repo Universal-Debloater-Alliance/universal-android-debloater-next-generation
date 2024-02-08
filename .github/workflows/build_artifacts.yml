@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         build_target: [linux, macos, windows]
-        graphics: [wgpu]
         update_feature: [self-update, no-self-update]
         exclude:
           - build_target: windows
@@ -22,8 +21,6 @@ jobs:
             os: macos-latest
           - build_target: windows
             os: windows-latest
-          - graphics: wgpu
-            renderer: "" # Vulkan but we don't want this in the binary filename
           - update_feature: self-update
             update_name: "" # we don't want this in the binary filename
           - update_feature: no-self-update
@@ -44,28 +41,28 @@ jobs:
           restore-keys: ${{ runner.OS }}-release-
         if: matrix.os == 'ubuntu-latest'
       - name: Building
-        run: cargo build --release --no-default-features --features ${{ matrix.graphics }},${{ matrix.update_feature }}
+        run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }}
       - name: Creating ./bin directory
         run: mkdir -p bin
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-latest'
-        run: mv target/release/uad-ng.exe bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}.exe
+        run: mv target/release/uad-ng.exe bin/uad-ng-${{ matrix.build_target }}.exe
       - name: Renaming binaries [Others]
         if: matrix.os != 'windows-latest'
-        run: mv target/release/uad-ng bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
+        run: mv target/release/uad-ng bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
       - name: Tarball Linux/MacOS binary
         if: matrix.os != 'windows-latest'
-        run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}{.tar.gz,}
+        run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}{.tar.gz,}
       - name: Create checksums for binaries and archives [Windows]
         if: matrix.os == 'windows-latest'
-        run: sha256sum bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}.exe | tee bin/uad-ng-${{ matrix.build_target }}${{ matrix.renderer }}-checksum.txt
+        run: sha256sum bin/uad-ng-${{ matrix.build_target }}.exe | tee bin/uad-ng-${{ matrix.build_target }}-checksum.txt
       - name: Create checksums for binaries and archives [Others]
         if: matrix.os != 'windows-latest'
         run: >
-          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}-checksum 
-          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}.tar.gz | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}.tar.gz-checksum
+          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}-checksum 
+          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz-checksum
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}${{ matrix.renderer }}
+          name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
           path: bin/uad-ng-*
