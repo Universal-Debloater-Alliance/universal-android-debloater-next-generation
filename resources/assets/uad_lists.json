@@ -34385,6 +34385,15 @@
     "removal": "Advanced"
   },
   {
+    "id": "com.samsung.android.wallpaper.res",
+    "list": "Oem",
+    "description": "Pre-installed wallpapers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
     "id": "com.samsung.android.watch.cameracontroller",
     "list": "Oem",
     "description": "Mirrors phone's camera to your watch. I can't find a use case for my usage. Safe to remove.",
