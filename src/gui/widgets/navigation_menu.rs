@@ -53,17 +53,19 @@ pub fn nav_menu<'a>(
         Text::new(env!("CARGO_PKG_VERSION"))
     };
 
-    let apps_btn = if self_update_state.latest_release.is_some() {
+    let update_btn = if self_update_state.latest_release.is_some() {
         button("Update")
             .on_press(Message::AboutAction(AboutMessage::DoSelfUpdate))
             .padding(5)
             .style(style::Button::SelfUpdate)
     } else {
-        button("Apps")
-            .on_press(Message::AppsPress)
-            .padding(5)
-            .style(style::Button::Primary)
+        button("").height(0).width(0).style(style::Button::Hidden)
     };
+
+    let apps_btn = button("Apps")
+        .on_press(Message::AppsPress)
+        .padding(5)
+        .style(style::Button::Primary);
 
     let about_btn = button("About")
         .on_press(Message::AboutPressed)
@@ -87,6 +89,7 @@ pub fn nav_menu<'a>(
             pick_list(device_list, Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
+            update_btn,
             apps_btn,
             about_btn,
             settings_btn,
@@ -100,6 +103,7 @@ pub fn nav_menu<'a>(
             device_list_text,
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
+            update_btn,
             apps_btn,
             about_btn,
             settings_btn,
