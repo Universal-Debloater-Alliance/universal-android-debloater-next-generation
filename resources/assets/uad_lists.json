@@ -5015,7 +5015,7 @@
   {
     "id": "com.samsung.android.sconnect",
     "list": "Oem",
-    "description": "Samsung Quick connect (discontinued?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi that support\nmultiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
+    "description": "Samsung Quick connect (discontinued?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi that support multiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5582,7 +5582,7 @@
   {
     "id": "com.samsung.safetyinformation",
     "list": "Oem",
-    "description": "Safety information telling you not to put your phone in your eyes or other dangerous stuff\n",
+    "description": "Safety information telling you to be careful with the usage of phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
