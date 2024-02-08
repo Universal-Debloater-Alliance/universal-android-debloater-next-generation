@@ -80,6 +80,7 @@ pub enum Button {
     RestorePackage,
     NormalPackage,
     SelectedPackage,
+    Hidden,
 }
 
 impl button::StyleSheet for Theme {
@@ -128,6 +129,14 @@ impl button::StyleSheet for Theme {
             Button::Unavailable | Button::UninstallPackage => {
                 active_appearance(None, p.bright.error)
             }
+            Button::Hidden => button::Appearance {
+                background: Some(Background::Color(Color::TRANSPARENT)),
+                text_color: Color::TRANSPARENT,
+                border_radius: 5.0.into(),
+                border_width: 0.0,
+                border_color: Color::TRANSPARENT,
+                ..appearance
+            },
         }
     }
 
@@ -151,6 +160,7 @@ impl button::StyleSheet for Theme {
             Button::Unavailable | Button::UninstallPackage => {
                 hover_appearance(p.bright.error, None)
             }
+            Button::Hidden => hover_appearance(Color::TRANSPARENT, None),
         }
     }
 
