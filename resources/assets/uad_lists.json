@@ -7391,11 +7391,11 @@
   {
     "id": "com.samsung.android.MtpApplication",
     "list": "Oem",
-    "description": "Samsung overlay for MTP. Talks to com.android.mtp\nNeeded to access your phone from a computer.\n",
+    "description": "Samsung overlay for MTP\nTalks to com.android.mtp. Needed to access your phone from a computer for file transfer.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   {
     "id": "com.samsung.android.provider.filterprovider",
@@ -7410,6 +7410,15 @@
     "id": "com.samsung.networkui",
     "list": "Oem",
     "description": "User interface of the Mobile Network settings\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.sm_cn",
+    "list": "Oem",
+    "description": "Device care but in Chinese Samsung phones\nIs different from global, could break some important functions if removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
