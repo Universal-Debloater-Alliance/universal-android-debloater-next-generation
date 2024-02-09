@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    name: Building ${{ matrix.build_target }} [${{ matrix.graphics }}] [${{ matrix.update_feature }}]
+    name: Building ${{ matrix.build_target }} [${{ matrix.update_feature }}]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
