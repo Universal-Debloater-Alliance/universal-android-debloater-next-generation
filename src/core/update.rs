@@ -185,8 +185,10 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
                     .clone(),
             )
             .map_err(|_| ())?;
-            if release.tag_name.as_str() != "dev-build"
-                && release.tag_name.as_str() > env!("CARGO_PKG_VERSION")
+
+            let release_version = release.tag_name.strip_prefix("v").unwrap_or(&release.tag_name);
+            if release_version != "dev-build"
+                && release_version > env!("CARGO_PKG_VERSION")
             {
                 Ok(Some(release))
             } else {
