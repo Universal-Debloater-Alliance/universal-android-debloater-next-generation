@@ -186,7 +186,8 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
             )
             .map_err(|_| ())?;
 
-            let release_version = release.tag_name.strip_prefix("v").unwrap_or(&release.tag_name);
+            let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
+            
             if release_version != "dev-build"
                 && release_version > env!("CARGO_PKG_VERSION")
             {
