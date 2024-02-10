@@ -27,6 +27,8 @@ fn main() -> iced::Result {
 }
 
 pub fn setup_logger() -> Result<(), fern::InitError> {
+    attach_windows_console();
+    
     let colors = ColoredLevelConfig::new().info(Color::Green);
 
     let make_formatter = |use_colors: bool| {
@@ -74,4 +76,21 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
         .apply()?;
 
     Ok(())
+}
+
+/// (Windows) Allow the application to display logs to the terminal
+/// regardless if it was compiled with `windows_subsystem = "windows"`.
+/// 
+/// This is a no-op when compiled to non-windows targets.
+fn attach_windows_console() {
+    #[cfg(target_os = "windows")]
+    {
+        use windows_sys::Win32::System::Console::{AttachConsole, ATTACH_PARENT_PROCESS};
+
+        // # SAFETY:
+        // According to the docs: https://learn.microsoft.com/en-us/windows/console/attachconsole
+        //
+        // AttachConsole doesn't have any footguns, so calling it like this is fine.
+        let _ = unsafe { AttachConsole(ATTACH_PARENT_PROCESS) };
+    }
 }

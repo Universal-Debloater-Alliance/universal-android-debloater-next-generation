@@ -35,6 +35,9 @@ iced = { version = "^0.10.0", features = ["advanced", "image"] }
 flate2 = { version = "^1", optional = true }
 tar = { version = "^0.4", optional = true }
 
+[target.'cfg(target_os = "windows")'.dependencies]
+windows-sys = { version = "^0.52.0", features = ["Win32_System_Console", "Win32_Foundation"] }
+
 [profile.release]
 opt-level = "s"
 lto = true
