@@ -36,7 +36,7 @@ flate2 = { version = "^1", optional = true }
 tar = { version = "^0.4", optional = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
-windows-sys = { version = "^0.52.0", features = ["Win32_System_Console", "Win32_Foundation"] }
+win32console = "^0.1.5"
 
 [profile.release]
 opt-level = "s"

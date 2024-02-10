@@ -85,12 +85,9 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 fn attach_windows_console() {
     #[cfg(target_os = "windows")]
     {
-        use windows_sys::Win32::System::Console::{AttachConsole, ATTACH_PARENT_PROCESS};
-
-        // # SAFETY:
-        // According to the docs: https://learn.microsoft.com/en-us/windows/console/attachconsole
-        //
-        // AttachConsole doesn't have any footguns, so calling it like this is fine.
-        let _ = unsafe { AttachConsole(ATTACH_PARENT_PROCESS) };
+        use win32console::console::WinConsole;
+        
+        const ATTACH_PARENT_PROCESS: u32 = 0xFFFFFFFF;
+        let _ = WinConsole::attach_console(ATTACH_PARENT_PROCESS);
     }
 }
