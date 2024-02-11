@@ -5141,7 +5141,7 @@
   {
     "id": "com.samsung.android.svcagent",
     "list": "Oem",
-    "description": "Impossible to know what this system app does. It has full access to internet network anyway. Safe to remove. Its APK implies it has a UI, but it doesn't have any activities. It occasionally runs a MainService for many consecutive hours",
+    "description": "The APK has various icons in it + DiagMon library (telemetry). It has full access to internet and occasionally runs a MainService for many consecutive hours.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
