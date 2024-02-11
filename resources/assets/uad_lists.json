@@ -4833,6 +4833,15 @@
     "removal": "Recommended"
   },
   {
+    "id": "com.samsung.android.photoremasterservice",
+    "list": "Oem",
+    "description": "PhotoRemasterService\nIf removed, Photo Remaster in the gallery won't work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
     "id": "com.samsung.android.provider.shootingmodeprovider",
     "list": "Oem",
     "description": "Provide camera modes (when you swipe left from the camera app)\nSafe to remove (but it is quite useful)",
@@ -34387,11 +34396,11 @@
   {
     "id": "com.samsung.android.wallpaper.res",
     "list": "Oem",
-    "description": "Pre-installed wallpapers.",
+    "description": "Pre-installed wallpapers\nRemoving this package causes the background to be transparent (black, but the system will see it as white unless you use a custom wallpaper).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.watch.cameracontroller",
