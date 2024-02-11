@@ -5582,7 +5582,7 @@
   {
     "id": "com.samsung.safetyinformation",
     "list": "Oem",
-    "description": "Safety information telling you to be careful with the usage of phone.",
+    "description": "Safety information telling you to be careful with the usage of your phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
