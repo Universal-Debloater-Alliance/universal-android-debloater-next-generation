@@ -7751,11 +7751,11 @@
   {
     "id": "com.android.soundrecorder",
     "list": "Aosp",
-    "description": "AOSP Sound recorder. OEMs often use their own solution\nNOTE: On some phones, Huawei & Xiaomi also use this package name for their own browser app.\nThere are better apps (on F-droid) anyway \n",
+    "description": "AOSP Sound recorder\nOEMs often use their own solution\nNOTE: On some phones, Huawei & Xiaomi also use this package name for their own browser app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   {
     "id": "com.android.stk2",
@@ -8655,7 +8655,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Advanced"
   },
   {
     "id": "com.android.providers.media",
