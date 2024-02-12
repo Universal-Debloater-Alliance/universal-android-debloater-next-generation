@@ -50,7 +50,6 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 
     let default_log_level = log::LevelFilter::Warn;
     let log_file = OpenOptions::new()
-        .write(true)
         .create(true)
         .append(true)
         .truncate(false)
