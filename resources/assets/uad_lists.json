@@ -4943,7 +4943,7 @@
   {
     "id": "com.samsung.android.smartface",
     "list": "Oem",
-    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to "Keep screen on while viewing" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
+    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to \"Keep screen on while viewing\" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5141,7 +5141,7 @@
   {
     "id": "com.samsung.android.svcagent",
     "list": "Oem",
-    "description": "Impossible to know what this system app does. It has full access to internet network anyway. Safe to remove. Its APK implies it has a UI, but it doesn't have any activities. It occasionally runs a MainService for many consecutive hours",
+    "description": "The APK has various icons in it + DiagMon library (telemetry). It has full access to internet and occasionally runs a MainService for many consecutive hours.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
