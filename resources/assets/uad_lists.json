@@ -6594,7 +6594,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.sec.yosemite.phone",
@@ -6675,7 +6675,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.policydm",
@@ -6796,12 +6796,12 @@
   },
   {
     "id": "com.sec.epdg",
-    "list": "Oem",
-    "description": "Huh... that's hard to explain quickly. Let's try : \nFirst you need to know that there is a standards organization which develops protocols for mobile telephony called 3GPP (mobile network : 2G/3G/4G/5G).\nRAT (physical connection method to a wireless communication network) non specified by the 3GPP is called non-3GPP. RAT Wifi is non-3GPP.\n\nePDG means Evolved Packet Data Gateway. The main role of the ePDG is to provide security mechanisms such as IPsec tunnelling of connections \nwith the device over an untrusted non-3GPP access. It is mainly use for VoWifi (Voice over wifi).\nFor further information : \n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n#\nSafe to remove if not using VoWifi.\n",
+    "list": "Carrier",
+    "description": "It's related to AT&T Carrier.\nePDG means Evolved Packet Data Gateway. The main role of the ePDG is to provide security mechanisms such as IPsec tunnelling of connections \nwith the device over an untrusted non-3GPP access. It is mainly use for VoWifi (Voice over wifi).\nFor further information : \n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n#\nSafe to remove if not using VoWifi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   {
     "id": "com.samsung.android.app.multiwindow",
@@ -11602,12 +11602,12 @@
   },
   {
     "id": "com.samsung.android.camerasdkservice",
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "SCameraService\nCamera SDK, probably used for the main camera app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   {
     "id": "com.samsung.android.providers.carrier",
@@ -37452,5 +37452,662 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.samsung.android.activation",
+    "list": "Oem",
+    "description": "Activation phone in china.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.mtp",
+    "list": "Oem",
+    "description": "MTP application",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.attribution",
+    "list": "Oem",
+    "description": "Attribution\nApp for auto updates I don't know what.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.samsung.android.bixbyhelper",
+    "list": "Oem",
+    "description": "QQ music plugin\nRequire QQ Music and it's Chinese.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.bixbytouch",
+    "list": "Oem",
+    "description": "Bixby Touch\nApp for smart things, still only for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.callbgprovider",
+    "list": "Oem",
+    "description": "CallBGProvider\nCall Background.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.incall.contentprovider",
+    "list": "Oem",
+    "description": "CallContentProvider\nAfter remove, some features will not be available:\nFace AR, AR Emoji, filter, sticker.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.carlink",
+    "list": "Oem",
+    "description": "CarLife app only for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.imagepp",
+    "list": "Oem",
+    "description": "Chat PP\nOnly for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.app.firewall",
+    "list": "Oem",
+    "description": "Blocked calls'msgs\nChinese blocking calls and spam.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.hidden.china",
+    "list": "Oem",
+    "description": "China Hidden Menu\nLast call, secret code: 319712358.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.unionpay.tsmservice",
+    "list": "Oem",
+    "description": "UnionPay\nOnly for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.chnfileshare.kit",
+    "list": "Oem",
+    "description": "S Share\nSecure transfer files using bluetooth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.clocationservice",
+    "list": "Oem",
+    "description": "CLocationService\nNetwork location provider only to Chinese.\nBad privacy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.gpudrivers.kalama.api33",
+    "list": "Misc",
+    "description": "Adreno Graphics Drivers",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.sec.android.dexsystemui",
+    "list": "Oem",
+    "description": "Samsung DeX System UI\nSafe to remove if not use connect phone for example to TV.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.deviceidservice",
+    "list": "Oem",
+    "description": "DeviceIdService\nCollects device id but it is not known what it is used for.\nTake's OAID, VAID, AAID.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.chn.apps.devicemanagement",
+    "list": "Oem",
+    "description": "AutoLoginService\nRegister device with China Telecom. Only for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.dkey",
+    "list": "Oem",
+    "description": "Samsung Wallet Digital Key\nUsed for cars, only China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.baidu.location.fused",
+    "list": "Oem",
+    "description": "FusedLocation\nChinese baidu location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.widget.pictureframe",
+    "list": "Oem",
+    "description": "Gallery\nHas something like restore image.\nIt's not gallery app but provides some features to this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.gamedriver.sm8550",
+    "list": "Oem",
+    "description": "Samsung SM8550 GameDriver.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.globalpostprocmgr",
+    "list": "Oem",
+    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.hongbaoassistant",
+    "list": "Oem",
+    "description": "Hongbao Assistant\nChinese app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.iaft",
+    "list": "Oem",
+    "description": "iaft\nHas permission dump, trace errors probably.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.app.telephonyui",
+    "list": "Oem",
+    "description": "It's calling app from samsung China, Korea.\nI don't know how important this app is.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.kmxservice",
+    "list": "Oem",
+    "description": "KmxService\nSmartThings to unlock remotely phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.app.kfa",
+    "list": "Oem",
+    "description": "KFA\nAnother app from knox, has something to decrypt.\nName apk this app is: KnoxAIFrameworkApp.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.knox.mpos",
+    "list": "Oem",
+    "description": "Provides call notification, seriously knox?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.knox.app.networkfilter",
+    "list": "Oem",
+    "description": "knoxNwFilter\nOnly has frameworks to proxy server connection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.knox.zt.framework",
+    "list": "Oem",
+    "description": "KnoxZT Framework\nTo learn how you type, Touch Dynamics\nwill collect and analyze sensor data while typing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.sec.android.llmpolicy",
+    "list": "Oem",
+    "description": "LLMPolicyService\nLow latency network to game? Looks unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.memorysaver",
+    "list": "Oem",
+    "description": "Storage booster\nNeeded for sd card features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.mocca",
+    "list": "Oem",
+    "description": "MoccaMobile\nRequire google play services.\nDiagnostics, logs, car crash, better remove this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.internal.systemui.navbar.gestural_no_hint",
+    "list": "Oem",
+    "description": "Gestural Navigation Bar",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.internal.systemui.navbar.sec_gestural_no_hint",
+    "list": "Oem",
+    "description": "Gestural Navigation Bar",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.internal.systemui.navbar.sec_gestural",
+    "list": "Oem",
+    "description": "Gestural Navigation Bar",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.packageinstaller",
+    "list": "Oem",
+    "description": "Removing it is Unsafe if there is no alternative.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.samsung.android.peripheral.framework",
+    "list": "Oem",
+    "description": "Peripheral Framework\nIt's knox analytics.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.photoremasterservice",
+    "list": "Oem",
+    "description": "Photo remaster will not work after remove, if this feature exist, still unknown.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.preloadapp",
+    "list": "Oem",
+    "description": "Install app\nInstalls recommended apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.privacydashboard",
+    "list": "Oem",
+    "description": "Needed for permissions?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.rampart",
+    "list": "Oem",
+    "description": "Auto Blocker\nUses for blocking unknown apps install, commands.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wifi.wapi.resources",
+    "list": "Oem",
+    "description": "Needed for wifi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.carkey",
+    "list": "Oem",
+    "description": "Digital Key Framework\nFrameworks to CarKey app, only China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.gallery.plugins",
+    "list": "Oem",
+    "description": "SamsungGallery Plugins\nChinese mapcamera plugin.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.messaging.extension.chn",
+    "list": "Oem",
+    "description": "MessagingExtensionCh\nHas too much spying things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.oda.service",
+    "list": "Oem",
+    "description": "SamsungOdaService\nRequires google play services.\nAnother spying app collects sim info and other things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.smartprovider",
+    "list": "Oem",
+    "description": "Another app for smartthings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.timezone.updater",
+    "list": "Oem",
+    "description": "Time Zone Updater\nUsed for detect or set timezone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.sec.android.yellowpage",
+    "list": "Oem",
+    "description": "Yellow Page\nContain phone numbers of companies and services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.singletake.service",
+    "list": "Oem",
+    "description": "Single Take\nIt's face unlock I guess.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.secsoundpicker",
+    "list": "Oem",
+    "description": "Ringtone Picker.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.samsung.android.providers.trash",
+    "list": "Oem",
+    "description": "SecTrashProvider\nIndexes almost things to trash.\nThis app probably only exist on China Samsung.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.tencentwifisecurity",
+    "list": "Oem",
+    "description": "Chinese Tencent flags risky networks and prevent to connect to them.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.ims.smk",
+    "list": "Oem",
+    "description": "SimMobilityKit\nVoLTE calling, IMS.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.sm_cn",
+    "list": "Oem",
+    "description": "Smart Manager\nTests hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.sm.devicesecurity.tcm",
+    "list": "Oem",
+    "description": "Device security\nChinese scanning app for searching viruses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wifi.softap.resources",
+    "list": "Oem",
+    "description": "Needed for wifi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.softsim",
+    "list": "Oem",
+    "description": "Softsim Service\nInstalls softsim and it's full Chinese.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.sait.sohservice",
+    "list": "Oem",
+    "description": "This weird app collects battery data and probably others, who knows?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.sskds",
+    "list": "Oem",
+    "description": "SoterSskdsService\nThis app has something to 'com.tencent.soter.soterserver'.\nOnly china.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.tncpage",
+    "list": "Oem",
+    "description": "TNCPageCN\nIt's app for enhance lock screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "vendor.qti.data.txpwradmin",
+    "list": "Misc",
+    "description": "Hidden network stats in code found.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.vdcservice",
+    "list": "Oem",
+    "description": "This app depends on Virtual Device Center app.\nHas network connection frameworks.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.vdc",
+    "list": "Oem",
+    "description": "Virtual Device Center\nIt's Chinese app for Video calls.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wallpaper.res",
+    "list": "Oem",
+    "description": "Video Wallpaper .webp resources.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.samsung.android.wifi.ai",
+    "list": "Oem",
+    "description": "Probably its for diagnostics wifi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wifinetworkdiagnostics",
+    "list": "Oem",
+    "description": "WifiNetworkDiagnostics\nDiagnostics network connection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.android.wifi.decrease.scan.interval.resources",
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.wifi.increase.scan.interval.resources",
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.wifi.resources.qc",
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.samsung.android.wifi.resources.wifilock",
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 ]
