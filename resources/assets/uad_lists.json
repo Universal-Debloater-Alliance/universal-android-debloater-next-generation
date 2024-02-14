@@ -3512,7 +3512,7 @@
   {
     "id": "com.motorola.lifetimedata",
     "list": "Oem",
-    "description": "Not 100% sure but it's most likely the Total Call Timer or more generally it handles info like the date of manufacture of your device,\nusage time since first boot etc... \nTotal Call Timer gives you the time you spent calling.\nI don't know how to access to these info. It's surely a hidden menu (and may be accessible through the dialer with a special code)\n",
+    "description": "It's most likely the Total Call Timer or more generally it handles info like the date of manufacture of your device,\nusage time since first boot etc... \nTotal Call Timer gives you the time you spent calling.\nIt's surely a hidden menu.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3647,11 +3647,11 @@
   {
     "id": "com.motorola.carriersettingsext",
     "list": "Oem",
-    "description": "Seems safe to remove for now.\nCarrier settings ext\next = extension ?\nCarrier settings contains APN settings for instance.\n",
+    "description": "This is a WiFi calling app supported by AT&T, T-Mobile, Orange.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.motorola.callredirectionservice",
@@ -3719,11 +3719,11 @@
   {
     "id": "com.motorola.invisiblenet",
     "list": "Oem",
-    "description": "Invisible net\nHard to find info about this one. I only found something from a patent: http://www.freepatentsonline.com/5469497.html\nIt's a Google patent and Google owned Motorola so maybe it is that's it.\nIt seems to implement the ICMS local area network. ICMS means Interactive Call Management Subsystems. Couldn't find more info about ICMS. It's strange that this is so badly documented.",
+    "description": "Invisible net\nApp for Alias ID, Shortcut Installer(Most of the apps I have seen are Chinese apps).\nIt's some kind of a stub application launcher, if you open any of it's activities it goes to the play store or to the browser.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   {
     "id": "com.motorola.launcher3",
@@ -3737,7 +3737,7 @@
   {
     "id": "com.motorola.launcherconfig",
     "list": "Oem",
-    "description": "Config file of the motorola launcher? \nI guess launcher will not work anymore if you delete this package. Can someone confirm?\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\n",
+    "description": "Google Launcher Config\nIt's Partner Customization.\nHas a lot wallpapers in resources.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3755,7 +3755,16 @@
   {
     "id": "com.motorola.motosignature.app",
     "list": "Oem",
-    "description": "Appears safe to remove.\nMaybe it's the service which check whether app's signature is trusted or not.\nNot useful if you know what you're doing (malwares apps are in PlayStore. This package will not protect you)\nMaybe I'm mistaken and this package does not handles app signatures. Can someone test it?\n",
+    "description": "This app has permissions descriptions, lab, game mode launch permissions, audio monitor descriptions.\nSo it's permissions to system apps?\nGoogle search shows that it's on some lists that recommend removing this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.motorola.motosignature2.app",
+    "list": "Oem",
+    "description": "Uses library 'com.motorola.motosignature', perm info to start gif maker, permlab moto trusted apps overlay and permlab monitor input.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3791,7 +3800,7 @@
   {
     "id": "com.motorola.systemserver",
     "list": "Oem",
-    "description": "Appears safe to remove. Maybe it's only needed for Motorola apps?\n",
+    "description": "Moto Service Experience, debugging app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3800,11 +3809,11 @@
   {
     "id": "com.motorola.VirtualUiccPayment",
     "list": "Oem",
-    "description": "Virtual UICC Payment\nUICC stands for Universal Integrated Circuit Card. \nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/\n",
+    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Useful only in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   {
     "id": "com.motorola.config.wifi",
@@ -3818,11 +3827,11 @@
   {
     "id": "com.motorola.coresettingsext",
     "list": "Oem",
-    "description": "Core Settings extension\nSafe to remove (no bootloop) but its usefulness remains unkown.\n",
+    "description": "Core Settings extension\nSafe to remove (no bootloop) but its usefulness remains unkown.\nIt's an app for random settings, but it's unused?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.motorola.android.providers.settings",
@@ -21234,7 +21243,7 @@
   },
   {
     "id": "com.motorola.mobiledesktop.core",
-    "description": "Needed for Ready For (com.motorola.mobiledesktop)\nConnect to a PC to stream mobile apps and other things.",
+    "description": "Needed for Ready For (com.motorola.mobiledesktop)\nConnect to a PC to stream mobile apps and other things.\nDISABLE this app instead of Uninstall, because of anomalies with lockscreen and clock widget.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -37452,5 +37461,212 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  {
+    "id": "com.bc360.control",
+    "list": "Carrier",
+    "description": "Verizon Adaptive Sound\nProvides Voice Enhance, but according to the carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.bc360.android.service",
+    "list": "Carrier",
+    "description": "Verizon Adaptive Sound\nProvides Voice Enhance, but according to the carrier.\nDoes the same thing as the 'com.bc360.control' app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.qualcomm.qti.gpudrivers.taro.api31",
+    "list": "Misc",
+    "description": "Adreno Graphics Drivers\nGPU drivers",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.thundercomm.ar.core",
+    "list": "Oem",
+    "description": "Looks like a debugging app.\nIt's AR (Augmented Reality)?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.theme.font.ArchivoSemiBold",
+    "list": "Oem",
+    "description": "Font ArchivoSemiBold",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.motorola.android.fota",
+    "list": "Carrier",
+    "description": "AT&T Software Update, But by the carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.motorola.overlay.googleasi",
+    "list": "Oem",
+    "description": "Overlay to Android System Intelligence 'com.google.android.as',\nremoval means that you cannot use the features of this app probably.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.motorola.motointelligence.overlay",
+    "list": "Oem",
+    "description": "Overlay to 'com.motorola.motointelligence', not needed? I didn't found this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.motorola.android.overlay.deviceconfig.manaus",
+    "list": "Oem",
+    "description": "Random configurations to basic things(powersaving, network, camera, etc.).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.motorola.android.overlay.lhbm",
+    "list": "Oem",
+    "description": "Not sure if its for high brightness mode, still unknown\n'config_udfps_local_hbm_supported' 'true'",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.motorola.motolights",
+    "list": "Oem",
+    "description": "Moto Lights\nPeople recommend to remove it:\nhttps://xdaforums.com/t/debloat-instructions-for-edge-40-pro-rtwo.4590155/\nMoto edge lights controller, hard to check this app but it has something to control display brightness in phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.motorola.android.settings.overlay.eqs",
+    "list": "Oem",
+    "description": "Overlay to refresh rate change in settings.\nNot sure if it's unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.motorola.sstservice",
+    "list": "Oem",
+    "description": "Spatial Sound\nProvides sst audio effects.\nI am not sure how to use this app.\nCode is too small, no activities only some frameworks in classes.dex",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.motorola.msimsettings.overlay",
+    "list": "Oem",
+    "description": "In code found: 'channel_force_single_sim'. Looks very unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.motorola.paramupdater",
+    "list": "Oem",
+    "description": "I am not sure what this app is for.\nCollects systeminfo, time, has notification about update.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.mediatek.presence",
+    "list": "Misc",
+    "description": "App used to IMS, RCS. IP Voice Call.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.mediatek.ims.rcsua.service",
+    "list": "Misc",
+    "description": "Needed to support IMS, RCS probably.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.telcel.contenedor",
+    "list": "Carrier",
+    "description": "Telcel app, Advertising company to get promotions.\nhttps://play.google.com/store/apps/details?id=com.telcel.contenedor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.motorola.thermalservice",
+    "list": "Oem",
+    "description": "Motorola Thermal Service\nTurns off phone when it's too hot.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.motorola.carrierconfig",
+    "list": "Oem",
+    "description": "Carrier Services\nNeeded for IMS, WiFi Calling.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "udc.lenovo.com.udclient",
+    "list": "Oem",
+    "description": "Lenovo Universal Device Client\nAnother Mobile Device Management (MDM) allows company’s IT department to reach inside your phone in the background, allowing them to ensure\nyour device is secure, know where it is, and remotely erase your data if the phone is stolen.\nIt's a way to ensure employees stay productive and do not breach corporate policies\nYou should NEVER have a MDM tool on your personal phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.wifi.resources.overlay.WifiResDualStaApEnable",
+    "list": "Oem",
+    "description": "5 GHz WiFi support.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.carrier",
+    "list": "Oem",
+    "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nNot needed app, a lot metrics or telemetry frameworks.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 ]
