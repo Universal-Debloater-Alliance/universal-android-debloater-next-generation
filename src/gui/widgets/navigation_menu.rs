@@ -50,7 +50,7 @@ pub fn nav_menu<'a>(
             ))
         }
     } else {
-        Text::new(env!("CARGO_PKG_VERSION"))
+        Text::new(format!("v{}", env!("CARGO_PKG_VERSION")))
     };
 
     let update_btn = if self_update_state.latest_release.is_some() {
