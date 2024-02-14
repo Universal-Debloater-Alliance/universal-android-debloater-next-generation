@@ -3719,7 +3719,7 @@
   {
     "id": "com.motorola.invisiblenet",
     "list": "Oem",
-    "description": "Invisible net\nApp for Alias ID, Shortcut Installer(random apps, almost china.)\nIt's some kind of a stub application launcher, if you open any of it's activities it goes to the play store or to the browser.",
+    "description": "Invisible net\nApp for Alias ID, Shortcut Installer(Most of the apps I have seen are Chinese apps).\nIt's some kind of a stub application launcher, if you open any of it's activities it goes to the play store or to the browser.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3755,7 +3755,7 @@
   {
     "id": "com.motorola.motosignature.app",
     "list": "Oem",
-    "description": "This app has permissions descriptions, lab, game mode launch permissions, audio monitor descriptions.\nSo it's permissions to system apps? It's in almost debloat lists to remove it.",
+    "description": "This app has permissions descriptions, lab, game mode launch permissions, audio monitor descriptions.\nSo it's permissions to system apps?\nGoogle search shows that it's on some lists that recommend removing this app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3809,7 +3809,7 @@
   {
     "id": "com.motorola.VirtualUiccPayment",
     "list": "Oem",
-    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Useful only in China.\nUICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/",
+    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Useful only in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3831,7 +3831,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   {
     "id": "com.motorola.android.providers.settings",
@@ -37519,20 +37519,20 @@
   {
     "id": "com.motorola.overlay.googleasi",
     "list": "Oem",
-    "description": "Overlay to Android System Intelligence 'com.google.android.as', not needed.",
+    "description": "Overlay to Android System Intelligence 'com.google.android.as',\nremoval means that you cannot use the features of this app probably.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.motorola.motointelligence.overlay",
     "list": "Oem",
-    "description": "Overlay to 'com.motorola.motointelligence', not needed.",
+    "description": "Overlay to 'com.motorola.motointelligence', not needed? I didn't found this app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.motorola.android.overlay.deviceconfig.manaus",
@@ -37555,11 +37555,11 @@
   {
     "id": "com.motorola.motolights",
     "list": "Oem",
-    "description": "Moto Lights\nPeople recommend to remove it.",
+    "description": "Moto Lights\nPeople recommend to remove it:\nhttps://xdaforums.com/t/debloat-instructions-for-edge-40-pro-rtwo.4590155/\nMoto edge lights controller, hard to check this app but it has something to control display brightness in phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.motorola.android.settings.overlay.eqs",
@@ -37573,11 +37573,11 @@
   {
     "id": "com.motorola.sstservice",
     "list": "Oem",
-    "description": "Spatial Sound\nProvides sst audio effects.\nI am not sure how to use this app.",
+    "description": "Spatial Sound\nProvides sst audio effects.\nI am not sure how to use this app.\nCode is too small, no activities only some frameworks in classes.dex",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.motorola.msimsettings.overlay",
@@ -37595,7 +37595,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.mediatek.presence",
@@ -37631,7 +37631,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   {
     "id": "com.motorola.carrierconfig",
