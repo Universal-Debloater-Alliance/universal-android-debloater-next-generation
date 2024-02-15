@@ -240,7 +240,7 @@ pub fn apply_pkg_state_commands(
         },
         PackageState::All => vec![],
     };
-    let user = (phone.android_sdk < 21).then_some(selected_user);
+    let user = (phone.android_sdk >= 21).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
