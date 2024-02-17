@@ -7512,7 +7512,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.android.dreams.phototable.overlay",
@@ -7521,7 +7521,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.android.egg",
@@ -11090,11 +11090,11 @@
   {
     "id": "com.google.android.overlay.gmsconfig.gsa",
     "list": "Google",
-    "description": "configures default assistant? And have config to allow disabling assist disclosure?\nI think it doesnt affect on anything.\nSafe to remove if you removed (com.google.android.googlequicksearchbox).",
+    "description": "configures default assistant? And have config to allow disabling assist disclosure?\nI think it doesn't affect anything.\nSafe to remove if you removed (com.google.android.googlequicksearchbox).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.google.android.overlay.gmsconfig.personalsafety",
@@ -11229,7 +11229,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "vendor.qti.imsrcs",
@@ -26224,8 +26224,8 @@
   },
   {
     "id": "com.transsion.applock",
-    "description": "AppLock\nit's bloated with google api.",
-    "removal": "Recommended",
+    "description": "AppLock\nProvides the only way to hide files and lock apps when using Transsion launchers (which the Transsion devices require for certain functionality like multiapps not working with other launchers). These are the only apps that hide files and lock apps with them.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26278,8 +26278,8 @@
   },
   {
     "id": "com.transsion.dtsaudio",
-    "description": "DTS Sound\nAudio enhancements.",
-    "removal": "Advanced",
+    "description": "DTS Sound\nVery safe to disable and just serves as a way to modify audio playing and runs in the background and has telemetry can be replaced by other better apps",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26315,7 +26315,7 @@
   },
   {
     "id": "com.transsion.repaircard",
-    "description": "E-warranty Card\nit's another things for china!",
+    "description": "E-warranty Card\nFor Chinese users-only.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26325,7 +26325,7 @@
   {
     "id": "com.transsion.faceid",
     "description": "Needed for Face Unlock lock screen.",
-    "removal": "Recommended",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26505,8 +26505,8 @@
   },
   {
     "id": "com.sh.smart.caller",
-    "description": "Bloated Phone caller app with a lot of features.",
-    "removal": "Advanced",
+    "description": "Bloated Phone caller app with a lot of features. These apps have telemetry on them and are completely replaceable.",
+    "removal": "Recommended",
     "suggestions": "dialers",
     "list": "Oem",
     "dependencies": [],
@@ -26525,8 +26525,8 @@
   },
   {
     "id": "com.transsion.scanningrecharger",
-    "description": "Smart Scanner",
-    "removal": "Advanced",
+    "description": "Smart Scanner\nApp contains telemetry and is completely replaceable.",
+    "removal": "Recommended",
     "suggestions": "barcode_scanners",
     "list": "Oem",
     "dependencies": [],
@@ -26607,8 +26607,8 @@
   },
   {
     "id": "com.transsion.calculator",
-    "description": "Calculator\nStock Calculator app",
-    "removal": "Advanced",
+    "description": "Calculator\nStock Calculator app. Lot of telemetry and are completely replaceable.",
+    "removal": "Recommended",
     "suggestions": "calculators",
     "list": "Oem",
     "dependencies": [],
@@ -26666,8 +26666,8 @@
   },
   {
     "id": "com.transsion.notebook",
-    "description": "Notepad\nNotepad app",
-    "removal": "Advanced",
+    "description": "Notepad app\nThese apps have telemetry on them and are completely replaceable.",
+    "removal": "Recommended",
     "suggestions": "note_taking_apps",
     "list": "Oem",
     "dependencies": [],
@@ -26676,8 +26676,8 @@
   },
   {
     "id": "com.transsion.soundrecorder",
-    "description": "Sound Recorder\nStock sound recorder app.",
-    "removal": "Advanced",
+    "description": "Sound Recorder\nContains telemetry and is completely replaceable.",
+    "removal": "Recommended",
     "suggestions": "audio_recorders",
     "list": "Oem",
     "dependencies": [],
@@ -26740,8 +26740,8 @@
   },
   {
     "id": "com.xui.xhide",
-    "description": "XHide\nAnother security thing.",
-    "removal": "Recommended",
+    "description": "XHide\nProvides the only way to hide files and lock apps when using Transsion launchers (which the Transsion devices require for certain functionality like multiapps not working with other launchers). These are the only apps that hide files and lock apps with them.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -28016,8 +28016,8 @@
   },
   {
     "id": "com.sprd.linkturbo",
-    "description": "For WiFi speed? Has useless logs.",
-    "removal": "Expert",
+    "description": "For WiFi speed? Has useless logs. I ran a speed test with it enabled and disabled, I don't see anything different if not my internet is slightly better now along with other apps being disabled,",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -30117,11 +30117,11 @@
   {
     "id": "com.google.android.apps.messaging",
     "list": "Google",
-  "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nQKSMS is a good FOSS replacement.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices. Please let us know your experience with this on https://github.com/0x192/universal-android-debloater/pull/250 (give your phone model + Android version)",
+  "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nQKSMS is a good FOSS replacement.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices. Please let us know your experience with this by creating an issue on GitHub (give your phone model + Android version).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.google.android.apps.nbu.files",
@@ -30400,7 +30400,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.google.android.deskclock",
@@ -30972,11 +30972,11 @@
   {
     "id": "com.google.android.partnersetup",
     "list": "Google",
-    "description": "Google Partner Setup\nOccasionally runs in the background.\nBased on an unclear explanation online: Enables applications to interact with your Google account/apps, for example: adding a Google Calendar event from a To-Do app.\nProbably safe to disable; Haven't noticed any consequences of disabling from weeks of use.",
+    "description": "Google Partner Setup\nOccasionally runs in the background.\nBased on an unclear explanation online: \"Enables applications to interact with your Google account/apps, for example: adding a Google Calendar event from a To-Do app.\"\nProbably safe to disable; haven't noticed any consequences of disabling from weeks of use.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.google.android.webview",
@@ -33199,11 +33199,11 @@
   {
     "id": "com.transsion.magicfont",
     "list": "Oem",
-    "description": "Magic Fonts (https://play.google.com/store/apps/details?id=com.transsion.magicfont)\nFonts installer with a lot of trackers obviously (https://reports.exodus-privacy.eu.org/fr/reports/com.transsion.magicfont/latest/).",
+    "description": "Magic Fonts (https://play.google.com/store/apps/details?id=com.transsion.magicfont)\nFonts installer with a lot of trackers obviously (https://reports.exodus-privacy.eu.org/fr/reports/com.transsion.magicfont/latest/). For Transsion devices I'm pretty sure this is the only way you can install fonts, even Zfont uses this app to install fonts. Breaks or well, removes functionality of changing fonts if removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   {
     "id": "com.transsion.kolun.assistant",
