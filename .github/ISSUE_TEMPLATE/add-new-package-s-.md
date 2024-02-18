@@ -1,7 +1,7 @@
 ---
 name: Add new package(s)
 about: You want to add new apps in the debloat list
-title: ""
+title: "pkg: "
 labels: package::addition
 assignees: ""
 ---

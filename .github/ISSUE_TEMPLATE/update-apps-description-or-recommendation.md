@@ -1,7 +1,7 @@
 ---
 name: Update apps description or recommendation
 about: You want to improve/update a description/recommendation
-title: ""
+title: "pkg: "
 labels: package::documentation
 assignees: ""
 ---
