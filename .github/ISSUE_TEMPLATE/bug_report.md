@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: You have an issue with the UAD-ng software itself
-title: "bug: "
+title: "bug(scope): "
 labels: bug
 assignees: ""
 ---

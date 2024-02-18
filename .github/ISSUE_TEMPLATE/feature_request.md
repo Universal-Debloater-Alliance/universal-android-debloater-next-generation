@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: You want a new feature
-title: "feat: "
+title: "feat(scope): "
 labels: enhancement
 assignees: ""
 ---
