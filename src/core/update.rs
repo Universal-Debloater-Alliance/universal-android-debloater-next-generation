@@ -173,15 +173,13 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for UAD-ng update");
 
-    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases")
+    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
         .call()
     {
         Ok(res) => {
             let release: Release = serde_json::from_value(
                 res.into_json::<serde_json::Value>()
                     .map_err(|_| ())?
-                    .get(0)
-                    .ok_or(())?
                     .clone(),
             )
             .map_err(|_| ())?;
