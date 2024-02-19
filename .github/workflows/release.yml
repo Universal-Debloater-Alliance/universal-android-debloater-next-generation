@@ -1,6 +1,7 @@
 name: Build and release
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -25,8 +26,7 @@ jobs:
         with:
           path: bin
       - name: Create pre-release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v0.1.15
         with:
-          body_path: ${{ github.workspace }}/CHANGELOG.md
           files: bin/*/uad-ng-*
-          prerelease: true
+          generate_release_notes: true
