@@ -14870,11 +14870,11 @@
   {
     "id": "com.mediatek.duraspeed",
     "list": "Misc",
-    "description": "Provides some features that can boost the performance in games.\nAnyway, it's not available for some devices\nRemoving will break duraspeed features.",
+    "description": "A frontend to a Mediatek service that fully takes over Android's own Adaptive Battery management. Uninstalling this app will only remove the UI component, but not the system service that it's controlling. To completely disable Duraspeed you need to have it enabled first, open Duraspeed app via Settings, and set the toggle to 'Off'. Otherwise Duraspeed service will continue running despite there not being a Duraspeed entry in Settings which will lead to unexpected app freezes that affect FOSS apps such as Dialers/Phones and messengers.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   {
     "id": "com.mediatek.smartratswitch.service",
