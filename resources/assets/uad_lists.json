@@ -37493,9 +37493,6 @@
     "id": "com.thundercomm.ar.core",
     "list": "Oem",
     "description": "Looks like a debugging app.\nIt's AR (Augmented Reality)?",
-    "id": "android.autoinstalls.config.xioami.mibox3",
-    "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37505,9 +37502,6 @@
     "id": "com.android.theme.font.ArchivoSemiBold",
     "list": "Oem",
     "description": "Font ArchivoSemiBold",
-    "id": "com.amazon.amazonvideo.livingroom",
-    "list": "Oem",
-    "description": "Prime video\nhttps://play.google.com/store/apps/details?id=com.amazon.amazonvideo.livingroom&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37515,29 +37509,8 @@
   },
   {
     "id": "com.motorola.android.fota",
-    "list": "Carrier",
-    "description": "AT&T Software Update, But by the carrier.",
-    "id": "com.google.android.speech.pumpkin",
-    "list": "Aosp",
-    "description": "PumpkinService\nHas something to speech.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  {
-    "id": "com.google.android.sss.authbridge",
     "list": "Oem",
-    "description": "Second Screen Setup Auth Bridge\nDuring the first launch, the google api application is used.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.google.android.tv",
-    "list": "Oem",
-    "description": "Live Channels\nTV tuner and watching stuff, sadly has google analytics.",
+    "description": "System Software Update",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37574,18 +37547,6 @@
     "id": "com.motorola.android.overlay.lhbm",
     "list": "Oem",
     "description": "Not sure if its for high brightness mode, still unknown\n'config_udfps_local_hbm_supported' 'true'",
-    "id": "com.google.android.tv.bugreportsender",
-    "list": "Oem",
-    "description": "BugReportSender\nBug reports app.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.google.android.tv.frameworkpackagestubs",
-    "list": "Oem",
-    "description": "Activity Stub\nWeird app that is probably needed for SQLite, webview browser.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37595,27 +37556,6 @@
     "id": "com.motorola.motolights",
     "list": "Oem",
     "description": "Moto Lights\nPeople recommend to remove it:\nhttps://xdaforums.com/t/debloat-instructions-for-edge-40-pro-rtwo.4590155/\nMoto edge lights controller, hard to check this app but it has something to control display brightness in phone.",
-    "id": "com.google.android.youtube.tv",
-    "list": "Oem",
-    "description": "YouTube app\nhttps://play.google.com/store/apps/details?id=com.google.android.youtube.tv&hl=en_US",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.google.android.youtube.tvmusic",
-    "list": "Oem",
-    "description": "YouTube Music\nhttps://play.google.com/store/apps/details?id=com.google.android.youtube.tvmusic&hl=en&gl=US",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.mitv.download.service",
-    "list": "Oem",
-    "description": "DownloadService\nUnknown app that has many mitv frameworks.\nBut safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37625,72 +37565,6 @@
     "id": "com.motorola.android.settings.overlay.eqs",
     "list": "Oem",
     "description": "Overlay to refresh rate change in settings.\nNot sure if it's unused.",
-    "id": "com.mitv.milinkservice",
-    "list": "Oem",
-    "description": "MiLink\nMiui screen casting service.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  {
-    "id": "com.mitv.tvhome.atv",
-    "list": "Oem",
-    "description": "PatchWall\nIs it a spyware app? People recommend removing it.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.mitv.tvhome.michannel",
-    "list": "Oem",
-    "description": "Mi Channel\nSame app like a PatchWall.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.mitv.videoplayer",
-    "list": "Oem",
-    "description": "Mi TV Video Player\nIt's video player with google ads.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  {
-    "id": "com.miui.tv.analytics",
-    "list": "Oem",
-    "description": "Analytics\nWeird analytics app with a lot random stuff found in resources.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.netflix.ninja",
-    "list": "Oem",
-    "description": "Netflix app\nhttps://play.google.com/store/apps/details?id=com.netflix.ninja&hl=en_US",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.xiaomi.android.tvsetup.partnercustomizer",
-    "list": "Oem",
-    "description": "SetupCustomizer\nOn first boot setup installs bloatware.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "com.xiaomi.mitv.res",
-    "list": "Oem",
-    "description": "MiUtilRes\nLooks like mitv api.\nProbably Unsafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37700,9 +37574,6 @@
     "id": "com.motorola.sstservice",
     "list": "Oem",
     "description": "Spatial Sound\nProvides sst audio effects.\nI am not sure how to use this app.\nCode is too small, no activities only some frameworks in classes.dex",
-    "id": "com.xm.webcontent",
-    "list": "Oem",
-    "description": "WebContent\nNeeded for messages such as 'App installing'. Also WebView.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37793,6 +37664,183 @@
     "id": "com.google.android.carrier",
     "list": "Oem",
     "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nNot needed app, a lot metrics or telemetry frameworks.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "android.autoinstalls.config.xioami.mibox3",
+    "list": "Oem",
+    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.amazon.amazonvideo.livingroom",
+    "list": "Oem",
+    "description": "Prime video\nhttps://play.google.com/store/apps/details?id=com.amazon.amazonvideo.livingroom&hl=en&gl=US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.speech.pumpkin",
+    "list": "Aosp",
+    "description": "PumpkinService\nHas something to speech.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.sss.authbridge",
+    "list": "Oem",
+    "description": "Second Screen Setup Auth Bridge\nThere's google api's used on first boot setup.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.tv",
+    "list": "Oem",
+    "description": "Live Channels\nTV tuner and watching stuff, sadly has google analytics.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.tv.bugreportsender",
+    "list": "Oem",
+    "description": "BugReportSender\nBug reports app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.tv.frameworkpackagestubs",
+    "list": "Oem",
+    "description": "Activity Stub\nWeird app that probably needed for SQLite, webview browser.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.youtube.tv",
+    "list": "Oem",
+    "description": "YouTube app\nhttps://play.google.com/store/apps/details?id=com.google.android.youtube.tv&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.youtube.tvmusic",
+    "list": "Oem",
+    "description": "YouTube Music\nhttps://play.google.com/store/apps/details?id=com.google.android.youtube.tvmusic&hl=en&gl=US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mitv.download.service",
+    "list": "Oem",
+    "description": "DownloadService\nUnknown app that has many mitv frameworks.\nBut safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mitv.milinkservice",
+    "list": "Oem",
+    "description": "MiLink\nMiui screen casting service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.mitv.tvhome.atv",
+    "list": "Oem",
+    "description": "PatchWall\nIs it a spyware app? People recommend removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mitv.tvhome.michannel",
+    "list": "Oem",
+    "description": "Mi Channel\nSame app like a PatchWall.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.mitv.videoplayer",
+    "list": "Oem",
+    "description": "Mi TV Video Player\nIt's video player with google ads.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.miui.tv.analytics",
+    "list": "Oem",
+    "description": "Analytics\nWeird analytics app with a lot random stuff found in resources.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.netflix.ninja",
+    "list": "Oem",
+    "description": "Netflix app\nhttps://play.google.com/store/apps/details?id=com.netflix.ninja&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.xiaomi.android.tvsetup.partnercustomizer",
+    "list": "Oem",
+    "description": "SetupCustomizer\nOn first boot setup installs bloatware.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.xiaomi.mitv.res",
+    "list": "Oem",
+    "description": "MiUtilRes\nLooks like mitv api.\nProbably Unsafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.xm.webcontent",
+    "list": "Oem",
+    "description": "WebContent\nNeeded for messages like 'App installing'. Also WebView.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
     "id": "mitv.service",
     "list": "Oem",
     "description": "TvService\nHas shutdown delay.\nSafe to remove.",
@@ -37804,7 +37852,646 @@
   {
     "id": "tv.alphonso.alphonso_eula",
     "list": "Oem",
-    "description": "Alphonso Recommendations\nEnhanced viewing, personalized experience of watching TV.\nMany sites recommend removing this.",
+    "description": "Alphonso Recommendations\nEnhanced viewing, personalized experience of watching TV.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.battery",
+    "list": "Oem",
+    "description": "Battery\nNeeded for power managment in settings?\nhttps://xdaforums.com/t/how-to-fix-oneplus-11-thermal-throttling.4560085/post-89255314\nBetter test it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.bttestmode",
+    "list": "Oem",
+    "description": "BTtestmode\nBluetooth SAR Signaling, Scene Test",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.coloros.alarmclock",
+    "list": "Oem",
+    "description": "Stock Clock app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.cota",
+    "list": "Oem",
+    "description": "Carrier software updater?\nLooks like software updater for carrier phones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.engineermodeforflipkart",
+    "list": "Oem",
+    "description": "Engineermode2\nThis is app for get flipkartAddress and ShowSarImeiReceiver.\nI found some info: This phone is part of Flipkart Smart Plan and not eligible for release till any instant advance amount availed is repaid.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.ndsf",
+    "list": "Oem",
+    "description": "DSF\nProvides the ability to authenticate your identity when you connect your device.\nFor the 'Device Connection Security Service' to work properly, it needs to collect\ninformation about your HeyTap account to support automatic connection to different\ndevices with the same account and connect to the Internet to verify the security of your HeyTap account.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.fido.fido2client",
+    "list": "Oem",
+    "description": "FIDO UAF1.0 ASM\nRelated to app fingerprint unlocking and payments. Safe to remove if you don't use passwordless authentication to access online services.\n'com.fido.asm' is the same app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.mediatek.mt6983.gamedriver",
+    "list": "Misc",
+    "description": "Arm GPU Game Driver",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oplus.cast",
+    "list": "Oem",
+    "description": "Screencast\nPhone casting (casting phone screen to other devices).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.vip",
+    "list": "Oem",
+    "description": "My OPPO\nhttps://play.google.com/store/apps/details?id=com.oplus.vip",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.apprecover",
+    "list": "Oem",
+    "description": "Recover system apps",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "vendor.mediatek.iwlanservice",
+    "list": "Oem",
+    "description": "iWlan service, not sure if needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.coloros.musiclink",
+    "list": "Oem",
+    "description": "Music Party\nThis app allows you to play music through different phones, synchronised.\nhttps://www.youtube.com/watch?v=3Ak222Z79RY",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.nas",
+    "list": "Oem",
+    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oplus.notificationmanager",
+    "list": "Oem",
+    "description": "Notification management will not work when uninstalled/disabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oplus.ocloud",
+    "list": "Oem",
+    "description": "Its not about cloud but a lot logs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.omoji",
+    "list": "Oem",
+    "description": "Omoji\nAvatar editing app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.bluetooth.oplus.overlay",
+    "list": "Oem",
+    "description": "Overlay to 'com.android.bluetooth'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.android.camerabigballconfig.overlay",
+    "list": "Oem",
+    "description": "Configures default Qr Code component\ncom.google.android.gms .mlkit.barcode.ui.PlatformBarcodeScanningActivityProxy. Not needed to camera or scan QR Code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.engineercamera",
+    "list": "Oem",
+    "description": "EngineerCamera\nTesting camera things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.engineermode",
+    "list": "Oem",
+    "description": "EngineerMode\nTesting phone things(like audio, bluetooth, etc.).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.engineernetwork",
+    "list": "Oem",
+    "description": "EngineerNetwork\nTesting network things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.exserviceui",
+    "list": "Oem",
+    "description": "Gesture Motion Services\nIs related to gesture navigation 'com.oplus.gesture'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.framework_bluetooth.overlay",
+    "list": "Oem",
+    "description": "Needed to bluetooth?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.gesture",
+    "list": "Oem",
+    "description": "Always-on screen gestures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.android.overlay.gmsconfig.common",
+    "list": "Oem",
+    "description": "Overlay to vendor required apps?\nTheres google apps and some not important oppo apps on the lists, not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.launcher",
+    "list": "Oem",
+    "description": "OPPO Launcher\nBreaks swipe up gestures after remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.nrMode",
+    "list": "Oem",
+    "description": "OplusNrModeControl\nRequired for Smart 5G.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.oplus.qualityprotect",
+    "list": "Oem",
+    "description": "QualityProtect\nLogs about system usage, some apps, not useful.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.oplus.virtualcomm",
+    "list": "Oem",
+    "description": "It's probably virtual communications.\nAlso about these it's in the code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.safecenter",
+    "list": "Oem",
+    "description": "Security Center\nIt breaks 'display over other apps' permission!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oplus.screenshot",
+    "list": "Oem",
+    "description": "Screenshot\nNeeded for screenshots. Very useful app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.connectivity.resources.overlay.oplus",
+    "list": "Oem",
+    "description": "Needed for network, may cause bootloop.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.oplus.subsys",
+    "list": "Oem",
+    "description": "Its app for virtual communication. Depends on 'com.oplus.virtualcomm'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.uxdesign",
+    "list": "Oem",
+    "description": "Wallpapers & style\nNeeded for changing wallpaper.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.viewtalk",
+    "list": "Oem",
+    "description": "ViewTalk\nApplication for recognizing text in an image and reading it out loud.\nDid not figure out how it works.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.wallpapers",
+    "list": "Oem",
+    "description": "Wallpapers\nNeeded for wallpapers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.oplus.wirelesssettings",
+    "list": "Oem",
+    "description": "DCSSDK\nWireless settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  {
+    "id": "com.google.android.aicore",
+    "list": "Oem",
+    "description": "AI Core\nLooks like AI things but code means nothing about AI or Performance.\nhttps://developer.android.com/ml/aicore Android apps can access this package for Google Gemini.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.apps.betterbug",
+    "list": "Oem",
+    "description": "Android Beta Feedback\nAvailable on Beta Android Pixel Phones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.carrierlocation",
+    "list": "Oem",
+    "description": "Sharing location to carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.apps.carrier.log",
+    "list": "Oem",
+    "description": "Carrier App Logging\nRequire google play services\nLogs everything.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.pixel.digitalkey.timesync",
+    "list": "Oem",
+    "description": "CccDkTimeSyncService, IBluetoothCcc.\nUnknown app to car connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.sdm.plugins.connmo",
+    "list": "Oem",
+    "description": "ConnMO\nNotifications for video calling?\nAlso Apn Service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.android.sdm.plugins.dcmo",
+    "list": "Oem",
+    "description": "Carrier OMADM\nAnother thing to VoLTE.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.android.DeviceAsWebcam",
+    "list": "Oem",
+    "description": "Using smartphone as webcam.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.android.omadm.service",
+    "list": "Oem",
+    "description": "Oma Device Management, There are carrier tools, no firmware update found.\nThe code also includes Subscription Index and configures FOTA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.apps.dreamliner",
+    "list": "Oem",
+    "description": "Pixel Stand, Google Pixel AI wallpaper.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.dreamlinerupdater",
+    "list": "Oem",
+    "description": "Dock Updater\nUpdates to Dreamliner(Google Pixel AI wallpaper).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.euiccoverlay",
+    "list": "Oem",
+    "description": "Partner customization on first boot Setup, overlay.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.grilservice",
+    "list": "Oem",
+    "description": "Has too much random logging, metrics stuff.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.hardwareinfo",
+    "list": "Oem",
+    "description": "Has a lot statistics and takes info about device.\nRequires Google Play Services, also assumes call notifications?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.android.hbmsvmanager",
+    "list": "Oem",
+    "description": "Its app for calibration screen and debugging.\nHBM SV is unknown.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.omadm.trigger",
+    "list": "Carrier",
+    "description": "OemDmTrigger\nOMA Device Managment Verizon.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.slsi.telephony.oem.oemrilhookservice",
+    "list": "Carrier",
+    "description": "Another data collection by Carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.samsung.slsi.telephony.oemril",
+    "list": "Carrier",
+    "description": "Virtual SIM and testing things found and collection data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.pixel.camera.services",
+    "list": "Oem",
+    "description": "CameraIDRemapper and a lot Debug stuff.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.apps.camera.services",
+    "list": "Oem",
+    "description": "Pixel Camera Services\nExperimental stuff, Camera Calibration.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.android.qns",
+    "list": "Oem",
+    "description": "Apn service, emergency calling, not sure how useful this app is.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.google.android.apps.pixel.support",
+    "list": "Oem",
+    "description": "Pixel Troubleshooting\nThere's Battery diagnostics also google, tiktok? account load.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.android.repairmode",
+    "list": "Oem",
+    "description": "Repair mode to Pixel, not sure how it works.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.apps.retaildemo.preload",
+    "list": "Oem",
+    "description": "Retail Demo Services\nShould not be used for normal users.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  {
+    "id": "com.google.RilConfigService",
+    "list": "Oem",
+    "description": "May break calls after remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.safetyregulatoryinfo",
+    "list": "Oem",
+    "description": "Unused? This is what you can find probably in settings:\nsetSavePassword, setSaveFormData, setBlockNetworkLoads, setJavaScriptEnabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.settings.future.biometrics.faceenroll",
+    "list": "Oem",
+    "description": "Needed to face unlock.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.shannon.imsservice",
+    "list": "Carrier",
+    "description": "Verizon IMS service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.shannon.rcsservice",
+    "list": "Carrier",
+    "description": "Verizon RCS service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.SSRestartDetector",
+    "list": "Oem",
+    "description": "SubSystem Restart Service, Collects ram dump, crash count.\nStill unknown.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.google.android.uvexposurereporter",
+    "list": "Oem",
+    "description": "UvExposureReporter, logs, VendorAtom.\nUnknown.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  {
+    "id": "com.qorvo.uwb.vendorservice",
+    "list": "Oem",
+    "description": "Unknown app that has something to .android.UwbApp and NFC_SET_CONTROLLER_ALWAYS_ON permission.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  {
+    "id": "com.android.yadayada",
+    "list": "Oem",
+    "description": "Disclaimer show to user, feedback, first boot setup.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
