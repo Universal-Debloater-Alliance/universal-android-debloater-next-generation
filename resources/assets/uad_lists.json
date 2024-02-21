@@ -2828,7 +2828,7 @@
   {
     "id": "com.huawei.webview",
     "list": "Oem",
-    "description": "Huawei Webview.\nAllows Android apps to display content from the web directly inside the app.\nWARNING: Make to have another Webview before uninstalling it or some apps may not work properly.\nBromite is an open-source, privacy-oriented Webview replacement: https://www.bromite.org/system_web_view",
+    "description": "Huawei WebView enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8507,7 +8507,7 @@
   {
     "id": "com.android.webview",
     "list": "Aosp",
-    "description": "AOSP webview\nDeprecated and replaced by com.google.android.webview\nAllows Android apps to display content from the web directly inside the app. It's based on Chrome.\nWARNING: Make to have another Webview before uninstalling it or some apps may not work properly.\nBromite is an open-source, privacy-oriented Webview replacement: https://www.bromite.org/system_web_view",
+    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14033,7 +14033,7 @@
   {
     "id": "com.oppo.webview",
     "list": "Oem",
-    "description": "Oppo Webview\nA WebView is a system component for the Android operating system (OS) that allows Android apps to display content \nfrom the web directly inside an application. It's based on Chrome.\nWARNING: Make to have another Webview before uninstalling it or some apps may not work properly\nOn open-source privacy oriented Webview is Bromite (https://www.bromite.org/system_web_view)\n",
+    "description": "Oppo WebView enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30981,7 +30981,7 @@
   {
     "id": "com.google.android.webview",
     "list": "Google",
-    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview)\nAllows Android apps to display content from the web directly inside the app.\nMake sure you have a replacement installed if you delete it as many third-party apps (that use WebView) will crash.\nThis is because some apps, like GitHub, Discord and Reddit for example, use web-based content in their apps. If that's the case, it'll usually by default use Android System WebView, see:\nhttps://developer.android.com/develop/ui/views/layout/webapps\nIt's based on Chrome.\n\nBromite is an open-source, privacy-oriented Webview replacement: https://www.bromite.org/system_web_view\nNOTE: installing Bromite via F-Droid requires root.",
+    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
