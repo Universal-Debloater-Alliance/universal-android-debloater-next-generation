@@ -24,7 +24,7 @@ static_init = "^1.0"
 fern = { version = "^0", features = ["colored"] }
 chrono = { version = "^0.4", default-features = false, features = ["std", "clock"] }
 log = "^0.4"
-regex = "^1.10.2"
+regex = "^1.10.3"
 toml = "^0"
 dirs = "^5.0.0"
 ureq = { version = "*", features = ["json"] }
