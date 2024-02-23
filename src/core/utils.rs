@@ -1,18 +1,14 @@
 use crate::core::sync::{hashset_system_packages, list_all_system_packages, User};
 use crate::core::theme::Theme;
-use crate::core::uad_lists::{Package, PackageState, Removal, UadList};
+use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
 use crate::gui::widgets::package_row::PackageRow;
 use chrono::offset::Utc;
 use chrono::DateTime;
-use std::collections::HashMap;
 use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
-pub fn fetch_packages(
-    uad_lists: &HashMap<String, Package>,
-    user_id: Option<&User>,
-) -> Vec<PackageRow> {
+pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
     let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
     let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
     let disabled_system_packages = hashset_system_packages(PackageState::Disabled, user_id);

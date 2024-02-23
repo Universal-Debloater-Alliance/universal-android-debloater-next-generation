@@ -2,12 +2,11 @@ use crate::core::config::DeviceSettings;
 use crate::core::sync::{apply_pkg_state_commands, perform_adb_commands, CommandType, Phone, User};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
-    load_debloat_lists, Opposite, Package, PackageState, Removal, UadList, UadListState,
+    load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
 use crate::core::utils::fetch_packages;
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
-use std::collections::HashMap;
 use std::env;
 
 use crate::gui::views::settings::Settings;
@@ -40,7 +39,7 @@ pub enum LoadingState {
 #[derive(Default, Debug, Clone)]
 pub struct List {
     pub loading_state: LoadingState,
-    pub uad_lists: HashMap<String, Package>,
+    pub uad_lists: PackageHashMap,
     pub phone_packages: Vec<Vec<PackageRow>>, // packages of all users of the phone
     filtered_packages: Vec<usize>, // phone_packages indexes of the selected user (= what you see on screen)
     selected_packages: Vec<(usize, usize)>, // Vec of (user_index, pkg_index)
@@ -58,7 +57,7 @@ pub struct List {
 #[derive(Debug, Clone)]
 pub enum Message {
     LoadUadList(bool),
-    LoadPhonePackages((HashMap<String, Package>, UadListState)),
+    LoadPhonePackages((PackageHashMap, UadListState)),
     RestoringDevice(Result<CommandType, ()>),
     ApplyFilters(Vec<Vec<PackageRow>>),
     SearchInputChanged(String),
@@ -692,10 +691,7 @@ impl List {
             .collect();
     }
 
-    async fn load_packages(
-        uad_list: HashMap<String, Package>,
-        user_list: Vec<User>,
-    ) -> Vec<Vec<PackageRow>> {
+    async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
         let mut phone_packages = vec![];
 
         if user_list.len() <= 1 {
@@ -710,10 +706,7 @@ impl List {
         phone_packages
     }
 
-    async fn init_apps_view(
-        remote: bool,
-        phone: Phone,
-    ) -> (HashMap<String, Package>, UadListState) {
+    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
         let (uad_lists, _) = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
