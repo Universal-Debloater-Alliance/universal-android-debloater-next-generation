@@ -1,0 +1,19 @@
+name: Feature Request
+description: You want a new feature for UAD-ng
+title: "feat(scope): "
+labels: ["enhancement"]
+body:
+- type: checkboxes
+  id: duplicate-issue
+  attributes:
+    label: I've made sure the reported issue doesn't exist yet.
+    options:
+      - label: Yes I did
+        required: true
+- type: textarea
+  id: feature-description
+  attributes:
+    label: Describe the feature you want
+    description: A clear and concise description of the feature you want.
+  validations:
+    required: true
