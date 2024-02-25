@@ -17140,7 +17140,7 @@
   },
   "com.huawei.multimedia.audioengine": {
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? It's for Huawei Mobile Services? It has code analytics and assistant so it might be for spying.",
+    "description": "Audio Engine, probably not needed.\nhttps://developer.huawei.com/consumer/en/audioengine",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
