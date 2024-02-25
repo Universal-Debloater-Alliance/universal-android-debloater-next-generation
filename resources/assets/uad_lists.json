@@ -2031,6 +2031,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.huawei.android.overlay.modules.modulemetadata": {
+    "list": "Oem",
+    "description": "Module that contains metadata about the list of modules on the device and that's about it. I wouldn't advise you to mess with it as it could break important modules (see W1nst0n/universal-android-debloater#37 on GitLab).\nGood explanation of what Android modules are: https://www.xda-developers.com/android-project-mainline-modules-explanation/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.huawei.android.chr": {
     "list": "Oem",
     "description": "HwChrService\nHuawei Call History Record. \n",
@@ -2041,11 +2049,11 @@
   },
   "com.huawei.android.dsdscardmanager": {
     "list": "Oem",
-    "description": "Dual card management\nit's sim card management in huawei settings.\nAfter remove sim card managment in settings will not work.",
+    "description": "Dual card management\nIt's sim card management in Huawei settings.\nAfter removing, sim card management in settings will not work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.huawei.android.FloatTasks": {
     "list": "Oem",
@@ -2254,6 +2262,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.huawei.dsdscardmanager": {
+    "list": "Oem",
+    "description": "Dual card management\nIt's sim card management in Huawei settings.\nAfter removing, sim card management in settings will not work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.huawei.desktop.explorer": {
     "list": "Oem",
