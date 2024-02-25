@@ -3581,6 +3581,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.alive.service": {
+    "list": "Oem",
+    "description": "Content suggestions service",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.aliveprivacy": {
+    "list": "Oem",
+    "description": "Content Suggestions is an AI-based app inside the Secure Folder, and its on-device AI-powered engine automatically suggests users to move private images of pre-selected categories to the Secure Folder. For this to happen users have to simply select specific faces or a type of image they want to tag as private and keep them secured in the private gallery of the Secure Folder. Once the initial setup is complete, the AI engine kicks in and identifies relevant images from the entire gallery. As this is an on-device AI solution, no information or image ever leaves the smartphone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.android.allshare.service.mediashare": {
     "list": "Oem",
     "description": "Samsung AllShare service (now called SmartView and/or Nearby Service).\nUsed to stream content from your phone to a Samsung smart TV.\nhttps://www.samsung.com/us/apps/smart-view-2/. On devices where the display-name is 'Nearby Service', 'Smart View' will continue to work properly (it doesn't depend on Nearby Service).",
@@ -7241,6 +7257,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.intentresolver": {
+    "list": "Aosp",
+    "description": "In Android 14 they moved the share menu into this package; if you uninstall it, you can no longer use it. Uh, also breaks motion photos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.android.internal.display.cutout.emulation.corner": {
     "list": "Aosp",
