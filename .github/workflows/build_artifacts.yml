@@ -46,24 +46,24 @@ jobs:
         run: mkdir -p bin
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-latest'
-        run: mv target/release/uad-ng.exe bin/uad-ng-${{ matrix.build_target }}.exe
+        run: mv target/release/uad-ng.exe uad-ng-${{ matrix.build_target }}.exe
       - name: Renaming binaries [Others]
         if: matrix.os != 'windows-latest'
-        run: mv target/release/uad-ng bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
+        run: mv target/release/uad-ng uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
       - name: Tarball Linux/MacOS binary
         if: matrix.os != 'windows-latest'
-        run: tar -czf bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}{.tar.gz,}
+        run: tar -czf uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}{.tar.gz,}
       - name: Install coreutils for macOS
         if: matrix.os == 'macos-latest'
         run: brew install coreutils
       - name: Create checksums for binaries and archives [Windows]
         if: matrix.os == 'windows-latest'
-        run: sha256sum bin/uad-ng-${{ matrix.build_target }}.exe | tee bin/uad-ng-${{ matrix.build_target }}-checksum.txt
+        run: sha256sum uad-ng-${{ matrix.build_target }}.exe | tee uad-ng-${{ matrix.build_target }}-checksum.txt
       - name: Create checksums for binaries and archives [Others]
         if: matrix.os != 'windows-latest'
         run: |
-          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }} | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}-checksum
-          sha256sum bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz | tee bin/uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz-checksum
+          sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }} | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}-checksum
+          sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz-checksum
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
