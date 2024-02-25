@@ -42,8 +42,6 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - name: Building
         run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }}
-      - name: Creating ./bin directory
-        run: mkdir -p bin
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-latest'
         run: mv target/release/uad-ng.exe uad-ng-${{ matrix.build_target }}.exe
@@ -68,4 +66,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
-          path: bin/uad-ng-*
+          path: uad-ng-*
