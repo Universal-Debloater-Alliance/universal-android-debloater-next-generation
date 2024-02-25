@@ -1,31 +1,22 @@
-name: Bug Report
-description: You have an issue with the UAD-ng software itself
+name: Debloat issue report
+description: Your phone has unexpected issues after debloating
 title: "bug(scope): "
-labels: ["bug"]
+labels: ["package::breakage"]
 body:
-- type: markdown
-  attributes:
-    value: |
-      Thanks for taking the time to fill out this bug report!
 - type: textarea
   id: what-happened
   attributes:
-    label: Describe the bug
-    description: A clear and concise description of what the bug is
+    label: Describe the problem
+    description: A clear and concise description of what the problem is, including details (e.g. Android version, phone model)
   validations:
     required: true
-- type: textarea
-  id: expected-behavior
-  attributes:
-    label: Expected behavior
-    description: A clear and concise description of what you expected to happen.
-  validations:
-    required: true
+
 - type: textarea
   id: suggested-solution
   attributes:
     label: You have a solution?
     description: What to do to fix the issue.
+
 - type: textarea
   id: logfiles
   attributes:
@@ -40,7 +31,7 @@ body:
     label: Acknowledgements
     description: Your bug report will be closed if you don't follow the checklist below.
     options:
-      - label: This issue is not a duplicate of an existing bug report.
+      - label: This issue is not a duplicate of an existing one.
         required: true
       - label: I have chosen an appropriate title.
         required: true
