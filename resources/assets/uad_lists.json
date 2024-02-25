@@ -6044,6 +6044,14 @@
   },
   "com.samsung.android.app.smartcapture": {
     "list": "Oem",
+    "description": "Lets you group widgets on OneUI 4",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.app.smartwidget": {
+    "list": "Oem",
     "description": "Samsung screenshot\nYou will still be able to take screenshots without this package.",
     "dependencies": [],
     "neededBy": [],
@@ -12855,6 +12863,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.privacydashboard": {
+    "list": "Oem",
+    "description": "Privacy dashboard in settings:\nhttps://insights.samsung.com/2023/08/17/what-is-privacy-dashboard-and-how-does-it-protect-my-data-2/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.privateshare": {
     "list": "Oem",
@@ -32093,6 +32109,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.emergency": {
+    "list": "Oem",
+    "description": "Emergency SOS\nHas a lot of permissions, lets you send SOS messages and calls.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.android.email.widget": {
     "list": "Oem",
     "description": "Email Widget on some old samsung phones like S6",
@@ -32340,6 +32364,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.memorysaver": {
+    "list": "Oem",
+    "description": "Helps you to free up space by letting you delete duplicates and move contents and apps on an SD card.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.mobiletv": {
     "list": "Oem",
