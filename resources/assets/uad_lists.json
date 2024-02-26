@@ -2031,6 +2031,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.huawei.android.overlay.modules.modulemetadata": {
+    "list": "Oem",
+    "description": "Module that contains metadata about the list of modules on the device and that's about it. I wouldn't advise you to mess with it as it could break important modules (see W1nst0n/universal-android-debloater#37 on GitLab).\nGood explanation of what Android modules are: https://www.xda-developers.com/android-project-mainline-modules-explanation/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.huawei.android.chr": {
     "list": "Oem",
     "description": "HwChrService\nHuawei Call History Record. \n",
@@ -2041,11 +2049,11 @@
   },
   "com.huawei.android.dsdscardmanager": {
     "list": "Oem",
-    "description": "Dual card management\nit's sim card management in huawei settings.\nAfter remove sim card managment in settings will not work.",
+    "description": "Dual card management\nIt's sim card management in Huawei settings.\nAfter removing, sim card management in settings will not work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.huawei.android.FloatTasks": {
     "list": "Oem",
@@ -2254,6 +2262,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.huawei.dsdscardmanager": {
+    "list": "Oem",
+    "description": "Dual card management\nIt's sim card management in Huawei settings.\nAfter removing, sim card management in settings will not work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.huawei.desktop.explorer": {
     "list": "Oem",
@@ -3580,6 +3596,22 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.alive.service": {
+    "list": "Oem",
+    "description": "Content suggestions service",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.aliveprivacy": {
+    "list": "Oem",
+    "description": "Content Suggestions is an AI-based app inside the Secure Folder, and its on-device AI-powered engine automatically suggests users to move private images of pre-selected categories to the Secure Folder. For this to happen users have to simply select specific faces or a type of image they want to tag as private and keep them secured in the private gallery of the Secure Folder. Once the initial setup is complete, the AI engine kicks in and identifies relevant images from the entire gallery. As this is an on-device AI solution, no information or image ever leaves the smartphone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.allshare.service.mediashare": {
     "list": "Oem",
@@ -6044,6 +6076,14 @@
   },
   "com.samsung.android.app.smartcapture": {
     "list": "Oem",
+    "description": "Lets you group widgets on OneUI 4",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.app.smartwidget": {
+    "list": "Oem",
     "description": "Samsung screenshot\nYou will still be able to take screenshots without this package.",
     "dependencies": [],
     "neededBy": [],
@@ -7233,6 +7273,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.intentresolver": {
+    "list": "Aosp",
+    "description": "In Android 14 they moved the share menu into this package; if you uninstall it, you can no longer use it. Uh, also breaks motion photos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.android.internal.display.cutout.emulation.corner": {
     "list": "Aosp",
@@ -12856,6 +12904,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.privacydashboard": {
+    "list": "Oem",
+    "description": "Privacy dashboard in settings:\nhttps://insights.samsung.com/2023/08/17/what-is-privacy-dashboard-and-how-does-it-protect-my-data-2/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.android.privateshare": {
     "list": "Oem",
     "description": "Blockchain-powered file sharing system for Samsung phones.\nWhy blockchain? Because it's a nice buzzword! The privacy policy of this Samsung service is really bad: https://libreddit.spike.codes/r/privacy/comments/rqbb9b/samsung_private_share_is_not_so_private/",
@@ -17124,7 +17180,7 @@
   },
   "com.huawei.multimedia.audioengine": {
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? It's for Huawei Mobile Services? It has code analytics and assistant so it might be for spying.",
+    "description": "Audio Engine, probably not needed.\nhttps://developer.huawei.com/consumer/en/audioengine",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26817,7 +26873,7 @@
   },
   "com.google.android.apps.messaging": {
     "list": "Google",
-    "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nQKSMS is a good FOSS replacement.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices. Please let us know your experience with this by creating an issue on GitHub (give your phone model + Android version).",
+    "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32093,6 +32149,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.emergency": {
+    "list": "Oem",
+    "description": "Emergency SOS\nHas a lot of permissions, lets you send SOS messages and calls.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.android.email.widget": {
     "list": "Oem",
     "description": "Email Widget on some old samsung phones like S6",
@@ -32340,6 +32404,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.memorysaver": {
+    "list": "Oem",
+    "description": "Helps you to free up space by letting you delete duplicates and move contents and apps on an SD card.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.mobiletv": {
     "list": "Oem",
