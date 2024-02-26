@@ -425,7 +425,7 @@
   },
   "com.sonymobile.music.googlelyricsplugin": {
     "list": "Oem",
-    "description": "Google lyrics plugin\nProvides lycris from Google in the sony music app\n",
+    "description": "Google lyrics plugin\nProvides lyrics from Google in the sony music app\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -545,7 +545,7 @@
   },
   "com.sonymobile.xperiaxlivewallpaper.product.res.overlay": {
     "list": "Oem",
-    "description": "Some overlay for a live wallaper from Sony? Overlays are usually themes, but not sure about this one as theming seems weird for live wallpapers. Could be that Sony automatically generates theme packages for all or most system apps, which might generate some unnecessary packages.",
+    "description": "Some overlay for a live wallpaper from Sony? Overlays are usually themes, but not sure about this one as theming seems weird for live wallpapers. Could be that Sony automatically generates theme packages for all or most system apps, which might generate some unnecessary packages.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1081,7 +1081,7 @@
   },
   "com.asurion.android.verizon.vms": {
     "list": "Carrier",
-    "description": "Verizon Digital Secure (https://play.google.com/store/apps/details?id=com.asurion.android.verizon.vms)\nNote : This app is developped by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "Verizon Digital Secure (https://play.google.com/store/apps/details?id=com.asurion.android.verizon.vms)\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1137,7 +1137,7 @@
   },
   "com.LogiaGroup.LogiaDeck": {
     "list": "Carrier",
-    "description": "Mobile Services Manager\nSeems to be a spyware. \nGood explainantion from someone who worked for carrier : \nhttps://www.reddit.com/r/lgv20/comments/6u0wnf/what_is_mobile_services_manager_did_i_catch_a/\n",
+    "description": "Mobile Services Manager\nSeems to be a spyware. \nGood explanation from someone who worked for carrier : \nhttps://www.reddit.com/r/lgv20/comments/6u0wnf/what_is_mobile_services_manager_did_i_catch_a/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1377,7 +1377,7 @@
   },
   "com.asurion.home.sprint.vpl": {
     "list": "Carrier",
-    "description": "Tech Expert (for VPL devices/employees) ?\nNow \"Sprint Complete\" (see below).\nNote : This app is developped by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "Tech Expert (for VPL devices/employees) ?\nNow \"Sprint Complete\" (see below).\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2105,7 +2105,7 @@
   },
   "com.huawei.android.instantonline": {
     "list": "Oem",
-    "description": "no noticable consequences\n",
+    "description": "no noticeable consequences\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2289,7 +2289,7 @@
   },
   "com.huawei.fido.uafclient": {
     "list": "Oem",
-    "description": "UAF client for FIDO.\nFido is a set of open technical specifications for mechanisms of authenticating users to online services that do not depend on passwords.\nhttps://fidoalliance.org/specs/u2f-specs-1.0-bt-nfc-id-amendment/fido-glossary.html\nhttps://fidoalliance.org/specs/fido-v2.0-rd-20170927/fido-overview-v2.0-rd-20170927.html\nThe UAF protocol is designed to enable online services to offer passwordless and multi-factor security by allowing users to register their device to the online service and using a local authentication mechanism such as iris or fingerprint recognition.\nhttps://developers.google.com/identity/fido/android/native-apps\nSafe to remove if you don't use password-less authentification to access online servics.",
+    "description": "UAF client for FIDO.\nFido is a set of open technical specifications for mechanisms of authenticating users to online services that do not depend on passwords.\nhttps://fidoalliance.org/specs/u2f-specs-1.0-bt-nfc-id-amendment/fido-glossary.html\nhttps://fidoalliance.org/specs/fido-v2.0-rd-20170927/fido-overview-v2.0-rd-20170927.html\nThe UAF protocol is designed to enable online services to offer passwordless and multi-factor security by allowing users to register their device to the online service and using a local authentication mechanism such as iris or fingerprint recognition.\nhttps://developers.google.com/identity/fido/android/native-apps\nSafe to remove if you don't use password-less authentication to access online services.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2329,7 +2329,7 @@
   },
   "com.huawei.hwsearch": {
     "list": "Oem",
-    "description": "Petal Search widget. Used for finding apps/apks on serveral online sources (introduced after Google Mobile Services Ban).\n",
+    "description": "Petal Search widget. Used for finding apps/apks on several online sources (introduced after Google Mobile Services Ban).\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2363,7 +2363,7 @@
   },
   "com.huawei.hiai": {
     "list": "Oem",
-    "description": "no noticable consequences\n",
+    "description": "no noticeable consequences\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3927,7 +3927,7 @@
   },
   "com.samsung.android.ardrawing": {
     "list": "Oem",
-    "description": "AR Doodles (accessible through AR Zone)\nLets you draw on your face using the front camera and uses AR Core for drawing on the environment with the rear camera.\nOnly Sasmung AR app (afaik) that requests location access, and it refuses to run without it\n",
+    "description": "AR Doodles (accessible through AR Zone)\nLets you draw on your face using the front camera and uses AR Core for drawing on the environment with the rear camera.\nOnly Samsung AR app (afaik) that requests location access, and it refuses to run without it\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4263,7 +4263,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "IMO it handles GPS needs for some samsungs apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
+    "description": "IMO it handles GPS needs for some Samsung apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4798,7 +4798,7 @@
   },
   "com.samsung.cmfa.AuthTouch": {
     "list": "Oem",
-    "description": "Continous Multi-Factor Authentication AuthTouchService\nRelated to `com.samsung.android.cmfa.framework`.",
+    "description": "Continuous Multi-Factor Authentication AuthTouchService\nRelated to `com.samsung.android.cmfa.framework`.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
