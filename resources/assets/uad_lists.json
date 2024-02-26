@@ -425,7 +425,7 @@
   },
   "com.sonymobile.music.googlelyricsplugin": {
     "list": "Oem",
-    "description": "Google lyrics plugin\nProvides lycris from Google in the sony music app\n",
+    "description": "Google lyrics plugin\nProvides lyrics from Google in the sony music app\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
