@@ -1593,7 +1593,7 @@
   },
   "com.asurion.android.mobilerecovery.att": {
     "list": "Carrier",
-    "description": "AT&T Protect Plus (discontinued. Replaced by AT&T ProTech : com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support expert\nNote : This app is developped by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "AT&T Protect Plus (discontinued. Replaced by AT&T ProTech : com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support expert\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1601,7 +1601,7 @@
   },
   "com.asurion.android.protech.att": {
     "list": "Carrier",
-    "description": "AT&T ProTech (https://play.google.com/store/apps/details?id=com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support \"expert\".\nNote : This app is developped by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "AT&T ProTech (https://play.google.com/store/apps/details?id=com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support \"expert\".\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1609,7 +1609,7 @@
   },
   "com.att.android.attsmartwifi": {
     "list": "Carrier",
-    "description": "AT&T Smart Wi-Fi (https://play.google.com/store/apps/details?id=com.att.android.attsmartwifi)\nFinds and auto-connects to available hotspots to minimize cellular data consumption.\nAuto-connects is not a godd idea.\nWorth reading : \nhttps://www.europol.europa.eu/activities-services/public-awareness-and-prevention-guides/risks-of-using-public-wi-fi\nhttps://www.eff.org/deeplinks/2020/01/why-public-wi-fi-lot-safer-you-think\nYou are ok if you go on HTTPS websites.\nUse a VPN if you want to hide the domain names you visit, avoid usage restriction (no P2P, blacklisted websites...) and encrypt HTTP traffic.\n==> https://thatoneprivacysite.net/choosing-the-best-vpn-for-you/\n",
+    "description": "AT&T Smart Wi-Fi (https://play.google.com/store/apps/details?id=com.att.android.attsmartwifi)\nFinds and auto-connects to available hotspots to minimize cellular data consumption.\nAuto-connects is not a good idea.\nWorth reading : \nhttps://www.europol.europa.eu/activities-services/public-awareness-and-prevention-guides/risks-of-using-public-wi-fi\nhttps://www.eff.org/deeplinks/2020/01/why-public-wi-fi-lot-safer-you-think\nYou are ok if you go on HTTPS websites.\nUse a VPN if you want to hide the domain names you visit, avoid usage restriction (no P2P, blacklisted websites...) and encrypt HTTP traffic.\n==> https://thatoneprivacysite.net/choosing-the-best-vpn-for-you/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1641,7 +1641,7 @@
   },
   "com.att.dtv.shaderemote": {
     "list": "Carrier",
-    "description": "DIRECTV Remote App (https://play.google.com/store/apps/details?id=com.att.dtv.shaderemote)\nLets you control DIRECTV HD receivers in your home that are connected to Internet, from your phone.\nFYI : DIRECTV is a susbsidiary of AT&T \nWorth reading : https://en.wikipedia.org/wiki/DirecTV#Consumer_protection_lawsuits_and_violations\n",
+    "description": "DIRECTV Remote App (https://play.google.com/store/apps/details?id=com.att.dtv.shaderemote)\nLets you control DIRECTV HD receivers in your home that are connected to Internet, from your phone.\nFYI : DIRECTV is a subsidiary of AT&T \nWorth reading : https://en.wikipedia.org/wiki/DirecTV#Consumer_protection_lawsuits_and_violations\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2379,7 +2379,7 @@
   },
   "com.huawei.hicard": {
     "list": "Oem",
-    "description": "Huawei Cards, no noticable consequences\n",
+    "description": "Huawei Cards, no noticeable consequences\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2443,7 +2443,7 @@
   },
   "com.huawei.hwasm": {
     "list": "Oem",
-    "description": "FIDO UAF Autenthicator-Specific Module.\nSee 'com.huawei.fido.uafclient' for FIDO explaination.\nThe UAF Authenticator-Specific Module (ASM) is a software interface on top of UAF authenticators which gives a standardized way for FIDO UAF clients to detect and access the functionality of UAF authenticators and hides internal communication complexity from FIDO UAF Client.\nhttps://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-asm-api-v1.0-ps-20141208.html",
+    "description": "FIDO UAF Authenticator-Specific Module.\nSee 'com.huawei.fido.uafclient' for FIDO explaination.\nThe UAF Authenticator-Specific Module (ASM) is a software interface on top of UAF authenticators which gives a standardized way for FIDO UAF clients to detect and access the functionality of UAF authenticators and hides internal communication complexity from FIDO UAF Client.\nhttps://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-asm-api-v1.0-ps-20141208.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2451,7 +2451,7 @@
   },
   "com.huawei.hwblockchain": {
     "list": "Oem",
-    "description": "Probably blockchain related, no noticable consequences when removed\n",
+    "description": "Probably blockchain related, no noticeable consequences when removed\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2519,7 +2519,7 @@
   },
   "com.huawei.ohos.inputmethod": {
     "list": "Oem",
-    "description": "Huawei default Keyboard\nWARNING: Before unistalling, make sure to have a third-party keyboard installed.\n",
+    "description": "Huawei default Keyboard\nWARNING: Before uninstalling, make sure to have a third-party keyboard installed.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3695,7 +3695,7 @@
   },
   "com.samsung.android.app.dressroom": {
     "list": "Oem",
-    "description": "Samsung Wallpapers\nWallaper manager. Needed to pick up a wallpaper on Android 10+.\nHas INTERNET permission and ACCESS_MEDIA_LOCATION\nBefore Android 10, you should still be able to set a wallpaper from the Samsung gallery without this package.\nWARNING: Removing this app will prevent you to set a new wallpaper on Android 10+ (even from the Gallery) or changing the Material You palette on Android 12+.",
+    "description": "Samsung Wallpapers\nWallpaper manager. Needed to pick up a wallpaper on Android 10+.\nHas INTERNET permission and ACCESS_MEDIA_LOCATION\nBefore Android 10, you should still be able to set a wallpaper from the Samsung gallery without this package.\nWARNING: Removing this app will prevent you to set a new wallpaper on Android 10+ (even from the Gallery) or changing the Material You palette on Android 12+.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4930,7 +4930,7 @@
   },
   "com.samsung.knox.keychain": {
     "list": "Oem",
-    "description": "Knox Key Chain\nAllows apps to sign data using system-wide private key/certificate pairs. \nSo, even though the Android Keystore provides per-app access to credentials, the Android KeyChain runs as a system user, \nand hence, credentials stored through the Android KeyChain are associated with the system ID instead of a user ID.\nhttps://docs.samsungknox.com/dev/knox-sdk/about-keystores.htm\nThis is only useful for apps using the TIMA Keystore. The big question I'm trying to anwser is:\nWhich are using this except Samsung apps? Can an android dev help on this?\n",
+    "description": "Knox Key Chain\nAllows apps to sign data using system-wide private key/certificate pairs. \nSo, even though the Android Keystore provides per-app access to credentials, the Android KeyChain runs as a system user, \nand hence, credentials stored through the Android KeyChain are associated with the system ID instead of a user ID.\nhttps://docs.samsungknox.com/dev/knox-sdk/about-keystores.htm\nThis is only useful for apps using the TIMA Keystore. The big question I'm trying to answer is:\nWhich are using this except Samsung apps? Can an android dev help on this?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
