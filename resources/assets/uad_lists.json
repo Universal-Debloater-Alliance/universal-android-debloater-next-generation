@@ -719,7 +719,7 @@
   },
   "com.ape.gamemode": {
     "list": "Oem",
-    "description": "Provides game mode feature for Wiko mobilee",
+    "description": "Provides game mode feature for Wiko mobile",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
