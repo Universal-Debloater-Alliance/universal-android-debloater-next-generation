@@ -1135,6 +1135,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+    "com.longcheertel.secretcode": {
+    "list": "Oem",
+    "description": "Refers to the system package that handles secret codes.\nSecret codes are special sequences of numbers and symbols that can be entered on a phone's keypad to access hidden features or information.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.LogiaGroup.LogiaDeck": {
     "list": "Carrier",
     "description": "Mobile Services Manager\nSeems to be a spyware. \nGood explanation from someone who worked for carrier : \nhttps://www.reddit.com/r/lgv20/comments/6u0wnf/what_is_mobile_services_manager_did_i_catch_a/\n",
