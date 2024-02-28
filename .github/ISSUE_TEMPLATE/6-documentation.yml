@@ -1,7 +1,7 @@
 name: UAD-ng documentation
 description: You want to improve the documentation of UAD-ng which is either a Markdown file or the Wiki
 title: "docs(scope): "
-labels: ["Documentation"]
+labels: ["documentation"]
 body:
 - type: textarea
   id: documentation-description
