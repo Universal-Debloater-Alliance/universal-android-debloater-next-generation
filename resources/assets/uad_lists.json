@@ -6358,7 +6358,7 @@
   },
   "com.sec.android.app.launcher": {
     "list": "Oem",
-    "description": "Samsung One UI Home launcher (homescreen) (https://play.google.com/store/apps/details?id=com.sec.android.app.launcher)\nIt is also Samsung's TouchWiz default launcher\nWARNING: DO NOT REMOVE THIS IF YOU DON'T USE ANOTHER LAUNCHER !\n\nNote: Keep this package if you want swipe gestures to keep working.",
+    "description": "Samsung One UI Home launcher (homescreen) (https://play.google.com/store/apps/details?id=com.sec.android.app.launcher)\nIt is also Samsung's TouchWiz default launcher\nWARNING: DO NOT REMOVE THIS IF YOU DON'T USE ANOTHER LAUNCHER!\nNote: Keep this package if you want swipe gestures to keep working. Disabling/uninstalling this package is also known to break the multitasking button on a Samsung Galaxy S21 FE 5G with Nova Launcher (nothing happens when the multitasking button is pressed).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
