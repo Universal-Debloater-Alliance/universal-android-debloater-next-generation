@@ -22,10 +22,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Downloads artifacts
         uses: actions/download-artifact@v4
-        with:
-          path: bin
       - name: Create pre-release
         uses: softprops/action-gh-release@v1
         with:
-          files: bin/*/uad-ng-*
+          files: uad-ng-*
           generate_release_notes: true
