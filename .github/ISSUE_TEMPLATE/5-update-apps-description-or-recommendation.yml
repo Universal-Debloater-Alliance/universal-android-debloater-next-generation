@@ -1,7 +1,7 @@
 name: Update apps description or recommendation
 description: You want to improve/update a description/recommendation
 title: "pkg(scope): "
-labels: ["package:documentation"]
+labels: ["package::documentation"]
 body:
 - type: markdown
   attributes:
