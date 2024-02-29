@@ -1,7 +1,7 @@
 name: Add new package(s)
 description: You want to add new apps to the debloat list
 title: "pkg(scope): "
-labels: ["package:addition"]
+labels: ["package::addition"]
 body:
 - type: markdown
   attributes:
