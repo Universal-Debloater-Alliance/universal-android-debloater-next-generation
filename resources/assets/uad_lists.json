@@ -34359,7 +34359,7 @@
   },
   "android.overlay.dynamicNavBar": {
     "list": "Oem",
-    "description": "Support dynamic Navigation Bar config.",
+    "description": "Found only in the bools.xml code, which shows the 'config Support dynamic Navigation Bar' 'true'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34555,7 +34555,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.settings.os.overlay": {
     "list": "Oem",
@@ -34575,7 +34575,7 @@
   },
   "com.android.unisoc.telephony.server": {
     "list": "Oem",
-    "description": "UICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.",
+    "description": "UICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nOnly for China.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34603,7 +34603,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.infinix": {
     "list": "Oem",
@@ -34627,7 +34627,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.reallytek.wg": {
     "list": "Oem",
@@ -34707,7 +34707,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.spreadtrum.ims": {
     "list": "Oem",
@@ -34723,7 +34723,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.transsion": {
     "list": "Oem",
@@ -34823,7 +34823,7 @@
   },
   "com.transsion.XOSLauncher": {
     "list": "Oem",
-    "description": "Launcher with ads, tracking.\nAfter remove you will lost recent apps remove.",
+    "description": "Launcher with ads, tracking.\nAfter remove you will lose recent apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
