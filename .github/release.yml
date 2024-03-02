@@ -8,11 +8,10 @@ changelog:
   categories:
     - title: Added
       labels:
-        - feature
+        - enhancement
     - title: Changed
       labels:
-        - enhancement
+        - refactor
     - title: Fixed
       labels:
         - bug
-        - refactor
