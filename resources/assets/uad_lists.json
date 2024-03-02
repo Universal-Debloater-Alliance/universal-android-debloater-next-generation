@@ -34356,5 +34356,501 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "android.overlay.dynamicNavBar": {
+    "list": "Oem",
+    "description": "Support dynamic Navigation Bar config.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.overlay.multiuser": {
+    "list": "Oem",
+    "description": "Maximum multi user config.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.overlay.navbar": {
+    "list": "Oem",
+    "description": "Show Navigation Bar Config.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.dreams.overlay.basic": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.dreams.basic' has icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.dreams.overlay.phototable": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.dreams.phototable' has icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.calendar": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.calendar' logo calendar icons.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.camera2": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.camera2' png icons.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.contacts": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.contacts' png icons.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.dialer": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.dialer' png icons.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.dynamiciconconfig": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.launcher3' calendar, clock component name.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.overlay.email": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.email' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.emergency": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.emergency' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.fmradio": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.fmradio' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.gallery3d": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.gallery3d' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.launcher3": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.launcher3' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.overlay.livepicker": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.wallpaper.livepicker' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.logmanager": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.logmanager' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.messaging": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.messaging' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.music": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.music' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.quicksearchbox": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.quicksearchbox' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.settings": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.settings' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.overlay.soundrecorder": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.soundrecorder' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.stk": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.stk' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.overlay.wallpaper": {
+    "list": "Oem",
+    "description": "Overlay to 'com.android.wallpaper' icons png.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.settings.auto_generated_rro_vendor__": {
+    "list": "Oem",
+    "description": "rro = Runtime Resources Overlay.\nChanges values of a package config, based in the overlay definitions (heavily used by OEMs to customize the look and feel of Android).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.settings.os.overlay": {
+    "list": "Oem",
+    "description": "Icon user found, overlay to 'com.android.settings'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.systemui.os.overlay": {
+    "list": "Oem",
+    "description": "Icon user found, overlay to 'com.android.systemui'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.unisoc.telephony.server": {
+    "list": "Oem",
+    "description": "UICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.cdfinger.factorytest": {
+    "list": "Oem",
+    "description": "Fingerprint Test App.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.example.alpha.chipsemitptest": {
+    "list": "Oem",
+    "description": "ChipsemiTpTest\nRawdata Value Test.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.networkstack.overlay": {
+    "list": "Aosp",
+    "description": "Needed for Network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.infinix": {
+    "list": "Oem",
+    "description": "Only has something to launcher folders and has freeze png files.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.itel.TWSService": {
+    "list": "Oem",
+    "description": "This app is used for connection to TECNO Hipods.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.mediatek.schpwronoff": {
+    "list": "Misc",
+    "description": "Set schedule power on & off.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.reallytek.wg": {
+    "list": "Oem",
+    "description": "Calibration, Test Camera things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sagereal.lcmtest": {
+    "list": "Oem",
+    "description": "Secret code: 88. LCD, LCM Test.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sgrl.fmradio": {
+    "list": "Oem",
+    "description": "FM Radio\nSafe to remove if unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sgrl.pjj.factorymode": {
+    "list": "Oem",
+    "description": "FactoryMode, Calibration, Testing hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.cameraipcontrol": {
+    "list": "Oem",
+    "description": "Secret code: 83785. CameraIPControl, has some camera features for testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.firewall": {
+    "list": "Oem",
+    "description": "Blacklist Calls.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sprd.flashcontrol": {
+    "list": "Oem",
+    "description": "Flashlight Control, not sure how useful it is.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sprd.omacp": {
+    "list": "Oem",
+    "description": "OTA Config and Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sprd.overlay.sprdnote": {
+    "list": "Oem",
+    "description": "Overlay to 'com.sprd.sprdnote' png icons.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sprd.providers.photos": {
+    "list": "Oem",
+    "description": "Photos Types Storage\nBokeh, portrait, FDR, AI photo.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.spreadtrum.ims": {
+    "list": "Oem",
+    "description": "Needed for WiFi calling, VoLTE, VoWifi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.spreadtrum.vowifi.conf": {
+    "list": "Oem",
+    "description": "VoWifi config Secret Code: 869434234",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion": {
+    "list": "Oem",
+    "description": "Needed for screen unlock? Has Packages, Bluetooth permission. Probably unsafe.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.transsion.autotest.factory": {
+    "list": "Oem",
+    "description": "Factory. Testing Hardware Things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.batterylab.icon": {
+    "list": "Oem",
+    "description": "Power Marathon\nIt's only icon app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.beezedit": {
+    "list": "Oem",
+    "description": "Ringtone Maker\nRequire Google Play Services.\nRecord media sound and edit or set it as ringtone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.chromecustomization": {
+    "list": "Oem",
+    "description": "Chrome Assistant\nCustomizes HomePage and uses Advertising ID.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.datatransfer": {
+    "list": "Oem",
+    "description": "Backup and Restore\nBackup Contacts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.faceidsub": {
+    "list": "Oem",
+    "description": "Face Unlock\nSafe to remove if unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.itel.manual": {
+    "list": "Oem",
+    "description": "Manual Guide\nHas guides to phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.overlaysuw.resoverlay": {
+    "list": "Oem",
+    "description": "Overlay to 'com.transsion.overlaysuw' safe to remove because it's for first-boot setup.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.powercenter": {
+    "list": "Oem",
+    "description": "power\nHas WhatsApp mode and ultra powersaving mode.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.screencapture": {
+    "list": "Oem",
+    "description": "Needed for screenshots.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.transsion.theme.icon": {
+    "list": "Oem",
+    "description": "Has basic apps icons, not sure if needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.XOSLauncher": {
+    "list": "Oem",
+    "description": "Launcher with ads, tracking.\nAfter remove you will lost recent apps remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.trassion.infinix.xclub": {
+    "list": "Oem",
+    "description": "XClub\nXStore to buy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.launcher.customization": {
+    "list": "Oem",
+    "description": "Unisoc Home Screen\nPartner Customization launcher.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.localeupdate": {
+    "list": "Oem",
+    "description": "Local System Update\nNeeded for system updates.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
