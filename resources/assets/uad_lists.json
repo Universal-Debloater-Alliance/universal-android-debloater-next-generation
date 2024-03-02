@@ -24080,15 +24080,15 @@
   },
   "com.vivo.fingerprint": {
     "description": "Fingerprints and passwords\nNeeded for fingerprint settings.",
-    "removal": "Expert",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
     "labels": []
   },
   "com.vivo.fingerprintui": {
-    "description": "FingerprintUI\nFingerprint test? Contains payment functionality for China. May be needed for fingerprint lockscreen.",
-    "removal": "Expert",
+    "description": "FingerprintUI\nFingerprint Authentication, Contains payment functionality for China. May be needed for fingerprint lockscreen.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -24827,8 +24827,8 @@
     "labels": []
   },
   "com.vivo.vivo3rdalgoservice": {
-    "description": "ImageAlgoService\nHDR and High contrast in the camera will probably not work based on XDA users",
-    "removal": "Expert",
+    "description": "ImageAlgoService\nHDR and High contrast in the camera?\nProbably safe to remove, so it's debugging app?",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -34356,5 +34356,269 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.vivo.alphacamera": {
+    "list": "Oem",
+    "description": "AlphaCamera\nEngineering Mode, Log, Debugging service camera.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.appfilter": {
+    "list": "Oem",
+    "description": "AppFilter\nHas something to powersaving like prevent autostart apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.microdroid.empty_payload": {
+    "list": "Oem",
+    "description": "empty app that has permission to MANAGE VIRTUAL MACHINE.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.wm.shell": {
+    "list": "Oem",
+    "description": "Profile installer? App looks like a 'com.android.shell'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.overlay.gmsconfig.nosafetycenter": {
+    "list": "Oem",
+    "description": "Has no safety center in the code? Weird. Not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.gmsconfig.tier1": {
+    "list": "Oem",
+    "description": "Has random set to default google apps and vivo gallery.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.android.connectivity.common.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.connectivity.mainline.common.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.connectivity.mainline.manufacturer.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.connectivity.manufacturer.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.wifi.common.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.wifi.mainline.common.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.wifi.mainline.manufacturer.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.android.wifi.manufacturer.resources.overlay": {
+    "list": "Oem",
+    "description": "Better keep for connectivity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vivo.fingerprintvit": {
+    "list": "Oem",
+    "description": "Fingerprint testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.compos.payload": {
+    "list": "Oem",
+    "description": "CompOS\nHas something to 'com.android.compos'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.devicelockcontroller": {
+    "list": "Aosp",
+    "description": "This app can't be uninstalled or disabled.\nCan restrict this device if the owner doesn't make payments per month for the new phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.vos.user.vit": {
+    "list": "Oem",
+    "description": "App for testing things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vos.as.vit": {
+    "list": "Oem",
+    "description": "App for testing things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.game": {
+    "list": "Oem",
+    "description": "Game Space. Not sure if its useful for gaming.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.globalanimation.resources": {
+    "list": "Oem",
+    "description": "GlobalanmationResources\nHas animation booting probably, safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.imanager": {
+    "list": "Oem",
+    "description": "iManager\nA vivo app consists of Phone Management includes Space Cleanup, Security Scan, Data Traffic Management, Apps & Notifications & Utility Tools includes App encryption, Battery Management, App Clone, Network Management etc.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.mediatek.magtapp": {
+    "list": "Misc",
+    "description": "MAGTApp\nUnknown, has GameEventService, MAGTEventAppReceiver, but code not looks very useful.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.monochromeicons": {
+    "list": "Oem",
+    "description": "MonochromeIcons\nIn code found something to vivo icons.\nIn Android 14.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.livewallpaper.ocean": {
+    "list": "Oem",
+    "description": "Live Wallpaper Ocean.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.livewallpaper.oceanvertical": {
+    "list": "Oem",
+    "description": "Live Wallpaper Oceanvertical.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.simplelauncher": {
+    "list": "Oem",
+    "description": "Simple launcher, Simple View.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.card": {
+    "list": "Oem",
+    "description": "Smart sidebar",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.assistantfunction": {
+    "list": "Oem",
+    "description": "Steps\nJovi Home kit. Record walk sport app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.nps": {
+    "list": "Oem",
+    "description": "iQOO, vivo experience assessment.\nThis app has nothing necessary in the code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.touchscreen.vtstouchscreencheck": {
+    "list": "Oem",
+    "description": "VtsTouchscreenCheck\nIt's testing things app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vivo.livewallpaper.behavior.resources": {
+    "list": "Oem",
+    "description": "WallpaperResources\nHas live wallpapers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.vivo.livewallpaper.behavior": {
+    "list": "Oem",
+    "description": "Live Wallpaper Behavior.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
