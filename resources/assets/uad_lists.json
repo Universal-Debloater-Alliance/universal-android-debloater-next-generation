@@ -623,6 +623,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.applovin.array.apphub.vincere": {
+    "list": "Misc",
+    "description": "AppHub\nIs known as tracker company, potentially adware!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.ape.walkfit": {
     "list": "Oem",
     "description": "Walk counter and health for Wiko mobile",
@@ -16048,9 +16056,17 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.fido.uafclient": {
+    "list": "Misc",
+    "description": "FIDO UAF1.0 Client\nProbably related to FIDO digital key gadget (Client), probably safe to remove if you don't have any.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.fido.asm": {
-    "list": "Oem",
-    "description": "FIDO UAF1.0 ASM\nRelated to app fingerprint unlocking and payments. Safe to remove if you don't use password-less authentification to access online services.",
+    "list": "Misc",
+    "description": "FIDO UAF1.0 ASM\nRelated to app fingerprint unlocking and payments. Safe to remove if you don't use password-less authentication to access online services.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -21317,6 +21333,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.fintech.life": {
+    "description": "Fineasy\nChinese financial or payment app, note that it access locations, contacts, camera, mic and contain ads, Pithus reports this as 'High Risk'",
+    "removal": "Recommended",
+    "list": "Misc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.finshell.wallet": {
     "description": "Finshell wallet\nWallet app by Finshell.",
     "removal": "Recommended",
@@ -21360,6 +21384,14 @@
   "com.heytap.synergy": {
     "description": "HeySynergy\nAnother thing related to broadcast",
     "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.nearme.gamecenter": {
+    "description": "Game Center\nActs like QooApp that has a game forum, news, etc. Contains trackers.",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21650,6 +21682,14 @@
   "com.oppo.ovoicemanager": {
     "description": "Voice wake-up manager?",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.oplus.phonenoareainquire": {
+    "description": "Number Origin\nNot yet uninstalled but is related to phone calling function, need to check deeply...",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26255,6 +26295,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oplus.themestore": {
+    "description": "Theme Store\nTo change fonts, wallpapers, etc. of your device. Note that you can download but you can't apply unless you have registered for/sign in with HeyTap account.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.oplus.thirdkit": {
     "description": "Compatibility problem solving\nThird party related.",
     "removal": "Recommended",
@@ -29737,6 +29785,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.oplus.blacklistapp": {
+    "list": "Oem",
+    "description": "Block & filter\nCall blocking app that's tied with device caller app, contains fuction to look caller location on Google Maps, potentially untrusted.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.oplus.batterywarning": {
     "list": "Oem",
     "description": "Battery warning.\nUses accessbility, GPS and Wi-Fi.",
@@ -29941,6 +29997,14 @@
   "com.samsung.android.setupindiaservicestnc": {
     "list": "Oem",
     "description": "Samsung Services\nResponsible for the persistent notification after every system update if you don't agree to data collection.\nThe only way to dismiss it without agreeing to anything is to click the small text and uncheck all the items in a list. Then the 'Agree' button becomes a 'Skip' button. Removing this package doesn't have any known side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.coloros.calculator": {
+    "list": "Oem",
+    "description": "Calculator app\nHas internet access because it can convert exchange rate, but I don't know whether it's used for other things as well or not.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30418,6 +30482,14 @@
   "com.haoba.btsmart": {
     "list": "Misc",
     "description": "Agui Unibuds\nIot stuff. May only be needed if you use Uniherts Ear Buds (Unibuds).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.haokan.pictorial": {
+    "list": "Misc",
+    "description": "92 Lock Screen for RealMe\n92 is pronounce in Chinese as 'Hao Kan' (it's the company name), so it's a Chinese app. This not related to 'Lock Screen Magazine' and potentially inject ads in lock screen.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33869,6 +33941,14 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.oplus.camera": {
+    "list": "Oem",
+    "description": "Camera app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.oplus.cast": {
     "list": "Oem",
     "description": "Screencast\nPhone casting (casting phone screen to other devices).",
@@ -33884,6 +33964,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.oplus.aiunit": {
+    "list": "Oem",
+    "description": "AIUnit\nAI-related, not sure for what exactly, that's why the removal is `Expert`.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.oplus.apprecover": {
     "list": "Oem",
@@ -34052,6 +34140,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.oplus.screenrecorder": {
+    "list": "Oem",
+    "description": "Screenrecorder",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.oplus.screenshot": {
     "list": "Oem",
