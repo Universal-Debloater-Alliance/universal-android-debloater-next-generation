@@ -34,7 +34,7 @@ As for commits, we prefer using [Conventional Commit Messages](https://gist.gith
 - [ ] Make sure the Milestone is completed and if not, check what needs to be done to complete it.
 - [ ] Make sure all merged PRs regarding the application follow the Conventional Commit Messages style. This makes sure that when generating a changelog, the changes look consistent, which in turn improves readability.
 - [ ] Make sure all merged PRs have the correct labels assigned, as the changelog is generated based on labels.
-- [ ] Release preparation PR that bumps the Rust package version in `Cargo.toml` and `Cargo.lock`
+- [ ] Create a release preparation PR that bumps the Rust package version in `Cargo.toml` and `Cargo.lock`
 
 When all the above has been checked, you can push a tag to `main` to trigger the GitHub Action that creates a release:
 
