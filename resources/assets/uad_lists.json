@@ -5098,11 +5098,11 @@
   },
   "com.samsung.ucs.agent.boot": {
     "list": "Oem",
-    "description": "Boot agent\nUCS is a company which has partnered with Samsung to provide licenses for Samsung Knox\nhttps://www.ucssolutions.com/blog/samsung-knox/\nI don't have precise information about the package itself but there are chances that it verifies some files on boot. If these files are not verified then it prevent the phone to boot.\n",
+    "description": "Boot agent\nUCS is a company which has partnered with Samsung to provide licenses for Samsung Knox\nhttps://www.ucssolutions.com/blog/samsung-knox/\nI don't have precise information about the package itself but there are chances that it verifies some files on boot. If these files are not verified then it may prevent the phone from booting.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.samsung.ucs.agent.ese": {
     "list": "Oem",
@@ -5178,7 +5178,7 @@
   },
   "com.sec.android.app.bluetoothtest": {
     "list": "Oem",
-    "description": "Bluetooth Test\nHidden feature accessible by entering *#*#232331#*#* in the Samsung dialer.\nIt waas found to be calling home back in 2015 (https://forum.xda-developers.com/galaxy-s5/help/bluetoothtest-apk-calling-home-t3035182)\n",
+    "description": "Bluetooth Test\nHidden feature accessible by entering *#*#232331#*#* in the Samsung dialer.\nIt was found to be calling home back in 2015:\nhttps://forum.xda-developers.com/galaxy-s5/help/bluetoothtest-apk-calling-home-t3035182",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6092,7 +6092,7 @@
   },
   "com.samsung.android.app.smartcapture": {
     "list": "Oem",
-    "description": "Samsung Capture\nSamsung's implementation of screenshot. Show the bottom toolbar after taking a screenshot\n\nLets you group widgets on OneUI 4 (?)",
+    "description": "Samsung Capture\nSamsung's implementation of screenshot. Show the bottom toolbar after taking a screenshot\nLets you group widgets on OneUI 4 (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6132,7 +6132,7 @@
   },
   "com.sec.epdg": {
     "list": "Oem",
-    "description": "Safe to remove if not using VoWifi.\n#\nHuh... that's hard to explain quickly. Let's try : \nFirst you need to know that there is a standards organization which develops protocols for mobile telephony called 3GPP (mobile network : 2G/3G/4G/5G).\nRAT (physical connection method to a wireless communication network) non specified by the 3GPP is called non-3GPP. RAT Wifi is non-3GPP.\n\nePDG means Evolved Packet Data Gateway. The main role of the ePDG is to provide security mechanisms such as IPsec tunnelling of connections with the device over an untrusted non-3GPP access. It is mainly use for VoWifi (Voice over wifi).\nFor further information : \n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n",
+    "description": "Safe to remove if you're not using VoWifi.\nYou need to know that:\n3GPP is a standards organization for mobile telephony (2G/3G/4G/5G).\nNon-3GPP RAT refers to wireless connection methods not specified by 3GPP, including Wi-Fi.\nePDG (evolved Packet Data Gateway) secures connections over untrusted non-3GPP access, commonly used for VoWiFi (Voice over Wi-Fi). For more information:\n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
