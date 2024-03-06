@@ -23613,7 +23613,7 @@
   },
   "com.hoffnung": {
     "description": "TPMS\nRemote Config Test. Instead Uninstall better Disable this app\nbecause it uninstalling cause screen flicker",
-    "removal": "Recommended",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
