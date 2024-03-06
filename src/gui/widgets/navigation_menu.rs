@@ -78,8 +78,8 @@ pub fn nav_menu<'a>(
         .style(style::Button::Primary);
 
     let device_list_text = match apps_view.loading_state {
-        ListLoadingState::FindingPhones => text("finding connected phone..."),
-        _ => text("no devices/emulators found"),
+        ListLoadingState::FindingPhones => text("Finding connected devices..."),
+        _ => text("No devices/emulators found"),
     };
 
     let row = match selected_device {
