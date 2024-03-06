@@ -84,8 +84,8 @@ pub fn nav_menu<'a>(
 
     let row = match selected_device {
         Some(phone) => row![
-            apps_refresh_tooltip,
             reboot_btn,
+            apps_refresh_tooltip,
             pick_list(device_list, Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
