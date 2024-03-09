@@ -2321,7 +2321,7 @@
   },
   "com.huawei.game.kitserver": {
     "list": "Oem",
-    "description": "Probably safe to remove if you don't play games\n",
+    "description": "Probably safe to remove if you don't play games.\nHas window show, keybind set and more things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2361,7 +2361,7 @@
   },
   "com.huawei.hwid": {
     "list": "Oem",
-    "description": "Huawei Mobile Services (https://play.google.com/store/apps/details?id=com.huawei.hwid)\nHuawei’s alternative to Google Play Services. Needed to access advanced Huawei features.\nA Huawei ID is required to access services, like Themes, Mobile Cloud, HiCare, Huawei Wear, Huawei Health. This may break an app like InPost Mobile, see:\nhttps://github.com/0x192/universal-android-debloater/issues/477\nSee more about Huawei Mobile Services: https://www.xda-developers.com/huawei-hms-core-android-alternative-google-play-services-gms/",
+    "description": "Huawei Mobile Services\nHuawei’s alternative to Google Play Services. Needed to access advanced Huawei features.\nA Huawei ID is required to access services, like Themes, Mobile Cloud, HiCare, Huawei Wear, Huawei Health. This may break an app like InPost Mobile, see:\nhttps://github.com/0x192/universal-android-debloater/issues/477\nSee more about Huawei Mobile Services: https://www.xda-developers.com/huawei-hms-core-android-alternative-google-play-services-gms/",
     "dependencies": [],
     "neededBy": [
       "com.huawei.fastapp"
@@ -2435,7 +2435,7 @@
   },
   "com.huawei.himovie.overseas": {
     "list": "Oem",
-    "description": "Huawei stock video application (https://play.google.com/store/apps/details?id=com.huawei.himovie.overseas). Replace with VLC, which integrates well with the stock gallery.\n",
+    "description": "Huawei stock video application.\nReplace with VLC, which integrates well with the stock gallery.\nHas a lot tracking.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2475,7 +2475,7 @@
   },
   "com.huawei.hwdetectrepair": {
     "list": "Oem",
-    "description": "Huawei Smart diagnosis (https://play.google.com/store/apps/details?id=com.huawei.hwdetectrepair)\nUseless features and run in background.\n",
+    "description": "Huawei Smart diagnosis (discontinued?)\nUseless features and run in background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2599,11 +2599,11 @@
   },
   "com.huawei.ims": {
     "list": "Oem",
-    "description": "HwImsService\nVoLTE(Voice over LTE) calls. IP multimedia subsystem.\nhttps://en.wikipedia.org/wiki/Voice_over_LTE",
+    "description": "HwImsService\nVoLTE(Voice over LTE) calls. IP multimedia subsystem.\nhttps://en.wikipedia.org/wiki/Voice_over_LTE\nUninstalling app breaks sim calling even if you disable.\nIt does not cause bootloop but removing is highly not recommended.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.huawei.indexsearch": {
     "list": "Oem",
@@ -2631,8 +2631,8 @@
   },
   "com.huawei.health": {
     "list": "Oem",
-    "description": "Huawei Health (https://play.google.com/store/apps/details?id=com.huawei.health)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\n",
-    "dependencies": [],
+    "description": "Huawei Health (discontinued?)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\nRequire HMS.",
+    "dependencies": ["com.huawei.hwid"],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -2687,7 +2687,7 @@
   },
   "com.huawei.phoneservice": {
     "list": "Oem",
-    "description": "HiCare (https://play.google.com/store/apps/details?id=com.huawei.phoneservice)\nProvides you common online services including customer services, issue feedback, user guides, service centers and self-service. \n",
+    "description": "HiCare (discontinued)\nProvides you common online services including customer services, issue feedback, user guides, service centers and self-service.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2791,11 +2791,11 @@
   },
   "com.hisi.mapcon": {
     "list": "Oem",
-    "description": "Provides GPS services",
+    "description": "Uses Location permissions for VoWifi Special, rtc wifi signal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.huawei.KoBackup": {
     "list": "Oem",
@@ -17180,7 +17180,7 @@
   },
   "com.android.huawei.HiMediaEngine": {
     "list": "Oem",
-    "description": "Unused frameworks.",
+    "description": "It's for debugging camera. Has all camera features and report.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17188,7 +17188,7 @@
   },
   "com.huawei.assetsync": {
     "list": "Oem",
-    "description": "HwAssetSync? AppGallery updates? It's needed for hisync probably? There's no code so it can be removed.",
+    "description": "HwAssetSync\nNeeded for HiCloud, Cloud syncing.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17196,7 +17196,7 @@
   },
   "com.huawei.assetsyncservice": {
     "list": "Oem",
-    "description": "Unused frameworks. Code means nothing.",
+    "description": "It's for 'com.huawei.securityserver' for start this service app.\nNeeded for HiCloud sync security.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17236,11 +17236,11 @@
   },
   "com.huawei.desktop.systemui": {
     "list": "Oem",
-    "description": "huawei desktop mode switching\nNot sure if it bricks phone. It have also Take Screenshot Service.",
+    "description": "Huawei desktop mode switching\nIt has also Take Screenshot Service.\nRequire HMS, has a lot tracking.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.huawei.sarlevel": {
     "list": "Oem",
@@ -33143,7 +33143,7 @@
   },
   "com.huawei.harmonyos.foundation": {
     "list": "Oem",
-    "description": "foundation\nThird-party service names, it's a tracker.\nAlso found `com.huawei.cloud.hianalytics.aspg`\nand connects to metrics hicloud site.",
+    "description": "foundation\nHas hwid, vehicle things, Aosp In Call Service permissions.\nDisable app instead of uninstalling, because breaks calling.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33159,11 +33159,11 @@
   },
   "com.huawei.hwddmp": {
     "list": "Oem",
-    "description": "HwDDMP\nDebugging app, notifications about application errors",
+    "description": "HwDDMP\nHas a lot frameworks.\nUninstalling breaks calling app even if you disable.\nIt does not cause bootloop but removing is highly not recommended.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.huawei.hwdiagnosis": {
     "list": "Oem",
@@ -33183,23 +33183,23 @@
   },
   "com.huawei.msdp": {
     "list": "Oem",
-    "description": "Multimodal Sensor Data Platform\nNeeded for camera\nairlink?",
+    "description": "Multimodal Sensor Data Platform\nHas Device Status, Movement, Spatial Aware.\nUses location, airlink permissions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.huawei.multimedia.hivideoplayengine": {
     "list": "Oem",
-    "description": "hivideoplayengine\nHwVideoKitImpl, Not sure if it's needed for video player",
+    "description": "hivideoplayengine\nHwVideoKitImpl, sdk tools for developers.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.huawei.ohos.famanager": {
     "list": "Oem",
-    "description": "only random names agc_... and `fa panel` name, it's FaManager that actually dont know what are doing\nAlso founded code to Harmony Application\nSize app is too small.",
+    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and it's underlying services (which provide searches and AI-based services). A lot tracking.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33215,7 +33215,7 @@
   },
   "com.huawei.onehopsvcclient": {
     "list": "Oem",
-    "description": "OneHopSvcClient\nTagService, has only tracking things, hmskit that does not exist on the site of of Huawei.",
+    "description": "OneHopSvcClient\nTagService, HarmonyTag.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33223,7 +33223,7 @@
   },
   "com.huawei.onehopsvchost": {
     "list": "Oem",
-    "description": "OneHopSvcHost\nTriggerservice, has only tracking things, hmskit that does not exist on the site of Huawei.",
+    "description": "OneHopSvcHost\nTriggerservice opens hardware things by secret code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34948,5 +34948,525 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.huawei.cloud": {
+    "list": "Oem",
+    "description": "Chinese only.\nHuawei Cloud Computer provides you with basic services of online desktop.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.ohos.collaborationcenter": {
+    "list": "Oem",
+    "description": "Sometimes ohos apps is configuration app before building.\nIn code I found it's for app cast transfer.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.tipsove": {
+    "list": "Oem",
+    "description": "Tips\nHuawei Tips to HiCar, AI Life and more.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.ohos.security.privacycenter": {
+    "list": "Oem",
+    "description": "It's shell to app 'com.huawei.security.privacycenter'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.android.findmyphone": {
+    "list": "Oem",
+    "description": "Find Device is an app that lets you locate your device and protect your data remotely.\nTo provide these features, this app needs to connect to the Internet during use.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.gamebox": {
+    "list": "Oem",
+    "description": "GameCenter\nRequires HMS Core to run.\nIt's app for installing games.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hicar": {
+    "list": "Oem",
+    "description": "Huawei HiCar\nTo connect to Huawei HiCar, press and hold the wireless button on the steering wheel or control panel.\nMore useful in China.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.smarthome": {
+    "list": "Oem",
+    "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and mamage routers and audio accessories.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.himovie.partner1": {
+    "list": "Oem",
+    "description": "HiMoviePlayerPlus\nWeird app without any code and there's nothing in Main Activity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.himovie.partner2": {
+    "list": "Oem",
+    "description": "HiMoviePlayerPlus\nWeird app without any code and there's nothing in Main Activity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sohu.sohuvideo.emplayer": {
+    "list": "Oem",
+    "description": "HiMoviePlayerPlus\nWeird app without any code and there's nothing in Main Activity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.tencent.qqlivehuawei": {
+    "list": "Oem",
+    "description": "HiMoviePlayerPlus\nWeird app without any code and there's nothing in Main Activity.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hiskytone": {
+    "list": "Oem",
+    "description": "SkyTone Overseas Data Service.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.suggestion": {
+    "list": "Oem",
+    "description": "HiSuggestion\nHw intelligence permissions found and logs, also maybe has suggestions on widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.ar.measure": {
+    "list": "Oem",
+    "description": "Ar Measure\nMeasure length, depth, area and volume.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.mmiautotest": {
+    "list": "Oem",
+    "description": "MMIAutoTest\nHidden testing hardware things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.betaclub": {
+    "list": "Oem",
+    "description": "BetaClub\nIt's app for testing, collection logs and feedback.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "androidx.camera.extensions.impl": {
+    "list": "Oem",
+    "description": "Camera extensions for Huawei like Tags,HDR effects\nand other things to video, photos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.ca": {
+    "list": "Oem",
+    "description": "CA\nUses permissions: GET_TASKS, LOCATION_HARDWARE, etc.\nThis app looks like a backdoor or logs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.regservice": {
+    "list": "Oem",
+    "description": "RegService\nRegister for celluar network services, not needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.cryptosms.service": {
+    "list": "Oem",
+    "description": "SMS Encryption Service, looks maded for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.distributedpasteboard": {
+    "list": "Oem",
+    "description": "SuperHub\nHas something to History Clipboard and Drag Drop.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.huawei.imedia.dolby": {
+    "list": "Oem",
+    "description": "Dolby Atmos\nOptimize sound automatically for exceptional audio quality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.dtmfanalyzer": {
+    "list": "Oem",
+    "description": "Dtmf Analyzer\nHas something to media player to ride mode for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.easygo": {
+    "list": "Oem",
+    "description": "HwEasyGo\nLooks like a backdoor for WeChat app?\nEasyGoServer, error code things found, also EasyGoCallBack.\nThese app is probably backdoor or for developers.\nThis app has no permissions and no activities.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hwesimservice": {
+    "list": "Oem",
+    "description": "HwESIMService\nIf you use eSIM do not remove it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.manufacture.wificonnect": {
+    "list": "Oem",
+    "description": "Wifi Connect\nNeeded for WiFi connection?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.huawei.fans": {
+    "list": "Oem",
+    "description": "Huawei Club is the official forum for Huawei users.\nIt provides the latest news and information, FAQs, and tutorials about Huawei and Honor products.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.imonitor": {
+    "list": "Oem",
+    "description": "imonitor\nHidden logs founded in app.\nDetects app launch anomaly and runs safe mode.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.internetaudioservice": {
+    "list": "Oem",
+    "description": "Smart headset control\nHas a lot logs and frameworks to mmitest.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.lives": {
+    "list": "Oem",
+    "description": "HiLives is jointly developed by Huawei and certified third-party service providers to provide lifestyle services for you.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.featurelayer.sharedfeature.map": {
+    "list": "Oem",
+    "description": "Huawei Map Service\nRequire FeatureFramework.\nOnly uses Chinese AMap to get location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.notepad": {
+    "list": "Oem",
+    "description": "Notepad\nLooks so bloated with Hi Voice, Update using AppGallery, Location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.hwpolicyservice": {
+    "list": "Oem",
+    "description": "HwPolicyService\nAnother debugging, logs app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hwread.dz": {
+    "list": "Oem",
+    "description": "App for adding by user 'Books'. This app has ads and bad privacy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hwireader": {
+    "list": "Oem",
+    "description": "App for adding by user 'Books'. This app has ads and bad privacy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.android.rftest": {
+    "list": "Oem",
+    "description": "HwRFTest\nMT Test Station.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.ridemode": {
+    "list": "Oem",
+    "description": "Uses google maps website to track your ride when RideMode is Enabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.secime": {
+    "list": "Oem",
+    "description": "Huawei Secure IME\nSecure keyboard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.security.privacycenter": {
+    "list": "Oem",
+    "description": "Protect your privacy by preventing apps from accessing sensitive data stored within images,\nsuch as location info and time stamps. This restriction does not apply to system apps such as Gallery and Cloud.\nI don't think this app has too much to privacy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.smartlocation": {
+    "list": "Oem",
+    "description": "Huawei Indoor Positioning Services\nChinese Tracking Location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.smartshot": {
+    "list": "Oem",
+    "description": "Smart screenshots\nNeeded for screenshots.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.huawei.spaceservice": {
+    "list": "Oem",
+    "description": "Huawei Geofence Services\nUses Chinese Location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.trustspace": {
+    "list": "Oem",
+    "description": "TrustSpace useless security to payment. Settings > Security > TrustSpace\nHas something to unrooting rooted phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hwusbearphoneupdate": {
+    "list": "Oem",
+    "description": "Huawei digital earphones come with built-in software that can be updated regularly to enhance your audio experience.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.userguide": {
+    "list": "Oem",
+    "description": "User Guide\nRequire install a PDF reader app to work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.vdrive": {
+    "list": "Oem",
+    "description": "Driving Mode uses HiVoice to provide voice services when you are driving.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vmall.client": {
+    "list": "Oem",
+    "description": "Vmall is online platform of Huawei. It's online shopping app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.hwvplayer.youku": {
+    "list": "Oem",
+    "description": "Video Youku\nVideo Player on Chinese Huawei. Has some ads and bad privacy.",
+    "dependencies": ["com.huawei.hwid"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kikaoem.hw.qisiemoji.inputmethod": {
+    "list": "Oem",
+    "description": "Kika Keyboard\nThird party keyboard. Installs on some Huawei devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.welinknow": {
+    "list": "Oem",
+    "description": "Link Now\nRequire login to Huawei ID Account.\nSome features is not available for some countries.\nIt's app for meeting and collects a lot data from users.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.imedia.syncplay": {
+    "list": "Oem",
+    "description": "Party Mode\nParty Mode lets you sync music playback across multiple devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.pengine": {
+    "list": "Oem",
+    "description": "HUAWEI Intelligent Suggestion will collect and analyze screens from selected apps to provide personalized services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.scenepack": {
+    "list": "Oem",
+    "description": "Travel Assistant provides you with travel tips, voice guides, and other related services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.skytone": {
+    "list": "Oem",
+    "description": "SkyTone Data Service. Frameworks to 'com.huawei.hiskytone' SkyTone Overseas Data Service.",
+    "dependencies": ["com.huawei.hiskytone"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xy.smartmmsplugin.remote": {
+    "list": "Oem",
+    "description": "SmartMmsPlugin\nConnects to Chinese maps.\nLoads Flight, Train, Movie information.\nIt's only for China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.soundrecorder": {
+    "list": "Oem",
+    "description": "Sound Recorder app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.systemdebug": {
+    "list": "Oem",
+    "description": "SystemDebug\nTesting system things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.vrservice": {
+    "list": "Oem",
+    "description": "Huawei VR Service used for Huawei VR.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.omronsoft.iwnnime.ml": {
+    "list": "Carrier",
+    "description": "iWnn IME\nJapanese keyboard pre-installed on some Huawei phone's.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kmsjp": {
+    "list": "Carrier",
+    "description": "Kaspersky\nAnti-virus pre-installed on some Huawei phone's in Japanese.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.omronsoft.wnnext.skin.std_dark_type2_HW": {
+    "list": "Carrier",
+    "description": "Skin Dark mode to Japanese Keyboard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.omronsoft.wnnext.skin.std_light_type2_HW": {
+    "list": "Carrier",
+    "description": "Skin Light mode to Japanese Keyboard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.naviexpert.NaviExpert": {
+    "list": "Carrier",
+    "description": "Navigation T-Mobile\nhttps://play.google.com/store/apps/details?id=com.naviexpert.NaviExpert",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ptc.osp.gnc": {
+    "list": "Carrier",
+    "description": "Playing the Waiting Game by T-Mobile.\nThis app is maded for listening to music.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
