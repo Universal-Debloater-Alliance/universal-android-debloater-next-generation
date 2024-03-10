@@ -3,7 +3,7 @@ use iced::overlay::menu;
 use iced::widget::{
     button, checkbox, container, pick_list, radio, rule, scrollable, text, text_input,
 };
-use iced::{application, Background, Color};
+use iced::{application, Background, Border, Color, Shadow};
 
 #[derive(Default, Debug, Clone, Copy)]
 pub enum Application {
@@ -41,28 +41,24 @@ impl container::StyleSheet for Theme {
             Container::Frame => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
-                border_radius: 5.0.into(),
                 ..container::Appearance::default()
             },
             Container::BorderedFrame => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().normal.error,
+                border: Border { color: self.palette().normal.error, width: 1.0, radius: 5.0.into() },
+                shadow: Shadow::default()
             },
             Container::Tooltip => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
-                border_radius: 8.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().normal.primary,
+                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 8.0.into() },
+                shadow: Shadow::default()
             },
 
             Container::Background => container::Appearance {
                 background: Some(Background::Color(self.palette().base.background)),
                 text_color: Some(self.palette().bright.surface),
-                border_radius: 5.0.into(),
                 ..container::Appearance::default()
             },
         }
@@ -90,14 +86,13 @@ impl button::StyleSheet for Theme {
         let p = self.palette();
 
         let appearance = button::Appearance {
-            border_width: 1.0,
-            border_radius: 2.0.into(),
+            border: Border { color: self.palette().normal.primary, width: 1.0, radius: 2.0.into() },
             ..button::Appearance::default()
         };
 
         let active_appearance = |bg: Option<Color>, mc| button::Appearance {
             background: Some(Background::Color(bg.unwrap_or(p.base.foreground))),
-            border_color: Color { a: 0.5, ..mc },
+            border: Border { color: Color { a: 0.5, ..mc }, width: 1.0, radius: 2.0.into() },
             text_color: mc,
             ..appearance
         };
@@ -110,9 +105,7 @@ impl button::StyleSheet for Theme {
             Button::NormalPackage => button::Appearance {
                 background: Some(Background::Color(p.base.foreground)),
                 text_color: p.bright.surface,
-                border_radius: 5.0.into(),
-                border_width: 0.0,
-                border_color: p.base.background,
+                border: Border { color: p.base.background, width: 0.0, radius: 5.0.into() },
                 ..appearance
             },
             Button::SelectedPackage => button::Appearance {
@@ -121,9 +114,7 @@ impl button::StyleSheet for Theme {
                     ..p.normal.primary
                 })),
                 text_color: p.bright.primary,
-                border_radius: 5.0.into(),
-                border_width: 0.0,
-                border_color: p.normal.primary,
+                border: Border { color: p.normal.primary, width: 0.0, radius: 5.0.into() },
                 ..appearance
             },
             Button::Unavailable | Button::UninstallPackage => {
@@ -132,9 +123,7 @@ impl button::StyleSheet for Theme {
             Button::Hidden => button::Appearance {
                 background: Some(Background::Color(Color::TRANSPARENT)),
                 text_color: Color::TRANSPARENT,
-                border_radius: 5.0.into(),
-                border_width: 0.0,
-                border_color: Color::TRANSPARENT,
+                border: Border { color: Color::TRANSPARENT, width: 0.0, radius: 5.0.into() },
                 ..appearance
             },
         }
@@ -200,18 +189,18 @@ pub enum Scrollable {
 impl scrollable::StyleSheet for Theme {
     type Style = Scrollable;
 
-    fn active(&self, style: &Self::Style) -> scrollable::Scrollbar {
-        let from_appearance = |c: Color| scrollable::Scrollbar {
-            background: Some(Background::Color(Color::TRANSPARENT)),
-            border_radius: 5.0.into(),
-            border_width: 0.0,
-            border_color: Color::TRANSPARENT,
-            scroller: scrollable::Scroller {
-                color: c,
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: Color::TRANSPARENT,
-            },
+    fn active(&self, style: &Self::Style) -> scrollable::Appearance {
+        let from_appearance = |c: Color| scrollable::Appearance {
+            container: container::Appearance::default(),
+            gap: Some(Background::Color(Color::TRANSPARENT)),
+            scrollbar: scrollable::Scrollbar {
+                background: Some(Background::Color(Color::TRANSPARENT)),
+                border: Border { color: Color::TRANSPARENT, width: 0.0, radius: 5.0.into() },
+                scroller: scrollable::Scroller {
+                    color: c,
+                    border: Border { color: Color::TRANSPARENT, width: 1.0, radius: 5.0.into() }
+                }
+            }
         };
 
         match style {
@@ -220,17 +209,17 @@ impl scrollable::StyleSheet for Theme {
         }
     }
 
-    fn hovered(&self, style: &Self::Style, _mouse_over_scrollbar: bool) -> scrollable::Scrollbar {
-        scrollable::Scrollbar {
-            scroller: self.active(style).scroller,
+    fn hovered(&self, style: &Self::Style, _mouse_over_scrollbar: bool) -> scrollable::Appearance {
+        scrollable::Appearance {
+            scrollbar: self.active(style).scrollbar,
             ..self.active(style)
         }
     }
 
-    fn dragging(&self, style: &Self::Style) -> scrollable::Scrollbar {
+    fn dragging(&self, style: &Self::Style) -> scrollable::Appearance {
         let hovered = self.hovered(style, true);
-        scrollable::Scrollbar {
-            scroller: hovered.scroller,
+        scrollable::Appearance {
+            scrollbar: hovered.scrollbar,
             ..hovered
         }
     }
@@ -253,9 +242,7 @@ impl checkbox::StyleSheet for Theme {
             CheckBox::PackageEnabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.background),
                 icon_color: self.palette().bright.primary,
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().base.background,
+                border: Border { color: self.palette().base.background, width: 1.0, radius: 5.0.into() },
                 text_color: Some(self.palette().bright.surface),
             },
             CheckBox::PackageDisabled => checkbox::Appearance {
@@ -263,26 +250,21 @@ impl checkbox::StyleSheet for Theme {
                     a: 0.55,
                     ..self.palette().base.background
                 }),
+                
                 icon_color: self.palette().bright.primary,
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().normal.primary,
+                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 5.0.into() },
                 text_color: Some(self.palette().normal.primary),
             },
             CheckBox::SettingsEnabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.background),
                 icon_color: self.palette().bright.primary,
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().bright.primary,
+                border: Border { color: self.palette().bright.primary, width: 1.0, radius: 5.0.into() },
                 text_color: Some(self.palette().bright.surface),
             },
             CheckBox::SettingsDisabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.foreground),
                 icon_color: self.palette().bright.primary,
-                border_radius: 5.0.into(),
-                border_width: 1.0,
-                border_color: self.palette().normal.primary,
+                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 5.0.into() },
                 text_color: Some(self.palette().bright.surface),
             },
         }
@@ -292,9 +274,7 @@ impl checkbox::StyleSheet for Theme {
         let from_appearance = || checkbox::Appearance {
             background: Background::Color(self.palette().base.foreground),
             icon_color: self.palette().bright.primary,
-            border_radius: 5.0.into(),
-            border_width: 2.0,
-            border_color: self.palette().bright.primary,
+            border: Border { color: self.palette().bright.primary, width: 2.0, radius: 5.0.into() },
             text_color: Some(self.palette().bright.surface),
         };
 
@@ -319,9 +299,7 @@ impl text_input::StyleSheet for Theme {
     fn active(&self, _style: &Self::Style) -> text_input::Appearance {
         text_input::Appearance {
             background: Background::Color(self.palette().base.foreground),
-            border_radius: 5.0.into(),
-            border_width: 0.0,
-            border_color: self.palette().base.foreground,
+            border: Border { color: self.palette().base.foreground, width: 0.0, radius: 5.0.into() },
             icon_color: Color {
                 a: 0.5,
                 ..self.palette().normal.primary
@@ -332,11 +310,13 @@ impl text_input::StyleSheet for Theme {
     fn focused(&self, _style: &Self::Style) -> text_input::Appearance {
         text_input::Appearance {
             background: Background::Color(self.palette().base.foreground),
-            border_radius: 2.0.into(),
-            border_width: 1.0,
-            border_color: Color {
-                a: 0.5,
-                ..self.palette().normal.primary
+            border: Border {
+                color: Color {
+                    a: 0.5,
+                    ..self.palette().normal.primary
+                },
+                width: 1.0,
+                radius: 2.0.into()
             },
             icon_color: Color {
                 a: 0.5,
@@ -355,11 +335,13 @@ impl text_input::StyleSheet for Theme {
     fn disabled(&self, _style: &Self::Style) -> text_input::Appearance {
         text_input::Appearance {
             background: Background::Color(self.palette().base.background),
-            border_radius: 2.0.into(),
-            border_width: 1.0,
-            border_color: Color {
-                a: 0.5,
-                ..self.palette().base.foreground
+            border: Border {
+                color: Color {
+                    a: 0.5,
+                    ..self.palette().base.foreground
+                },
+                width: 1.0,
+                radius: 2.0.into()
             },
             icon_color: Color {
                 a: 0.5,
@@ -401,9 +383,7 @@ impl menu::StyleSheet for Theme {
         menu::Appearance {
             text_color: p.bright.surface,
             background: p.base.background.into(),
-            border_width: 1.0,
-            border_radius: 2.0.into(),
-            border_color: p.base.background,
+            border: Border { color: p.base.background, width: 1.0, radius: 2.0.into() },
             selected_text_color: p.bright.surface,
             selected_background: p.normal.primary.into(),
         }
@@ -417,12 +397,14 @@ impl pick_list::StyleSheet for Theme {
         pick_list::Appearance {
             text_color: self.palette().bright.surface,
             background: self.palette().base.background.into(),
-            border_width: 1.0,
-            border_color: Color {
-                a: 0.5,
-                ..self.palette().normal.primary
+            border: Border {
+                color: Color {
+                    a: 0.5,
+                    ..self.palette().normal.primary
+                },
+                width: 1.0,
+                radius: 2.0.into()
             },
-            border_radius: 2.0.into(),
             handle_color: self.palette().bright.surface,
             placeholder_color: self.palette().bright.surface,
         }
@@ -431,7 +413,11 @@ impl pick_list::StyleSheet for Theme {
     fn hovered(&self, style: &()) -> pick_list::Appearance {
         let active = self.active(style);
         pick_list::Appearance {
-            border_color: self.palette().normal.primary,
+            border: Border {
+                color: self.palette().normal.primary,
+                width: 1.0,
+                radius: 2.0.into()
+            },
             ..active
         }
     }

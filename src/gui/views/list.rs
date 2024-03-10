@@ -297,7 +297,7 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Renderer<Theme>> {
+    ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => {
                 let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
@@ -320,12 +320,13 @@ impl List {
                 let search_packages = text_input("Search packages...", &self.input_value)
                     .width(Length::Fill)
                     .on_input(Message::SearchInputChanged)
-                    .padding(5);
+                    .padding([5, 10]);
 
                 let select_all_checkbox =
-                    checkbox("", self.all_selected, Message::ToggleAllSelected)
+                    checkbox("", self.all_selected)
+                        .on_toggle(Message::ToggleAllSelected)
                         .style(style::CheckBox::SettingsEnabled)
-                        .spacing(0); // no label, so remove space entirely
+                        .spacing(0); // no label, so remove space entirely 
 
                 let col_sel_all = row![tooltip(
                     select_all_checkbox,
@@ -404,14 +405,14 @@ impl List {
                         self.selected_packages.len()
                     )))
                     .on_press(Message::ApplyActionOnSelection)
-                    .padding(5)
+                    .padding([5, 10])
                     .style(style::Button::Primary)
                 } else {
                     button(text(format!(
                         "Review selection ({})",
                         self.selected_packages.len()
                     )))
-                    .padding(5)
+                    .padding([5, 10])
                 };
 
                 let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
@@ -478,7 +479,7 @@ impl List {
         device: &Phone,
         settings: &Settings,
         packages: &[PackageRow],
-    ) -> Element<Message, Renderer<Theme>> {
+    ) -> Element<Message, Theme, Renderer> {
         // 5 element slice is cheap
         let mut summaries = Removal::CATEGORIES.map(SummaryEntry::from);
         for p in packages.iter().filter(|p| p.selected) {
@@ -544,7 +545,7 @@ impl List {
 
         let modal_btn_row = row![
             button(text("Cancel")).on_press(Message::ModalHide),
-            horizontal_space(Length::Fill),
+            horizontal_space(),
             button(text("Apply")).on_press(Message::ModalValidate),
         ]
         .padding([0, 15, 10, 10]);
@@ -591,7 +592,7 @@ impl List {
                                                         .name
                                                         .clone()
                                                 ),],
-                                                horizontal_space(Length::Fill),
+                                                horizontal_space(),
                                                 row![match self.phone_packages[selection.0]
                                                     [selection.1]
                                                     .state
@@ -728,10 +729,10 @@ fn waiting_view<'a>(
     _settings: &Settings,
     displayed_text: &str,
     btn: bool,
-) -> Element<'a, Message, Renderer<Theme>> {
+) -> Element<'a, Message, Theme, Renderer> {
     let col = if btn {
         let no_internet_btn = button("No internet?")
-            .padding(5)
+            .padding([5, 10])
             .on_press(Message::LoadUadList(false))
             .style(style::Button::Primary);
 
@@ -797,7 +798,7 @@ fn build_action_pkg_commands(
     commands
 }
 
-fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Renderer<Theme>> {
+fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
     container(
         row![
             text(recap.category).size(24).width(Length::FillPortion(1)),
@@ -808,7 +809,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                 } else {
                     text("Uninstall").style(style::Text::Danger)
                 },
-                horizontal_space(Length::Fill),
+                horizontal_space(),
                 text(recap.discard).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
@@ -819,7 +820,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                 } else {
                     text("Restore").style(style::Text::Ok)
                 },
-                horizontal_space(Length::Fill),
+                horizontal_space(),
                 text(recap.restore).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))

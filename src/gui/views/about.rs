@@ -26,7 +26,7 @@ impl About {
         }
         // other events are handled by UadGui update()
     }
-    pub fn view(&self, update_state: &UpdateState) -> Element<Message, Renderer<Theme>> {
+    pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
         let about_text = text(
             "Universal Android Debloater Next Generation (UAD-ng) is a Free and Open-Source community project aiming at simplifying \
             the removal of pre-installed apps on any Android device.",
@@ -42,13 +42,13 @@ impl About {
         let last_update_text = text(update_state.uad_list.to_string());
         let uad_lists_btn = button("Update")
             .on_press(Message::UpdateUadLists)
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         #[cfg(feature = "self-update")]
         let self_update_btn = button("Update")
             .on_press(Message::DoSelfUpdate)
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         #[cfg(feature = "self-update")]
@@ -102,26 +102,26 @@ impl About {
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
             )))
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         let issue_btn = button("Have an issue?")
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
             )))
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         let log_btn = button("Locate the logfiles")
             .on_press(Message::UrlPressed(CACHE_DIR.to_path_buf()))
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         let wiki_btn = button("Wiki")
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
             )))
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::Primary);
 
         let row = row![website_btn, wiki_btn, issue_btn, log_btn,].spacing(20);

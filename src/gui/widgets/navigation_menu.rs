@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 pub use crate::core::sync::Phone;
 use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
@@ -18,7 +20,7 @@ pub fn nav_menu<'a>(
     selected_device: Option<Phone>,
     apps_view: &AppsView,
     self_update_state: &SelfUpdateState,
-) -> Element<'a, Message, Renderer<Theme>> {
+) -> Element<'a, Message, Theme, Renderer> {
     let apps_refresh_btn = button(
         Text::new("\u{E900}")
             .font(ICONS)
@@ -26,7 +28,7 @@ pub fn nav_menu<'a>(
             .horizontal_alignment(alignment::Horizontal::Center),
     )
     .on_press(Message::RefreshButtonPressed)
-    .padding(5)
+    .padding([5, 10])
     .style(style::Button::Refresh);
 
     let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps", tooltip::Position::Bottom)
@@ -35,7 +37,7 @@ pub fn nav_menu<'a>(
 
     let reboot_btn = button("Reboot")
         .on_press(Message::RebootButtonPressed)
-        .padding(5)
+        .padding([5, 10])
         .style(style::Button::Refresh);
 
     #[allow(clippy::option_if_let_else)]
@@ -56,7 +58,7 @@ pub fn nav_menu<'a>(
     let update_btn = if self_update_state.latest_release.is_some() {
         button("Update")
             .on_press(Message::AboutAction(AboutMessage::DoSelfUpdate))
-            .padding(5)
+            .padding([5, 10])
             .style(style::Button::SelfUpdate)
     } else {
         button("").height(0).width(0).style(style::Button::Hidden)
@@ -64,17 +66,17 @@ pub fn nav_menu<'a>(
 
     let apps_btn = button("Apps")
         .on_press(Message::AppsPress)
-        .padding(5)
+        .padding([5, 10])
         .style(style::Button::Primary);
 
     let about_btn = button("About")
         .on_press(Message::AboutPressed)
-        .padding(5)
+        .padding([5, 10])
         .style(style::Button::Primary);
 
     let settings_btn = button("Settings")
         .on_press(Message::SettingsPressed)
-        .padding(5)
+        .padding([5, 10])
         .style(style::Button::Primary);
 
     let device_list_text = match apps_view.loading_state {
@@ -86,7 +88,7 @@ pub fn nav_menu<'a>(
         Some(phone) => row![
             reboot_btn,
             apps_refresh_tooltip,
-            pick_list(device_list, Some(phone), Message::DeviceSelected,),
+            pick_list(device_list.borrow(), Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
             update_btn,
