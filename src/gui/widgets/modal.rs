@@ -58,7 +58,9 @@ where
         renderer: &Renderer,
         limits: &layout::Limits,
     ) -> layout::Node {
-        self.base.as_widget().layout(&mut tree.children[0], renderer, limits)
+        self.base
+            .as_widget()
+            .layout(&mut tree.children[0], renderer, limits)
     }
 
     fn on_event(
@@ -176,8 +178,7 @@ where
             .layout(self.tree, renderer, &limits)
             .align(Alignment::Center, Alignment::Center, limits.max());
 
-        layout::Node::with_children(self.size, vec![child])
-            .move_to(self.position)
+        layout::Node::with_children(self.size, vec![child]).move_to(self.position)
     }
 
     fn on_event(
