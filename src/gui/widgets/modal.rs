@@ -1,7 +1,7 @@
 use iced::advanced::widget::{self, Tree, Widget};
 use iced::advanced::{layout, overlay, renderer, Clipboard, Layout, Shell};
 use iced::mouse::{self, Cursor};
-use iced::{advanced, event, Alignment, Color, Element, Event, Length, Rectangle, Size};
+use iced::{advanced, event, Alignment, Color, Element, Event, Length, Point, Rectangle, Size};
 
 /// A widget that centers a modal element over some base element
 pub struct Modal<'a, Message, Theme, Renderer> {
@@ -58,7 +58,7 @@ where
         renderer: &Renderer,
         limits: &layout::Limits,
     ) -> layout::Node {
-        self.base.as_widget().layout(tree, renderer, limits)
+        self.base.as_widget().layout(&mut tree.children[0], renderer, limits)
     }
 
     fn on_event(
@@ -113,6 +113,7 @@ where
         _translation: iced::Vector,
     ) -> Option<overlay::Element<'b, Message, Theme, Renderer>> {
         Some(overlay::Element::new(Box::new(Overlay {
+            position: layout.position(),
             content: &mut self.modal,
             tree: &mut state.children[1],
             size: layout.bounds().size(),
@@ -151,6 +152,7 @@ where
 }
 
 struct Overlay<'a, 'b, Message, Theme, Renderer> {
+    position: Point,
     content: &'b mut Element<'a, Message, Theme, Renderer>,
     tree: &'b mut Tree,
     size: Size,
@@ -171,14 +173,11 @@ where
         let child = self
             .content
             .as_widget()
-            .layout(self.tree, renderer, &limits);
-        child
-            .clone()
+            .layout(self.tree, renderer, &limits)
             .align(Alignment::Center, Alignment::Center, limits.max());
 
-        let node = layout::Node::with_children(self.size, vec![child]);
-
-        node
+        layout::Node::with_children(self.size, vec![child])
+            .move_to(self.position)
     }
 
     fn on_event(
