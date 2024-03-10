@@ -2543,7 +2543,7 @@
   },
   "com.huawei.mycenter": {
     "list": "Oem",
-    "description": "Huawei Member Center\n Gives reward offers and news to Huawei users. Very intrusive app : 68 permissions inclusing CAMERA, ACCESS_FINE_LOCATIONtion, REQUEST_INSTALL_PACKAGES. Can run in the background and just after boot even if you haven't unlock your phone yet. Phones home.\nPithus analysis: https://beta.pithus.org/report/3af49c621aefeef0dca86a4f79b5f007d73698fa979d3ba1ac7d6f1ccaea9cdf",
+    "description": "Huawei Member Center\nGives reward offers and news to Huawei users. Very intrusive app: 68 permissions including CAMERA, ACCESS_FINE_LOCATION, REQUEST_INSTALL_PACKAGES. Can run in the background and just after boot even if you haven't unlock your phone yet. Phones home.\nPithus analysis: https://beta.pithus.org/report/3af49c621aefeef0dca86a4f79b5f007d73698fa979d3ba1ac7d6f1ccaea9cdf",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
