@@ -2517,7 +2517,7 @@
   },
   "com.huawei.meetime": {
     "list": "Oem",
-    "description": "MeeTime (https://consumer.huawei.com/en/support/content/en-us00956296/).\nVoice and video calling application by Huawei. Only works with EMUI 9.1+ Huawei phones.\nHuawei claims they use E2EE but this wasn't verified and there is no Whitepaper so don't trust them.\nThey also collect metadata. There are no advantages to use this app instead of the reputed open-source Signal app.",
+    "description": "MeeTime (https://consumer.huawei.com/en/support/content/en-us00956296/).\nVoice and video calling application by Huawei. Only works with EMUI 9.1+ Huawei phones.\nHuawei claims they use E2EE but this wasn't verified and there is no whitepaper, so don't trust them.\nThey also collect metadata.",
     "dependencies": [
       "com.huawei.hwvoipservice"
     ],
