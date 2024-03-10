@@ -1,6 +1,6 @@
 name: Debloat issue report
 description: Your phone has unexpected issues after debloating
-title: "bug(scope): "
+title: "pkg(scope): "
 labels: ["package::breakage"]
 body:
 - type: textarea
