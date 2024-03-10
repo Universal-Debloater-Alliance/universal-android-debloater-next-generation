@@ -329,10 +329,12 @@ impl Settings {
                     .width(77)
             } else {
                 button(
-                    text("No backup").horizontal_alignment(alignment::Horizontal::Center).vertical_alignment(alignment::Vertical::Center)
+                    text("No backup")
+                        .horizontal_alignment(alignment::Horizontal::Center)
+                        .vertical_alignment(alignment::Vertical::Center),
                 )
-                    .padding([5, 10])
-                    .width(77)
+                .padding([5, 10])
+                .width(77)
             }
         };
 

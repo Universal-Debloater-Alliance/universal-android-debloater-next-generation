@@ -46,14 +46,22 @@ impl container::StyleSheet for Theme {
             Container::BorderedFrame => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
-                border: Border { color: self.palette().normal.error, width: 1.0, radius: 5.0.into() },
-                shadow: Shadow::default()
+                border: Border {
+                    color: self.palette().normal.error,
+                    width: 1.0,
+                    radius: 5.0.into(),
+                },
+                shadow: Shadow::default(),
             },
             Container::Tooltip => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
-                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 8.0.into() },
-                shadow: Shadow::default()
+                border: Border {
+                    color: self.palette().normal.primary,
+                    width: 1.0,
+                    radius: 8.0.into(),
+                },
+                shadow: Shadow::default(),
             },
 
             Container::Background => container::Appearance {
@@ -86,13 +94,21 @@ impl button::StyleSheet for Theme {
         let p = self.palette();
 
         let appearance = button::Appearance {
-            border: Border { color: self.palette().normal.primary, width: 1.0, radius: 2.0.into() },
+            border: Border {
+                color: self.palette().normal.primary,
+                width: 1.0,
+                radius: 2.0.into(),
+            },
             ..button::Appearance::default()
         };
 
         let active_appearance = |bg: Option<Color>, mc| button::Appearance {
             background: Some(Background::Color(bg.unwrap_or(p.base.foreground))),
-            border: Border { color: Color { a: 0.5, ..mc }, width: 1.0, radius: 2.0.into() },
+            border: Border {
+                color: Color { a: 0.5, ..mc },
+                width: 1.0,
+                radius: 2.0.into(),
+            },
             text_color: mc,
             ..appearance
         };
@@ -105,7 +121,11 @@ impl button::StyleSheet for Theme {
             Button::NormalPackage => button::Appearance {
                 background: Some(Background::Color(p.base.foreground)),
                 text_color: p.bright.surface,
-                border: Border { color: p.base.background, width: 0.0, radius: 5.0.into() },
+                border: Border {
+                    color: p.base.background,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 ..appearance
             },
             Button::SelectedPackage => button::Appearance {
@@ -114,7 +134,11 @@ impl button::StyleSheet for Theme {
                     ..p.normal.primary
                 })),
                 text_color: p.bright.primary,
-                border: Border { color: p.normal.primary, width: 0.0, radius: 5.0.into() },
+                border: Border {
+                    color: p.normal.primary,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 ..appearance
             },
             Button::Unavailable | Button::UninstallPackage => {
@@ -123,7 +147,11 @@ impl button::StyleSheet for Theme {
             Button::Hidden => button::Appearance {
                 background: Some(Background::Color(Color::TRANSPARENT)),
                 text_color: Color::TRANSPARENT,
-                border: Border { color: Color::TRANSPARENT, width: 0.0, radius: 5.0.into() },
+                border: Border {
+                    color: Color::TRANSPARENT,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 ..appearance
             },
         }
@@ -195,12 +223,20 @@ impl scrollable::StyleSheet for Theme {
             gap: Some(Background::Color(Color::TRANSPARENT)),
             scrollbar: scrollable::Scrollbar {
                 background: Some(Background::Color(Color::TRANSPARENT)),
-                border: Border { color: Color::TRANSPARENT, width: 0.0, radius: 5.0.into() },
+                border: Border {
+                    color: Color::TRANSPARENT,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 scroller: scrollable::Scroller {
                     color: c,
-                    border: Border { color: Color::TRANSPARENT, width: 1.0, radius: 5.0.into() }
-                }
-            }
+                    border: Border {
+                        color: Color::TRANSPARENT,
+                        width: 1.0,
+                        radius: 5.0.into(),
+                    },
+                },
+            },
         };
 
         match style {
@@ -242,7 +278,11 @@ impl checkbox::StyleSheet for Theme {
             CheckBox::PackageEnabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.background),
                 icon_color: self.palette().bright.primary,
-                border: Border { color: self.palette().base.background, width: 1.0, radius: 5.0.into() },
+                border: Border {
+                    color: self.palette().base.background,
+                    width: 1.0,
+                    radius: 5.0.into(),
+                },
                 text_color: Some(self.palette().bright.surface),
             },
             CheckBox::PackageDisabled => checkbox::Appearance {
@@ -250,21 +290,33 @@ impl checkbox::StyleSheet for Theme {
                     a: 0.55,
                     ..self.palette().base.background
                 }),
-                
+
                 icon_color: self.palette().bright.primary,
-                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 5.0.into() },
+                border: Border {
+                    color: self.palette().normal.primary,
+                    width: 1.0,
+                    radius: 5.0.into(),
+                },
                 text_color: Some(self.palette().normal.primary),
             },
             CheckBox::SettingsEnabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.background),
                 icon_color: self.palette().bright.primary,
-                border: Border { color: self.palette().bright.primary, width: 1.0, radius: 5.0.into() },
+                border: Border {
+                    color: self.palette().bright.primary,
+                    width: 1.0,
+                    radius: 5.0.into(),
+                },
                 text_color: Some(self.palette().bright.surface),
             },
             CheckBox::SettingsDisabled => checkbox::Appearance {
                 background: Background::Color(self.palette().base.foreground),
                 icon_color: self.palette().bright.primary,
-                border: Border { color: self.palette().normal.primary, width: 1.0, radius: 5.0.into() },
+                border: Border {
+                    color: self.palette().normal.primary,
+                    width: 1.0,
+                    radius: 5.0.into(),
+                },
                 text_color: Some(self.palette().bright.surface),
             },
         }
@@ -274,7 +326,11 @@ impl checkbox::StyleSheet for Theme {
         let from_appearance = || checkbox::Appearance {
             background: Background::Color(self.palette().base.foreground),
             icon_color: self.palette().bright.primary,
-            border: Border { color: self.palette().bright.primary, width: 2.0, radius: 5.0.into() },
+            border: Border {
+                color: self.palette().bright.primary,
+                width: 2.0,
+                radius: 5.0.into(),
+            },
             text_color: Some(self.palette().bright.surface),
         };
 
@@ -299,7 +355,11 @@ impl text_input::StyleSheet for Theme {
     fn active(&self, _style: &Self::Style) -> text_input::Appearance {
         text_input::Appearance {
             background: Background::Color(self.palette().base.foreground),
-            border: Border { color: self.palette().base.foreground, width: 0.0, radius: 5.0.into() },
+            border: Border {
+                color: self.palette().base.foreground,
+                width: 0.0,
+                radius: 5.0.into(),
+            },
             icon_color: Color {
                 a: 0.5,
                 ..self.palette().normal.primary
@@ -316,7 +376,7 @@ impl text_input::StyleSheet for Theme {
                     ..self.palette().normal.primary
                 },
                 width: 1.0,
-                radius: 2.0.into()
+                radius: 2.0.into(),
             },
             icon_color: Color {
                 a: 0.5,
@@ -341,7 +401,7 @@ impl text_input::StyleSheet for Theme {
                     ..self.palette().base.foreground
                 },
                 width: 1.0,
-                radius: 2.0.into()
+                radius: 2.0.into(),
             },
             icon_color: Color {
                 a: 0.5,
@@ -383,7 +443,11 @@ impl menu::StyleSheet for Theme {
         menu::Appearance {
             text_color: p.bright.surface,
             background: p.base.background.into(),
-            border: Border { color: p.base.background, width: 1.0, radius: 2.0.into() },
+            border: Border {
+                color: p.base.background,
+                width: 1.0,
+                radius: 2.0.into(),
+            },
             selected_text_color: p.bright.surface,
             selected_background: p.normal.primary.into(),
         }
@@ -403,7 +467,7 @@ impl pick_list::StyleSheet for Theme {
                     ..self.palette().normal.primary
                 },
                 width: 1.0,
-                radius: 2.0.into()
+                radius: 2.0.into(),
             },
             handle_color: self.palette().bright.surface,
             placeholder_color: self.palette().bright.surface,
@@ -416,7 +480,7 @@ impl pick_list::StyleSheet for Theme {
             border: Border {
                 color: self.palette().normal.primary,
                 width: 1.0,
-                radius: 2.0.into()
+                radius: 2.0.into(),
             },
             ..active
         }

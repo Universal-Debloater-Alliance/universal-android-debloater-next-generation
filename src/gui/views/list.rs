@@ -322,11 +322,10 @@ impl List {
                     .on_input(Message::SearchInputChanged)
                     .padding([5, 10]);
 
-                let select_all_checkbox =
-                    checkbox("", self.all_selected)
-                        .on_toggle(Message::ToggleAllSelected)
-                        .style(style::CheckBox::SettingsEnabled)
-                        .spacing(0); // no label, so remove space entirely 
+                let select_all_checkbox = checkbox("", self.all_selected)
+                    .on_toggle(Message::ToggleAllSelected)
+                    .style(style::CheckBox::SettingsEnabled)
+                    .spacing(0); // no label, so remove space entirely
 
                 let col_sel_all = row![tooltip(
                     select_all_checkbox,

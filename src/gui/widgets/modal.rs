@@ -34,7 +34,8 @@ impl<'a, Message, Theme, Renderer> Modal<'a, Message, Theme, Renderer> {
     }
 }
 
-impl<'a, Message, Theme, Renderer> Widget<Message, Theme, Renderer> for Modal<'a, Message, Theme, Renderer>
+impl<'a, Message, Theme, Renderer> Widget<Message, Theme, Renderer>
+    for Modal<'a, Message, Theme, Renderer>
 where
     Renderer: advanced::Renderer,
     Message: Clone,
@@ -51,7 +52,12 @@ where
         tree.diff_children(&[&self.base, &self.modal]);
     }
 
-    fn layout(&self, tree: &mut Tree, renderer: &Renderer, limits: &layout::Limits) -> layout::Node {
+    fn layout(
+        &self,
+        tree: &mut Tree,
+        renderer: &Renderer,
+        limits: &layout::Limits,
+    ) -> layout::Node {
         self.base.as_widget().layout(tree, renderer, limits)
     }
 
@@ -104,16 +110,14 @@ where
         state: &'b mut Tree,
         layout: Layout<'_>,
         _renderer: &Renderer,
-        _translation: iced::Vector
+        _translation: iced::Vector,
     ) -> Option<overlay::Element<'b, Message, Theme, Renderer>> {
-        Some(overlay::Element::new(
-            Box::new(Overlay {
-                content: &mut self.modal,
-                tree: &mut state.children[1],
-                size: layout.bounds().size(),
-                on_blur: self.on_blur.clone(),
-            }),
-        ))
+        Some(overlay::Element::new(Box::new(Overlay {
+            content: &mut self.modal,
+            tree: &mut state.children[1],
+            size: layout.bounds().size(),
+            on_blur: self.on_blur.clone(),
+        })))
     }
 
     fn mouse_interaction(
@@ -164,8 +168,13 @@ where
             .width(Length::Fill)
             .height(Length::Fill);
 
-        let child = self.content.as_widget().layout(self.tree, renderer, &limits);
-        child.clone().align(Alignment::Center, Alignment::Center, limits.max());
+        let child = self
+            .content
+            .as_widget()
+            .layout(self.tree, renderer, &limits);
+        child
+            .clone()
+            .align(Alignment::Center, Alignment::Center, limits.max());
 
         let node = layout::Node::with_children(self.size, vec![child]);
 
@@ -268,7 +277,8 @@ where
     }
 }
 
-impl<'a, Message, Theme, Renderer> From<Modal<'a, Message, Theme, Renderer>> for Element<'a, Message, Theme, Renderer>
+impl<'a, Message, Theme, Renderer> From<Modal<'a, Message, Theme, Renderer>>
+    for Element<'a, Message, Theme, Renderer>
 where
     Theme: 'a,
     Renderer: 'a + advanced::Renderer,
