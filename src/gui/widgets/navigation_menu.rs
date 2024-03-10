@@ -44,7 +44,7 @@ pub fn nav_menu<'a>(
             Text::new("Updating please wait...")
         } else {
             Text::new(format!(
-                "New UAD-ng version available {} -> {}",
+                "Update available: {} -> {}",
                 env!("CARGO_PKG_VERSION"),
                 r.tag_name
             ))
@@ -78,14 +78,14 @@ pub fn nav_menu<'a>(
         .style(style::Button::Primary);
 
     let device_list_text = match apps_view.loading_state {
-        ListLoadingState::FindingPhones => text("finding connected phone..."),
-        _ => text("no devices/emulators found"),
+        ListLoadingState::FindingPhones => text("Finding connected devices..."),
+        _ => text("No devices/emulators found"),
     };
 
     let row = match selected_device {
         Some(phone) => row![
-            apps_refresh_tooltip,
             reboot_btn,
+            apps_refresh_tooltip,
             pick_list(device_list, Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
