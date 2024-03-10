@@ -2751,7 +2751,7 @@
   },
   "com.huawei.wallet": {
     "list": "Oem",
-    "description": "Huawei Wallet (renammed Huawei Pay)\nMobile payment and e-wallet service for Huawei devices that offers the same services as Apple Pay, Samsung Pay etc...\nhttps://consumer.huawei.com/en/mobileservices/huawei-wallet/\n",
+    "description": "Huawei Wallet (renamed Huawei Pay)\nMobile payment and e-wallet service for Huawei devices that offers the same services as Apple Pay, Samsung Pay etc...\nhttps://consumer.huawei.com/en/mobileservices/huawei-wallet/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
