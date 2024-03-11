@@ -800,7 +800,7 @@ fn build_action_pkg_commands(
 fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
     container(
         row![
-            text(recap.category).size(24).width(Length::FillPortion(1)),
+            text(recap.category).size(19).width(Length::FillPortion(1)),
             vertical_rule(5),
             row![
                 if settings.device.disable_mode {

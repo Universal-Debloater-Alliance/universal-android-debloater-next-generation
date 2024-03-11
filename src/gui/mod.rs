@@ -369,7 +369,7 @@ impl UadGui {
 
         Self::run(Settings {
             window: Window {
-                size: iced::Size::new(1200.0, 850.0),
+                size: iced::Size::new(1000.0, 820.0),
                 resizable: true,
                 decorations: true,
                 icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
