@@ -2819,7 +2819,7 @@ checksum = "17f77d76d837a7830fe1d4f12b7b4ba4192c1888001c7164257e4bc6d21d96b4"
 
 [[package]]
 name = "uad-ng"
-version = "1.1.0"
+version = "1.0.2"
 dependencies = [
  "chrono",
  "dirs",
