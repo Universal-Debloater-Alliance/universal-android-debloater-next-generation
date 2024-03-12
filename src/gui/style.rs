@@ -41,6 +41,11 @@ impl container::StyleSheet for Theme {
             Container::Frame => container::Appearance {
                 background: Some(Background::Color(self.palette().base.foreground)),
                 text_color: Some(self.palette().bright.surface),
+                border: Border {
+                    color: Color::TRANSPARENT,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 ..container::Appearance::default()
             },
             Container::BorderedFrame => container::Appearance {
@@ -67,6 +72,11 @@ impl container::StyleSheet for Theme {
             Container::Background => container::Appearance {
                 background: Some(Background::Color(self.palette().base.background)),
                 text_color: Some(self.palette().bright.surface),
+                border: Border {
+                    color: Color::TRANSPARENT,
+                    width: 0.0,
+                    radius: 5.0.into(),
+                },
                 ..container::Appearance::default()
             },
         }
