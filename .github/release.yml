@@ -1,16 +1,18 @@
 changelog:
-  exclude:
-    labels:
-      - package::documentation
-      - package::addition
-      - package::breakage
   categories:
-    - title: Added
+    - title: Features
       labels:
         - enhancement
-    - title: Changed
-      labels:
-        - refactor
     - title: Fixed
       labels:
         - bug
+    - title: Miscellaneous
+      labels:
+        - refactor
+        - dependencies
+        - documentation
+    - title: Packages/apps
+      labels:
+      - package::documentation
+      - package::addition
+      - package::breakage
