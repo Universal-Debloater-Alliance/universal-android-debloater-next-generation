@@ -1,5 +1,3 @@
-use std::borrow::Borrow;
-
 pub use crate::core::sync::Phone;
 use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
@@ -16,7 +14,7 @@ pub const ICONS: Font = Font {
 };
 
 pub fn nav_menu<'a>(
-    device_list: &'a Vec<Phone>,
+    device_list: &'a [Phone],
     selected_device: Option<Phone>,
     apps_view: &AppsView,
     self_update_state: &SelfUpdateState,
@@ -88,7 +86,7 @@ pub fn nav_menu<'a>(
         Some(phone) => row![
             reboot_btn,
             apps_refresh_tooltip,
-            pick_list(device_list.borrow(), Some(phone), Message::DeviceSelected,),
+            pick_list(device_list, Some(phone), Message::DeviceSelected,),
             Space::new(Length::Fill, Length::Shrink),
             uad_version_text,
             update_btn,
