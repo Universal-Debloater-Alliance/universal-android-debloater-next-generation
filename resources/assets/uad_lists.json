@@ -2325,7 +2325,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.gameassistant": {
     "list": "Oem",
@@ -2435,7 +2435,7 @@
   },
   "com.huawei.himovie.overseas": {
     "list": "Oem",
-    "description": "Huawei stock video application.\nReplace with VLC, which integrates well with the stock gallery.\nHas a lot tracking.",
+    "description": "Huawei stock video application.\nHas a lot tracking.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17240,7 +17240,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.sarlevel": {
     "list": "Oem",
@@ -33147,7 +33147,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.huawei.hilink.framework": {
     "list": "Oem",
@@ -33199,7 +33199,7 @@
   },
   "com.huawei.ohos.famanager": {
     "list": "Oem",
-    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and it's underlying services (which provide searches and AI-based services). A lot tracking.",
+    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and its underlying services (which provide searches and AI-based services). A lot tracking.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35007,7 +35007,7 @@
   },
   "com.huawei.smarthome": {
     "list": "Oem",
-    "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and mamage routers and audio accessories.",
+    "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and manage routers and audio accessories.",
     "dependencies": ["com.huawei.hwid"],
     "neededBy": [],
     "labels": [],
@@ -35111,7 +35111,7 @@
   },
   "com.huawei.cryptosms.service": {
     "list": "Oem",
-    "description": "SMS Encryption Service, looks maded for China.",
+    "description": "SMS Encryption Service, looks made for China.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35123,7 +35123,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.huawei.imedia.dolby": {
     "list": "Oem",
@@ -35207,11 +35207,11 @@
   },
   "com.huawei.notepad": {
     "list": "Oem",
-    "description": "Notepad\nLooks so bloated with Hi Voice, Update using AppGallery, Location.",
+    "description": "Notepad\nLooks so bloated with Hi Voice, Update using AppGallery, Location.\nIt has a few tracking components, but not too many.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.huawei.hwpolicyservice": {
     "list": "Oem",
@@ -35263,7 +35263,7 @@
   },
   "com.huawei.security.privacycenter": {
     "list": "Oem",
-    "description": "Protect your privacy by preventing apps from accessing sensitive data stored within images,\nsuch as location info and time stamps. This restriction does not apply to system apps such as Gallery and Cloud.\nI don't think this app has too much to privacy.",
+    "description": "Protect your privacy by preventing apps from accessing sensitive data stored within images,\nsuch as location info and time stamps. This restriction does not apply to system apps such as Gallery and Cloud.\nI don't think this app values privacy a lot.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35307,7 +35307,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.userguide": {
     "list": "Oem",
@@ -35363,7 +35363,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.pengine": {
     "list": "Oem",
