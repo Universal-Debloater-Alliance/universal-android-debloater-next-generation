@@ -297,7 +297,7 @@
   },
   "com.sonymobile.email": {
     "list": "Oem",
-    "description": "Sony Email app\n",
+    "description": "Sony Email app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2371,7 +2371,7 @@
   },
   "com.huawei.hiaction": {
     "list": "Oem",
-    "description": "no noticeable consequences\n",
+    "description": "no noticeable consequences",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11686,7 +11686,7 @@
   },
   "com.lge.sync": {
     "list": "Oem",
-    "description": "LG Bridge Service\nUsed to backup, restore, update your LG phone, and transfer files wirelessly between computer and LG phone. \nYou will need to install LG Bridge software on your PC.\nNOTE : Cause noticeable battery drain.\n",
+    "description": "LG Bridge Service\nUsed to backup, restore, update your LG phone, and transfer files wirelessly between computer and LG phone.\nYou will need to install LG Bridge software on your PC.\nNOTE: causes noticeable battery drain.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
