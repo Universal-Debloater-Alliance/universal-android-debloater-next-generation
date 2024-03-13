@@ -297,7 +297,7 @@
   },
   "com.sonymobile.email": {
     "list": "Oem",
-    "description": "Sony Email app\nThere are better one (and FOSS)",
+    "description": "Sony Email app\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
