@@ -41,7 +41,7 @@
   },
   "com.sonyericsson.idd.agent": {
     "list": "Oem",
-    "description": "Anonymous Usage Stats\nUsed to send \"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nNobody knows how these info are anonymized...\n",
+    "description": "Anonymous Usage Stats\nUsed to send \"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nIt remains unclear exactly how this information is anonymized.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
