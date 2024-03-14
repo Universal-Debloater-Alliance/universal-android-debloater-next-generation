@@ -8994,7 +8994,7 @@
   },
   "com.oneplus.camera.service": {
     "list": "Oem",
-    "description": "Runs in the background on some phones.\nNot sure what it does; camera functions fine without it. Could be related to photo backup?",
+    "description": "Runs in the background on some phones.\nNot sure what it does; camera functions fine without it. Could be related to photo backup? WARNING: may cause a bootloop when using a custom ROM (in this case, Nameless AOSP). Does not affect users running OxygenOS.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
