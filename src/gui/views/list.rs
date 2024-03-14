@@ -73,6 +73,7 @@ pub enum Message {
     ModalHide,
     ModalUserSelected(User),
     ModalValidate,
+    ClearSelectedPackages,
 }
 
 pub struct SummaryEntry {
@@ -288,6 +289,10 @@ impl List {
                     list_update_state,
                     Message::UserSelected(user),
                 )
+            }
+            Message::ClearSelectedPackages => {
+                self.selected_packages = Vec::<(usize, usize)>::new();
+                Command::none()
             }
             Message::Nothing => Command::none(),
         }
