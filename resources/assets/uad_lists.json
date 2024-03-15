@@ -3543,7 +3543,7 @@
   },
   "com.knox.vpn.proxyhandler": {
     "list": "Oem",
-    "description": "Third-party package that provides caller profile information to help consumers identify incoming calls and block unwanted ones.\nhttps://en.wikipedia.org/wiki/Hiya_(company)\nhttps://hiya.com/\nNOTE: Never trust a company that promotes spam blocking features.\nhttps://itmunch.com/robocall-caught-sending-customers-confidential-data-without-consent/\nHave a look at their privacy policy. It's... pretty scary: https://hiya.com/fr/hiya-data-policy\nNeeded for Samsung Smart Call (com.samsung.android.smartcallprovider)\nSamsung Knox allows business and personal content to \"securely\" coexist on the same handset.\nThis package handles proxies alongside KNOX.",
+    "description": "Samsung Knox allows business and personal content to \"securely\" coexist on the same handset.\nThis package handles proxies alongside KNOX.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3999,7 +3999,7 @@
   },
   "com.samsung.android.app.sharelive": {
     "list": "Oem",
-    "description": "Samsung Quick Share from the Galaxy Store\nDoesn't break anything if you remove it. But obviously you can't use Quick Share.",
+    "description": "Samsung Quick Share (from the Galaxy Store)\nBreaks Quick Share if you remove it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4111,7 +4111,7 @@
   },
   "com.samsung.android.easysetup": {
     "list": "Oem",
-    "description": "Samsung Connect Easy Setup (now SmartThings)\nUsed to connect every Samsung device you have in your house.\nWhat's weird is that Galaxy S10 has this package (available nowhere) but S9 has com.samsung.android.oneconnect\navailable on the Playstore (https://play.google.com/store/apps/details?id=com.samsung.android.oneconnect)\n#\nNeeds \"com.samsung.android.beaconmanager\" to be useful.\n",
+    "description": "Samsung Nearby device scanning\nRequires \"com.samsung.android.beaconmanager\" to be useful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4319,7 +4319,7 @@
   },
   "com.samsung.android.mdx.kit": {
     "list": "Oem",
-    "description": "MDE Service Framework / Quick Share Connectivity\nMDE = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with \"com.samsung.android.mobileservice\" and \"com.osp.app.signin\"\n",
+    "description": "Quick Share Connectivity / MDE Service Framework\nMDX = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with \"com.samsung.android.mobileservice\" and \"com.osp.app.signin\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4335,7 +4335,7 @@
   },
   "com.samsung.android.mobileservice": {
     "list": "Oem",
-    "description": "Group Sharing (earlier Samsung Experience Service, before One UI 1.0). The legacy version was similar to Samsung Core Services (citation needed).\nCan remove safely if you don't use any group sharing features (shared albums in gallery, etc.).\nHandles your Samsung account and is needed to use some Samsung apps features.\nIt allows you to use multiple Samsung apps, such as Samsung Health, Samsung Pay, Galaxy Apps, Samsung Members, and SmartThings, \nwith your Samsung account credentials.\nhttps://techshift.net/what-is-samsung-group-sharing/",
+    "description": "Group Sharing (earlier Samsung Experience Service). The legacy version was similar to Samsung Core Services (citation needed).\nCan remove safely if you don't use any group sharing features (shared albums in gallery, etc.).\nHandles your Samsung account and is needed to use some Samsung apps features.\nIt allows you to use Samsung apps, such as Samsung Health, Samsung Pay, Galaxy Apps, Samsung Members, and SmartThings with your Samsung account credentials.\nhttps://techshift.net/what-is-samsung-group-sharing/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5098,11 +5098,11 @@
   },
   "com.samsung.ucs.agent.boot": {
     "list": "Oem",
-    "description": "Boot agent\nUCS is a company which has partnered with Samsung to provide licenses for Samsung Knox\nhttps://www.ucssolutions.com/blog/samsung-knox/\nI don't have precise information about the package itself but there are chances that it verifies some files on boot. If theses files are not verified\nthen it prevent the phone to boot \n",
+    "description": "Boot agent\nUCS is a company which has partnered with Samsung to provide licenses for Samsung Knox\nhttps://www.ucssolutions.com/blog/samsung-knox/\nI don't have precise information about the package itself but there are chances that it verifies some files on boot. If these files are not verified then it may prevent the phone from booting.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.samsung.ucs.agent.ese": {
     "list": "Oem",
@@ -5178,7 +5178,7 @@
   },
   "com.sec.android.app.bluetoothtest": {
     "list": "Oem",
-    "description": "Bluetooth Test\nHidden feature accessible by entering *#*#232331#*#* in the samsung dialer\nWas calling home back in 2015 (https://forum.xda-developers.com/galaxy-s5/help/bluetoothtest-apk-calling-home-t3035182)\n",
+    "description": "Bluetooth Test\nHidden feature accessible by entering *#*#232331#*#* in the Samsung dialer.\nIt was found to be calling home back in 2015:\nhttps://forum.xda-developers.com/galaxy-s5/help/bluetoothtest-apk-calling-home-t3035182",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6068,7 +6068,7 @@
   },
   "com.samsung.android.app.galaxyfinder": {
     "list": "Oem",
-    "description": "S Finder is a search application that allows you to find what you want in an instant by searching the content on your Galaxy smartphone and on the web as well. (https://www.samsung.com/global/galaxy/what-is/s-finder/)\nNOTE: Removing this will remove the search in the app drawer.\n",
+    "description": "Samsung Finder is a search application that allows you to find what you want in an instant by searching the content on your Galaxy smartphone and on the web as well. (https://www.samsung.com/global/galaxy/what-is/s-finder/)\nNOTE: Removing this will remove the search in the app drawer.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6092,7 +6092,7 @@
   },
   "com.samsung.android.app.smartcapture": {
     "list": "Oem",
-    "description": "Lets you group widgets on OneUI 4",
+    "description": "Samsung Capture\nSamsung's implementation of screenshot. Show the bottom toolbar after taking a screenshot\nLets you group widgets on OneUI 4 (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6108,7 +6108,7 @@
   },
   "com.sec.android.app.soundalive": {
     "list": "Oem",
-    "description": "Responsible for Dolby Atmos and other pre-programmed equalizer stuff (accessible from the Settings app)\nNeeded by Adapt Sound (com.sec.hearingadjust) which a pretty useful but little known feature.",
+    "description": "Responsible for Dolby Atmos and other equalizer stuff (accessible from the Settings app).\nNeeded by Adapt Sound (com.sec.hearingadjust) which is a pretty useful feature.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6116,7 +6116,7 @@
   },
   "com.samsung.android.mcfserver": {
     "list": "Oem",
-    "description": "Samsung Multi Connectivity (starting from Galaxy S20)\nSee https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/12\n",
+    "description": "Samsung Multi Connectivity\n\nSee https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/12\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6132,7 +6132,7 @@
   },
   "com.sec.epdg": {
     "list": "Oem",
-    "description": "Huh... that's hard to explain quickly. Let's try : \nFirst you need to know that there is a standards organization which develops protocols for mobile telephony called 3GPP (mobile network : 2G/3G/4G/5G).\nRAT (physical connection method to a wireless communication network) non specified by the 3GPP is called non-3GPP. RAT Wifi is non-3GPP.\n\nePDG means Evolved Packet Data Gateway. The main role of the ePDG is to provide security mechanisms such as IPsec tunnelling of connections \nwith the device over an untrusted non-3GPP access. It is mainly use for VoWifi (Voice over wifi).\nFor further information : \n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n#\nSafe to remove if not using VoWifi.\n",
+    "description": "Safe to remove if you're not using VoWifi.\nYou need to know that:\n3GPP is a standards organization for mobile telephony (2G/3G/4G/5G).\nNon-3GPP RAT refers to wireless connection methods not specified by 3GPP, including Wi-Fi.\nePDG (evolved Packet Data Gateway) secures connections over untrusted non-3GPP access, commonly used for VoWiFi (Voice over Wi-Fi). For more information:\n- https://www.3gpp.org/technologies/keywords-acronyms/100-the-evolved-packet-core\n- https://www.aptilo.com/solutions/mobile-data-offloading/3gpp-wifi-access/\n- https://en.wikipedia.org/wiki/System_Architecture_Evolution#Evolved_Packet_Core_(EPC)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6180,7 +6180,7 @@
   },
   "com.samsung.android.app.contacts": {
     "list": "Oem",
-    "description": "Samsung contacts app\nSafe to debloat if you use another contacts app. NOTE: if you do, you will no longer be able to access Contacts from the Samsung dialer app.\nRemoving the contacts app will disable the user from being able to modify the Safety and emergency tab within the Samsung Android native settings app. Specifically the Medical info & Emergency contacts. This information is pulled on the lockscreen by first responders or in emergency sharing mode for emergency contacts.",
+    "description": "Samsung Contacts\nSafe to debloat if you use another contacts app. NOTE: if you do, you will no longer be able to access Contacts from the Samsung dialer app.\nRemoving the contacts app will disable the user from being able to modify the Safety and emergency tab within the Samsung Android native settings app. Specifically the Medical info & Emergency contacts. This information is pulled on the lockscreen by first responders or in emergency sharing mode for emergency contacts.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6196,7 +6196,7 @@
   },
   "com.samsung.android.lool": {
     "list": "Oem",
-    "description": "Samsung Device Care (phone optimizer) (https://play.google.com/store/apps/details?id=com.samsung.android.lool)\nThis package phone home (China, Qihoo 360)\nThe clean feature (in storage setting) is provided by Qihoo 360 which is a shady company (https://en.wikipedia.org/wiki/Qihoo_360)\nhttps://www.reddit.com/r/Android/comments/ektg8u/chinese_spyware_preinstalled_on_all_samsung/\nhttps://www.virustotal.com/gui/file/048ead2be8d18bbe2b05651380069b3740dd05703e9bd66630da986026518398/details\n\nWARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices\nNOTE : If you don't want to delete this package, at least use a firewall (Netguard/AfWall+) to block internet access\n",
+    "description": "Samsung Device Care\n(https://play.google.com/store/apps/details?id=com.samsung.android.lool)\nThis package phone home (China, Qihoo 360)\nThe clean feature (in storage setting) is provided by Qihoo 360 which is a shady company (https://en.wikipedia.org/wiki/Qihoo_360)\nhttps://www.reddit.com/r/Android/comments/ektg8u/chinese_spyware_preinstalled_on_all_samsung/\nhttps://www.virustotal.com/gui/file/048ead2be8d18bbe2b05651380069b3740dd05703e9bd66630da986026518398/details\n\nWARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices\nNOTE : If you don't want to delete this package, at least use a firewall (Netguard/AfWall+) to block internet access\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27353,7 +27353,7 @@
   },
   "com.google.android.tts": {
     "list": "Google",
-    "description": "Speech Services by Google (https://play.google.com/store/apps/details?id=com.google.android.tts)\nDefault Text To Speech (TTS) engine on most of Android devices. It enables apps to convert text into voice.\n\nPithus analysis: https://beta.pithus.org/report/08f97758fbfae1e17c4a8e5ee1a1e6d2726ce6b0b4931d5452f2376d60f1b4fb\n\nNote: many apps like navigation and health/sport apps rely on a TTS engine to provide speech services. Open-source TTS engines available on Android exists but, as of the end of 2022, there is only RHVoice (https://f-droid.org/en/packages/com.github.olga_yakovleva.rhvoice.android/) and it doesn't support a lot of languages. Mimic3 (https://mycroft.ai/mimic-3/) is probably the future of IoT open-source TTS engine but there is no Android support yet",
+    "description": "Speech Recognition and Synthesis from Google (https://play.google.com/store/apps/details?id=com.google.android.tts)\nDefault Text To Speech (TTS) engine on most of Android devices. It enables apps to convert text into voice.\n\nPithus analysis (2024-03-03): https://beta.pithus.org/report/f0a2303e1c1bd049bf1cdc5a3454dfe19b2aaf26008662c7a307aaec2538558b\n\nNote: Many navigation and health/sports apps rely on a TTS engine to provide speech services. Open-source TTS engines available on Android exists but, as of the end of 2022, there is only RHVoice (https://f-droid.org/en/packages/com.github.olga_yakovleva.rhvoice.android/) and it doesn't support a lot of languages. Mimic3 (https://mycroft.ai/mimic-3/) is probably the future of IoT open-source TTS engine but there is no Android support yet",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
