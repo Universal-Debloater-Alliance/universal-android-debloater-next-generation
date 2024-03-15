@@ -4111,7 +4111,7 @@
   },
   "com.samsung.android.easysetup": {
     "list": "Oem",
-    "description": "Samsung Nearby device scanning\n#\nNeeds \"com.samsung.android.beaconmanager\" to be useful.\n",
+    "description": "Samsung Nearby device scanning\nRequires \"com.samsung.android.beaconmanager\" to be useful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
