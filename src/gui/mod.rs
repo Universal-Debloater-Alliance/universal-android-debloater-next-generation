@@ -331,7 +331,7 @@ impl Application for UadGui {
                 Command::none()
             }
             Message::ADBSatisfied(result) => match result {
-                true => Command::none(),
+                true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(true))),
                 false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(false))),
             },
             Message::Nothing => Command::none(),
