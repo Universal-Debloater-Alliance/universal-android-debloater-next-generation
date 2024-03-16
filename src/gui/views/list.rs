@@ -307,26 +307,38 @@ impl List {
         match &self.loading_state {
             LoadingState::DownloadingList => {
                 let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
-                waiting_view(settings, text, true)
+                waiting_view(settings, text, true, style::Text::Default)
             }
             LoadingState::FindingPhones => match self.is_adb_satisfied {
-                true => waiting_view(settings, "Finding connected devices...", false),
+                true => waiting_view(
+                    settings,
+                    "Finding connected devices...",
+                    false,
+                    style::Text::Default,
+                ),
                 false => waiting_view(
                     settings,
                     "ADB is not installed in your system, install adb and relaunch application.",
                     false,
+                    style::Text::Danger,
                 ),
             },
             LoadingState::LoadingPackages => {
                 let text = "Pulling packages from the device. Please wait...";
-                waiting_view(settings, text, false)
+                waiting_view(settings, text, false, style::Text::Default)
             }
-            LoadingState::_UpdatingUad => {
-                waiting_view(settings, "Updating UAD-ng. Please wait...", false)
-            }
-            LoadingState::RestoringDevice(device) => {
-                waiting_view(settings, &format!("Restoring device: {device}"), false)
-            }
+            LoadingState::_UpdatingUad => waiting_view(
+                settings,
+                "Updating UAD-ng. Please wait...",
+                false,
+                style::Text::Default,
+            ),
+            LoadingState::RestoringDevice(device) => waiting_view(
+                settings,
+                &format!("Restoring device: {device}"),
+                false,
+                style::Text::Default,
+            ),
             LoadingState::Ready => {
                 let search_packages = text_input("Search packages...", &self.input_value)
                     .width(Length::Fill)
@@ -739,6 +751,7 @@ fn waiting_view<'a>(
     _settings: &Settings,
     displayed_text: &str,
     btn: bool,
+    text_style: style::Text,
 ) -> Element<'a, Message, Renderer<Theme>> {
     let col = if btn {
         let no_internet_btn = button("No internet?")
@@ -749,13 +762,13 @@ fn waiting_view<'a>(
         column![]
             .spacing(10)
             .align_items(Alignment::Center)
-            .push(text(displayed_text).size(20))
+            .push(text(displayed_text).style(text_style).size(20))
             .push(no_internet_btn)
     } else {
         column![]
             .spacing(10)
             .align_items(Alignment::Center)
-            .push(text(displayed_text).size(20))
+            .push(text(displayed_text).style(text_style).size(20))
     };
 
     container(col)
