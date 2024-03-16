@@ -52,6 +52,7 @@ pub struct List {
     description: String,
     selection_modal: bool,
     current_package_index: usize,
+    is_adb_satisfied: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -73,6 +74,7 @@ pub enum Message {
     ModalHide,
     ModalUserSelected(User),
     ModalValidate,
+    ADBSatisfied(bool),
 }
 
 pub struct SummaryEntry {
@@ -289,6 +291,10 @@ impl List {
                     Message::UserSelected(user),
                 )
             }
+            Message::ADBSatisfied(result) => {
+                self.is_adb_satisfied = result;
+                Command::none()
+            }
             Message::Nothing => Command::none(),
         }
     }
@@ -303,9 +309,14 @@ impl List {
                 let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
                 waiting_view(settings, text, true)
             }
-            LoadingState::FindingPhones => {
-                waiting_view(settings, "Finding connected devices...", false)
-            }
+            LoadingState::FindingPhones => match self.is_adb_satisfied {
+                true => waiting_view(settings, "Finding connected devices...", false),
+                false => waiting_view(
+                    settings,
+                    "ADB is not installed in your system, install adb and relaunch application.",
+                    false,
+                ),
+            },
             LoadingState::LoadingPackages => {
                 let text = "Pulling packages from the device. Please wait...";
                 waiting_view(settings, text, false)

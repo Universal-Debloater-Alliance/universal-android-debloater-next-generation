@@ -2,7 +2,7 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{get_devices_list, perform_adb_commands, CommandType, Phone};
+use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, CommandType, Phone};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
@@ -69,6 +69,7 @@ pub enum Message {
     GetLatestRelease(Result<Option<Release>, ()>),
     FontLoaded(Result<(), iced::font::Error>),
     Nothing,
+    ADBSatisfied(bool),
 }
 
 impl Application for UadGui {
@@ -84,6 +85,7 @@ impl Application for UadGui {
                 // Used in crate::gui::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
+                Command::perform(initial_load(), Message::ADBSatisfied),
                 Command::perform(get_devices_list(), Message::LoadDevices),
                 Command::perform(
                     async move { get_latest_release() },
@@ -328,6 +330,10 @@ impl Application for UadGui {
 
                 Command::none()
             }
+            Message::ADBSatisfied(result) => match result {
+                true => Command::none(),
+                false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(false))),
+            },
             Message::Nothing => Command::none(),
         }
     }
