@@ -318,7 +318,7 @@ impl List {
                 ),
                 false => waiting_view(
                     settings,
-                    "ADB is not installed in your system, install adb and relaunch application.",
+                    "ADB is not installed on your system, install ADB and relaunch application.",
                     false,
                     style::Text::Danger,
                 ),
