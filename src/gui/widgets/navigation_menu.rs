@@ -72,10 +72,15 @@ pub fn nav_menu<'a>(
         .padding(5)
         .style(style::Button::Primary);
 
-    let settings_btn = button("Settings")
-        .on_press(Message::SettingsPressed)
-        .padding(5)
-        .style(style::Button::Primary);
+    let settings_btn = button(
+        Text::new("\u{E901}")
+            .font(ICONS)
+            .width(22)
+            .horizontal_alignment(alignment::Horizontal::Center),
+    )
+    .on_press(Message::SettingsPressed)
+    .padding(5)
+    .style(style::Button::Primary);
 
     let device_list_text = match apps_view.loading_state {
         ListLoadingState::FindingPhones => text("Finding connected devices..."),
