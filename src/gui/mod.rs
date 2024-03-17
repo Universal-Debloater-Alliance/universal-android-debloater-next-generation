@@ -50,6 +50,7 @@ pub struct UadGui {
     selected_device: Option<Phone>, // index of devices_list
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
+    adb_satisfied: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -143,6 +144,10 @@ impl Application for UadGui {
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
+                #[allow(unused_must_use)]
+                {
+                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied)));
+                }
                 Command::perform(get_devices_list(), Message::LoadDevices)
             }
             Message::RebootButtonPressed => {
@@ -330,9 +335,12 @@ impl Application for UadGui {
 
                 Command::none()
             }
-            Message::ADBSatisfied(result) => match result {
-                true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(true))),
-                false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(false))),
+            Message::ADBSatisfied(result) => {
+                self.adb_satisfied = result;
+                match result {
+                    true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied))),
+                    false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied))),
+                }
             },
             Message::Nothing => Command::none(),
         }
