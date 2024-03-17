@@ -146,7 +146,9 @@ impl Application for UadGui {
                 self.apps_view = AppsView::default();
                 #[allow(unused_must_use)]
                 {
-                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied)));
+                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                        self.adb_satisfied,
+                    )));
                 }
                 Command::perform(get_devices_list(), Message::LoadDevices)
             }
@@ -338,10 +340,14 @@ impl Application for UadGui {
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
                 match result {
-                    true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied))),
-                    false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(self.adb_satisfied))),
+                    true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                        self.adb_satisfied,
+                    ))),
+                    false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                        self.adb_satisfied,
+                    ))),
                 }
-            },
+            }
             Message::Nothing => Command::none(),
         }
     }
