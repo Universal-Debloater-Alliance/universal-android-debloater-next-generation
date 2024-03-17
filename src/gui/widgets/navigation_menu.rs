@@ -20,7 +20,7 @@ pub fn nav_menu<'a>(
     self_update_state: &SelfUpdateState,
 ) -> Element<'a, Message, Renderer<Theme>> {
     let apps_refresh_btn = button(
-        Text::new("\u{E900}")
+        Text::new("\u{E901}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
@@ -73,7 +73,7 @@ pub fn nav_menu<'a>(
         .style(style::Button::Primary);
 
     let settings_btn = button(
-        Text::new("\u{E901}")
+        Text::new("\u{E902}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
