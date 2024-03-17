@@ -23612,7 +23612,7 @@
     "labels": []
   },
   "com.hoffnung": {
-    "description": "TPMS\nRemote Config Test. Instead Uninstall better Disable this app\nbecause it uninstalling cause screen flicker",
+    "description": "TPMS\nRemote Config Test. WARNING: you should DISABLE this package instead of uninstalling, because uninstalling causes screen flicker",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
