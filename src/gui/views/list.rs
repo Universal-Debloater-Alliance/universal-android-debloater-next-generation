@@ -74,6 +74,7 @@ pub enum Message {
     ModalHide,
     ModalUserSelected(User),
     ModalValidate,
+    ClearSelectedPackages,
     ADBSatisfied(bool),
 }
 
@@ -290,6 +291,10 @@ impl List {
                     list_update_state,
                     Message::UserSelected(user),
                 )
+            }
+            Message::ClearSelectedPackages => {
+                self.selected_packages = Vec::new();
+                Command::none()
             }
             Message::ADBSatisfied(result) => {
                 self.is_adb_satisfied = result;
