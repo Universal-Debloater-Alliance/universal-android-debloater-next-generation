@@ -378,8 +378,8 @@ impl UadGui {
         Self::run(Settings {
             window: Window {
                 size: iced::Size {
-                    width: 1000.0,
-                    height: 820.0,
+                    width: 950.0,
+                    height: 700.0,
                 },
                 resizable: true,
                 decorations: true,
