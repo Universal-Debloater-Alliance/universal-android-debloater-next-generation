@@ -376,7 +376,11 @@ impl Application for UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
-        let logo = include_bytes!("../../resources/assets/logo.png");
+        let logo: &[u8] = match dark_light::detect() {
+            dark_light::Mode::Dark => include_bytes!("../../resources/assets/logo-dark.png"),
+            dark_light::Mode::Light => include_bytes!("../../resources/assets/logo.png"),
+            dark_light::Mode::Default => include_bytes!("../../resources/assets/logo.png"),
+        };
 
         Self::run(Settings {
             window: Window {
