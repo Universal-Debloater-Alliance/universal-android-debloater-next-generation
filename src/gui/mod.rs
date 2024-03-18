@@ -340,7 +340,7 @@ impl Application for UadGui {
         }
     }
 
-    fn view(&self) -> Element<Self::Message, Renderer<Self::Theme>> {
+    fn view(&self) -> Element<Self::Message, Self::Theme, Renderer> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),
@@ -377,13 +377,16 @@ impl UadGui {
 
         Self::run(Settings {
             window: Window {
-                size: (820, 640),
+                size: iced::Size {
+                    width: 1000.0,
+                    height: 820.0,
+                },
                 resizable: true,
                 decorations: true,
                 icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
                 ..iced::window::Settings::default()
             },
-            default_text_size: 16.0,
+            default_text_size: iced::Pixels(16.0),
             ..Settings::default()
         })
     }
