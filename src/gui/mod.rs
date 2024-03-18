@@ -21,7 +21,9 @@ use iced::{
     window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
     Settings,
 };
-use std::{env, path::PathBuf};
+use std::env;
+#[cfg(feature = "self-update")]
+use std::path::PathBuf;
 
 #[cfg(feature = "self-update")]
 use crate::core::update::{bin_name, download_update_to_temp_file, remove_file};
@@ -65,6 +67,7 @@ pub enum Message {
     RefreshButtonPressed,
     RebootButtonPressed,
     LoadDevices(Vec<Phone>),
+    #[cfg(feature = "self-update")]
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
     FontLoaded(Result<(), iced::font::Error>),
@@ -271,10 +274,10 @@ impl Application for UadGui {
                     UadListState::Done,
                 ))))
             }
+            #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
                 debug!("UAD-ng update has been download!");
 
-                #[cfg(feature = "self-update")]
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
                     // arg as binary path because it's not reliable, per the docs.
