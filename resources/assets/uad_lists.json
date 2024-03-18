@@ -18889,6 +18889,14 @@
     "neededBy": [],
     "labels": []
   },
+  "cn.wps.moffice_eng": {
+    "description": "WPS Office\nChinese WPS Office pre-installed on Xiaomi devices.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "cn.wps.moffice.lite.meizu": {
     "description": "WPS Office\nChinese WPS Office",
     "removal": "Recommended",
