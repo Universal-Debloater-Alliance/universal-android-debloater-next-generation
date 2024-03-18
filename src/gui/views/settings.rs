@@ -179,7 +179,7 @@ impl Settings {
         }
     }
 
-    pub fn view(&self, phone: &Phone) -> Element<Message, Renderer<Theme>> {
+    pub fn view(&self, phone: &Phone) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()
             .fold(row![].spacing(10), |column, option| {
@@ -202,8 +202,8 @@ impl Settings {
         let expert_mode_checkbox = checkbox(
             "Allow to uninstall packages marked as \"unsafe\" (I KNOW WHAT I AM DOING)",
             self.general.expert_mode,
-            Message::ExpertMode,
         )
+        .on_toggle(Message::ExpertMode)
         .style(style::CheckBox::SettingsEnabled);
 
         let expert_mode_descr =
@@ -248,8 +248,8 @@ impl Settings {
         let multi_user_mode_checkbox = checkbox(
             "Affect all the users of the device (not only the selected user)",
             self.device.multi_user_mode,
-            Message::MultiUserMode,
         )
+        .on_toggle(Message::MultiUserMode)
         .style(style::CheckBox::SettingsEnabled);
 
         let disable_checkbox_style = if phone.android_sdk >= 23 {
@@ -275,8 +275,8 @@ impl Settings {
         let disable_mode_checkbox = checkbox(
             "Clear and disable packages instead of uninstalling them",
             self.device.disable_mode,
-            Message::DisableMode,
         )
+        .on_toggle(Message::DisableMode)
         .style(disable_checkbox_style);
 
         let disable_setting_row = if phone.android_sdk >= 23 {
@@ -316,7 +316,7 @@ impl Settings {
         .padding(6);
 
         let backup_btn = button(text("Backup").horizontal_alignment(alignment::Horizontal::Center))
-            .padding(5)
+            .padding([5, 10])
             .on_press(Message::BackupDevice)
             .style(style::Button::Primary)
             .width(77);
@@ -324,24 +324,28 @@ impl Settings {
         let restore_btn = |enabled| {
             if enabled {
                 button(text("Restore").horizontal_alignment(alignment::Horizontal::Center))
-                    .padding(5)
+                    .padding([5, 10])
                     .on_press(Message::RestoreDevice)
                     .width(77)
             } else {
-                button(text("No backup").horizontal_alignment(alignment::Horizontal::Center))
-                    .padding(5)
-                    .width(77)
+                button(
+                    text("No backup")
+                        .horizontal_alignment(alignment::Horizontal::Center)
+                        .vertical_alignment(alignment::Vertical::Center),
+                )
+                .padding([5, 10])
+                .width(77)
             }
         };
 
         let locate_backup_btn = if self.device.backup.backups.is_empty() {
             button("Open backup directory")
-                .padding(5)
+                .padding([5, 10])
                 .style(style::Button::Primary)
         } else {
             button("Open backup directory")
                 .on_press(Message::UrlPressed(BACKUP_DIR.join(phone.adb_id.clone())))
-                .padding(5)
+                .padding([5, 10])
                 .style(style::Button::Primary)
         };
 
@@ -354,11 +358,7 @@ impl Settings {
         .spacing(10)
         .align_items(Alignment::Center);
 
-        let restore_row = if self.device.backup.backups.is_empty() {
-            row![restore_btn(false), "Restore the state of the device",]
-                .spacing(10)
-                .align_items(Alignment::Center)
-        } else {
+        let restore_row = if !self.device.backup.backups.is_empty() {
             row![
                 restore_btn(true),
                 "Restore the state of the device",
@@ -368,6 +368,8 @@ impl Settings {
             ]
             .spacing(10)
             .align_items(Alignment::Center)
+        } else {
+            row![]
         };
 
         let backup_restore_ctn = container(column![backup_row, restore_row].spacing(10))

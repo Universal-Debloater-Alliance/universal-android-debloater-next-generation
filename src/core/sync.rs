@@ -70,8 +70,7 @@ pub fn adb_shell_command(shell: bool, args: &str) -> Result<String, String> {
         Err(e) => {
             // TODO: better error handling with anyhow + thiserror
             error!("ADB: {}", e);
-            error!("ADB was not found");
-            std::process::exit(1);
+            Err("ADB was not found".to_string())
         }
         Ok(o) => {
             if o.status.success() {
@@ -330,4 +329,11 @@ pub async fn get_devices_list() -> Vec<Phone> {
         },
     )
     .unwrap_or_default()
+}
+
+pub async fn initial_load() -> bool {
+    match adb_shell_command(false, "devices") {
+        Ok(_devices) => true,
+        Err(_err) => false,
+    }
 }
