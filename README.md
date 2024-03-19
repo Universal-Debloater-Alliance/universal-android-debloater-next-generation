@@ -17,7 +17,7 @@ This can also contribute to improving security by reducing [the attack surface](
 
 ## Documentation
 
-For documentation, see [our Wiki](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki).
+For documentation regarding how to use UAD-ng, the FAQ, building from source and how to decompile/extract APKs, see [our Wiki](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki).
 
 ## Special thanks
 
