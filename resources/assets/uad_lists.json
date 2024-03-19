@@ -831,6 +831,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.xiaomi.aicr": {
+    "list": "Oem",
+    "description": "Mi AI Engine (https://hyperosupdates.com/apps/com.xiaomi.aicr/)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.xiaomi.aiasst.service": {
     "list": "Oem",
     "description": "AI Call Assistant. Useless Call settings.",
@@ -18883,6 +18891,14 @@
   },
   "com.meizu.wifiadmin": {
     "description": "WLAN Assistant\nAdditional WLAN things.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "cn.wps.moffice_eng": {
+    "description": "WPS Office\nChinese WPS Office pre-installed on Xiaomi devices.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
