@@ -31,6 +31,17 @@ As for commits, we prefer using [Conventional Commit Messages](https://gist.gith
 
 ### Release management
 
+#### Semantic versioning
+
+We're making use of [semantic versioning](https://semver.org/). We use semantic versioning for two things:
+
+1. GitHub Milestones
+1. UAD-ng releases
+
+Speaking of milestones: it could be that we have a bug-fix release (e.g. 1.0.3), but a contributor submits a PR that adds a new feature. What do we do? Merge after we released 1.0.3? Change the name of the milestone to for example 1.1.0? Or another approach?
+
+In that case, we should closely review the PR and 'compare' it with what semantic versioning has to say about the submitted feature. If the changes are significant enough, we're renaming the milestone to (for example) 1.1.0.
+
 #### Checklist before releasing a new version
 
 - [ ] Make sure the Milestone is completed and if not, check what needs to be done to complete it.
