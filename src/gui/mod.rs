@@ -344,15 +344,9 @@ impl Application for UadGui {
             }
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
-                if result {
-                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    )))
-                } else {
-                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    )))
-                }
+                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                    self.adb_satisfied,
+                )))
             }
             Message::Nothing => Command::none(),
         }
