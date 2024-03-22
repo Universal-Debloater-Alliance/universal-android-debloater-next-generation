@@ -314,20 +314,21 @@ impl List {
                 let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
                 waiting_view(settings, text, true, style::Text::Default)
             }
-            LoadingState::FindingPhones => match self.is_adb_satisfied {
-                true => waiting_view(
+            LoadingState::FindingPhones => if self.is_adb_satisfied {
+                waiting_view(
                     settings,
                     "Finding connected devices...",
                     false,
                     style::Text::Default,
-                ),
-                false => waiting_view(
+                )
+            } else {
+                waiting_view(
                     settings,
                     "ADB is not installed on your system, install ADB and relaunch application.",
                     false,
                     style::Text::Danger,
-                ),
-            },
+                )
+            }
             LoadingState::LoadingPackages => {
                 let text = "Pulling packages from the device. Please wait...";
                 waiting_view(settings, text, false, style::Text::Default)
