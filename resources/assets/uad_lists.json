@@ -15650,7 +15650,7 @@
   },
   "com.mi.health": {
     "list": "Oem",
-    "description": "Heart Rate\nHidden app, not available for users.\nhttps://www.reddit.com/r/Xiaomi/comments/v0uhhx/found_hidden_heart_rate_app_in_miui_1304_i_opened/\nIn HyperOS, this app is done and there are no hidden activities like in miui 14:\nhttps://www.apkmirror.com/apk/xiaomi-inc/mi-health/mi-health-1-0-6-release/mi-health-1-0-6-android-apk-download/",
+    "description": "Heart Rate\nHidden app, not available for users.\nhttps://www.reddit.com/r/Xiaomi/comments/v0uhhx/found_hidden_heart_rate_app_in_miui_1304_i_opened/\nIn HyperOS, this app is deprecated and there are no hidden activities like in miui 14:\nhttps://www.apkmirror.com/apk/xiaomi-inc/mi-health/mi-health-1-0-6-release/mi-health-1-0-6-android-apk-download/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
