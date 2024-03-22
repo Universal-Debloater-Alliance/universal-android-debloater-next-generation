@@ -8117,7 +8117,7 @@
     "removal": "Recommended"
   },
   "com.oneplus.skin": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8373,7 +8373,7 @@
     "removal": "Unsafe"
   },
   "com.mediatek.gba": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8381,7 +8381,7 @@
     "removal": "Expert"
   },
   "com.adups.fota.sysoper": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "UpgradeSys\nFOTA = Firmware Over-the-air. Has a history of spying its users.\nhttps://www.malwarebytes.com/blog/news/2017/12/mobile-menace-monday-upping-the-ante-on-adups-fwupgradeprovider\nhttps://www.cvedetails.com/vulnerability-list/vendor_id-16034/product_id-35606/year-2017/Adups-Adups-Fota.html",
     "dependencies": [],
     "neededBy": [],
@@ -8397,7 +8397,7 @@
     "removal": "Advanced"
   },
   "com.fw.upgrade.sysoper": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "UpgradeSys\nFOTA = Firmware Over-the-air. Has a history of spying its users.\nhttps://www.malwarebytes.com/blog/news/2017/12/mobile-menace-monday-upping-the-ante-on-adups-fwupgradeprovider\nhttps://www.cvedetails.com/vulnerability-list/vendor_id-16034/product_id-35606/year-2017/Adups-Adups-Fota.html",
     "dependencies": [],
     "neededBy": [],
@@ -8405,7 +8405,7 @@
     "removal": "Recommended"
   },
   "com.mediatek.camera": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8429,7 +8429,7 @@
     "removal": "Recommended"
   },
   "com.mediatek.mms.appservice": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8437,7 +8437,7 @@
     "removal": "Expert"
   },
   "com.adups.fota": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "Wireless Update\n(AKA System Update) FOTA = Firmware Over-the-air. Has a history of spying its users. If the installed version is below 5.4.x, it must be uninstalled.\nhttps://www.malwarebytes.com/blog/news/2017/12/mobile-menace-monday-upping-the-ante-on-adups-fwupgradeprovider\nhttps://www.cvedetails.com/vulnerability-list/vendor_id-16034/product_id-35606/year-2017/Adups-Adups-Fota.html",
     "dependencies": [],
     "neededBy": [],
@@ -8445,7 +8445,7 @@
     "removal": "Expert"
   },
   "com.st.nfc.dta.mobile": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8469,7 +8469,7 @@
     "removal": "Recommended"
   },
   "com.wtk.factory": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8485,7 +8485,7 @@
     "removal": "Expert"
   },
   "com.wtk.stresstest": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8541,7 +8541,7 @@
     "removal": "Recommended"
   },
   "com.mediatek.location.mtknlp": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8621,7 +8621,7 @@
     "removal": "Recommended"
   },
   "com.android.bluetooth.overlay.common": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Overlays are usually themes.",
     "dependencies": [],
     "neededBy": [],
@@ -8665,7 +8665,7 @@
     "removal": "Expert"
   },
   "com.android.dialer.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme overlay for AOSP Dialer?",
     "dependencies": [],
     "neededBy": [],
@@ -8673,7 +8673,7 @@
     "removal": "Expert"
   },
   "com.android.dialer.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Light theme overlay for AOSP Dialer?",
     "dependencies": [],
     "neededBy": [],
@@ -8681,7 +8681,7 @@
     "removal": "Expert"
   },
   "com.android.emergency.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme for Emergency rescue?",
     "dependencies": [],
     "neededBy": [],
@@ -8689,7 +8689,7 @@
     "removal": "Expert"
   },
   "com.android.emergency.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme for Emergency rescue?",
     "dependencies": [],
     "neededBy": [],
@@ -8705,7 +8705,7 @@
     "removal": "Expert"
   },
   "com.android.networkstack.inprocess": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8713,7 +8713,7 @@
     "removal": "Expert"
   },
   "com.android.networkstack.permissionconfig": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8721,7 +8721,7 @@
     "removal": "Expert"
   },
   "com.android.phone.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme for phone app?",
     "dependencies": [],
     "neededBy": [],
@@ -8729,7 +8729,7 @@
     "removal": "Expert"
   },
   "com.android.phone.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Light theme for phone app?",
     "dependencies": [],
     "neededBy": [],
@@ -8737,7 +8737,7 @@
     "removal": "Expert"
   },
   "com.android.phone.overlay.common": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Location and dialer things.",
     "dependencies": [],
     "neededBy": [],
@@ -8745,7 +8745,7 @@
     "removal": "Unsafe"
   },
   "com.android.server.telecom.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme for something related to call network management?",
     "dependencies": [],
     "neededBy": [],
@@ -8753,7 +8753,7 @@
     "removal": "Expert"
   },
   "com.android.server.telecom.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Light theme for something related to call network management?",
     "dependencies": [],
     "neededBy": [],
@@ -8769,7 +8769,7 @@
     "removal": "Unsafe"
   },
   "com.android.settings.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme overlay for the Settings app?",
     "dependencies": [],
     "neededBy": [],
@@ -8777,7 +8777,7 @@
     "removal": "Expert"
   },
   "com.android.settings.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Light theme overlay for the Settings app?",
     "dependencies": [],
     "neededBy": [],
@@ -8785,7 +8785,7 @@
     "removal": "Expert"
   },
   "com.android.settings.intelligence.basiccolorblack.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Dark theme overlay for the search functionality in the Settings app?",
     "dependencies": [],
     "neededBy": [],
@@ -8793,7 +8793,7 @@
     "removal": "Expert"
   },
   "com.android.settings.intelligence.basiccolorwhite.overlay": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Light theme overlay for the search functionality in the Settings app?",
     "dependencies": [],
     "neededBy": [],
@@ -8833,7 +8833,7 @@
     "removal": "Recommended"
   },
   "com.example.rftuner": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8841,7 +8841,7 @@
     "removal": "Expert"
   },
   "com.gsma.rcs": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -8945,7 +8945,7 @@
     "removal": "Advanced"
   },
   "com.oneplus.asti": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9049,7 +9049,7 @@
     "removal": "Advanced"
   },
   "com.oneplus.contacts": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9329,7 +9329,7 @@
     "removal": "Expert"
   },
   "com.oneplus.overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9361,7 +9361,7 @@
     "removal": "Expert"
   },
   "com.oneplus.screenshot": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9369,7 +9369,7 @@
     "removal": "Expert"
   },
   "com.oneplus.sdcardservice": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9441,7 +9441,7 @@
     "removal": "Expert"
   },
   "com.oneplus.sms.smscplugger": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "Probably related to SMS based on the name?\nContains no services and I've never seen it run.",
     "dependencies": [],
     "neededBy": [],
@@ -9569,7 +9569,7 @@
     "removal": "Expert"
   },
   "com.qualcomm.qti.qtisettings": {
-    "list": "Pending",
+    "list": "Misc",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9641,7 +9641,7 @@
     "removal": "Recommended"
   },
   "com.recognize.number": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9885,7 +9885,7 @@
     "removal": "Expert"
   },
   "com.google.android.connectivity.resources": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -9893,7 +9893,7 @@
     "removal": "Expert"
   },
   "com.google.android.networkstack.tethering": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Used for USB and/or Wi-Fi tethering?",
     "dependencies": [],
     "neededBy": [],
@@ -10021,7 +10021,7 @@
     "removal": "Recommended"
   },
   "com.google.android.overlay.modules.cellbroadcastservice": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10085,7 +10085,7 @@
     "removal": "Recommended"
   },
   "com.google.android.providers.media.module": {
-    "list": "Pending",
+    "list": "Aosp",
     "description": "Media Storage\nIn Android 11 this is literally what provides access to files.\nSafe to disable, but NOT recommended; breaks file browsers and other forms of file access.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
@@ -10309,7 +10309,7 @@
     "removal": "Expert"
   },
   "com.verizon.cloudsetupwizard": {
-    "list": "Pending",
+    "list": "Carrier",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10317,7 +10317,7 @@
     "removal": "Recommended"
   },
   "com.jrd.verizonuriintentservice": {
-    "list": "Pending",
+    "list": "Carrier",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10325,7 +10325,7 @@
     "removal": "Expert"
   },
   "com.tcl.vzwintents": {
-    "list": "Pending",
+    "list": "Carrier",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10333,7 +10333,7 @@
     "removal": "Expert"
   },
   "com.tct.vzwwifioffload": {
-    "list": "Pending",
+    "list": "Carrier",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10341,7 +10341,7 @@
     "removal": "Expert"
   },
   "com.vzw.easvalidation": {
-    "list": "Pending",
+    "list": "Carrier",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10349,7 +10349,7 @@
     "removal": "Expert"
   },
   "com.ts.setupwizard.overlay.overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10357,7 +10357,7 @@
     "removal": "Expert"
   },
   "com.jrdcom.Elabel.overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10365,15 +10365,15 @@
     "removal": "Expert"
   },
   "com.hawk.android.browser": {
-    "list": "Pending",
-    "description": "",
+    "list": "Oem",
+    "description": "TurboBrowser\nhttps://www.apkmirror.com/apk/mie-alcatel-support/turbo-browser-private-adblocker-fast-download/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.hiya.axolotl.tcl": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10381,7 +10381,7 @@
     "removal": "Expert"
   },
   "com.jrdcom.filemanager": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10389,7 +10389,7 @@
     "removal": "Expert"
   },
   "com.jrdcom.filemanager.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10397,7 +10397,7 @@
     "removal": "Expert"
   },
   "com.vendor.frameworkresoverlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10421,7 +10421,7 @@
     "removal": "Recommended"
   },
   "com.samsung.android.incall.contentprovider": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10437,7 +10437,7 @@
     "removal": "Advanced"
   },
   "com.samsung.android.camerasdkservice": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10445,7 +10445,7 @@
     "removal": "Expert"
   },
   "com.samsung.android.providers.carrier": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "\n",
     "dependencies": [],
     "neededBy": [],
@@ -10485,7 +10485,7 @@
     "removal": "Recommended"
   },
   "com.samsung.gamedriver.sm8250": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10493,7 +10493,7 @@
     "removal": "Expert"
   },
   "com.samsung.huxplatform": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10501,7 +10501,7 @@
     "removal": "Expert"
   },
   "com.samsung.sait.sohservice": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10517,7 +10517,7 @@
     "removal": "Unsafe"
   },
   "com.samsung.android.app.telephonyui": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10533,7 +10533,7 @@
     "removal": "Advanced"
   },
   "com.samsung.android.callbgprovider": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10581,7 +10581,7 @@
     "removal": "Advanced"
   },
   "com.samsung.android.networkstack": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "I guess it's needed for wifi and it can be important app",
     "dependencies": [],
     "neededBy": [],
@@ -10597,7 +10597,7 @@
     "removal": "Unsafe"
   },
   "com.samsung.android.providers.contacts": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "Likely same as com.android.providers.contacts, but for Samsung phones.\nBreaks messaging and calling services, as well as contact functionality.",
     "dependencies": [],
     "neededBy": [],
@@ -10605,7 +10605,7 @@
     "removal": "Expert"
   },
   "com.samsung.android.providers.media": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "Likely same as com.android.providers.media; scans the device for media files and allows permitted apps access to them.",
     "dependencies": [],
     "neededBy": [],
@@ -10629,7 +10629,7 @@
     "removal": "Advanced"
   },
   "com.samsung.android.secsoundpicker": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10653,7 +10653,7 @@
     "removal": "Expert"
   },
   "com.samsung.android.singletake.service": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10669,7 +10669,7 @@
     "removal": "Expert"
   },
   "com.samsung.android.wifi.softapwpathree.resources": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10677,7 +10677,7 @@
     "removal": "Expert"
   },
   "com.samsung.gamedriver.ex2100": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10693,7 +10693,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10701,7 +10701,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_extra_wide_back": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10709,7 +10709,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_narrow_back": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10717,7 +10717,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10725,7 +10725,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.sec_gestural": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10733,7 +10733,7 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.sec_gestural_no_hint": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10741,7 +10741,7 @@
     "removal": "Expert"
   },
   "com.samsung.pregpudriver.ex2100": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10805,7 +10805,7 @@
     "removal": "Recommended"
   },
   "com.sonymobile.home.product.res.overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10813,7 +10813,7 @@
     "removal": "Expert"
   },
   "com.sonymobile.swiqisystemservice": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10821,7 +10821,7 @@
     "removal": "Expert"
   },
   "com.evenwell.whitebalance": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10829,7 +10829,7 @@
     "removal": "Expert"
   },
   "com.evenwell.whitebalance.overlay.base": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10837,7 +10837,7 @@
     "removal": "Expert"
   },
   "com.hmdglobal.enterprise.api": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10845,7 +10845,7 @@
     "removal": "Expert"
   },
   "com.android.gallery3d.refocus": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10861,7 +10861,7 @@
     "removal": "Recommended"
   },
   "com.android.providers.tctdatahubprovider": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10869,7 +10869,7 @@
     "removal": "Expert"
   },
   "com.tcl.android.launchertheme.res.overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10877,7 +10877,7 @@
     "removal": "Expert"
   },
   "com.tcl.android.wallpaper.livepicker": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10885,7 +10885,7 @@
     "removal": "Expert"
   },
   "com.tcl.aota.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10893,7 +10893,7 @@
     "removal": "Expert"
   },
   "com.tcl.camera": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10901,7 +10901,7 @@
     "removal": "Expert"
   },
   "com.tcl.camera.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10909,7 +10909,7 @@
     "removal": "Expert"
   },
   "com.tcl.compass": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10917,7 +10917,7 @@
     "removal": "Expert"
   },
   "com.tcl.compass.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10925,7 +10925,7 @@
     "removal": "Expert"
   },
   "com.tcl.demopage": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10933,7 +10933,7 @@
     "removal": "Expert"
   },
   "com.tcl.entitlement": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10949,7 +10949,7 @@
     "removal": "Expert"
   },
   "com.tcl.fota.system.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10957,7 +10957,7 @@
     "removal": "Expert"
   },
   "com.tcl.healthy": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10965,7 +10965,7 @@
     "removal": "Expert"
   },
   "com.tcl.mibc.tclplus": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10973,7 +10973,7 @@
     "removal": "Expert"
   },
   "com.tcl.mibc.tclplus.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10981,7 +10981,7 @@
     "removal": "Expert"
   },
   "com.tcl.nfc.gsma.usermenu": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10989,7 +10989,7 @@
     "removal": "Expert"
   },
   "com.tcl.screenrecorder": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -10997,7 +10997,7 @@
     "removal": "Expert"
   },
   "com.tcl.screenrecorder.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11005,7 +11005,7 @@
     "removal": "Expert"
   },
   "com.tcl.screenshotex": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11013,7 +11013,7 @@
     "removal": "Expert"
   },
   "com.tcl.sos": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11021,7 +11021,7 @@
     "removal": "Expert"
   },
   "com.tcl.tclswitch.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11037,7 +11037,7 @@
     "removal": "Recommended"
   },
   "com.tclhz.gallery.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11045,7 +11045,7 @@
     "removal": "Expert"
   },
   "com.tct": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11053,7 +11053,7 @@
     "removal": "Expert"
   },
   "com.tct.calculator.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11061,7 +11061,7 @@
     "removal": "Expert"
   },
   "com.tct.cellular.arda": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11069,7 +11069,7 @@
     "removal": "Expert"
   },
   "com.tct.diagprotector": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11077,7 +11077,7 @@
     "removal": "Expert"
   },
   "com.tct.dialer.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11101,7 +11101,7 @@
     "removal": "Expert"
   },
   "com.tct.gdpr": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11109,7 +11109,7 @@
     "removal": "Expert"
   },
   "com.tct.onetouchbooster.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11117,7 +11117,7 @@
     "removal": "Expert"
   },
   "com.tct.privacymode": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11125,7 +11125,7 @@
     "removal": "Expert"
   },
   "com.tct.retaildemo.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11133,7 +11133,7 @@
     "removal": "Expert"
   },
   "com.tct.simplelauncher.a_overlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11141,7 +11141,7 @@
     "removal": "Expert"
   },
   "com.tct.simsettings": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11149,7 +11149,7 @@
     "removal": "Expert"
   },
   "com.tct.smart.account": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11157,7 +11157,7 @@
     "removal": "Expert"
   },
   "com.tct.smart.aikey": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11165,7 +11165,7 @@
     "removal": "Expert"
   },
   "com.tct.smart.cloud": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11173,7 +11173,7 @@
     "removal": "Expert"
   },
   "com.tct.smart.drivemode": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11181,7 +11181,7 @@
     "removal": "Expert"
   },
   "com.tct.smart.switchphone.service": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -11197,7 +11197,7 @@
     "removal": "Advanced"
   },
   "com.tct.video": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -29416,7 +29416,7 @@
     "removal": "Unsafe"
   },
   "com.t2m.euiccoverlay": {
-    "list": "Pending",
+    "list": "Oem",
     "description": "Possibly needed for eSIM (eUICC)",
     "dependencies": [],
     "neededBy": [],
