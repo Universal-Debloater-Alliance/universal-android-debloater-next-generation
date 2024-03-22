@@ -921,7 +921,7 @@
   },
   "com.xiaomi.migameservice": {
     "list": "Oem",
-    "description": "Mi Game Service\nChinese app maded to test game service things.",
+    "description": "Mi Game Service\nChinese app made to test game service things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9566,7 +9566,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.qti.qtisettings": {
     "list": "Pending",
@@ -13142,7 +13142,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.qualcomm.qti.auth.fidocryptoservice": {
     "list": "Misc",
@@ -15650,7 +15650,7 @@
   },
   "com.mi.health": {
     "list": "Oem",
-    "description": "Heart Rate\nHidden app, not available for users.\nhttps://www.reddit.com/r/Xiaomi/comments/v0uhhx/found_hidden_heart_rate_app_in_miui_1304_i_opened/\nIn HyperOS, this app looks like it's done.",
+    "description": "Heart Rate\nHidden app, not available for users.\nhttps://www.reddit.com/r/Xiaomi/comments/v0uhhx/found_hidden_heart_rate_app_in_miui_1304_i_opened/\nIn HyperOS, this app is done and there are no hidden activities like in miui 14:\nhttps://www.apkmirror.com/apk/xiaomi-inc/mi-health/mi-health-1-0-6-release/mi-health-1-0-6-android-apk-download/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16240,7 +16240,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.bsp.gps.nps": {
     "list": "Oem",
@@ -31631,11 +31631,11 @@
   },
   "com.android.overlay.systemui": {
     "list": "Aosp",
-    "description": "Contain the overlay files and resources specific to the System UI customization.\nThese overlay files can be used to modify various aspects of the System UI, including the navigation bar, status bar, lockscreen, and volume dialog.\nhttps://source.android.com/docs/automotive/hmi/system_ui\nhttps://source.android.com/docs/automotive/hmi/system_ui/management_system\nOn some phones, it is an overlay to app "com.google.android.apps.safetyhub".\nCheck out this app code and think about it.",
+    "description": "On some phones, it is an overlay to app \"com.google.android.apps.safetyhub\".\nCheck out this app code and think about it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.phone.overlay.miui": {
     "list": "Oem",
@@ -35779,7 +35779,7 @@
   {
     "id": "com.rongcard.eidapi",
     "list": "Oem",
-    "description": "Eid-Service\nIt's something about card chips or online identity? Useful only in China.\nHas a lot logs in code.",
+    "description": "Eid-Service\nIt's something about card chips or online identity? Useful only in China.\nHas a lot of logs in code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35923,7 +35923,7 @@
   {
     "id": "com.xiaomi.aon",
     "list": "Oem",
-    "description": "'I always on' found in code and a lot statistics. Also Miui analytics permissions.",
+    "description": "'I always on' found in code and a lot statistics. Also Miui analytics permissions.\nRegion of the tracking device, found things Mi Face, spy on your face and everything you do on your phone?\nAONEventTracking uses and sends to 'com.miui.analytics'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36085,7 +36085,7 @@
   {
     "id": "com.android.wifi.resources.overlay.kalama",
     "list": "Oem",
-    "description": "Needed to WiFi.",
+    "description": "Needed for WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
