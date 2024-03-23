@@ -283,7 +283,7 @@ impl Application for UadGui {
             }
             #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD-ng update has been download!");
+                debug!("UAD-ng update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
@@ -349,14 +349,9 @@ impl Application for UadGui {
             }
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
-                match result {
-                    true => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    ))),
-                    false => self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    ))),
-                }
+                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                    self.adb_satisfied,
+                )))
             }
             Message::Nothing => Command::none(),
         }
@@ -395,7 +390,11 @@ impl Application for UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
-        let logo = include_bytes!("../../resources/assets/logo.png");
+        let logo: &[u8] = match dark_light::detect() {
+            dark_light::Mode::Dark => include_bytes!("../../resources/assets/logo-dark.png"),
+            dark_light::Mode::Light => include_bytes!("../../resources/assets/logo-light.png"),
+            dark_light::Mode::Default => include_bytes!("../../resources/assets/logo-light.png"),
+        };
 
         Self::run(Settings {
             window: Window {
