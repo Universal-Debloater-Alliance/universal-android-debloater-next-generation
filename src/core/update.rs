@@ -150,11 +150,17 @@ pub async fn download_update_to_temp_file(
     }
 
     if let Err(e) = rename(&current_bin_path, &tmp_path) {
-        error!("[SelfUpdate] Couldn't rename from current to temporary binary path: {}", e);
+        error!(
+            "[SelfUpdate] Couldn't rename from current to temporary binary path: {}",
+            e
+        );
         return Err(());
     }
     if let Err(e) = rename(&download_path, &current_bin_path) {
-        error!("[SelfUpdate] Couldn't rename from downloaded to current binary path: {}", e);
+        error!(
+            "[SelfUpdate] Couldn't rename from downloaded to current binary path: {}",
+            e
+        );
         return Err(());
     }
 
