@@ -322,11 +322,6 @@ impl Application for UadGui {
                     }
                 } else {
                     error!("Failed to update UAD-ng!");
-                    #[allow(unused_must_use)]
-                    {
-                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
-                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
-                    }
                 }
                 Command::none()
             }
