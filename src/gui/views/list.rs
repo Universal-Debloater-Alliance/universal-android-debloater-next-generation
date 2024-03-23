@@ -326,32 +326,34 @@ impl List {
             LoadingState::DownloadingList => waiting_view(
                 settings,
                 "Downloading latest UAD-ng lists from GitHub. Please wait...",
-                Some(button("No internet?")
-                    .on_press(Message::LoadUadList(false))),
-                style::Text::Default
+                Some(button("No internet?").on_press(Message::LoadUadList(false))),
+                style::Text::Default,
             ),
-            LoadingState::FindingPhones => match self.is_adb_satisfied {
-                true => waiting_view(
-                    settings,
-                    "Finding connected devices...",
-                    None,
-                    style::Text::Default,
-                ),
-                false => waiting_view(
-                    settings,
-                    "ADB is not installed on your system, install ADB and relaunch application.",
-                    Some(button("Read on how to get started.")
+            LoadingState::FindingPhones => {
+                if self.is_adb_satisfied {
+                    waiting_view(
+                        settings,
+                        "Finding connected devices...",
+                        None,
+                        style::Text::Default,
+                    )
+                } else {
+                    waiting_view(
+                        settings,
+                        "ADB is not installed on your system, install ADB and relaunch application.",
+                        Some(button("Read on how to get started.")
                     .on_press(Message::GoToUrl(PathBuf::from(
                         "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started",
                     )))),
-                    style::Text::Danger,
-                ),
-            },
+                        style::Text::Danger,
+                    )
+                }
+            }
             LoadingState::LoadingPackages => waiting_view(
                 settings,
                 "Pulling packages from the device. Please wait...",
                 None,
-                style::Text::Default
+                style::Text::Default,
             ),
             LoadingState::_UpdatingUad => waiting_view(
                 settings,
@@ -522,10 +524,9 @@ impl List {
             LoadingState::FailedToUpdate => waiting_view(
                 settings,
                 "Failed to download update",
-                Some(button("Go back")
-                .on_press(Message::LoadUadList(false))),
+                Some(button("Go back").on_press(Message::LoadUadList(false))),
                 style::Text::Danger,
-            )
+            ),
         }
     }
 
