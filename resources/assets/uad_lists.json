@@ -35749,8 +35749,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-    {
-    "id": "com.alam.overlay.android",
+  "com.alam.overlay.android": {
     "list": "Oem",
     "description": "It looks like the unused stuff has been translated into Indonesian.",
     "dependencies": [],
@@ -35758,8 +35757,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.alam.overlay.android.systemui",
+  "com.alam.overlay.android.systemui": {
     "list": "Oem",
     "description": "It looks like the unused stuff has been translated into Indonesian.",
     "dependencies": [],
@@ -35767,8 +35765,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.qualcomm.atfwd2",
+  "com.qualcomm.atfwd2": {
     "list": "Misc",
     "description": "This is the same app as the 'com.qualcomm.atfwd'.",
     "dependencies": [],
@@ -35776,8 +35773,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.rongcard.eidapi",
+  "com.rongcard.eidapi": {
     "list": "Oem",
     "description": "Eid-Service\nIt's something about card chips or online identity? Useful only in China.\nHas a lot of logs in code.",
     "dependencies": [],
@@ -35785,8 +35781,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "vendor.qti.imsdatachannel",
+  "vendor.qti.imsdatachannel": {
     "list": "Misc",
     "description": "Needed for IMS.",
     "dependencies": [],
@@ -35794,8 +35789,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  {
-    "id": "com.android.stk.overlay.miui",
+  "com.android.stk.overlay.miui": {
     "list": "Oem",
     "description": "'SIM Toolkit' name app only found.",
     "dependencies": [],
@@ -35803,8 +35797,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.miui.securitycenter.securitycenter_phone_overlay.config.overlay",
+  "com.miui.securitycenter.securitycenter_phone_overlay.config.overlay": {
     "list": "Oem",
     "description": "'Security tools' name app only found",
     "dependencies": [],
@@ -35812,8 +35805,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.touchservice",
+  "com.xiaomi.touchservice": {
     "list": "Oem",
     "description": "No activities, uses miui analytics looks like a tracking touch.",
     "dependencies": [],
@@ -35821,8 +35813,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "cn.wps.moffice_eng.xiaomi.lite",
+  "cn.wps.moffice_eng.xiaomi.lite": {
     "list": "Oem",
     "description": "Chinese WPS Office",
     "dependencies": [],
@@ -35830,8 +35821,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "eu.xiaomi.ext",
+  "eu.xiaomi.ext": {
     "list": "Oem",
     "description": "Xiaomi.eu Extension\nCalendar app things. Only for China.",
     "dependencies": [],
@@ -35839,8 +35829,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "eu.xiaomi.module.inject",
+  "eu.xiaomi.module.inject": {
     "list": "Oem",
     "description": "Inject fields\nFields name of device info like which os version or security date.\nNot sure if it's needed.",
     "dependencies": [],
@@ -35848,8 +35837,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  {
-    "id": "com.xiaomi.bttester",
+  "com.xiaomi.bttester": {
     "list": "Oem",
     "description": "BTCIT\nBluetooth Test Service",
     "dependencies": [],
@@ -35857,8 +35845,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.iflytek.inputmethod.miui",
+  "com.iflytek.inputmethod.miui": {
     "list": "Oem",
     "description": "Chinese Keyboard to Miui China, replace Keyboard before remove.",
     "dependencies": [],
@@ -35866,8 +35853,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.ugd",
+  "com.xiaomi.ugd": {
     "list": "Oem",
     "description": "GPU Driver Updater\nIt's weird when this app cameback on HyperOS(from MIUI 12).\nUpdates GPU driver.",
     "dependencies": [],
@@ -35875,8 +35861,7 @@
     "labels": [],
     "removal": "Expert"
   },
-  {
-    "id": "org.dtx.aidl.manager",
+  "org.dtx.aidl.manager": {
     "list": "Oem",
     "description": "DtxService\nAnt Dtx Service, unknown app, but safe to remove, probably useful in China.",
     "dependencies": [],
@@ -35884,8 +35869,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.google.android.overlay.healthconnect",
+  "com.google.android.overlay.healthconnect": {
     "list": "Oem",
     "description": "Useless overlay to 'com.google.android.apps.healthdata'.",
     "dependencies": [],
@@ -35893,8 +35877,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.magiear.handsfree.assistant",
+  "com.magiear.handsfree.assistant": {
     "list": "Misc",
     "description": "Hands-Free Assistant\nOnly has permission activity voice from mediatek.\nhttps://play.google.com/store/apps/details?id=com.magiear.handsfree.assistant",
     "dependencies": [],
@@ -35902,8 +35885,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.miui.mediaviewer",
+  "com.miui.mediaviewer": {
     "list": "Oem",
     "description": "Media viewer\nOld? Mi Video.",
     "dependencies": [],
@@ -35911,8 +35893,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  {
-    "id": "com.xiaomi.metoknlp",
+  "com.xiaomi.metoknlp": {
     "list": "Oem",
     "description": "Network location provider\nUseless, only for China, have analytics things.",
     "dependencies": [],
@@ -35920,8 +35901,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.aon",
+  "com.xiaomi.aon": {
     "list": "Oem",
     "description": "'I always on' found in code and a lot statistics. Also Miui analytics permissions.\nRegion of the tracking device, found things Mi Face, spy on your face and everything you do on your phone?\nAONEventTracking uses and sends to 'com.miui.analytics'.",
     "dependencies": [],
@@ -35929,8 +35909,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.mis",
+  "com.xiaomi.mis": {
     "list": "Oem",
     "description": "Xiaomi Connected Car Service for China.",
     "dependencies": [],
@@ -35938,8 +35917,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.trustservice",
+  "com.xiaomi.trustservice": {
     "list": "Oem",
     "description": "MiTrustService\nIFAASecCam, security things or 'Remote Control trust'.",
     "dependencies": [],
@@ -35947,8 +35925,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.duokan.reader",
+  "com.duokan.reader": {
     "list": "Oem",
     "description": "MIUIDuokanReader\nChinese app that has too much tracking and ads.\nMay be uninstalled without ADB.",
     "dependencies": [],
@@ -35956,8 +35933,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.gamecenter",
+  "com.xiaomi.gamecenter": {
     "list": "Oem",
     "description": "Games\nAnother app with a lot tracking and not needed for gamespace.",
     "dependencies": [],
@@ -35965,8 +35941,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.miui.privacycomputing",
+  "com.miui.privacycomputing": {
     "list": "Oem",
     "description": "MIUI Privacy Components\nUnknown app from Miui China.\nThere's something about keys, key status code.",
     "dependencies": [],
@@ -35974,8 +35949,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.miui.uireporter",
+  "com.miui.uireporter": {
     "list": "Oem",
     "description": "UIReporter\nThis Chinese app has some secret code: 847, 1130.",
     "dependencies": [],
@@ -35983,17 +35957,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.stk.overlay.miui",
-    "list": "Oem",
-    "description": "Only found app name 'USIM card applications'.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  {
-    "id": "miuix.stub",
+  "miuix.stub": {
     "list": "Oem",
     "description": "It has something to unknown miuix FrequentPhrase, Chinese things found.",
     "dependencies": [],
@@ -36001,8 +35965,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.mibrain.speech",
+  "com.xiaomi.mibrain.speech": {
     "list": "Oem",
     "description": "Mi AI Speech Engine\nAnother app to Mi AI Chinese app.",
     "dependencies": [],
@@ -36010,8 +35973,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.youpin",
+  "com.xiaomi.youpin": {
     "list": "Oem",
     "description": "Xiaomi Yipin\nMi Shop China.",
     "dependencies": [],
@@ -36019,8 +35981,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.role.notes.enabled",
+  "com.android.role.notes.enabled": {
     "list": "Oem",
     "description": "Notes Role enabled\nUnknown overlay, but looks like a safe to remove, sets default notes.",
     "dependencies": [],
@@ -36028,8 +35989,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.oobhelper",
+  "com.xiaomi.oobhelper": {
     "list": "Oem",
     "description": "OOBHelper\nUseless frameworks and logs.",
     "dependencies": [],
@@ -36037,8 +35997,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.fingerprints.optical",
+  "com.fingerprints.optical": {
     "list": "Oem",
     "description": "Optical Test Tool\nTesting things.",
     "dependencies": [],
@@ -36046,8 +36005,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.se.overlay.target",
+  "com.android.se.overlay.target": {
     "list": "Aosp",
     "description": "Looks like needed to 'com.android.se'.",
     "dependencies": [],
@@ -36055,8 +36013,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  {
-    "id": "com.google.android.accessibility.switchaccess",
+  "com.google.android.accessibility.switchaccess": {
     "list": "Oem",
     "description": "Switch Access\nhttps://play.google.com/store/apps/details?id=com.google.android.accessibility.switchaccess&hl=en_US",
     "dependencies": [],
@@ -36064,8 +36021,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.miui.thirdappassistant",
+  "com.miui.thirdappassistant": {
     "list": "Oem",
     "description": "Third party app problems\nIt's boring app.",
     "dependencies": [],
@@ -36073,8 +36029,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.qualcomm.qti.trustedui",
+  "com.qualcomm.qti.trustedui": {
     "list": "Oem",
     "description": "trusteduiservice\nTrusted UI debugging.",
     "dependencies": [],
@@ -36082,8 +36037,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.wifi.resources.overlay.kalama",
+  "com.android.wifi.resources.overlay.kalama": {
     "list": "Oem",
     "description": "Needed for WiFi.",
     "dependencies": [],
@@ -36091,8 +36045,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  {
-    "id": "com.wing.wtsarcontrol",
+  "com.wing.wtsarcontrol": {
     "list": "Misc",
     "description": "Sar control, Chinese App, not available for normal users.",
     "dependencies": [],
@@ -36100,8 +36053,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.wingtech.sartest",
+  "com.wingtech.sartest": {
     "list": "Misc",
     "description": "SarTest\nSecret code: 332.",
     "dependencies": [],
@@ -36109,8 +36061,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.xaee",
+  "com.xiaomi.xaee": {
     "list": "Oem",
     "description": "XiaoaiEdgeEngine\nThis app has something to Mi AI.",
     "dependencies": [],
@@ -36118,8 +36069,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.WingFactoryCamera",
+  "com.android.WingFactoryCamera": {
     "list": "Oem",
     "description": "MiCaliTool\nCamera Calibration.",
     "dependencies": [],
@@ -36127,8 +36077,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.android.camera.overlay",
+  "com.android.camera.overlay": {
     "list": "Oem",
     "description": "Unused? In code found some sounds to camera app\nand random images that looks like a calibration.",
     "dependencies": [],
@@ -36136,8 +36085,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  {
-    "id": "com.achievo.vipshop",
+  "com.achievo.vipshop": {
     "list": "Oem",
     "description": "Chinese some shop, normal user can uninstall it.",
     "dependencies": [],
@@ -36145,8 +36093,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.baidu.BaiduMap",
+  "com.baidu.BaiduMap": {
     "list": "Oem",
     "description": "Chinese Baidu Map.",
     "dependencies": [],
@@ -36154,8 +36101,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.dragon.read",
+  "com.dragon.read": {
     "list": "Oem",
     "description": "Chinese Unknown partner app from Miui China.",
     "dependencies": [],
@@ -36163,8 +36109,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.eg.android.AlipayGphone",
+  "com.eg.android.AlipayGphone": {
     "list": "Oem",
     "description": "Chinese Alipay app.",
     "dependencies": [],
@@ -36172,8 +36117,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.Qunar",
+  "com.Qunar": {
     "list": "Oem",
     "description": "Chinese partner app 'Qunar Travel'.",
     "dependencies": [],
@@ -36181,8 +36125,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.sina.weibo",
+  "com.sina.weibo": {
     "list": "Oem",
     "description": "Chinese Weibo app.",
     "dependencies": [],
@@ -36190,8 +36133,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.smile.gifmaker",
+  "com.smile.gifmaker": {
     "list": "Oem",
     "description": "Chinese partner app 'Kuaishou'.",
     "dependencies": [],
@@ -36199,8 +36141,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.ss.android.article.news",
+  "com.ss.android.article.news": {
     "list": "Oem",
     "description": "Chinese app NEWS Toutiao.",
     "dependencies": [],
@@ -36208,8 +36149,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.ss.android.ugc.aweme",
+  "com.ss.android.ugc.aweme": {
     "list": "Oem",
     "description": "Chinese TikTok.",
     "dependencies": [],
@@ -36217,8 +36157,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.UCMobile",
+  "com.UCMobile": {
     "list": "Oem",
     "description": "Chinese UC Mobile.",
     "dependencies": [],
@@ -36226,8 +36165,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.ximalaya.ting.android",
+  "com.ximalaya.ting.android": {
     "list": "Oem",
     "description": "Chinese Ximalaya.",
     "dependencies": [],
@@ -36235,8 +36173,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xingin.xhs",
+  "com.xingin.xhs": {
     "list": "Oem",
     "description": "Chinese Little Red Book.",
     "dependencies": [],
@@ -36244,8 +36181,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xunmeng.pinduoduo",
+  "com.xunmeng.pinduoduo": {
     "list": "Oem",
     "description": "Chinese JD.com.",
     "dependencies": [],
@@ -36253,8 +36189,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.youku.phone",
+  "com.youku.phone": {
     "list": "Oem",
     "description": "Chinese Youku video.",
     "dependencies": [],
@@ -36262,8 +36197,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.zhihu.android",
+  "com.zhihu.android": {
     "list": "Oem",
     "description": "Chinese know.",
     "dependencies": [],
@@ -36271,8 +36205,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "ctrip.android.view",
+  "ctrip.android.view": {
     "list": "Oem",
     "description": "Chinese Ctrip.",
     "dependencies": [],
@@ -36280,8 +36213,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "tv.danmaku.bili",
+  "tv.danmaku.bili": {
     "list": "Oem",
     "description": "Chinese app 'bilibili'.",
     "dependencies": [],
@@ -36289,8 +36221,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.verizon.remoteSimlock",
+  "com.verizon.remoteSimlock": {
     "list": "Carrier",
     "description": "VZWRemoteSimlockService\nRemote SimLock lock, unlock, looks more danger than useful app.",
     "dependencies": [],
@@ -36298,8 +36229,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.xiaomi.aireco",
+  "com.xiaomi.aireco": {
     "list": "Oem",
     "description": "XiaoaiRecommendation\nThis app does nothing, totally random frameworks unused.",
     "dependencies": [],
@@ -36307,8 +36237,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.wingtech.catchlog",
+  "com.wingtech.catchlog": {
     "list": "Oem",
     "description": "Cit App to show Battery info, Secret Code:6485",
     "dependencies": [],
@@ -36316,8 +36245,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.mmigroup.fmradio",
+  "com.mmigroup.fmradio": {
     "list": "Oem",
     "description": "App for Hardware Testing Things.",
     "dependencies": [],

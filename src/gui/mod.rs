@@ -283,7 +283,7 @@ impl Application for UadGui {
             }
             #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD-ng update has been download!");
+                debug!("UAD-ng update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
@@ -322,6 +322,11 @@ impl Application for UadGui {
                     }
                 } else {
                     error!("Failed to update UAD-ng!");
+                    #[allow(unused_must_use)]
+                    {
+                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
+                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                    }
                 }
                 Command::none()
             }
