@@ -68,7 +68,6 @@ pub fn adb_shell_command(shell: bool, args: &str) -> Result<String, String> {
 
     match command.output() {
         Err(e) => {
-            // TODO: better error handling with anyhow + thiserror
             error!("ADB: {}", e);
             Err("ADB was not found".to_string())
         }
