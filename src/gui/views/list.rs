@@ -5,9 +5,11 @@ use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
 use crate::core::utils::fetch_packages;
+use crate::core::utils::open_url;
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
 use std::env;
+use std::path::PathBuf;
 
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
@@ -34,6 +36,7 @@ pub enum LoadingState {
     _UpdatingUad,
     Ready,
     RestoringDevice(String),
+    FailedToUpdate,
 }
 
 #[derive(Default, Debug, Clone)]
@@ -76,6 +79,8 @@ pub enum Message {
     ModalValidate,
     ClearSelectedPackages,
     ADBSatisfied(bool),
+    UpdateFailed,
+    GoToUrl(PathBuf),
 }
 
 pub struct SummaryEntry {
@@ -300,6 +305,14 @@ impl List {
                 self.is_adb_satisfied = result;
                 Command::none()
             }
+            Message::UpdateFailed => {
+                self.loading_state = LoadingState::FailedToUpdate;
+                Command::none()
+            }
+            Message::GoToUrl(url) => {
+                open_url(url);
+                Command::none()
+            }
             Message::Nothing => Command::none(),
         }
     }
@@ -310,41 +323,48 @@ impl List {
         selected_device: &Phone,
     ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
-            LoadingState::DownloadingList => {
-                let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
-                waiting_view(settings, text, true, style::Text::Default)
-            }
+            LoadingState::DownloadingList => waiting_view(
+                settings,
+                "Downloading latest UAD-ng lists from GitHub. Please wait...",
+                Some(button("No internet?").on_press(Message::LoadUadList(false))),
+                style::Text::Default,
+            ),
             LoadingState::FindingPhones => {
                 if self.is_adb_satisfied {
                     waiting_view(
                         settings,
                         "Finding connected devices...",
-                        false,
+                        None,
                         style::Text::Default,
                     )
                 } else {
                     waiting_view(
                         settings,
                         "ADB is not installed on your system, install ADB and relaunch application.",
-                        false,
+                        Some(button("Read on how to get started.")
+                    .on_press(Message::GoToUrl(PathBuf::from(
+                        "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started",
+                    )))),
                         style::Text::Danger,
                     )
                 }
             }
-            LoadingState::LoadingPackages => {
-                let text = "Pulling packages from the device. Please wait...";
-                waiting_view(settings, text, false, style::Text::Default)
-            }
+            LoadingState::LoadingPackages => waiting_view(
+                settings,
+                "Pulling packages from the device. Please wait...",
+                None,
+                style::Text::Default,
+            ),
             LoadingState::_UpdatingUad => waiting_view(
                 settings,
                 "Updating UAD-ng. Please wait...",
-                false,
+                None,
                 style::Text::Default,
             ),
             LoadingState::RestoringDevice(device) => waiting_view(
                 settings,
                 &format!("Restoring device: {device}"),
-                false,
+                None,
                 style::Text::Default,
             ),
             LoadingState::Ready => {
@@ -501,6 +521,12 @@ impl List {
                     container(content).height(Length::Fill).padding(10).into()
                 }
             }
+            LoadingState::FailedToUpdate => waiting_view(
+                settings,
+                "Failed to download update",
+                Some(button("Go back").on_press(Message::LoadUadList(false))),
+                style::Text::Danger,
+            ),
         }
     }
 
@@ -758,25 +784,17 @@ impl List {
 fn waiting_view<'a>(
     _settings: &Settings,
     displayed_text: &str,
-    btn: bool,
+    btn: Option<button::Button<'a, Message, Theme, Renderer>>,
     text_style: style::Text,
 ) -> Element<'a, Message, Theme, Renderer> {
-    let col = if btn {
-        let no_internet_btn = button("No internet?")
-            .padding([5, 10])
-            .on_press(Message::LoadUadList(false))
-            .style(style::Button::Primary);
+    let col = column![]
+        .spacing(10)
+        .align_items(Alignment::Center)
+        .push(text(displayed_text).style(text_style).size(20));
 
-        column![]
-            .spacing(10)
-            .align_items(Alignment::Center)
-            .push(text(displayed_text).style(text_style).size(20))
-            .push(no_internet_btn)
-    } else {
-        column![]
-            .spacing(10)
-            .align_items(Alignment::Center)
-            .push(text(displayed_text).style(text_style).size(20))
+    let col = match btn {
+        Some(btn) => col.push(btn.style(style::Button::Primary).padding([5, 10])),
+        None => col,
     };
 
     container(col)
