@@ -6,12 +6,14 @@ on:
       - Cargo.toml
       - resources/assets/*.ttf
       - src/**
+      - resources/assets/*.json
   pull_request:
     paths:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
       - src/**
+      - resources/assets/*.json
 
 jobs:
   lint:
@@ -55,3 +57,12 @@ jobs:
         with:
           components: clippy,rustfmt
       - run: cargo ${{ matrix.lint }}${{ matrix.args }}
+  verify-json-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Validate JSON
+        uses: docker://orrosenblatt/validate-json-action:latest
+        env:
+          INPUT_SCHEMA: /schema.json
+          INPUT_JSONS: /resources/assets/uad_lists.json

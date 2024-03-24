@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "packageName": {
+    "type": "object",
+    "properties": {
+      "list": {"type": "string"},
+      "description": {"type": "string"},
+      "dependencies": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "neededBy": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "labels": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "removal": {"type": "string"}
+    },
+    "required": ["list", "description", "dependencies", "neededBy", "labels", "removal"]
+  }
+}
