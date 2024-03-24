@@ -36245,8 +36245,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  {
-    "id": "com.mmigroup.fmradio",
+  "com.mmigroup.fmradio": {
     "list": "Oem",
     "description": "App for Hardware Testing Things.",
     "dependencies": [],
