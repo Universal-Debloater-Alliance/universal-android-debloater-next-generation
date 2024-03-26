@@ -5796,7 +5796,7 @@
   },
   "com.sec.imslogger": {
     "list": "Oem",
-    "description": "IMS Logger provides logging opt-ins.\nSecurity flaw: https://nitter.net/fs0c131y/status/1115889065285562368",
+    "description": "IMS Logger provides logging opt-ins.\nSecurity flaw: https://web.archive.org/web/20211209093408/https://twitter.com/fs0c131y/status/1115889065285562368",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7972,7 +7972,7 @@
   },
   "com.oem.oemlogkit": {
     "list": "Oem",
-    "description": "OnePlus LogKit\nShady logging app that system apps can use to log WiFi traffic, Bluetooth traffic, NFC activity, GPS coordinates over time, power consumption, modem signal/data details, \"lag issues,\" and more.\nhttps://thehackernews.com/2017/11/oneplus-logkit-app.html\nhttps://www.bleepingcomputer.com/news/security/second-oneplus-factory-app-discovered-this-one-dumps-photos-wifi-and-gps-logs/\nhttps://nitter.net/fs0c131y/status/930773795656396801",
+    "description": "OnePlus LogKit\nShady logging app that system apps can use to log WiFi traffic, Bluetooth traffic, NFC activity, GPS coordinates over time, power consumption, modem signal/data details, \"lag issues,\" and more.\nhttps://thehackernews.com/2017/11/oneplus-logkit-app.html\nhttps://www.bleepingcomputer.com/news/security/second-oneplus-factory-app-discovered-this-one-dumps-photos-wifi-and-gps-logs/\nhttps://web.archive.org/web/20210611122551/https://twitter.com/fs0c131y/status/930773795656396801",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8044,7 +8044,7 @@
   },
   "com.oneplus.factorymode": {
     "list": "Oem",
-    "description": "FactoryMode\nUsed in the factory to test devices.\nType *#808# in the OnePlus dialer to access the hidden menu.\nPotential security risk: https://nitter.net/fs0c131y/status/930115188988182531\nIt's possible for an app to enable root access on any device with the APK pre-installed.\nFor now, this only works in ADB, which requires local access to the device.",
+    "description": "FactoryMode\nUsed in the factory to test devices.\nType *#808# in the OnePlus dialer to access the hidden menu.\nPotential security risk: https://web.archive.org/web/20211103134620/https://twitter.com/fs0c131y/status/930115188988182531\nIt's possible for an app to enable root access on any device with the APK pre-installed.\nFor now, this only works in ADB, which requires local access to the device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8078,7 +8078,7 @@
   },
   "com.oneplus.opbugreportlite": {
     "list": "Oem",
-    "description": "OPBugReportLite\nRuns in the background. Runs as part of the system, even if disabled? Disabling does remove all RAM usage tho, and hopefully removes access to user data, as disable/uninstall should sever the connection to the Android user account.\nSilently sends, every 6 hours, battery stats, kernel panics, watchdogs, ANRs and all crashes of your device to Singapore.\nhttps://www.androidpit.com/oneplus-opbugreportlite-data-collection\nSource (yeah it's Elliot Alderson again :D): https://nitter.net/fs0c131y/status/933037531066785797",
+    "description": "OPBugReportLite\nRuns in the background. Runs as part of the system, even if disabled? Disabling does remove all RAM usage tho, and hopefully removes access to user data, as disable/uninstall should sever the connection to the Android user account.\nSilently sends, every 6 hours, battery stats, kernel panics, watchdogs, ANRs and all crashes of your device to Singapore.\nhttps://www.androidpit.com/oneplus-opbugreportlite-data-collection\nSource (yeah it's Elliot Alderson again :D): https://web.archive.org/web/20220520051328/https://twitter.com/fs0c131y/status/933037531066785797",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13746,7 +13746,7 @@
   },
   "com.crowdcare.agent.k": {
     "list": "Misc",
-    "description": "Crowdcare is now Wysdom.AI (https://nitter.42l.fr/wysdomai)\nFrom their Twitter description : The easiest way for businesses to improve customer satisfaction, contain costs, \nand generate revenue by using #AI to power customer experiences.\nWysdom.AI has joined the Microsoft Partner Network in 2018\nhttps://wysdom.ai/privacy-policy/ (not good)\n",
+    "description": "Crowdcare is now Wysdom.AI\nFrom their Twitter description: the easiest way for businesses to improve customer satisfaction, contain costs, \nand generate revenue by using #AI to power customer experiences.\nWysdom.AI has joined the Microsoft Partner Network in 2018\nhttps://wysdom.ai/privacy-policy/ (not good)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15090,7 +15090,7 @@
   },
   "com.miui.cit": {
     "list": "Oem",
-    "description": "Hardware tests\nSecret codes (https://nitter.net/fs0c131y/status/933353182956326913#m) lets you run hardware tests.\nhttps://c.mi.com/thread-1744085-1-0.html\n",
+    "description": "Hardware tests\nSecret codes (https://web.archive.org/web/20220520051328/https://twitter.com/fs0c131y/status/933037531066785797). Lets you run hardware tests.\nhttps://c.mi.com/thread-1744085-1-0.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15322,7 +15322,7 @@
   },
   "com.miui.daemon": {
     "list": "Oem",
-    "description": "MIUI daemon\nCollects a lot of data and sends them to China.\nSee : https://nitter.net/fs0c131y/status/938872347087564800?lang=en\n",
+    "description": "MIUI daemon\nCollects a lot of data and sends them to China.\nSee: https://web.archive.org/web/20210923050136/https://twitter.com/fs0c131y/status/938872347087564800",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
