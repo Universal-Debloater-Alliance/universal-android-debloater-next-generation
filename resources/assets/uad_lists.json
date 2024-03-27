@@ -12890,11 +12890,11 @@
   },
   "com.qti.qualcomm.datastatusnotification": {
     "list": "Misc",
-    "description": "Sends you a message when you reach a specified data limit?\nContains a service, but I've never it run. But I've also never run out of data or used the Android data warning system.\nhttps://www.qualcomm.com/news/onq/2016/05/02/qualcomm-trupalette-brings-your-phones-display-life",
+    "description": "Sends you a message when you reach a specified data limit?\nContains a service, but I've never it run. But I've also never run out of data or used the Android data warning system. WARNING: on HyperOS, disabling this package results in the mobile networks section to break as well as SIMs showing no service.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.qti.confuridialer": {
     "list": "Misc",
