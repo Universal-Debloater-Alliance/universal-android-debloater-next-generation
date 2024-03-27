@@ -13114,11 +13114,11 @@
   },
   "com.qualcomm.qtil.btdsda": {
     "list": "Misc",
-    "description": "Hidden bluetooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things?",
+    "description": "Hidden bluetooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things? NOTE: disabling this causes audio to come from earpiece regardless of the option selected (Speaker, Earpiece, Bluetooth)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.uimremoteserver": {
     "list": "Misc",
