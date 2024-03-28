@@ -36252,5 +36252,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.heytap.headset":{
+    "list": "Oem",
+    "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
