@@ -36252,5 +36252,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
+  },
+  "com.opera.browser":{
+    "list": "Misc",
+    "description": "Opera Browser",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+    },
+    "com.valvesoftware.android.steam.community": {
+      "list": "Misc",
+      "description": "Steam",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Recommended"
+    },
+    "com.vanced.manager": {
+      "list": "Misc",
+      "description": "Vanced Manager",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Recommended"
+    },
+    "com.mgoogle.android.gms":{
+      "list": "Misc",
+      "description": "Vanced MicroG services(similar like google services).",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Recommended"
+    },
+    "com.vanced.android.apps.youtube.music":{
+      "list": "Misc",
+      "description": "Youtube Vanced Music",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Recommended"
+    },
+    "com.heytap.headset":{
+      "list": "Oem",
+      "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Recommended"
+    }
 }
