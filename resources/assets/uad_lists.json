@@ -5564,7 +5564,7 @@
   },
   "com.sec.android.preloadinstaller": {
     "list": "Oem",
-    "description": "Very shady apk. According to if you're chinese or not, Samsung mount an hidden partition during the first boot and install some apps.\nhttps://nitter.net/fs0c131y/status/1046689524691218432#m\nArchive : https://web.archive.org/web/20200107110205/https://nitter.net/fs0c131y/status/1046689524691218432\n",
+    "description": "Very shady apk. According to if you're chinese or not, Samsung mount an hidden partition during the first boot and install some apps.\nhttps://web.archive.org/web/20200107110205/https://nitter.net/fs0c131y/status/1046689524691218432\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28019,7 +28019,7 @@
   },
   "com.evenwell.autoregistration": {
     "list": "Oem",
-    "description": "Spyware app which sends warranty details to China\nhttps://milankragujevic.com/the-trade-of-privacy-for-convenience\nhttps://nitter.net/drwetter/status/1108801189662130176",
+    "description": "Spyware app which sends warranty details to China\nhttps://milankragujevic.com/the-trade-of-privacy-for-convenience\nhttps://archive.is/https://nitter.privacydev.net/drwetter/status/1108801189662130176",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
