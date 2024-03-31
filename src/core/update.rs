@@ -231,7 +231,7 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
 }
 
 /// Hardcoded binary names for each compilation target
-/// that gets published to the Github Release
+/// that gets published to the GitHub Release
 #[cfg(feature = "self-update")]
 pub const fn bin_name() -> &'static str {
     #[cfg(target_os = "windows")]

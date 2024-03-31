@@ -218,7 +218,7 @@ impl Settings {
 
         let warning_ctn = container(
             row![
-                text("The following settings only affect the currently selected device :")
+                text("The following settings only affect the currently selected device:")
                     .style(style::Text::Danger),
                 text(phone.model.clone()),
                 Space::new(Length::Fill, Length::Shrink),

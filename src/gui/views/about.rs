@@ -98,7 +98,7 @@ impl About {
             .padding(10)
             .style(style::Container::Frame);
 
-        let website_btn = button("Github page")
+        let website_btn = button("GitHub page")
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
             )))

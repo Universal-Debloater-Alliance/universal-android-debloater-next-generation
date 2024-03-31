@@ -20,7 +20,7 @@ pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec
 
     for p_name in all_system_packages.lines() {
         state = PackageState::Uninstalled;
-        description = "[No description] : CONTRIBUTION WELCOMED";
+        description = "[No description]: CONTRIBUTION WELCOMED";
         uad_list = UadList::Unlisted;
         removal = Removal::Unlisted;
 
