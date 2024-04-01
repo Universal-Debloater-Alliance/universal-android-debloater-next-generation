@@ -28,7 +28,7 @@ impl About {
     }
     pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
         let about_text = text(
-            "Universal Android Debloater Next Generation (UAD-ng) is a Free and Open-Source community project aiming at simplifying \
+            "Universal Android Debloater Next Generation (UAD-ng) is a free and open-source community project aiming at simplifying \
             the removal of pre-installed apps on any Android device.",
         );
 
