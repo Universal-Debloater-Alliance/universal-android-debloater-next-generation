@@ -207,7 +207,7 @@ impl Settings {
         .style(style::CheckBox::SettingsEnabled);
 
         let expert_mode_descr =
-            text("Most of unsafe packages are known to bootloop the device if removed.")
+            text("Most unsafe packages are known to bootloop the device if removed.")
                 .style(style::Text::Commentary);
 
         let general_ctn = container(column![expert_mode_checkbox, expert_mode_descr].spacing(10))
