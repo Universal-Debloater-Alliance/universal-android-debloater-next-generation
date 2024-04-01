@@ -38,7 +38,7 @@ impl About {
             .style(style::Container::Frame);
 
         let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
-        let uad_list_text = text(format!("Documentation: v{}", date.format("%Y%m%d"))).width(250);
+        let uad_list_text = text(format!("UAD-ng package list: v{}", date.format("%Y%m%d"))).width(250);
         let last_update_text = text(update_state.uad_list.to_string());
         let uad_lists_btn = button("Update")
             .on_press(Message::UpdateUadLists)
