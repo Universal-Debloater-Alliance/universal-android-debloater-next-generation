@@ -2017,7 +2017,7 @@
   },
   "com.android.keyguard": {
     "list": "Oem",
-    "description": "I NEVER HAD AN HUAWEI DEVICE ON HAND. THIS LIST WAS MADE POSSIBLE BY @REDSKULL23\nhttps://forum.xda-developers.com/honor-6x/how-to/guide-list-bloat-software-emui-safe-to-t3700814\nAdditional informaton were taken from https://forum.xda-developers.com/huawei-p40-pro/how-to/adb-debloating-t4088633\nYet, those documentations are not precise enough. If you have additional information, please contribute to this list\nI use [MORE INFO NEEDED] tag as a marker.\nIf you have EMUI 10 or older, check the AOSP file, as Huawei uses AOSP package name for their own app.\n\nHUAWEI magazine unlock (The package name is really confusing)\nIt's a proprietary app based on the AOSP package called com.android.keyguard. That's not clever at all.\nhttps://consumer.huawei.com/en/support/content/en-us00206571/\nLets you customize your lock screen wallpapers\n",
+    "description": "\nHuawei magazine unlock\nIt's a proprietary app based on the AOSP package called com.android.keyguard. That's not clever at all.\nhttps://consumer.huawei.com/en/support/content/en-us00206571/\nLets you customize your lock screen wallpapers\nhttps://forum.xda-developers.com/honor-6x/how-to/guide-list-bloat-software-emui-safe-to-t3700814\nAdditional information were taken from https://forum.xda-developers.com/huawei-p40-pro/how-to/adb-debloating-t4088633\nIf you have EMUI 10 or older, check the AOSP file, as Huawei uses AOSP package name for their own app. WARNING: breaks home and recents button on Xiaomi Mi Pad:\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/330",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
