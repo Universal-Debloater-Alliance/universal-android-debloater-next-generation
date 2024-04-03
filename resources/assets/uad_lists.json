@@ -1297,7 +1297,7 @@
   },
   "com.vzw.hss.myverizon": {
     "list": "Carrier",
-    "description": "Verizon Call Filter (https://play.google.com/store/apps/details?id=com.vzw.ecid)\nNOTE : Never trust a company which promotes call ID/spam blocking features.\n \nMy Verizon (https://play.google.com/store/apps/details?id=com.vzw.hss.myverizon)\n",
+    "description": "MyVerizon app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
