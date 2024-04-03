@@ -29409,11 +29409,11 @@
   },
   "com.android.phone": {
     "list": "Aosp",
-    "description": "AOSP Dialer",
+    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.t2m.euiccoverlay": {
     "list": "Oem",
