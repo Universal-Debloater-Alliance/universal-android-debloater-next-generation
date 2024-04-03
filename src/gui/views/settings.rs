@@ -1,3 +1,5 @@
+use crate::core::sync::AdbError;
+
 use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
 use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup, BACKUP_DIR,
@@ -41,7 +43,7 @@ pub enum Message {
     BackupSelected(DisplayablePath),
     BackupDevice,
     RestoreDevice,
-    RestoringDevice(Result<CommandType, ()>),
+    RestoringDevice(Result<CommandType, AdbError>),
     DeviceBackedUp(Result<(), String>),
 }
 

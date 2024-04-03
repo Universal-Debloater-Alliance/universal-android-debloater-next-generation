@@ -101,15 +101,22 @@ pub enum CommandType {
     PackageManager(PackageInfo),
     Shell,
 }
+
+#[derive(Debug, Clone)]
+pub enum AdbError {
+    Generic(String),
+}
+
 pub async fn perform_adb_commands(
     action: String,
     command_type: CommandType,
-) -> Result<CommandType, ()> {
-    let label = match command_type {
-        CommandType::PackageManager(ref p) => p.removal.to_string(),
-        CommandType::Shell => "Shell".to_string(),
+) -> Result<CommandType, AdbError> {
+    let label = match &command_type {
+        CommandType::PackageManager(p) => &p.removal,
+        CommandType::Shell => "Shell",
     };
 
+    // HERE FUEGO!!
     match adb_shell_command(true, &action) {
         Ok(o) => {
             // On old devices, adb commands can return the '0' exit code even if there
@@ -118,18 +125,23 @@ pub async fn perform_adb_commands(
             // Some commands are even killed by ADB before finishing and UAD-ng can't catch
             // the output.
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                error!("[{}] {} -> {}", label, action, o);
-                Err(())
-            } else {
-                info!("[{}] {} -> {}", label, action, o);
-                Ok(command_type)
+                return Err(AdbError::Generic(format!(
+                    "[{}] {} -> {}",
+                    label, action, o
+                )));
             }
+
+            info!("[{}] {} -> {}", label, action, o);
+            Ok(command_type)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                error!("[{}] {} -> {}", label, action, err);
+                return Err(AdbError::Generic(format!(
+                    "[{}] {} -> {}",
+                    label, action, err
+                )));
             }
-            Err(())
+            Err(AdbError::Generic(err.to_string()))
         }
     }
 }

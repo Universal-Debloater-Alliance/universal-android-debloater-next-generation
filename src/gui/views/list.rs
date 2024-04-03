@@ -1,5 +1,7 @@
 use crate::core::config::DeviceSettings;
-use crate::core::sync::{apply_pkg_state_commands, perform_adb_commands, CommandType, Phone, User};
+use crate::core::sync::{
+    apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Phone, User,
+};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
@@ -51,6 +53,7 @@ pub struct List {
     pub input_value: String,
     description: String,
     selection_modal: bool,
+    error_modal: Option<String>,
     current_package_index: usize,
     is_adb_satisfied: bool,
 }
@@ -59,7 +62,7 @@ pub struct List {
 pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages((PackageHashMap, UadListState)),
-    RestoringDevice(Result<CommandType, ()>),
+    RestoringDevice(Result<CommandType, AdbError>),
     ApplyFilters(Vec<Vec<PackageRow>>),
     SearchInputChanged(String),
     ToggleAllSelected(bool),
@@ -69,7 +72,7 @@ pub enum Message {
     RemovalSelected(Removal),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    ChangePackageState(Result<CommandType, ()>),
+    ChangePackageState(Result<CommandType, AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -106,6 +109,7 @@ impl List {
         match message {
             Message::ModalHide => {
                 self.selection_modal = false;
+                self.error_modal = None;
                 Command::none()
             }
             Message::ModalValidate => {
@@ -273,13 +277,19 @@ impl List {
                 Command::none()
             }
             Message::ChangePackageState(res) => {
-                if let Ok(CommandType::PackageManager(p)) = res {
-                    let package = &mut self.phone_packages[p.i_user][p.index];
-                    package.state = package.state.opposite(settings.device.disable_mode);
-                    package.selected = false;
-                    self.selected_packages
-                        .retain(|&x| x.1 != p.index && x.0 != p.i_user);
-                    Self::filter_package_lists(self);
+                match res {
+                    Ok(CommandType::PackageManager(p)) => {
+                        let package = &mut self.phone_packages[p.i_user][p.index];
+                        package.state = package.state.opposite(settings.device.disable_mode);
+                        package.selected = false;
+                        self.selected_packages
+                            .retain(|&x| x.1 != p.index && x.0 != p.i_user);
+                        Self::filter_package_lists(self);
+                    }
+                    Err(AdbError::Generic(err)) => {
+                        self.error_modal = Some(err);
+                    }
+                    _ => {}
                 }
                 Command::none()
             }
@@ -379,15 +389,15 @@ impl List {
                 .width(85);
 
                 let list_picklist =
-                    pick_list(&UadList::ALL[..], self.selected_list, Message::ListSelected);
+                    pick_list(UadList::ALL, self.selected_list, Message::ListSelected);
                 let package_state_picklist = pick_list(
-                    &PackageState::ALL[..],
+                    PackageState::ALL,
                     self.selected_package_state,
                     Message::PackageStateSelected,
                 );
 
                 let removal_picklist = pick_list(
-                    &Removal::ALL[..],
+                    Removal::ALL,
                     self.selected_removal,
                     Message::RemovalSelected,
                 );
@@ -408,11 +418,11 @@ impl List {
                 let packages =
                     self.filtered_packages
                         .iter()
-                        .fold(column![].spacing(6), |col, i| {
+                        .fold(column![].spacing(6), |col, &i| {
                             col.push(
-                                self.phone_packages[self.selected_user.unwrap().index][*i]
+                                self.phone_packages[self.selected_user.unwrap().index][i]
                                     .view(settings, selected_device)
-                                    .map(move |msg| Message::List(*i, msg)),
+                                    .map(move |msg| Message::List(i, msg)),
                             )
                         });
 
@@ -497,6 +507,34 @@ impl List {
                     )
                     .on_blur(Message::ModalHide)
                     .into()
+                } else if let Some(err) = &self.error_modal {
+                    let title_ctn = container(
+                        row![text("Failed to perform ADB operation").size(24)]
+                            .align_items(Alignment::Center),
+                    )
+                    .width(Length::Fill)
+                    .style(style::Container::Frame)
+                    .padding([10, 0, 10, 0])
+                    .center_y()
+                    .center_x();
+
+                    let modal_btn_row =
+                        container(row![button(text("Cancel")).on_press(Message::ModalHide)])
+                            .width(Length::Fill)
+                            .style(style::Container::Frame)
+                            .padding([10, 0, 10, 0])
+                            .center_y()
+                            .center_x();
+
+                    let ctn = container(column![title_ctn, text(err), modal_btn_row])
+                        .height(Length::Shrink)
+                        .max_height(700)
+                        .padding(10)
+                        .style(style::Container::Background);
+
+                    Modal::new(content.padding(20), ctn)
+                        .on_blur(Message::ModalHide)
+                        .into()
                 } else {
                     container(content).height(Length::Fill).padding(10).into()
                 }
@@ -723,18 +761,14 @@ impl List {
     }
 
     async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
-        let mut phone_packages = vec![];
-
         if user_list.len() <= 1 {
-            phone_packages.push(fetch_packages(&uad_list, None));
+            vec![fetch_packages(&uad_list, None)]
         } else {
-            phone_packages.extend(
-                user_list
-                    .iter()
-                    .map(|user| fetch_packages(&uad_list, Some(user))),
-            );
-        };
-        phone_packages
+            user_list
+                .iter()
+                .map(|user| fetch_packages(&uad_list, Some(user)))
+                .collect()
+        }
     }
 
     async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
@@ -801,13 +835,14 @@ fn build_action_pkg_commands(
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected && (packages[u.index][selection.1].selected || settings.multi_user_mode)
     }) {
-        let u_pkg = packages[u.index][selection.1].clone();
-        let actions = if settings.multi_user_mode {
-            apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device)
+        let u_pkg = &packages[u.index][selection.1];
+        let wanted_state = if settings.multi_user_mode {
+            wanted_state
         } else {
-            let wanted_state = u_pkg.state.opposite(settings.disable_mode);
-            apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device)
+            u_pkg.state.opposite(settings.disable_mode)
         };
+
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device);
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
