@@ -5890,6 +5890,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.sec.knox.switcher": {
+    "list": "Oem",
+    "description": "Knox Secure Folder",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.sec.location.nsflp2": {
     "list": "Oem",
     "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
