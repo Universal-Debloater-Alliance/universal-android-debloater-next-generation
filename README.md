@@ -10,7 +10,7 @@ could happen to your phone.
 **For real-time communication, consider joining our Discord server:**
 [![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
 
-**In case you prefer using Matrix (using a Matrix bridge to Discord):** [![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://matrix.to/#/#uad-ng:matrix.org)
+**In case you prefer using Matrix (using a Matrix bridge to Discord):** ![Matrix](https://matrix.org/images/matrix-logo.svg 'https://matrix.to/#/#uad-ng:matrix.org')
 
 ## Summary
 
