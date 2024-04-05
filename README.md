@@ -5,10 +5,16 @@ could happen to your phone.
 
 <img src="/resources/screenshots/v1.0.2.png" width="850" alt="uad_screenshot">
 
-**This software is still in an early stage of development. Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**
+**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**
 
 **For real-time communication, consider joining our Discord server:**
+
 [![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
+
+**In case you prefer using Matrix (using a Matrix bridge to Discord):**
+
+[<img src="https://matrix.org/images/matrix-logo.svg">](https://matrix.to/#/#uad-ng:matrix.org)
+
 
 ## Summary
 
