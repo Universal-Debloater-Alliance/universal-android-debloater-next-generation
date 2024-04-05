@@ -1,5 +1,10 @@
 # Universal Android Debloater Next Generation
 
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=active+issues&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=resolved+issues&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=code+coverage&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+
+
 **DISCLAIMER**: Use at your own risk. We're not responsible for anything that
 could happen to your phone.
 
