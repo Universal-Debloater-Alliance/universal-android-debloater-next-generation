@@ -207,7 +207,7 @@ impl Settings {
         .style(style::CheckBox::SettingsEnabled);
 
         let expert_mode_descr =
-            text("Most of unsafe packages are known to bootloop the device if removed.")
+            text("Most unsafe packages are known to bootloop the device if removed.")
                 .style(style::Text::Commentary);
 
         let general_ctn = container(column![expert_mode_checkbox, expert_mode_descr].spacing(10))
@@ -218,7 +218,7 @@ impl Settings {
 
         let warning_ctn = container(
             row![
-                text("The following settings only affect the currently selected device :")
+                text("The following settings only affect the currently selected device:")
                     .style(style::Text::Danger),
                 text(phone.model.clone()),
                 Space::new(Length::Fill, Length::Shrink),
