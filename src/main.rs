@@ -30,7 +30,8 @@ fn main() -> iced::Result {
 /// Also attaches the terminalon windows machines
 pub fn setup_logger() -> Result<(), fern::InitError> {
     /// Attach windows terminal, only on windows
-    #[cfg(target_os = "windows")] {
+    #[cfg(target_os = "windows")]
+    {
         attach_windows_console();
     }
 
