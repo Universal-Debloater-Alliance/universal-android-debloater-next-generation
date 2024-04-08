@@ -28,6 +28,9 @@ fn main() -> iced::Result {
 
 /// Sets up logging to a new file in CACHE_DIR/UAD_{time}.log
 /// Also attaches the terminalon windows machines
+/// '''
+/// match setup_logger().expect("Error setting up logger")
+/// '''
 pub fn setup_logger() -> Result<(), fern::InitError> {
     /// Attach windows terminal, only on windows
     #[cfg(target_os = "windows")]
@@ -93,4 +96,16 @@ fn attach_windows_console() {
 
     const ATTACH_PARENT_PROCESS: u32 = 0xFFFFFFFF;
     let _ = WinConsole::attach_console(ATTACH_PARENT_PROCESS);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn init_logger() {
+        match setup_logger() {
+            Ok(_) => (),
+            Err(error) => panic!("Error: {}", error),
+        }
+    }
 }
