@@ -32,7 +32,7 @@ fn main() -> iced::Result {
 /// match setup_logger().expect("Error setting up logger")
 /// '''
 pub fn setup_logger() -> Result<(), fern::InitError> {
-    /// Attach Windows terminal, only on windows
+    /// Attach Windows terminal, only on Windows
     #[cfg(target_os = "windows")]
     {
         attach_windows_console();
@@ -89,7 +89,7 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 /// (Windows) Allow the application to display logs to the terminal
 /// regardless if it was compiled with `windows_subsystem = "windows"`.
 ///
-/// This is excluded on non-windows targets.
+/// This is excluded on non-Windows targets.
 #[cfg(target_os = "windows")]
 fn attach_windows_console() {
     use win32console::console::WinConsole;
