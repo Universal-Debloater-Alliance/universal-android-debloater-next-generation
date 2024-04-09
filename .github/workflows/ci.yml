@@ -59,14 +59,7 @@ jobs:
 
   coverage:
     name: coverage
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-          - windows-latest
-      fail-fast: false
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -77,11 +70,15 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Set up DeepSource CLI
         run: curl https://deepsource.io/cli | sh
+      - name: Install LLVM-profdata
+        run: rustup component add llvm-tools-preview
       - name: Run tests
         run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test
+      - name: make coverage directory
+        run: mkdir ./target/coverage
       - name: Run GRCOV
-        run: grcov . --binary-path ./target/debug/deps/ -s . -t lcov --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o target/coverage/tests.lcov
+        run: grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o ./target/coverage/tests.lcov
       - name: Upload to DeepSource
         env:
           DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
-        run: ./bin/deepsource report --analyzer test-coverage --key rust --value-file target/coverage/tests.lcov
+        run: ./bin/deepsource report --analyzer test-coverage --key rust --value-file ./target/coverage/tests.lcov
