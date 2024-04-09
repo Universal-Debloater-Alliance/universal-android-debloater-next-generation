@@ -27,12 +27,12 @@ fn main() -> iced::Result {
 }
 
 /// Sets up logging to a new file in CACHE_DIR/UAD_{time}.log
-/// Also attaches the terminalon windows machines
+/// Also attaches the terminal on Windows machines
 /// '''
 /// match setup_logger().expect("Error setting up logger")
 /// '''
 pub fn setup_logger() -> Result<(), fern::InitError> {
-    /// Attach windows terminal, only on windows
+    /// Attach Windows terminal, only on windows
     #[cfg(target_os = "windows")]
     {
         attach_windows_console();
