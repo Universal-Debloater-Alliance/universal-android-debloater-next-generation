@@ -1857,7 +1857,7 @@
   },
   "fr.bouyguestelecom.vvmandroid": {
     "list": "Carrier",
-    "description": "This app wanna include ads to your gallery only.\nFounded only ads and crashlytics components.",
+    "description": "This app wants to inject ads into your gallery.\nFound only ads and crashlytics components.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8374,11 +8374,11 @@
   },
   "com.mediatek.gba": {
     "list": "Misc",
-    "description": "Generic Bootstrapping Architecture. A ‘common ground’ of code used for many MediaTek apps.\nCan be removed if all other MediaTek apps are removed.",
+    "description": "Generic Bootstrapping Architecture.\nHas ims, X-TMUS-IMEI, bsf.msg.lab.t-mobile.com things to encrypted calls ims probably\n(thinking by looking at the classes.dex code). Connects to site bsf.ims.mncXXX.pub.3gppnetwork.org.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.adups.fota.sysoper": {
     "list": "Misc",
@@ -9886,7 +9886,7 @@
   },
   "com.google.android.connectivity.resources": {
     "list": "Aosp",
-    "description": "Network connectivity resources.\nCause BOOTLOOP.",
+    "description": "Network connectivity resources.\nRemoving this packages causes a bootloop.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10438,11 +10438,11 @@
   },
   "com.samsung.android.camerasdkservice": {
     "list": "Oem",
-    "description": "SCameraService\nCamera SDK, probably used for the main camera app.",
+    "description": "SCameraService\nCamera SDK, probably used for the main camera app?\nThere are a lot of features that I do not know if it is not only available to developers.\nApp has many permissions like arcsoft, smartcamerascan, supernight, too many to write here.\nA strange app with many things sometimes mentioned in the code that it is used for calibration.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.providers.carrier": {
     "list": "Oem",
@@ -10882,7 +10882,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.aota.a_overlay": {
     "list": "Oem",
@@ -10898,7 +10898,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.camera.a_overlay": {
     "list": "Oem",
@@ -10906,7 +10906,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.compass": {
     "list": "Oem",
@@ -10914,7 +10914,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.compass.a_overlay": {
     "list": "Oem",
@@ -10922,7 +10922,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.demopage": {
     "list": "Oem",
@@ -10962,7 +10962,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.mibc.tclplus": {
     "list": "Oem",
@@ -10994,7 +10994,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.screenrecorder.a_overlay": {
     "list": "Oem",
@@ -11002,7 +11002,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.screenshotex": {
     "list": "Oem",
@@ -11018,7 +11018,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tcl.tclswitch.a_overlay": {
     "list": "Oem",
@@ -11042,7 +11042,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tct": {
     "list": "Oem",
@@ -11058,7 +11058,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tct.cellular.arda": {
     "list": "Oem",
@@ -11202,7 +11202,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.tct.weather": {
     "list": "Oem",
@@ -36271,7 +36271,7 @@
   },
   "com.samsung.android.mtp": {
     "list": "Oem",
-    "description": "MTP application",
+    "description": "MTP application\nIt doesn't cause a bootloop, but its highly not recommended to remove it.\nThis app is needed for transfer files to PC/Phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36455,11 +36455,11 @@
   },
   "com.samsung.android.kmxservice": {
     "list": "Oem",
-    "description": "KmxService\nSmartThings to unlock remotely phone.",
+    "description": "KmxService\nKnox Matrix. Provides a feature to securely generate and store keys used for end-to-end encryption (E2EE).\nIt encrypts/decrypts data on the user’s device and transmits it to the server.\nThe user’s original data cannot be checked as decryption is impossible from the server, which only has encrypted data, and is safely protected from external attacks.\nhttps://www.apkmirror.com/apk/samsung-electronics-co-ltd/kmxservice/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.app.kfa": {
     "list": "Oem",
@@ -36471,11 +36471,11 @@
   },
   "com.samsung.android.knox.mpos": {
     "list": "Oem",
-    "description": "Provides only call notification.",
+    "description": "Knox mPOS Enabler offers a range of security/usability features, enabling secure and contactless payments on Samsung devices.\nhttps://play.google.com/store/apps/details?id=com.samsung.android.knox.mpos",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.knox.app.networkfilter": {
     "list": "Oem",
@@ -36515,7 +36515,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.sec_gestural_no_hint": {
     "list": "Oem",
@@ -36523,7 +36523,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.sec_gestural": {
     "list": "Oem",
@@ -36531,7 +36531,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.packageinstaller": {
     "list": "Oem",
@@ -36555,7 +36555,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.preloadapp": {
     "list": "Oem",
@@ -36615,7 +36615,7 @@
   },
   "com.samsung.android.smartprovider": {
     "list": "Oem",
-    "description": "Another app for smartthings.",
+    "description": "Samsung File Provider\nProvides intelligent classification, search and image/video favorite when selecting images/videos to send to friends/Moments/Channels in WeChat app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36623,7 +36623,7 @@
   },
   "com.samsung.android.timezone.updater": {
     "list": "Oem",
-    "description": "Time Zone Updater\nUsed for detect or set timezone.",
+    "description": "Time Zone Updater\nUsed to detect or set timezone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36659,7 +36659,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.tencentwifisecurity": {
     "list": "Oem",
@@ -36735,11 +36735,11 @@
   },
   "vendor.qti.data.txpwradmin": {
     "list": "Misc",
-    "description": "Hidden network stats in code found.",
+    "description": "This app is from qualcomm, in androidmanifest.xml I found things like com.qualcomm.qti.qmsdataservices, qms is spyware,\npermissions uses: access wifi state, quary all packages, package usage stats.\nSo hidden network stats, more about it is this code is just logs, takes apm, wifi, bt status.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.vdcservice": {
     "list": "Oem",
@@ -36747,7 +36747,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.vdc": {
     "list": "Oem",
@@ -36815,7 +36815,7 @@
   },
   "com.samsung.sprint.chameleon": {
     "list": "Carrier",
-    "description": "Chameleon service which is a service designed to store sprint-specific properties(customizes some apps).",
+    "description": "Chameleon service which is a service designed to store sprint-specific properties (customizes some apps).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
