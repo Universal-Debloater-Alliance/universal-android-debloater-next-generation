@@ -497,7 +497,7 @@ impl List {
                     .align_items(Alignment::Center)
                 };
                 if self.selection_modal {
-                    Modal::new(
+                    return Modal::new(
                         content.padding(10),
                         self.apply_selection_modal(
                             selected_device,
@@ -506,8 +506,9 @@ impl List {
                         ),
                     )
                     .on_blur(Message::ModalHide)
-                    .into()
-                } else if let Some(err) = &self.error_modal {
+                    .into();
+                }
+                if let Some(err) = &self.error_modal {
                     let title_ctn = container(
                         row![text("Failed to perform ADB operation").size(24)]
                             .align_items(Alignment::Center),
@@ -518,23 +519,25 @@ impl List {
                     .center_y()
                     .center_x();
 
-                    let modal_btn_row =
-                        container(row![button(text("Cancel")).on_press(Message::ModalHide)])
+                    let modal_btn_row = row![button(
+                        text("Close")
                             .width(Length::Fill)
-                            .style(style::Container::Frame)
-                            .padding([10, 0, 10, 0])
-                            .center_y()
-                            .center_x();
+                            .horizontal_alignment(alignment::Horizontal::Center),
+                    )
+                    .width(Length::Fill)
+                    .padding(10)
+                    .on_press(Message::ModalHide)]
+                    .padding([10, 0, 0, 0]);
 
-                    let ctn = container(column![title_ctn, text(err), modal_btn_row])
+                    let text_box = scrollable(text(err).width(Length::Fill)).height(400);
+
+                    let ctn = container(column![title_ctn, text_box, modal_btn_row])
                         .height(Length::Shrink)
                         .max_height(700)
                         .padding(10)
-                        .style(style::Container::Background);
+                        .style(style::Container::Frame);
 
-                    Modal::new(content.padding(20), ctn)
-                        .on_blur(Message::ModalHide)
-                        .into()
+                    Modal::new(content, ctn).on_blur(Message::ModalHide).into()
                 } else {
                     container(content).height(Length::Fill).padding(10).into()
                 }
