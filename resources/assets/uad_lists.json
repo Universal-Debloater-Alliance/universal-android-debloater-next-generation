@@ -1297,7 +1297,7 @@
   },
   "com.vzw.hss.myverizon": {
     "list": "Carrier",
-    "description": "Verizon Call Filter (https://play.google.com/store/apps/details?id=com.vzw.ecid)\nNOTE : Never trust a company which promotes call ID/spam blocking features.\n \nMy Verizon (https://play.google.com/store/apps/details?id=com.vzw.hss.myverizon)\n",
+    "description": "MyVerizon app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2017,7 +2017,7 @@
   },
   "com.android.keyguard": {
     "list": "Oem",
-    "description": "I NEVER HAD AN HUAWEI DEVICE ON HAND. THIS LIST WAS MADE POSSIBLE BY @REDSKULL23\nhttps://forum.xda-developers.com/honor-6x/how-to/guide-list-bloat-software-emui-safe-to-t3700814\nAdditional informaton were taken from https://forum.xda-developers.com/huawei-p40-pro/how-to/adb-debloating-t4088633\nYet, those documentations are not precise enough. If you have additional information, please contribute to this list\nI use [MORE INFO NEEDED] tag as a marker.\nIf you have EMUI 10 or older, check the AOSP file, as Huawei uses AOSP package name for their own app.\n\nHUAWEI magazine unlock (The package name is really confusing)\nIt's a proprietary app based on the AOSP package called com.android.keyguard. That's not clever at all.\nhttps://consumer.huawei.com/en/support/content/en-us00206571/\nLets you customize your lock screen wallpapers\n",
+    "description": "\nHuawei magazine unlock\nIt's a proprietary app based on the AOSP package called com.android.keyguard. That's not clever at all.\nhttps://consumer.huawei.com/en/support/content/en-us00206571/\nLets you customize your lock screen wallpapers\nhttps://forum.xda-developers.com/honor-6x/how-to/guide-list-bloat-software-emui-safe-to-t3700814\nAdditional information were taken from https://forum.xda-developers.com/huawei-p40-pro/how-to/adb-debloating-t4088633\nIf you have EMUI 10 or older, check the AOSP file, as Huawei uses AOSP package name for their own app. WARNING: breaks home and recents button on Xiaomi Mi Pad:\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/330",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5564,7 +5564,7 @@
   },
   "com.sec.android.preloadinstaller": {
     "list": "Oem",
-    "description": "Very shady apk. According to if you're chinese or not, Samsung mount an hidden partition during the first boot and install some apps.\nhttps://nitter.net/fs0c131y/status/1046689524691218432#m\nArchive : https://web.archive.org/web/20200107110205/https://nitter.net/fs0c131y/status/1046689524691218432\n",
+    "description": "Very shady apk. According to if you're chinese or not, Samsung mount an hidden partition during the first boot and install some apps.\nhttps://web.archive.org/web/20200107110205/https://nitter.net/fs0c131y/status/1046689524691218432\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5796,7 +5796,7 @@
   },
   "com.sec.imslogger": {
     "list": "Oem",
-    "description": "IMS Logger provides logging opt-ins.\nSecurity flaw: https://nitter.net/fs0c131y/status/1115889065285562368",
+    "description": "IMS Logger provides logging opt-ins.\nSecurity flaw: https://web.archive.org/web/20211209093408/https://twitter.com/fs0c131y/status/1115889065285562368",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5889,6 +5889,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.sec.knox.switcher": {
+    "list": "Oem",
+    "description": "Knox Secure Folder",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.sec.location.nsflp2": {
     "list": "Oem",
@@ -7972,7 +7980,7 @@
   },
   "com.oem.oemlogkit": {
     "list": "Oem",
-    "description": "OnePlus LogKit\nShady logging app that system apps can use to log WiFi traffic, Bluetooth traffic, NFC activity, GPS coordinates over time, power consumption, modem signal/data details, \"lag issues,\" and more.\nhttps://thehackernews.com/2017/11/oneplus-logkit-app.html\nhttps://www.bleepingcomputer.com/news/security/second-oneplus-factory-app-discovered-this-one-dumps-photos-wifi-and-gps-logs/\nhttps://nitter.net/fs0c131y/status/930773795656396801",
+    "description": "OnePlus LogKit\nShady logging app that system apps can use to log WiFi traffic, Bluetooth traffic, NFC activity, GPS coordinates over time, power consumption, modem signal/data details, \"lag issues,\" and more.\nhttps://thehackernews.com/2017/11/oneplus-logkit-app.html\nhttps://www.bleepingcomputer.com/news/security/second-oneplus-factory-app-discovered-this-one-dumps-photos-wifi-and-gps-logs/\nhttps://web.archive.org/web/20210611122551/https://twitter.com/fs0c131y/status/930773795656396801",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8044,7 +8052,7 @@
   },
   "com.oneplus.factorymode": {
     "list": "Oem",
-    "description": "FactoryMode\nUsed in the factory to test devices.\nType *#808# in the OnePlus dialer to access the hidden menu.\nPotential security risk: https://nitter.net/fs0c131y/status/930115188988182531\nIt's possible for an app to enable root access on any device with the APK pre-installed.\nFor now, this only works in ADB, which requires local access to the device.",
+    "description": "FactoryMode\nUsed in the factory to test devices.\nType *#808# in the OnePlus dialer to access the hidden menu.\nPotential security risk: https://web.archive.org/web/20211103134620/https://twitter.com/fs0c131y/status/930115188988182531\nIt's possible for an app to enable root access on any device with the APK pre-installed.\nFor now, this only works in ADB, which requires local access to the device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8078,7 +8086,7 @@
   },
   "com.oneplus.opbugreportlite": {
     "list": "Oem",
-    "description": "OPBugReportLite\nRuns in the background. Runs as part of the system, even if disabled? Disabling does remove all RAM usage tho, and hopefully removes access to user data, as disable/uninstall should sever the connection to the Android user account.\nSilently sends, every 6 hours, battery stats, kernel panics, watchdogs, ANRs and all crashes of your device to Singapore.\nhttps://www.androidpit.com/oneplus-opbugreportlite-data-collection\nSource (yeah it's Elliot Alderson again :D): https://nitter.net/fs0c131y/status/933037531066785797",
+    "description": "OPBugReportLite\nRuns in the background. Runs as part of the system, even if disabled? Disabling does remove all RAM usage tho, and hopefully removes access to user data, as disable/uninstall should sever the connection to the Android user account.\nSilently sends, every 6 hours, battery stats, kernel panics, watchdogs, ANRs and all crashes of your device to Singapore.\nhttps://www.androidpit.com/oneplus-opbugreportlite-data-collection\nSource (yeah it's Elliot Alderson again :D): https://web.archive.org/web/20220520051328/https://twitter.com/fs0c131y/status/933037531066785797",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12890,11 +12898,11 @@
   },
   "com.qti.qualcomm.datastatusnotification": {
     "list": "Misc",
-    "description": "Sends you a message when you reach a specified data limit?\nContains a service, but I've never it run. But I've also never run out of data or used the Android data warning system.\nhttps://www.qualcomm.com/news/onq/2016/05/02/qualcomm-trupalette-brings-your-phones-display-life",
+    "description": "Sends you a message when you reach a specified data limit?\nContains a service, but I've never it run. But I've also never run out of data or used the Android data warning system. WARNING: on HyperOS, disabling this package results in the mobile networks section to break as well as SIMs showing no service.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.qti.confuridialer": {
     "list": "Misc",
@@ -13114,11 +13122,11 @@
   },
   "com.qualcomm.qtil.btdsda": {
     "list": "Misc",
-    "description": "Hidden bluetooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things?",
+    "description": "Hidden bluetooth: answering call, hanging up call, hanging up conference call.\nIf you have dual-sim then you will lose these things? NOTE: disabling this causes audio to come from earpiece regardless of the option selected (Speaker, Earpiece, Bluetooth)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.uimremoteserver": {
     "list": "Misc",
@@ -13746,7 +13754,7 @@
   },
   "com.crowdcare.agent.k": {
     "list": "Misc",
-    "description": "Crowdcare is now Wysdom.AI (https://nitter.42l.fr/wysdomai)\nFrom their Twitter description : The easiest way for businesses to improve customer satisfaction, contain costs, \nand generate revenue by using #AI to power customer experiences.\nWysdom.AI has joined the Microsoft Partner Network in 2018\nhttps://wysdom.ai/privacy-policy/ (not good)\n",
+    "description": "Crowdcare is now Wysdom.AI\nFrom their Twitter description: the easiest way for businesses to improve customer satisfaction, contain costs, \nand generate revenue by using #AI to power customer experiences.\nWysdom.AI has joined the Microsoft Partner Network in 2018\nhttps://wysdom.ai/privacy-policy/ (not good)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15090,7 +15098,7 @@
   },
   "com.miui.cit": {
     "list": "Oem",
-    "description": "Hardware tests\nSecret codes (https://nitter.net/fs0c131y/status/933353182956326913#m) lets you run hardware tests.\nhttps://c.mi.com/thread-1744085-1-0.html\n",
+    "description": "Hardware tests\nSecret codes (https://web.archive.org/web/20220520051328/https://twitter.com/fs0c131y/status/933037531066785797). Lets you run hardware tests.\nhttps://c.mi.com/thread-1744085-1-0.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15322,7 +15330,7 @@
   },
   "com.miui.daemon": {
     "list": "Oem",
-    "description": "MIUI daemon\nCollects a lot of data and sends them to China.\nSee : https://nitter.net/fs0c131y/status/938872347087564800?lang=en\n",
+    "description": "MIUI daemon\nCollects a lot of data and sends them to China.\nSee: https://web.archive.org/web/20210923050136/https://twitter.com/fs0c131y/status/938872347087564800",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25862,7 +25870,7 @@
   },
   "com.oplus.melody": {
     "description": "Wireless Earphones\nWireless headset advanced configuration related (after uninstallation some Bluetooth headset setting options will be missing items, if you do not have headset setting problems, it is recommended to uninstall)\nhttps://play.google.com/store/apps/details?id=com.oplus.melody",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -28019,7 +28027,7 @@
   },
   "com.evenwell.autoregistration": {
     "list": "Oem",
-    "description": "Spyware app which sends warranty details to China\nhttps://milankragujevic.com/the-trade-of-privacy-for-convenience\nhttps://nitter.net/drwetter/status/1108801189662130176",
+    "description": "Spyware app which sends warranty details to China\nhttps://milankragujevic.com/the-trade-of-privacy-for-convenience\nhttps://archive.is/https://nitter.privacydev.net/drwetter/status/1108801189662130176",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29409,11 +29417,11 @@
   },
   "com.android.phone": {
     "list": "Aosp",
-    "description": "AOSP Dialer",
+    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.t2m.euiccoverlay": {
     "list": "Oem",
@@ -36252,5 +36260,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.heytap.headset":{
+    "list": "Oem",
+    "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }

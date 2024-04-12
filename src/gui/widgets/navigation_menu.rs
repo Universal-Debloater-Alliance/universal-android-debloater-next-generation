@@ -40,14 +40,15 @@ pub fn nav_menu<'a>(
 
     #[allow(clippy::option_if_let_else)]
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
-        if self_update_state.status == SelfUpdateStatus::Updating {
-            Text::new("Updating please wait...")
-        } else {
-            Text::new(format!(
+        match self_update_state.status {
+            SelfUpdateStatus::Failed => Text::new(format!("Failed to update to {}", r.tag_name)),
+            SelfUpdateStatus::Checking => Text::new(SelfUpdateStatus::Checking.to_string()),
+            SelfUpdateStatus::Done => Text::new(format!(
                 "Update available: {} -> {}",
                 env!("CARGO_PKG_VERSION"),
                 r.tag_name
-            ))
+            )),
+            SelfUpdateStatus::Updating => Text::new("Updating please wait..."),
         }
     } else {
         Text::new(format!("v{}", env!("CARGO_PKG_VERSION")))

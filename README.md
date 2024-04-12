@@ -1,14 +1,25 @@
 # Universal Android Debloater Next Generation
 
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=active+issues&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=resolved+issues&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+[![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=code+coverage&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
+
+
 **DISCLAIMER**: Use at your own risk. We're not responsible for anything that
 could happen to your phone.
 
 <img src="/resources/screenshots/v1.0.2.png" width="850" alt="uad_screenshot">
 
-**This software is still in an early stage of development. Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**
+**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**
 
 **For real-time communication, consider joining our Discord server:**
+
 [![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
+
+**In case you prefer using Matrix (using a Matrix bridge to Discord):**
+
+[<img src="https://matrix.org/images/matrix-logo.svg">](https://matrix.to/#/#uad-ng:matrix.org)
+
 
 ## Summary
 

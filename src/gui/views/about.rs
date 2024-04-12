@@ -27,10 +27,7 @@ impl About {
         // other events are handled by UadGui update()
     }
     pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
-        let about_text = text(
-            "Universal Android Debloater Next Generation (UAD-ng) is a Free and Open-Source community project aiming at simplifying \
-            the removal of pre-installed apps on any Android device.",
-        );
+        let about_text = text("Universal Android Debloater Next Generation (UAD-ng) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device.",);
 
         let descr_container = container(about_text)
             .width(Length::Fill)
@@ -38,7 +35,8 @@ impl About {
             .style(style::Container::Frame);
 
         let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
-        let uad_list_text = text(format!("Documentation: v{}", date.format("%Y%m%d"))).width(250);
+        let uad_list_text =
+            text(format!("UAD-ng package list: v{}", date.format("%Y%m%d"))).width(250);
         let last_update_text = text(update_state.uad_list.to_string());
         let uad_lists_btn = button("Update")
             .on_press(Message::UpdateUadLists)
@@ -98,7 +96,7 @@ impl About {
             .padding(10)
             .style(style::Container::Frame);
 
-        let website_btn = button("Github page")
+        let website_btn = button("GitHub page")
             .on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
             )))

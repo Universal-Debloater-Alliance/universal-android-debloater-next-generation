@@ -125,8 +125,6 @@ impl Application for UadGui {
                 #[allow(unused_must_use)]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
-                    self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
-                    self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
                 }
 
                 self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
@@ -275,6 +273,8 @@ impl Application for UadGui {
                 #[allow(unused_must_use)]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
+                    self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
+                    self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
                 }
                 self.update(Message::AppsAction(AppsMessage::LoadPhonePackages((
                     self.apps_view.uad_lists.clone(),
@@ -322,6 +322,11 @@ impl Application for UadGui {
                     }
                 } else {
                     error!("Failed to update UAD-ng!");
+                    #[allow(unused_must_use)]
+                    {
+                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
+                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                    }
                 }
                 Command::none()
             }
