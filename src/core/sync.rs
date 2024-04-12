@@ -115,7 +115,6 @@ pub async fn perform_adb_commands(
         CommandType::Shell => "Shell",
     };
 
-    // HERE FUEGO!!
     match adb_shell_command(true, &action) {
         Ok(o) => {
             // On old devices, adb commands can return the '0' exit code even if there
