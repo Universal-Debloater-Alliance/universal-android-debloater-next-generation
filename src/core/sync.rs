@@ -101,6 +101,7 @@ pub enum CommandType {
     Shell,
 }
 
+/// An enum to contain different variants for errors yielded by ADB.
 #[derive(Debug, Clone)]
 pub enum AdbError {
     Generic(String),
