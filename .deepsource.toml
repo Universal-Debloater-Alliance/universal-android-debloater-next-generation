@@ -6,5 +6,8 @@ name = "rust"
   [analyzers.meta]
   msrv = "stable"
 
+[[analyzers]]
+name = "test-coverage"
+
 [[transformers]]
 name = "rustfmt"

@@ -26,8 +26,17 @@ fn main() -> iced::Result {
     gui::UadGui::start()
 }
 
+/// Sets up logging to a new file in CACHE_DIR/UAD_{time}.log
+/// Also attaches the terminal on Windows machines
+/// '''
+/// match setup_logger().expect("Error setting up logger")
+/// '''
 pub fn setup_logger() -> Result<(), fern::InitError> {
-    attach_windows_console();
+    /// Attach Windows terminal, only on Windows
+    #[cfg(target_os = "windows")]
+    {
+        attach_windows_console();
+    }
 
     let colors = ColoredLevelConfig::new().info(Color::Green);
 
@@ -50,7 +59,6 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 
     let default_log_level = log::LevelFilter::Warn;
     let log_file = OpenOptions::new()
-        .write(true)
         .create(true)
         .append(true)
         .truncate(false)
@@ -81,13 +89,23 @@ pub fn setup_logger() -> Result<(), fern::InitError> {
 /// (Windows) Allow the application to display logs to the terminal
 /// regardless if it was compiled with `windows_subsystem = "windows"`.
 ///
-/// This is a no-op when compiled to non-windows targets.
+/// This is excluded on non-Windows targets.
+#[cfg(target_os = "windows")]
 fn attach_windows_console() {
-    #[cfg(target_os = "windows")]
-    {
-        use win32console::console::WinConsole;
+    use win32console::console::WinConsole;
 
-        const ATTACH_PARENT_PROCESS: u32 = 0xFFFFFFFF;
-        let _ = WinConsole::attach_console(ATTACH_PARENT_PROCESS);
+    const ATTACH_PARENT_PROCESS: u32 = 0xFFFFFFFF;
+    let _ = WinConsole::attach_console(ATTACH_PARENT_PROCESS);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn init_logger() {
+        match setup_logger() {
+            Ok(_) => (),
+            Err(error) => panic!("Error: {}", error),
+        }
     }
 }

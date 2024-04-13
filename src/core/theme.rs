@@ -65,7 +65,7 @@ impl Theme {
                     foreground: color!(0xE0E0E0),
                 },
                 normal: NormalColors {
-                    primary: color!(0x230F08),
+                    primary: color!(0x818181),
                     secondary: color!(0xF9D659),
                     surface: color!(0x818181),
                     error: color!(0x992B2B),

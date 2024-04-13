@@ -50,7 +50,7 @@ impl PackageRow {
         Command::none()
     }
 
-    pub fn view(&self, settings: &Settings, _phone: &Phone) -> Element<Message, Renderer<Theme>> {
+    pub fn view(&self, settings: &Settings, _phone: &Phone) -> Element<Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
         let button_style;
@@ -86,7 +86,8 @@ impl PackageRow {
             || self.state != PackageState::Enabled
             || settings.general.expert_mode
         {
-            selection_checkbox = checkbox("", self.selected, Message::ToggleSelection)
+            selection_checkbox = checkbox("", self.selected)
+                .on_toggle(Message::ToggleSelection)
                 .style(style::CheckBox::PackageEnabled);
 
             action_btn = button(
@@ -96,7 +97,8 @@ impl PackageRow {
             )
             .on_press(Message::ActionPressed);
         } else {
-            selection_checkbox = checkbox("", self.selected, Message::ToggleSelection)
+            selection_checkbox = checkbox("", self.selected)
+                .on_toggle(Message::ToggleSelection)
                 .style(style::CheckBox::PackageDisabled);
 
             action_btn = button(

@@ -1,14 +1,17 @@
 use crate::core::config::DeviceSettings;
-use crate::core::sync::{apply_pkg_state_commands, perform_adb_commands, CommandType, Phone, User};
+use crate::core::sync::{
+    apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Phone, User,
+};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
-    load_debloat_lists, Opposite, Package, PackageState, Removal, UadList, UadListState,
+    load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
 use crate::core::utils::fetch_packages;
+use crate::core::utils::open_url;
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
-use std::collections::HashMap;
 use std::env;
+use std::path::PathBuf;
 
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
@@ -35,12 +38,13 @@ pub enum LoadingState {
     _UpdatingUad,
     Ready,
     RestoringDevice(String),
+    FailedToUpdate,
 }
 
 #[derive(Default, Debug, Clone)]
 pub struct List {
     pub loading_state: LoadingState,
-    pub uad_lists: HashMap<String, Package>,
+    pub uad_lists: PackageHashMap,
     pub phone_packages: Vec<Vec<PackageRow>>, // packages of all users of the phone
     filtered_packages: Vec<usize>, // phone_packages indexes of the selected user (= what you see on screen)
     selected_packages: Vec<(usize, usize)>, // Vec of (user_index, pkg_index)
@@ -52,14 +56,16 @@ pub struct List {
     pub input_value: String,
     description: String,
     selection_modal: bool,
+    error_modal: Option<String>,
     current_package_index: usize,
+    is_adb_satisfied: bool,
 }
 
 #[derive(Debug, Clone)]
 pub enum Message {
     LoadUadList(bool),
-    LoadPhonePackages((HashMap<String, Package>, UadListState)),
-    RestoringDevice(Result<CommandType, ()>),
+    LoadPhonePackages((PackageHashMap, UadListState)),
+    RestoringDevice(Result<CommandType, AdbError>),
     ApplyFilters(Vec<Vec<PackageRow>>),
     SearchInputChanged(String),
     ToggleAllSelected(bool),
@@ -69,11 +75,15 @@ pub enum Message {
     RemovalSelected(Removal),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    ChangePackageState(Result<CommandType, ()>),
+    ChangePackageState(Result<CommandType, AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
     ModalValidate,
+    ClearSelectedPackages,
+    ADBSatisfied(bool),
+    UpdateFailed,
+    GoToUrl(PathBuf),
 }
 
 pub struct SummaryEntry {
@@ -104,6 +114,7 @@ impl List {
         match message {
             Message::ModalHide => {
                 self.selection_modal = false;
+                self.error_modal = None;
                 Command::none()
             }
             Message::ModalValidate => {
@@ -271,13 +282,19 @@ impl List {
                 Command::none()
             }
             Message::ChangePackageState(res) => {
-                if let Ok(CommandType::PackageManager(p)) = res {
-                    let package = &mut self.phone_packages[p.i_user][p.index];
-                    package.state = package.state.opposite(settings.device.disable_mode);
-                    package.selected = false;
-                    self.selected_packages
-                        .retain(|&x| x.1 != p.index && x.0 != p.i_user);
-                    Self::filter_package_lists(self);
+                match res {
+                    Ok(CommandType::PackageManager(p)) => {
+                        let package = &mut self.phone_packages[p.i_user][p.index];
+                        package.state = package.state.opposite(settings.device.disable_mode);
+                        package.selected = false;
+                        self.selected_packages
+                            .retain(|&x| x.1 != p.index && x.0 != p.i_user);
+                        Self::filter_package_lists(self);
+                    }
+                    Err(AdbError::Generic(err)) => {
+                        self.error_modal = Some(err);
+                    }
+                    _ => {}
                 }
                 Command::none()
             }
@@ -290,6 +307,22 @@ impl List {
                     Message::UserSelected(user),
                 )
             }
+            Message::ClearSelectedPackages => {
+                self.selected_packages = Vec::new();
+                Command::none()
+            }
+            Message::ADBSatisfied(result) => {
+                self.is_adb_satisfied = result;
+                Command::none()
+            }
+            Message::UpdateFailed => {
+                self.loading_state = LoadingState::FailedToUpdate;
+                Command::none()
+            }
+            Message::GoToUrl(url) => {
+                open_url(url);
+                Command::none()
+            }
             Message::Nothing => Command::none(),
         }
     }
@@ -298,35 +331,62 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Renderer<Theme>> {
+    ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
-            LoadingState::DownloadingList => {
-                let text = "Downloading latest UAD-ng lists from GitHub. Please wait...";
-                waiting_view(settings, text, true)
-            }
+            LoadingState::DownloadingList => waiting_view(
+                settings,
+                "Downloading latest UAD-ng lists from GitHub. Please wait...",
+                Some(button("No internet?").on_press(Message::LoadUadList(false))),
+                style::Text::Default,
+            ),
             LoadingState::FindingPhones => {
-                waiting_view(settings, "Finding connected devices...", false)
+                if self.is_adb_satisfied {
+                    waiting_view(
+                        settings,
+                        "Finding connected devices...",
+                        None,
+                        style::Text::Default,
+                    )
+                } else {
+                    waiting_view(
+                        settings,
+                        "ADB is not installed on your system, install ADB and relaunch application.",
+                        Some(button("Read on how to get started.")
+                    .on_press(Message::GoToUrl(PathBuf::from(
+                        "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started",
+                    )))),
+                        style::Text::Danger,
+                    )
+                }
             }
-            LoadingState::LoadingPackages => {
-                let text = "Pulling packages from the device. Please wait...";
-                waiting_view(settings, text, false)
-            }
-            LoadingState::_UpdatingUad => {
-                waiting_view(settings, "Updating UAD-ng. Please wait...", false)
-            }
-            LoadingState::RestoringDevice(device) => {
-                waiting_view(settings, &format!("Restoring device: {device}"), false)
-            }
+            LoadingState::LoadingPackages => waiting_view(
+                settings,
+                "Pulling packages from the device. Please wait...",
+                None,
+                style::Text::Default,
+            ),
+            LoadingState::_UpdatingUad => waiting_view(
+                settings,
+                "Updating UAD-ng. Please wait...",
+                None,
+                style::Text::Default,
+            ),
+            LoadingState::RestoringDevice(device) => waiting_view(
+                settings,
+                &format!("Restoring device: {device}"),
+                None,
+                style::Text::Default,
+            ),
             LoadingState::Ready => {
                 let search_packages = text_input("Search packages...", &self.input_value)
                     .width(Length::Fill)
                     .on_input(Message::SearchInputChanged)
-                    .padding(5);
+                    .padding([5, 10]);
 
-                let select_all_checkbox =
-                    checkbox("", self.all_selected, Message::ToggleAllSelected)
-                        .style(style::CheckBox::SettingsEnabled)
-                        .spacing(0); // no label, so remove space entirely
+                let select_all_checkbox = checkbox("", self.all_selected)
+                    .on_toggle(Message::ToggleAllSelected)
+                    .style(style::CheckBox::SettingsEnabled)
+                    .spacing(0); // no label, so remove space entirely
 
                 let col_sel_all = row![tooltip(
                     select_all_checkbox,
@@ -349,15 +409,15 @@ impl List {
                 .width(85);
 
                 let list_picklist =
-                    pick_list(&UadList::ALL[..], self.selected_list, Message::ListSelected);
+                    pick_list(UadList::ALL, self.selected_list, Message::ListSelected);
                 let package_state_picklist = pick_list(
-                    &PackageState::ALL[..],
+                    PackageState::ALL,
                     self.selected_package_state,
                     Message::PackageStateSelected,
                 );
 
                 let removal_picklist = pick_list(
-                    &Removal::ALL[..],
+                    Removal::ALL,
                     self.selected_removal,
                     Message::RemovalSelected,
                 );
@@ -378,11 +438,11 @@ impl List {
                 let packages =
                     self.filtered_packages
                         .iter()
-                        .fold(column![].spacing(6), |col, i| {
+                        .fold(column![].spacing(6), |col, &i| {
                             col.push(
-                                self.phone_packages[self.selected_user.unwrap().index][*i]
+                                self.phone_packages[self.selected_user.unwrap().index][i]
                                     .view(settings, selected_device)
-                                    .map(move |msg| Message::List(*i, msg)),
+                                    .map(move |msg| Message::List(i, msg)),
                             )
                         });
 
@@ -405,14 +465,14 @@ impl List {
                         self.selected_packages.len()
                     )))
                     .on_press(Message::ApplyActionOnSelection)
-                    .padding(5)
+                    .padding([5, 10])
                     .style(style::Button::Primary)
                 } else {
                     button(text(format!(
                         "Review selection ({})",
                         self.selected_packages.len()
                     )))
-                    .padding(5)
+                    .padding([5, 10])
                 };
 
                 let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
@@ -457,7 +517,7 @@ impl List {
                     .align_items(Alignment::Center)
                 };
                 if self.selection_modal {
-                    Modal::new(
+                    return Modal::new(
                         content.padding(10),
                         self.apply_selection_modal(
                             selected_device,
@@ -466,11 +526,48 @@ impl List {
                         ),
                     )
                     .on_blur(Message::ModalHide)
-                    .into()
+                    .into();
+                }
+                if let Some(err) = &self.error_modal {
+                    let title_ctn = container(
+                        row![text("Failed to perform ADB operation").size(24)]
+                            .align_items(Alignment::Center),
+                    )
+                    .width(Length::Fill)
+                    .style(style::Container::Frame)
+                    .padding([10, 0, 10, 0])
+                    .center_y()
+                    .center_x();
+
+                    let modal_btn_row = row![button(
+                        text("Close")
+                            .width(Length::Fill)
+                            .horizontal_alignment(alignment::Horizontal::Center),
+                    )
+                    .width(Length::Fill)
+                    .padding(10)
+                    .on_press(Message::ModalHide)]
+                    .padding([10, 0, 0, 0]);
+
+                    let text_box = scrollable(text(err).width(Length::Fill)).height(400);
+
+                    let ctn = container(column![title_ctn, text_box, modal_btn_row])
+                        .height(Length::Shrink)
+                        .max_height(700)
+                        .padding(10)
+                        .style(style::Container::Frame);
+
+                    Modal::new(content, ctn).on_blur(Message::ModalHide).into()
                 } else {
                     container(content).height(Length::Fill).padding(10).into()
                 }
             }
+            LoadingState::FailedToUpdate => waiting_view(
+                settings,
+                "Failed to download update",
+                Some(button("Go back").on_press(Message::LoadUadList(false))),
+                style::Text::Danger,
+            ),
         }
     }
 
@@ -479,7 +576,7 @@ impl List {
         device: &Phone,
         settings: &Settings,
         packages: &[PackageRow],
-    ) -> Element<Message, Renderer<Theme>> {
+    ) -> Element<Message, Theme, Renderer> {
         // 5 element slice is cheap
         let mut summaries = Removal::CATEGORIES.map(SummaryEntry::from);
         for p in packages.iter().filter(|p| p.selected) {
@@ -545,7 +642,7 @@ impl List {
 
         let modal_btn_row = row![
             button(text("Cancel")).on_press(Message::ModalHide),
-            horizontal_space(Length::Fill),
+            horizontal_space(),
             button(text("Apply")).on_press(Message::ModalValidate),
         ]
         .padding([0, 15, 10, 10]);
@@ -592,7 +689,7 @@ impl List {
                                                         .name
                                                         .clone()
                                                 ),],
-                                                horizontal_space(Length::Fill),
+                                                horizontal_space(),
                                                 row![match self.phone_packages[selection.0]
                                                     [selection.1]
                                                     .state
@@ -692,28 +789,18 @@ impl List {
             .collect();
     }
 
-    async fn load_packages(
-        uad_list: HashMap<String, Package>,
-        user_list: Vec<User>,
-    ) -> Vec<Vec<PackageRow>> {
-        let mut phone_packages = vec![];
-
+    async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
         if user_list.len() <= 1 {
-            phone_packages.push(fetch_packages(&uad_list, None));
+            vec![fetch_packages(&uad_list, None)]
         } else {
-            phone_packages.extend(
-                user_list
-                    .iter()
-                    .map(|user| fetch_packages(&uad_list, Some(user))),
-            );
-        };
-        phone_packages
+            user_list
+                .iter()
+                .map(|user| fetch_packages(&uad_list, Some(user)))
+                .collect()
+        }
     }
 
-    async fn init_apps_view(
-        remote: bool,
-        phone: Phone,
-    ) -> (HashMap<String, Package>, UadListState) {
+    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
         let (uad_lists, _) = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
@@ -734,24 +821,17 @@ impl List {
 fn waiting_view<'a>(
     _settings: &Settings,
     displayed_text: &str,
-    btn: bool,
-) -> Element<'a, Message, Renderer<Theme>> {
-    let col = if btn {
-        let no_internet_btn = button("No internet?")
-            .padding(5)
-            .on_press(Message::LoadUadList(false))
-            .style(style::Button::Primary);
+    btn: Option<button::Button<'a, Message, Theme, Renderer>>,
+    text_style: style::Text,
+) -> Element<'a, Message, Theme, Renderer> {
+    let col = column![]
+        .spacing(10)
+        .align_items(Alignment::Center)
+        .push(text(displayed_text).style(text_style).size(20));
 
-        column![]
-            .spacing(10)
-            .align_items(Alignment::Center)
-            .push(text(displayed_text).size(20))
-            .push(no_internet_btn)
-    } else {
-        column![]
-            .spacing(10)
-            .align_items(Alignment::Center)
-            .push(text(displayed_text).size(20))
+    let col = match btn {
+        Some(btn) => col.push(btn.style(style::Button::Primary).padding([5, 10])),
+        None => col,
     };
 
     container(col)
@@ -776,13 +856,14 @@ fn build_action_pkg_commands(
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected && (packages[u.index][selection.1].selected || settings.multi_user_mode)
     }) {
-        let u_pkg = packages[u.index][selection.1].clone();
-        let actions = if settings.multi_user_mode {
-            apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device)
+        let u_pkg = &packages[u.index][selection.1];
+        let wanted_state = if settings.multi_user_mode {
+            wanted_state
         } else {
-            let wanted_state = u_pkg.state.opposite(settings.disable_mode);
-            apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device)
+            u_pkg.state.opposite(settings.disable_mode)
         };
+
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device);
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
@@ -804,10 +885,10 @@ fn build_action_pkg_commands(
     commands
 }
 
-fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Renderer<Theme>> {
+fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
     container(
         row![
-            text(recap.category).size(24).width(Length::FillPortion(1)),
+            text(recap.category).size(19).width(Length::FillPortion(1)),
             vertical_rule(5),
             row![
                 if settings.device.disable_mode {
@@ -815,7 +896,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                 } else {
                     text("Uninstall").style(style::Text::Danger)
                 },
-                horizontal_space(Length::Fill),
+                horizontal_space(),
                 text(recap.discard).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
@@ -826,7 +907,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                 } else {
                     text("Restore").style(style::Text::Ok)
                 },
-                horizontal_space(Length::Fill),
+                horizontal_space(),
                 text(recap.restore).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))

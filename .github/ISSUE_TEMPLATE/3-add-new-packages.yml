@@ -1,0 +1,45 @@
+name: Add new package(s)
+description: You want to add new apps to the debloat list
+title: "pkg(scope): "
+labels: ["package::addition"]
+body:
+- type: markdown
+  attributes:
+    value: |
+      ## Document each package the best you can
+
+      **List**: `Google`|`Misc`|`OEM` (manufacturer) |`AOSP`|`Pending`|`Carrier` (ISP).
+
+      **Removal**:
+
+      - Recommended: Pointless or outright negative packages, and/or apps available through Google Play.
+      - Advanced: Breaks obscure or minor parts of functionality, or apps that aren't easily enabled/installed through Settings/Google Play. This category is also used for apps that are useful (default keyboard/gallery/launcher/music app.) but that can easily be replaced by a better alternative.
+      - Expert: Breaks widespread and/or important functionality, but nothing important to the basic operation of the operating system. Removing an Expert package should not bootloop the device (unless mentioned in the description) but we can't guarantee it 100%.
+      - Unsafe: Can break vital parts of the operating system. Removing an Unsafe package have an extremely high risk of bootlooping your device.
+
+- type: textarea
+  id: package-listing
+  attributes:
+    label: List your packages
+    description: Put the package name, list, removal and description of the package. Copy & paste the below default values when adding multiple packages.
+    value: |
+      - Package name: 
+      - List: 
+      - Removal: 
+      - Description: 
+  validations:
+    required: true
+
+- type: checkboxes
+  id: acknowledgements
+  attributes:
+    label: Acknowledgements
+    description: Your bug report will be closed if you don't follow the checklist below.
+    options:
+      - label: I removed all those packages on my phone. If not, why? Explain in the issue.
+      - label: This issue is not a duplicate of an existing one.
+        required: true
+      - label: I have chosen an appropriate title.
+        required: true
+      - label: All requested information has been provided properly.
+        required: true

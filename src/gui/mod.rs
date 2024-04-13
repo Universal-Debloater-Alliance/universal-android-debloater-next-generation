@@ -2,7 +2,7 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{get_devices_list, perform_adb_commands, CommandType, Phone};
+use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, CommandType, Phone};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
@@ -21,7 +21,9 @@ use iced::{
     window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
     Settings,
 };
-use std::{env, path::PathBuf};
+use std::env;
+#[cfg(feature = "self-update")]
+use std::path::PathBuf;
 
 #[cfg(feature = "self-update")]
 use crate::core::update::{bin_name, download_update_to_temp_file, remove_file};
@@ -50,6 +52,7 @@ pub struct UadGui {
     selected_device: Option<Phone>, // index of devices_list
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
+    adb_satisfied: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -65,10 +68,12 @@ pub enum Message {
     RefreshButtonPressed,
     RebootButtonPressed,
     LoadDevices(Vec<Phone>),
+    #[cfg(feature = "self-update")]
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
     FontLoaded(Result<(), iced::font::Error>),
     Nothing,
+    ADBSatisfied(bool),
 }
 
 impl Application for UadGui {
@@ -84,6 +89,7 @@ impl Application for UadGui {
                 // Used in crate::gui::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
+                Command::perform(initial_load(), Message::ADBSatisfied),
                 Command::perform(get_devices_list(), Message::LoadDevices),
                 Command::perform(
                     async move { get_latest_release() },
@@ -141,6 +147,12 @@ impl Application for UadGui {
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
+                #[allow(unused_must_use)]
+                {
+                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                        self.adb_satisfied,
+                    )));
+                }
                 Command::perform(get_devices_list(), Message::LoadDevices)
             }
             Message::RebootButtonPressed => {
@@ -261,16 +273,18 @@ impl Application for UadGui {
                 #[allow(unused_must_use)]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
+                    self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
+                    self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
                 }
                 self.update(Message::AppsAction(AppsMessage::LoadPhonePackages((
                     self.apps_view.uad_lists.clone(),
                     UadListState::Done,
                 ))))
             }
+            #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD-ng update has been download!");
+                debug!("UAD-ng update has been downloaded!");
 
-                #[cfg(feature = "self-update")]
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
                     // arg as binary path because it's not reliable, per the docs.
@@ -308,6 +322,11 @@ impl Application for UadGui {
                     }
                 } else {
                     error!("Failed to update UAD-ng!");
+                    #[allow(unused_must_use)]
+                    {
+                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
+                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                    }
                 }
                 Command::none()
             }
@@ -328,11 +347,17 @@ impl Application for UadGui {
 
                 Command::none()
             }
+            Message::ADBSatisfied(result) => {
+                self.adb_satisfied = result;
+                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                    self.adb_satisfied,
+                )))
+            }
             Message::Nothing => Command::none(),
         }
     }
 
-    fn view(&self) -> Element<Self::Message, Renderer<Self::Theme>> {
+    fn view(&self) -> Element<Self::Message, Self::Theme, Renderer> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),
@@ -365,17 +390,24 @@ impl Application for UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
-        let logo = include_bytes!("../../resources/assets/logo.png");
+        let logo: &[u8] = match dark_light::detect() {
+            dark_light::Mode::Dark => include_bytes!("../../resources/assets/logo-dark.png"),
+            dark_light::Mode::Light => include_bytes!("../../resources/assets/logo-light.png"),
+            dark_light::Mode::Default => include_bytes!("../../resources/assets/logo-light.png"),
+        };
 
         Self::run(Settings {
             window: Window {
-                size: (820, 640),
+                size: iced::Size {
+                    width: 950.0,
+                    height: 700.0,
+                },
                 resizable: true,
                 decorations: true,
                 icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
                 ..iced::window::Settings::default()
             },
-            default_text_size: 16.0,
+            default_text_size: iced::Pixels(16.0),
             ..Settings::default()
         })
     }

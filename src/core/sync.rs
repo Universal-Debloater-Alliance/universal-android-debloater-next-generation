@@ -68,10 +68,8 @@ pub fn adb_shell_command(shell: bool, args: &str) -> Result<String, String> {
 
     match command.output() {
         Err(e) => {
-            // TODO: better error handling with anyhow + thiserror
             error!("ADB: {}", e);
-            error!("ADB was not found");
-            std::process::exit(1);
+            Err("ADB was not found".to_string())
         }
         Ok(o) => {
             if o.status.success() {
@@ -102,13 +100,20 @@ pub enum CommandType {
     PackageManager(PackageInfo),
     Shell,
 }
+
+/// An enum to contain different variants for errors yielded by ADB.
+#[derive(Debug, Clone)]
+pub enum AdbError {
+    Generic(String),
+}
+
 pub async fn perform_adb_commands(
     action: String,
     command_type: CommandType,
-) -> Result<CommandType, ()> {
-    let label = match command_type {
-        CommandType::PackageManager(ref p) => p.removal.to_string(),
-        CommandType::Shell => "Shell".to_string(),
+) -> Result<CommandType, AdbError> {
+    let label = match &command_type {
+        CommandType::PackageManager(p) => &p.removal,
+        CommandType::Shell => "Shell",
     };
 
     match adb_shell_command(true, &action) {
@@ -119,18 +124,23 @@ pub async fn perform_adb_commands(
             // Some commands are even killed by ADB before finishing and UAD-ng can't catch
             // the output.
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                error!("[{}] {} -> {}", label, action, o);
-                Err(())
-            } else {
-                info!("[{}] {} -> {}", label, action, o);
-                Ok(command_type)
+                return Err(AdbError::Generic(format!(
+                    "[{}] {} -> {}",
+                    label, action, o
+                )));
             }
+
+            info!("[{}] {} -> {}", label, action, o);
+            Ok(command_type)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                error!("[{}] {} -> {}", label, action, err);
+                return Err(AdbError::Generic(format!(
+                    "[{}] {} -> {}",
+                    label, action, err
+                )));
             }
-            Err(())
+            Err(AdbError::Generic(err.to_string()))
         }
     }
 }
@@ -240,7 +250,7 @@ pub fn apply_pkg_state_commands(
         },
         PackageState::All => vec![],
     };
-    let user = (phone.android_sdk < 21).then_some(selected_user);
+    let user = (phone.android_sdk >= 21).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
@@ -330,4 +340,11 @@ pub async fn get_devices_list() -> Vec<Phone> {
         },
     )
     .unwrap_or_default()
+}
+
+pub async fn initial_load() -> bool {
+    match adb_shell_command(false, "devices") {
+        Ok(_devices) => true,
+        Err(_err) => false,
+    }
 }

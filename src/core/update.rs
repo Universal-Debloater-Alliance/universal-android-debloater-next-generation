@@ -150,11 +150,17 @@ pub async fn download_update_to_temp_file(
     }
 
     if let Err(e) = rename(&current_bin_path, &tmp_path) {
-        error!("[SelfUpdate] Couldn't rename binary path: {}", e);
+        error!(
+            "[SelfUpdate] Couldn't rename from current to temporary binary path: {}",
+            e
+        );
         return Err(());
     }
     if let Err(e) = rename(&download_path, &current_bin_path) {
-        error!("[SelfUpdate] Couldn't rename binary path: {}", e);
+        error!(
+            "[SelfUpdate] Couldn't rename from downloaded to current binary path: {}",
+            e
+        );
         return Err(());
     }
 
@@ -173,15 +179,13 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for UAD-ng update");
 
-    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases")
+    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
         .call()
     {
         Ok(res) => {
             let release: Release = serde_json::from_value(
                 res.into_json::<serde_json::Value>()
                     .map_err(|_| ())?
-                    .get(0)
-                    .ok_or(())?
                     .clone(),
             )
             .map_err(|_| ())?;
@@ -227,7 +231,7 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
 }
 
 /// Hardcoded binary names for each compilation target
-/// that gets published to the Github Release
+/// that gets published to the GitHub Release
 #[cfg(feature = "self-update")]
 pub const fn bin_name() -> &'static str {
     #[cfg(target_os = "windows")]
