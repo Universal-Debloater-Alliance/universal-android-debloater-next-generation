@@ -18,7 +18,7 @@ use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use iced::widget::{
     button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
-    text_input, tooltip, vertical_rule, Space,
+    text_input, tooltip, vertical_rule, Column, Space,
 };
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
 
@@ -327,6 +327,7 @@ impl List {
         }
     }
 
+    /// Builds the main view for the app list interface
     pub fn view(
         &self,
         settings: &Settings,
@@ -377,110 +378,126 @@ impl List {
                 None,
                 style::Text::Default,
             ),
-            LoadingState::Ready => {
-                let search_packages = text_input("Search packages...", &self.input_value)
-                    .width(Length::Fill)
-                    .on_input(Message::SearchInputChanged)
-                    .padding([5, 10]);
+            LoadingState::Ready => self.ready_view(settings, selected_device),
+            LoadingState::FailedToUpdate => waiting_view(
+                settings,
+                "Failed to download update",
+                Some(button("Go back").on_press(Message::LoadUadList(false))),
+                style::Text::Danger,
+            ),
+        }
+    }
 
-                let select_all_checkbox = checkbox("", self.all_selected)
-                    .on_toggle(Message::ToggleAllSelected)
-                    .style(style::CheckBox::SettingsEnabled)
-                    .spacing(0); // no label, so remove space entirely
+    fn control_panel(&self, selected_device: &Phone) -> Element<Message, Theme, Renderer> {
+        let search_packages = text_input("Search packages...", &self.input_value)
+            .width(Length::Fill)
+            .on_input(Message::SearchInputChanged)
+            .padding([5, 10]);
 
-                let col_sel_all = row![tooltip(
-                    select_all_checkbox,
-                    if self.all_selected {
-                        "Deselect all"
-                    } else {
-                        "Select all"
-                    },
-                    tooltip::Position::Top,
+        let select_all_checkbox = checkbox("", self.all_selected)
+            .on_toggle(Message::ToggleAllSelected)
+            .style(style::CheckBox::SettingsEnabled)
+            .spacing(0); // no label, so remove space entirely
+
+        let col_sel_all = row![tooltip(
+            select_all_checkbox,
+            if self.all_selected {
+                "Deselect all"
+            } else {
+                "Select all"
+            },
+            tooltip::Position::Top,
+        )
+        .style(style::Container::Tooltip)
+        .gap(4)]
+        .padding(8);
+
+        let user_picklist = pick_list(
+            selected_device.user_list.clone(),
+            self.selected_user,
+            Message::UserSelected,
+        )
+        .width(85);
+
+        let list_picklist = pick_list(UadList::ALL, self.selected_list, Message::ListSelected);
+        let package_state_picklist = pick_list(
+            PackageState::ALL,
+            self.selected_package_state,
+            Message::PackageStateSelected,
+        );
+
+        let removal_picklist = pick_list(
+            Removal::ALL,
+            self.selected_removal,
+            Message::RemovalSelected,
+        );
+
+        row![
+            col_sel_all,
+            search_packages,
+            user_picklist,
+            removal_picklist,
+            package_state_picklist,
+            list_picklist,
+        ]
+        .width(Length::Fill)
+        .align_items(Alignment::Center)
+        .spacing(6)
+        .padding([0, 16, 0, 0])
+        .into()
+    }
+
+    fn ready_view(
+        &self,
+        settings: &Settings,
+        selected_device: &Phone,
+    ) -> Element<Message, Theme, Renderer> {
+        let packages = self
+            .filtered_packages
+            .iter()
+            .fold(column![].spacing(6), |col, &i| {
+                col.push(
+                    self.phone_packages[self.selected_user.unwrap().index][i]
+                        .view(settings, selected_device)
+                        .map(move |msg| Message::List(i, msg)),
                 )
-                .style(style::Container::Tooltip)
-                .gap(4)]
-                .padding(8);
+            });
 
-                let user_picklist = pick_list(
-                    selected_device.user_list.clone(),
-                    self.selected_user,
-                    Message::UserSelected,
-                )
-                .width(85);
+        let packages_scrollable = scrollable(packages)
+            .height(Length::FillPortion(6))
+            .style(style::Scrollable::Packages);
 
-                let list_picklist =
-                    pick_list(UadList::ALL, self.selected_list, Message::ListSelected);
-                let package_state_picklist = pick_list(
-                    PackageState::ALL,
-                    self.selected_package_state,
-                    Message::PackageStateSelected,
-                );
+        let description_scroll = scrollable(text(&self.description).width(Length::Fill))
+            .style(style::Scrollable::Description);
 
-                let removal_picklist = pick_list(
-                    Removal::ALL,
-                    self.selected_removal,
-                    Message::RemovalSelected,
-                );
+        let description_panel = container(description_scroll)
+            .padding(6)
+            .height(Length::FillPortion(2))
+            .width(Length::Fill)
+            .style(style::Container::Frame);
 
-                let control_panel = row![
-                    col_sel_all,
-                    search_packages,
-                    user_picklist,
-                    removal_picklist,
-                    package_state_picklist,
-                    list_picklist,
-                ]
-                .width(Length::Fill)
-                .align_items(Alignment::Center)
-                .spacing(6)
-                .padding([0, 16, 0, 0]);
+        let review_selection = if !self.selected_packages.is_empty() {
+            button(text(format!(
+                "Review selection ({})",
+                self.selected_packages.len()
+            )))
+            .on_press(Message::ApplyActionOnSelection)
+            .padding([5, 10])
+            .style(style::Button::Primary)
+        } else {
+            button(text(format!(
+                "Review selection ({})",
+                self.selected_packages.len()
+            )))
+            .padding([5, 10])
+        };
 
-                let packages =
-                    self.filtered_packages
-                        .iter()
-                        .fold(column![].spacing(6), |col, &i| {
-                            col.push(
-                                self.phone_packages[self.selected_user.unwrap().index][i]
-                                    .view(settings, selected_device)
-                                    .map(move |msg| Message::List(i, msg)),
-                            )
-                        });
+        let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
+            .width(Length::Fill)
+            .spacing(10)
+            .align_items(Alignment::Center);
 
-                let packages_scrollable = scrollable(packages)
-                    .height(Length::FillPortion(6))
-                    .style(style::Scrollable::Packages);
-
-                let description_scroll = scrollable(text(&self.description).width(Length::Fill))
-                    .style(style::Scrollable::Description);
-
-                let description_panel = container(description_scroll)
-                    .padding(6)
-                    .height(Length::FillPortion(2))
-                    .width(Length::Fill)
-                    .style(style::Container::Frame);
-
-                let review_selection = if !self.selected_packages.is_empty() {
-                    button(text(format!(
-                        "Review selection ({})",
-                        self.selected_packages.len()
-                    )))
-                    .on_press(Message::ApplyActionOnSelection)
-                    .padding([5, 10])
-                    .style(style::Button::Primary)
-                } else {
-                    button(text(format!(
-                        "Review selection ({})",
-                        self.selected_packages.len()
-                    )))
-                    .padding([5, 10])
-                };
-
-                let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
-                    .width(Length::Fill)
-                    .spacing(10)
-                    .align_items(Alignment::Center);
-
-                let unavailable = container(
+        let unavailable = container(
                     column![
                         text("ADB is not authorized to access this user!").size(20)
                             .style(style::Text::Danger),
@@ -495,79 +512,42 @@ impl List {
                 .center_x()
                 .style(style::Container::BorderedFrame);
 
-                let content = if selected_device.user_list.is_empty()
-                    || !self.phone_packages[self.selected_user.unwrap().index].is_empty()
-                {
-                    column![
-                        control_panel,
-                        packages_scrollable,
-                        description_panel,
-                        action_row,
-                    ]
-                    .width(Length::Fill)
-                    .spacing(10)
-                    .align_items(Alignment::Center)
-                } else {
-                    column![
-                        control_panel,
-                        container(unavailable).height(Length::Fill).center_y(),
-                    ]
-                    .width(Length::Fill)
-                    .spacing(10)
-                    .align_items(Alignment::Center)
-                };
-                if self.selection_modal {
-                    return Modal::new(
-                        content.padding(10),
-                        self.apply_selection_modal(
-                            selected_device,
-                            settings,
-                            &self.phone_packages[self.selected_user.unwrap().index],
-                        ),
-                    )
-                    .on_blur(Message::ModalHide)
-                    .into();
-                }
-                if let Some(err) = &self.error_modal {
-                    let title_ctn = container(
-                        row![text("Failed to perform ADB operation").size(24)]
-                            .align_items(Alignment::Center),
-                    )
-                    .width(Length::Fill)
-                    .style(style::Container::Frame)
-                    .padding([10, 0, 10, 0])
-                    .center_y()
-                    .center_x();
+        let control_panel = self.control_panel(selected_device);
+        let content = if selected_device.user_list.is_empty()
+            || !self.phone_packages[self.selected_user.unwrap().index].is_empty()
+        {
+            column![
+                control_panel,
+                packages_scrollable,
+                description_panel,
+                action_row,
+            ]
+        } else {
+            column![
+                control_panel,
+                container(unavailable).height(Length::Fill).center_y(),
+            ]
+        }
+        .width(Length::Fill)
+        .spacing(10)
+        .align_items(Alignment::Center);
 
-                    let modal_btn_row = row![button(
-                        text("Close")
-                            .width(Length::Fill)
-                            .horizontal_alignment(alignment::Horizontal::Center),
-                    )
-                    .width(Length::Fill)
-                    .padding(10)
-                    .on_press(Message::ModalHide)]
-                    .padding([10, 0, 0, 0]);
-
-                    let text_box = scrollable(text(err).width(Length::Fill)).height(400);
-
-                    let ctn = container(column![title_ctn, text_box, modal_btn_row])
-                        .height(Length::Shrink)
-                        .max_height(700)
-                        .padding(10)
-                        .style(style::Container::Frame);
-
-                    Modal::new(content, ctn).on_blur(Message::ModalHide).into()
-                } else {
-                    container(content).height(Length::Fill).padding(10).into()
-                }
-            }
-            LoadingState::FailedToUpdate => waiting_view(
-                settings,
-                "Failed to download update",
-                Some(button("Go back").on_press(Message::LoadUadList(false))),
-                style::Text::Danger,
-            ),
+        if self.selection_modal {
+            return Modal::new(
+                content.padding(10),
+                self.apply_selection_modal(
+                    selected_device,
+                    settings,
+                    &self.phone_packages[self.selected_user.unwrap().index],
+                ),
+            )
+            .on_blur(Message::ModalHide)
+            .into();
+        }
+        if let Some(err) = &self.error_modal {
+            error_view(err, content).into()
+        } else {
+            container(content).height(Length::Fill).padding(10).into()
         }
     }
 
@@ -816,6 +796,40 @@ impl List {
             }
         }
     }
+}
+
+fn error_view<'a>(
+    error: &'a str,
+    content: Column<'a, Message, Theme, Renderer>,
+) -> Modal<'a, Message, Theme, Renderer> {
+    let title_ctn = container(
+        row![text("Failed to perform ADB operation").size(24)].align_items(Alignment::Center),
+    )
+    .width(Length::Fill)
+    .style(style::Container::Frame)
+    .padding([10, 0, 10, 0])
+    .center_y()
+    .center_x();
+
+    let modal_btn_row = row![button(
+        text("Close")
+            .width(Length::Fill)
+            .horizontal_alignment(alignment::Horizontal::Center),
+    )
+    .width(Length::Fill)
+    .padding(10)
+    .on_press(Message::ModalHide)]
+    .padding([10, 0, 0, 0]);
+
+    let text_box = scrollable(text(error).width(Length::Fill)).height(400);
+
+    let ctn = container(column![title_ctn, text_box, modal_btn_row])
+        .height(Length::Shrink)
+        .max_height(700)
+        .padding(10)
+        .style(style::Container::Frame);
+
+    Modal::new(content, ctn).on_blur(Message::ModalHide)
 }
 
 fn waiting_view<'a>(
