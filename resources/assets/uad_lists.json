@@ -9942,7 +9942,7 @@
   },
   "com.google.android.overlay.gmsconfig": {
     "list": "Google",
-    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location.\neverything works without it.",
+    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location. Everything works without it.\nWARNING: causes the Galaxy App to force-close after a few seconds on a Samsung N960F running Android Q.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27899,7 +27899,7 @@
   },
   "com.google.android.overlay.modules.permissioncontroller": {
     "list": "Aosp",
-    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602",
+    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602\nWARNING: when disabling this package on a Samsung N960F running Android Q, the pop-up UI reverts.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
