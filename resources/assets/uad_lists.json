@@ -30212,6 +30212,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.realme.as.music": {
+    "list": "Oem",
+    "description": "Realme Music app\nhttps://play.google.com/store/apps/details?id=com.realme.as.music",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.realme.link": {
     "list": "Oem",
     "description": "RealMe Link (https://play.google.com/store/apps/details?id=com.realme.link)\nCompanion app for various realme IoT devices. Useless if you don't have a realme watch/band",
