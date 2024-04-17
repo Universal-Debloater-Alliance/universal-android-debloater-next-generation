@@ -23554,7 +23554,7 @@
     "labels": []
   },
   "com.facemoji.lite.transsion": {
-    "description": "Emoji Keyboard\nHave ads and it's not good for privacy.",
+    "description": "Emoji Keyboard\nHave ads and it's not good for privacy.\nWARNING: Oh infinix phones, this package is a hard dependency to show keyboard after initial reboot/startup. Without it, even if you have other keyboards installed, no keyboard will show.\nDon't remove if using Infinix and need to enter password after boot.",
     "removal": "Advanced",
     "suggestions": "keyboards",
     "list": "Oem",
