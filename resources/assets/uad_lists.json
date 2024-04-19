@@ -36876,5 +36876,37 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.transsion.manualguide": {
+    "list": "Oem",
+    "description": "Digital version of your phone manual.\nYou can view it from (Settings > System > Manual Guide)\nCan be safely removed if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.aiwallpaper": {
+    "list": "Oem",
+    "description": "Mediocre AI Wallpaper Generator.\nCan be accessed from (Settings > Personalization).\nYou can safely remove this without any issues if you don't use it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.aivoiceassistant": {
+    "list": "Oem",
+    "description": "Very shady voice assistant called 'Folax' that comes preinstalled in Infinix phones, and is also packed with ads in the main ui. It needs every permission, and access to everything on your phone to run. It uses OpenAI as its backend.\nIt constantly runs in the background after boot, and periodically phones home.\nYou don't want this on your phone.\nThis can be safely removed without issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.aisettings": {
+    "list": "Oem",
+    "description": "Adds a shortcut on the Settings app that lets you manage your Folax AI (com.transsion.aivoiceassistant) settings. If you have already removed that package, it just displays a blank page.\nThis can also be safely removed without issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
