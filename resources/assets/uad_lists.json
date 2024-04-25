@@ -16156,7 +16156,7 @@
   },
   "com.mi.globallayout": {
     "list": "Oem",
-    "description": "Home Layout\nIt most likely handles the main screen layout (grid size, apps placement...)\n#\nSome people removed this without issue. Can someone try and give feedback?\n",
+    "description": "Home Layout\nSets the default MIUI launcher to global layout instead of Chinese (or HyperOS) when you first launch the app or when cleaning the launcher data.\nAfter removing this app there are several replacement widgets and no phone/message at the bottom.\nBecause Chinese MUI uses other apps and package names instead of just changing the default layout in the MIUI launcher code, they just threw the app in.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -21180,8 +21180,8 @@
     "labels": []
   },
   "com.heytap.appplatform": {
-    "description": "Needed for OTA Updates also can brick phone but not confirmed",
-    "removal": "Expert",
+    "description": "Needed for OTA Updates also causes bootloop on some phones after uninstall.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21526,8 +21526,8 @@
     "labels": []
   },
   "com.coloros.bootreg": {
-    "description": "Used only on first-boot setup",
-    "removal": "Recommended",
+    "description": "Setup Wizard\nCause bootloop after uninstall app.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -25285,8 +25285,8 @@
     "labels": []
   },
   "android.miui.home.launcher.res": {
-    "description": "Useless config to default com.miui.home launcher.\nIt's unused! Like com.mi.globallayout, it's not a joke.",
-    "removal": "Recommended",
+    "description": "Config to default icons/placeholder widgets in MIUI launcher.\nIt's used only first time run MIUI launcher app like com.mi.globallayout.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -30286,11 +30286,11 @@
   },
   "com.oplus.appplatform": {
     "list": "Oem",
-    "description": "App Services\nMight be renamed package of com.heytap.appplatform which is related to Oppo's Heytap account services. Provides a RomUpdateService. Probably not safe to remove.\n\nPithus analysis: https://beta.pithus.org/report/2025ceb69d9379a01771de71ff00051eb0f0c7f44226a72c2066db9649b6dcd2",
+    "description": "App Services\nMight be renamed package of com.heytap.appplatform which is related to Oppo's Heytap account services. Provides a RomUpdateService. Probably not safe to remove.\n\nPithus analysis: https://beta.pithus.org/report/2025ceb69d9379a01771de71ff00051eb0f0c7f44226a72c2066db9649b6dcd2\nCauses bootloop on some phones after uninstall.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.oplus.athena": {
     "list": "Oem",
@@ -31847,11 +31847,11 @@
   },
   "android.miui.poco.launcher.res": {
     "list": "Oem",
-    "description": "Useless config to default com.miui.home launcher.\nIt's unused! Like com.mi.globallayout, it's not a joke.",
+    "description": "Config to default icons/placeholder widgets in MIUI launcher.\nIt's used only first time run MIUI launcher app like com.mi.globallayout.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
