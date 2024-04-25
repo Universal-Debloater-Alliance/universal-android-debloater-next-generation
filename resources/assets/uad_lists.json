@@ -16156,7 +16156,7 @@
   },
   "com.mi.globallayout": {
     "list": "Oem",
-    "description": "Home Layout\nSets the default MIUI launcher to global layout instead of Chinese(or HyperOS) when you first launch the app or when cleaning the launcher data.\nAfter removing this app there are several replacement widgets and no phone/message at the bottom\nbecause Chinese Miui uses other apps and package names instead of just changing the default layout in the Miui launcher code, they just threw the app in.",
+    "description": "Home Layout\nSets the default MIUI launcher to global layout instead of Chinese (or HyperOS) when you first launch the app or when cleaning the launcher data.\nAfter removing this app there are several replacement widgets and no phone/message at the bottom.\nBecause Chinese MUI uses other apps and package names instead of just changing the default layout in the MIUI launcher code, they just threw the app in.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
