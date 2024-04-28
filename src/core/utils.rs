@@ -8,6 +8,8 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
+/// Global environment variable to keep
+/// track of the current device serial.
 pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
