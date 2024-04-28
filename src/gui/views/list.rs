@@ -8,6 +8,7 @@ use crate::core::uad_lists::{
 };
 use crate::core::utils::fetch_packages;
 use crate::core::utils::open_url;
+use crate::core::utils::ANDROID_SERIAL;
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
 use std::env;
@@ -784,7 +785,7 @@ impl List {
         let (uad_lists, _) = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
-                env::set_var("ANDROID_SERIAL", phone.adb_id.clone());
+                env::set_var(ANDROID_SERIAL, phone.adb_id.clone());
                 if phone.adb_id.is_empty() {
                     error!("AppsView ready but no phone found");
                 }

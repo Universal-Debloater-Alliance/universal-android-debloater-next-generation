@@ -8,6 +8,10 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
+/// Global environment variable to keep
+/// track of the current device serial.
+pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
+
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
     let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
     let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
