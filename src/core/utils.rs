@@ -8,6 +8,11 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
+#[derive(Debug, Clone)]
+pub enum Error {
+    DialogClosed(String),
+}
+
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
     let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
     let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
@@ -128,4 +133,13 @@ impl fmt::Display for DisplayablePath {
 
         write!(f, "{stem}")
     }
+}
+
+pub async fn open_folder() -> Result<PathBuf, Error> {
+    let picked_folder = rfd::AsyncFileDialog::new()
+        .pick_folder()
+        .await
+        .ok_or(Error::DialogClosed(err))?;
+
+    Ok(picked_folder.path().to_owned())
 }
