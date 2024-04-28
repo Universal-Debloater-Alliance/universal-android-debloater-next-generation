@@ -8,9 +8,13 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
+/// Global environment variable to keep
+/// track of the current device serial.
+pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
+
 #[derive(Debug, Clone)]
 pub enum Error {
-    DialogClosed(String),
+    DialogClosed,
 }
 
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
@@ -139,7 +143,7 @@ pub async fn open_folder() -> Result<PathBuf, Error> {
     let picked_folder = rfd::AsyncFileDialog::new()
         .pick_folder()
         .await
-        .ok_or(Error::DialogClosed(err))?;
+        .ok_or(Error::DialogClosed)?;
 
     Ok(picked_folder.path().to_owned())
 }
