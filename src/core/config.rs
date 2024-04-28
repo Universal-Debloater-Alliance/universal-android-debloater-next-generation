@@ -60,12 +60,12 @@ impl Config {
             .iter_mut()
             .find(|x| x.device_id == *device_id)
         {
-            *device = settings.device.clone();
+            device.clone_from(&settings.device);
         } else {
             debug!("config: New device settings saved");
             config.devices.push(settings.device.clone());
         }
-        config.general = settings.general.clone();
+        config.general.clone_from(&settings.general);
         let toml = toml::to_string(&config).unwrap();
         fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
     }
