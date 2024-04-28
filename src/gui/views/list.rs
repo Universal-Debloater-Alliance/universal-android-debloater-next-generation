@@ -6,9 +6,9 @@ use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
-use crate::core::utils::fetch_packages;
-use crate::core::utils::open_url;
-use crate::core::utils::ANDROID_SERIAL;
+use crate::core::utils::{
+    export_selection, fetch_packages, open_url, ANDROID_SERIAL, EXPORT_FILE_NAME,
+};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
 use std::env;
@@ -58,6 +58,7 @@ pub struct List {
     description: String,
     selection_modal: bool,
     error_modal: Option<String>,
+    export_modal: bool,
     current_package_index: usize,
     is_adb_satisfied: bool,
 }
@@ -85,6 +86,8 @@ pub enum Message {
     ADBSatisfied(bool),
     UpdateFailed,
     GoToUrl(PathBuf),
+    ExportSelection,
+    SelectionExported(Result<bool, String>),
 }
 
 pub struct SummaryEntry {
@@ -116,6 +119,7 @@ impl List {
             Message::ModalHide => {
                 self.selection_modal = false;
                 self.error_modal = None;
+                self.export_modal = false;
                 Command::none()
             }
             Message::ModalValidate => {
@@ -324,6 +328,17 @@ impl List {
                 open_url(url);
                 Command::none()
             }
+            Message::ExportSelection => Command::perform(
+                export_selection(self.phone_packages[i_user].clone()),
+                Message::SelectionExported,
+            ),
+            Message::SelectionExported(export) => {
+                match export {
+                    Ok(_) => self.export_modal = true,
+                    Err(err) => error!("Failed to export current selection: {:?}", err),
+                };
+                Command::none()
+            }
             Message::Nothing => Command::none(),
         }
     }
@@ -493,10 +508,30 @@ impl List {
             .padding([5, 10])
         };
 
-        let action_row = row![Space::new(Length::Fill, Length::Shrink), review_selection]
-            .width(Length::Fill)
-            .spacing(10)
-            .align_items(Alignment::Center);
+        let export_selection = if !self.selected_packages.is_empty() {
+            button(text(format!(
+                "Export current selection ({})",
+                self.selected_packages.len()
+            )))
+            .on_press(Message::ExportSelection)
+            .padding([5, 10])
+            .style(style::Button::Primary)
+        } else {
+            button(text(format!(
+                "Export current selection ({})",
+                self.selected_packages.len()
+            )))
+            .padding([5, 10])
+        };
+
+        let action_row = row![
+            export_selection,
+            Space::new(Length::Fill, Length::Shrink),
+            review_selection
+        ]
+        .width(Length::Fill)
+        .spacing(10)
+        .align_items(Alignment::Center);
 
         let unavailable = container(
                     column![
@@ -545,6 +580,40 @@ impl List {
             .on_blur(Message::ModalHide)
             .into();
         }
+
+        if self.export_modal {
+            let title = container(row![text("Success").size(24)].align_items(Alignment::Center))
+                .width(Length::Fill)
+                .style(style::Container::Frame)
+                .padding([10, 0, 10, 0])
+                .center_y()
+                .center_x();
+
+            let text_box = row![
+                text("Exported current selection into file.\nFile is exported in same directory where UAD-ng is located.").width(Length::Fill),
+            ].padding(20);
+
+            let file_row = row![text(EXPORT_FILE_NAME).style(style::Text::Commentary)].padding(20);
+
+            let modal_btn_row = row![
+                Space::new(Length::Fill, Length::Shrink),
+                button(text("Close").width(Length::Shrink))
+                    .width(Length::Shrink)
+                    .on_press(Message::ModalHide),
+                Space::new(Length::Fill, Length::Shrink),
+            ];
+
+            let ctn = container(column![title, text_box, file_row, modal_btn_row])
+                .height(Length::Shrink)
+                .width(500)
+                .padding(10)
+                .style(style::Container::Frame);
+
+            return Modal::new(content.padding(10), ctn)
+                .on_blur(Message::ModalHide)
+                .into();
+        }
+
         if let Some(err) = &self.error_modal {
             error_view(err, content).into()
         } else {
