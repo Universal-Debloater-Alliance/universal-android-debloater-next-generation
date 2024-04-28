@@ -8,22 +8,16 @@
       (system:
         let pkgs = nixpkgs.legacyPackages.${system}; in
         {
-          devShells.default = pkgs.mkShell rec {
+          devShells.default = pkgs.mkShell {
             packages = with pkgs;
             [
               rustc
               cargo
-              makeWrapper
               clang
               pkg-config
               mold
               expat
-              fontconfig
-              freetype
               android-tools
-              libxkbcommon
-              libGL
-              wayland
             ];
 
             LD_LIBRARY_PATH = "${nixpkgs.lib.makeLibraryPath [
@@ -35,7 +29,6 @@
               pkgs.xorg.libXi
               pkgs.xorg.libXrandr
               pkgs.libxkbcommon
-              pkgs.libGL
               pkgs.wayland
             ]}";
             LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib";
