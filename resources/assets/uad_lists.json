@@ -1,6 +1,6 @@
 {
   "com.dti.tracfone": {
-    "list": "Oem",
+    "list": "Carrier",
     "description": "Installs sponsored apps automatically on Tracfone and affiliated carriers (Straight Talk, Total Wireless, etc) \n",
     "dependencies": [],
     "neededBy": [],
