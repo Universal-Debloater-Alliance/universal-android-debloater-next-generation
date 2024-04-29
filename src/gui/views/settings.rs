@@ -1,3 +1,4 @@
+use crate::core::helpers::button_primary;
 use crate::core::sync::AdbError;
 
 use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
@@ -317,11 +318,10 @@ impl Settings {
         )
         .padding(6);
 
-        let backup_btn = button(text("Backup").horizontal_alignment(alignment::Horizontal::Center))
-            .padding([5, 10])
-            .on_press(Message::BackupDevice)
-            .style(style::Button::Primary)
-            .width(77);
+        let backup_btn =
+            button_primary(text("Backup").horizontal_alignment(alignment::Horizontal::Center))
+                .on_press(Message::BackupDevice)
+                .width(77);
 
         let restore_btn = |enabled| {
             if enabled {
@@ -341,14 +341,10 @@ impl Settings {
         };
 
         let locate_backup_btn = if self.device.backup.backups.is_empty() {
-            button("Open backup directory")
-                .padding([5, 10])
-                .style(style::Button::Primary)
+            button_primary("Open backup directory")
         } else {
-            button("Open backup directory")
+            button_primary("Open backup directory")
                 .on_press(Message::UrlPressed(BACKUP_DIR.join(phone.adb_id.clone())))
-                .padding([5, 10])
-                .style(style::Button::Primary)
         };
 
         let backup_row = row![

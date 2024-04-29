@@ -1,4 +1,5 @@
 use crate::core::config::DeviceSettings;
+use crate::core::helpers::button_primary;
 use crate::core::sync::{
     apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Phone, User,
 };
@@ -478,13 +479,11 @@ impl List {
             .style(style::Container::Frame);
 
         let review_selection = if !self.selected_packages.is_empty() {
-            button(text(format!(
+            button_primary(text(format!(
                 "Review selection ({})",
                 self.selected_packages.len()
             )))
             .on_press(Message::ApplyActionOnSelection)
-            .padding([5, 10])
-            .style(style::Button::Primary)
         } else {
             button(text(format!(
                 "Review selection ({})",
