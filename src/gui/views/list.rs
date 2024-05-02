@@ -343,11 +343,7 @@ impl List {
             ),
             LoadingState::FindingPhones => {
                 if self.is_adb_satisfied {
-                    waiting_view(
-                        "Finding connected devices...",
-                        None,
-                        style::Text::Default,
-                    )
+                    waiting_view("Finding connected devices...", None, style::Text::Default)
                 } else {
                     waiting_view(
                         "ADB is not installed on your system, install ADB and relaunch application.",
