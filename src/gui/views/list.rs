@@ -162,7 +162,7 @@ impl List {
             Message::LoadPhonePackages(list_box) => {
                 let (uad_list, list_state) = list_box;
                 self.loading_state = LoadingState::LoadingPackages;
-                self.uad_lists = uad_list.clone();
+                self.uad_lists.clone_from(&uad_list);
                 *list_update_state = list_state;
                 Command::perform(
                     Self::load_packages(uad_list, selected_device.user_list.clone()),
