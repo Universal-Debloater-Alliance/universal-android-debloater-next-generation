@@ -162,7 +162,7 @@ impl List {
             Message::LoadPhonePackages(list_box) => {
                 let (uad_list, list_state) = list_box;
                 self.loading_state = LoadingState::LoadingPackages;
-                self.uad_lists = uad_list.clone();
+                self.uad_lists.clone_from(&uad_list);
                 *list_update_state = list_state;
                 Command::perform(
                     Self::load_packages(uad_list, selected_device.user_list.clone()),
@@ -337,7 +337,6 @@ impl List {
     ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
-                settings,
                 "Downloading latest UAD-ng lists from GitHub. Please wait...",
                 Some(button("No internet?").on_press(Message::LoadUadList(false))),
                 style::Text::Default,
@@ -345,14 +344,12 @@ impl List {
             LoadingState::FindingPhones => {
                 if self.is_adb_satisfied {
                     waiting_view(
-                        settings,
                         "Finding connected devices...",
                         None,
                         style::Text::Default,
                     )
                 } else {
                     waiting_view(
-                        settings,
                         "ADB is not installed on your system, install ADB and relaunch application.",
                         Some(button("Read on how to get started.")
                     .on_press(Message::GoToUrl(PathBuf::from(
@@ -363,26 +360,22 @@ impl List {
                 }
             }
             LoadingState::LoadingPackages => waiting_view(
-                settings,
                 "Pulling packages from the device. Please wait...",
                 None,
                 style::Text::Default,
             ),
             LoadingState::_UpdatingUad => waiting_view(
-                settings,
                 "Updating UAD-ng. Please wait...",
                 None,
                 style::Text::Default,
             ),
             LoadingState::RestoringDevice(device) => waiting_view(
-                settings,
                 &format!("Restoring device: {device}"),
                 None,
                 style::Text::Default,
             ),
             LoadingState::Ready => self.ready_view(settings, selected_device),
             LoadingState::FailedToUpdate => waiting_view(
-                settings,
                 "Failed to download update",
                 Some(button("Go back").on_press(Message::LoadUadList(false))),
                 style::Text::Danger,
@@ -817,7 +810,6 @@ fn error_view<'a>(
             .horizontal_alignment(alignment::Horizontal::Center),
     )
     .width(Length::Fill)
-    .padding(10)
     .on_press(Message::ModalHide)]
     .padding([10, 0, 0, 0]);
 
@@ -833,7 +825,6 @@ fn error_view<'a>(
 }
 
 fn waiting_view<'a>(
-    _settings: &Settings,
     displayed_text: &str,
     btn: Option<button::Button<'a, Message, Theme, Renderer>>,
     text_style: style::Text,
