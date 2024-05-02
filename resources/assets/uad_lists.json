@@ -1,4 +1,13 @@
 {
+  "com.dti.tracfone": {
+    "list": "Carrier",
+    "description": "Installs sponsored apps automatically on Tracfone and affiliated carriers (Straight Talk, Total Wireless, etc) \n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+
   "com.sony.tvsideview.videoph": {
     "list": "Oem",
     "description": "Video & TV SideView (replaced by https://play.google.com/store/apps/details?id=com.sony.tvsideview.phone)\nLets you use your smartphone or tablet as a TV remote control for the home. \n",
@@ -34167,7 +34176,7 @@
   },
   "com.oplus.safecenter": {
     "list": "Oem",
-    "description": "Security Center\nIt breaks 'display over other apps' permission!",
+    "description": "Security Center\nIt breaks 'display over other apps' permission and also breaks screen lock on OnePlus Android 14",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
