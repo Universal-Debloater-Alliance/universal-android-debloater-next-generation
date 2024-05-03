@@ -102,7 +102,7 @@ impl Settings {
                     .find(|d| d.device_id == phone.adb_id)
                 {
                     Some(device) => {
-                        self.device = device.clone();
+                        self.device.clone_from(device);
                         self.device.backup = backup;
                     }
                     None => {
