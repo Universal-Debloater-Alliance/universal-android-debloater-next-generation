@@ -3,25 +3,29 @@ use crate::core::sync::AdbError;
 
 use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
 use crate::core::save::{
-    backup_phone, list_available_backup_user, list_available_backups, restore_backup, BACKUP_DIR,
+    backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
 use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Phone};
 use crate::core::theme::Theme;
-use crate::core::utils::{open_url, string_to_theme, DisplayablePath};
+use crate::core::utils::{open_folder, open_url, string_to_theme, DisplayablePath};
 use crate::gui::style;
 use crate::gui::views::list::PackageInfo;
+use crate::gui::widgets::navigation_menu::ICONS;
 use crate::gui::widgets::package_row::PackageRow;
 
 use iced::widget::{
-    button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space,
+    button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space, Text,
 };
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
 use std::path::PathBuf;
+
+use crate::core::utils::Error;
 
 #[derive(Debug, Clone)]
 pub struct Settings {
     pub general: GeneralSettings,
     pub device: DeviceSettings,
+    is_loading: bool,
 }
 
 impl Default for Settings {
@@ -29,6 +33,7 @@ impl Default for Settings {
         Self {
             general: Config::load_configuration_file().general,
             device: DeviceSettings::default(),
+            is_loading: false,
         }
     }
 }
@@ -46,6 +51,8 @@ pub enum Message {
     RestoreDevice,
     RestoringDevice(Result<CommandType, AdbError>),
     DeviceBackedUp(Result<(), String>),
+    ChooseBackUpFolder,
+    FolderChosen(Result<PathBuf, Error>),
 }
 
 impl Settings {
@@ -88,7 +95,8 @@ impl Settings {
                 Command::none()
             }
             Message::LoadDeviceSettings => {
-                let backups = list_available_backups(&BACKUP_DIR.join(&phone.adb_id));
+                let backups =
+                    list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
                 let backup = BackupSettings {
                     backups: backups.clone(),
                     selected: backups.first().cloned(),
@@ -132,7 +140,7 @@ impl Settings {
             Message::DeviceBackedUp(_) => {
                 info!("[BACKUP] Backup successfully created");
                 self.device.backup.backups =
-                    list_available_backups(&BACKUP_DIR.join(phone.adb_id.clone()));
+                    list_available_backups(&self.general.backup_folder.join(phone.adb_id.clone()));
                 self.device.backup.selected = self.device.backup.backups.first().cloned();
                 Command::none()
             }
@@ -179,6 +187,32 @@ impl Settings {
             },
             // Trigger an action in mod.rs (Message::SettingsAction(msg))
             Message::RestoringDevice(_) => Command::none(),
+            Message::FolderChosen(result) => {
+                self.is_loading = false;
+
+                if let Ok(path) = result {
+                    self.general.backup_folder = path;
+                    Config::save_changes(self, &phone.adb_id);
+                    #[allow(unused_must_use)]
+                    {
+                        self.update(
+                            phone,
+                            packages,
+                            nb_running_async_adb_commands,
+                            Message::LoadDeviceSettings,
+                        );
+                    }
+                }
+                Command::none()
+            }
+            Message::ChooseBackUpFolder => {
+                if self.is_loading {
+                    Command::none()
+                } else {
+                    self.is_loading = true;
+                    Command::perform(open_folder(), Message::FolderChosen)
+                }
+            }
         }
     }
 
@@ -213,11 +247,37 @@ impl Settings {
             text("Most unsafe packages are known to bootloop the device if removed.")
                 .style(style::Text::Commentary);
 
-        let general_ctn = container(column![expert_mode_checkbox, expert_mode_descr].spacing(10))
-            .padding(10)
-            .width(Length::Fill)
-            .height(Length::Shrink)
-            .style(style::Container::Frame);
+        let choose_backup_descr = text("Note: If you have previous backups, you will need to transfer them manually to newly changed backup folder to be able to use Restore functionality")
+            .style(style::Text::Commentary);
+
+        let choose_backup_btn = button(Text::new("\u{E930}").font(ICONS))
+            .padding([5, 10])
+            .on_press(Message::ChooseBackUpFolder)
+            .style(style::Button::Primary);
+
+        let choose_backup_row = row![
+            choose_backup_btn,
+            "Choose backup folder",
+            Space::new(Length::Fill, Length::Shrink),
+            "Current folder: ",
+            Text::new(self.general.backup_folder.to_string_lossy())
+        ]
+        .spacing(10)
+        .align_items(Alignment::Center);
+
+        let general_ctn = container(
+            column![
+                expert_mode_checkbox,
+                expert_mode_descr,
+                choose_backup_row,
+                choose_backup_descr,
+            ]
+            .spacing(10),
+        )
+        .padding(10)
+        .width(Length::Fill)
+        .height(Length::Shrink)
+        .style(style::Container::Frame);
 
         let warning_ctn = container(
             row![
@@ -343,8 +403,9 @@ impl Settings {
         let locate_backup_btn = if self.device.backup.backups.is_empty() {
             button_primary("Open backup directory")
         } else {
-            button_primary("Open backup directory")
-                .on_press(Message::UrlPressed(BACKUP_DIR.join(phone.adb_id.clone())))
+            button_primary("Open backup directory").on_press(Message::UrlPressed(
+                self.general.backup_folder.join(phone.adb_id.clone()),
+            ))
         };
 
         let backup_row = row![
@@ -405,6 +466,7 @@ impl Settings {
                 text("Current device").size(26),
                 warning_ctn,
                 device_specific_ctn,
+                text("Backup / Restore").size(26),
                 backup_restore_ctn,
             ]
             .width(Length::Fill)
