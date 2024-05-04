@@ -5,6 +5,7 @@ on:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
+      - resources/assets/uad_list.json
       - src/**
   pull_request:
     paths:
