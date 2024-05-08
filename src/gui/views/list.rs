@@ -721,12 +721,13 @@ impl List {
                                                     self.phone_packages[selection.0][selection.1]
                                                         .uad_list
                                                 )]
-                                                .width(70),
+                                                .width(50),
                                                 row![text(
                                                     self.phone_packages[selection.0][selection.1]
                                                         .name
                                                         .clone()
-                                                ),],
+                                                ),]
+                                                .width(540),
                                                 horizontal_space(),
                                                 row![match self.phone_packages[selection.0]
                                                     [selection.1]
@@ -747,7 +748,7 @@ impl List {
                                                     PackageState::All => text("Impossible")
                                                         .style(style::Text::Danger),
                                                 },]
-                                                .width(80),
+                                                .width(70),
                                             ]
                                             .width(Length::Fill)
                                             .spacing(20),
@@ -803,7 +804,7 @@ impl List {
                 .align_items(Alignment::Center)
             },
         )
-        .width(800)
+        .width(900)
         .height(Length::Shrink)
         .max_height(700)
         .style(style::Container::Background)
