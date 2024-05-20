@@ -2552,7 +2552,7 @@
   },
   "com.huawei.ohos.inputmethod": {
     "list": "Oem",
-    "description": "Huawei default Keyboard\nWARNING: Before uninstalling, make sure to have a third-party keyboard installed.\nDisable instead of removing if you wont lose widget.",
+    "description": "Huawei default Keyboard\nWARNING: Before uninstalling, make sure to have a third-party keyboard installed.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2952,7 +2952,7 @@
   },
   "com.huawei.securitymgr": {
     "list": "Oem",
-    "description": "PrivateSpace\nLets you store private information in a hidden space within your device that can only be accessed \nwith your fingerprint or password.\nTODO: Data at rest encryption? If not, this is useless\nhttps://consumer.huawei.com/en/support/content/en-us00754246/\n)\nThis is the password vault or password manager too.",
+    "description": "PrivateSpace\nLets you store private information in a hidden space within your device that can only be accessed \nwith your fingerprint or password.\nTODO: Data at rest encryption? If not, this is useless\nhttps://consumer.huawei.com/en/support/content/en-us00754246/)\nThis is the password vault or password manager too.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8723,7 +8723,7 @@
   },
   "com.android.networkstack.inprocess": {
     "list": "Aosp",
-    "description": "Related to the Network Stack module,\nwhich is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
+    "description": "Related to the Network Stack module, which is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8827,7 +8827,7 @@
   },
   "com.android.systemui.overlay.common": {
     "list": "Oem",
-    "description": "Has something about to google wellbeing first time setup quick settings. Safe to remove.",
+    "description": "Has something related to Google Wellbeing first time setup quick settings. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10123,7 +10123,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.qualcomm.qti.xrcb": {
     "list": "Misc",
@@ -16269,7 +16269,7 @@
   },
   "com.miui.core": {
     "list": "Oem",
-    "description": "MIUI SDK\nIt is obiously needed for MIUI to work correctly? FYI, it manages the MIUI Analytics service (tracking.miui.com), autoinstall miui apps updates?(related to GetApps 'com.xiaomi.market' China Mi App Store),\nDropboxManager where is temp clean code, a lot of logs, founded things to Quick Apps 'com.miui.hybrid',\nDataUpdateManager related to micloud?, Telocation update, app looks like tracking everything.\nCan be disabled and uninstalled with MIUI 13.0.6, MIUI 14, see\nhttps://github.com/0x192/universal-android-debloater/issues/632\nNOTE: uninstalling this package causes the Settings app to crash when searching in Settings,\nso better disable this app instead.\n(if you wanna test, disable this app and give feedback if any things not work)\nAnother weird thing is normal user can disable this app using hidden Settings to manage app by in Google Play.\nNo effects after disable, but not sure if its required for Miui updates or gestures.",
+    "description": "MIUI SDK\nIt is obiously needed for MIUI to work correctly. FYI, it manages the MIUI Analytics service (`tracking.miui.com`), autoinstall MIUI apps updates (?). Related to GetApps 'com.xiaomi.market' China Mi App Store), DropboxManager where is temp clean code, a lot of logs. Found things related to Quick Apps 'com.miui.hybrid', DataUpdateManager (related to micloud?). Telocation update, app looks like tracking everything. Can be disabled and uninstalled with MIUI 13.0.6, MIUI 14, see\nhttps://github.com/0x192/universal-android-debloater/issues/632\nNOTE: uninstalling this package causes the Settings app to crash when searching in Settings, so better disable this app instead.\nIf you want to test, disable this app and open an issue if anything isn't working. Another weird thing is normal user can disable this app using hidden Settings to manage app by in Google Play.\nNo effects after disable, but not sure if its required for Miui updates or gestures.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17277,7 +17277,7 @@
   },
   "com.huawei.securityserver": {
     "list": "Oem",
-    "description": "HwSecurityServer\nNot needed app without code and useless assets to spying apps.\nNeeded for face unlock, black screen will be shown if you remove this package?(on some devices not)",
+    "description": "HwSecurityServer\nNot needed app without code and useless assets to spying apps.\nNeeded for face unlock, black screen will be shown if you remove this package (?). Doesn't apply to all devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -20039,7 +20039,7 @@
     "labels": []
   },
   "android.overlay.common.all_devices": {
-    "description": "This overlay has got useless configs?",
+    "description": "This overlay has got useless configs (?)",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -22561,7 +22561,7 @@
     "labels": []
   },
   "com.google.android.connectivity.resources.overlay": {
-    "description": "Useless default configs?",
+    "description": "Useless default configs (?)",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -22601,7 +22601,7 @@
     "labels": []
   },
   "com.google.android.networkstack.tethering.overlay2021": {
-    "description": "Useless hotspot configs?",
+    "description": "Useless hotspot configs (?)",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -26578,7 +26578,7 @@
   },
   "com.miui.securitycore": {
     "list": "Oem",
-    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 14 it doesnt bootloop and looks performance like the same,\nalso this app has annoying notifications when you running new app.",
+    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 14 it doesnt bootloop and looks performance like the same, also this app has annoying notifications when you running new app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28894,13 +28894,13 @@
   },
   "com.huawei.nearby": {
     "list": "Oem",
-    "description": "HwNearby\nNeeded for Huawei Share features. (com.huawei.android.instantshare)\nHuawei Share features may not work after remove.\nNeeded to show a preview of recently opened apps in task manager. I agree, makes no sense, but that what it is.",
+    "description": "HwNearby\nNeeded for Huawei Share features. (com.huawei.android.instantshare)\nHuawei Share features may not work after remove.\nNeeded to show a preview of recently opened apps in task manager. I agree, makes no sense, but that's what it is.",
     "dependencies": [
       "com.huawei.android.instantshare"
     ],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.omacp": {
     "list": "Oem",
@@ -29895,7 +29895,7 @@
   },
   "com.huawei.systemmanager": {
     "list": "Oem",
-    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more that a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.",
+    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more than a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29919,7 +29919,7 @@
   },
   "com.huawei.wifieapsimplmn": {
     "list": "Oem",
-    "description": "PredefinedEapSim\nNeeded for WiFi to work properly?\nWiFi will not work?",
+    "description": "PredefinedEapSim\nNeeded for WiFi to work properly? WiFi may not work (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29927,7 +29927,7 @@
   },
   "com.huawei.wifiprobqeservice": {
     "list": "Oem",
-    "description": "HwWifiproBqeService\nNeeded for WiFi to work properly?\nWiFi will not work?",
+    "description": "HwWifiproBqeService\nNeeded for WiFi to work properly? WiFi may not work (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31228,7 +31228,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.service.health": {
     "list": "Oem",
@@ -31496,7 +31496,7 @@
   },
   "com.miui.core.internal.editor.services": {
     "list": "Oem",
-    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? it's used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? it's useless or important?\nNo effects after remove, it's probably one feature of Touch Assistant, but its used on 'com.miui.core'?",
+    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? it's used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? it's useless or important?\nNo effects after removing, it's probably a feature of Touch Assistant, but its used on 'com.miui.core'?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31504,7 +31504,7 @@
   },
   "com.miui.core.internal.services": {
     "list": "Oem",
-    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat is this mean? I have must to check com.miui.core what it does\nand it's for autoinstall miui apps updates from GetApps 'com.xiaomi.market'.",
+    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat does this mean? I have to check com.miui.core what it does and it's for autoinstall miui apps updates from GetApps 'com.xiaomi.market'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33240,7 +33240,7 @@
   },
   "com.huawei.ohos.famanager": {
     "list": "Oem",
-    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and its underlying services (which provide searches and AI-based services). A lot tracking.\nDisable instead of removing if you wont lose widget.",
+    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and its underlying services (which provide searches and AI-based services). A lot tracking.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33248,7 +33248,7 @@
   },
   "com.huawei.ohos.hiwindow": {
     "list": "Oem",
-    "description": "HiWindow\nHave loading, waiting png files\ncollaboration devices, hardware things, screen projection on activities shows Window Shell.\nAfter remove you will lose animations and loading screen.\nDisable instead of removing if you wont lose widget.",
+    "description": "HiWindow\nHave loading, waiting png files\ncollaboration devices, hardware things, screen projection on activities shows Window Shell.\nAfter remove you will lose animations and loading screen.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33744,7 +33744,7 @@
   },
   "com.google.android.carrier": {
     "list": "Oem",
-    "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nRequired for 4G, but does not cause bootloop after remove.",
+    "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nRequired for 4G, but does not cause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35000,7 +35000,7 @@
   },
   "com.huawei.ohos.collaborationcenter": {
     "list": "Oem",
-    "description": "Sometimes ohos apps is configuration app before building.\nIn code I found it's for app cast transfer.\nDisable instead of removing if you wont lose widget.",
+    "description": "Sometimes ohos apps is configuration app before building.\nIn code I found it's for app cast transfer.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35016,7 +35016,7 @@
   },
   "com.huawei.ohos.security.privacycenter": {
     "list": "Oem",
-    "description": "It's shell to app 'com.huawei.security.privacycenter'?\nDisable instead of removing if you wont lose widget.",
+    "description": "It's shell to app 'com.huawei.security.privacycenter'?\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
