@@ -6511,7 +6511,7 @@
   },
   "com.sec.android.provider.badge": {
     "list": "Oem",
-    "description": "Provider for the notification badges (which are not very useful IMHO)\nProvides a way for apps to use notifications badges.\nhttps://www.samsung.com/au/support/mobile-devices/what-is-app-icon-badge/\n",
+    "description": "Provider for the notification badges (which are not very useful IMHO)\nProvides a way for apps to use notifications badges.\nhttps://www.samsung.com/au/support/mobile-devices/what-is-app-icon-badge/\nEmergency Power saving launcher does not start after removing.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36376,11 +36376,11 @@
   },
   "com.samsung.android.globalpostprocmgr": {
     "list": "Oem",
-    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.",
+    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.\nAfter uninstall cause camera not work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.hongbaoassistant": {
     "list": "Oem",
@@ -36821,5 +36821,93 @@
     "dependencies": [],
     "neededBy": [],
     "labels": []
+  },
+  "com.tracfone.preload.accountservices": {
+    "list": "Carrier",
+    "description": "TracPhone / StraightTalk application. It just shows IMEI, SIM, and phone number, as well as a way to see device properties.\nComes preinstalled with any TracPhone or StraightTalk device. It can be downloaded from the playstore if needed for whatever reason.\nHas Approximate and Precise location permissions, and Device ID permission.\nRuns in the background for them to collect data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.chromium.webview_shell": {
+    "list": "AOSP",
+    "description": "Simple Browser for WebView tester used in AOSP.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonymobile.telephony.extension": {
+    "description": "I have uninstalled it for the user 0 on my phone, and since then I haven't noticed any functionality drop.\nCell signal is similar as before, also calls, SMSs and mobile data. I think it is not worth having this package installed because it uses a lot of wakelock time, but I cannot see any cell signal drop since I uninstalled it.\nIn the code found some things: omadm, wifi calling, IMS. Its app for dual SIM reachability? Not sure if its app for debugging.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.microsoft.deviceintegrationservice": {
+    "description": "Device Integration Service\nMight be needed for Microsoft Link to Windows (com.microsoft.appmanager) which is preinstalled with OxygenOS 14.\nAfter Uninstalling, no issues occurred.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.microsoftsdk.crossdeviceservicebroker": {
+    "description": "Cross Device Broker\nMight be needed for Microsoft Link to Windows (com.microsoft.appmanager) which is preinstalled with OxygenOS 14.\nAfter Uninstalling, no issues occurred.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.samsung.android.app.notes.addons": {
+    "list": "Oem",
+    "description": "Allows for marking up/drawing on notes in the Samsung Notes app (designed for use with S Pen).\nRemoval likely breaks com.samsung.android.app.notes. Safe to remove otherwise.\nMay reinstall itself automatically (removal has persisted for me this time around, and through multiple reboots).\nhttps://galaxystore.samsung.com/prepost/000005769652?appId=com.samsung.android.app.notes.addons",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.aura.jet.att": {
+    "list": "Carrier",
+    "description": "AT&T Hub\nApp from AT&T. Installs apps on oobe and its maded by advertising company 'ironSource'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.att": {
+    "list": "Carrier",
+    "description": "AppCloud\nApp from AT&T. Installs apps on oobe and its maded by advertising company 'ironSource'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.interpreter": {
+    "list": "Oem",
+    "description": "Samsung Interpreter app, enables Live translation of foreign languages",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.inputshare": {
+    "list": "Oem",
+    "description": "Samsung Multi-Control, allows certain apps to be continued on multiple Galaxy devices (like Internet or Notes)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.audiomirroring": {
+    "list": "Oem",
+    "description": "AudioMirroring\nAudio Mirroring to Cast other devices will not work after remove.\nAlso this app running in the background.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
