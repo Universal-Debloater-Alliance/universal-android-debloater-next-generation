@@ -33976,11 +33976,11 @@
   },
   "com.oplus.nas": {
     "list": "Oem",
-    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code.",
+    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code. Has location & phone permission, can read your call logs. Runs in background. After disabling, no issues occured (OxygenOS 14, OnePlus 11).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Advanced"
   },
   "com.oplus.notificationmanager": {
     "list": "Oem",
