@@ -36376,7 +36376,7 @@
   },
   "com.samsung.android.globalpostprocmgr": {
     "list": "Oem",
-    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.\nAfter uninstall cause camera not work.",
+    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.\nUninstalling breaks camera functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36892,7 +36892,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.inputshare": {
     "list": "Oem",
