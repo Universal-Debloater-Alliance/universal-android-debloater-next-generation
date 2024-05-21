@@ -30221,6 +30221,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.oplus.pantanal.ums": {
+    "list": "Oem",
+    "description": "Ubiquitous Manager Service\nA service required for Fluid Cloud (Dynamic Island clone) feature in OxygenOS/ColorOS/RealmeUI (Android 14). Runs in background. After disabling, no issues occurred but there's a little empty space between clock and recent notification icons on the right.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.oplus.appplatform": {
     "list": "Oem",
     "description": "App Services\nMight be renamed package of com.heytap.appplatform which is related to Oppo's Heytap account services. Provides a RomUpdateService. Probably not safe to remove.\n\nPithus analysis: https://beta.pithus.org/report/2025ceb69d9379a01771de71ff00051eb0f0c7f44226a72c2066db9649b6dcd2\nCauses bootloop on some phones after uninstall.",
@@ -33968,11 +33976,11 @@
   },
   "com.oplus.nas": {
     "list": "Oem",
-    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code.",
+    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code. Has location & phone permission, can read your call logs. Runs in background. After disabling, no issues occured (OxygenOS 14, OnePlus 11).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Advanced"
   },
   "com.oplus.notificationmanager": {
     "list": "Oem",
