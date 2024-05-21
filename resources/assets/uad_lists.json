@@ -36831,7 +36831,7 @@
     "removal": "Recommended"
   },
   "org.chromium.webview_shell": {
-    "list": "AOSP",
+    "list": "Aosp",
     "description": "Simple Browser for WebView tester used in AOSP.",
     "dependencies": [],
     "neededBy": [],
