@@ -4827,7 +4827,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.cmfa.AuthTouch": {
     "list": "Oem",
@@ -6723,7 +6723,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.sm.policy": {
     "list": "Oem",
@@ -36230,14 +36230,6 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "com.samsung.attribution": {
-    "list": "Oem",
-    "description": "Attribution\nApp for auto updates I don't know what.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.android.bixbyhelper": {
     "list": "Oem",
     "description": "QQ music plugin\nRequire QQ Music and it's Chinese.",
@@ -36365,14 +36357,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  },
-  "com.samsung.android.widget.pictureframe": {
-    "list": "Oem",
-    "description": "Gallery\nHas something like restore image.\nIt's not gallery app but provides some features to this app.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
   },
   "com.samsung.gamedriver.sm8550": {
     "list": "Oem",
@@ -36621,14 +36605,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-  },
-  "com.samsung.android.sm_cn": {
-    "list": "Oem",
-    "description": "Smart Manager\nTests hardware things.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
   },
   "com.samsung.android.sm.devicesecurity.tcm": {
     "list": "Oem",
