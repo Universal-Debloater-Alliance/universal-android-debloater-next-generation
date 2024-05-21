@@ -10437,14 +10437,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.incall.contentprovider": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.android.service.tagservice": {
     "list": "Oem",
     "description": "Tags in Samsung Gallery app.",
@@ -10468,14 +10460,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.samsung.android.wifi.softap.resources": {
-    "list": "Oem",
-    "description": "I found only configs value to wifi that can be important",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
   },
   "com.sec.android.Cdfs": {
     "list": "Oem",
@@ -10516,14 +10500,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.samsung.sait.sohservice": {
-    "list": "Oem",
-    "description": "FactoryApp to test battery things such as set voltage, Soc, temperature, status, timestamp.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
   },
   "com.samsung.vklayer.sm8250": {
     "list": "Oem",
@@ -10645,14 +10621,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.secsoundpicker": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.android.service.stplatform": {
     "list": "Oem",
     "description": "SmartThings Framework\nI guess it's app for installing sponsored apps. Useless Framework.",
@@ -10664,14 +10632,6 @@
   "com.samsung.android.setting.multisound": {
     "list": "Oem",
     "description": "Samsung Separate app sound\nUsed to split audio different apps between phone speaker and bluetooth speaker. Pretty handy.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.android.singletake.service": {
-    "list": "Oem",
-    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10701,22 +10661,6 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.samsung.ims.smk": {
-    "list": "Oem",
-    "description": "SimMobilityKit",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.gestural_no_hint": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_extra_wide_back": {
     "list": "Oem",
     "description": "",
@@ -10734,22 +10678,6 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.sec_gestural": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.sec_gestural_no_hint": {
     "list": "Oem",
     "description": "",
     "dependencies": [],
@@ -36574,14 +36502,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.photoremasterservice": {
-    "list": "Oem",
-    "description": "Photo remaster will not work after remove, if this feature exist, still unknown.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
   "com.samsung.preloadapp": {
     "list": "Oem",
     "description": "Install app\nInstalls recommended apps.",
@@ -36736,7 +36656,7 @@
   },
   "com.samsung.sait.sohservice": {
     "list": "Oem",
-    "description": "This weird app collects battery data and probably others, who knows?",
+    "description": "FactoryApp\nThis weird app collects battery data and probably others, who knows? Also to test battery things such as set voltage, Soc, temperature, status, timestamp.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36781,14 +36701,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  },
-  "com.samsung.android.wallpaper.res": {
-    "list": "Oem",
-    "description": "Video Wallpaper .webp resources.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
   },
   "com.samsung.android.wifi.ai": {
     "list": "Oem",
