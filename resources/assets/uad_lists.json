@@ -4184,11 +4184,11 @@
   },
   "com.samsung.android.game.gos": {
     "list": "Oem",
-    "description": "Samsung Game Optimizing Service \nIs supposed to \"improve\" game performance.Has a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
+    "description": "Samsung Game Optimizing Service \nReinstalls immediately after uninstallation, must be disabled.\nIs supposed to \"improve\" game performance.Has a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.android.gametuner.thin": {
     "list": "Oem",
@@ -4217,6 +4217,14 @@
   "com.samsung.android.hmt.vrsvc": {
     "list": "Oem",
     "description": "Gear VR Service\nSee above.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.samsung.android.hwresourceshare": {
+    "list": "Oem",
+    "description": "Camera sharing.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5128,6 +5136,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.videoscan": {
+    "list": "Oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.visionprovider": {
     "list": "Oem",
@@ -6335,7 +6351,7 @@
   },
   "com.samsung.cmh": {
     "list": "Oem",
-    "description": "CMH Provider is a dependency for the the samsung gallery app. This package asks for a lot of permissions. \nIt seems to be be used for cloud and story stuff in the gallery and also seems needed for content recognition.\nHas the same shared user id as com.samsung.faceservice, com.samsung.mlp, com.samsung.mpl\n \nNOTE : On some phone models, deleting this package can also prevent to preview photos from the camera app.\nSeems to trigger com.samsung.faceservice, com.samsung.mlp, com.samsung.mpl when needed.\n",
+    "description": "Dependency for photo remaster in Gallery > Photo > Details",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6527,11 +6543,11 @@
   },
   "com.sec.android.sdhms": {
     "list": "Oem",
-    "description": "Samsung Device Health Manager Service\nBattery estimation service for Samsung Care/Device maintenance (com.samsung.android.lool)\nThere is some weird stuff in the java code. I don't understand why there is a need to parse torrent files for instance\nor why there is a string \"googleapis.com/drive\"\nhttps://developers.google.com/drive/api/v3/reference\n",
+    "description": "Samsung Device Health Manager Service\nCan no longer be removed. Disabling package will cause it to continuously crash as it tries to start back up.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Unsafe"
   },
   "com.sec.android.wallpapercropper2": {
     "list": "Oem",
@@ -7325,67 +7341,67 @@
   },
   "com.android.internal.display.cutout.emulation.corner": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.double": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.hole": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.narrow": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/develop/ui/views/layout/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/develop/ui/views/layout/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.noCutout": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.tall": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.waterfall": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.wide": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Emulation display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.internal.systemui.navbar.gestural": {
     "list": "Aosp",
@@ -7693,11 +7709,11 @@
   },
   "com.android.certinstaller": {
     "list": "Aosp",
-    "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.\nBreaks Wi-Fi if disabled.",
+    "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.defcontainer": {
     "list": "Aosp",
@@ -7745,7 +7761,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.localtransport": {
     "list": "Aosp",
@@ -7753,7 +7769,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.location.fused": {
     "list": "Aosp",
@@ -7821,11 +7837,11 @@
   },
   "com.android.providers.downloads": {
     "list": "Aosp",
-    "description": "Downloads Manager\nProvider for downloaded files.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Downloads Manager\nHas trackers and unneeded perms.\nProvider for downloaded files.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.providers.downloads.ui": {
     "list": "Aosp",
@@ -7833,7 +7849,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.providers.media": {
     "list": "Aosp",
@@ -10103,7 +10119,7 @@
   },
   "com.google.android.providers.media.module": {
     "list": "Aosp",
-    "description": "Media Storage\nIn Android 11 this is literally what provides access to files.\nSafe to disable, but NOT recommended; breaks file browsers and other forms of file access.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Media Storage\nSafe to disable, but NOT recommended; breaks file access and crashes apps on media share.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10599,7 +10615,7 @@
   },
   "com.samsung.android.providers.media": {
     "list": "Oem",
-    "description": "Likely same as com.android.providers.media; scans the device for media files and allows permitted apps access to them.",
+    "description": "Likely same as com.android.providers.media; scans the device for media files and allows permitted apps access to them.\nCrashes media.android.process on USB connection.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12863,7 +12879,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.qualcomm.qti.qcolor": {
     "list": "Misc",
@@ -25398,7 +25414,15 @@
     "labels": []
   },
   "com.samsung.android.gru": {
-    "description": "Galaxy Resource Updater\nNeeded for galaxy store probably and not sure but also for system updates?",
+    "description": "Galaxy Resource Updater",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.samsung.android.dbsc": {
+    "description": "Galaxy Service Setup",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -27546,11 +27570,11 @@
   },
   "com.google.android.ext.shared": {
     "list": "Aosp",
-    "description": "Android Shared Library.\nMaybe people thinking it's safe to remove or it's useless because it's empty.\nbut it cause bootloop on my miui 14.",
+    "description": "Android Shared Library.\nTesting, but safe to remove. Does Removing causes bootloop on some miui 14 devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.google.android.federatedcompute": {
     "list": "Aosp",
@@ -31456,11 +31480,11 @@
   },
   "com.android.wifi.dialog": {
     "list": "Aosp",
-    "description": "Needed for wifi dialogs.\nCan brick basic functionality android.",
+    "description": "Wifi dialog seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.wifi.mainline.resources.overlay": {
     "list": "Aosp",
@@ -31804,7 +31828,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.mediatek.gbaservice": {
     "list": "Misc",
@@ -31848,11 +31872,11 @@
   },
   "com.samsung.android.wifi.h2e.resources": {
     "list": "Oem",
-    "description": "needed for wifi, has config values for that",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.sec.android.app.wfdbroker": {
     "list": "Oem",
@@ -32461,6 +32485,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.mediasearch": {
+    "list": "Oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.memorysaver": {
     "list": "Oem",
@@ -36446,6 +36478,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.mhs.ai": {
+    "list": "Oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.samsung.android.mocca": {
     "list": "Oem",
     "description": "MoccaMobile\nRequire google play services.\nDiagnostics, logs, car crash, better remove this app.",
@@ -36489,6 +36529,14 @@
   "com.samsung.android.peripheral.framework": {
     "list": "Oem",
     "description": "Peripheral Framework\nIt's knox analytics.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.petservice": {
+    "list": "Oem",
+    "description": "Pet service\nSamsung and SmartThings camera/vacuums.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36624,11 +36672,43 @@
   },
   "com.samsung.android.wifi.softap.resources": {
     "list": "Oem",
-    "description": "Needed for wifi.",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.softapdualap.resources": {
+    "list": "Oem",
+    "description": "WiFi seems to work without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.softapowe.resources": {
+    "list": "Oem",
+    "description": "WiFi seems to work without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.softapqc.resources": {
+    "list": "Oem",
+    "description": "WiFi seems to work without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.softapsixghz.resources": {
+    "list": "Oem",
+    "description": "WiFi seems to work without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.android.softsim": {
     "list": "Oem",
@@ -36668,7 +36748,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.vdcservice": {
     "list": "Oem",
@@ -36704,35 +36784,43 @@
   },
   "com.samsung.android.wifi.decrease.scan.interval.resources": {
     "list": "Oem",
-    "description": "Needed for WiFi.",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.wifi.increase.scan.interval.resources": {
     "list": "Oem",
-    "description": "Needed for WiFi.",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.p2paware.resources": {
+    "list": "Oem",
+    "description": "WiFi seems to work without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.android.wifi.resources.qc": {
     "list": "Oem",
-    "description": "Needed for WiFi.",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.wifi.resources.wifilock": {
     "list": "Oem",
-    "description": "Needed for WiFi.",
+    "description": "WiFi seems to work without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.sprint.chameleon": {
     "list": "Carrier",
@@ -36744,7 +36832,7 @@
   },
   "com.sec.android.app.qsfastpairoverlay": {
     "list": "Oem",
-    "description": "About half street overlay, has to gms.",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
