@@ -36912,7 +36912,7 @@
   },
   "com.android.connectivity.resources.overlay": {
     "list": "Oem",
-    "description": "Cause bootloop?\nFound in TECNO Phone in overlay there's notify No Internet As Dialog When High Priority.",
+    "description": "Cause bootloop?\nFound in TECNO phone, in overlay there's a notification saying 'No Internet As Dialog When High Priority'.\nCan someone test it?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36956,7 +36956,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.transsion.nephilim": {
     "list": "Oem",
