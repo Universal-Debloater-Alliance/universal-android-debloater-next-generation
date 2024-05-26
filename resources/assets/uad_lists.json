@@ -23557,8 +23557,8 @@
     "labels": []
   },
   "com.transsion.hilauncher": {
-    "description": "HiOS Launcher\nIt have google analytics and it's so bloated.",
-    "removal": "Expert",
+    "description": "HiOS Launcher\nIt have google analytics and it's so bloated.\nThe recent apps button does not work after uninstallation.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -31468,7 +31468,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.wifi.resources.overlay": {
     "list": "Aosp",
@@ -36916,15 +36916,15 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.hilauncherconfig": {
     "list": "Oem",
-    "description": "HiOS Launcher settings. You can uninstall it, but install another Launcher first.",
+    "description": "Configures app icons and folders on first run HiOS Launcher.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.theme.icondefaultshape": {
     "list": "Oem",
@@ -37000,19 +37000,19 @@
   },
   "com.google.android.overlay.modules.packageinstaller": {
     "list": "Oem",
-    "description": "Like other google overlay modules, is it safe to remove them?",
+    "description": "Package installer ui changes to the classic after uninstallation.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.transsion.bluetooth": {
     "list": "Oem",
-    "description": "Airlink\nRequired for Bluetooth to work properly?",
+    "description": "Airlink\nBluetooth still work without this.\n(not sure if its needed for transfer files using bluetooth)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.infinix.xshare": {
     "list": "Oem",
@@ -37029,5 +37029,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.android.settings.resoverlay": {
+    "list": "Oem",
+    "description": "Found in the code "Declaration of Conformity" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
