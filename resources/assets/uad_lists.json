@@ -37037,5 +37037,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "me.phh.treble.app": {
+    "list": "Oem",
+    "description": "Used for settings GSI rom that based by Phh Treble. This should not be remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 }
