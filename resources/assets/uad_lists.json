@@ -34630,14 +34630,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.android.settings.os.overlay": {
-    "list": "Oem",
-    "description": "Icon user found, overlay to 'com.android.settings'.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.android.systemui.os.overlay": {
     "list": "Oem",
     "description": "Icon user found, overlay to 'com.android.systemui'.",
@@ -36984,7 +36976,7 @@
   },
   "com.android.settings.os.overlay": {
     "list": "Oem",
-    "description": "Looks unused, but not confirmed. Found in app 'icon file download', Vibration switch.",
+    "description": "Looks unused, but not confirmed. Found in app 'icon file download', Vibration switch. Icon user found, overlay to 'com.android.settings'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
