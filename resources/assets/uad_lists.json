@@ -36326,6 +36326,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.dbsc": {
+    "list": "Oem",
+    "description": "Galaxy Service Setup\nDevice-Based Service Consent. Pairs with `com.sec.spp.push` to broadcast new service consent requests to your device.\nReally slimey move by Samsung to name it this in the wake of Google announcing their own DBSC (Device Bound Session Credentials) which will phase out third-party cookies and help secure browsers against cookie theft.\nhttps://blog.chromium.org/2024/04/fighting-cookie-theft-using-device.html\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.deviceidservice": {
     "list": "Oem",
     "description": "DeviceIdService\nCollects device id but it is not known what it is used for.\nTake's OAID, VAID, AAID.",
