@@ -37032,7 +37032,7 @@
   },
   "com.android.settings.resoverlay": {
     "list": "Oem",
-    "description": "Found in the code "Declaration of Conformity" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
+    "description": "Found in the code \"Declaration of Conformity\" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
