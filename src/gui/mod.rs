@@ -6,7 +6,7 @@ use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, Co
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::string_to_theme;
+use crate::core::utils::{string_to_theme, ANDROID_SERIAL};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -261,7 +261,7 @@ impl Application for UadGui {
             Message::DeviceSelected(s_device) => {
                 self.selected_device = Some(s_device.clone());
                 self.view = View::List;
-                env::set_var("ANDROID_SERIAL", s_device.adb_id);
+                env::set_var(ANDROID_SERIAL, s_device.adb_id);
                 info!("{:-^65}", "-");
                 info!(
                     "ANDROID_SDK: {} | DEVICE: {}",

@@ -1,4 +1,4 @@
-use crate::core::config::DeviceSettings;
+use crate::core::config::{Config, DeviceSettings};
 use crate::core::sync::{apply_pkg_state_commands, CorePackage, Phone, User};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
@@ -51,7 +51,8 @@ pub async fn backup_phone(
 
     match serde_json::to_string_pretty(&backup) {
         Ok(json) => {
-            let backup_path = &*BACKUP_DIR.join(device_id);
+            let backup_dir: PathBuf = Config::load_configuration_file().general.backup_folder;
+            let backup_path = &*backup_dir.join(device_id);
 
             if let Err(e) = fs::create_dir_all(backup_path) {
                 error!("BACKUP: could not create backup dir: {}", e);

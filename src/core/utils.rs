@@ -8,6 +8,16 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
+/// Global environment variable to keep
+/// track of the current device serial.
+pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
+pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
+
+#[derive(Debug, Clone)]
+pub enum Error {
+    DialogClosed,
+}
+
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
     let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
     let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
@@ -105,6 +115,20 @@ pub fn format_diff_time_from_now(date: DateTime<Utc>) -> String {
     }
 }
 
+pub async fn export_selection(packages: Vec<PackageRow>) -> Result<bool, String> {
+    let selected = packages
+        .iter()
+        .filter(|p| p.selected)
+        .map(|p| p.name.clone())
+        .collect::<Vec<String>>()
+        .join("\n");
+
+    match fs::write(EXPORT_FILE_NAME, selected) {
+        Ok(_) => Ok(true),
+        Err(err) => Err(err.to_string()),
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct DisplayablePath {
     pub path: PathBuf,
@@ -128,4 +152,13 @@ impl fmt::Display for DisplayablePath {
 
         write!(f, "{stem}")
     }
+}
+
+pub async fn open_folder() -> Result<PathBuf, Error> {
+    let picked_folder = rfd::AsyncFileDialog::new()
+        .pick_folder()
+        .await
+        .ok_or(Error::DialogClosed)?;
+
+    Ok(picked_folder.path().to_owned())
 }

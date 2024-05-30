@@ -1,3 +1,4 @@
+use crate::core::helpers::button_primary;
 pub use crate::core::sync::Phone;
 use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
@@ -19,24 +20,19 @@ pub fn nav_menu<'a>(
     apps_view: &AppsView,
     self_update_state: &SelfUpdateState,
 ) -> Element<'a, Message, Theme, Renderer> {
-    let apps_refresh_btn = button(
+    let apps_refresh_btn = button_primary(
         Text::new("\u{E900}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
     )
-    .on_press(Message::RefreshButtonPressed)
-    .padding([5, 10])
-    .style(style::Button::Refresh);
+    .on_press(Message::RefreshButtonPressed);
 
     let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps", tooltip::Position::Bottom)
         .style(style::Container::Tooltip)
         .gap(4);
 
-    let reboot_btn = button("Reboot")
-        .on_press(Message::RebootButtonPressed)
-        .padding([5, 10])
-        .style(style::Button::Refresh);
+    let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
 
     #[allow(clippy::option_if_let_else)]
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
@@ -63,25 +59,17 @@ pub fn nav_menu<'a>(
         button("").height(0).width(0).style(style::Button::Hidden)
     };
 
-    let apps_btn = button("Apps")
-        .on_press(Message::AppsPress)
-        .padding([5, 10])
-        .style(style::Button::Primary);
+    let apps_btn = button_primary("Apps").on_press(Message::AppsPress);
 
-    let about_btn = button("About")
-        .on_press(Message::AboutPressed)
-        .padding([5, 10])
-        .style(style::Button::Primary);
+    let about_btn = button_primary("About").on_press(Message::AboutPressed);
 
-    let settings_btn = button(
+    let settings_btn = button_primary(
         Text::new("\u{E994}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
     )
-    .on_press(Message::SettingsPressed)
-    .padding([5, 10])
-    .style(style::Button::Primary);
+    .on_press(Message::SettingsPressed);
 
     let device_list_text = match apps_view.loading_state {
         ListLoadingState::FindingPhones => text("Finding connected devices..."),

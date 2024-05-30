@@ -1,4 +1,5 @@
 use crate::core::uad_lists::PackageState;
+use crate::core::utils::ANDROID_SERIAL;
 use crate::gui::views::list::PackageInfo;
 use crate::gui::widgets::package_row::PackageRow;
 use regex::Regex;
@@ -322,7 +323,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                     return OperationResult::Retry(vec![]);
                 }
                 for device in RE.captures_iter(&devices) {
-                    env::set_var("ANDROID_SERIAL", &device[1]);
+                    env::set_var(ANDROID_SERIAL, &device[1]);
                     device_list.push(Phone {
                         model: get_phone_brand(),
                         android_sdk: get_android_sdk(),
