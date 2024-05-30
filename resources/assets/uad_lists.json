@@ -9955,7 +9955,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.asi": {
     "list": "Google",
@@ -27836,7 +27836,7 @@
   },
   "com.google.android.overlay.modules.permissioncontroller": {
     "list": "Aosp",
-    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602\nWARNING: when disabling this package on a Samsung N960F running Android Q, the pop-up UI reverts.",
+    "description": "I only detect on this app: help_app_permissions (link below). It looks very useless, not needed.\nIt doesnt affect com.google.android.permissioncontroller\nhttps://support.google.com/googleplay/answer/6270602\nWARNING: when disabling this package on a Samsung N960F running Android Q, the pop-up UI reverts. Disabling this package (as it's an overlay) will also put the pop-up UI to (like full-screen notification) to the center instead of the bottom.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
