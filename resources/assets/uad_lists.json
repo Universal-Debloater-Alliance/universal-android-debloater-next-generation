@@ -13483,7 +13483,7 @@
   },
   "com.qualcomm.timeservice": {
     "list": "Misc",
-    "description": "Qualcomm Time Service\nOccasionally runs in the background.\nCould be what syncs the CPU clock with Android time?\nProbably not something you want to disable.",
+    "description": "Qualcomm Time Service\nUpdates time-services user time offset when user changes time of the day and Android sends a TIME_CHANGED or DATE_CHANGED intents.\nTime-services restores the time of the day after reboot using this offset:\nhttps://github.com/bcyj/android_tools_leeco_msm8996/blob/master/time-services/src/com/qualcomm/timeservice/TimeServiceBroadcastReceiver.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27138,11 +27138,11 @@
   },
   "com.google.android.configupdater": {
     "list": "Google",
-    "description": "ConfigUpdater\nOccasionally runs in the background.\nAuto updates certificates for TLS connection, firewall configuration, e.t.c.\nMainly used for Google services? Might be fine to disable if you don't use Google services. Disabling might mess with security if you do use them though.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
+    "description": "Config Update\nIntents used to provide unbundled updates of system data. All require the UPDATE_CONFIG permission. Updates:\n- system wide certificate pins for TLS connections.\n- System wide Intent firewall.\n- List of permium SMS short codes.\n- List of carrier provisioning URLs.\n- Set of trusted logs used for Certificate Transparency support for TLS connections language detection model file\n- Smart selection model file\n- Conversation actions model file\n- Network watchlist config file\n- Intent action indicating that the updated carrier id config is available\n- The emergency number database into the devices\n- An integer to indicate the numeric version of the new data -- devices should only install if the update version is newer than the current one\n- Hash of the database, which is encoded by base-16 SHA512.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.deskclock": {
     "list": "Google",
