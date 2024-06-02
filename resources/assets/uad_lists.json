@@ -15939,7 +15939,7 @@
   },
   "com.android.camera": {
     "list": "Aosp",
-    "description": "The Stock ASOP camera app on many phones. However on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open camera as on open source alternative:https://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
+    "description": "The stock AOSP camera app on many phones. However, on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open Camera as an open source alternative:\nhttps://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
