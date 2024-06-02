@@ -32504,7 +32504,7 @@
   },
   "com.qualcomm.qti.securemsm.mdtp": {
     "list": "Oem",
-    "description": "MdtpService\nonly logs founded",
+    "description": "MdtpService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32688,7 +32688,7 @@
   },
   "com.samsung.android.dck.timesync": {
     "list": "Oem",
-    "description": "DckTimeSyncService\nOnly logs founded",
+    "description": "DckTimeSyncService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
