@@ -36622,6 +36622,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.samsungpssdplus": {
+    "list": "Oem",
+    "description": "Samsung Magician\nhttps://play.google.com/store/apps/details?id=com.samsung.samsungpssdplus\nAllows users to conveniently manage their Samsung Portable SSD settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.wifi.softap.resources": {
     "list": "Oem",
     "description": "Needed for wifi.",
