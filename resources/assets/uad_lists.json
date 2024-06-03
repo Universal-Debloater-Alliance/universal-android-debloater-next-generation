@@ -37056,7 +37056,7 @@
   },
   "com.sony.dtv.seeds.iot": {
     "list": "Oem",
-    "description": "Allows you to control your TV with smart speaker e.g Alexa \nhttps://play.google.com/store/apps/details?id=com.sony.dtv.seeds.iot&hl=en_US\n",
+    "description": "Allows you to control your TV with smart speaker e.g Alexa:\nhttps://play.google.com/store/apps/details?id=com.sony.dtv.seeds.iot&hl=en_US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37104,7 +37104,7 @@
   },
   "com.youview.poa": {
     "list": "Oem",
-    "description": "Youview live tv app\nhttps://play.google.com/store/apps/details?id=com.youview.poa&hl=en_US\n. Sometimes a remote on your button opens this but that can be changed in the settings. Safe to remove",
+    "description": "Youview live tv app\nhttps://play.google.com/store/apps/details?id=com.youview.poa&hl=en_US/\nSometimes a remote on your button opens this but that can be changed in the settings. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37128,11 +37128,11 @@
   },
   "com.sony.dtv.calibrationmonitor": {
     "list": "Oem",
-    "description": "Screen calibration app\nhttps://play.google.com/store/apps/details/Calman%20for%20BRAVIA?id=com.sony.dtv.calibrationmonitor&hl=en_US\n Useful app, but can be removed if you don't need it.",
+    "description": "Screen calibration app\nhttps://play.google.com/store/apps/details/Calman%20for%20BRAVIA?id=com.sony.dtv.calibrationmonitor&hl=en_US\nUseful app, but can be removed if you don't need it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sony.dtv.notificationcenter": {
     "list": "Oem",
