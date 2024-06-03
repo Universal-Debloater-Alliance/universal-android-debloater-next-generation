@@ -37152,7 +37152,7 @@
   },
   "com.vewd.core.integration.dia": {
     "list": "Oem",
-    "description": "Sony's browser app. Some apps redirect to the browser so it can be useful",
+    "description": "Sony's browser app. Some apps redirect to the browser so it can be useful\nhttps://play.google.com/store/apps/details?id=com.vewd.core.integration.dia&hl=en_US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
