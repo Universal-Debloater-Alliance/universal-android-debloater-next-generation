@@ -37157,5 +37157,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.sony.dtv.promos": {
+    "list": "Oem",
+    "description": "Sony's promotion app with offers. You need an account to use it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "screnmirroring.com": {
+    "list": "Oem",
+    "description": "Sony's screen mirroring app. Can be removed as chromecasting still works without it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.apple.atve.sony.appletv": {
+    "list": "Oem",
+    "description": "Apple Tv app on android Tv. Can be removed without any problem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
