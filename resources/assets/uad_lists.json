@@ -9951,11 +9951,11 @@
   },
   "com.google.android.overlay.gmsconfig": {
     "list": "Google",
-    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location.\neverything works without it.",
+    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location. Everything works without it.\nWARNING: causes the Galaxy App to force-close after a few seconds on a Samsung N960F running Android Q.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.asi": {
     "list": "Google",
@@ -13499,7 +13499,7 @@
   },
   "com.qualcomm.timeservice": {
     "list": "Misc",
-    "description": "Qualcomm Time Service\nOccasionally runs in the background.\nCould be what syncs the CPU clock with Android time?\nProbably not something you want to disable.",
+    "description": "Qualcomm Time Service\nUpdates time-services user time offset when user changes time of the day and Android sends a TIME_CHANGED or DATE_CHANGED intents.\nTime-services restores the time of the day after reboot using this offset:\nhttps://github.com/bcyj/android_tools_leeco_msm8996/blob/master/time-services/src/com/qualcomm/timeservice/TimeServiceBroadcastReceiver.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15955,7 +15955,7 @@
   },
   "com.android.camera": {
     "list": "Aosp",
-    "description": "The Stock ASOP camera app on many phones. However on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open camera as on open source alternative:https://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
+    "description": "The stock AOSP camera app on many phones. However, on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open Camera as an open source alternative:\nhttps://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27154,11 +27154,11 @@
   },
   "com.google.android.configupdater": {
     "list": "Google",
-    "description": "ConfigUpdater\nOccasionally runs in the background.\nAuto updates certificates for TLS connection, firewall configuration, e.t.c.\nMainly used for Google services? Might be fine to disable if you don't use Google services. Disabling might mess with security if you do use them though.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
+    "description": "Config Update\nIntents used to provide unbundled updates of system data. All require the UPDATE_CONFIG permission. Updates:\n- system wide certificate pins for TLS connections.\n- System wide Intent firewall.\n- List of permium SMS short codes.\n- List of carrier provisioning URLs.\n- Set of trusted logs used for Certificate Transparency support for TLS connections language detection model file\n- Smart selection model file\n- Conversation actions model file\n- Network watchlist config file\n- Intent action indicating that the updated carrier id config is available\n- The emergency number database into the devices\n- An integer to indicate the numeric version of the new data -- devices should only install if the update version is newer than the current one\n- Hash of the database, which is encoded by base-16 SHA512.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.deskclock": {
     "list": "Google",
@@ -27852,7 +27852,7 @@
   },
   "com.google.android.overlay.modules.permissioncontroller": {
     "list": "Aosp",
-    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602",
+    "description": "I only detect on this app: help_app_permissions (link below). It looks very useless, not needed.\nIt doesnt affect com.google.android.permissioncontroller\nhttps://support.google.com/googleplay/answer/6270602\nWARNING: when disabling this package on a Samsung N960F running Android Q, the pop-up UI reverts. Disabling this package (as it's an overlay) will also put the pop-up UI to (like full-screen notification) to the center instead of the bottom.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32528,7 +32528,7 @@
   },
   "com.qualcomm.qti.securemsm.mdtp": {
     "list": "Oem",
-    "description": "MdtpService\nonly logs founded",
+    "description": "MdtpService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32712,7 +32712,7 @@
   },
   "com.samsung.android.dck.timesync": {
     "list": "Oem",
-    "description": "DckTimeSyncService\nOnly logs founded",
+    "description": "DckTimeSyncService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36646,6 +36646,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.samsungpssdplus": {
+    "list": "Oem",
+    "description": "Samsung Magician\nhttps://play.google.com/store/apps/details?id=com.samsung.samsungpssdplus\nAllows users to conveniently manage their Samsung Portable SSD settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.wifi.softap.resources": {
     "list": "Oem",
     "description": "Needed for wifi.",
@@ -37069,5 +37077,133 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.sony.dtv.seeds.iot": {
+    "list": "Oem",
+    "description": "Allows you to control your TV with smart speaker e.g Alexa:\nhttps://play.google.com/store/apps/details?id=com.sony.dtv.seeds.iot&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.tvx": {
+    "list": "Oem",
+    "description": "An app which allows you to watch live TV. Can be safely removed if you don't watch it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.sonyselect": {
+    "list": "Oem",
+    "description": "Shows you bunch of popular subscription services and apps and redirects you to the play store. Better to use play store itself",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.recapp": {
+    "list": "Oem",
+    "description": "Allows you to view your reminders and timers but not add them? Can be removed safely",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.osat.music": {
+    "list": "Oem",
+    "description": "Music app which streams from your files.\nhttps://play.google.com/store/apps/details?id=com.sonyericsson.music&hl=en_US\nCan be removed if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.livingfit": {
+    "list": "Oem",
+    "description": "Turns your tv into an accessory by showing pictures. This is different to the screensaver and won't affect it.\nhttps://play.google.com/store/apps/details?id=com.sony.dtv.livingfit&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.youview.poa": {
+    "list": "Oem",
+    "description": "Youview live tv app\nhttps://play.google.com/store/apps/details?id=com.youview.poa&hl=en_US/\nSometimes a remote on your button opens this but that can be changed in the settings. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.smarthelp": {
+    "list": "Oem",
+    "description": "App with documentation of how to use a smart TV. Removing it has no effect",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.ecodashboard": {
+    "list": "Oem",
+    "description": "Unnecessary app. These settings can be configured in the main settings app without needing this",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.calibrationmonitor": {
+    "list": "Oem",
+    "description": "Screen calibration app\nhttps://play.google.com/store/apps/details/Calman%20for%20BRAVIA?id=com.sony.dtv.calibrationmonitor&hl=en_US\nUseful app, but can be removed if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sony.dtv.notificationcenter": {
+    "list": "Oem",
+    "description": "Notification app which reminds you to use apps from Sony's ecosystem. Can be removed safely without breaking other notifications",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.timers": {
+    "list": "Oem",
+    "description": "Sony's clock app.\n Can be removed safely but on some Android Tv launchers it makes the Timer button not function. Not a deal breaker as the feature is pretty useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vewd.core.integration.dia": {
+    "list": "Oem",
+    "description": "Sony's browser app. Some apps redirect to the browser so it can be useful. You can use another browser as long as you have another one installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.promos": {
+    "list": "Oem",
+    "description": "Sony's promotion app with offers. You need an account to use it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "screnmirroring.com": {
+    "list": "Oem",
+    "description": "Sony's screen mirroring app. Can be removed as chromecasting still works without it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.apple.atve.sony.appletv": {
+    "list": "Oem",
+    "description": "Apple Tv app on android Tv. Can be removed without any problem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
