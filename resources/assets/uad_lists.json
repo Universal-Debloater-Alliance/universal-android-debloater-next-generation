@@ -37064,11 +37064,11 @@
   },
   "com.sony.dtv.tvx": {
     "list": "Oem",
-    "description": "An app which allows you to watch live TV. Can be safely removed if you don't watch it.",
+    "description": "Handles inut settings. HDMI stops working if this is removed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.sony.dtv.sonyselect": {
     "list": "Oem",
@@ -37120,11 +37120,11 @@
   },
   "com.sony.dtv.ecodashboard": {
     "list": "Oem",
-    "description": "Unnecessary app. These settings can be configured in the main settings app without needing this",
+    "description": "Used to configure eco friendly settings. Breaks some options in the settings app if removed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sony.dtv.calibrationmonitor": {
     "list": "Oem",
