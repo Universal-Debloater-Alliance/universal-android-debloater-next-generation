@@ -37064,7 +37064,7 @@
   },
   "com.sony.dtv.tvx": {
     "list": "Oem",
-    "description": "Handles inut settings. HDMI stops working if this is removed",
+    "description": "Handles input settings. HDMI stops working if this is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37120,7 +37120,7 @@
   },
   "com.sony.dtv.ecodashboard": {
     "list": "Oem",
-    "description": "Used to configure eco friendly settings. Breaks some options in the settings app if removed",
+    "description": "Used to configure eco friendly settings. Breaks some options in the settings app if removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
