@@ -26442,7 +26442,7 @@
   },
   "miui.systemui.plugin": {
     "list": "Oem",
-    "description": "System UI Plug-in. When removed, Android will use the AOSP style volume bar.",
+    "description": "System UI Plug-in. When removed, Android will use the AOSP style volume bar and reboot menu. Will break the iOS-style quick settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
