@@ -3448,7 +3448,7 @@
   },
   "com.motorola.VirtualUiccPayment": {
     "list": "Oem",
-    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Useful only in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/",
+    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Only useful in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payments.\nNote: The term SIM is widely used to refer to both SIMs and UICCs in the industry and among consumers.\nhttps://blog.velosiot.com/euicc-and-esim-are-they-the-same-thing",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11421,6 +11421,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.lgdmsclient": {
+    "list": "Oem",
+    "description": "Actual \"Software Update\" App client\nI think you won't receive updates without this.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.lge.lgdrm.permission": {
     "list": "Oem",
     "description": "Handle permissions for LG DRM (com.lge.drmservice).\nWhy does LG need a whole package for this?",
@@ -11552,6 +11560,14 @@
   "com.lge.qmemoplus": {
     "list": "Oem",
     "description": "LG QuickMemo+\nAllows you to capture screen shots and use them to create memos. You can also insert a reminder, location information, image, video, and audio.\nhttps://www.lg.com/us/support/help-library/lg-android-quickmemo-CT10000025-20150103629575\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.remote.lgairdrive": {
+    "list": "Oem",
+    "description": "LG AirDrive\nLets you to control files in your device via a wireless connection. \nTo use it, you need to sign in to your LG account on both the PC and mobile device.\nhttps://www.lg.com/africa/support/product-help/CT20080025-1436354408798-others\n \nLG AirDrive settings\nSee package below.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32265,6 +32281,14 @@
   "com.nttdocomo.android.rwpushcontroller": {
     "list": "Carrier",
     "description": "rwpushcontroller\nAnother FeliCa Networks app, with japanese language\nUseless frameworks",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.rsupport.rs.activity.lge.allinone": {
+    "list": "Oem",
+    "description": "LG RemoteCall service app\nUsed to get support from LG, safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
