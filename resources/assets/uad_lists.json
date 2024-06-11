@@ -11423,11 +11423,11 @@
   },
   "com.lge.lgdmsclient": {
     "list": "Oem",
-    "description": "Actual "Software Update" App client\nI think you won't receive updates without this.\n",
+    "description": "Actual \"Software Update\" App client\nI think you won't receive updates without this.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.lge.lgdrm.permission": {
     "list": "Oem",
@@ -32288,7 +32288,7 @@
   },
   "com.rsupport.rs.activity.lge.allinone": {
     "list": "Oem",
-    "description": "LG "RemoteCall" service app\nUsed to get support from LG, safe to remove.",
+    "description": "LG RemoteCall service app\nUsed to get support from LG, safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
