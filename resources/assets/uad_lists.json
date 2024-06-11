@@ -1778,7 +1778,7 @@
   },
   "com.motorola.att.phone.extensions": {
     "list": "Carrier",
-    "description": "Provide acess to AT&T extensions in you dialer. I'm not sure tho. It's only a supposition.\nhttps://asecare.att.com/tutorials/adding-and-deleting-an-extension-on-your-officehand-mobile-app-2990/?product=AT&T%20Office@Hand\n",
+    "description": "AT&T Phone Extension\nProvides access to AT&T extensions in your dialer.\nhttps://asecare.att.com/tutorials/adding-and-deleting-an-extension-on-your-officehand-mobile-app-2990/?product=AT&T%20Office@Hand",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
