@@ -1800,6 +1800,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.adaptivebrightnessgo": {
+    "list": "Oem",
+    "description": "Samsung Adaptive Brightness\nFeature of Samsung devices that, as the name suggests, automatically adjusts the brightness level of display based on environmental lighting.\nThis feature is available even after uninstalling.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.attvvm": {
     "list": "Carrier",
     "description": "Visual Voicemail\nSimple GUI for voicemail\n",
