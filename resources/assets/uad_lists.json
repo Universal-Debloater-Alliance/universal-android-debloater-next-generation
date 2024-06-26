@@ -9067,7 +9067,7 @@
   },
   "com.oneplus.config": {
     "list": "Oem",
-    "description": "OPConfig\nOccasionally runs in the background.\nPackage source is: OPOnlineConfig.apk\nGuessing it might handle communication certificates and general network config for Oneplus apps.\nOnly has INTERNET and RECEIVE_BOOT_COMPLETED permissions.",
+    "description": "OPConfig\nOccasionally runs in the background.\nPackage source is: OPOnlineConfig.apk\nGuessing it might handle communication certificates and general network config for Oneplus apps.\nOnly has INTERNET and RECEIVE_BOOT_COMPLETED permissions.\n'Tips & Support' will be removed from settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
