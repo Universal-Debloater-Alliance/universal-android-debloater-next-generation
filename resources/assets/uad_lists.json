@@ -2848,7 +2848,7 @@
   },
   "com.huawei.android.internal.app": {
     "list": "Oem",
-    "description": "Component of Huawei sharing\n",
+    "description": "Component of Huawei sharing\nMay break the sharing function in several applications (in particular, apps will crash).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
