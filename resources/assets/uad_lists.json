@@ -37213,5 +37213,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.gameloft.android.ANMP.GloftA9HM": {
+  "list": "Oem",
+  "description": "Asphalt 9: Legends",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
+  },
+  "com.tencent.ngjp": {
+  "list": "Oem",
+  "description": "Arena of Valor ",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
+  },
+  "com.epicgames.portal": {
+  "list": "Oem",
+  "description": "Epic Games for Android ",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
   }
 }
