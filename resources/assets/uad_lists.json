@@ -37239,7 +37239,7 @@
   "removal": "Recommended"
   },
   "com.dti.samsung": {
-  "list": "TODO",
+  "list": "Oem",
   "description": "TODO",
   "dependencies": [],
   "neededBy": [],
@@ -37247,7 +37247,7 @@
   "removal": "TODO"
   },
   "com.samsung.adaptivebrightnessgo": {
-  "list": "TODO",
+  "list": "Oem",
   "description": "TODO",
   "dependencies": [],
   "neededBy": [],
@@ -37255,7 +37255,7 @@
   "removal": "TODO"
   },
   "com.samsung.android.app.siofviewer": {
-  "list": "TODO",
+  "list": "Oem",
   "description": "TODO",
   "dependencies": [],
   "neededBy": [],
@@ -37263,7 +37263,7 @@
   "removal": "TODO"
   },
   "com.samsung.android.server.wifi.mobilewips.client": {
-  "list": "TODO",
+  "list": "Oem",
   "description": "TODO",
   "dependencies": [],
   "neededBy": [],
