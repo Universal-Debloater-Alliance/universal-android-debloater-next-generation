@@ -18044,8 +18044,8 @@
     "labels": []
   },
   "com.lge.ims": {
-    "description": "LG IMS\nIt's not a good app because it has a lot of debugging stuff.",
-    "removal": "Recommended",
+    "description": "LG IMS\nIt's not a good app because it has a lot of debugging stuff.\nBreaks calls.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
