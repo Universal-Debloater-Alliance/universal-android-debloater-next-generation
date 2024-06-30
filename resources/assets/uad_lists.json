@@ -37237,5 +37237,37 @@
   "neededBy": [],
   "labels": [],
   "removal": "Recommended"
+  },
+  "com.dti.samsung": {
+  "list": "TODO",
+  "description": "TODO",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "TODO"
+  },
+  "com.samsung.adaptivebrightnessgo": {
+  "list": "TODO",
+  "description": "TODO",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "TODO"
+  },
+  "com.samsung.android.app.siofviewer": {
+  "list": "TODO",
+  "description": "TODO",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "TODO"
+  },
+  "com.samsung.android.server.wifi.mobilewips.client": {
+  "list": "TODO",
+  "description": "TODO",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "TODO"
   }
 }
