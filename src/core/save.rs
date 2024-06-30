@@ -12,15 +12,15 @@ use std::path::{Path, PathBuf};
 pub static BACKUP_DIR: PathBuf = CACHE_DIR.join("backups");
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
-struct PhoneBackup {
-    device_id: String,
-    users: Vec<UserBackup>,
+pub struct PhoneBackup {
+    pub device_id: String,
+    pub users: Vec<UserBackup>,
 }
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
-struct UserBackup {
-    id: u16,
-    packages: Vec<CorePackage>,
+pub struct UserBackup {
+    pub id: u16,
+    pub packages: Vec<CorePackage>,
 }
 
 // Backup all `Uninstalled` and `Disabled` packages

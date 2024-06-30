@@ -192,9 +192,11 @@ where
     ) -> event::Status {
         let content_bounds = layout.children().next().unwrap().bounds();
 
-        #[allow(clippy::equatable_if_let)]
         if let Some(message) = self.on_blur.as_ref() {
-            if let Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left)) = &event {
+            if matches!(
+                event,
+                Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
+            ) {
                 if let Some(cursor_position) = cursor.position() {
                     if !content_bounds.contains(cursor_position) {
                         shell.publish(message.clone());
