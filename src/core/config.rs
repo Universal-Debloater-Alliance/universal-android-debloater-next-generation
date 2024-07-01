@@ -53,7 +53,7 @@ impl Default for GeneralSettings {
 impl Default for DeviceSettings {
     fn default() -> Self {
         Self {
-            device_id: String::new(),
+            device_id: String::default(),
             multi_user_mode: get_android_sdk() > 21,
             disable_mode: false,
             backup: BackupSettings::default(),

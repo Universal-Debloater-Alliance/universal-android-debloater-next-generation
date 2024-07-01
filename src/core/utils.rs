@@ -12,6 +12,7 @@ use std::{fmt, fs};
 /// track of the current device serial.
 pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
+pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
 
 #[derive(Debug, Clone)]
 pub enum Error {
@@ -115,6 +116,8 @@ pub fn format_diff_time_from_now(date: DateTime<Utc>) -> String {
     }
 }
 
+/// Export selected packages.
+/// File will be saved in same directory where UAD-ng is located.
 pub async fn export_selection(packages: Vec<PackageRow>) -> Result<bool, String> {
     let selected = packages
         .iter()
@@ -154,6 +157,7 @@ impl fmt::Display for DisplayablePath {
     }
 }
 
+/// Can be used to choose any folder.
 pub async fn open_folder() -> Result<PathBuf, Error> {
     let picked_folder = rfd::AsyncFileDialog::new()
         .pick_folder()
@@ -161,4 +165,43 @@ pub async fn open_folder() -> Result<PathBuf, Error> {
         .ok_or(Error::DialogClosed)?;
 
     Ok(picked_folder.path().to_owned())
+}
+
+/// Export uninstalled packages in a file.
+/// Exported information will contain package name and description.
+pub async fn export_packages(
+    user: Option<User>,
+    device_id: String,
+    phone_packages: Vec<Vec<PackageRow>>,
+) -> Result<bool, String> {
+    let uninstalled_packages: Vec<String> = phone_packages[user.unwrap().index]
+        .iter()
+        .filter(|p| p.state.to_string() == "Uninstalled")
+        .map(|p| {
+            format!(
+                "{}Name: {}\nDescription: {}",
+                "-------------------------------------------------------------------\n",
+                p.name,
+                p.description.replace('\n', " ")
+            )
+        })
+        .collect();
+
+    let backup_content = format!(
+        "Device ID: {}\nUser ID: {}\n-------------------------------------------------------------------\n{}",
+        device_id,
+        user.unwrap().id,
+        uninstalled_packages.join("\n")
+    );
+
+    let backup_file = format!(
+        "{}_{}.txt",
+        UNINSTALLED_PACKAGES_FILE_NAME,
+        chrono::Local::now().format("%Y%m%d")
+    );
+
+    match fs::write(backup_file, backup_content) {
+        Ok(_) => Ok(true),
+        Err(err) => Err(err.to_string()),
+    }
 }

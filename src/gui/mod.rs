@@ -220,6 +220,7 @@ impl Application for UadGui {
                         &self.apps_view.phone_packages,
                         &mut self.nb_running_async_adb_commands,
                         msg,
+                        &self.apps_view.selected_user,
                     )
                     .map(Message::SettingsAction)
             }
@@ -377,7 +378,7 @@ impl Application for UadGui {
                 .map(Message::AboutAction),
             View::Settings => self
                 .settings_view
-                .view(&selected_device)
+                .view(&selected_device, &self.apps_view)
                 .map(Message::SettingsAction),
         };
 

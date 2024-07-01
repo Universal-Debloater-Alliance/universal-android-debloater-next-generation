@@ -30,7 +30,7 @@ impl Default for Phone {
             model: "fetching devices...".to_string(),
             android_sdk: 0,
             user_list: vec![],
-            adb_id: String::new(),
+            adb_id: String::default(),
         }
     }
 }
@@ -165,7 +165,7 @@ pub fn hashset_system_packages(state: PackageState, user_id: Option<&User>) -> H
     let action = match state {
         PackageState::Enabled => format!("pm list packages -s -e{user}"),
         PackageState::Disabled => format!("pm list package -s -d{user}"),
-        _ => String::new(), // You probably don't need to use this function for anything else
+        _ => String::default(), // You probably don't need to use this function for anything else
     };
 
     adb_shell_command(true, &action)

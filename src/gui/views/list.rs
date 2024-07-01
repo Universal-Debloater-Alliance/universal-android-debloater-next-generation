@@ -53,7 +53,7 @@ pub struct List {
     selected_package_state: Option<PackageState>,
     selected_removal: Option<Removal>,
     selected_list: Option<UadList>,
-    selected_user: Option<User>,
+    pub selected_user: Option<User>,
     all_selected: bool,
     pub input_value: String,
     description: String,
