@@ -3,7 +3,8 @@ use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
 use crate::gui::widgets::package_row::PackageRow;
 use chrono::offset::Utc;
-use chrono::DateTime;
+use chrono::{DateTime, Local};
+use csv::Writer;
 use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
@@ -167,41 +168,35 @@ pub async fn open_folder() -> Result<PathBuf, Error> {
     Ok(picked_folder.path().to_owned())
 }
 
-/// Export uninstalled packages in a file.
+/// Export uninstalled packages in a csv file.
 /// Exported information will contain package name and description.
 pub async fn export_packages(
     user: Option<User>,
-    device_id: String,
     phone_packages: Vec<Vec<PackageRow>>,
 ) -> Result<bool, String> {
-    let uninstalled_packages: Vec<String> = phone_packages[user.unwrap().index]
+    let uninstalled_packages: Vec<&PackageRow> = phone_packages[user.unwrap().index]
         .iter()
         .filter(|p| p.state.to_string() == "Uninstalled")
-        .map(|p| {
-            format!(
-                "{}Name: {}\nDescription: {}",
-                "-------------------------------------------------------------------\n",
-                p.name,
-                p.description.replace('\n', " ")
-            )
-        })
         .collect();
 
-    let backup_content = format!(
-        "Device ID: {}\nUser ID: {}\n-------------------------------------------------------------------\n{}",
-        device_id,
-        user.unwrap().id,
-        uninstalled_packages.join("\n")
-    );
-
     let backup_file = format!(
-        "{}_{}.txt",
+        "{}_{}.csv",
         UNINSTALLED_PACKAGES_FILE_NAME,
-        chrono::Local::now().format("%Y%m%d")
+        Local::now().format("%Y%m%d")
     );
 
-    match fs::write(backup_file, backup_content) {
-        Ok(_) => Ok(true),
-        Err(err) => Err(err.to_string()),
+    let file = fs::File::create(backup_file).map_err(|err| err.to_string())?;
+    let mut wtr = Writer::from_writer(file);
+
+    wtr.write_record(["Package Name", "Description"])
+        .map_err(|err| err.to_string())?;
+
+    for package in uninstalled_packages {
+        wtr.write_record([&package.name, &package.description.replace('\n', " ")])
+            .map_err(|err| err.to_string())?;
     }
+
+    wtr.flush().map_err(|err| err.to_string())?;
+
+    Ok(true)
 }

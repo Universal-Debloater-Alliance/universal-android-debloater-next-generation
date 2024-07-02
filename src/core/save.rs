@@ -28,7 +28,7 @@ pub async fn backup_phone(
     users: Vec<User>,
     device_id: String,
     phone_packages: Vec<Vec<PackageRow>>,
-) -> Result<(), String> {
+) -> Result<bool, String> {
     let mut backup = PhoneBackup {
         device_id: device_id.clone(),
         ..PhoneBackup::default()
@@ -63,7 +63,7 @@ pub async fn backup_phone(
                 format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
 
             match fs::write(backup_path.join(backup_filename), json) {
-                Ok(_) => Ok(()),
+                Ok(_) => Ok(true),
                 Err(err) => Err(err.to_string()),
             }
         }

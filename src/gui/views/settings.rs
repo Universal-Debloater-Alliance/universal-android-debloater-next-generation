@@ -61,7 +61,7 @@ pub enum Message {
     BackupDevice,
     RestoreDevice,
     RestoringDevice(Result<CommandType, AdbError>),
-    DeviceBackedUp(Result<(), String>),
+    DeviceBackedUp(Result<bool, String>),
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
     ExportPackages,
@@ -156,11 +156,19 @@ impl Settings {
                 ),
                 Message::DeviceBackedUp,
             ),
-            Message::DeviceBackedUp(_) => {
-                info!("[BACKUP] Backup successfully created");
-                self.device.backup.backups =
-                    list_available_backups(&self.general.backup_folder.join(phone.adb_id.clone()));
-                self.device.backup.selected = self.device.backup.backups.first().cloned();
+            Message::DeviceBackedUp(is_backed_up) => {
+                match is_backed_up {
+                    Ok(_) => {
+                        info!("[BACKUP] Backup successfully created");
+                        self.device.backup.backups = list_available_backups(
+                            &self.general.backup_folder.join(phone.adb_id.clone()),
+                        );
+                        self.device.backup.selected = self.device.backup.backups.first().cloned();
+                    }
+                    Err(err) => {
+                        error!("[BACKUP FAILED] Backup creation failed: {:?}", err);
+                    }
+                }
                 Command::none()
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
@@ -234,11 +242,7 @@ impl Settings {
                 }
             }
             Message::ExportPackages => Command::perform(
-                export_packages(
-                    *selected_user,
-                    self.device.device_id.clone(),
-                    packages.to_vec(),
-                ),
+                export_packages(*selected_user, packages.to_vec()),
                 Message::PackagesExported,
             ),
             Message::PackagesExported(exported) => {
