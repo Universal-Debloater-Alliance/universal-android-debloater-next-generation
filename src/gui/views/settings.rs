@@ -499,12 +499,7 @@ impl Settings {
                 Space::new(Length::Fill, Length::Shrink),
                 text(format!(
                     "Selected: user {}",
-                    apps_view
-                        .selected_user
-                        .unwrap_or_else(|| unreachable!(
-                            "No user selected, despite phone being connected"
-                        ))
-                        .id
+                    apps_view.selected_user.unwrap_or_default().id
                 )),
             ]
             .spacing(10)
