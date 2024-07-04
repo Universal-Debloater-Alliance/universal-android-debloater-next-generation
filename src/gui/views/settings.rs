@@ -76,7 +76,7 @@ impl Settings {
         packages: &[Vec<PackageRow>],
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
-        selected_user: &Option<User>,
+        selected_user: Option<User>,
     ) -> Command<Message> {
         match msg {
             Message::ModalHide => {
@@ -242,7 +242,7 @@ impl Settings {
                 }
             }
             Message::ExportPackages => Command::perform(
-                export_packages(*selected_user, packages.to_vec()),
+                export_packages(selected_user.unwrap_or_default(), packages),
                 Message::PackagesExported,
             ),
             Message::PackagesExported(exported) => {
