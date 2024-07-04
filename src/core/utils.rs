@@ -171,14 +171,9 @@ pub async fn open_folder() -> Result<PathBuf, Error> {
 /// Export uninstalled packages in a csv file.
 /// Exported information will contain package name and description.
 pub async fn export_packages(
-    user: Option<User>,
+    user: User,
     phone_packages: Vec<Vec<PackageRow>>,
 ) -> Result<bool, String> {
-    let uninstalled_packages: Vec<&PackageRow> = phone_packages[user.unwrap().index]
-        .iter()
-        .filter(|p| p.state.to_string() == "Uninstalled")
-        .collect();
-
     let backup_file = format!(
         "{}_{}.csv",
         UNINSTALLED_PACKAGES_FILE_NAME,
@@ -190,6 +185,11 @@ pub async fn export_packages(
 
     wtr.write_record(["Package Name", "Description"])
         .map_err(|err| err.to_string())?;
+
+    let uninstalled_packages: Vec<&PackageRow> = phone_packages[user.index]
+        .iter()
+        .filter(|p| p.state == PackageState::Uninstalled)
+        .collect();
 
     for package in uninstalled_packages {
         wtr.write_record([&package.name, &package.description.replace('\n', " ")])
