@@ -17,6 +17,7 @@ pub struct BaseColors {
 #[derive(Debug, Clone, Copy)]
 pub struct NormalColors {
     pub primary: Color,
+    #[allow(dead_code)]
     pub secondary: Color,
     pub surface: Color,
     pub error: Color,

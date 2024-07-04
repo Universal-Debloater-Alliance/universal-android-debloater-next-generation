@@ -5,12 +5,14 @@ on:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
   pull_request:
     paths:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
 
 jobs:

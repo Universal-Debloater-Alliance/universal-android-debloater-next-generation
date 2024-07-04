@@ -1,4 +1,4 @@
-use crate::core::config::DeviceSettings;
+use crate::core::config::{Config, DeviceSettings};
 use crate::core::sync::{apply_pkg_state_commands, CorePackage, Phone, User};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
@@ -12,15 +12,15 @@ use std::path::{Path, PathBuf};
 pub static BACKUP_DIR: PathBuf = CACHE_DIR.join("backups");
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
-struct PhoneBackup {
-    device_id: String,
-    users: Vec<UserBackup>,
+pub struct PhoneBackup {
+    pub device_id: String,
+    pub users: Vec<UserBackup>,
 }
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
-struct UserBackup {
-    id: u16,
-    packages: Vec<CorePackage>,
+pub struct UserBackup {
+    pub id: u16,
+    pub packages: Vec<CorePackage>,
 }
 
 // Backup all `Uninstalled` and `Disabled` packages
@@ -28,7 +28,7 @@ pub async fn backup_phone(
     users: Vec<User>,
     device_id: String,
     phone_packages: Vec<Vec<PackageRow>>,
-) -> Result<(), String> {
+) -> Result<bool, String> {
     let mut backup = PhoneBackup {
         device_id: device_id.clone(),
         ..PhoneBackup::default()
@@ -51,7 +51,8 @@ pub async fn backup_phone(
 
     match serde_json::to_string_pretty(&backup) {
         Ok(json) => {
-            let backup_path = &*BACKUP_DIR.join(device_id);
+            let backup_dir: PathBuf = Config::load_configuration_file().general.backup_folder;
+            let backup_path = &*backup_dir.join(device_id);
 
             if let Err(e) = fs::create_dir_all(backup_path) {
                 error!("BACKUP: could not create backup dir: {}", e);
@@ -62,7 +63,7 @@ pub async fn backup_phone(
                 format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
 
             match fs::write(backup_path.join(backup_filename), json) {
-                Ok(_) => Ok(()),
+                Ok(_) => Ok(true),
                 Err(err) => Err(err.to_string()),
             }
         }

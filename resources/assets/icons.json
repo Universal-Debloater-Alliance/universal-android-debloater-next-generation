@@ -416,8 +416,11 @@
         {
           "ligatures": "folder-open, directory2",
           "name": "folder-open",
-          "order": 0,
-          "id": 49
+          "order": 4,
+          "id": 49,
+          "prevSize": 28,
+          "code": 59696,
+          "tempChar": ""
         },
         {
           "ligatures": "folder-plus, directory3",
@@ -1016,8 +1019,11 @@
         {
           "ligatures": "cog, gear",
           "name": "cog",
-          "order": 0,
-          "id": 149
+          "order": 3,
+          "id": 149,
+          "prevSize": 28,
+          "code": 59796,
+          "tempChar": ""
         },
         {
           "ligatures": "cogs, gears",
