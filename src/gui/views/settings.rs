@@ -472,25 +472,6 @@ impl Settings {
             row![]
         };
 
-        let export_row = row![
-            export_btn,
-            "Export uninstalled packages with their description",
-            Space::new(Length::Fill, Length::Shrink),
-            text(format!(
-                "Selected: user {}",
-                apps_view.selected_user.unwrap().id
-            )),
-        ]
-        .spacing(10)
-        .align_items(Alignment::Center);
-
-        let backup_restore_ctn =
-            container(column![backup_row, restore_row, export_row].spacing(10))
-                .padding(10)
-                .width(Length::Fill)
-                .height(Length::Shrink)
-                .style(style::Container::Frame);
-
         let no_device_ctn = || {
             container(text("No device detected").style(style::Text::Danger))
                 .padding(10)
@@ -498,7 +479,7 @@ impl Settings {
                 .style(style::Container::BorderedFrame)
         };
 
-        let content = if phone.adb_id.clone().is_empty() {
+        let content = if phone.adb_id.is_empty() {
             column![
                 text("Theme").size(26),
                 theme_ctn,
@@ -512,6 +493,30 @@ impl Settings {
             .width(Length::Fill)
             .spacing(20)
         } else {
+            let export_row = row![
+                export_btn,
+                "Export uninstalled packages with their description",
+                Space::new(Length::Fill, Length::Shrink),
+                text(format!(
+                    "Selected: user {}",
+                    apps_view
+                        .selected_user
+                        .unwrap_or_else(|| unreachable!(
+                            "No user selected, despite phone being connected"
+                        ))
+                        .id
+                )),
+            ]
+            .spacing(10)
+            .align_items(Alignment::Center);
+
+            let backup_restore_ctn =
+                container(column![backup_row, restore_row, export_row].spacing(10))
+                    .padding(10)
+                    .width(Length::Fill)
+                    .height(Length::Shrink)
+                    .style(style::Container::Frame);
+
             column![
                 text("Theme").size(26),
                 theme_ctn,
