@@ -242,7 +242,7 @@ impl Settings {
                 }
             }
             Message::ExportPackages => Command::perform(
-                export_packages(selected_user.unwrap_or_default(), packages),
+                export_packages(selected_user.unwrap_or_default(), packages.to_vec()),
                 Message::PackagesExported,
             ),
             Message::PackagesExported(exported) => {
