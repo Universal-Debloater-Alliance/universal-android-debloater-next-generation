@@ -16173,11 +16173,11 @@
   },
   "com.miui.powerkeeper": {
     "list": "Oem",
-    "description": "Battery and Performance\n(aggressive) MIUI power management (https://dontkillmyapp.com/xiaomi)\nThat's a weird app that also contains a DRM Manager and a service related to Cloud Backup\nHas obviously a lot of dangerous permissions.\nI guess removing this package will decrease the battery performance. Is it that noticeable? Can someone try?\nNOTE: REMOVING THIS PACKAGE CAUSES A BOOTLOOP ON THE REDMI PAD.",
+    "description": "Battery and Performance\n(aggressive) MIUI power management (https://dontkillmyapp.com/xiaomi)\nThat's a weird app that also contains a DRM Manager and a service related to Cloud Backup\nHas obviously a lot of dangerous permissions.\nI guess removing this package will decrease the battery performance. Is it that noticeable? Can someone try?\nNOTE: REMOVING THIS PACKAGE CAUSES A BOOTLOOP ON THE REDMI PAD.\nTo not get bootloop, log out from Mi Account.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.zman": {
     "list": "Oem",
@@ -26498,11 +26498,11 @@
   },
   "com.android.updater": {
     "list": "Oem",
-    "description": "Mi Updater\nProvides system updates\nREMOVING THIS WILL BOOTLOOP YOUR DEVICE! Doesn't bootloop on MIUI 14.",
+    "description": "Mi Updater\nProvides system updates\nREMOVING THIS WILL BOOTLOOP YOUR DEVICE! Doesn't bootloop on MIUI 13 and above.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.lbe.security.miui": {
     "list": "Oem",
@@ -26522,19 +26522,19 @@
   },
   "com.miui.securitycenter": {
     "list": "Oem",
-    "description": "MIUI Security app\nProvides \"protection and optimization tools\" \nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 14 is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
+    "description": "MIUI Security app\nProvides \"protection and optimization tools\" \nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 13 and above is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.securitycore": {
     "list": "Oem",
-    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 14 it doesnt bootloop and looks performance like the same, also this app has annoying notifications when you running new app.",
+    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 13 and above it doesnt bootloop and looks performance like the same, also this app has annoying notifications when you running new app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.system": {
     "list": "Oem",
@@ -26554,11 +26554,11 @@
   },
   "com.miui.securityadd": {
     "list": "Oem",
-    "description": "Related to the MIUI Security app\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Related to the MIUI Security app\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE BELOW MIUI 13! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.xiaomi.misettings": {
     "list": "Oem",
