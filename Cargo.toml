@@ -51,3 +51,10 @@ strip = "symbols"
 
 [build-dependencies]
 embed-resource = "2.4.2"
+
+[lints.rust]
+# "deny" is temp, "forbid" later
+unsafe_code = "deny"
+
+[lints.clippy]
+unwrap_used = "warn"
