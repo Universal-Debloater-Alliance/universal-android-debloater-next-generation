@@ -63,7 +63,9 @@ pub fn string_to_theme(theme: &str) -> Theme {
         "Dark" => Theme::Dark,
         "Light" => Theme::Light,
         "Lupin" => Theme::Lupin,
-        _ => Theme::Auto,
+        // Auto uses `Display`, so it doesn't have a canonical repr
+        t if t.starts_with("Auto") => Theme::Auto,
+        _ => Theme::default(),
     }
 }
 
