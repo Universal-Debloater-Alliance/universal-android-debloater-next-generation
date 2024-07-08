@@ -5,14 +5,14 @@ use iced::{color, Color};
 /// Color scheme
 pub enum Theme {
     #[default]
+    /// `Dark` or `Light`, according to `dark_light`
+    Auto,
     /// `Dark`-ish and purple
     Lupin,
     /// white on black
     Dark,
     /// black on white
     Light,
-    /// `Dark` or `Light`, according to `dark_light`
-    Auto,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -127,8 +127,7 @@ impl std::fmt::Display for Theme {
                 Self::Dark => "Dark",
                 Self::Light => "Light",
                 Self::Lupin => "Lupin",
-                // should it be "Follow System"?
-                Self::Auto => "Auto (sync on startup)",
+                Self::Auto => "Auto (follow system theme)",
             }
         )
     }
