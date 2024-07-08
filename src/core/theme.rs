@@ -46,7 +46,7 @@ pub struct ColorPalette {
 }
 
 impl Theme {
-    pub const ALL: [Self; 4] = [Self::Lupin, Self::Dark, Self::Light, Self::Auto];
+    pub const ALL: [Self; 4] = [Self::Auto, Self::Lupin, Self::Dark, Self::Light];
 
     pub fn palette(self) -> ColorPalette {
         const DARK: ColorPalette = ColorPalette {
