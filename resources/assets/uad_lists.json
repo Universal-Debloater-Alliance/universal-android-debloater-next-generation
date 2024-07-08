@@ -37237,5 +37237,125 @@
   "neededBy": [],
   "labels": [],
   "removal": "Recommended"
+  },
+  "com.android.anrtool": {
+    "list": "Oem",
+    "description": "AnrTool\nApp for AEE log, ANR log, facelock test.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.yft.factorymode": {
+    "list": "Oem",
+    "description": "Factory Mode\nTesting Hardware Things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.doogee.update": {
+    "list": "Oem",
+    "description": "System Update\nApp for System Updates.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.qr_codescan": {
+    "list": "Oem",
+    "description": "Scan QR App",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.yft.systemmanager": {
+    "list": "Oem",
+    "description": "System Manager\nManages bluetooth, applock, battery. Not sure if its safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.yft.childmode": {
+    "list": "Oem",
+    "description": "Child mode\nSet password to restrict Mobile data, Apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.yft.easylauncher": {
+    "list": "Oem",
+    "description": "Easy Launcher\nNot sure if needed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.yft.gamemode": {
+    "list": "Oem",
+    "description": "Game Mode\nNot much info about it than add games and Cleaning up Memory.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.mediatek.todos": {
+    "list": "Misc",
+    "description": "Notepad\nApp to editing text.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.yft.sensorcalibration": {
+    "list": "Oem",
+    "description": "SensorCalibration\nProximity Sensor Calibration.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.yft.smarttouch": {
+    "list": "Oem",
+    "description": "Smart Touch\nApp for gestures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.yft.stepcount": {
+    "list": "Oem",
+    "description": "App for history steps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.yft.superscreen": {
+    "list": "Oem",
+    "description": "S-capture\nFounded in the app: Screen record, screenshot, Test Launcher.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.yft.tool": {
+    "list": "Oem",
+    "description": "ToolBag\nApp to start measure, heart rate, compass calibrates.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "cn.sh.yftmba.yfttorch": {
+    "list": "Oem",
+    "description": "Torch\nApp for Flashlight.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
