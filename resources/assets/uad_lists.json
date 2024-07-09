@@ -37268,7 +37268,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.yft.systemmanager": {
     "list": "Oem",
@@ -37300,7 +37300,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.mediatek.todos": {
     "list": "Misc",
@@ -37308,7 +37308,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.yft.sensorcalibration": {
     "list": "Oem",
@@ -37324,7 +37324,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.yft.stepcount": {
     "list": "Oem",
@@ -37336,7 +37336,7 @@
   },
   "com.yft.superscreen": {
     "list": "Oem",
-    "description": "S-capture\nFounded in the app: Screen record, screenshot, Test Launcher.",
+    "description": "S-capture\nFound in the app: Screen record, screenshot, Test Launcher.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
