@@ -110,8 +110,8 @@ impl Theme {
             Self::Auto => match dark_light::detect() {
                 dark_light::Mode::Dark => DARK,
                 dark_light::Mode::Light => LIGHT,
-                // TO-DO: await #540
-                _ => LUPIN,
+                // If the mode can't be detected, fall back to dark.
+                dark_light::Mode::Default => DARK,
             },
         }
     }
