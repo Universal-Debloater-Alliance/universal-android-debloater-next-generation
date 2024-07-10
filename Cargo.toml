@@ -53,7 +53,7 @@ strip = "symbols"
 embed-resource = "2.4.2"
 
 [lints.rust]
-# "deny" is temp, "forbid" later
+# "forbid" may cause conflicts with libs (static and dynamic)
 unsafe_code = "deny"
 
 [lints.clippy]
