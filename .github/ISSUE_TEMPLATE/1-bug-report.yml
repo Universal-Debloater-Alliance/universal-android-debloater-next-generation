@@ -48,8 +48,6 @@ body:
     label: Desktop Environment
     description: Please, fill it if OS is Linux
     placeholder: GNOME 46, KDE Plasma 4, etc...
-  validations:
-    required: true
 - type: textarea
   id: logfiles
   attributes:
