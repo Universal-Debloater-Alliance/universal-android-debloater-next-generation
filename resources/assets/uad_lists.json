@@ -37240,7 +37240,7 @@
   },
   "com.dti.samsung": {
   "list": "Carrier",
-  "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its maded by advertising company.",
+  "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
   "dependencies": [],
   "neededBy": [],
   "labels": [],
@@ -37248,7 +37248,7 @@
   },
   "com.samsung.adaptivebrightnessgo": {
   "list": "Oem",
-  "description": "CameraLightSensor\nApp to testing Adaptive Brightness.",
+  "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
   "dependencies": [],
   "neededBy": [],
   "labels": [],
