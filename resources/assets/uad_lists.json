@@ -37237,5 +37237,37 @@
   "neededBy": [],
   "labels": [],
   "removal": "Recommended"
+  },
+  "com.dti.samsung": {
+  "list": "Carrier",
+  "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
+  },
+  "com.samsung.adaptivebrightnessgo": {
+  "list": "Oem",
+  "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
+  },
+  "com.samsung.android.app.siofviewer": {
+  "list": "Oem",
+  "description": "Live focus\nNeeded for Live Focus in camera app.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+  },
+  "com.samsung.android.server.wifi.mobilewips.client": {
+  "list": "Oem",
+  "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
   }
 }
