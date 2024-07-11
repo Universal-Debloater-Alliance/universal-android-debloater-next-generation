@@ -57,7 +57,8 @@ embed-resource = "2.4.2"
 unsafe_code = "deny"
 
 [lints.clippy]
-unwrap_used = "warn"
 exit = "deny"
+unwrap_used = "warn"
 infinite_loop = "warn"
 format_push_string = "warn"
+large_include_file = "warn"
