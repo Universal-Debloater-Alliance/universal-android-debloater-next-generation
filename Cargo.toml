@@ -58,6 +58,7 @@ unsafe_code = "deny"
 
 [lints.clippy]
 exit = "deny"
+panic_in_result_fn = "warn"
 unwrap_used = "warn"
 infinite_loop = "warn"
 mem_forget = "warn"
