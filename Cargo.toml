@@ -67,3 +67,5 @@ string_to_string = "deny"
 format_push_string = "warn"
 large_include_file = "warn"
 shadow_unrelated = "warn"
+
+pedantic = { level = "warn", priority = -1 }
