@@ -198,7 +198,7 @@ impl Application for UadGui {
                                 for u in self
                                     .selected_device
                                     .as_ref()
-                                    .unwrap()
+                                    .expect("Device should be selected")
                                     .user_list
                                     .iter()
                                     .filter(|&u| !u.protected)
