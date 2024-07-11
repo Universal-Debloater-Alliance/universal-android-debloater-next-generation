@@ -59,3 +59,4 @@ unsafe_code = "deny"
 [lints.clippy]
 unwrap_used = "warn"
 exit = "deny"
+format_push_string = "warn"
