@@ -190,14 +190,17 @@ where
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
     ) -> event::Status {
-        let content_bounds = layout.children().next().unwrap().bounds();
-
         if let Some(message) = self.on_blur.as_ref() {
             if matches!(
                 event,
                 Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
             ) {
                 if let Some(cursor_position) = cursor.position() {
+                    let content_bounds = layout
+                        .children()
+                        .next()
+                        .unwrap_or_else(|| unreachable!("Layout must have at least 1 child"))
+                        .bounds();
                     if !content_bounds.contains(cursor_position) {
                         shell.publish(message.clone());
                         return event::Status::Captured;
