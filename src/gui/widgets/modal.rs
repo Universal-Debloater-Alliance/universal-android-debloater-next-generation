@@ -199,7 +199,7 @@ where
                     let content_bounds = layout
                         .children()
                         .next()
-                        .unwrap_or_else(|| unreachable!("Layout must have at least 1 child"))
+                        .expect("Layout must have at least 1 child")
                         .bounds();
                     if !content_bounds.contains(cursor_position) {
                         shell.publish(message.clone());
