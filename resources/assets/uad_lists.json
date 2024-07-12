@@ -37268,7 +37268,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.yft.systemmanager": {
     "list": "Oem",
