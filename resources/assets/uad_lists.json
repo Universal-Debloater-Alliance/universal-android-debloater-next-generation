@@ -25829,6 +25829,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oplus.mediacontroller": {
+    "description": "OplusMediaController is responsible for Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.\nUninstalling it won't show 'Now playing' notification on lockscreen and Dynamic Island feature for music applications but this application won't work if any of these (com.oneplus.account, com.oplus.ocs, com.oplus.onet, com.oplus.metis, com.oplus.statistics.rom, com.coloros.assistantscreen, com.coloros.scenemode) are disabled or uninstalled, so it doesn't make sense to keep this installed",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.oplus.melody": {
     "description": "Wireless Earphones\nWireless headset advanced configuration related (after uninstallation some Bluetooth headset setting options will be missing items, if you do not have headset setting problems, it is recommended to uninstall)\nhttps://play.google.com/store/apps/details?id=com.oplus.melody",
     "removal": "Advanced",
