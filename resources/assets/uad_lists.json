@@ -7,7 +7,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-
   "com.sony.tvsideview.videoph": {
     "list": "Oem",
     "description": "Video & TV SideView (replaced by https://play.google.com/store/apps/details?id=com.sony.tvsideview.phone)\nLets you use your smartphone or tablet as a TV remote control for the home. \n",
@@ -1160,7 +1159,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.longcheertel.secretcode": {
+  "com.longcheertel.secretcode": {
     "list": "Oem",
     "description": "Refers to the system package that handles secret codes.\nSecret codes are special sequences of numbers and symbols that can be entered on a phone's keypad to access hidden features or information.",
     "dependencies": [],
@@ -2657,7 +2656,9 @@
   "com.huawei.health": {
     "list": "Oem",
     "description": "Huawei Health (discontinued?)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\nRequire HMS.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -3720,7 +3721,7 @@
   },
   "com.samsung.android.app.cocktailbarservice": {
     "list": "Oem",
-    "description": "Edge screen\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
+    "description": "Edge screen/panels\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4184,7 +4185,7 @@
   },
   "com.samsung.android.game.gametools": {
     "list": "Oem",
-    "description": "Samsung Game Tools (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
+    "description": "Samsung Game Tools/Booster (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10015,7 +10016,7 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in motorola. Useless.",
+    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in Motorola. It's also installed on some Samsung Galaxy devices. Useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34953,7 +34954,9 @@
   "com.huawei.cloud": {
     "list": "Oem",
     "description": "Chinese only.\nHuawei Cloud Computer provides you with basic services of online desktop.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -34985,7 +34988,9 @@
   "com.huawei.android.findmyphone": {
     "list": "Oem",
     "description": "Find Device is an app that lets you locate your device and protect your data remotely.\nTo provide these features, this app needs to connect to the Internet during use.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -34993,7 +34998,9 @@
   "com.huawei.gamebox": {
     "list": "Oem",
     "description": "GameCenter\nRequires HMS Core to run.\nIt's app for installing games.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35001,7 +35008,9 @@
   "com.huawei.hicar": {
     "list": "Oem",
     "description": "Huawei HiCar\nTo connect to Huawei HiCar, press and hold the wireless button on the steering wheel or control panel.\nMore useful in China.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35009,7 +35018,9 @@
   "com.huawei.smarthome": {
     "list": "Oem",
     "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and manage routers and audio accessories.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35049,7 +35060,9 @@
   "com.huawei.hiskytone": {
     "list": "Oem",
     "description": "SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35169,7 +35182,9 @@
   "com.huawei.fans": {
     "list": "Oem",
     "description": "Huawei Club is the official forum for Huawei users.\nIt provides the latest news and information, FAQs, and tutorials about Huawei and Honor products.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35193,7 +35208,9 @@
   "com.huawei.lives": {
     "list": "Oem",
     "description": "HiLives is jointly developed by Huawei and certified third-party service providers to provide lifestyle services for you.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35337,7 +35354,9 @@
   "com.huawei.hwvplayer.youku": {
     "list": "Oem",
     "description": "Video Youku\nVideo Player on Chinese Huawei. Has some ads and bad privacy.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35385,7 +35404,9 @@
   "com.huawei.skytone": {
     "list": "Oem",
     "description": "SkyTone Data Service. Frameworks to 'com.huawei.hiskytone' SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hiskytone"],
+    "dependencies": [
+      "com.huawei.hiskytone"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -36238,7 +36259,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.heytap.headset":{
+  "com.heytap.headset": {
     "list": "Oem",
     "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
     "dependencies": [],
@@ -37215,59 +37236,59 @@
     "removal": "Recommended"
   },
   "com.gameloft.android.ANMP.GloftA9HM": {
-  "list": "Oem",
-  "description": "Asphalt 9: Legends",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Asphalt 9: Legends",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.tencent.ngjp": {
-  "list": "Oem",
-  "description": "Arena of Valor ",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Arena of Valor ",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.epicgames.portal": {
-  "list": "Oem",
-  "description": "Epic Games for Android ",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Epic Games for Android ",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.dti.samsung": {
-  "list": "Carrier",
-  "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Carrier",
+    "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.samsung.adaptivebrightnessgo": {
-  "list": "Oem",
-  "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.samsung.android.app.siofviewer": {
-  "list": "Oem",
-  "description": "Live focus\nNeeded for Live Focus in camera app.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Advanced"
+    "list": "Oem",
+    "description": "Live focus\nNeeded for Live Focus in camera app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.server.wifi.mobilewips.client": {
-  "list": "Oem",
-  "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Advanced"
+    "list": "Oem",
+    "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
