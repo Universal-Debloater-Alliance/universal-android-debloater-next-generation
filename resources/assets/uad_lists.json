@@ -35382,9 +35382,7 @@
   "com.huawei.skytone": {
     "list": "Oem",
     "description": "SkyTone Data Service. Frameworks to 'com.huawei.hiskytone' SkyTone Overseas Data Service.",
-    "dependencies": [
-      "com.huawei.hiskytone"
-    ],
+    "dependencies": ["com.huawei.hiskytone"],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -37223,7 +37221,7 @@
   },
   "com.tencent.ngjp": {
     "list": "Oem",
-    "description": "Arena of Valor ",
+    "description": "Arena of Valor",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37231,7 +37229,7 @@
   },
   "com.epicgames.portal": {
     "list": "Oem",
-    "description": "Epic Games for Android ",
+    "description": "Epic Games for Android",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
