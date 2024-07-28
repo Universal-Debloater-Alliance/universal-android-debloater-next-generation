@@ -22245,7 +22245,7 @@
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
-    "neededBy": [com.felicanetworks.mfm.main],
+    "neededBy": ["com.felicanetworks.mfm.main"],
     "labels": []
   },
   "com.shannon.rcsservice": {
