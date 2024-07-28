@@ -22241,7 +22241,7 @@
     "labels": []
   },
   "com.google.android.pixelnfc": {
-    "description": "Application that checks the SKU of a pixel device to Region Lock the Felica chip (Japanese NFC technology used in E-money cards) of the phone to prevent non-japanese people from using it.\n Removing it will make the Osaifu-Keitai crash upon start-up but will not cause any bootloop.\n Patching it (ROOT), however allows people with a Felica Chip to add IC cards to their phone and use it to pay while in Japan.",
+    "description": "Application that checks the SKU of a Pixel device to Region Lock the Felica chip (Japanese NFC technology used in E-money cards) of the phone to prevent non-Japanese people from using it.\nRemoving it will make the Osaifu-Keitai crash upon start-up but will not cause any bootloop.\nPatching it (ROOT), however allows people with a Felica Chip to add IC cards to their phone and use it to pay while in Japan.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
