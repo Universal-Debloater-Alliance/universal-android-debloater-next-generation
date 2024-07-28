@@ -37454,14 +37454,6 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "oplus.frameworkres.overlay.display.product": {
-    "list": "Oem",
-    "description": "Display Cutout for the screen blank for example on bottom left, bottom right.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.oplus.framework.rro.oneplus": {
     "list": "Oem",
     "description": "Found in the code colors to oplus boot message text color #000. Not sure if unused.",
