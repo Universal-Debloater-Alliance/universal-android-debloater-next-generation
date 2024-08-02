@@ -37269,5 +37269,135 @@
   "neededBy": [],
   "labels": [],
   "removal": "Advanced"
+  },
+"com.onyx.aiassistant": {
+    "list": "Oem",
+    "description": "Onyx Boox AI Assistant. Safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.android.ksync": {
+    "list": "Oem",
+    "description": "Ksync app. UNSAFE to remove because it will crash the system but you can safely disable it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+ 
+  "com.onyx.android.production.test":{
+    "list": "Oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.appmarket":{
+    "list": "Oem",
+    "description": "The Onyx Store app, you will not have any other way to install app if you unistall it\nYou will need to install an alternative store via adb",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.onyx.calculator": {
+    "list": "Oem",
+    "description": "The Onyx calculator app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.clock":{
+    "list": "Oem",
+    "description": "The Onyx Clock app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.dict":{
+    "list": "Oem",
+    "description": "The Onyx Dict app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.easytransfer":{
+    "list": "Oem",
+    "description": "Onyx Easy Transfer app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.gallery":{
+    "list": "Oem",
+    "description": "Onyx Gallery app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.igetshop":{
+    "list": "Oem",
+    "description": "Onyx iGetShot app, UNSAFE to remove but safe to DISABLE",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.onyx.kime":{
+    "list": "Oem",
+    "description": "Onyx Kime app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.kreader":{
+    "list": "Oem",
+    "description": "Onyx KReader app, UNSAFE to remove but can be safely disabled.\nRemember to load another reader app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.onyx.latinime":{
+    "list": "Oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.mail":{
+    "list": "Oem",
+    "description": "Onyx Mail app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.musicplayer":{
+    "list": "Oem",
+    "description": "Onyx Music Player app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.voicerecorder":{
+    "list": "Oem",
+    "description": "Onyx Voice Recorder app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
+  
 }
