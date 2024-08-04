@@ -37280,7 +37280,7 @@
   },
   "com.onyx.android.ksync": {
     "list": "Oem",
-    "description": "Ksync app. UNSAFE to remove because it will crash the system but you can safely disable it",
+    "description": "Ksync app. UNSAFE to remove because it will crash the Onyx launcher but you can safely disable it",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37289,7 +37289,7 @@
  
   "com.onyx.android.production.test":{
     "list": "Oem",
-    "description": "",
+    "description": "Test app enabled by clicking 5 times on the Onyx Version, it contains tests for screen quality",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37297,11 +37297,11 @@
   },
   "com.onyx.appmarket":{
     "list": "Oem",
-    "description": "The Onyx Store app, you will not have any other way to install app if you unistall it\nYou will need to install an alternative store via adb",
+    "description": "The Onyx Store app, you will not have any other way to install app if you uninstall it\nYou will need to install an alternative store via adb",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.onyx.calculator": {
     "list": "Oem",
@@ -37345,7 +37345,7 @@
   },
   "com.onyx.igetshop":{
     "list": "Oem",
-    "description": "Onyx iGetShot app, UNSAFE to remove but safe to DISABLE",
+    "description": "Onyx iGetShot app, UNSAFE because it will crash the Onyx Launcher to remove but safe to DISABLE",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37361,7 +37361,7 @@
   },
   "com.onyx.kreader":{
     "list": "Oem",
-    "description": "Onyx KReader app, UNSAFE to remove but can be safely disabled.\nRemember to load another reader app",
+    "description": "Onyx KReader app, UNSAFE to remove because it will crash the Onyx Launcher can be safely disabled.\nRemember to load another reader app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37369,7 +37369,7 @@
   },
   "com.onyx.latinime":{
     "list": "Oem",
-    "description": "",
+    "description": "The Onyx Keyboard. Removing it will leave withe google STT keyboard.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37399,5 +37399,4 @@
     "labels": [],
     "removal": "Recommended"
   }
-  
 }
