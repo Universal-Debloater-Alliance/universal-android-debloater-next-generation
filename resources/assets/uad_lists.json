@@ -37345,7 +37345,7 @@
   },
   "com.onyx.igetshop":{
     "list": "Oem",
-    "description": "Onyx iGetShot app, UNSAFE because it will crash the Onyx Launcher to remove but safe to DISABLE",
+    "description": "Onyx iGetShot app, UNSAFE to remove because it will crash the Onyx Launcher but safe to DISABLE",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
