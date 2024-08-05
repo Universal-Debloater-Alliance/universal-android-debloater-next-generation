@@ -220,7 +220,7 @@ impl Application for UadGui {
                         &self.apps_view.phone_packages,
                         &mut self.nb_running_async_adb_commands,
                         msg,
-                        &self.apps_view.selected_user,
+                        self.apps_view.selected_user,
                     )
                     .map(Message::SettingsAction)
             }

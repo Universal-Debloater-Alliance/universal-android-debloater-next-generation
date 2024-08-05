@@ -1,5 +1,8 @@
-use crate::core::sync::{get_android_sdk, User};
 use crate::core::utils::DisplayablePath;
+use crate::core::{
+    sync::{get_android_sdk, User},
+    theme::Theme,
+};
 use crate::gui::views::settings::Settings;
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
@@ -43,7 +46,7 @@ pub struct DeviceSettings {
 impl Default for GeneralSettings {
     fn default() -> Self {
         Self {
-            theme: String::from("Dark"),
+            theme: Theme::default().to_string(),
             expert_mode: false,
             backup_folder: CACHE_DIR.join("backups"),
         }
