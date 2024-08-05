@@ -37401,10 +37401,10 @@
   },
   "com.preff.kb.xm":{
     "list": "Oem",
-    "description": "'Emoji & Font Keyboard' on Xiaomi. \nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.",
+    "description": "'Emoji & Font Keyboard' on Xiaomi. \nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.\nMake sure to install an alternate keyboard app before doing so.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   }
 }
