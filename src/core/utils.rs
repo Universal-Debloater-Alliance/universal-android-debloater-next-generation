@@ -38,7 +38,7 @@ pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec
 
         if let Some(package) = uad_lists.get(p_name) {
             if !package.description.is_empty() {
-                description = &package.description
+                description = &package.description;
             }
             uad_list = package.list;
             removal = package.removal;
@@ -130,7 +130,7 @@ pub async fn export_selection(packages: Vec<PackageRow>) -> Result<bool, String>
         .join("\n");
 
     match fs::write(EXPORT_FILE_NAME, selected) {
-        Ok(_) => Ok(true),
+        Ok(()) => Ok(true),
         Err(err) => Err(err.to_string()),
     }
 }

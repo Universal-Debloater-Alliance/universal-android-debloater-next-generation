@@ -179,31 +179,27 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for UAD-ng update");
 
-    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
-        .call()
-    {
-        Ok(res) => {
-            let release: Release = serde_json::from_value(
-                res.into_json::<serde_json::Value>()
-                    .map_err(|_| ())?
-                    .clone(),
-            )
-            .map_err(|_| ())?;
+    if let Ok(res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+        .call() {
+        let release: Release = serde_json::from_value(
+            res.into_json::<serde_json::Value>()
+                .map_err(|_| ())?
+                .clone(),
+        )
+        .map_err(|_| ())?;
 
-            let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
+        let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
 
-            if release_version != "dev-build"
-                && release_version > env!("CARGO_PKG_VERSION")
-            {
-                Ok(Some(release))
-            } else {
-                Ok(None)
-            }
+        if release_version != "dev-build"
+            && release_version > env!("CARGO_PKG_VERSION")
+        {
+            Ok(Some(release))
+        } else {
+            Ok(None)
         }
-        Err(_) => {
-            debug!("Failed to check UAD-ng update");
-            Err(())
-        }
+    } else {
+        debug!("Failed to check UAD-ng update");
+        Err(())
     }
 }
 
@@ -268,7 +264,7 @@ where
 
     retry(Fibonacci::from_millis(1).take(21), || {
         match fs::rename(from, to) {
-            Ok(_) => OperationResult::Ok(()),
+            Ok(()) => OperationResult::Ok(()),
             Err(e) => match e.kind() {
                 io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
                 _ => OperationResult::Err(e),
@@ -295,7 +291,7 @@ where
     retry(
         Fibonacci::from_millis(1).take(21),
         || match fs::remove_file(path) {
-            Ok(_) => OperationResult::Ok(()),
+            Ok(()) => OperationResult::Ok(()),
             Err(e) => match e.kind() {
                 io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
                 _ => OperationResult::Err(e),
