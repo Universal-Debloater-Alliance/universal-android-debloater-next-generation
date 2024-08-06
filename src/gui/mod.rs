@@ -192,22 +192,18 @@ impl Application for UadGui {
                             return self.update(Message::RefreshButtonPressed);
                         }
                     }
-                    SettingsMessage::MultiUserMode(toggled) => {
-                        if toggled {
-                            for user in self.apps_view.phone_packages.clone() {
-                                for (i, _) in
-                                    user.iter().enumerate().filter(|&(_, pkg)| pkg.selected)
+                    SettingsMessage::MultiUserMode(toggled) if toggled => {
+                        for user in self.apps_view.phone_packages.clone() {
+                            for (i, _) in user.iter().filter(|&pkg| pkg.selected).enumerate() {
+                                for u in self
+                                    .selected_device
+                                    .as_ref()
+                                    .expect("Device should be selected")
+                                    .user_list
+                                    .iter()
+                                    .filter(|&u| !u.protected)
                                 {
-                                    for u in self
-                                        .selected_device
-                                        .as_ref()
-                                        .unwrap()
-                                        .user_list
-                                        .iter()
-                                        .filter(|&u| !u.protected)
-                                    {
-                                        self.apps_view.phone_packages[u.index][i].selected = true;
-                                    }
+                                    self.apps_view.phone_packages[u.index][i].selected = true;
                                 }
                             }
                         }
@@ -235,19 +231,13 @@ impl Application for UadGui {
                     }
                     AboutMessage::DoSelfUpdate => {
                         #[cfg(feature = "self-update")]
-                        if self.update_state.self_update.latest_release.is_some() {
+                        if let Some(release) = self.update_state.self_update.latest_release.as_ref()
+                        {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
                             let bin_name = bin_name().to_owned();
-                            let release = self
-                                .update_state
-                                .self_update
-                                .latest_release
-                                .as_ref()
-                                .unwrap()
-                                .clone();
                             Command::perform(
-                                download_update_to_temp_file(bin_name, release),
+                                download_update_to_temp_file(bin_name, release.clone()),
                                 Message::_NewReleaseDownloaded,
                             )
                         } else {

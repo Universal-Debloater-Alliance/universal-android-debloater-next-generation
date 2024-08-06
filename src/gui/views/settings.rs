@@ -207,7 +207,7 @@ impl Settings {
                     Command::batch(commands)
                 }
                 Err(e) => {
-                    self.device.backup.backup_state = e.to_string();
+                    self.device.backup.backup_state = e.clone();
                     error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
                     Command::none()
                 }
