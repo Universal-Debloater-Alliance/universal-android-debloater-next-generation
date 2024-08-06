@@ -125,9 +125,7 @@ pub async fn perform_adb_commands(
             // Some commands are even killed by ADB before finishing and UAD-ng can't catch
             // the output.
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!(
-                    "[{label}] {action} -> {o}"
-                )));
+                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
             }
 
             info!("[{}] {} -> {}", label, action, o);
@@ -135,9 +133,7 @@ pub async fn perform_adb_commands(
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!(
-                    "[{label}] {action} -> {err}"
-                )));
+                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
             }
             Err(AdbError::Generic(err))
         }
