@@ -51,66 +51,66 @@ impl Theme {
     pub fn palette(self) -> ColorPalette {
         const DARK: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0x111111),
-                foreground: color!(0x1C1C1C),
+                background: color!(0x11_11_11),
+                foreground: color!(0x1C_1C_1C),
             },
             normal: NormalColors {
-                primary: color!(0x5E4266),
-                secondary: color!(0x386e50),
-                surface: color!(0x828282),
-                error: color!(0x992B2B),
+                primary: color!(0x5E_42_66),
+                secondary: color!(0x38_6E_50),
+                surface: color!(0x82_82_82),
+                error: color!(0x99_2B_2B),
             },
             bright: BrightColors {
-                primary: color!(0xBA84FC),
-                secondary: color!(0x49eb7a),
-                surface: color!(0xE0E0E0),
-                error: color!(0xC13047),
+                primary: color!(0xBA_84_FC),
+                secondary: color!(0x49_EB_7A),
+                surface: color!(0xE0_E0_E0),
+                error: color!(0xC1_30_47),
             },
         };
         const LIGHT: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0xEEEEEE),
-                foreground: color!(0xE0E0E0),
+                background: color!(0xEE_EE_EE),
+                foreground: color!(0xE0_E0_E0),
             },
             normal: NormalColors {
-                primary: color!(0x818181),
-                secondary: color!(0xF9D659),
-                surface: color!(0x818181),
-                error: color!(0x992B2B),
+                primary: color!(0x81_81_81),
+                secondary: color!(0xF9_D6_59),
+                surface: color!(0x81_81_81),
+                error: color!(0x99_2B_2B),
             },
             bright: BrightColors {
-                primary: color!(0x673AB7),
-                secondary: color!(0x3797A4),
-                surface: color!(0x000000),
-                error: color!(0xC13047),
+                primary: color!(0x67_3A_B7),
+                secondary: color!(0x37_97_A4),
+                surface: color!(0x00_00_00),
+                error: color!(0xC1_30_47),
             },
         };
         const LUPIN: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0x282a36),
-                foreground: color!(0x353746),
+                background: color!(0x28_2A_36),
+                foreground: color!(0x35_37_46),
             },
             normal: NormalColors {
-                primary: color!(0x58406F),
-                secondary: color!(0x386e50),
-                surface: color!(0xa2a4a3),
-                error: color!(0xA13034),
+                primary: color!(0x58_40_6F),
+                secondary: color!(0x38_6E_50),
+                surface: color!(0xA2_A4_A3),
+                error: color!(0xA1_30_34),
             },
             bright: BrightColors {
-                primary: color!(0xbd94f9),
-                secondary: color!(0x49eb7a),
-                surface: color!(0xf4f8f3),
-                error: color!(0xE63E6D),
+                primary: color!(0xBD_94_F9),
+                secondary: color!(0x49_EB_7A),
+                surface: color!(0xF4_F8_F3),
+                error: color!(0xE6_3E_6D),
             },
         };
         match self {
             Self::Dark => DARK,
             Self::Light => LIGHT,
             Self::Lupin => LUPIN,
+            #[allow(clippy::match_same_arms)]
             Self::Auto => match dark_light::detect() {
-                dark_light::Mode::Dark => DARK,
                 dark_light::Mode::Light => LIGHT,
-                // If the mode can't be detected, fall back to dark.
+                dark_light::Mode::Dark => DARK,
                 dark_light::Mode::Default => DARK,
             },
         }

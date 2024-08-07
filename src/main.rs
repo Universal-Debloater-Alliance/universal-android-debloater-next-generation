@@ -26,10 +26,10 @@ fn main() -> iced::Result {
     gui::UadGui::start()
 }
 
-/// Sets up logging to a new file in CACHE_DIR/UAD_{time}.log
+/// Sets up logging to a new file in `CACHE_DIR/UAD`_{time}.log
 /// Also attaches the terminal on Windows machines
 /// '''
-/// match setup_logger().expect("Error setting up logger")
+/// match `setup_logger().expect("Error` setting up logger")
 /// '''
 pub fn setup_logger() -> Result<(), fern::InitError> {
     /// Attach Windows terminal, only on Windows
@@ -104,8 +104,8 @@ mod tests {
     #[test]
     fn init_logger() {
         match setup_logger() {
-            Ok(_) => (),
-            Err(error) => panic!("Error: {}", error),
+            Ok(()) => (),
+            Err(error) => panic!("Error: {error}"),
         }
     }
 }

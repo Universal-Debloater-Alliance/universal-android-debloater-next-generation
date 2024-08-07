@@ -327,7 +327,7 @@ impl Application for UadGui {
                         self.update_state.self_update.status = SelfUpdateStatus::Done;
                         self.update_state.self_update.latest_release = r;
                     }
-                    Err(_) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
+                    Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
                 };
                 Command::none()
             }
