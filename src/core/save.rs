@@ -75,7 +75,7 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
     #[allow(clippy::option_if_let_else)]
     match fs::read_dir(dir) {
         Ok(files) => files
-            .filter_map(std::result::Result::ok)
+            .filter_map(Result::ok)
             .map(|e| DisplayablePath { path: e.path() })
             .collect::<Vec<_>>(),
         Err(_) => vec![],
