@@ -25813,6 +25813,222 @@
     "neededBy": [],
     "labels": []
   },
+  "android.frameworkres.overlay.display.product": {
+    "list": "Oem",
+    "description": "Probably not safe to remove? Overlay has probably something to do with Display Cutout, AonAttentionService, Display Light Sensor, Available color modes, Display Height/Width.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.framework.res.rro.oneplus": {
+    "list": "Oem",
+    "description": "Probably not safe to remove? In strings I found config_systemGallery 'com.oneplus.gallery' and that's for user icon.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "aon.frameworkres.overlay.display.product": {
+    "list": "Oem",
+    "description": "Probably not safe to remove? In strings I found config_systemVisualIntelligence 'com.aiunit.aon'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.aiunit.aon": {
+    "list": "Oem",
+    "description": "AONService\nHas something to do with camera features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.cellbroadcastreceiver.overlay": {
+    "list": "Oem",
+    "description": "Show alert settings? Might be unused, but not confirmed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.cellbroadcastservice.overlay": {
+    "list": "Oem",
+    "description": "Cross-sim duplicate detection disable? Might be unused, but not confirmed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.SystemUIResOverlay": {
+    "list": "Oem",
+    "description": "Threekey volume guide pictures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.qualcomm.qti.gpudrivers.pineapple.api34": {
+    "list": "Oem",
+    "description": "Qualcomm GPU Drivers",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.connectivity.base.overlay": {
+    "list": "Oem",
+    "description": "Probably not safe to remove? In strings I found config_defaultCaptivePortalLoginPackageName 'com.google.android.captiveportallogin'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.ses.entitlement.o2": {
+    "list": "Oem",
+    "description": "It's needed for carrier O2 so it's useless for others.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "android.frameworkres.overlay.Network": {
+    "list": "Oem",
+    "description": "Probably not safe to remove? In strings I found wfcSpnFormat_spn_wifi '%s Wi-Fi', config_num_physical_slots '2'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "oplus.frameworkres.overlay.display.product": {
+    "list": "Oem",
+    "description": "Display Cutout for the screen blank for example on bottom left, bottom right.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.framework.rro.oneplus": {
+    "list": "Oem",
+    "description": "Found in the code colors to oplus boot message text color #000. Not sure if unused.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.permissioncontroller.overlay.oplus": {
+    "list": "Oem",
+    "description": "Overlay app to custom theme for permission controller app?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.owkservice": {
+    "list": "Oem",
+    "description": "Weird app that has time sync and start/stop Monitor Wifi Connectivity, also has oplus statistics component to tracking events.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.safetycenter.resources.overlay": {
+    "list": "Oem",
+    "description": "Custom resources from OnePlus to Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome.\nhttps://safety.google",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.safetycenter.styles.overlay": {
+    "list": "Oem",
+    "description": "Custom colors from OnePlus to Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome.\nhttps://safety.google",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.systemui.overlay.charging.anim.siphon_wireless": {
+    "list": "Oem",
+    "description": "Wireless charging animation for OnePlus phones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.cosmos": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Cosmos when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.fireworks": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Fireworks when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.fy": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Fy when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.none": {
+    "list": "Oem",
+    "description": "Fingerprint Animation None when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.ripple": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Ripple when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.stripe": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Stripe when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.sw": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Sw when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.oplus.vdc": {
+    "list": "Oem",
+    "description": "It's an app used to convert nearby devices into virtual hardware resources for the central device. Require internet to transfer data across devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.pineapple": {
+    "list": "Oem",
+    "description": "Probably not safe to remove. Has default values for Wifi Connection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.oplus.encryption": {
     "description": "Private Safe\nAfter uninstalling, the option to use the file safe in the privacy settings disappears. There is also a section left in the settings that does nothing when clicked.",
     "removal": "Recommended",
@@ -25826,6 +26042,14 @@
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.oplus.mediacontroller": {
+    "description": "OplusMediaController is responsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.\nUninstalling it won't show 'Now playing' notification on lockscreen and Dynamic Island feature for music applications but this application won't work if any of these (com.oneplus.account, com.oplus.ocs, com.oplus.onet, com.oplus.metis, com.oplus.statistics.rom, com.coloros.assistantscreen, com.coloros.scenemode) are disabled or uninstalled, so it doesn't make sense to keep this installed.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "om.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
     "neededBy": [],
     "labels": []
   },
