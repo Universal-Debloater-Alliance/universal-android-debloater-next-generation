@@ -44,12 +44,16 @@ pub enum LoadingState {
 }
 
 #[derive(Default, Debug, Clone)]
+#[allow(clippy::struct_excessive_bools, clippy::struct_field_names)]
 pub struct List {
     pub loading_state: LoadingState,
     pub uad_lists: PackageHashMap,
-    pub phone_packages: Vec<Vec<PackageRow>>, // packages of all users of the phone
-    filtered_packages: Vec<usize>, // phone_packages indexes of the selected user (= what you see on screen)
-    selected_packages: Vec<(usize, usize)>, // Vec of (user_index, pkg_index)
+    /// packages of all users of the phone
+    pub phone_packages: Vec<Vec<PackageRow>>,
+    /// `phone_packages` indexes of the selected user (= what you see on screen)
+    filtered_packages: Vec<usize>,
+    /// Vec of `(user_index, pkg_index)`
+    selected_packages: Vec<(usize, usize)>,
     selected_package_state: Option<PackageState>,
     selected_removal: Option<Removal>,
     selected_list: Option<UadList>,
@@ -453,6 +457,8 @@ impl List {
         .into()
     }
 
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     fn ready_view(
         &self,
         settings: &Settings,
@@ -482,18 +488,17 @@ impl List {
             .width(Length::Fill)
             .style(style::Container::Frame);
 
-        let review_selection = if !self.selected_packages.is_empty() {
-            button_primary(text(format!(
+        #[allow(clippy::if_not_else)]
+        let review_selection = {
+            let tmp_widget = text(format!(
                 "Review selection ({})",
                 self.selected_packages.len()
-            )))
-            .on_press(Message::ApplyActionOnSelection)
-        } else {
-            button(text(format!(
-                "Review selection ({})",
-                self.selected_packages.len()
-            )))
-            .padding([5, 10])
+            ));
+            if !self.selected_packages.is_empty() {
+                button_primary(tmp_widget).on_press(Message::ApplyActionOnSelection)
+            } else {
+                button(tmp_widget).padding([5, 10])
+            }
         };
 
         let export_selection = if !self.selected_packages.is_empty() {
@@ -609,6 +614,8 @@ impl List {
         }
     }
 
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,
         device: &Phone,
@@ -827,7 +834,8 @@ impl List {
             .map(|(i, _)| i)
             .collect();
     }
-
+    // REASON: 1 call-site
+    #[allow(clippy::unused_async)]
     async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
         if user_list.len() <= 1 {
             vec![fetch_packages(&uad_list, None)]
@@ -839,6 +847,8 @@ impl List {
         }
     }
 
+    // REASON: 1 call-site
+    #[allow(clippy::unused_async)]
     async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
         let (uad_lists, _) = load_debloat_lists(remote);
         match uad_lists {
