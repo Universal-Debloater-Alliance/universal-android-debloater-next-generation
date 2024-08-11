@@ -112,6 +112,8 @@ impl From<Removal> for SummaryEntry {
 }
 
 impl List {
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
         settings: &mut Settings,
@@ -224,7 +226,9 @@ impl List {
                 Command::none()
             }
             Message::List(i_package, row_message) => {
-                #[allow(unused_must_use)]
+                // REASON: 1. side-effect
+                // REASON: 2. same-type
+                #[allow(unused_must_use, clippy::shadow_unrelated)]
                 {
                     self.phone_packages[i_user][i_package]
                         .update(&row_message)
@@ -469,7 +473,7 @@ impl List {
             .iter()
             .fold(column![].spacing(6), |col, &i| {
                 col.push(
-                    self.phone_packages[self.selected_user.unwrap().index][i]
+                    self.phone_packages[self.selected_user.unwrap_or_default().index][i]
                         .view(settings, selected_device)
                         .map(move |msg| Message::List(i, msg)),
                 )
@@ -500,21 +504,18 @@ impl List {
             }
         };
 
-        let export_selection = if !self.selected_packages.is_empty() {
-            button(text(format!(
-                "Export current selection ({})",
-                self.selected_packages.len()
-            )))
-            .on_press(Message::ExportSelection)
-            .padding([5, 10])
-            .style(style::Button::Primary)
-        } else {
-            button(text(format!(
-                "Export current selection ({})",
-                self.selected_packages.len()
-            )))
-            .padding([5, 10])
+        let mut export_selection = button(text(format!(
+            "Export current selection ({})",
+            self.selected_packages.len()
+        )))
+        .padding([5, 10]);
+        if !self.selected_packages.is_empty() {
+            export_selection = export_selection
+                .on_press(Message::ExportSelection)
+                .style(style::Button::Primary);
         };
+        // lock
+        let export_selection = export_selection;
 
         let action_row = row![
             export_selection,
