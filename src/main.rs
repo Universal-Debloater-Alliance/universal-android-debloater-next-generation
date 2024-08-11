@@ -16,10 +16,10 @@ mod core;
 mod gui;
 
 #[dynamic]
-static CONFIG_DIR: PathBuf = setup_uad_dir(dirs::config_dir());
+static CONFIG_DIR: PathBuf = setup_uad_dir(dirs::config_dir().expect("Can't detect config dir"));
 
 #[dynamic]
-static CACHE_DIR: PathBuf = setup_uad_dir(dirs::cache_dir());
+static CACHE_DIR: PathBuf = setup_uad_dir(dirs::cache_dir().expect("Can't detect cache dir"));
 
 fn main() -> iced::Result {
     setup_logger().expect("setup logging");

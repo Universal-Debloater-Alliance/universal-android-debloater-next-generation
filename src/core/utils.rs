@@ -11,6 +11,8 @@ use std::{fmt, fs};
 
 /// Global environment variable to keep
 /// track of the current device serial.
+///
+/// [More info](https://developer.android.com/tools/variables#adb)
 pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
@@ -69,9 +71,12 @@ pub fn string_to_theme(theme: &str) -> Theme {
     }
 }
 
-pub fn setup_uad_dir(dir: Option<PathBuf>) -> PathBuf {
-    let dir = dir.unwrap().join("uad");
-    fs::create_dir_all(&dir).expect("Can't create cache directory");
+pub fn setup_uad_dir(dir: PathBuf) -> PathBuf {
+    let dir = dir.join("uad");
+    if let Err(e) = fs::create_dir_all(&dir) {
+        error!("Can't create directory: {dir:?}");
+        panic!("{e}");
+    };
     dir
 }
 
