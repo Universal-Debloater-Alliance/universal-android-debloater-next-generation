@@ -488,16 +488,15 @@ impl List {
             .width(Length::Fill)
             .style(style::Container::Frame);
 
-        #[allow(clippy::if_not_else)]
         let review_selection = {
             let tmp_widget = text(format!(
                 "Review selection ({})",
                 self.selected_packages.len()
             ));
-            if !self.selected_packages.is_empty() {
-                button_primary(tmp_widget).on_press(Message::ApplyActionOnSelection)
-            } else {
+            if self.selected_packages.is_empty() {
                 button(tmp_widget).padding([5, 10])
+            } else {
+                button_primary(tmp_widget).on_press(Message::ApplyActionOnSelection)
             }
         };
 
