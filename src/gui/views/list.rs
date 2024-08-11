@@ -543,8 +543,15 @@ impl List {
 
         let control_panel = self.control_panel(selected_device);
         let content = if selected_device.user_list.is_empty()
-            || !self.phone_packages[self.selected_user.unwrap().index].is_empty()
-        {
+            || match self.selected_user {
+                Some(u) => !self.phone_packages[u.index].is_empty(),
+                // If no user has been selected,
+                // then it could be considered as "equivalent"
+                // to the case where the `user_list` is empty?
+                // However, this is inconsistent,
+                // because other parts of the code simply use a `default` `User`.
+                None => true,
+            } {
             column![
                 control_panel,
                 packages_scrollable,
@@ -567,7 +574,7 @@ impl List {
                 self.apply_selection_modal(
                     selected_device,
                     settings,
-                    &self.phone_packages[self.selected_user.unwrap().index],
+                    &self.phone_packages[self.selected_user.unwrap_or_default().index],
                 ),
             )
             .on_blur(Message::ModalHide)
@@ -622,6 +629,8 @@ impl List {
         settings: &Settings,
         packages: &[PackageRow],
     ) -> Element<Message, Theme, Renderer> {
+        const PACK_NO_USER_MSG: &str = "`selected_packages` implies a user must be selected";
+
         // 5 element slice is cheap
         let mut summaries = Removal::CATEGORIES.map(SummaryEntry::from);
         for p in packages.iter().filter(|p| p.selected) {
@@ -702,18 +711,16 @@ impl List {
             container(
                 scrollable(
                     container(
-                        if !self
+                        if self
                             .selected_packages
                             .iter()
-                            .any(|s| s.0 == self.selected_user.unwrap().index)
+                            .any(|s| s.0 == self.selected_user.expect(PACK_NO_USER_MSG).index)
                         {
-                            column![text("No packages selected for this user")]
-                                .align_items(Alignment::Center)
-                                .width(Length::Fill)
-                        } else {
                             self.selected_packages
                                 .iter()
-                                .filter(|s| s.0 == self.selected_user.unwrap().index)
+                                .filter(|s| {
+                                    s.0 == self.selected_user.expect(PACK_NO_USER_MSG).index
+                                })
                                 .fold(
                                     column![].spacing(6).width(Length::Fill),
                                     |col, selection| {
@@ -762,6 +769,10 @@ impl List {
                                         )
                                     },
                                 )
+                        } else {
+                            column![text("No packages selected for this user")]
+                                .align_items(Alignment::Center)
+                                .width(Length::Fill)
                         },
                     )
                     .padding(10)
@@ -818,12 +829,19 @@ impl List {
         .into()
     }
     fn filter_package_lists(&mut self) {
-        let list_filter: UadList = self.selected_list.unwrap();
-        let package_filter: PackageState = self.selected_package_state.unwrap();
-        let removal_filter: Removal = self.selected_removal.unwrap();
+        let list_filter: UadList = self.selected_list.expect("UAD-list type must be selected");
+        let package_filter: PackageState = self
+            .selected_package_state
+            .expect("pack-state must be selected");
+        let removal_filter: Removal = self
+            .selected_removal
+            .expect("removal recommendation must be selected");
 
-        self.filtered_packages = self.phone_packages[self.selected_user.unwrap().index]
+        self.filtered_packages = self.phone_packages
+            [self.selected_user.expect("User must be selected").index]
             .iter()
+            // we must filter the indices associated with pack-rows,
+            // that's why `enumerate` is before `filter`.
             .enumerate()
             .filter(|(_, p)| {
                 (list_filter == UadList::All || p.uad_list == list_filter)
