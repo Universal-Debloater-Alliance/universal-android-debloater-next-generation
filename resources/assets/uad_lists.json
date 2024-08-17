@@ -1114,7 +1114,7 @@
   },
   "com.customermobile.preload.vzw": {
     "list": "Carrier",
-    "description": "Verizon Store/Retail Demo Mode\n",
+    "description": "Verizon Store/Retail Demo Mode\nThis application requires a lot of permissions and downloads a remote configuration file from AWS-hosted domain\nover unsecured HTTP, which leaves the overall device and configuration vulnerable.\nhttps://thehackernews.com/2024/08/google-pixel-devices-shipped-with.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
