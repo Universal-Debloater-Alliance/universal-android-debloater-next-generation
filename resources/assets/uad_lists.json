@@ -17908,7 +17908,7 @@
     "labels": []
   },
   "com.lge.sui.widget": {
-    "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day in the week.",
+    "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
