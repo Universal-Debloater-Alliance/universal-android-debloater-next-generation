@@ -17908,8 +17908,8 @@
     "labels": []
   },
   "com.lge.sui.widget": {
-    "description": "It's probably a clock widget but in the code, I see it's for calendar widgets.",
-    "removal": "Recommended",
+    "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
