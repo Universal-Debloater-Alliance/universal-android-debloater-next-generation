@@ -1114,7 +1114,7 @@
   },
   "com.customermobile.preload.vzw": {
     "list": "Carrier",
-    "description": "Verizon Store/Retail Demo Mode\n",
+    "description": "Verizon Store/Retail Demo Mode\nThis application requires a lot of permissions and downloads a remote configuration file from an AWS-hosted domain over plain-text HTTP.\nThis leaves the overall device and configuration vulnerable.\nhttps://thehackernews.com/2024/08/google-pixel-devices-shipped-with.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17908,8 +17908,8 @@
     "labels": []
   },
   "com.lge.sui.widget": {
-    "description": "It's probably a clock widget but in the code, I see it's for calendar widgets.",
-    "removal": "Recommended",
+    "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
