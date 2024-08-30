@@ -12,7 +12,7 @@ Even though the guide is made for contributors, it's also strongly recommended t
 
 As for our branching strategy, we're using [Trunk-Based Development](https://trunkbaseddevelopment.com/#one-line-summary).
 
-In short, there's one trunk branch named `main` (AKA `master`). Apart from `main`/`master` there can be different short-lived branches, such as:
+In short, there's one trunk branch named `main` (`master`). Apart from `main`/`master` there can be different short-lived branches, such as:
 
 - Features (`feature/*`)
 - Fixes (`hotfix/*` or simply `fix/*`)
