@@ -28,9 +28,7 @@ This is how it looks like and works:
 ### Syncing branches
 If you want to [back-port](https://en.wikipedia.org/wiki/Backporting) (GitHub's "Update" and "Sync" buttons) from upstream `main` to any other branch (for testing purposes, or any other reasonable case), it's recommended that you `rebase` rather than `merge` the changes.
 
-> "What about branches other than `main`?"
-
-**Don't**. Applying changes to/from arbitrary branches is a recipe for chaos. Even if it's absolutely necessary, whether to `merge` or `rebase` should be decided on a case-by-case basis.
+**Don't apply changes to/from arbitrary branches**, that's a recipe for chaos! If you find yourself in a situation where it's absolutely necessary to sync, whether to `merge` or `rebase` should be decided on a case-by-case basis.
 
 
 ### Commit messages
