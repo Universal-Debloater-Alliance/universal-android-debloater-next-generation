@@ -21225,7 +21225,7 @@
     "description": "Screen Recognition (Breeno Touch).\nThis app is used to recognize screen contents and provide quick access to relevant services (like Text Extraction, AI Summarizer). com.coloros.ocrscanner, com.coloros.ocrservice, com.oplus.ocs, com.oplus.aiunit, com.coloros.ocs.opencapabilityservice are also needed for this to work.",
     "removal": "Recommended",
     "list": "Oem",
-    "dependencies": ["com.coloros.ocrscanner", "com.coloros.ocrservice", "com.oplus.ocs", "om.oplus.aiunit", "com.coloros.ocs.opencapabilityservice"],
+    "dependencies": ["com.coloros.ocrscanner", "com.coloros.ocrservice", "com.oplus.ocs", "com.oplus.aiunit", "com.coloros.ocs.opencapabilityservice"],
     "neededBy": [],
     "labels": []
   },
@@ -26049,7 +26049,7 @@
     "description": "OplusMediaController is responsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.\nUninstalling it won't show 'Now playing' notification on lockscreen and Dynamic Island feature for music applications but this application won't work if any of these (com.oneplus.account, com.oplus.ocs, com.oplus.onet, com.oplus.metis, com.oplus.statistics.rom, com.coloros.assistantscreen, com.coloros.scenemode) are disabled or uninstalled, so it doesn't make sense to keep this installed.",
     "removal": "Advanced",
     "list": "Oem",
-    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "om.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
+    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "com.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
     "neededBy": [],
     "labels": []
   },
