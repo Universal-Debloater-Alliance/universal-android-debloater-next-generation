@@ -21149,7 +21149,7 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "Smart assistant\nAssistant that can be found in homescreen. ColorOS Shelf which appears when you Swipe Down on Homescreen. Has many 'Shelf' widgets like Clock, Step Tracker, Spotify.",
+    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Swipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -21841,8 +21841,8 @@
     "labels": []
   },
   "oplus.frameworkres.overlay.display.product": {
-    "description": "Keep this for display cutout. Has only 4 PNG files",
-    "removal": "Unsafe",
+    "description": "Display cutout.\nA display cutout is an area on some devices that extends into the display surface. It allows for an edge-to-edge experience while providing space for important sensors on the front of the device.\nhttps://developer.android.com/develop/ui/views/layout/display-cutout",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -25815,7 +25815,7 @@
   },
   "android.frameworkres.overlay.display.product": {
     "list": "Oem",
-    "description": "Probably not safe to remove? Overlay has probably something to do with Display Cutout, AonAttentionService, Display Light Sensor, Available color modes, Display Height/Width.",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25823,7 +25823,7 @@
   },
   "android.framework.res.rro.oneplus": {
     "list": "Oem",
-    "description": "Probably not safe to remove? In strings I found config_systemGallery 'com.oneplus.gallery' and that's for user icon.",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25831,7 +25831,7 @@
   },
   "aon.frameworkres.overlay.display.product": {
     "list": "Oem",
-    "description": "Probably not safe to remove? In strings I found config_systemVisualIntelligence 'com.aiunit.aon'.",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25839,7 +25839,7 @@
   },
   "com.aiunit.aon": {
     "list": "Oem",
-    "description": "AONService\nHas something to do with camera features.",
+    "description": "AONService. ColorOS Smart Features.\nApp run with AI and phone sensors to recognize what best scenario for run privacy protection and the smart features OPPO offer.\n 1. Smart Spying Prevention, 2. Smart Air Control, 3. Smart Rotation, 4. Smart Always On Display.\nhttps://community.oppo.com/thread/1446120575440257025",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25847,7 +25847,7 @@
   },
   "com.google.android.cellbroadcastreceiver.overlay": {
     "list": "Oem",
-    "description": "Show alert settings? Might be unused, but not confirmed.",
+    "description": "CellBroadcastReceiver overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastReceiver app is a default system app that handles emergency and nonemergency alerts (such as amber and presidential alerts) and presents the information to end users based on carrier and regional regulations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25855,7 +25855,7 @@
   },
   "com.google.android.cellbroadcastservice.overlay": {
     "list": "Oem",
-    "description": "Cross-sim duplicate detection disable? Might be unused, but not confirmed.",
+    "description": "CellBroadcastService overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastService service supports CellBroadcast SMS decoding, geofencing for wireless emergency alert (WEA) 3.0, message duplication checks, and broadcasting messages to apps. It's a one-to-many geotargeted and geofenced messaging service designed to deliver messages to multiple mobile phone users, in a defined area, at the same time. The service is defined by the [ETSI](https://www.etsi.org/about) GSM committee, [3GPP](https://www.3gpp.org/about-3gpp), and is a part of the telecommunication standards.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25879,7 +25879,7 @@
   },
   "android.connectivity.base.overlay": {
     "list": "Oem",
-    "description": "Probably not safe to remove? In strings I found config_defaultCaptivePortalLoginPackageName 'com.google.android.captiveportallogin'.",
+    "description": "CaptivePortalLogin overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25887,31 +25887,23 @@
   },
   "com.ses.entitlement.o2": {
     "list": "Oem",
-    "description": "It's needed for carrier O2 so it's useless for others.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "android.frameworkres.overlay.Network": {
-    "list": "Oem",
-    "description": "Probably not safe to remove? In strings I found wfcSpnFormat_spn_wifi '%s Wi-Fi', config_num_physical_slots '2'.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
-  },
-  "oplus.frameworkres.overlay.display.product": {
-    "list": "Oem",
-    "description": "Display Cutout for the screen blank for example on bottom left, bottom right.",
+    "description": "O2 carrier app.\nUnknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
   },
+  "android.frameworkres.overlay.Network": {
+    "list": "Oem",
+    "description": "Network overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.oplus.framework.rro.oneplus": {
     "list": "Oem",
-    "description": "Found in the code colors to oplus boot message text color #000. Not sure if unused.",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25919,7 +25911,7 @@
   },
   "com.google.android.permissioncontroller.overlay.oplus": {
     "list": "Oem",
-    "description": "Overlay app to custom theme for permission controller app?",
+    "description": "Permission controller overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25935,7 +25927,7 @@
   },
   "com.android.safetycenter.resources.overlay": {
     "list": "Oem",
-    "description": "Custom resources from OnePlus to Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome.\nhttps://safety.google",
+    "description": "Safety Center overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nSafety Center provides redirection entries so that users can access specific security and privacy settings. Safety Center also identifies issues that users can fix on their devices or accounts, by combining dynamic data received from multiple sources. This data provides users with a general safety status with specific recommendations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/security/safety-center/overview",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25943,7 +25935,7 @@
   },
   "com.android.safetycenter.styles.overlay": {
     "list": "Oem",
-    "description": "Custom colors from OnePlus to Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome.\nhttps://safety.google",
+    "description": "Safety Center styles overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nSafety Center provides redirection entries so that users can access specific security and privacy settings. Safety Center also identifies issues that users can fix on their devices or accounts, by combining dynamic data received from multiple sources. This data provides users with a general safety status with specific recommendations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/security/safety-center/overview",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26023,7 +26015,7 @@
   },
   "com.android.wifi.resources.overlay.pineapple": {
     "list": "Oem",
-    "description": "Probably not safe to remove. Has default values for Wifi Connection.",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26046,8 +26038,8 @@
     "labels": []
   },
   "com.oplus.mediacontroller": {
-    "description": "OplusMediaController is responsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.\nUninstalling it won't show 'Now playing' notification on lockscreen and Dynamic Island feature for music applications but this application won't work if any of these (com.oneplus.account, com.oplus.ocs, com.oplus.onet, com.oplus.metis, com.oplus.statistics.rom, com.coloros.assistantscreen, com.coloros.scenemode) are disabled or uninstalled, so it doesn't make sense to keep this installed.",
-    "removal": "Advanced",
+    "description": "Media Controller.\nResponsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "com.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
     "neededBy": [],
@@ -29986,7 +29978,7 @@
   },
   "com.oplus.cosa": {
     "list": "Oem",
-    "description": "App Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\n\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\nCannot be uninstalled but it can be disabled. Note: removing this package prevents the OnePlus Game Center to detect games.\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.",
+    "description": "APP Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\n\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\nCannot be uninstalled but it can be disabled. Note: removing this package prevents the OnePlus Game Center to detect games.\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.",
     "dependencies": [],
     "neededBy": [
       "com.oneplus.gamespace"
@@ -30495,7 +30487,7 @@
   },
   "com.oplus.atlas": {
     "list": "Oem",
-    "description": "Atlas Service\nPerforms a lot of actions upon audio-related events. Needed for app-specific volume feature to work. Runs at boot and runs in background. Pithus analysis: https://beta.pithus.org/report/6d0f9433431cd34a8e9aaef99b329b3623118a1699033be36032f64653dab3d0",
+    "description": "atlasService\nSeparate app sound and individual app volumes.\nhttps://beta.pithus.org/report/6d0f9433431cd34a8e9aaef99b329b3623118a1699033be36032f64653dab3d0",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
