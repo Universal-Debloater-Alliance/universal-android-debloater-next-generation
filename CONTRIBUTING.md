@@ -28,7 +28,7 @@ This is how it looks like and works:
 ### Syncing branches
 If you want to [back-port](https://en.wikipedia.org/wiki/Backporting) (GitHub's "Update" and "Sync" buttons) from upstream `main` to any other branch (for testing purposes, or any other reasonable case), it's recommended that you `rebase` rather than `merge` the changes.
 
-**Don't apply changes to/from arbitrary branches**, that's a recipe for chaos! If you encounter a situation where it's absolutely necessary to sync non-`main` branches, whether to `merge` or `rebase` should be decided by UDA-org (with some contributor feedback) on a case-by-case basis.
+**Don't apply changes to/from arbitrary branches**, that's a recipe for chaos! If you encounter a situation where it's absolutely necessary to sync non-`main` branches, whether to `merge` or `rebase` should be decided by the UAD-ng team (with some contributor feedback) on a case-by-case basis.
 
 
 ### Commit messages
