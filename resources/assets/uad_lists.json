@@ -37622,5 +37622,77 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.nim.rogers":{
+    "list": "Carrier",
+    "description": "Texture, a digital magazine service created by Rogers Media. Discontinued in 2019.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.Rogers.MyRogersTab":{
+    "list": "Carrier",
+    "description": "Appears to be the tablet version of MyRogers (https://play.google.com/store/apps/details?id=com.fivemobile.myaccount), an app to manage your account with Canadian carrier Rogers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.colorblind":{
+    "list": "Oem",
+    "description": "This app provides colorblind accessibility features for Samsung devices, helping users with color vision deficiencies by adjusting display colors and improving visibility.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.framework.res":{
+    "list": "Oem",
+    "description": "This package is part of Samsung’s custom system framework and manages various resources for Samsung-specific features and UI enhancements.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.timezone.autoupdate_N":{
+    "list": "Oem",
+    "description": "This app handles automatic updates for time zone information on Samsung devices, ensuring accurate timekeeping across different regions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.knox.appsupdateagent":{
+    "list": "Oem",
+    "description": "This app is part of Samsung Knox, managing updates for apps within the Knox security framework.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.kidshome":{
+    "list": "Oem",
+    "description": "This app provides a child-friendly interface and controls on Samsung devices, designed to create a safe environment for children by restricting access to apps and content.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.wallpaperchooser":{
+    "list": "Oem",
+    "description": "This app provides the functionality to select and manage wallpapers on Samsung devices, including Samsung-specific wallpaper options.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.app.TransmitPowerService":{
+    "list": "Oem",
+    "description": "This app manages settings related to the transmit power of wireless communications on Samsung devices, such as Wi-Fi and Bluetooth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
