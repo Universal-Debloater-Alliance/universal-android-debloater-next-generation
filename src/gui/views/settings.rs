@@ -23,7 +23,7 @@ use iced::widget::{
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};
 use std::path::PathBuf;
 
-use crate::core::utils::Error;
+use crate::core::utils::{Error, NAME};
 
 #[derive(Debug, Clone)]
 pub enum PopUpModal {
@@ -536,7 +536,7 @@ impl Settings {
                 .center_x();
 
             let text_box = row![
-                text("Exported uninstalled packages into file.\nFile is exported in same directory where UAD-ng is located.").width(Length::Fill),
+                text(format!("Exported uninstalled packages into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
             ].padding(20);
 
             let file_row = row![text(format!(

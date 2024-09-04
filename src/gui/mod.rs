@@ -6,7 +6,7 @@ use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, Co
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, ANDROID_SERIAL};
+use crate::core::utils::{string_to_theme, ANDROID_SERIAL, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -274,7 +274,7 @@ impl Application for UadGui {
             }
             #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD-ng update has been downloaded!");
+                debug!("{NAME} update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
@@ -308,11 +308,11 @@ impl Application for UadGui {
                             if let Err(e) = remove_file(cleanup_path) {
                                 error!("Could not remove temp update file: {}", e);
                             }
-                            error!("Failed to update UAD-ng: {}", error);
+                            error!("Failed to update {NAME}: {}", error);
                         }
                     }
                 } else {
-                    error!("Failed to update UAD-ng!");
+                    error!("Failed to update {NAME}!");
                     #[allow(unused_must_use)]
                     {
                         self.update(Message::AppsAction(AppsMessage::UpdateFailed));
@@ -388,6 +388,7 @@ impl UadGui {
         };
 
         Self::run(Settings {
+            id: Some(String::from(NAME)),
             window: Window {
                 size: iced::Size {
                     width: 950.0,
