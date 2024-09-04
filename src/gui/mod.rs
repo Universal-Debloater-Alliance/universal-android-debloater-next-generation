@@ -388,6 +388,7 @@ impl UadGui {
         };
 
         Self::run(Settings {
+            id: Some(String::from("UAD-ng")),
             window: Window {
                 size: iced::Size {
                     width: 950.0,
