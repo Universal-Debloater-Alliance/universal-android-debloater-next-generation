@@ -6,7 +6,7 @@ use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, Co
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, ANDROID_SERIAL};
+use crate::core::utils::{string_to_theme, ANDROID_SERIAL, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -192,22 +192,18 @@ impl Application for UadGui {
                             return self.update(Message::RefreshButtonPressed);
                         }
                     }
-                    SettingsMessage::MultiUserMode(toggled) => {
-                        if toggled {
-                            for user in self.apps_view.phone_packages.clone() {
-                                for (i, _) in
-                                    user.iter().enumerate().filter(|&(_, pkg)| pkg.selected)
+                    SettingsMessage::MultiUserMode(toggled) if toggled => {
+                        for user in self.apps_view.phone_packages.clone() {
+                            for (i, _) in user.iter().filter(|&pkg| pkg.selected).enumerate() {
+                                for u in self
+                                    .selected_device
+                                    .as_ref()
+                                    .expect("Device should be selected")
+                                    .user_list
+                                    .iter()
+                                    .filter(|&u| !u.protected)
                                 {
-                                    for u in self
-                                        .selected_device
-                                        .as_ref()
-                                        .unwrap()
-                                        .user_list
-                                        .iter()
-                                        .filter(|&u| !u.protected)
-                                    {
-                                        self.apps_view.phone_packages[u.index][i].selected = true;
-                                    }
+                                    self.apps_view.phone_packages[u.index][i].selected = true;
                                 }
                             }
                         }
@@ -235,19 +231,13 @@ impl Application for UadGui {
                     }
                     AboutMessage::DoSelfUpdate => {
                         #[cfg(feature = "self-update")]
-                        if self.update_state.self_update.latest_release.is_some() {
+                        if let Some(release) = self.update_state.self_update.latest_release.as_ref()
+                        {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
                             let bin_name = bin_name().to_owned();
-                            let release = self
-                                .update_state
-                                .self_update
-                                .latest_release
-                                .as_ref()
-                                .unwrap()
-                                .clone();
                             Command::perform(
-                                download_update_to_temp_file(bin_name, release),
+                                download_update_to_temp_file(bin_name, release.clone()),
                                 Message::_NewReleaseDownloaded,
                             )
                         } else {
@@ -284,7 +274,7 @@ impl Application for UadGui {
             }
             #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
-                debug!("UAD-ng update has been downloaded!");
+                debug!("{NAME} update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     // Remove first arg, which is path to binary. We don't use this first
@@ -318,11 +308,11 @@ impl Application for UadGui {
                             if let Err(e) = remove_file(cleanup_path) {
                                 error!("Could not remove temp update file: {}", e);
                             }
-                            error!("Failed to update UAD-ng: {}", error);
+                            error!("Failed to update {NAME}: {}", error);
                         }
                     }
                 } else {
-                    error!("Failed to update UAD-ng!");
+                    error!("Failed to update {NAME}!");
                     #[allow(unused_must_use)]
                     {
                         self.update(Message::AppsAction(AppsMessage::UpdateFailed));
@@ -398,6 +388,7 @@ impl UadGui {
         };
 
         Self::run(Settings {
+            id: Some(String::from(NAME)),
             window: Window {
                 size: iced::Size {
                     width: 950.0,

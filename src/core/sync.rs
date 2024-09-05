@@ -141,7 +141,7 @@ pub async fn perform_adb_commands(
                     label, action, err
                 )));
             }
-            Err(AdbError::Generic(err.to_string()))
+            Err(AdbError::Generic(err))
         }
     }
 }

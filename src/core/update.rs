@@ -1,3 +1,5 @@
+use crate::core::utils::NAME;
+
 use serde::Deserialize;
 
 #[cfg(feature = "self-update")]
@@ -108,12 +110,12 @@ pub async fn download_update_to_temp_file(
         let archive_path = current_bin_path.parent().ok_or(())?.join(&asset_name);
 
         if let Err(e) = download_file(asset.download_url, archive_path.clone()).await {
-            error!("Couldn't download UAD-ng update: {}", e);
+            error!("Couldn't download {NAME} update: {}", e);
             return Err(());
         }
 
         if extract_binary_from_tar(&archive_path, &download_path).is_err() {
-            error!("Couldn't extract UAD-ng release tarball");
+            error!("Couldn't extract {NAME} release tarball");
             return Err(());
         }
 
@@ -131,7 +133,7 @@ pub async fn download_update_to_temp_file(
             .ok_or(())?;
 
         if let Err(e) = download_file(asset.download_url, download_path.clone()).await {
-            error!("Couldn't download UAD-ng update: {}", e);
+            error!("Couldn't download {NAME} update: {}", e);
             return Err(());
         }
     }
@@ -177,7 +179,7 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 // to only get the latest release
 #[cfg(feature = "self-update")]
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
-    debug!("Checking for UAD-ng update");
+    debug!("Checking for {NAME} update");
 
     match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
         .call()
@@ -201,7 +203,7 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
             }
         }
         Err(_) => {
-            debug!("Failed to check UAD-ng update");
+            debug!("Failed to check {NAME} update");
             Err(())
         }
     }

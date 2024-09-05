@@ -1,6 +1,6 @@
 use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
-use crate::core::utils::{last_modified_date, open_url};
+use crate::core::utils::{last_modified_date, open_url, NAME};
 use crate::gui::{style, UpdateState};
 use crate::CACHE_DIR;
 use iced::widget::{column, container, row, text, Space};
@@ -28,7 +28,7 @@ impl About {
         // other events are handled by UadGui update()
     }
     pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
-        let about_text = text("Universal Android Debloater Next Generation (UAD-ng) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device.",);
+        let about_text = text(format!("Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."));
 
         let descr_container = container(about_text)
             .width(Length::Fill)
@@ -37,7 +37,7 @@ impl About {
 
         let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
         let uad_list_text =
-            text(format!("UAD-ng package list: v{}", date.format("%Y%m%d"))).width(250);
+            text(format!("{NAME} package list: v{}", date.format("%Y%m%d"))).width(250);
         let last_update_text = text(update_state.uad_list.to_string());
         let uad_lists_btn = button_primary("Update").on_press(Message::UpdateUadLists);
 
@@ -46,7 +46,7 @@ impl About {
 
         #[cfg(feature = "self-update")]
         let uad_version_text =
-            text(format!("UAD version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
+            text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
 
         #[cfg(feature = "self-update")]
         #[rustfmt::skip]
