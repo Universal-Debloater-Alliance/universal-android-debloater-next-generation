@@ -4333,6 +4333,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.mdagent": {
+    "list": "Oem",
+    "description": "MdAgent",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.android.mdx": {
     "list": "Oem",
     "description": "Link to Windows Service\nWorks in conjunction with the Microsoft Your Phone app and activates a connection to your PC on Windows\n",
@@ -10540,6 +10548,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.phone.overlay.common": {
+    "list": "Oem",
+    "description": "Possibly the incoming-call screen?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.samsung.android.dialer": {
     "list": "Oem",
     "description": "Stock Samsung Phone dialer",
@@ -10659,6 +10675,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.samsung.android.wifi.p2paware.resources": {
+    "list": "Oem",
+    "description": "Related to WiFi Direct",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.gamedriver.ex2100": {
     "list": "Oem",
