@@ -12,9 +12,9 @@ body:
       If we believe it's relevant to the bug, we may later ask you to fill the info.
 
       Examples:
-      - If your OS is Windows or Mac, then WM and DE are irrelevant, because it's implied by the OS.
-      - If the bug is related to ADB, then it's unlikely to be related to GUI, DE, or WM. No need to specify them.
-      - If you use the latest-stable official version of any software, you can omit the version number
+        - If your OS is Windows or Mac, then [WM](https://en.wikipedia.org/wiki/Window_manager)/[WS](https://en.wikipedia.org/wiki/Windowing_system) and [DE](https://en.wikipedia.org/wiki/Desktop_environment) are irrelevant, because it's implied by the OS.
+        - If the bug is related to ADB, then it's unlikely to be related to GUI, DE, or WM. No need to specify them.
+        - If you use the latest-stable official version of any software (such as a [distro](https://en.wikipedia.org/wiki/Linux_distribution)), you can omit the version number
 - type: textarea
   id: what-happened
   attributes:
@@ -47,13 +47,13 @@ body:
 - type: input
   id: os-v
   attributes:
-    label: "[Distro](https://en.wikipedia.org/wiki/Linux_distribution) version"
+    label: Distro version
     description: If relevant, please fill it
     placeholder: Win11 Home, Debian 12, etc...
 - type: input
   id: ws-and-wm
   attributes:
-    label: "Window [System](https://en.wikipedia.org/wiki/Windowing_system) + [Manager](https://en.wikipedia.org/wiki/Window_manager)"
+    label: Window System + Manager
     description: If relevant, please fill it
     placeholder: Wayland 1.23 + Mutter 46, xorg + i3, etc...
 - type: input
