@@ -9866,7 +9866,7 @@
   },
   "com.google.android.as.oss": {
     "list": "Google",
-    "description": "On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nhttps://milaq.net/android-bloatware",
+    "description": "Private Compute Services. On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nSeems to be a dependency of System Intelligence.\nhttps://play.google.com/store/apps/details?id=com.google.android.as.oss\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
