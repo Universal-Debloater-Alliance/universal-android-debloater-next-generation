@@ -25373,7 +25373,7 @@
     "labels": []
   },
   "com.sec.android.app.ve.vebgm": {
-    "description": "Select background music\nThis app lets you choose background music from the Video Editor app.",
+    "description": "Samsung Editing Assets (\"Video Editor BackGround Music\").\nThis app lets you choose background music from the Video Editor app.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
