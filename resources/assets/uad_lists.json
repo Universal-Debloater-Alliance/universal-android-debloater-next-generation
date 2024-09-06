@@ -7,7 +7,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-
   "com.sony.tvsideview.videoph": {
     "list": "Oem",
     "description": "Video & TV SideView (replaced by https://play.google.com/store/apps/details?id=com.sony.tvsideview.phone)\nLets you use your smartphone or tablet as a TV remote control for the home. \n",
@@ -1160,7 +1159,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.longcheertel.secretcode": {
+  "com.longcheertel.secretcode": {
     "list": "Oem",
     "description": "Refers to the system package that handles secret codes.\nSecret codes are special sequences of numbers and symbols that can be entered on a phone's keypad to access hidden features or information.",
     "dependencies": [],
@@ -3720,7 +3719,7 @@
   },
   "com.samsung.android.app.cocktailbarservice": {
     "list": "Oem",
-    "description": "Edge screen\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
+    "description": "Edge screen/panels\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4184,7 +4183,7 @@
   },
   "com.samsung.android.game.gametools": {
     "list": "Oem",
-    "description": "Samsung Game Tools (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
+    "description": "Samsung Game Tools/Booster (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4192,7 +4191,7 @@
   },
   "com.samsung.android.game.gos": {
     "list": "Oem",
-    "description": "Samsung Game Optimizing Service \nIs supposed to \"improve\" game performance.Has a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
+    "description": "Samsung Game Optimizing Service\nIs supposed to \"improve\" game performance.\nHas a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4333,6 +4332,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.mdagent": {
+    "list": "Oem",
+    "description": "MdAgent",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.mdx": {
     "list": "Oem",
@@ -9867,7 +9874,7 @@
   },
   "com.google.android.as.oss": {
     "list": "Google",
-    "description": "On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nhttps://milaq.net/android-bloatware",
+    "description": "Private Compute Services. On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nSeems to be a dependency of System Intelligence.\nhttps://play.google.com/store/apps/details?id=com.google.android.as.oss\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10015,7 +10022,7 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in motorola. Useless.",
+    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in Motorola. It's also installed on some Samsung Galaxy devices. Useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10541,6 +10548,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.phone.overlay.common": {
+    "list": "Oem",
+    "description": "Possibly the incoming-call screen?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.samsung.android.dialer": {
     "list": "Oem",
     "description": "Stock Samsung Phone dialer",
@@ -10660,6 +10675,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.samsung.android.wifi.p2paware.resources": {
+    "list": "Oem",
+    "description": "Related to WiFi Direct",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.gamedriver.ex2100": {
     "list": "Oem",
@@ -25374,7 +25397,7 @@
     "labels": []
   },
   "com.sec.android.app.ve.vebgm": {
-    "description": "Select background music\nThis app lets you choose background music from the Video Editor app.",
+    "description": "Samsung Editing Assets (\"Video Editor BackGround Music\").\nThis app lets you choose background music from the Video Editor app.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -30038,9 +30061,7 @@
   "com.huawei.fastapp": {
     "list": "Oem",
     "description": "Quick App Center\nComponent of AppGallery (Huawei's app store) providing Quick Apps support. Quick Apps are Javascript+CSS apps that don't need any installation. This technology has its uses but I'm personally not a huge fan on having to rely on a JS engine to run an application\nThis system app has a lot of permissions (including SEND_SMS, CAMERA, READ_EXTERNAL_STORAGE, RECORD_AUDIO... why?)\nMore information: https://www.xda-developers.com/huawei-quick-apps-alternative-google-instant-apps/\n OW2 Quick App whitepaper: https://quick-app-initiative.ow2.io/docs/Quick_App_White_Paper.pdf",
-    "dependencies": [
-      "com.huawei.hwid"
-    ],
+    "dependencies": ["com.huawei.hwid"],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -32408,7 +32429,7 @@
   },
   "com.samsung.android.visualars": {
     "list": "Oem",
-    "description": "Smart Touch Call\nA lot bloated with google api stuff",
+    "description": "Smart Touch Call.\nIt allows the user to \"Get voice and Screen interactive service when you call a customer service\".\nBloated with Google API stuff",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36454,7 +36475,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.heytap.headset":{
+  "com.heytap.headset": {
     "list": "Oem",
     "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
     "dependencies": [],
@@ -37431,52 +37452,52 @@
     "removal": "Recommended"
   },
   "com.gameloft.android.ANMP.GloftA9HM": {
-  "list": "Oem",
-  "description": "Asphalt 9: Legends",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Asphalt 9: Legends",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.tencent.ngjp": {
-  "list": "Oem",
-  "description": "Arena of Valor ",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Arena of Valor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.epicgames.portal": {
-  "list": "Oem",
-  "description": "Epic Games for Android ",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "Epic Games for Android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.dti.samsung": {
-  "list": "Carrier",
-  "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Carrier",
+    "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.samsung.adaptivebrightnessgo": {
-  "list": "Oem",
-  "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
+    "list": "Oem",
+    "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.samsung.android.app.siofviewer": {
-  "list": "Oem",
-  "description": "Live focus\nNeeded for Live Focus in camera app.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Advanced"
+    "list": "Oem",
+    "description": "Live focus\nNeeded for Live Focus in camera app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.server.wifi.mobilewips.client": {
   "list": "Oem",
