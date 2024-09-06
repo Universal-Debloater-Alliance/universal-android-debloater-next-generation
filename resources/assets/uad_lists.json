@@ -37715,5 +37715,285 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.internal.systemui.navbar.hidegestural": {
+    "list": "Aosp",
+    "description": "This package handles the internal management of gesture-based navigation bars in the Android system UI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.internal.systemui.navbar.transparent": {
+    "list": "Aosp",
+    "description": "This package is responsible for managing the transparency of the navigation bar in the Android system UI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.phone.overlay.motcommon": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for phone-related features and UI elements.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.accessibility.accessibilitymenu.auto_generated_rro_product__": {
+    "list": "Aosp",
+    "description": "This package is associated with the Accessibility Menu in Android's system UI, specifically related to auto-generated resources for the menu.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.motCommon": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for Wi-Fi settings and resources.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.WifiResScanCountryCode": {
+    "list": "Aosp",
+    "description": "This package is related to Wi-Fi resources and overlays, specifically dealing with country code scanning for Wi-Fi networks.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.health.connect.backuprestore": {
+    "list": "Google",
+    "description": "This package is related to Google Health Connect and handles the backup and restore functionality for health-related data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.healthconnect.controller": {
+    "list": "Google",
+    "description": "This package is part of Google Health Connect and is responsible for managing and controlling health-related data interactions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.wifi.dialog": {
+    "list": "Google",
+    "description": "This package is associated with the user interface elements related to Wi-Fi management in Android.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.wifi.resources": {
+    "list": "Google",
+    "description": "This package contains resources related to Wi-Fi management, including string resources, images, and layout files used in the Wi-Fi settings and user interface.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.coresettingsext.overlay.avatrn": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for system settings, specifically tailored for the Motorola Edge 2024 (codename 'avatrn').",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.launcher.overlay.motolauncheroverlayna": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom launcher overlay, specifically tailored for their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.retail.global": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom launcher overlay designed for retail or global versions of their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.networkstack.overlay.mcc460": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom network stack overlay, specifically related to the network configuration for a particular Mobile Country Code (MCC), in this case, MCC 460 (which corresponds to China).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.networkstack.tethering.overlay.motCommon": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for the network stack, specifically related to tethering and hotspot functionalities.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.lpptoga": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay and is likely associated with specific visual or functional enhancements tailored for Motorola devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.qcom.common": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom overlay and is associated with Qualcomm (Qcom) related functionality or optimizations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings provider, and it likely includes resources or settings related to Motorola-specific customizations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.overlay.dppcamera": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay, specifically related to settings for the camera application.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.overlay.dppnone": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay, potentially dealing with settings or configurations that are applied when certain features or options are not in use.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.global": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay and is designed for global settings that apply across different regions or device configurations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.lra": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings overlay, likely related to specific regional or device configurations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.power.bottom": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings overlay, specifically related to power management settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's battery management system, specifically related to features or optimizations for battery care.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare.overlay": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom battery care overlay and is likely responsible for providing Motorola-specific enhancements or visual elements related to battery management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare.overlay.appside": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom battery care overlay and is likely associated with specific enhancements or visual elements related to battery management on the app side of the user interface.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.camera3.content.ai": {
+    "list": "Oem",
+    "description": "This package is related to Motorola's camera application, specifically focusing on AI (artificial intelligence) features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.imagertuning_u": {
+    "list": "Oem",
+    "description": "This package is associated with Motorola’s image tuning features, specifically designed to enhance or adjust image quality settings on Motorola devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.installer": {
+    "list": "Oem",
+    "description": "This package is used by Motorola for managing and installing system updates, custom apps, or other Motorola-specific applications.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.mykey": {
+    "list": "Oem",
+    "description": "This package is related to Motorola’s 'MyKey' feature, which is a tool designed to manage key settings and restrictions for device usage.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.om": {
+    "list": "Oem",
+    "description": "The package 'com.motorola.om' is associated with Motorola's operational management or device management tools.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.securityhubext": {
+    "list": "Oem",
+    "description": "This package is related to Motorola's Security Hub, an extension or enhancement for the device’s security features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.setup.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "This package is involved in Motorola's setup process, particularly handling automatically generated resources related to the setup of the device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.setup.overlay.dataenable": {
+    "list": "Oem",
+    "description": "This package is used during the Motorola device setup process, specifically for managing or presenting settings related to mobile data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.oem.euiccpartnerapp.overlay.retca": {
+    "list": "Oem",
+    "description": "This package is related to the eUICC (embedded Universal Integrated Circuit Card) partner application, specifically an OEM overlay that deals with eSIM functionality and management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
