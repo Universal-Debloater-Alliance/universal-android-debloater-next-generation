@@ -8,7 +8,7 @@ use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
 use crate::core::utils::{
-    export_selection, fetch_packages, open_url, ANDROID_SERIAL, EXPORT_FILE_NAME,
+    export_selection, fetch_packages, open_url, ANDROID_SERIAL, EXPORT_FILE_NAME, NAME,
 };
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
@@ -360,7 +360,7 @@ impl List {
     ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
-                "Downloading latest UAD-ng lists from GitHub. Please wait...",
+                &format!("Downloading latest {NAME} lists from GitHub. Please wait..."),
                 Some(button("No internet?").on_press(Message::LoadUadList(false))),
                 style::Text::Default,
             ),
@@ -384,7 +384,7 @@ impl List {
                 style::Text::Default,
             ),
             LoadingState::_UpdatingUad => waiting_view(
-                "Updating UAD-ng. Please wait...",
+                &format!("Updating {NAME}. Please wait..."),
                 None,
                 style::Text::Default,
             ),
@@ -590,7 +590,7 @@ impl List {
                 .center_x();
 
             let text_box = row![
-                text("Exported current selection into file.\nFile is exported in same directory where UAD-ng is located.").width(Length::Fill),
+                text(format!("Exported current selection into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
             ].padding(20);
 
             let file_row = row![text(EXPORT_FILE_NAME).style(style::Text::Commentary)].padding(20);
