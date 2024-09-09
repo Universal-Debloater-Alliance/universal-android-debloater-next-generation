@@ -5,7 +5,17 @@ use serde::{Deserialize, Serialize};
 use serde_json;
 use std::collections::HashMap;
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+
+pub const LIST_FNAME: &str = "uad_lists.json";
+
+#[allow(
+    clippy::large_include_file,
+    reason = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608"
+)]
+// not `const`, because it's too big
+pub static DATA: &str = include_str!("../../resources/assets/uad_lists.json");
+// TODO: use `const_format` crate
 
 #[derive(Deserialize, Debug, Clone, PartialEq, Hash, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -41,7 +51,7 @@ pub enum UadListState {
 
 impl std::fmt::Display for UadListState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
+        let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let s = match self {
             Self::Downloading => "Checking updates...".to_string(),
             Self::Done => format!("Done (last was {})", format_diff_time_from_now(date)),
@@ -179,18 +189,21 @@ impl std::fmt::Display for Removal {
 }
 
 pub type PackageHashMap = HashMap<String, Package>;
-pub fn load_debloat_lists(remote: bool) -> (Result<PackageHashMap, PackageHashMap>, bool) {
-    let cached_uad_lists: PathBuf = CACHE_DIR.join("uad_lists.json");
+pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap> {
+    let cached_uad_lists: PathBuf = CACHE_DIR.join(LIST_FNAME);
     let mut error = false;
     let list: PackageHashMap = if remote {
         retry(Fixed::from_millis(1000).take(60), || {
             match ureq::get(
-                "https://raw.githubusercontent.com/Universal-Debloater-Alliance/universal-android-debloater/\
-           main/resources/assets/uad_lists.json",
+                &format!("https://raw.githubusercontent.com/Universal-Debloater-Alliance/universal-android-debloater/\
+           main/resources/assets/{LIST_FNAME}"),
             )
             .call()
             {
                 Ok(data) => {
+                    // TODO: max resp size is 10MB, list is ~1.3MB;
+                    // TODO: https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
+                    #[warn(clippy::expect_used, reason = "this will panic if GH servers rate-limit the user, or many other reasons.")]
                     let text = data.into_string().expect("response should be Ok type");
                     fs::write(cached_uad_lists.clone(), &text).expect("Unable to write file");
                     let list: PackageHashMap = serde_json::from_str(&text).expect("Unable to parse");
@@ -208,23 +221,18 @@ pub fn load_debloat_lists(remote: bool) -> (Result<PackageHashMap, PackageHashMa
         warn!("Could not load remote debloat list");
         get_local_lists()
     };
-    if error {
-        (Err(list), remote)
-    } else {
-        (Ok(list), remote)
-    }
+
+    (if error { Err } else { Ok })(list)
 }
 
 fn get_local_lists() -> PackageHashMap {
-    const DATA: &str = include_str!("../../resources/assets/uad_lists.json");
-    let cached_uad_lists = CACHE_DIR.join("uad_lists.json");
-
-    if Path::new(&cached_uad_lists).exists() {
-        let data = fs::read_to_string(cached_uad_lists).unwrap();
-        serde_json::from_str(&data).expect("Unable to parse")
-    } else {
-        serde_json::from_str(DATA).expect("Unable to parse")
-    }
+    let cached_uad_lists = CACHE_DIR.join(LIST_FNAME);
+    serde_json::from_str(
+        fs::read_to_string(cached_uad_lists)
+            .as_deref()
+            .unwrap_or(DATA),
+    )
+    .expect("Unable to parse")
 }
 
 #[cfg(test)]
@@ -232,7 +240,6 @@ mod tests {
     use super::*;
     #[test]
     fn test_parse_json() {
-        const DATA: &str = include_str!("../../resources/assets/uad_lists.json");
         let _: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
     }
 }

@@ -78,7 +78,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
     }
 }
 
-pub fn setup_uad_dir(dir: PathBuf) -> PathBuf {
+pub fn setup_uad_dir(dir: &PathBuf) -> PathBuf {
     let dir = dir.join("uad");
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Can't create directory: {dir:?}");

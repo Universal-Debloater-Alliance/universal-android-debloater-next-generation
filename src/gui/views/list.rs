@@ -44,7 +44,7 @@ pub enum LoadingState {
 }
 
 #[derive(Default, Debug, Clone)]
-#[allow(clippy::struct_excessive_bools, clippy::struct_field_names)]
+#[allow(clippy::struct_excessive_bools, reason = "Not a state-machine")]
 pub struct List {
     pub loading_state: LoadingState,
     pub uad_lists: PackageHashMap,
@@ -226,9 +226,8 @@ impl List {
                 Command::none()
             }
             Message::List(i_package, row_message) => {
-                // REASON: 1. side-effect
-                // REASON: 2. same-type
-                #[allow(unused_must_use, clippy::shadow_unrelated)]
+                #[expect(unused_must_use, reason = "side-effect")]
+                #[expect(clippy::shadow_unrelated, reason = "same-type")]
                 {
                     self.phone_packages[i_user][i_package]
                         .update(&row_message)
@@ -852,8 +851,7 @@ impl List {
             .map(|(i, _)| i)
             .collect();
     }
-    // REASON: 1 call-site
-    #[allow(clippy::unused_async)]
+    #[expect(clippy::unused_async, reason = "1 call-site")]
     async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
         if user_list.len() <= 1 {
             vec![fetch_packages(&uad_list, None)]
@@ -865,10 +863,9 @@ impl List {
         }
     }
 
-    // REASON: 1 call-site
-    #[allow(clippy::unused_async)]
+    #[expect(clippy::unused_async, reason = "1 call-site")]
     async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
-        let (uad_lists, _) = load_debloat_lists(remote);
+        let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
                 env::set_var(ANDROID_SERIAL, phone.adb_id.clone());

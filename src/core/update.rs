@@ -54,6 +54,7 @@ impl std::fmt::Display for SelfUpdateStatus {
 
 /// Download a file from the internet
 #[cfg(feature = "self-update")]
+#[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
 pub async fn download_file<T: ToString + Send>(url: T, dest_file: PathBuf) -> Result<(), String> {
     let url = url.to_string();
     debug!("downloading file from {}", &url);
