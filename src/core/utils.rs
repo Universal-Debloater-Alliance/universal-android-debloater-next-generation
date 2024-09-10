@@ -9,12 +9,7 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
-/// Canonical name of:
-/// - application
-/// - program
-/// - executable binary (with proper capitalization)
-/// - main window
-/// - crate (with proper capitalization)
+/// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
 /// Global environment variable to keep
 /// track of the current device serial.
