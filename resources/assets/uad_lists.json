@@ -6252,7 +6252,7 @@
   },
   "com.samsung.android.lool": {
     "list": "Oem",
-    "description": "Samsung Device Care\n(https://play.google.com/store/apps/details?id=com.samsung.android.lool)\n While this package was suspected previously to phone home to Chinese servers it has since been debunked - only connects to Chinese server to retrieve database https://www.reddit.com/r/Android/comments/el99r0/samsung_members_koreas_official_reply_has_arrived/ WARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices",
+    "description": "Samsung Device Care\n(https://play.google.com/store/apps/details?id=com.samsung.android.lool)\n While this package was suspected previously to send lots of data to Chinese servers it has since been debunked - only connects to Chinese server to retrieve database , but still sends some very basic data about the phone like model number, storage capacity, and a randomly generated identifier https://www.reddit.com/r/Android/comments/el99r0/samsung_members_koreas_official_reply_has_arrived/ WARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
