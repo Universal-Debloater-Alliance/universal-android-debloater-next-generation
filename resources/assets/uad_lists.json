@@ -4391,7 +4391,7 @@
   },
   "com.samsung.android.net.wifi.wifiguider": {
     "list": "Oem",
-    "description": "Wi-Fi Tips\nShows a question-mark button next to Wi-Fi networks that failed to connect for any reason, providing info to fix the specific issue. It also has a dedicated Settings activity that lists all possible help-tips, accessible via the \"More tips\" button when reading a tip.\nUpon reinstalling a notification pops up saying \"Analyzing Wi-Fi\" for a few seconds, no idea what it's doing",
+    "description": "Wi-Fi Tips\nShows a question-mark button next to Wi-Fi networks that failed to connect for any reason, providing info to fix the specific issue. It also has a dedicated Settings activity that lists all possible help-tips, accessible via the \"More tips\" button when reading a tip.\nUpon reinstalling a notification pops up saying \"Analyzing Wi-Fi\" for a few seconds, no idea what it's doing  WARNING: Removing make impossible to connect to wifi network without a detected internet connection!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5298,7 +5298,7 @@
   },
   "com.sec.android.app.hwmoduletest": {
     "list": "Oem",
-    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it).\nHas stuff to quickly check the phone's hardware. Removing it does not break anything, but no point in removing it.",
+    "description": "HwModuleTest, a hardware hidden test app (dial *#0*# to open it).\nHas stuff to quickly check the phone's hardware. Removing it does not break anything, but no point in removing it. Note: opening this menu is required to change CSC without lose data with PC programs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6044,7 +6044,7 @@
   },
   "com.wsomacp": {
     "list": "Oem",
-    "description": "omacp = OMA Client Provisioning. It is a protocol specified by the Open Mobile Alliance (OMA).\nConfiguration messages parser. Used for provisioning APN settings to Samsung devices via SMS \nIn my case, it was automatic and I never needed configuration messages.\nMaybe it's useful if carriers change their APN. But you still can change the config manually, it's not difficult.\nKeep in mind these special types of SMS can be abused : \nhttps://research.checkpoint.com/2019/advanced-sms-phishing-attacks-against-modern-android-based-smartphones/\nhttps://www.zdnet.com/article/samsung-huawei-lg-and-sony-phones-vulnerable-to-rogue-provisioning-messages/\n",
+    "description": "omacp = OMA Client Provisioning. It is a protocol specified by the Open Mobile Alliance (OMA).\nConfiguration messages parser. Used for provisioning APN settings to Samsung devices via SMS \nIn my case, it was automatic and I never needed configuration messages.\nMaybe it's useful if carriers change their APN. But you still can change the config manually, it's not difficult.\nKeep in mind these special types of SMS can be abused (though you would need to select to apply the APN in the popup): \nhttps://research.checkpoint.com/2019/advanced-sms-phishing-attacks-against-modern-android-based-smartphones/\nhttps://www.zdnet.com/article/samsung-huawei-lg-and-sony-phones-vulnerable-to-rogue-provisioning-messages/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6252,7 +6252,7 @@
   },
   "com.samsung.android.lool": {
     "list": "Oem",
-    "description": "Samsung Device Care\n(https://play.google.com/store/apps/details?id=com.samsung.android.lool)\nThis package phone home (China, Qihoo 360)\nThe clean feature (in storage setting) is provided by Qihoo 360 which is a shady company (https://en.wikipedia.org/wiki/Qihoo_360)\nhttps://www.reddit.com/r/Android/comments/ektg8u/chinese_spyware_preinstalled_on_all_samsung/\nhttps://www.virustotal.com/gui/file/048ead2be8d18bbe2b05651380069b3740dd05703e9bd66630da986026518398/details\n\nWARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices\nNOTE : If you don't want to delete this package, at least use a firewall (Netguard/AfWall+) to block internet access\n",
+    "description": "Samsung Device Care\n(https://play.google.com/store/apps/details?id=com.samsung.android.lool)\n While this package was suspected previously to phone home to Chinese servers it has since been debunked - only connects to Chinese server to retrieve database https://www.reddit.com/r/Android/comments/el99r0/samsung_members_koreas_official_reply_has_arrived/ WARNING:Disabling/Removing this package may remove the option to manage Power Saving, Fast Charging & Battery Protection on some devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6422,7 +6422,7 @@
   },
   "com.sec.android.app.launcher": {
     "list": "Oem",
-    "description": "Samsung One UI Home launcher (homescreen) (https://play.google.com/store/apps/details?id=com.sec.android.app.launcher)\nIt is also Samsung's TouchWiz default launcher\nWARNING: DO NOT REMOVE THIS IF YOU DON'T USE ANOTHER LAUNCHER!\nNote: Keep this package if you want swipe gestures to keep working. Disabling/uninstalling this package is also known to break the multitasking button on a Samsung Galaxy S21 FE 5G with Nova Launcher (nothing happens when the multitasking button is pressed).",
+    "description": "Samsung One UI Home launcher (homescreen) (https://play.google.com/store/apps/details?id=com.sec.android.app.launcher)\nIt is also Samsung's TouchWiz default launcher\nWARNING: Disabling this package breaks the multitasking navigation button on all newer versions of One UI, nothing would happen when pressing it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6606,7 +6606,7 @@
   },
   "com.sec.internal.vsim.VSimServiceApp": {
     "list": "Oem",
-    "description": "Non Sim Device Solution (NSDS) needed for VoLTE and VoWifi (Wifi Calling) if you have a virtual SIM.\nSee com.sec.vsimservice\nUses IMS service\n",
+    "description": "Non Sim Device Solution (NSDS) needed for VoLTE and VoWifi (Wifi Calling) if you have a virtual SIM. Enabled in devices without esims for some reason. Not sure if there are non-esim virtual sims?  \nSee com.sec.vsimservice\nUses IMS service\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25437,7 +25437,7 @@
     "labels": []
   },
   "com.samsung.android.brightnessbackupservice": {
-    "description": "Backup brightness configuration\nNot sure if it's for powersaving.",
+    "description": "Backup brightness configuration\n May be used when reverting the brightness from a mode, routine, or powersaving mode",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -29689,7 +29689,7 @@
   },
   "com.android.phone": {
     "list": "Aosp",
-    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung",
+    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung WARNING: for me, it breaks the phone app completely with call routing enabled. not sure about other cases",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31453,7 +31453,7 @@
   },
   "com.samsung.android.cidmanager": {
     "list": "Oem",
-    "description": "In order to ensure that a user’s phone receives the appropriate firmware updates, this app is used to identify the carrier network. In other words - it helps to ensure that the correct country-specific firmware is delivered OTA.",
+    "description": "Sets the CSC for the phone depending on the SIM card. This is responsible for forcing you to restart when to activate the so-called features when inserting new SIM card. It may also revert band settings after OTA update in some cases. WARNING: It may be needed to recieve OTA update, currently unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -38075,5 +38075,23 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  }
+}
+  "com.samsung.unifiedtp":{
+    "list": "Oem",
+    "description": "Unified tethering provisioner. Tethering still works for me without it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  }
+}
+  "com.sec.android.app.tfstatus":{
+    "list": "Carrier",
+    "description": "Tracfone app, function unknown",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
