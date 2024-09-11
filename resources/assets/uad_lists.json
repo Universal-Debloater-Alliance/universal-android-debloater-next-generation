@@ -37718,7 +37718,7 @@
   },
   "com.android.internal.systemui.navbar.hidegestural": {
     "list": "Aosp",
-    "description": "This package handles the internal management of gesture-based navigation bars in the Android system UI.",
+    "description": "Allows 'Gesture hint' to be disabled in Navigation bar > Swipe gestures.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37726,15 +37726,15 @@
   },
   "com.android.internal.systemui.navbar.transparent": {
     "list": "Aosp",
-    "description": "This package is responsible for managing the transparency of the navigation bar in the Android system UI.",
+    "description": "Allows 'Transparent navigation bar' to be enabled in Developer options.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.phone.overlay.motcommon": {
     "list": "Oem",
-    "description": "This package is part of Motorola's custom overlay for phone-related features and UI elements.",
+    "description": "Related to Motorola's custom overlay for Phone and other UI elements.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37742,7 +37742,7 @@
   },
   "com.android.systemui.accessibility.accessibilitymenu.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "This package is associated with the Accessibility Menu in Android's system UI, specifically related to auto-generated resources for the menu.",
+    "description": "Product RRO for Accessibility menu.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37750,7 +37750,7 @@
   },
   "com.android.wifi.resources.overlay.motCommon": {
     "list": "Oem",
-    "description": "This package is part of Motorola's custom overlay for Wi-Fi settings and resources.",
+    "description": "Related to Motorola's custom overlay for Wi-Fi connections.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37758,7 +37758,7 @@
   },
   "com.android.wifi.resources.overlay.WifiResScanCountryCode": {
     "list": "Aosp",
-    "description": "This package is related to Wi-Fi resources and overlays, specifically dealing with country code scanning for Wi-Fi networks.",
+    "description": "Related to overlay for Wi-Fi scanning for country code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -37766,35 +37766,35 @@
   },
   "com.google.android.health.connect.backuprestore": {
     "list": "Google",
-    "description": "This package is related to Google Health Connect and handles the backup and restore functionality for health-related data.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.google.android.healthconnect.controller": {
-    "list": "Google",
-    "description": "This package is part of Google Health Connect and is responsible for managing and controlling health-related data interactions.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.google.android.wifi.dialog": {
-    "list": "Google",
-    "description": "This package is associated with the user interface elements related to Wi-Fi management in Android.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.google.android.wifi.resources": {
-    "list": "Google",
-    "description": "This package contains resources related to Wi-Fi management, including string resources, images, and layout files used in the Wi-Fi settings and user interface.",
+    "description": "Health Connect for Android backup/restore."
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.google.android.healthconnect.controller": {
+    "list": "Google",
+    "description": "Health Connect by Android gives you a simple way to share data between your health, fitness, and wellbeing apps without compromising on privacy.\nOnce you've downloaded Health Connect, you can access it through your settings by going to Settings > Apps > Health Connect, or from your Quick Settings menu.\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.healthdata"
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.wifi.dialog": {
+    "list": "Google",
+    "description": "Wi-Fi dialog. App to launch user dialogs requested by the Wi-Fi service is stored here. Contains the Activity the dialogs are launched from.\nhttps://source.android.com/docs/core/ota/modular-system/wifi\nhttps://android.googlesource.com/platform/packages/apps/Settings/+/refs/heads/main/src/com/android/settings/wifi/WifiDialog.java\nhttps://android.googlesource.com/platform/packages/apps/Settings/+/refs/heads/main/src/com/android/settings/wifi/WifiDialog2.kt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.wifi.resources": {
+    "list": "Google",
+    "description": "Wi-Fi Service Resources. Overlay APK manifest is stored here. Extracts Wi-Fi configs.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   },
   "com.motorola.android.coresettingsext.overlay.avatrn": {
     "list": "Oem",
@@ -37986,7 +37986,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.oem.euiccpartnerapp.overlay.retca": {
     "list": "Oem",
@@ -37994,6 +37994,6 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   }
 }
