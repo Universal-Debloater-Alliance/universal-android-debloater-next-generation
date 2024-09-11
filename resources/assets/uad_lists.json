@@ -18292,6 +18292,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.android.settingsaccessibility": {
+    "description": "Accessibility settings (tools for vision, hearing and physical impairments)\nSometimes, third-party apps may require special permissions in the accessibility settings in order to work properly.",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.lge.provider.signboard": {
     "description": "Needed for Always on display.",
     "removal": "Recommended",
