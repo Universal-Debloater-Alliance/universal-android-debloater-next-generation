@@ -255,6 +255,9 @@ pub fn apply_pkg_state_commands(
     request_builder(&commands, &package.name, user)
 }
 
+/// Build a command request to be sent via ADB to a device.
+/// `commands` accepts one or more ADB shell commands
+/// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
     #[allow(clippy::option_if_let_else)]
     match user {
@@ -266,6 +269,7 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) ->
     }
 }
 
+/// Get the current device model by querying the `ro.product.model` property.
 pub fn get_phone_model() -> String {
     adb_shell_command(true, "getprop ro.product.model").unwrap_or_else(|err| {
         println!("ERROR: {err}");
@@ -277,10 +281,13 @@ pub fn get_phone_model() -> String {
     })
 }
 
+/// Get the current device Android SDK version by querying the
+// `ro.build.version.sdk` property or defaulting to 0.
 pub fn get_android_sdk() -> u8 {
     adb_shell_command(true, "getprop ro.build.version.sdk").map_or(0, |sdk| sdk.parse().unwrap())
 }
 
+/// Get the current device brand by querying the `ro.product.brand` property.
 pub fn get_phone_brand() -> String {
     format!(
         "{} {}",
@@ -291,6 +298,8 @@ pub fn get_phone_brand() -> String {
     )
 }
 
+/// Check if a `user_id` is protected on a device by trying
+/// to list associated packages.
 pub fn is_protected_user(user_id: &str) -> bool {
     adb_shell_command(true, &format!("pm list packages -s --user {user_id}")).is_err()
 }
