@@ -37774,7 +37774,7 @@
   },
   "com.google.android.health.connect.backuprestore": {
     "list": "Google",
-    "description": "Health Connect for Android backup/restore."
+    "description": "Health Connect for Android backup/restore.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
