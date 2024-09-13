@@ -255,6 +255,9 @@ pub fn apply_pkg_state_commands(
     request_builder(&commands, &package.name, user)
 }
 
+/// Build a command request to be sent via ADB to a device.
+/// `commands` accepts one or more ADB shell commands
+/// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
     #[allow(clippy::option_if_let_else)]
     match user {
