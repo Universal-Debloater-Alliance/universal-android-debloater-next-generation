@@ -16,7 +16,6 @@
               clang
               pkg-config
               mold
-              expat
               android-tools
             ];
 
