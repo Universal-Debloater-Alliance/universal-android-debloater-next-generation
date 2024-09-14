@@ -239,7 +239,7 @@ pub fn apply_pkg_state_commands(
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", "pm clear"],   // Android Lollipop (5.x)
                 19 | 20 => vec!["pm block", "pm clear"],  // Android KitKat (4.4/4.4W)
-                _ => vec!["pm uninstall"], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                _ => vec!["pm block", "pm clear"], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
         },
@@ -253,14 +253,11 @@ pub fn apply_pkg_state_commands(
 /// `commands` accepts one or more ADB shell commands
 /// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
-    #[allow(clippy::option_if_let_else)]
-    match user {
-        Some(u) => commands
-            .iter()
-            .map(|c| format!("{} --user {} {}", c, u.id, package))
-            .collect(),
-        None => commands.iter().map(|c| format!("{c} {package}")).collect(),
-    }
+    let maybe_user_flag = user_flag(user);
+    commands
+        .iter()
+        .map(|c| format!("{}{} {}", c, maybe_user_flag, package))
+        .collect()
 }
 
 /// Get the current device model by querying the `ro.product.model` property.
