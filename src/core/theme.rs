@@ -48,59 +48,64 @@ pub struct ColorPalette {
 impl Theme {
     pub const ALL: [Self; 4] = [Self::Auto, Self::Lupin, Self::Dark, Self::Light];
 
+    #[allow(
+        clippy::unreadable_literal,
+        reason = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/578#discussion_r1759653408"
+    )]
+    #[must_use]
     pub fn palette(self) -> ColorPalette {
         const DARK: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0x11_11_11),
-                foreground: color!(0x1C_1C_1C),
+                background: color!(0x111111),
+                foreground: color!(0x1C1C1C),
             },
             normal: NormalColors {
-                primary: color!(0x5E_42_66),
-                secondary: color!(0x38_6E_50),
-                surface: color!(0x82_82_82),
-                error: color!(0x99_2B_2B),
+                primary: color!(0x5E4266),
+                secondary: color!(0x386E50),
+                surface: color!(0x828282),
+                error: color!(0x992B2B),
             },
             bright: BrightColors {
-                primary: color!(0xBA_84_FC),
-                secondary: color!(0x49_EB_7A),
-                surface: color!(0xE0_E0_E0),
-                error: color!(0xC1_30_47),
+                primary: color!(0xBA84FC),
+                secondary: color!(0x49EB7A),
+                surface: color!(0xE0E0E0),
+                error: color!(0xC13047),
             },
         };
         const LIGHT: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0xEE_EE_EE),
-                foreground: color!(0xE0_E0_E0),
+                background: color!(0xEEEEEE),
+                foreground: color!(0xE0E0E0),
             },
             normal: NormalColors {
-                primary: color!(0x81_81_81),
-                secondary: color!(0xF9_D6_59),
-                surface: color!(0x81_81_81),
-                error: color!(0x99_2B_2B),
+                primary: color!(0x818181),
+                secondary: color!(0xF9D659),
+                surface: color!(0x818181),
+                error: color!(0x992B2B),
             },
             bright: BrightColors {
-                primary: color!(0x67_3A_B7),
-                secondary: color!(0x37_97_A4),
-                surface: color!(0x00_00_00),
-                error: color!(0xC1_30_47),
+                primary: color!(0x673AB7),
+                secondary: color!(0x3797A4),
+                surface: color!(0x000000),
+                error: color!(0xC13047),
             },
         };
         const LUPIN: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0x28_2A_36),
-                foreground: color!(0x35_37_46),
+                background: color!(0x282A36),
+                foreground: color!(0x353746),
             },
             normal: NormalColors {
-                primary: color!(0x58_40_6F),
-                secondary: color!(0x38_6E_50),
-                surface: color!(0xA2_A4_A3),
-                error: color!(0xA1_30_34),
+                primary: color!(0x58406F),
+                secondary: color!(0x386E50),
+                surface: color!(0xA2A4A3),
+                error: color!(0xA13034),
             },
             bright: BrightColors {
-                primary: color!(0xBD_94_F9),
-                secondary: color!(0x49_EB_7A),
-                surface: color!(0xF4_F8_F3),
-                error: color!(0xE6_3E_6D),
+                primary: color!(0xBD94F9),
+                secondary: color!(0x49EB7A),
+                surface: color!(0xF4F8F3),
+                error: color!(0xE63E6D),
             },
         };
         match self {
