@@ -49,7 +49,8 @@ pub struct UadGui {
     about_view: AboutView,
     settings_view: SettingsView,
     devices_list: Vec<Phone>,
-    selected_device: Option<Phone>, // index of devices_list
+    /// index of `devices_list`
+    selected_device: Option<Phone>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
     adb_satisfied: bool,
@@ -57,7 +58,7 @@ pub struct UadGui {
 
 #[derive(Debug, Clone)]
 pub enum Message {
-    // Navigation Panel
+    /// Navigation Panel
     AboutPressed,
     SettingsPressed,
     AppsPress,
@@ -106,6 +107,8 @@ impl Application for UadGui {
     fn title(&self) -> String {
         String::from("Universal Android Debloater Next Generation")
     }
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     fn update(&mut self, msg: Message) -> Command<Message> {
         match msg {
             #[allow(clippy::option_if_let_else)]
@@ -277,11 +280,7 @@ impl Application for UadGui {
                 debug!("{NAME} update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
-                    // Remove first arg, which is path to binary. We don't use this first
-                    // arg as binary path because it's not reliable, per the docs.
-                    let mut args = std::env::args();
-                    args.next();
-                    let mut args: Vec<_> = args.collect();
+                    let mut args: Vec<_> = std::env::args().skip(1).collect();
 
                     // Remove the `--self-update-temp` arg from args if it exists,
                     // since we need to pass it cleanly. Otherwise new process will
@@ -327,7 +326,7 @@ impl Application for UadGui {
                         self.update_state.self_update.status = SelfUpdateStatus::Done;
                         self.update_state.self_update.latest_release = r;
                     }
-                    Err(_) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
+                    Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
                 };
                 Command::none()
             }

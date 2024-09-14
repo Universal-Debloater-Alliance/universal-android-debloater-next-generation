@@ -16,22 +16,22 @@ mod core;
 mod gui;
 
 #[dynamic]
-static CONFIG_DIR: PathBuf = setup_uad_dir(dirs::config_dir());
+static CONFIG_DIR: PathBuf = setup_uad_dir(&dirs::config_dir().expect("Can't detect config dir"));
 
 #[dynamic]
-static CACHE_DIR: PathBuf = setup_uad_dir(dirs::cache_dir());
+static CACHE_DIR: PathBuf = setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir"));
 
 fn main() -> iced::Result {
     setup_logger().expect("setup logging");
     gui::UadGui::start()
 }
 
-/// Sets up logging to a new file in CACHE_DIR/UAD_{time}.log
+/// Sets up logging to a new file in `CACHE_DIR/UAD`_{time}.log
 /// Also attaches the terminal on Windows machines
 /// '''
-/// match setup_logger().expect("Error setting up logger")
+/// match `setup_logger().expect("Error` setting up logger")
 /// '''
-pub fn setup_logger() -> Result<(), fern::InitError> {
+fn setup_logger() -> Result<(), fern::InitError> {
     /// Attach Windows terminal, only on Windows
     #[cfg(target_os = "windows")]
     {
@@ -104,8 +104,8 @@ mod tests {
     #[test]
     fn init_logger() {
         match setup_logger() {
-            Ok(_) => (),
-            Err(error) => panic!("Error: {}", error),
+            Ok(()) => (),
+            Err(error) => panic!("Error: {error}"),
         }
     }
 }
