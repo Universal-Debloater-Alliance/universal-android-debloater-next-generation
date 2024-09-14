@@ -23,7 +23,6 @@ impl<'a, Message, Theme, Renderer> Modal<'a, Message, Theme, Renderer> {
         }
     }
 
-    #[allow(clippy::missing_const_for_fn)]
     /// Sets the message that will be produces when the background
     /// of the [`Modal`] is pressed
     pub fn on_blur(self, on_blur: Message) -> Self {
@@ -72,7 +71,7 @@ where
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
-        _viewport: &Rectangle,
+        viewport: &Rectangle,
     ) -> event::Status {
         self.base.as_widget_mut().on_event(
             &mut state.children[0],
@@ -82,7 +81,7 @@ where
             renderer,
             clipboard,
             shell,
-            _viewport,
+            viewport,
         )
     }
 

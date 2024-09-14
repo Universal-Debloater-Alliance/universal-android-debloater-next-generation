@@ -70,6 +70,8 @@ pub enum Message {
 }
 
 impl Settings {
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
         phone: &Phone,
@@ -207,7 +209,7 @@ impl Settings {
                     Command::batch(commands)
                 }
                 Err(e) => {
-                    self.device.backup.backup_state = e.clone();
+                    self.device.backup.backup_state.clone_from(&e);
                     error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
                     Command::none()
                 }
@@ -255,6 +257,8 @@ impl Settings {
         }
     }
 
+    // TODO: refactor later
+    #[allow(clippy::too_many_lines)]
     pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()

@@ -48,6 +48,11 @@ pub struct ColorPalette {
 impl Theme {
     pub const ALL: [Self; 4] = [Self::Auto, Self::Lupin, Self::Dark, Self::Light];
 
+    #[allow(
+        clippy::unreadable_literal,
+        reason = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/578#discussion_r1759653408"
+    )]
+    #[must_use]
     pub fn palette(self) -> ColorPalette {
         const DARK: ColorPalette = ColorPalette {
             base: BaseColors {
@@ -56,13 +61,13 @@ impl Theme {
             },
             normal: NormalColors {
                 primary: color!(0x5E4266),
-                secondary: color!(0x386e50),
+                secondary: color!(0x386E50),
                 surface: color!(0x828282),
                 error: color!(0x992B2B),
             },
             bright: BrightColors {
                 primary: color!(0xBA84FC),
-                secondary: color!(0x49eb7a),
+                secondary: color!(0x49EB7A),
                 surface: color!(0xE0E0E0),
                 error: color!(0xC13047),
             },
@@ -87,19 +92,19 @@ impl Theme {
         };
         const LUPIN: ColorPalette = ColorPalette {
             base: BaseColors {
-                background: color!(0x282a36),
+                background: color!(0x282A36),
                 foreground: color!(0x353746),
             },
             normal: NormalColors {
                 primary: color!(0x58406F),
-                secondary: color!(0x386e50),
-                surface: color!(0xa2a4a3),
+                secondary: color!(0x386E50),
+                surface: color!(0xA2A4A3),
                 error: color!(0xA13034),
             },
             bright: BrightColors {
-                primary: color!(0xbd94f9),
-                secondary: color!(0x49eb7a),
-                surface: color!(0xf4f8f3),
+                primary: color!(0xBD94F9),
+                secondary: color!(0x49EB7A),
+                surface: color!(0xF4F8F3),
                 error: color!(0xE63E6D),
             },
         };
@@ -107,10 +112,10 @@ impl Theme {
             Self::Dark => DARK,
             Self::Light => LIGHT,
             Self::Lupin => LUPIN,
+            #[allow(clippy::match_same_arms)]
             Self::Auto => match dark_light::detect() {
-                dark_light::Mode::Dark => DARK,
                 dark_light::Mode::Light => LIGHT,
-                // If the mode can't be detected, fall back to dark.
+                dark_light::Mode::Dark => DARK,
                 dark_light::Mode::Default => DARK,
             },
         }

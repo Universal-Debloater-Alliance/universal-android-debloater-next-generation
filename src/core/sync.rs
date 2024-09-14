@@ -119,27 +119,21 @@ pub async fn perform_adb_commands(
 
     match adb_shell_command(true, &action) {
         Ok(o) => {
-            // On old devices, adb commands can return the '0' exit code even if there
+            // On old devices, adb commands can return the `0` exit code even if there
             // is an error. On Android 4.4, ADB doesn't check if the package exists.
             // It does not return any error if you try to `pm block` a non-existent package.
             // Some commands are even killed by ADB before finishing and UAD-ng can't catch
             // the output.
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!(
-                    "[{}] {} -> {}",
-                    label, action, o
-                )));
+                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
             }
 
-            info!("[{}] {} -> {}", label, action, o);
+            info!("[{label}] {action} -> {o}");
             Ok(command_type)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!(
-                    "[{}] {} -> {}",
-                    label, action, err
-                )));
+                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
             }
             Err(AdbError::Generic(err))
         }
@@ -245,7 +239,7 @@ pub fn apply_pkg_state_commands(
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", "pm clear"],   // Android Lollipop (5.x)
                 19 | 20 => vec!["pm block", "pm clear"],  // Android KitKat (4.4/4.4W)
-                _ => vec!["pm uninstall"], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                _ => vec!["pm block", "pm clear"], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
         },
@@ -255,17 +249,18 @@ pub fn apply_pkg_state_commands(
     request_builder(&commands, &package.name, user)
 }
 
+/// Build a command request to be sent via ADB to a device.
+/// `commands` accepts one or more ADB shell commands
+/// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
-    #[allow(clippy::option_if_let_else)]
-    match user {
-        Some(u) => commands
-            .iter()
-            .map(|c| format!("{} --user {} {}", c, u.id, package))
-            .collect(),
-        None => commands.iter().map(|c| format!("{c} {package}")).collect(),
-    }
+    let maybe_user_flag = user_flag(user);
+    commands
+        .iter()
+        .map(|c| format!("{}{} {}", c, maybe_user_flag, package))
+        .collect()
 }
 
+/// Get the current device model by querying the `ro.product.model` property.
 pub fn get_phone_model() -> String {
     adb_shell_command(true, "getprop ro.product.model").unwrap_or_else(|err| {
         println!("ERROR: {err}");
@@ -277,10 +272,13 @@ pub fn get_phone_model() -> String {
     })
 }
 
+/// Get the current device Android SDK version by querying the
+// `ro.build.version.sdk` property or defaulting to 0.
 pub fn get_android_sdk() -> u8 {
     adb_shell_command(true, "getprop ro.build.version.sdk").map_or(0, |sdk| sdk.parse().unwrap())
 }
 
+/// Get the current device brand by querying the `ro.product.brand` property.
 pub fn get_phone_brand() -> String {
     format!(
         "{} {}",
@@ -291,6 +289,8 @@ pub fn get_phone_brand() -> String {
     )
 }
 
+/// Check if a `user_id` is protected on a device by trying
+/// to list associated packages.
 pub fn is_protected_user(user_id: &str) -> bool {
     adb_shell_command(true, &format!("pm list packages -s --user {user_id}")).is_err()
 }

@@ -1,5 +1,6 @@
 use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
+use crate::core::uad_lists::LIST_FNAME;
 use crate::core::utils::{last_modified_date, open_url, NAME};
 use crate::gui::{style, UpdateState};
 use crate::CACHE_DIR;
@@ -35,7 +36,7 @@ impl About {
             .padding(25)
             .style(style::Container::Frame);
 
-        let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
+        let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let uad_list_text =
             text(format!("{NAME} package list: v{}", date.format("%Y%m%d"))).width(250);
         let last_update_text = text(update_state.uad_list.to_string());

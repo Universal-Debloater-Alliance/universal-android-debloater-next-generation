@@ -63,7 +63,7 @@ pub async fn backup_phone(
                 format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
 
             match fs::write(backup_path.join(backup_filename), json) {
-                Ok(_) => Ok(true),
+                Ok(()) => Ok(true),
                 Err(err) => Err(err.to_string()),
             }
         }
@@ -75,7 +75,7 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
     #[allow(clippy::option_if_let_else)]
     match fs::read_dir(dir) {
         Ok(files) => files
-            .filter_map(|e| e.ok())
+            .filter_map(Result::ok)
             .map(|e| DisplayablePath { path: e.path() })
             .collect::<Vec<_>>(),
         Err(_) => vec![],
