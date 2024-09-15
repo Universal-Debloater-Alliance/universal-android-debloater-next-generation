@@ -46,8 +46,10 @@ win32console = "^0.1.5"
 
 [profile.release]
 opt-level = "s"
+codegen-units = 1
 lto = true
-strip = "symbols"
+strip = true
+panic = "abort"
 
 [build-dependencies]
 embed-resource = "2.4.2"
