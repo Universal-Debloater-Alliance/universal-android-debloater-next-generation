@@ -36701,11 +36701,11 @@
   },
   "com.samsung.android.knox.app.networkfilter": {
     "list": "Oem",
-    "description": "knoxNwFilter\nOnly has frameworks to proxy server connection.",
+    "description": "knoxNwFilter\nIs responsible for Bluetooth to work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.android.knox.zt.framework": {
     "list": "Oem",
