@@ -29255,7 +29255,7 @@
   },
   "com.google.android.setupwizard": {
     "list": "Google",
-    "description": "Android Setup\nThe factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your bank) to authenticate you. Disabling/uninstalling may also break (Google) account synchronisation. See https://en.wikipedia.org/wiki/Mobile_identity_management for Mobile Identity Management.",
+    "description": "Android Setup\nThe factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your bank) to authenticate you. Disabling/uninstalling may also break account syncing (if the Google account is absent). See https://en.wikipedia.org/wiki/Mobile_identity_management for Mobile Identity Management.",
     "dependencies": [],
     "neededBy": [],
     "labels": [
