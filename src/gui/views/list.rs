@@ -8,11 +8,10 @@ use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
 use crate::core::utils::{
-    export_selection, fetch_packages, open_url, ANDROID_SERIAL, EXPORT_FILE_NAME, NAME,
+    export_selection, fetch_packages, open_url, set_adb_serial, EXPORT_FILE_NAME, NAME,
 };
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
-use std::env;
 use std::path::PathBuf;
 
 use crate::gui::views::settings::Settings;
@@ -864,12 +863,15 @@ impl List {
     }
 
     #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
+    async fn init_apps_view(remote: bool, device: Phone) -> (PackageHashMap, UadListState) {
         let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
-                env::set_var(ANDROID_SERIAL, phone.adb_id.clone());
-                if phone.adb_id.is_empty() {
+                #[allow(unsafe_code)]
+                unsafe {
+                    set_adb_serial(device.adb_id.clone())
+                };
+                if device.adb_id.is_empty() {
                     error!("AppsView ready but no phone found");
                 }
                 (list, UadListState::Done)

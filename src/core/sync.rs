@@ -13,6 +13,8 @@ use std::process::Command;
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
 
+use super::utils::set_adb_serial;
+
 const PM_LS_PKG: &str = "pm list packages";
 const PM_C: &str = "pm clear";
 
@@ -327,7 +329,10 @@ pub async fn get_devices_list() -> Vec<Phone> {
                     return OperationResult::Retry(vec![]);
                 }
                 for device in RE.captures_iter(&devices) {
-                    env::set_var(ANDROID_SERIAL, &device[1]);
+                    #[allow(unsafe_code)]
+                    unsafe {
+                        set_adb_serial(&device[1])
+                    };
                     device_list.push(Phone {
                         model: get_phone_brand(),
                         android_sdk: get_android_sdk(),

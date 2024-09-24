@@ -5,9 +5,12 @@ use crate::gui::widgets::package_row::PackageRow;
 use chrono::offset::Utc;
 use chrono::{DateTime, Local};
 use csv::Writer;
+use std::ffi::OsStr;
 use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
+
+use super::sync::Phone;
 
 /// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
@@ -22,6 +25,15 @@ pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
 #[derive(Debug, Clone)]
 pub enum Error {
     DialogClosed,
+}
+
+#[allow(unsafe_code)]
+#[allow(
+    clippy::semicolon_if_nothing_returned,
+    reason = "fn must return whatever `set_var` returns"
+)]
+pub unsafe fn set_adb_serial<D: AsRef<OsStr>>(device: D) {
+    std::env::set_var(ANDROID_SERIAL, device)
 }
 
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
