@@ -16082,7 +16082,7 @@
   },
   "com.miui.aod": {
     "list": "Oem",
-    "description": "Always-on display\nSafe to remove if you don't use \"Always-on display\" features in settings.\nRequired for the fingerprint scanner if you want without double-tapping or pressing the power button.",
+    "description": "Always-on display and Lock screen editor\nSafe to remove if you don't use \"Always-on display\" and \"Lock screen editor\" features in settings.\nRequired for the fingerprint scanner if you want without double-tapping or pressing the power button.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
