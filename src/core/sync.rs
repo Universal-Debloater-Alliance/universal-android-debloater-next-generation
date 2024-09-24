@@ -1,5 +1,5 @@
 use crate::core::uad_lists::PackageState;
-use crate::core::utils::ANDROID_SERIAL;
+use crate::core::utils::set_adb_serial;
 use crate::gui::views::list::PackageInfo;
 use crate::gui::widgets::package_row::PackageRow;
 use regex::Regex;
@@ -7,13 +7,10 @@ use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
 use std::collections::HashSet;
-use std::env;
 use std::process::Command;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
-
-use super::utils::set_adb_serial;
 
 const PM_LS_PKG: &str = "pm list packages";
 const PM_C: &str = "pm clear";

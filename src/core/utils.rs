@@ -10,15 +10,8 @@ use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
 
-use super::sync::Phone;
-
 /// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
-/// Global environment variable to keep
-/// track of the current device serial.
-///
-/// [More info](https://developer.android.com/tools/variables#adb)
-pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
 
@@ -32,8 +25,9 @@ pub enum Error {
     clippy::semicolon_if_nothing_returned,
     reason = "fn must return whatever `set_var` returns"
 )]
-pub unsafe fn set_adb_serial<D: AsRef<OsStr>>(device: D) {
-    std::env::set_var(ANDROID_SERIAL, device)
+pub unsafe fn set_adb_serial<D: AsRef<OsStr>>(device_serial: D) {
+    // https://developer.android.com/tools/variables#adb
+    std::env::set_var("ANDROID_SERIAL", device_serial)
 }
 
 pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {

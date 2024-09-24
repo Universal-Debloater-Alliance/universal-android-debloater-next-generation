@@ -6,7 +6,7 @@ use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, Co
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{set_adb_serial, string_to_theme, ANDROID_SERIAL, NAME};
+use crate::core::utils::{set_adb_serial, string_to_theme, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -21,7 +21,6 @@ use iced::{
     window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
     Settings,
 };
-use std::env;
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 
