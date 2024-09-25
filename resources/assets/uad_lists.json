@@ -911,6 +911,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.mig.play.games": {
+    "list": "Oem",
+    "description": "Funmax\nSome kind of third-party game center bundled by Xiaomi.\nHas lots of permissions by default.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.xiaomi.market": {
     "list": "Oem",
     "description": "GetApps\nChina Mi App Store.\nI used it only to install google play.",
