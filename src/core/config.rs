@@ -124,7 +124,7 @@ mod tests {
         let config = Config::load_configuration_file();
         assert_eq!(config.devices.len(), 0);
         assert_eq!(config.general.theme, Theme::default().to_string());
-        assert_eq!(config.general.expert_mode, false);
+        assert!(config.general.expert_mode);
         assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
     }
 
@@ -143,7 +143,7 @@ mod tests {
         let config = Config::default();
         assert_eq!(config.devices.len(), 0);
         assert_eq!(config.general.theme, Theme::default().to_string());
-        assert_eq!(config.general.expert_mode, false);
+        assert!(config.general.expert_mode);
         assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
     }
 
