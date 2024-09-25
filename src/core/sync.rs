@@ -12,8 +12,8 @@ use std::process::Command;
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
 
-const PM_LS_PKG: &str = "pm list packages";
-const PM_C: &str = "pm clear";
+const PM_LIST_PACKS: &str = "pm list packages";
+const PM_CLEAR_PACK: &str = "pm clear";
 
 #[dynamic]
 static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
@@ -150,7 +150,7 @@ pub fn user_flag(user_id: Option<&User>) -> String {
 }
 
 pub fn list_all_system_packages(user_id: Option<&User>) -> String {
-    let action = format!("{PM_LS_PKG} -s -u{}", user_flag(user_id));
+    let action = format!("{PM_LIST_PACKS} -s -u{}", user_flag(user_id));
 
     adb_shell_command(true, &action)
         .unwrap_or_default()
@@ -160,8 +160,8 @@ pub fn list_all_system_packages(user_id: Option<&User>) -> String {
 pub fn hashset_system_packages(state: PackageState, user_id: Option<&User>) -> HashSet<String> {
     let user = user_flag(user_id);
     let action = match state {
-        PackageState::Enabled => format!("{PM_LS_PKG} -s -e{user}"),
-        PackageState::Disabled => format!("{PM_LS_PKG} -s -d{user}"),
+        PackageState::Enabled => format!("{PM_LIST_PACKS} -s -e{user}"),
+        PackageState::Disabled => format!("{PM_LIST_PACKS} -s -d{user}"),
         _ => String::default(), // You probably don't need to use this function for anything else
     };
 
@@ -224,7 +224,7 @@ pub fn apply_pkg_state_commands(
                 PackageState::Uninstalled => match phone.android_sdk {
                     i if i >= 23 => vec!["cmd package install-existing"],
                     21 | 22 => vec!["pm unhide"],
-                    19 | 20 => vec!["pm unblock", PM_C],
+                    19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
                     _ => vec![], // Impossible action already prevented by the GUI
                 },
                 _ => vec![],
@@ -232,7 +232,7 @@ pub fn apply_pkg_state_commands(
         }
         PackageState::Disabled => match package.state {
             PackageState::Uninstalled | PackageState::Enabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", PM_C],
+                sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK],
                 _ => vec![],
             },
             _ => vec![],
@@ -240,9 +240,9 @@ pub fn apply_pkg_state_commands(
         PackageState::Uninstalled => match package.state {
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
-                21 | 22 => vec!["pm hide", PM_C],         // Android Lollipop (5.x)
-                19 | 20 => vec!["pm block", PM_C],        // Android KitKat (4.4/4.4W)
-                _ => vec!["pm block", PM_C], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
+                19 | 20 => vec!["pm block", PM_CLEAR_PACK], // Android KitKat (4.4/4.4W)
+                _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
         },
@@ -295,7 +295,7 @@ pub fn get_phone_brand() -> String {
 /// Check if a `user_id` is protected on a device by trying
 /// to list associated packages.
 pub fn is_protected_user(user_id: &str) -> bool {
-    adb_shell_command(true, &format!("{PM_LS_PKG} -s --user {user_id}")).is_err()
+    adb_shell_command(true, &format!("{PM_LIST_PACKS} -s --user {user_id}")).is_err()
 }
 
 pub fn get_user_list() -> Vec<User> {
