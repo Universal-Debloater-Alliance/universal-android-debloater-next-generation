@@ -16260,7 +16260,7 @@
   },
   "com.miui.guardprovider": {
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.\nOn HyperOS this module is responsible for showing the 'Install via USB' prompt when installing apps via ADB (enabled through developer options, requires Mi account the first time).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
