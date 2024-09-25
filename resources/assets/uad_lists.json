@@ -34581,19 +34581,19 @@
   },
   "com.samsung.slsi.telephony.oem.oemrilhookservice": {
     "list": "Carrier",
-    "description": "Another data collection by Carrier.",
+    "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.slsi.telephony.oemril": {
     "list": "Carrier",
-    "description": "Virtual SIM and testing things found and collection data.",
+    "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.pixel.camera.services": {
     "list": "Oem",
