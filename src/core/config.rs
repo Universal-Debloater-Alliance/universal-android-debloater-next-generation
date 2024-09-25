@@ -105,13 +105,13 @@ impl Config {
 mod tests {
     use super::*;
     use std::path::Path;
-    
+
     // create a clean default config file for testing
     fn create_default_config_file() {
         let toml = toml::to_string(&Config::default()).unwrap();
         fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
     }
-    
+
     #[test]
     fn test_create_default_config_file() {
         create_default_config_file();
@@ -119,7 +119,7 @@ mod tests {
     }
 
     #[test]
-    fn test_load_configuration_file(){
+    fn test_load_configuration_file() {
         create_default_config_file();
         let config = Config::load_configuration_file();
         assert_eq!(config.devices.len(), 0);
