@@ -169,8 +169,7 @@ impl List {
                     Message::LoadPhonePackages,
                 )
             }
-            Message::LoadPhonePackages(list_box) => {
-                let (uad_list, list_state) = list_box;
+            Message::LoadPhonePackages((uad_list, list_state)) => {
                 self.loading_state = LoadingState::LoadingPackages;
                 self.uad_lists.clone_from(&uad_list);
                 *list_update_state = list_state;

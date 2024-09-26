@@ -75,7 +75,7 @@ impl Config {
             .iter_mut()
             .find(|x| x.device_id == *device_id)
         {
-            *device = settings.device.clone();
+            device.clone_from(&settings.device);
         } else {
             debug!("config: New device settings saved");
             config.devices.push(settings.device.clone());
