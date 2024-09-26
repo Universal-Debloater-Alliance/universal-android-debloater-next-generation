@@ -12,7 +12,7 @@ Even though the guide is made for contributors, it's also strongly recommended t
 
 As for our branching strategy, we're using [Trunk-Based Development](https://trunkbaseddevelopment.com/#one-line-summary).
 
-In short, there's one trunk branch named `main` (also known as `master`). Apart from `main`/`master` there can be different short-lived branches, such as:
+In short, there's one trunk branch named `main` (`master`). Apart from `main`/`master` there can be different short-lived branches, such as:
 
 - Features (`feature/*`)
 - Fixes (`hotfix/*` or simply `fix/*`)
@@ -22,8 +22,14 @@ In short, there's one trunk branch named `main` (also known as `master`). Apart 
 Do mind that these branch names do only not apply to the addition of packages; for that, we use the following scheme: `[issue number][issue title]`. This can be done [automatically](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-a-branch-for-an-issue) too.
 
 This is how it looks like and works:
-
 ![Trunk-Based Development](https://trunkbaseddevelopment.com/trunk1c.png)
+
+
+### Syncing branches
+If you want to [back-port](https://en.wikipedia.org/wiki/Backporting) (GitHub's "Update" and "Sync" buttons) from upstream `main` to any other branch (for testing purposes, or any other reasonable case), it's recommended that you `rebase` rather than `merge` the changes.
+
+**Don't apply changes to/from arbitrary branches**, that's a recipe for chaos! If you encounter a situation where it's absolutely necessary to sync non-`main` branches, whether to `merge` or `rebase` should be decided by the UAD-ng team (with some contributor feedback) on a case-by-case basis.
+
 
 ### Commit messages
 

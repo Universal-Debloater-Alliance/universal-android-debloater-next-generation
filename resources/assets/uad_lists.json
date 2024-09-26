@@ -1,4 +1,12 @@
 {
+  "com.dti.tracfone": {
+    "list": "Carrier",
+    "description": "Installs sponsored apps automatically on Tracfone and affiliated carriers (Straight Talk, Total Wireless, etc) \n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.sony.tvsideview.videoph": {
     "list": "Oem",
     "description": "Video & TV SideView (replaced by https://play.google.com/store/apps/details?id=com.sony.tvsideview.phone)\nLets you use your smartphone or tablet as a TV remote control for the home. \n",
@@ -903,6 +911,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.mig.play.games": {
+    "list": "Oem",
+    "description": "Funmax\nSome kind of third-party game center bundled by Xiaomi.\nHas lots of permissions by default.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.xiaomi.market": {
     "list": "Oem",
     "description": "GetApps\nChina Mi App Store.\nI used it only to install google play.",
@@ -1105,7 +1121,7 @@
   },
   "com.customermobile.preload.vzw": {
     "list": "Carrier",
-    "description": "Verizon Store/Retail Demo Mode\n",
+    "description": "Verizon Store/Retail Demo Mode\nThis application requires a lot of permissions and downloads a remote configuration file from an AWS-hosted domain over plain-text HTTP.\nThis leaves the overall device and configuration vulnerable.\nhttps://thehackernews.com/2024/08/google-pixel-devices-shipped-with.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1151,7 +1167,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.longcheertel.secretcode": {
+  "com.longcheertel.secretcode": {
     "list": "Oem",
     "description": "Refers to the system package that handles secret codes.\nSecret codes are special sequences of numbers and symbols that can be entered on a phone's keypad to access hidden features or information.",
     "dependencies": [],
@@ -1281,11 +1297,11 @@
   },
   "com.vzw.apnlib": {
     "list": "Carrier",
-    "description": "Kind of library for Verizon APN ?\nREMINDER : https://developer.android.com/reference/android/telephony/data/ApnSetting\n",
+    "description": "Kind of library for Verizon APN ?\nREMINDER : https://developer.android.com/reference/android/telephony/data/ApnSetting\nAfter uninstall phone won't allow to call or text(breaks WiFi calling), On Auto Optimization it cause auto reboots.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.vzw.apnservice": {
     "list": "Carrier",
@@ -1769,7 +1785,7 @@
   },
   "com.motorola.att.phone.extensions": {
     "list": "Carrier",
-    "description": "Provide acess to AT&T extensions in you dialer. I'm not sure tho. It's only a supposition.\nhttps://asecare.att.com/tutorials/adding-and-deleting-an-extension-on-your-officehand-mobile-app-2990/?product=AT&T%20Office@Hand\n",
+    "description": "AT&T Phone Extension\nProvides access to AT&T extensions in your dialer.\nhttps://asecare.att.com/tutorials/adding-and-deleting-an-extension-on-your-officehand-mobile-app-2990/?product=AT&T%20Office@Hand",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1786,6 +1802,14 @@
   "com.wavemarket.waplauncher": {
     "list": "Carrier",
     "description": "AT&T Secure Family (https://play.google.com/store/apps/details?id=com.wavemarket.waplauncher)\nParental control app.\n7 trackers + 16 permissions (https://reports.exodus-privacy.eu.org/en/reports/com.wavemarket.waplauncher/latest/)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.adaptivebrightnessgo": {
+    "list": "Oem",
+    "description": "Samsung Adaptive Brightness\nFeature of Samsung devices that, as the name suggests, automatically adjusts the brightness level of display based on environmental lighting.\nThis feature is available even after uninstalling.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2077,7 +2101,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.huawei.android.FloatTasks": {
     "list": "Oem",
@@ -2109,7 +2133,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.huawei.android.hwouc": {
     "list": "Oem",
@@ -2293,7 +2317,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.huawei.desktop.explorer": {
     "list": "Oem",
@@ -2317,7 +2341,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.filemanager": {
     "list": "Oem",
@@ -2471,7 +2495,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.hwblockchain": {
     "list": "Oem",
@@ -2543,11 +2567,11 @@
   },
   "com.huawei.ohos.inputmethod": {
     "list": "Oem",
-    "description": "Huawei default Keyboard\nWARNING: Before uninstalling, make sure to have a third-party keyboard installed.\n",
+    "description": "Huawei default Keyboard\nWARNING: Before uninstalling, make sure to have a third-party keyboard installed.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.huawei.mycenter": {
     "list": "Oem",
@@ -2575,11 +2599,11 @@
   },
   "com.huawei.iaware": {
     "list": "Oem",
-    "description": "App Prioritizer. Prioritizes apps to avoid slowdown\nUp to you but there is apparently no noticeable difference when deleted.\n",
+    "description": "App Prioritizer. Prioritizes apps to avoid slowdown\nUp to you but there is apparently no noticeable difference when deleted?\nSystem will start lagging a little bit (you will notice it while scrolling and on some animations, for example scrolling installed apps), battery consumption will become slightly higher and battery stats will disappear soon. At the same time, logcat will be full of errors like: PowerKit: PG Server is not found. calling pid xxxx.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.ihealth": {
     "list": "Oem",
@@ -2703,11 +2727,11 @@
   },
   "com.huawei.powergenie": {
     "list": "Oem",
-    "description": "Task killer app in EMUI 9+ (Android 9+).\nTask killer apps tend to do more harm than help as they clear cached RAM for no good reason, removing the battery and time savings involved in caching. In addition to the obvious issues with background functionality like notifications.\nFrom issue#104.",
+    "description": "Task killer app in EMUI 9+ (Android 9+).\nTask killer apps tend to do more harm than help as they clear cached RAM for no good reason, removing the battery and time savings involved in caching. In addition to the obvious issues with background functionality like notifications.\nFrom issue#104.\nSystem will start lagging a little bit (you will notice it while scrolling and on some animations, for example scrolling installed apps), battery consumption will become slightly higher and battery stats will disappear soon. At the same time, logcat will be full of errors like: PowerKit: PG Server is not found. calling pid xxxx.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.stylus.floatmenu": {
     "list": "Oem",
@@ -2831,7 +2855,7 @@
   },
   "com.huawei.android.internal.app": {
     "list": "Oem",
-    "description": "Component of Huawei sharing\n",
+    "description": "Component of Huawei sharing\nMay break the sharing function in several applications (in particular, apps will crash).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2943,11 +2967,11 @@
   },
   "com.huawei.securitymgr": {
     "list": "Oem",
-    "description": "PrivateSpace\nLets you store private information in a hidden space within your device that can only be accessed \nwith your fingerprint or password.\nTODO: Data at rest encryption? If not, this is useless\nhttps://consumer.huawei.com/en/support/content/en-us00754246/\n)\n",
+    "description": "PrivateSpace\nLets you store private information in a hidden space within your device that can only be accessed \nwith your fingerprint or password.\nTODO: Data at rest encryption? If not, this is useless\nhttps://consumer.huawei.com/en/support/content/en-us00754246/)\nThis is the password vault or password manager too.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "android.autoinstalls.config.motorola.layout": {
     "list": "Oem",
@@ -3439,7 +3463,7 @@
   },
   "com.motorola.VirtualUiccPayment": {
     "list": "Oem",
-    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Useful only in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payement.\nNote: The term SIM is widely used in the industry and especially with consumers to mean both SIMs and UICCs.\nhttps://www.justaskgemalto.com/us/what-uicc-and-how-it-different-sim-card/",
+    "description": "Virtual UICC Payment\nSIM Card Payment also NFC. Only useful in China by hidden image files.\nUICC stands for Universal Integrated Circuit Card.\nIt is the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nhttps://bluesecblog.wordpress.com/2016/11/18/uicc-sim-usim/\nI guess this package provides support for NFC payments.\nNote: The term SIM is widely used to refer to both SIMs and UICCs in the industry and among consumers.\nhttps://blog.velosiot.com/euicc-and-esim-are-they-the-same-thing",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3703,7 +3727,7 @@
   },
   "com.samsung.android.app.cocktailbarservice": {
     "list": "Oem",
-    "description": "Edge screen\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
+    "description": "Edge screen/panels\nEnables you to open your five most used apps by simply swiping the edge of the screen.\nSwipe one of the edges of the screen to bring up information even when your device is locked (with the screen off). \nYou can also set it up to display the news or weather, for example.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4167,7 +4191,7 @@
   },
   "com.samsung.android.game.gametools": {
     "list": "Oem",
-    "description": "Samsung Game Tools (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
+    "description": "Samsung Game Tools/Booster (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play. \n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4175,7 +4199,7 @@
   },
   "com.samsung.android.game.gos": {
     "list": "Oem",
-    "description": "Samsung Game Optimizing Service \nIs supposed to \"improve\" game performance.Has a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
+    "description": "Samsung Game Optimizing Service\nIs supposed to \"improve\" game performance.\nHas a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4316,6 +4340,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.mdagent": {
+    "list": "Oem",
+    "description": "MdAgent",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.mdx": {
     "list": "Oem",
@@ -4818,7 +4850,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.cmfa.AuthTouch": {
     "list": "Oem",
@@ -6502,7 +6534,7 @@
   },
   "com.sec.android.provider.badge": {
     "list": "Oem",
-    "description": "Provider for the notification badges (which are not very useful IMHO)\nProvides a way for apps to use notifications badges.\nhttps://www.samsung.com/au/support/mobile-devices/what-is-app-icon-badge/\n",
+    "description": "Provider for the notification badges (which are not very useful IMHO)\nProvides a way for apps to use notifications badges.\nhttps://www.samsung.com/au/support/mobile-devices/what-is-app-icon-badge/\nEmergency Power saving launcher does not start after removing.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6714,7 +6746,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.sm.policy": {
     "list": "Oem",
@@ -6812,109 +6844,109 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.android.icon_pack.circular.android": {
+  "com.android.theme.icon_pack.circular.android": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.circular.launcher": {
+  "com.android.theme.icon_pack.circular.launcher": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.circular.settings": {
+  "com.android.theme.icon_pack.circular.settings": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.circular.systemui": {
+  "com.android.theme.icon_pack.circular.systemui": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.circular.themepicker": {
+  "com.android.theme.icon_pack.circular.themepicker": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.filled.android": {
+  "com.android.theme.icon_pack.filled.android": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.filled.launcher": {
+  "com.android.theme.icon_pack.filled.launcher": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.filled.settings": {
+  "com.android.theme.icon_pack.filled.settings": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.filled.systemui": {
+  "com.android.theme.icon_pack.filled.systemui": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.filled.themepicker": {
+  "com.android.theme.icon_pack.filled.themepicker": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.rounded.android": {
+  "com.android.theme.icon_pack.rounded.android": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.rounded.launcher": {
+  "com.android.theme.icon_pack.rounded.launcher": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.icon_pack.rounded.settings": {
+  "com.android.theme.icon_pack.rounded.settings": {
     "list": "Oem",
     "description": "Android icon pack only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.magicsmoke": {
     "list": "Aosp",
@@ -7002,7 +7034,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.soundrecorder": {
     "list": "Aosp",
@@ -7680,7 +7712,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.certinstaller": {
     "list": "Aosp",
@@ -7756,11 +7788,11 @@
   },
   "com.android.mms.service": {
     "list": "Aosp",
-    "description": "Provides support for sending MMS.\n",
+    "description": "Provides support for sending MMS.\nIt doesn't cause bootloop.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.mtp": {
     "list": "Aosp",
@@ -8714,19 +8746,19 @@
   },
   "com.android.networkstack.inprocess": {
     "list": "Aosp",
-    "description": "",
+    "description": "Related to the Network Stack module, which is an updatable Mainline module that ensures Android can adapt to evolving network standards and allows for interoperability with new implementations\nhttps://source.android.com/docs/core/ota/modular-system/networking",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.networkstack.permissionconfig": {
     "list": "Aosp",
-    "description": "",
+    "description": "Network Stack Permission Configuration\nDefines a permission that enables modules to perform network-related tasks.\nhttps://source.android.com/devices/architecture/modular-system/networking",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.phone.basiccolorblack.overlay": {
     "list": "Aosp",
@@ -8818,11 +8850,11 @@
   },
   "com.android.systemui.overlay.common": {
     "list": "Oem",
-    "description": "Have something about to wellbeing.",
+    "description": "Has something related to Google Wellbeing first time setup quick settings. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.android.theme.icon.circle": {
     "list": "Aosp",
@@ -9050,7 +9082,7 @@
   },
   "com.oneplus.config": {
     "list": "Oem",
-    "description": "OPConfig\nOccasionally runs in the background.\nPackage source is: OPOnlineConfig.apk\nGuessing it might handle communication certificates and general network config for Oneplus apps.\nOnly has INTERNET and RECEIVE_BOOT_COMPLETED permissions.",
+    "description": "OPConfig\nOccasionally runs in the background.\nPackage source is: OPOnlineConfig.apk\nGuessing it might handle communication certificates and general network config for Oneplus apps.\nOnly has INTERNET and RECEIVE_BOOT_COMPLETED permissions.\n'Tips & Support' will be removed from settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9550,11 +9582,11 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.qti.pasrservice": {
     "list": "Misc",
-    "description": "Have logs, debug, screen filter things.\nalso have something to power but not sure.\nMaybe needed for google fit or mi fit.",
+    "description": "Has powersaving things, device idle mode changer to screen on/off.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9742,7 +9774,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.wifi.resources.overlay.common": {
     "list": "Oem",
@@ -9750,7 +9782,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.wifi.resources.overlay.target": {
     "list": "Oem",
@@ -9850,7 +9882,7 @@
   },
   "com.google.android.as.oss": {
     "list": "Google",
-    "description": "On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nhttps://milaq.net/android-bloatware",
+    "description": "Private Compute Services. On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nSeems to be a dependency of System Intelligence.\nhttps://play.google.com/store/apps/details?id=com.google.android.as.oss\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9942,11 +9974,11 @@
   },
   "com.google.android.overlay.gmsconfig": {
     "list": "Google",
-    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location.\neverything works without it.",
+    "description": "Useless configurations about webview, wifi and bluetooth to scan for better location. Everything works without it.\nWARNING: causes the Galaxy App to force-close after a few seconds on a Samsung N960F running Android Q.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.asi": {
     "list": "Google",
@@ -9998,7 +10030,7 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in motorola. Useless.",
+    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in Motorola. It's also installed on some Samsung Galaxy devices. Useless.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10134,7 +10166,7 @@
   },
   "com.qti.phone": {
     "list": "Misc",
-    "description": "dialer, dialing service, for phone calls",
+    "description": "dialer, dialing service, for phone calls.\nHas IMS things, optimizations?, its weird that calling works after remove, has code related to 'com.qualcomm.qcrilmsgtunnel',\nChina Mobile Communications Corporation(China Mobile) SIM card things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10428,14 +10460,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.incall.contentprovider": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.android.service.tagservice": {
     "list": "Oem",
     "description": "Tags in Samsung Gallery app.",
@@ -10459,14 +10483,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.samsung.android.wifi.softap.resources": {
-    "list": "Oem",
-    "description": "I found only configs value to wifi that can be important",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
   },
   "com.sec.android.Cdfs": {
     "list": "Oem",
@@ -10508,14 +10524,6 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.samsung.sait.sohservice": {
-    "list": "Oem",
-    "description": "FactoryApp to test battery things such as set voltage, Soc, temperature, status, timestamp.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
   "com.samsung.vklayer.sm8250": {
     "list": "Oem",
     "description": "Vulkan GPU DRIVER",
@@ -10547,6 +10555,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.samsung.phone.overlay.common": {
+    "list": "Oem",
+    "description": "Possibly the incoming-call screen?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.android.dialer": {
     "list": "Oem",
@@ -10636,14 +10652,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.secsoundpicker": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.samsung.android.service.stplatform": {
     "list": "Oem",
     "description": "SmartThings Framework\nI guess it's app for installing sponsored apps. Useless Framework.",
@@ -10655,14 +10663,6 @@
   "com.samsung.android.setting.multisound": {
     "list": "Oem",
     "description": "Samsung Separate app sound\nUsed to split audio different apps between phone speaker and bluetooth speaker. Pretty handy.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.android.singletake.service": {
-    "list": "Oem",
-    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10684,23 +10684,15 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.samsung.android.wifi.p2paware.resources": {
+    "list": "Oem",
+    "description": "Related to WiFi Direct",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.samsung.gamedriver.ex2100": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.ims.smk": {
-    "list": "Oem",
-    "description": "SimMobilityKit",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.gestural_no_hint": {
     "list": "Oem",
     "description": "",
     "dependencies": [],
@@ -10725,22 +10717,6 @@
     "removal": "Expert"
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.sec_gestural": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
-  "com.samsung.internal.systemui.navbar.sec_gestural_no_hint": {
     "list": "Oem",
     "description": "",
     "dependencies": [],
@@ -11484,6 +11460,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.lgdmsclient": {
+    "list": "Oem",
+    "description": "Actual \"Software Update\" App client\nI think you won't receive updates without this.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.lge.lgdrm.permission": {
     "list": "Oem",
     "description": "Handle permissions for LG DRM (com.lge.drmservice).\nWhy does LG need a whole package for this?",
@@ -11615,6 +11599,14 @@
   "com.lge.qmemoplus": {
     "list": "Oem",
     "description": "LG QuickMemo+\nAllows you to capture screen shots and use them to create memos. You can also insert a reminder, location information, image, video, and audio.\nhttps://www.lg.com/us/support/help-library/lg-android-quickmemo-CT10000025-20150103629575\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.remote.lgairdrive": {
+    "list": "Oem",
+    "description": "LG AirDrive\nLets you to control files in your device via a wireless connection. \nTo use it, you need to sign in to your LG account on both the PC and mobile device.\nhttps://www.lg.com/africa/support/product-help/CT20080025-1436354408798-others\n \nLG AirDrive settings\nSee package below.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12598,7 +12590,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.sohu.inputmethod.sogouoem": {
     "list": "Oem",
@@ -12926,7 +12918,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.qualcomm.qti.qcolor": {
     "list": "Misc",
@@ -12994,7 +12986,7 @@
   },
   "com.qualcomm.qcrilmsgtunnel": {
     "list": "Misc",
-    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim it's safe to remove. Breaks calls after a reboot.",
+    "description": "Message receiving channel (secondary card can't turn on 5g)\nSo if you dont use dual-sim it's safe to remove. Breaks calls after a reboot on some phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13150,7 +13142,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.qualcomm.qti.auth.fidocryptoservice": {
     "list": "Misc",
@@ -13546,7 +13538,7 @@
   },
   "com.qualcomm.timeservice": {
     "list": "Misc",
-    "description": "Qualcomm Time Service\nOccasionally runs in the background.\nCould be what syncs the CPU clock with Android time?\nProbably not something you want to disable.",
+    "description": "Qualcomm Time Service\nUpdates time-services user time offset when user changes time of the day and Android sends a TIME_CHANGED or DATE_CHANGED intents.\nTime-services restores the time of the day after reboot using this offset:\nhttps://github.com/bcyj/android_tools_leeco_msm8996/blob/master/time-services/src/com/qualcomm/timeservice/TimeServiceBroadcastReceiver.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14632,29 +14624,29 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.android.theme.color.roundedrect": {
+  "com.android.theme.icon.roundedrect": {
     "list": "Oem",
     "description": "Android color accent only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.theme.color.squircle": {
+  "com.android.theme.icon.squircle": {
     "list": "Oem",
     "description": "Android color accent only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
-  "com.android.theme.color.teardrop": {
+  "com.android.theme.icon.teardrop": {
     "list": "Oem",
     "description": "Android color accent only for google pixel or aosp or motorola",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.monotype.android.font.rosemary": {
     "list": "Misc",
@@ -14888,7 +14880,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "android.autoinstalls.config.xiaomi.qssi": {
+  "android.autoinstalls.config.Xiaomi.qssi": {
     "list": "Oem",
     "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
     "dependencies": [],
@@ -15742,7 +15734,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.xiaomi.jr": {
     "list": "Oem",
@@ -16002,7 +15994,7 @@
   },
   "com.android.camera": {
     "list": "Aosp",
-    "description": "The Stock ASOP camera app on many phones. However on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open camera as on open source alternative:https://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
+    "description": "The stock AOSP camera app on many phones. However, on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open Camera as an open source alternative:\nhttps://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16098,7 +16090,7 @@
   },
   "com.miui.aod": {
     "list": "Oem",
-    "description": "Always-on display\nSafe to remove if you don't use \"Always-on display\" features in settings.",
+    "description": "Always-on display and Lock screen editor\nSafe to remove if you don't use \"Always-on display\" and \"Lock screen editor\" features in settings.\nRequired for the fingerprint scanner if you want without double-tapping or pressing the power button.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16140,7 +16132,7 @@
   },
   "com.miui.freeform": {
     "list": "Oem",
-    "description": "Floating window\nI think the name of the app is pretty straightforward\nYou can make apps appear above other applications\nhttps://forum.xda-developers.com/android/miui/floating-windows-miui-12-t4125661\n",
+    "description": "Floating window\nI think the name of the app is pretty straightforward\nYou can make apps appear above other applications\nhttps://forum.xda-developers.com/android/miui/floating-windows-miui-12-t4125661\nOn some phones even if you uninstalled it, floating window still works.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16212,11 +16204,11 @@
   },
   "com.miui.powerkeeper": {
     "list": "Oem",
-    "description": "Battery and Performance\n(aggressive) MIUI power management (https://dontkillmyapp.com/xiaomi)\nThat's a weird app that also contains a DRM Manager and a service related to Cloud Backup\nHas obviously a lot of dangerous permissions.\nI guess removing this package will decrease the battery performance. Is it that noticeable? Can someone try?\nNOTE: REMOVING THIS PACKAGE CAUSES A BOOTLOOP ON THE REDMI PAD.",
+    "description": "Battery and Performance\n(aggressive) MIUI power management (https://dontkillmyapp.com/xiaomi)\nThat's a weird app that also contains a DRM Manager and a service related to Cloud Backup\nHas obviously a lot of dangerous permissions.\nI guess removing this package will decrease the battery performance. Is it that noticeable? Can someone try?\nNOTE: REMOVING THIS PACKAGE CAUSES A BOOTLOOP ON THE REDMI PAD.\nTo not get bootloop, log out from Mi Account.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.zman": {
     "list": "Oem",
@@ -16260,7 +16252,7 @@
   },
   "com.miui.core": {
     "list": "Oem",
-    "description": "MIUI SDK\nIt is obiously needed for MIUI to work correctly. FYI, it manages the MIUI Analytics service.\nWill cause bootloop if removed.\nI read you can freeze it without issue. I'm... a bit dubious about this.\nIf someone want to try et report the result:\nadb shell am force-stop com.miui.core && adb shell pm disable-user com.miui.core && adb shell pm clear com.miui.core\nCan be disabled and uninstalled with MIUI 13.0.6, MIUI 14, see\nhttps://github.com/0x192/universal-android-debloater/issues/632\nNOTE: uninstalling/disabling this package causes the Settings app to crash when searching in Settings.",
+    "description": "MIUI SDK\nIt is obiously needed for MIUI to work correctly. FYI, it manages the MIUI Analytics service (`tracking.miui.com`), autoinstall MIUI apps updates (?). Related to GetApps 'com.xiaomi.market' China Mi App Store), DropboxManager where is temp clean code, a lot of logs. Found things related to Quick Apps 'com.miui.hybrid', DataUpdateManager (related to micloud?). Telocation update, app looks like tracking everything. Can be disabled and uninstalled with MIUI 13.0.6, MIUI 14, see\nhttps://github.com/0x192/universal-android-debloater/issues/632\nNOTE: uninstalling this package causes the Settings app to crash when searching in Settings, so better disable this app instead.\nIf you want to test, disable this app and open an issue if anything isn't working. Another weird thing is normal user can disable this app using hidden Settings to manage app by in Google Play.\nNo effects after disable, but not sure if its required for Miui updates or gestures.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16276,7 +16268,7 @@
   },
   "com.miui.guardprovider": {
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.\nOn HyperOS this module is responsible for showing the 'Install via USB' prompt when installing apps via ADB (enabled through developer options, requires Mi account the first time).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17268,11 +17260,11 @@
   },
   "com.huawei.securityserver": {
     "list": "Oem",
-    "description": "HwSecurityServer\nNot needed app without code and useless assets to spying apps.",
+    "description": "HwSecurityServer\nNot needed app without code and useless assets to spying apps.\nNeeded for face unlock, black screen will be shown if you remove this package (?). Doesn't apply to all devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.huawei.sos": {
     "list": "Oem",
@@ -17947,8 +17939,8 @@
     "labels": []
   },
   "com.lge.sui.widget": {
-    "description": "It's probably a clock widget but in the code, I see it's for calendar widgets.",
-    "removal": "Recommended",
+    "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -18083,8 +18075,8 @@
     "labels": []
   },
   "com.lge.ims": {
-    "description": "LG IMS\nIt's not a good app because it has a lot of debugging stuff.",
-    "removal": "Recommended",
+    "description": "LG IMS\nIt's not a good app because it has a lot of debugging stuff.\nBreaks calls.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -18302,6 +18294,14 @@
   },
   "com.android.settingaccessibility": {
     "description": "Accessibility settings\nIt should be important for settings.",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.android.settingsaccessibility": {
+    "description": "Accessibility settings (tools for vision, hearing and physical impairments)\nSometimes, third-party apps may require special permissions in the accessibility settings in order to work properly.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -19469,7 +19469,7 @@
   },
   "com.android.theme.color.amethyst": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19477,7 +19477,7 @@
   },
   "com.android.theme.color.aquamarine": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19485,7 +19485,7 @@
   },
   "com.android.theme.color.darklake": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19493,7 +19493,7 @@
   },
   "com.android.theme.color.dorange": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19501,7 +19501,7 @@
   },
   "com.android.theme.color.dpurple": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19509,7 +19509,7 @@
   },
   "com.android.theme.color.lgreen": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19517,7 +19517,7 @@
   },
   "com.android.theme.color.parasailing": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19525,7 +19525,7 @@
   },
   "com.android.theme.color.saffron": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19533,7 +19533,7 @@
   },
   "com.android.theme.color.sand": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19541,7 +19541,7 @@
   },
   "com.android.theme.color.slate": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19549,7 +19549,7 @@
   },
   "com.android.theme.color.tangerine": {
     "description": "Android color accent only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19557,7 +19557,7 @@
   },
   "com.android.theme.icon_pack.kai.android": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19565,7 +19565,7 @@
   },
   "com.android.theme.icon_pack.kai.launcher": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19573,7 +19573,7 @@
   },
   "com.android.theme.icon_pack.kai.settings": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19581,7 +19581,7 @@
   },
   "com.android.theme.icon_pack.kai.systemui": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19589,7 +19589,7 @@
   },
   "com.android.theme.icon_pack.kai.themepicker": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19597,7 +19597,7 @@
   },
   "com.android.theme.icon_pack.sam.android": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19605,7 +19605,7 @@
   },
   "com.android.theme.icon_pack.sam.launcher": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19613,7 +19613,7 @@
   },
   "com.android.theme.icon_pack.sam.settings": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19621,7 +19621,7 @@
   },
   "com.android.theme.icon_pack.sam.systemui": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19629,7 +19629,7 @@
   },
   "com.android.theme.icon_pack.sam.themepicker": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19637,7 +19637,7 @@
   },
   "com.android.theme.icon_pack.victor.android": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19645,7 +19645,7 @@
   },
   "com.android.theme.icon_pack.victor.launcher": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19653,7 +19653,7 @@
   },
   "com.android.theme.icon_pack.victor.settings": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19661,7 +19661,7 @@
   },
   "com.android.theme.icon_pack.victor.systemui": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19669,7 +19669,7 @@
   },
   "com.android.theme.icon_pack.victor.themepicker": {
     "description": "Android icon pack only for Google Pixel or AOSP or Motorola",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -19716,16 +19716,16 @@
     "labels": []
   },
   "com.android.providers.telephony.overlay.carriersettings": {
-    "description": "Useless overlay to (com.google.android.carrier)\nAnyway, this app doesn't exist on your phone I guess.",
-    "removal": "Recommended",
+    "description": "Overlay to (com.google.android.carrier)\nAnyway, this app doesn't exist on your phone I guess.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
     "labels": []
   },
   "com.android.phone.overlay.carriersettings": {
-    "description": "Useless overlay to (com.google.android.carrier)\nAnyway, this app doesn't exist on your phone I guess.",
-    "removal": "Recommended",
+    "description": "Overlay to (com.google.android.carrier)\nAnyway, this app doesn't exist on your phone I guess.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -20030,8 +20030,8 @@
     "labels": []
   },
   "android.overlay.common.all_devices": {
-    "description": "This overlay has got useless configs",
-    "removal": "Recommended",
+    "description": "This overlay has got useless configs (?)",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21188,7 +21188,7 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "Smart assistant\nAssistant that can be found in homescreen.",
+    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Swipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -21261,10 +21261,10 @@
     "labels": []
   },
   "com.coloros.colordirectservice": {
-    "description": "Boo awareness screen\nSmart things, also have something to Brenoo touch",
+    "description": "Screen Recognition (Breeno Touch).\nThis app is used to recognize screen contents and provide quick access to relevant services (like Text Extraction, AI Summarizer). com.coloros.ocrscanner, com.coloros.ocrservice, com.oplus.ocs, com.oplus.aiunit, com.coloros.ocs.opencapabilityservice are also needed for this to work.",
     "removal": "Recommended",
     "list": "Oem",
-    "dependencies": [],
+    "dependencies": ["com.coloros.ocrscanner", "com.coloros.ocrservice", "com.oplus.ocs", "com.oplus.aiunit", "com.coloros.ocs.opencapabilityservice"],
     "neededBy": [],
     "labels": []
   },
@@ -21880,8 +21880,8 @@
     "labels": []
   },
   "oplus.frameworkres.overlay.display.product": {
-    "description": "Keep this for display cutout. Has only 4 PNG files",
-    "removal": "Unsafe",
+    "description": "Display cutout.\nA display cutout is an area on some devices that extends into the display surface. It allows for an edge-to-edge experience while providing space for important sensors on the front of the device.\nhttps://developer.android.com/develop/ui/views/layout/display-cutout",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -22280,11 +22280,11 @@
     "labels": []
   },
   "com.google.android.pixelnfc": {
-    "description": "I think it's useless frameworks.",
-    "removal": "Expert",
+    "description": "Application that checks the SKU of a Pixel device to Region Lock the Felica chip (Japanese NFC technology used in E-money cards) of the phone to prevent non-Japanese people from using it.\nRemoving it will make the Osaifu-Keitai crash upon start-up but will not cause any bootloop.\nPatching it (ROOT), however allows people with a Felica Chip to add IC cards to their phone and use it to pay while in Japan.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": ["com.felicanetworks.mfm.main"],
     "labels": []
   },
   "com.shannon.rcsservice": {
@@ -22376,7 +22376,7 @@
     "labels": []
   },
   "com.android.bips.auto_generated_rro_product__": {
-    "description": "Useless color icon code to print service.",
+    "description": "Unused auto generated code: color icon code to print service.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -22384,7 +22384,7 @@
     "labels": []
   },
   "com.android.providers.contacts.auto_generated_rro_product__": {
-    "description": "Incorrect named thing to sync metadata gms?\nmetadata_sync_pacakge com.google.android.gms\nlmao google. No effects after remove.",
+    "description": "Incorrect named thing to sync metadata gms?\nmetadata_sync_pacakge com.google.android.gms\nNo effects after remove.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -22498,7 +22498,7 @@
   "com.android.networkstack.overlay": {
     "description": "WiFi will not work after remove.",
     "removal": "Unsafe",
-    "list": "Oem",
+    "list": "Aosp",
     "dependencies": [],
     "neededBy": [],
     "labels": []
@@ -22552,8 +22552,8 @@
     "labels": []
   },
   "com.google.android.connectivity.resources.overlay": {
-    "description": "Useless default configs",
-    "removal": "Recommended",
+    "description": "Useless default configs (?)",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -22592,8 +22592,8 @@
     "labels": []
   },
   "com.google.android.networkstack.tethering.overlay2021": {
-    "description": "Useless hotspot configs",
-    "removal": "Recommended",
+    "description": "Useless hotspot configs (?)",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -22776,7 +22776,7 @@
     "labels": []
   },
   "com.google.android.overlay.udfpsoverlay": {
-    "description": "useless configs to fingerprints FRP auto generated.",
+    "description": "Configs to fingerprints FRP auto generated.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23620,8 +23620,8 @@
     "labels": []
   },
   "com.transsion.hilauncher": {
-    "description": "HiOS Launcher\nIt have google analytics and it's so bloated.",
-    "removal": "Expert",
+    "description": "HiOS Launcher\nIt have google analytics and it's so bloated.\nThe recent apps button does not work after uninstallation.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23636,8 +23636,8 @@
     "labels": []
   },
   "com.hoffnung": {
-    "description": "TPMS\nRemote Config Test. WARNING: you should DISABLE this package instead of uninstalling, because uninstalling causes screen flicker",
-    "removal": "Recommended",
+    "description": "TPMS. Remote Config Test.\n⚠️ WARNING: uninstalling might cause bootloops and screen flicker! Disabling this also may remove the ability to see notifications on your lock screen.\nhttps://xdaforums.com/t/infinix-note-10-uninstall-tpms-com-hoffnung-package-causes-bootloop.4647456",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -25413,7 +25413,7 @@
     "labels": []
   },
   "com.sec.android.app.ve.vebgm": {
-    "description": "Select background music\nThis app lets you choose background music from the Video Editor app.",
+    "description": "Samsung Editing Assets (\"Video Editor BackGround Music\").\nThis app lets you choose background music from the Video Editor app.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25852,6 +25852,214 @@
     "neededBy": [],
     "labels": []
   },
+  "android.frameworkres.overlay.display.product": {
+    "list": "Oem",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.framework.res.rro.oneplus": {
+    "list": "Oem",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "aon.frameworkres.overlay.display.product": {
+    "list": "Oem",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.aiunit.aon": {
+    "list": "Oem",
+    "description": "AONService. ColorOS Smart Features.\nApp run with AI and phone sensors to recognize what best scenario for run privacy protection and the smart features OPPO offer.\n 1. Smart Spying Prevention, 2. Smart Air Control, 3. Smart Rotation, 4. Smart Always On Display.\nhttps://community.oppo.com/thread/1446120575440257025",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.cellbroadcastreceiver.overlay": {
+    "list": "Oem",
+    "description": "CellBroadcastReceiver overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastReceiver app is a default system app that handles emergency and nonemergency alerts (such as amber and presidential alerts) and presents the information to end users based on carrier and regional regulations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.cellbroadcastservice.overlay": {
+    "list": "Oem",
+    "description": "CellBroadcastService overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastService service supports CellBroadcast SMS decoding, geofencing for wireless emergency alert (WEA) 3.0, message duplication checks, and broadcasting messages to apps. It's a one-to-many geotargeted and geofenced messaging service designed to deliver messages to multiple mobile phone users, in a defined area, at the same time. The service is defined by the [ETSI](https://www.etsi.org/about) GSM committee, [3GPP](https://www.3gpp.org/about-3gpp), and is a part of the telecommunication standards.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.SystemUIResOverlay": {
+    "list": "Oem",
+    "description": "Threekey volume guide pictures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.qualcomm.qti.gpudrivers.pineapple.api34": {
+    "list": "Oem",
+    "description": "Qualcomm GPU Drivers",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.connectivity.base.overlay": {
+    "list": "Oem",
+    "description": "CaptivePortalLogin overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.ses.entitlement.o2": {
+    "list": "Oem",
+    "description": "O2 carrier app.\nUnknown.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.frameworkres.overlay.Network": {
+    "list": "Oem",
+    "description": "Network overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.oplus.framework.rro.oneplus": {
+    "list": "Oem",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.permissioncontroller.overlay.oplus": {
+    "list": "Oem",
+    "description": "Permission controller overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.owkservice": {
+    "list": "Oem",
+    "description": "Weird app that has time sync and start/stop Monitor Wifi Connectivity, also has oplus statistics component to tracking events.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.safetycenter.resources.overlay": {
+    "list": "Oem",
+    "description": "Safety Center overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nSafety Center provides redirection entries so that users can access specific security and privacy settings. Safety Center also identifies issues that users can fix on their devices or accounts, by combining dynamic data received from multiple sources. This data provides users with a general safety status with specific recommendations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/security/safety-center/overview",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.safetycenter.styles.overlay": {
+    "list": "Oem",
+    "description": "Safety Center styles overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nSafety Center provides redirection entries so that users can access specific security and privacy settings. Safety Center also identifies issues that users can fix on their devices or accounts, by combining dynamic data received from multiple sources. This data provides users with a general safety status with specific recommendations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/security/safety-center/overview",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.systemui.overlay.charging.anim.siphon_wireless": {
+    "list": "Oem",
+    "description": "Wireless charging animation for OnePlus phones.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.cosmos": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Cosmos when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.fireworks": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Fireworks when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.fy": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Fy when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.none": {
+    "list": "Oem",
+    "description": "Fingerprint Animation None when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.ripple": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Ripple when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.stripe": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Stripe when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.sw": {
+    "list": "Oem",
+    "description": "Fingerprint Animation Sw when unlocking phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.oplus.vdc": {
+    "list": "Oem",
+    "description": "It's an app used to convert nearby devices into virtual hardware resources for the central device. Require internet to transfer data across devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.pineapple": {
+    "list": "Oem",
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.oplus.encryption": {
     "description": "Private Safe\nAfter uninstalling, the option to use the file safe in the privacy settings disappears. There is also a section left in the settings that does nothing when clicked.",
     "removal": "Recommended",
@@ -25865,6 +26073,14 @@
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.oplus.mediacontroller": {
+    "description": "Media Controller.\nResponsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "com.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
     "neededBy": [],
     "labels": []
   },
@@ -26497,7 +26713,7 @@
   },
   "com.miui.systemui.overlay.devices.android": {
     "list": "Oem",
-    "description": "MIUI User interface for 'device' settings?\n",
+    "description": "Config doze Component 'com.miui.aod' and ext media ready notification 'Tap to safely remove device'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26505,7 +26721,7 @@
   },
   "miui.systemui.plugin": {
     "list": "Oem",
-    "description": "System UI Plug-in. When removed, Android will use the AOSP style volume bar.",
+    "description": "System UI Plug-in. When removed, Android will use the AOSP style volume bar and reboot screen (option to power off or reboot your phone). Will break the iOS-style quick settings. The volume bar breakage only applies to MIUI-users. For HyperOS-users, all the above will apply.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26537,11 +26753,11 @@
   },
   "com.android.updater": {
     "list": "Oem",
-    "description": "Mi Updater\nProvides system updates\nREMOVING THIS WILL BOOTLOOP YOUR DEVICE! Doesn't bootloop on MIUI 14.",
+    "description": "Mi Updater\nProvides system updates\nREMOVING THIS WILL BOOTLOOP YOUR DEVICE! Doesn't bootloop on MIUI 13 and above.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.lbe.security.miui": {
     "list": "Oem",
@@ -26561,19 +26777,19 @@
   },
   "com.miui.securitycenter": {
     "list": "Oem",
-    "description": "MIUI Security app\nProvides \"protection and optimization tools\" \nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
+    "description": "MIUI Security app\nProvides \"protection and optimization tools\" \nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 13 and above is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.securitycore": {
     "list": "Oem",
-    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 13 and above it doesnt bootloop and looks performance like the same, also this app has annoying notifications when you running new app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.system": {
     "list": "Oem",
@@ -26593,11 +26809,11 @@
   },
   "com.miui.securityadd": {
     "list": "Oem",
-    "description": "Related to the MIUI Security app\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Related to the MIUI Security app\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE BELOW MIUI 13! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.xiaomi.misettings": {
     "list": "Oem",
@@ -26665,7 +26881,7 @@
   },
   "com.android.chrome": {
     "list": "Google",
-    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background. NOTE: disabling or uninstalling Chrome breaks functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication.",
+    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27201,11 +27417,11 @@
   },
   "com.google.android.configupdater": {
     "list": "Google",
-    "description": "ConfigUpdater\nOccasionally runs in the background.\nAuto updates certificates for TLS connection, firewall configuration, e.t.c.\nMainly used for Google services? Might be fine to disable if you don't use Google services. Disabling might mess with security if you do use them though.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
+    "description": "Config Update\nIntents used to provide unbundled updates of system data. All require the UPDATE_CONFIG permission. Updates:\n- system wide certificate pins for TLS connections.\n- System wide Intent firewall.\n- List of permium SMS short codes.\n- List of carrier provisioning URLs.\n- Set of trusted logs used for Certificate Transparency support for TLS connections language detection model file\n- Smart selection model file\n- Conversation actions model file\n- Network watchlist config file\n- Intent action indicating that the updated carrier id config is available\n- The emergency number database into the devices\n- An integer to indicate the numeric version of the new data -- devices should only install if the update version is newer than the current one\n- Hash of the database, which is encoded by base-16 SHA512.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/ConfigUpdate.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.deskclock": {
     "list": "Google",
@@ -27233,7 +27449,7 @@
   },
   "com.google.android.googlequicksearchbox": {
     "list": "Google",
-    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality.",
+    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Google Lens.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27576,7 +27792,7 @@
     "removal": "Advanced"
   },
   "com.google.android.carrierconfig": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Same as com.android.carrierconfig? Here's that description:\nDynamically provides configuration for the carrier network.\nThe config contains: Roaming networks, Voicemail settings, SMS/MMS settings, VoLTE/IMS settings, and more.\nIf a carrier app is installed it will be queried for overrides to these settings.\nSeems to run on boot and when you swap SIM card?\nhttps://source.android.com/devices/tech/config/carrier\nhttps://cs.android.com/android/platform/superproject/+/master:packages/apps/CarrierConfig/src/com/android/carrierconfig/DefaultCarrierConfigService.java",
     "dependencies": [],
     "neededBy": [],
@@ -27725,7 +27941,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.launcher": {
     "list": "Google",
@@ -27824,7 +28040,7 @@
     "removal": "Advanced"
   },
   "com.google.android.captiveportallogin": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "it's the same as (com.android.captiveportallogin). Support for captive portal.\nA captive portal login is a web page where the users have to input their login information or accept the displayed terms of use. \nSome networks (typically public wifi network) use the captive portal login to block access until the user inputs \nsome necessary information\nNOTE : This package is a now a mandatory mainline module\nhttps://en.wikipedia.org/wiki/Captive_portal\nhttps://www.xda-developers.com/android-project-mainline-modules-explanation",
     "dependencies": [],
     "neededBy": [],
@@ -27832,7 +28048,7 @@
     "removal": "Advanced"
   },
   "com.google.android.modulemetadata": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Module that contains metadata about the list of modules on the device. And that’s about it.\nI wouldn't advise you to mess with it as it could break important modules (see #37)\nGood explanation of what android modules are : https://www.xda-developers.com/android-project-mainline-modules-explanation/",
     "dependencies": [],
     "neededBy": [],
@@ -27840,7 +28056,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.ext.services": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "The ExtServices module updates framework components for core OS functionality such as notification ranking, autofill text-matching strategies, storage cache, package watchdog, and other services that run continually. This module is updatable, meaning it can receive updates to functionality outside of the normal Android release cycle.\nCan run before the user unlocks the device (direct-boot aware) and Android 9+ version have internet and location permissions.\n\nWARNING: Causes bootloop on most Android 11+ phones. This module is related to the Android mainline project (which is a useful project).There is no reason to mess with this.\n\nSources:\nhttps://source.android.com/devices/architecture/modular-system/extservices\nhttps://arstechnica.com/gadgets/2016/11/android-extensions-could-be-googles-plan-to-make-android-updates-suck-less/\nPithus analysis (Android 11): https://beta.pithus.org/report/e5e4a181082b88baf55e19aab0f9cb62e131d612eeaa73cddb510a52e0ff5c1a",
     "dependencies": [],
     "neededBy": [],
@@ -27858,7 +28074,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.networkstack": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Network Stack Components\nhttps://source.android.com/devices/architecture/modular-system/networking\nProvides common IP services, network connectivity monitoring, and captive login portal detection.\n",
     "dependencies": [],
     "neededBy": [],
@@ -27866,7 +28082,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.networkstack.permissionconfig": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Network Stack Permission Configuration\nDefines a permission that enables modules to perform network-related tasks.\nhttps://source.android.com/devices/architecture/modular-system/networking\n",
     "dependencies": [],
     "neededBy": [],
@@ -27874,7 +28090,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.packageinstaller": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Google package installer. Seems to replace com.android.packageinstaller on newer phones. It is strangely not needed on older devices (you can still install APKs without it by using the AOSP package installer) but since Android 9, it also handles permissions control and could bootloop your device if removed.\nOn Android 8.1, disabling the app also disabled the 'Permissions' settings within all the apps. Besides that, I couldn't install an '.apk' file download from outside the Play Store.\nSource: https://source.android.com/docs/core/architecture/modular-system/permissioncontroller.",
     "dependencies": [],
     "neededBy": [],
@@ -27882,7 +28098,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.packageinstaller.a_overlay": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Gives ability to install, update or remove applications on the device.\nIf you delete this package, your phone will probably bootloop.\n",
     "dependencies": [],
     "neededBy": [],
@@ -27890,7 +28106,7 @@
     "removal": "Unsafe"
   },
   "com.google.android.permissioncontroller": {
-    "list": "Google",
+    "list": "Aosp",
     "description": "Permission controller\nControls app permissions.\nhttps://source.android.com/devices/architecture/modular-system/permissioncontroller",
     "dependencies": [],
     "neededBy": [],
@@ -27899,7 +28115,7 @@
   },
   "com.google.android.overlay.modules.permissioncontroller": {
     "list": "Aosp",
-    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602",
+    "description": "I only detect on this app: help_app_permissions (link below). It looks very useless, not needed.\nIt doesnt affect com.google.android.permissioncontroller\nhttps://support.google.com/googleplay/answer/6270602\nWARNING: when disabling this package on a Samsung N960F running Android Q, the pop-up UI reverts. Disabling this package (as it's an overlay) will also put the pop-up UI to (like full-screen notification) to the center instead of the bottom.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28885,13 +29101,13 @@
   },
   "com.huawei.nearby": {
     "list": "Oem",
-    "description": "HwNearby\nNeeded for Huawei Share features. (com.huawei.android.instantshare)\nHuawei Share features may not work after remove.",
+    "description": "HwNearby\nNeeded for Huawei Share features. (com.huawei.android.instantshare)\nHuawei Share features may not work after remove.\nNeeded to show a preview of recently opened apps in task manager. I agree, makes no sense, but that's what it is.",
     "dependencies": [
       "com.huawei.android.instantshare"
     ],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.huawei.omacp": {
     "list": "Oem",
@@ -29047,7 +29263,7 @@
   },
   "com.google.android.setupwizard": {
     "list": "Google",
-    "description": "Android Setup\nThe new/factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management",
+    "description": "Android Setup\nThe factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your bank) to authenticate you. Also breaks syncing of Google accounts setup after this package is removed.\nSee https://en.wikipedia.org/wiki/Mobile_identity_management for Mobile Identity Management.",
     "dependencies": [],
     "neededBy": [],
     "labels": [
@@ -29429,7 +29645,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.fairphone.activator": {
     "list": "Oem",
@@ -29801,7 +30017,7 @@
   },
   "com.oplus.cosa": {
     "list": "Oem",
-    "description": "App Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\n\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\n\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.",
+    "description": "APP Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\n\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\nCannot be uninstalled but it can be disabled. Note: removing this package prevents the OnePlus Game Center to detect games.\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.",
     "dependencies": [],
     "neededBy": [
       "com.oneplus.gamespace"
@@ -29861,9 +30077,7 @@
   "com.huawei.fastapp": {
     "list": "Oem",
     "description": "Quick App Center\nComponent of AppGallery (Huawei's app store) providing Quick Apps support. Quick Apps are Javascript+CSS apps that don't need any installation. This technology has its uses but I'm personally not a huge fan on having to rely on a JS engine to run an application\nThis system app has a lot of permissions (including SEND_SMS, CAMERA, READ_EXTERNAL_STORAGE, RECORD_AUDIO... why?)\nMore information: https://www.xda-developers.com/huawei-quick-apps-alternative-google-instant-apps/\n OW2 Quick App whitepaper: https://quick-app-initiative.ow2.io/docs/Quick_App_White_Paper.pdf",
-    "dependencies": [
-      "com.huawei.hwid"
-    ],
+    "dependencies": ["com.huawei.hwid"],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -29886,7 +30100,7 @@
   },
   "com.huawei.systemmanager": {
     "list": "Oem",
-    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.",
+    "description": "System Manager\nHuawei's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more than a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29894,7 +30108,7 @@
   },
   "com.huawei.systemserver": {
     "list": "Oem",
-    "description": "Huawei System Services\nIt depends on (com.huawei.systemmanager).",
+    "description": "Huawei System Services\nIt depends on (com.huawei.systemmanager).\nNeeded for navigation with a fingerprint reader that is on Mate 10, but fingerprint unlock will still work if you remove it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29910,19 +30124,19 @@
   },
   "com.huawei.wifieapsimplmn": {
     "list": "Oem",
-    "description": "PredefinedEapSim\nNeeded for WiFi to work properly\nWiFi will not work.",
+    "description": "PredefinedEapSim\nNeeded for WiFi to work properly? WiFi may not work (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.huawei.wifiprobqeservice": {
     "list": "Oem",
-    "description": "HwWifiproBqeService\nNeeded for WiFi to work properly\nWiFi will not work.",
+    "description": "HwWifiproBqeService\nNeeded for WiFi to work properly? WiFi may not work (?)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.qeexo.smartshot": {
     "list": "Oem",
@@ -30284,6 +30498,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.oplus.pantanal.ums": {
+    "list": "Oem",
+    "description": "Ubiquitous Manager Service\nA service required for Fluid Cloud (Dynamic Island clone) feature in OxygenOS/ColorOS/RealmeUI (Android 14). Runs in background. After disabling, no issues occurred but there's a little empty space between clock and recent notification icons on the right.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.oplus.appplatform": {
     "list": "Oem",
     "description": "App Services\nMight be renamed package of com.heytap.appplatform which is related to Oppo's Heytap account services. Provides a RomUpdateService. Probably not safe to remove.\n\nPithus analysis: https://beta.pithus.org/report/2025ceb69d9379a01771de71ff00051eb0f0c7f44226a72c2066db9649b6dcd2\nCauses bootloop on some phones after uninstall.",
@@ -30302,11 +30524,11 @@
   },
   "com.oplus.atlas": {
     "list": "Oem",
-    "description": "Atlas Service\nSeems to be a Sound provider. Performs a lot of actions upon audio related events. Still not clear if it is really necessary. Runs at boot and stay in background. Pithus analysis: https://beta.pithus.org/report/6d0f9433431cd34a8e9aaef99b329b3623118a1699033be36032f64653dab3d0",
+    "description": "atlasService\nSeparate app sound and individual app volumes.\nhttps://beta.pithus.org/report/6d0f9433431cd34a8e9aaef99b329b3623118a1699033be36032f64653dab3d0",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.oplus.crashbox": {
     "list": "Oem",
@@ -31331,7 +31553,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.google.android.apps.safetyhub": {
     "list": "Google",
@@ -31415,7 +31637,7 @@
   },
   "com.ape.mtbf": {
     "list": "Oem",
-    "description": "Named 'MTBF Tools'\nDialer Code: 68238665. Uses SQLite Database. Reads/writes to External Storage. All sorts of permissions (camera, mic, battery, radio, led, sim, gps, nfc).\nFound more details at https://twitter.com/dbauduin/status/940126704261099520\nHardcoded URLs (an api and a book): http://www.andykhan.com/jexcelapi\nhttp://www.amazon.co.uk/exec/obidos/ASIN/0571058086/qid=1099836249/sr=1-3/ref=sr_1_11_3/202-6017285-1620664\nhttps://www.amazon.co.uk/exec/obidos/ASIN/0571058086qid=1099836249/sr=1-3/ref=sr_1_11_3/202-6017285-1620664",
+    "description": "Named 'MTBF Tools'\nDialer Code: 68238665. Uses SQLite Database. Reads/writes to External Storage. All sorts of permissions (camera, mic, battery, radio, led, sim, gps, nfc).\nFound more details at https://twitter.com/dbauduin/status/940126704261099520 (archive: https://web.archive.org/web/20240330025312/https://twitter.com/dbauduin/status/940126704261099520)\nHardcoded URLs (an api and a book): http://www.andykhan.com/jexcelapi\nhttp://www.amazon.co.uk/exec/obidos/ASIN/0571058086/qid=1099836249/sr=1-3/ref=sr_1_11_3/202-6017285-1620664\nhttps://www.amazon.co.uk/exec/obidos/ASIN/0571058086qid=1099836249/sr=1-3/ref=sr_1_11_3/202-6017285-1620664",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31487,7 +31709,7 @@
   },
   "com.miui.core.internal.editor.services": {
     "list": "Oem",
-    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? it's used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? it's useless or important?",
+    "description": "I only found: config_enableHapticTextHandle true\nWhat is this mean? it's used to permission MIUIOP 10008 in some apps.\nMIUIOP = miui optimization? it's useless or important?\nNo effects after removing, it's probably a feature of Touch Assistant, but its used on 'com.miui.core'?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31495,7 +31717,7 @@
   },
   "com.miui.core.internal.services": {
     "list": "Oem",
-    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat is this mean? I have must to check com.miui.core what it does\nand it's for ota updates but I'm not sure. (yes miui core have ota updates components)",
+    "description": "I only found: array name= config_deviceSpecificSystemServices\nitem: com.miui.me.server.auto_install.InstallService\nWhat does this mean? I have to check com.miui.core what it does and it's for autoinstall miui apps updates from GetApps 'com.xiaomi.market'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31523,7 +31745,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.wifi.resources.overlay": {
     "list": "Aosp",
@@ -31531,7 +31753,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.wifi.resources.xiaomi": {
     "list": "Oem",
@@ -32223,7 +32445,7 @@
   },
   "com.samsung.android.visualars": {
     "list": "Oem",
-    "description": "Smart Touch Call\nA lot bloated with google api stuff",
+    "description": "Smart Touch Call.\nIt allows the user to \"Get voice and Screen interactive service when you call a customer service\".\nBloated with Google API stuff",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32320,6 +32542,14 @@
   "com.nttdocomo.android.rwpushcontroller": {
     "list": "Carrier",
     "description": "rwpushcontroller\nAnother FeliCa Networks app, with japanese language\nUseless frameworks",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.rsupport.rs.activity.lge.allinone": {
+    "list": "Oem",
+    "description": "LG RemoteCall service app\nUsed to get support from LG, safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32559,7 +32789,7 @@
   },
   "com.qualcomm.qti.securemsm.mdtp": {
     "list": "Oem",
-    "description": "MdtpService\nonly logs founded",
+    "description": "MdtpService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32743,7 +32973,7 @@
   },
   "com.samsung.android.dck.timesync": {
     "list": "Oem",
-    "description": "DckTimeSyncService\nOnly logs founded",
+    "description": "DckTimeSyncService\nOnly logs found",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33087,7 +33317,7 @@
   },
   "com.huawei.coauthservice": {
     "list": "Oem",
-    "description": "HwCoAuthService\nApplock, lockscreen password, face recognition things, fingerprint, not sure if it's worth removing it",
+    "description": "HwCoAuthService\nApplock, lockscreen password, face recognition things, fingerprint, not sure if it's worth removing it.\nNeeded for manual apk installation.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33103,7 +33333,7 @@
   },
   "com.huawei.controlcenter": {
     "list": "Oem",
-    "description": "Smart Collaboration\nCollaboration between devices. Needed for Multi-Screen, Wireless Projection.",
+    "description": "Smart Collaboration\nCollaboration between devices. Needed for Multi-Screen, Wireless Projection?\nNeeded for Super Device or Device+, safe to remove if you don't use this, it will also declutter action center.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33175,7 +33405,7 @@
   },
   "com.huawei.harmonyos.foundation": {
     "list": "Oem",
-    "description": "foundation\nHas hwid, vehicle things, Aosp In Call Service permissions.\nDisable app instead of uninstalling, because breaks calling.",
+    "description": "foundation\nHas hwid, vehicle things, Aosp In Call Service permissions.\nDisable app instead of uninstalling, because breaks calling.\nSettings app and APK installation will become slow if you uninstall this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33191,7 +33421,7 @@
   },
   "com.huawei.hwddmp": {
     "list": "Oem",
-    "description": "HwDDMP\nHas a lot frameworks.\nUninstalling breaks calling app even if you disable.\nIt does not cause bootloop but removing is highly not recommended.",
+    "description": "HwDDMP\nHas a lot frameworks.\nUninstalling breaks calling app even if you disable.\nIt does not cause bootloop but removing is highly not recommended.\nNot only breaks the dialer app, but causes lag in whole system too.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33231,7 +33461,7 @@
   },
   "com.huawei.ohos.famanager": {
     "list": "Oem",
-    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and its underlying services (which provide searches and AI-based services). A lot tracking.",
+    "description": "Service Center\nProvides a space for you to view and manage services.\nThis app and its underlying services (which provide searches and AI-based services). A lot tracking.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33239,7 +33469,7 @@
   },
   "com.huawei.ohos.hiwindow": {
     "list": "Oem",
-    "description": "HiWindow\nHave loading, waiting png files\ncollaboration devices, hardware things, screen projection on activities shows Window Shell.\nAfter remove you will lose animations and loading screen.",
+    "description": "HiWindow\nHave loading, waiting png files\ncollaboration devices, hardware things, screen projection on activities shows Window Shell.\nAfter remove you will lose animations and loading screen.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33735,11 +33965,11 @@
   },
   "com.google.android.carrier": {
     "list": "Oem",
-    "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nNot needed app, a lot metrics or telemetry frameworks.",
+    "description": "Carrier Settings\nGoogle Api Activity, requires GMS, totally random api's.\nRequired for 4G, but does not cause bootloop after removal.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "android.autoinstalls.config.xioami.mibox3": {
     "list": "Oem",
@@ -34031,11 +34261,11 @@
   },
   "com.oplus.nas": {
     "list": "Oem",
-    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code.",
+    "description": "NetworkAssistSys\nNeeded for network I guess by dialogs found in code. Has location & phone permission, can read your call logs. Runs in background. After disabling, no issues occured (OxygenOS 14, OnePlus 11).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Advanced"
   },
   "com.oplus.notificationmanager": {
     "list": "Oem",
@@ -34167,7 +34397,7 @@
   },
   "com.oplus.safecenter": {
     "list": "Oem",
-    "description": "Security Center\nIt breaks 'display over other apps' permission!",
+    "description": "Security Center\nIt breaks 'display over other apps' permission and also breaks screen lock on OnePlus Android 14",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34359,19 +34589,19 @@
   },
   "com.samsung.slsi.telephony.oem.oemrilhookservice": {
     "list": "Carrier",
-    "description": "Another data collection by Carrier.",
+    "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.slsi.telephony.oemril": {
     "list": "Carrier",
-    "description": "Virtual SIM and testing things found and collection data.",
+    "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.pixel.camera.services": {
     "list": "Oem",
@@ -34685,14 +34915,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.android.settings.os.overlay": {
-    "list": "Oem",
-    "description": "Icon user found, overlay to 'com.android.settings'.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
-  },
   "com.android.systemui.os.overlay": {
     "list": "Oem",
     "description": "Icon user found, overlay to 'com.android.systemui'.",
@@ -34727,11 +34949,11 @@
   },
   "com.google.android.networkstack.overlay": {
     "list": "Aosp",
-    "description": "Needed for Network.",
+    "description": "WiFi will not work after remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.infinix": {
     "list": "Oem",
@@ -34991,11 +35213,11 @@
   },
   "com.huawei.ohos.collaborationcenter": {
     "list": "Oem",
-    "description": "Sometimes ohos apps is configuration app before building.\nIn code I found it's for app cast transfer.",
+    "description": "Sometimes ohos apps is configuration app before building.\nIn code I found it's for app cast transfer.\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.huawei.tipsove": {
     "list": "Oem",
@@ -35007,11 +35229,11 @@
   },
   "com.huawei.ohos.security.privacycenter": {
     "list": "Oem",
-    "description": "It's shell to app 'com.huawei.security.privacycenter'.",
+    "description": "It's shell to app 'com.huawei.security.privacycenter'?\nDisable instead of uninstalling if you don't want to lose the widget.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.huawei.android.findmyphone": {
     "list": "Oem",
@@ -35231,7 +35453,7 @@
   },
   "com.huawei.featurelayer.sharedfeature.map": {
     "list": "Oem",
-    "description": "Huawei Map Service\nRequire FeatureFramework.\nOnly uses Chinese AMap to get location.",
+    "description": "Huawei Map Service\nRequire FeatureFramework.\nOnly uses Chinese AMap to get location.\nUsed to show maps inside Calendar and Gallery, they will complain if you uninstall it, disable instead.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35295,11 +35517,11 @@
   },
   "com.huawei.security.privacycenter": {
     "list": "Oem",
-    "description": "Protect your privacy by preventing apps from accessing sensitive data stored within images,\nsuch as location info and time stamps. This restriction does not apply to system apps such as Gallery and Cloud.\nI don't think this app values privacy a lot.",
+    "description": "Protect your privacy by preventing apps from accessing sensitive data stored within images,\nsuch as location info and time stamps. This restriction does not apply to system apps such as Gallery and Cloud.\nI don't think this app values privacy a lot.\nNeeded for Permission Manager to open.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.huawei.smartlocation": {
     "list": "Oem",
@@ -35887,7 +36109,7 @@
   },
   "com.google.android.overlay.healthconnect": {
     "list": "Oem",
-    "description": "Useless overlay to 'com.google.android.apps.healthdata'.",
+    "description": "Overlay to 'com.google.android.apps.healthdata'.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36269,7 +36491,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.heytap.headset":{
+  "com.heytap.headset": {
     "list": "Oem",
     "description": "HeyTap Melody App used to manage Oppo Bluetooth Earphones.",
     "dependencies": [],
@@ -36292,14 +36514,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
-  },
-  "com.samsung.attribution": {
-    "list": "Oem",
-    "description": "Attribution\nApp for auto updates I don't know what.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
   },
   "com.samsung.android.bixbyhelper": {
     "list": "Oem",
@@ -36397,6 +36611,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.dbsc": {
+    "list": "Oem",
+    "description": "Galaxy Service Setup\nDevice-Based Service Consent. Pairs with `com.sec.spp.push` to broadcast new service consent requests to your device.\nReally slimey move by Samsung to name it this in the wake of Google announcing their own DBSC (Device Bound Session Credentials) which will phase out third-party cookies and help secure browsers against cookie theft.\nhttps://blog.chromium.org/2024/04/fighting-cookie-theft-using-device.html\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.deviceidservice": {
     "list": "Oem",
     "description": "DeviceIdService\nCollects device id but it is not known what it is used for.\nTake's OAID, VAID, AAID.",
@@ -36429,14 +36651,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.widget.pictureframe": {
-    "list": "Oem",
-    "description": "Gallery\nHas something like restore image.\nIt's not gallery app but provides some features to this app.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
   "com.samsung.gamedriver.sm8550": {
     "list": "Oem",
     "description": "Samsung SM8550 GameDriver.",
@@ -36447,11 +36661,11 @@
   },
   "com.samsung.android.globalpostprocmgr": {
     "list": "Oem",
-    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.",
+    "description": "GlobalPostProcMgr\nUnknown app, has Draft Recovery.\nUninstalling breaks camera functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.hongbaoassistant": {
     "list": "Oem",
@@ -36495,11 +36709,11 @@
   },
   "com.samsung.android.knox.app.networkfilter": {
     "list": "Oem",
-    "description": "knoxNwFilter\nOnly has frameworks to proxy server connection.",
+    "description": "knoxNwFilter\nIs responsible for Bluetooth to work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.samsung.android.knox.zt.framework": {
     "list": "Oem",
@@ -36564,14 +36778,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  },
-  "com.samsung.android.photoremasterservice": {
-    "list": "Oem",
-    "description": "Photo remaster will not work after remove, if this feature exist, still unknown.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
   },
   "com.samsung.preloadapp": {
     "list": "Oem",
@@ -36693,17 +36899,17 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.sm_cn": {
+  "com.samsung.android.sm.devicesecurity.tcm": {
     "list": "Oem",
-    "description": "Smart Manager\nTests hardware things.",
+    "description": "Device security\nChinese scanning app for searching viruses.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.sm.devicesecurity.tcm": {
+  "com.samsung.samsungpssdplus": {
     "list": "Oem",
-    "description": "Device security\nChinese scanning app for searching viruses.",
+    "description": "Samsung Magician\nhttps://play.google.com/store/apps/details?id=com.samsung.samsungpssdplus\nAllows users to conveniently manage their Samsung Portable SSD settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36727,7 +36933,7 @@
   },
   "com.samsung.sait.sohservice": {
     "list": "Oem",
-    "description": "This weird app collects battery data and probably others, who knows?",
+    "description": "FactoryApp\nThis weird app collects battery data and probably others, who knows? Also to test battery things such as set voltage, Soc, temperature, status, timestamp.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36772,14 +36978,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  },
-  "com.samsung.android.wallpaper.res": {
-    "list": "Oem",
-    "description": "Video Wallpaper .webp resources.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
   },
   "com.samsung.android.wifi.ai": {
     "list": "Oem",
@@ -36908,5 +37106,910 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.miui.phone.carriers.overlay": {
+    "description": "Preferred network type to Vodafone 5G/4G/3G/2G auto.\nIt's unused.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tracfone.preload.accountservices": {
+    "list": "Carrier",
+    "description": "TracPhone / StraightTalk application. It just shows IMEI, SIM, and phone number, as well as a way to see device properties.\nComes preinstalled with any TracPhone or StraightTalk device. It can be downloaded from the playstore if needed for whatever reason.\nHas Approximate and Precise location permissions, and Device ID permission.\nRuns in the background for them to collect data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.chromium.webview_shell": {
+    "list": "Aosp",
+    "description": "Simple Browser for WebView tester used in AOSP.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonymobile.telephony.extension": {
+    "description": "I have uninstalled it for the user 0 on my phone, and since then I haven't noticed any functionality drop.\nCell signal is similar as before, also calls, SMSs and mobile data. I think it is not worth having this package installed because it uses a lot of wakelock time, but I cannot see any cell signal drop since I uninstalled it.\nIn the code found some things: omadm, wifi calling, IMS. Its app for dual SIM reachability? Not sure if its app for debugging.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.microsoft.deviceintegrationservice": {
+    "description": "Device Integration Service\nMight be needed for Microsoft Link to Windows (com.microsoft.appmanager) which is preinstalled with OxygenOS 14.\nAfter Uninstalling, no issues occurred.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.microsoftsdk.crossdeviceservicebroker": {
+    "description": "Cross Device Broker\nMight be needed for Microsoft Link to Windows (com.microsoft.appmanager) which is preinstalled with OxygenOS 14.\nAfter Uninstalling, no issues occurred.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.samsung.android.app.notes.addons": {
+    "list": "Oem",
+    "description": "Allows for marking up/drawing on notes in the Samsung Notes app (designed for use with S Pen).\nRemoval likely breaks com.samsung.android.app.notes. Safe to remove otherwise.\nMay reinstall itself automatically (removal has persisted for me this time around, and through multiple reboots).\nhttps://galaxystore.samsung.com/prepost/000005769652?appId=com.samsung.android.app.notes.addons",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.aura.jet.att": {
+    "list": "Carrier",
+    "description": "AT&T Hub\nApp from AT&T. Installs apps on oobe and its maded by advertising company 'ironSource'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.att": {
+    "list": "Carrier",
+    "description": "AppCloud\nApp from AT&T. Installs apps on oobe and its maded by advertising company 'ironSource'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.interpreter": {
+    "list": "Oem",
+    "description": "Samsung Interpreter app, enables Live translation of foreign languages",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.inputshare": {
+    "list": "Oem",
+    "description": "Samsung Multi-Control, allows certain apps to be continued on multiple Galaxy devices (like Internet or Notes)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.audiomirroring": {
+    "list": "Oem",
+    "description": "AudioMirroring\nAudio Mirroring to Cast other devices will not work after remove.\nAlso this app running in the background.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.connectivity.resources.overlay": {
+    "list": "Oem",
+    "description": "Cause bootloop?\nFound in TECNO phone, in overlay there's a notification saying 'No Internet As Dialog When High Priority'.\nCan someone test it?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hilauncherconfig": {
+    "list": "Oem",
+    "description": "Configures app icons and folders on first run HiOS Launcher.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.theme.icondefaultshape": {
+    "list": "Oem",
+    "description": "The shape of the icons can be uninstalled or left alone, it's just the look of the icon.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.itc.autotest": {
+    "list": "Oem",
+    "description": "ITC_Base\nHidden camera testing, also its Chinese.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsnet.moreplus": {
+    "list": "Oem",
+    "description": "More+ is a social app with massive videos, images, opinions and tribes, where you can post your personal blogs, share funny moments, chat and make friends.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.bluetooth.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "Random generated code app, in TECNO Phone found headphones images in the app to Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.nephilim": {
+    "list": "Oem",
+    "description": "App provides custom quality settings to game: pubg, call of duty.\nNot very useful.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.transsion.phoenix": {
+    "list": "Oem",
+    "description": "Phoenix Browser\nhttps://play.google.com/store/apps/details?id=com.transsion.phoenix&hl=en",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mediatek.ppl": {
+    "list": "Oem",
+    "description": "Mobile anti-theft\nIt seems that people don't even have access to it, its app to remote phone lock, wipe data, fetch back anti-theft PIN.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.settings.os.overlay": {
+    "list": "Oem",
+    "description": "Looks unused, but not confirmed. Found in app 'icon file download', Vibration switch. Icon user found, overlay to 'com.android.settings'.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.soundpicker.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "Has colors, dialog things, autogenerated code, but someone can confirm that app is safe to remove?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.overlay.modules.packageinstaller": {
+    "list": "Oem",
+    "description": "Package installer ui changes to the classic after uninstallation.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.transsion.bluetooth": {
+    "list": "Oem",
+    "description": "Airlink\nBluetooth still work without this.\n(not sure if its needed for transfer files using bluetooth)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.infinix.xshare": {
+    "list": "Oem",
+    "description": "XShare\nIts app for Transfer & Share files, also has ads.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.opasuwintegrationsample": {
+    "list": "Oem",
+    "description": "Optimized Setup Wizard Integration Sample code.\nCan be used to create a custom setup wizard, such as one created by a manufacturer that runs after the initial Android Setup Wizard.\nDoes not appear to actually run. It is sample code and should be able to be removed safely.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.settings.resoverlay": {
+    "list": "Oem",
+    "description": "Found in the code \"Declaration of Conformity\" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "me.phh.treble.app": {
+    "list": "Oem",
+    "description": "Used for settings GSI rom that based by Phh Treble. This should not be remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sony.dtv.seeds.iot": {
+    "list": "Oem",
+    "description": "Allows you to control your TV with smart speaker e.g Alexa:\nhttps://play.google.com/store/apps/details?id=com.sony.dtv.seeds.iot&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.tvx": {
+    "list": "Oem",
+    "description": "Handles input settings. HDMI stops working if this is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sony.dtv.sonyselect": {
+    "list": "Oem",
+    "description": "Shows you bunch of popular subscription services and apps and redirects you to the play store. Better to use play store itself",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.recapp": {
+    "list": "Oem",
+    "description": "Allows you to view your reminders and timers but not add them? Can be removed safely",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.osat.music": {
+    "list": "Oem",
+    "description": "Music app which streams from your files.\nhttps://play.google.com/store/apps/details?id=com.sonyericsson.music&hl=en_US\nCan be removed if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.livingfit": {
+    "list": "Oem",
+    "description": "Turns your tv into an accessory by showing pictures. This is different to the screensaver and won't affect it.\nhttps://play.google.com/store/apps/details?id=com.sony.dtv.livingfit&hl=en_US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.youview.poa": {
+    "list": "Oem",
+    "description": "Youview live tv app\nhttps://play.google.com/store/apps/details?id=com.youview.poa&hl=en_US/\nSometimes a remote on your button opens this but that can be changed in the settings. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.smarthelp": {
+    "list": "Oem",
+    "description": "App with documentation of how to use a smart TV. Removing it has no effect",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.ecodashboard": {
+    "list": "Oem",
+    "description": "Used to configure eco friendly settings. Breaks some options in the settings app if removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sony.dtv.calibrationmonitor": {
+    "list": "Oem",
+    "description": "Screen calibration app\nhttps://play.google.com/store/apps/details/Calman%20for%20BRAVIA?id=com.sony.dtv.calibrationmonitor&hl=en_US\nUseful app, but can be removed if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sony.dtv.notificationcenter": {
+    "list": "Oem",
+    "description": "Notification app which reminds you to use apps from Sony's ecosystem. Can be removed safely without breaking other notifications",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.timers": {
+    "list": "Oem",
+    "description": "Sony's clock app.\n Can be removed safely but on some Android Tv launchers it makes the Timer button not function. Not a deal breaker as the feature is pretty useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.vewd.core.integration.dia": {
+    "list": "Oem",
+    "description": "Sony's browser app. Some apps redirect to the browser so it can be useful. You can use another browser as long as you have another one installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sony.dtv.promos": {
+    "list": "Oem",
+    "description": "Sony's promotion app with offers. You need an account to use it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "screnmirroring.com": {
+    "list": "Oem",
+    "description": "Sony's screen mirroring app. Can be removed as chromecasting still works without it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.apple.atve.sony.appletv": {
+    "list": "Oem",
+    "description": "Apple Tv app on android Tv. Can be removed without any problem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gameloft.android.ANMP.GloftA9HM": {
+    "list": "Oem",
+    "description": "Asphalt 9: Legends",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.tencent.ngjp": {
+    "list": "Oem",
+    "description": "Arena of Valor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.epicgames.portal": {
+    "list": "Oem",
+    "description": "Epic Games for Android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.dti.samsung": {
+    "list": "Carrier",
+    "description": "Mobile Services Manager\nDigital Turbine app, pre-install some apps/games to your phone and its made by advertising company.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.adaptivebrightnessgo": {
+    "list": "Oem",
+    "description": "CameraLightSensor\nApp to test Adaptive Brightness.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.siofviewer": {
+    "list": "Oem",
+    "description": "Live focus\nNeeded for Live Focus in camera app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.server.wifi.mobilewips.client": {
+  "list": "Oem",
+  "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+  },
+"com.onyx.aiassistant": {
+    "list": "Oem",
+    "description": "Onyx Boox AI Assistant. Safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.android.ksync": {
+    "list": "Oem",
+    "description": "Ksync app. UNSAFE to remove because it will crash the Onyx launcher but you can safely disable it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+ 
+  "com.onyx.android.production.test":{
+    "list": "Oem",
+    "description": "Test app enabled by clicking 5 times on the Onyx Version, it contains tests for screen quality",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.appmarket":{
+    "list": "Oem",
+    "description": "The Onyx Store app, you will not have any other way to install app if you uninstall it\nYou will need to install an alternative store via adb",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.onyx.calculator": {
+    "list": "Oem",
+    "description": "The Onyx calculator app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.clock":{
+    "list": "Oem",
+    "description": "The Onyx Clock app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.dict":{
+    "list": "Oem",
+    "description": "The Onyx Dict app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.easytransfer":{
+    "list": "Oem",
+    "description": "Onyx Easy Transfer app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.gallery":{
+    "list": "Oem",
+    "description": "Onyx Gallery app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.igetshop":{
+    "list": "Oem",
+    "description": "Onyx iGetShot app, UNSAFE to remove because it will crash the Onyx Launcher but safe to DISABLE",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.onyx.kime":{
+    "list": "Oem",
+    "description": "Onyx Kime app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.kreader":{
+    "list": "Oem",
+    "description": "Onyx KReader app, UNSAFE to remove because it will crash the Onyx Launcher can be safely disabled.\nRemember to load another reader app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.onyx.latinime":{
+    "list": "Oem",
+    "description": "The Onyx Keyboard. Removing it will leave withe google STT keyboard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.mail":{
+    "list": "Oem",
+    "description": "Onyx Mail app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.musicplayer":{
+    "list": "Oem",
+    "description": "Onyx Music Player app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.onyx.voicerecorder":{
+    "list": "Oem",
+    "description": "Onyx Voice Recorder app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.preff.kb.xm":{
+    "list": "Oem",
+    "description": "'Emoji & Font Keyboard' on Xiaomi.\nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.\nMake sure to install an alternate keyboard app before doing so.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nim.rogers":{
+    "list": "Carrier",
+    "description": "Texture, a digital magazine service created by Rogers Media. Discontinued in 2019.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.Rogers.MyRogersTab":{
+    "list": "Carrier",
+    "description": "Appears to be the tablet version of MyRogers (https://play.google.com/store/apps/details?id=com.fivemobile.myaccount), an app to manage your account with Canadian carrier Rogers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.colorblind":{
+    "list": "Oem",
+    "description": "This app provides colorblind accessibility features for Samsung devices, helping users with color vision deficiencies by adjusting display colors and improving visibility.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.framework.res":{
+    "list": "Oem",
+    "description": "This package is part of Samsung’s custom system framework and manages various resources for Samsung-specific features and UI enhancements.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.timezone.autoupdate_N":{
+    "list": "Oem",
+    "description": "This app handles automatic updates for time zone information on Samsung devices, ensuring accurate timekeeping across different regions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.knox.appsupdateagent":{
+    "list": "Oem",
+    "description": "This app is part of Samsung Knox, managing updates for apps within the Knox security framework.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.kidshome":{
+    "list": "Oem",
+    "description": "This app provides a child-friendly interface and controls on Samsung devices, designed to create a safe environment for children by restricting access to apps and content.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.wallpaperchooser":{
+    "list": "Oem",
+    "description": "This app provides the functionality to select and manage wallpapers on Samsung devices, including Samsung-specific wallpaper options.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.app.TransmitPowerService":{
+    "list": "Oem",
+    "description": "This app manages settings related to the transmit power of wireless communications on Samsung devices, such as Wi-Fi and Bluetooth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.internal.systemui.navbar.hidegestural": {
+    "list": "Aosp",
+    "description": "Allows 'Gesture hint' to be disabled in Navigation bar > Swipe gestures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.internal.systemui.navbar.transparent": {
+    "list": "Aosp",
+    "description": "Allows 'Transparent navigation bar' to be enabled in Developer options.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.overlay.motcommon": {
+    "list": "Oem",
+    "description": "Related to Motorola's custom overlay for Phone and other UI elements.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.systemui.accessibility.accessibilitymenu.auto_generated_rro_product__": {
+    "list": "Aosp",
+    "description": "Product RRO for Accessibility menu.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.motCommon": {
+    "list": "Oem",
+    "description": "Related to Motorola's custom overlay for Wi-Fi connections.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.WifiResScanCountryCode": {
+    "list": "Aosp",
+    "description": "Related to overlay for Wi-Fi scanning for country code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.health.connect.backuprestore": {
+    "list": "Google",
+    "description": "Health Connect for Android backup/restore.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.healthconnect.controller": {
+    "list": "Google",
+    "description": "Health Connect by Android gives you a simple way to share data between your health, fitness, and wellbeing apps without compromising on privacy.\nOnce you've downloaded Health Connect, you can access it through your settings by going to Settings > Apps > Health Connect, or from your Quick Settings menu.\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.healthdata",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.wifi.dialog": {
+    "list": "Google",
+    "description": "Wi-Fi dialog. App to launch user dialogs requested by the Wi-Fi service is stored here. Contains the Activity the dialogs are launched from.\nhttps://source.android.com/docs/core/ota/modular-system/wifi\nhttps://android.googlesource.com/platform/packages/apps/Settings/+/refs/heads/main/src/com/android/settings/wifi/WifiDialog.java\nhttps://android.googlesource.com/platform/packages/apps/Settings/+/refs/heads/main/src/com/android/settings/wifi/WifiDialog2.kt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.wifi.resources": {
+    "list": "Google",
+    "description": "Wi-Fi Service Resources. Overlay APK manifest is stored here. Extracts Wi-Fi configs.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.motorola.android.coresettingsext.overlay.avatrn": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for system settings, specifically tailored for the Motorola Edge 2024 (codename 'avatrn').",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.launcher.overlay.motolauncheroverlayna": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom launcher overlay, specifically tailored for their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.retail.global": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom launcher overlay designed for retail or global versions of their devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.networkstack.overlay.mcc460": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom network stack overlay, specifically related to the network configuration for a particular Mobile Country Code (MCC), in this case, MCC 460 (which corresponds to China).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.networkstack.tethering.overlay.motCommon": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay for the network stack, specifically related to tethering and hotspot functionalities.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.lpptoga": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom overlay and is likely associated with specific visual or functional enhancements tailored for Motorola devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.qcom.common": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom overlay and is associated with Qualcomm (Qcom) related functionality or optimizations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings provider, and it likely includes resources or settings related to Motorola-specific customizations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.overlay.dppcamera": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay, specifically related to settings for the camera application.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.providers.settings.overlay.dppnone": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay, potentially dealing with settings or configurations that are applied when certain features or options are not in use.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.global": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom settings overlay and is designed for global settings that apply across different regions or device configurations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.lra": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings overlay, likely related to specific regional or device configurations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.settings.overlay.power.bottom": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom settings overlay, specifically related to power management settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's battery management system, specifically related to features or optimizations for battery care.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare.overlay": {
+    "list": "Oem",
+    "description": "This package is part of Motorola’s custom battery care overlay and is likely responsible for providing Motorola-specific enhancements or visual elements related to battery management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterycare.overlay.appside": {
+    "list": "Oem",
+    "description": "This package is part of Motorola's custom battery care overlay and is likely associated with specific enhancements or visual elements related to battery management on the app side of the user interface.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.camera3.content.ai": {
+    "list": "Oem",
+    "description": "This package is related to Motorola's camera application, specifically focusing on AI (artificial intelligence) features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.imagertuning_u": {
+    "list": "Oem",
+    "description": "This package is associated with Motorola’s image tuning features, specifically designed to enhance or adjust image quality settings on Motorola devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.installer": {
+    "list": "Oem",
+    "description": "This package is used by Motorola for managing and installing system updates, custom apps, or other Motorola-specific applications.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.mykey": {
+    "list": "Oem",
+    "description": "This package is related to Motorola’s 'MyKey' feature, which is a tool designed to manage key settings and restrictions for device usage.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.om": {
+    "list": "Oem",
+    "description": "The package 'com.motorola.om' is associated with Motorola's operational management or device management tools.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.securityhubext": {
+    "list": "Oem",
+    "description": "This package is related to Motorola's Security Hub, an extension or enhancement for the device’s security features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.setup.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "This package is involved in Motorola's setup process, particularly handling automatically generated resources related to the setup of the device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.setup.overlay.dataenable": {
+    "list": "Oem",
+    "description": "This package is used during the Motorola device setup process, specifically for managing or presenting settings related to mobile data.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.retca": {
+    "list": "Oem",
+    "description": "This package is related to the eUICC (embedded Universal Integrated Circuit Card) partner application, specifically an OEM overlay that deals with eSIM functionality and management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }

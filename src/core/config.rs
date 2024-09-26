@@ -1,6 +1,10 @@
-use crate::core::sync::{get_android_sdk, User};
 use crate::core::utils::DisplayablePath;
+use crate::core::{
+    sync::{get_android_sdk, User},
+    theme::Theme,
+};
 use crate::gui::views::settings::Settings;
+use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
@@ -14,10 +18,11 @@ pub struct Config {
     pub devices: Vec<DeviceSettings>,
 }
 
-#[derive(Default, Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct GeneralSettings {
     pub theme: String,
     pub expert_mode: bool,
+    pub backup_folder: PathBuf,
 }
 
 #[derive(Default, Debug, Clone)]
@@ -38,10 +43,20 @@ pub struct DeviceSettings {
     pub backup: BackupSettings,
 }
 
+impl Default for GeneralSettings {
+    fn default() -> Self {
+        Self {
+            theme: Theme::default().to_string(),
+            expert_mode: false,
+            backup_folder: CACHE_DIR.join("backups"),
+        }
+    }
+}
+
 impl Default for DeviceSettings {
     fn default() -> Self {
         Self {
-            device_id: String::new(),
+            device_id: String::default(),
             multi_user_mode: get_android_sdk() > 21,
             disable_mode: false,
             backup: BackupSettings::default(),

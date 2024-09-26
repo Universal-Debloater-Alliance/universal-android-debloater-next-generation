@@ -89,7 +89,6 @@ pub enum Button {
     Primary,
     Unavailable,
     SelfUpdate,
-    Refresh,
     UninstallPackage,
     RestorePackage,
     NormalPackage,
@@ -124,9 +123,7 @@ impl button::StyleSheet for Theme {
         };
 
         match style {
-            Button::Primary | Button::SelfUpdate | Button::Refresh => {
-                active_appearance(None, p.bright.primary)
-            }
+            Button::Primary | Button::SelfUpdate => active_appearance(None, p.bright.primary),
             Button::RestorePackage => active_appearance(None, p.bright.secondary),
             Button::NormalPackage => button::Appearance {
                 background: Some(Background::Color(p.base.foreground)),
@@ -178,9 +175,7 @@ impl button::StyleSheet for Theme {
         };
 
         match style {
-            Button::Primary | Button::SelfUpdate | Button::Refresh => {
-                hover_appearance(p.bright.primary, None)
-            }
+            Button::Primary | Button::SelfUpdate => hover_appearance(p.bright.primary, None),
             Button::NormalPackage => hover_appearance(p.normal.primary, Some(p.bright.surface)),
             Button::SelectedPackage => hover_appearance(p.normal.primary, None),
             Button::RestorePackage => hover_appearance(p.bright.secondary, None),

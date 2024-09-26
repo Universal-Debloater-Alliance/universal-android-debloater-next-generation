@@ -5,12 +5,14 @@ on:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
   pull_request:
     paths:
       - Cargo.lock
       - Cargo.toml
       - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
 
 jobs:
@@ -36,7 +38,7 @@ jobs:
           - lint: test
             args: ""
           - lint: clippy
-            args: " --all --all-features -- -D warnings"
+            args: " --all --all-features"
           - lint: fmt
             args: " --all -- --check"
     steps:

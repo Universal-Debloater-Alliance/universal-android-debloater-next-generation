@@ -1,8 +1,10 @@
+use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
-use crate::core::utils::{last_modified_date, open_url};
+use crate::core::uad_lists::LIST_FNAME;
+use crate::core::utils::{last_modified_date, open_url, NAME};
 use crate::gui::{style, UpdateState};
 use crate::CACHE_DIR;
-use iced::widget::{button, column, container, row, text, Space};
+use iced::widget::{column, container, row, text, Space};
 use iced::{Alignment, Element, Length, Renderer};
 use std::path::PathBuf;
 
@@ -27,31 +29,25 @@ impl About {
         // other events are handled by UadGui update()
     }
     pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
-        let about_text = text("Universal Android Debloater Next Generation (UAD-ng) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device.",);
+        let about_text = text(format!("Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."));
 
         let descr_container = container(about_text)
             .width(Length::Fill)
             .padding(25)
             .style(style::Container::Frame);
 
-        let date = last_modified_date(CACHE_DIR.join("uad_lists.json"));
+        let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let uad_list_text =
-            text(format!("UAD-ng package list: v{}", date.format("%Y%m%d"))).width(250);
+            text(format!("{NAME} package list: v{}", date.format("%Y%m%d"))).width(250);
         let last_update_text = text(update_state.uad_list.to_string());
-        let uad_lists_btn = button("Update")
-            .on_press(Message::UpdateUadLists)
-            .padding([5, 10])
-            .style(style::Button::Primary);
+        let uad_lists_btn = button_primary("Update").on_press(Message::UpdateUadLists);
 
         #[cfg(feature = "self-update")]
-        let self_update_btn = button("Update")
-            .on_press(Message::DoSelfUpdate)
-            .padding([5, 10])
-            .style(style::Button::Primary);
+        let self_update_btn = button_primary("Update").on_press(Message::DoSelfUpdate);
 
         #[cfg(feature = "self-update")]
         let uad_version_text =
-            text(format!("UAD version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
+            text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
 
         #[cfg(feature = "self-update")]
         #[rustfmt::skip]
@@ -96,31 +92,22 @@ impl About {
             .padding(10)
             .style(style::Container::Frame);
 
-        let website_btn = button("GitHub page")
-            .on_press(Message::UrlPressed(PathBuf::from(
+        let website_btn =
+            button_primary("GitHub page").on_press(Message::UrlPressed(PathBuf::from(
                 "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
-            )))
-            .padding([5, 10])
-            .style(style::Button::Primary);
+            )));
 
-        let issue_btn = button("Have an issue?")
+        let issue_btn = button_primary("Have an issue?")
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
-            )))
-            .padding([5, 10])
-            .style(style::Button::Primary);
+            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
+        )));
 
-        let log_btn = button("Locate the logfiles")
-            .on_press(Message::UrlPressed(CACHE_DIR.to_path_buf()))
-            .padding([5, 10])
-            .style(style::Button::Primary);
+        let log_btn = button_primary("Locate the logfiles")
+            .on_press(Message::UrlPressed(CACHE_DIR.to_path_buf()));
 
-        let wiki_btn = button("Wiki")
-            .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
-            )))
-            .padding([5, 10])
-            .style(style::Button::Primary);
+        let wiki_btn = button_primary("Wiki").on_press(Message::UrlPressed(PathBuf::from(
+            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
+        )));
 
         let row = row![website_btn, wiki_btn, issue_btn, log_btn,].spacing(20);
 
