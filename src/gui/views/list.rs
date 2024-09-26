@@ -169,12 +169,12 @@ impl List {
                     Message::LoadPhonePackages,
                 )
             }
-            Message::LoadPhonePackages((uad_lists, list_state)) => {
+            Message::LoadPhonePackages((uad_list, list_state)) => {
                 self.loading_state = LoadingState::LoadingPackages;
                 self.uad_lists.clone_from(&uad_list);
                 *list_update_state = list_state;
                 Command::perform(
-                    Self::load_packages(uad_lists, selected_device.user_list.clone()),
+                    Self::load_packages(uad_list, selected_device.user_list.clone()),
                     Message::ApplyFilters,
                 )
             }
