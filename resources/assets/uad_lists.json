@@ -14368,6 +14368,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.alibaba.aliexpresshd": {
+    "list": "Misc",
+    "description": "AliExpress shopping/marketplace.\nhttps://play.google.com/store/apps/details?id=com.alibaba.aliexpresshd",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.UCMobile.intl": {
     "list": "Misc",
     "description": "UC Browser by Alibaba (https://play.google.com/store/apps/details?id=com.UCMobile.intl)\n!! Unsecure chinese web browser !!\nhttps://www.quora.com/Whats-wrong-with-UC-Browser\nhttps://www.digitalinformationworld.com/2019/05/url-spoofing-uc-browser-android.html\n",
