@@ -12840,6 +12840,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.casper.turkiye": {
+    "list": "Oem",
+    "description": "Support app for Casper, see https://play.google.com/store/apps/details?id=com.casper.turkiye&hl=en",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.caf.fmradio": {
     "list": "Misc",
     "description": "https://source.codeaurora.org/quic/la/platform/vendor/qcom-opensource/fm/tree/fmapp2/src/com/caf/fmradio\n",
