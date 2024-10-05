@@ -10002,7 +10002,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.geotz": {
     "list": "Google",
@@ -10010,7 +10010,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.gsa": {
     "list": "Google",
@@ -10026,7 +10026,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
@@ -10082,7 +10082,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.server.telecom.overlay.miui": {
     "list": "Oem",
@@ -28127,7 +28127,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.permissioncontroller": {
     "list": "Aosp",
