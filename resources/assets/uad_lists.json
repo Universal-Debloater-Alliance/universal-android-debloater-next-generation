@@ -3867,7 +3867,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.app.sbrowseredge": {
     "list": "Oem",
@@ -5352,7 +5352,7 @@
       "com.samsung.android.spay"
     ],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.sec.android.app.safetyassurance": {
     "list": "Oem",
