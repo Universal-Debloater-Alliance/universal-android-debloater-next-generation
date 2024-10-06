@@ -25533,8 +25533,8 @@
     "labels": []
   },
   "com.samsung.euicc": {
-    "description": "EuiccService\nHave Samsung analytics, logs, LPA service needed for UIM, eSIM Profiles.",
-    "removal": "Recommended",
+    "description": "EuiccService\nHave Samsung analytics, logs, LPA service needed for UIM, eSIM Profiles. Removing/disabling will break eSIM.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
