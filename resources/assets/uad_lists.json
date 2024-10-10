@@ -19411,6 +19411,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.google.android.apps.privacy.wildlife": {
+    "description": "VPN by Google",
+    "removal": "Recommended",
+    "list": "Google",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.google.android.apps.pixelmigrate": {
     "description": "Data Transfer Tool\nIt's probably restore apps on setup wizard first-boot setup.",
     "removal": "Recommended",
