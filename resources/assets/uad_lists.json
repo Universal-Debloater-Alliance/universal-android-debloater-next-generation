@@ -22016,8 +22016,8 @@
     "labels": []
   },
   "com.coloros.recents": {
-    "description": "Useless recents.",
-    "removal": "Recommended",
+    "description": "Responsible for showing recent app list, removal will result in no \"Recent App\" list and re-enablement will cause a soft reload.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
