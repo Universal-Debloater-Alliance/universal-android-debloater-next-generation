@@ -4199,7 +4199,7 @@
   },
   "com.samsung.android.game.gos": {
     "list": "Oem",
-    "description": "Samsung Game Optimizing Service\nIs supposed to \"improve\" game performance.\nHas a \"Game Intent Service\" that runs occasionally. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
+    "description": "Samsung Game Optimizing Service\nIs supposed to \"improve\" game performance.\nHas a \"Game Intent Service\" that runs occasionally. If uninstalling fails, try disabling. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
