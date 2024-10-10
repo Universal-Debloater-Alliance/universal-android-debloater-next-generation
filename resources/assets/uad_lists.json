@@ -9990,11 +9990,11 @@
   },
   "com.google.android.overlay.gmsconfig.common": {
     "list": "Google",
-    "description": "Useless configurations about webview, location, lists google apps.\neverything works without it.",
+    "description": "If you delete this package, you won't be able to log in to your Google account on a Google app. But if you don't need to log in to a Google account, you can safely remove this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.comms": {
     "list": "Google",
@@ -10078,11 +10078,11 @@
   },
   "com.google.android.overlay.modules.modulemetadata.forframework": {
     "list": "Oem",
-    "description": "config_defaultModuleMetadataProvider\nIt looks like useless module metadata from google\nNot needed, it doesnt affect on (com.google.android.modulemetadata)",
+    "description": "If you remove this package, your phone has an extremely large chance of bootlooping. Just don't mess around with this package. Tested on a Samsung A34 5G.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.android.server.telecom.overlay.miui": {
     "list": "Oem",
