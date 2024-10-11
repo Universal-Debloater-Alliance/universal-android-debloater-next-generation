@@ -30348,7 +30348,7 @@
   },
   "com.heytap.pictorial": {
     "list": "Oem",
-    "description": "Lock screen wallpaper\nPartially or completely breaks the lock screen wallpaper on Realme devices. Instead of the lock screen wallpaper there will be the home screen wallpaper, and there was also a time when after a reboot it was displayed once as it should, but after re-locking the screen everything happened as described earlier.",
+    "description": "Lock screen wallpaper\nPartially or completely breaks the lock screen wallpaper on Realme devices. Instead of the lock screen wallpaper there will be the home screen wallpaper, and there was also a time when after a reboot it was displayed once as it should, but after re-locking the screen everything happened as described earlier.\nNOTE: disable the \"wallpaper carousel\" on the lock screen first. Then, this app is safe to disable.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
