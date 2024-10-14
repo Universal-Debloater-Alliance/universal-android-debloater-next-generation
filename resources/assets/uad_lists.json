@@ -4379,7 +4379,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.net.wifi.wifiguider": {
     "list": "Oem",
