@@ -21672,8 +21672,8 @@
     "labels": []
   },
   "com.coloros.weather.service": {
-    "description": "Weather service\nProbably needed for weather.",
-    "removal": "Recommended",
+    "description": "Name indicates it's for the weather, but removing this causes the screen to flash and the phone will eventually become unresponsive.\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
