@@ -38043,5 +38043,61 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.boyue.accountmanagement": {
+    "list": "Oem",
+    "description": "Allows connecting the device to a cloud account from YouDao, Evernote or Google Drive.\nIt is not clear which features depend on this, I presume it has something to do with syncing notes.\nThe Evernote and Google Drive connections no longer work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.boyue.app.byreader": {
+    "list": "Oem",
+    "description": "This package provides the Boyue stock launcher, the stock e-book reader application and the stock dictionary app.\nEven if you plan on using another reading app, the launcher allows changing the e-ink display settings for certain apps, so you might want to keep it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.boyue.appstore": {
+    "list": "Oem",
+    "description": "This package is the Boyue App Store.\nIt appears to have been discontinued: https://www.mobileread.com/forums/showthread.php?t=357053\nCan be safely removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.boyue.filemanager": {
+    "list": "Oem",
+    "description": "This package provides a file manager with a black and white design for e-ink displays.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.boyue.floatingbutton": {
+    "list": "Oem",
+    "description": "This package provides a floating button that can be tapped to show system navigation options, similar to AssistiveTouch on iOS or Quick Ball on MIUI.\nCan be safely removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.boyue.systemupdate": {
+    "list": "Oem",
+    "description": "This package provides the system update UI in User Settings.\nIt allows updating over Wi-Fi (which is likely to fail since Boyue shut down their servers) and via an update.zip file on the internal storage.\nCan be safely removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.boyue.wifitransfer": {
+    "list": "Oem",
+    "description": "This package provides a web server to to transfer files to the device over HTTP.\nIt only allows very few file formats to be transferred, so you might want to use other tools such as primitive ftpd or third-party file managers with FTP servers.\nCan be safely removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
