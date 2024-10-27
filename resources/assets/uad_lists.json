@@ -23457,6 +23457,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.jrdcom.urlreservedapp1": {
+    "description": "TCL My Sites shortcut\nStub for mysites.glance.com.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.google.android.dialer.rro_common": {
     "description": "Useless overlay code for Google Dialer",
     "removal": "Recommended",
