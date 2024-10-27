@@ -25533,7 +25533,7 @@
     "labels": []
   },
   "com.samsung.euicc": {
-    "description": "EuiccService\nHave Samsung analytics, logs, LPA service needed for UIM, eSIM Profiles. Removing/disabling will break eSIM.",
+    "description": "EuiccService\neUICC refers to the architectural standards published by GSMA or implementations of those standard for eSIM, a device used to securely store one or more SIM card profiles, which are the unique identifiers and cryptographic keys used by service providers to uniquely identify and securely connect to mobile network devices.\nhttps://en.wikipedia.org/wiki/EUICC",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
