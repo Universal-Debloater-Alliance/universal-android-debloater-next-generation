@@ -23434,7 +23434,7 @@
     "labels": []
   },
   "com.jrdcom.urlreservedapp1": {
-    "description": "TCL \"My Sites\" app, does nothing but open mysites.glance.com",
+    "description": "TCL My Sites shortcut\nStub for mysites.glance.com.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
