@@ -22016,7 +22016,7 @@
     "labels": []
   },
   "com.coloros.recents": {
-    "description": "Responsible for showing recent app list, removal will result in no \"Recent App\" list and re-enablement will cause a soft reload.",
+    "description": "Recent apps. Provides navigation to alternate between multiple apps. Removal will result in no \"Recent App\" list and re-enablement will cause a soft reload.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
