@@ -20014,8 +20014,8 @@
     "labels": []
   },
   "com.nothing.thirdparty": {
-    "description": "Third party things. Useless frameworks.",
-    "removal": "Recommended",
+    "description": "Breaks the Glyph API, Composer and other apps that rely on the Glyph feature will not work anymore.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
