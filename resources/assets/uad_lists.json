@@ -19412,7 +19412,7 @@
     "labels": []
   },
   "com.google.android.apps.privacy.wildlife": {
-    "description": "VPN by Google",
+    "description": "VPN by Google One. Discontinued. Succeeded by VPN by Google and Google Fi VPN.",
     "removal": "Recommended",
     "list": "Google",
     "dependencies": [],
