@@ -16110,7 +16110,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.audiomonitor": {
     "list": "Oem",
