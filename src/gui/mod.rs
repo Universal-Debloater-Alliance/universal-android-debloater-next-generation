@@ -3,7 +3,7 @@ pub mod views;
 pub mod widgets;
 
 use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, CommandType, Phone};
-use crate::core::theme::Theme;
+use crate::core::theme::{Theme, OS_COLOR_SCHEME};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
 use crate::core::utils::{string_to_theme, ANDROID_SERIAL, NAME};
@@ -380,10 +380,13 @@ impl Application for UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
-        let logo: &[u8] = match dark_light::detect() {
-            dark_light::Mode::Dark => include_bytes!("../../resources/assets/logo-dark.png"),
-            dark_light::Mode::Light => include_bytes!("../../resources/assets/logo-light.png"),
-            dark_light::Mode::Default => include_bytes!("../../resources/assets/logo-light.png"),
+        let logo: &[u8] = match *OS_COLOR_SCHEME {
+            dark_light::Mode::Dark | dark_light::Mode::Default => {
+                include_bytes!("../../resources/assets/logo-dark.png")
+            }
+            dark_light::Mode::Light => {
+                include_bytes!("../../resources/assets/logo-light.png")
+            }
         };
 
         Self::run(Settings {
