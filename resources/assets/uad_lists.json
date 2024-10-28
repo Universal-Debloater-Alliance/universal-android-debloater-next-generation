@@ -3867,7 +3867,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.app.sbrowseredge": {
     "list": "Oem",
