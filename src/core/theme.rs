@@ -11,7 +11,7 @@ Coincidentally, this also ensures consistent colors across the GUI,
 at the cost of requiring a restart to update the palette.
 (this is just a patch, not a fix)
 */
-#[dynamic]
+#[dynamic(lazy)]
 pub static OS_COLOR_SCHEME: dark_light::Mode = dark_light::detect();
 
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
