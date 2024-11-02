@@ -3519,10 +3519,10 @@
   },
   "android.autoinstalls.config.samsung": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Layout parsing code for auto installs layout (launcher customizations).\nBreaks things like widget suggestions from launcher.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/apps/Launcher3/src/com/android/launcher3/AutoInstallsLayout.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["ConfigAPK"],
     "removal": "Recommended"
   },
   "com.aura.oobe.samsung.gl": {
@@ -6766,27 +6766,27 @@
   },
   "com.android.bluetoothmidiservice": {
     "list": "Aosp",
-    "description": "Provides classes for using the MIDI protocol over Bluetooth. Safe to remove if you don't plan to connect MIDI devices.",
+    "description": "Implements Bluetooth MIDI devices.\nBreaks Bluetooth MIDI device connections.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/media/packages/BluetoothMidiService/src/com/android/bluetoothmidiservice/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Bluetooth MIDI Service"],
     "removal": "Recommended"
   },
   "com.android.bookmarkprovider": {
     "list": "Aosp",
-    "description": "Only exists for compatibility reasons to prevent apps querying it from getting null cursors they do not expect and crash.\nDisabling this on LDPlayer emulator crashes the default browser (`com.android.browser`).",
+    "description": "Exists only for compatibility reasons to prevent apps querying it from getting null cursors they do not expect and crash.\nMay cause older SDK apps to crash unexpectedly.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/providers/BookmarkProvider/src/com/android/bookmarkstore/BookmarkProvider.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Bookmark Provider"],
     "removal": "Advanced"
   },
   "com.android.carrierdefaultapp": {
     "list": "Aosp",
-    "description": "This package is a generic solution that allows carriers to indicate when a device has run OOB(Out Of Balance). Android devices that are OOB need carrier mitigation protocols to allow select data through(like to notify users their data/balance is out, or allow them to buy more data through the carrier app).\nWill probably break that functionality if disabled, but is otherwise safe to disable(should only affect users that are out of data/balance?).\nhttps://source.android.com/devices/tech/connect/oob-users",
+    "description": "Default carrier app allows carrier customizations. OEMs could configure a list of carrier actions to act upon certain signals or even different args of the same signal. This allows different interpretations of the signal between carriers and could easily alter the app's behaviour in a configurable way. This loads and parses the carrier configs and return a list of predefined carrier actions for the given input signal.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/CarrierDefaultApp/src/com/android/carrierdefaultapp/CustomConfigLoader.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
+    "labels": ["Carrier Communications"],
+    "removal": "Expert"
   },
   "com.android.companiondevicemanager": {
     "list": "Aosp",
@@ -6838,10 +6838,10 @@
   },
   "com.android.htmlviewer": {
     "list": "Aosp",
-    "description": "Allows apps to load URLs into the WebView, which allows web content to be displayed directly in the app.\nWARNING: Removing this causes a bootloop on some MIUI 12.5.4+ phones.",
-    "dependencies": [],
+    "description": "Simple activity that shows the requested HTML page. This utility is purposefully very limited in what it supports, including no network or JavaScript.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/apps/HTMLViewer/src/com/android/htmlviewer/HTMLViewerActivity.java",
+    "dependencies": ["com.google.android.webview"],
     "neededBy": [],
-    "labels": [],
+    "labels": ["HTML Viewer"],
     "removal": "Expert"
   },
   "com.android.theme.icon_pack.circular.android": {
@@ -7122,19 +7122,19 @@
   },
   "com.android.apps.tag": {
     "list": "Aosp",
-    "description": "Support for NFC tags interactions (5 permissions, Contacts/Phone On by default).\nNFC Tags are for instance used in buses to validate your transport card with your phone.\nOther example: https://en.wikipedia.org/wiki/TecTile\nYou will still be able to connect to a NFC device (e.g a speaker) with this disabled.",
+    "description": "Creates a tag from the given key and value.\n\nhttps://cs.android.com/android/platform/superproject/main/+/main:external/opencensus-java/api/src/main/java/io/opencensus/tags/Tag.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Tag"],
     "removal": "Advanced"
   },
   "com.android.backupconfirm": {
     "list": "Aosp",
-    "description": "Restores Google settings with Google Backup restore.\nDisplays confirmation popup when doing ADB backup. Disabling this package breaks ADB Backup.",
+    "description": "Confirm with the user that a requested full backup/restore operation is legitimate. Any attempt to perform a full backup/restore will launch this UI and wait for a designated timeout interval (nominally 30 seconds) for the user to confirm. If the user fails to respond within the timeout period, or explicitly refuses the operation within the UI presented here, no data will be transferred off the device.\nBreaks full backup/restore.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/BackupRestoreConfirmation/src/com/android/backupconfirm/BackupRestoreConfirmation.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.android.bio.face.service": {
     "list": "Aosp",
@@ -7146,10 +7146,10 @@
   },
   "com.android.bluetooth": {
     "list": "Aosp",
-    "description": "Bluetooth service\n",
+    "description": "Bluetooth implementation.\nBreaks Bluetooth at least.\nhttps://source.android.com/docs/automotive/ivi_connectivity",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Bluetooth"],
     "removal": "Expert"
   },
   "com.android.browser": {
@@ -7186,10 +7186,10 @@
   },
   "com.android.calllogbackup": {
     "list": "Aosp",
-    "description": "Call Logs Backup/Restore feature.\nRuns in the background.\nhttps://android.googlesource.com/platform/packages/providers/CallLogProvider/+/refs/heads/master/src/com/android/calllogbackup",
+    "description": "Call Log Change Broadcast Receiver. Receives an intent when the call log provider changes so that it triggers backup accordingly.\nDisables call log backup/restore.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/providers/CallLogProvider/src/com/android/calllogbackup/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Call Log Backup/Restore"],
     "removal": "Recommended"
   },
   "com.android.captiveportallogin": {
@@ -7202,11 +7202,11 @@
   },
   "com.android.carrierconfig": {
     "list": "Aosp",
-    "description": "Dynamically provides configuration for the carrier network.\nThe config contains: Roaming networks, Voicemail settings, SMS/MMS settings, VoLTE/IMS settings, and more.\nIf a carrier app is installed it will be queried for overrides to these settings.\nSeems to run on boot and when you swap SIM?\nhttps://source.android.com/devices/tech/config/carrier\nhttps://cs.android.com/android/platform/superproject/+/master:packages/apps/CarrierConfig/src/com/android/carrierconfig/DefaultCarrierConfigService.java",
+    "description": "Platform carrier config app, bundled with system image.\nMay fail at configuring a new carrier/SIM.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/services/Telephony/src/com/android/phone/CarrierConfigLoader.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.android.carrierconfig.overlay.common": {
     "list": "Aosp",
@@ -7316,10 +7316,10 @@
   },
   "com.android.inputdevices": {
     "list": "Aosp",
-    "description": "Only contains a receiver named \"Android keyboard\", possibly for an external keyboard.\nLocates available keyboard layouts. Apps can offer additional keyboard layouts to the user by declaring a suitable broadcast receiver in their manifest.\nWARNING: If you are using the default Samsung keyboard, then deleting this package on some phones may cause the keyboard to completely stop working. You may get locked out of your phone if the only method to authenticate yourself is using password.",
+    "description": "Does nothing at this time.\nMay break future functionality if the class is updated at a later time.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/InputDevices/src/com/android/inputdevices/InputDeviceReceiver.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Input Devices"],
     "removal": "Expert"
   },
   "com.android.inputmethod.latin": {
@@ -7340,35 +7340,35 @@
   },
   "com.android.intentresolver": {
     "list": "Aosp",
-    "description": "In Android 14 they moved the share menu into this package; if you uninstall it, you can no longer use it. Uh, also breaks motion photos.",
+    "description": "The Chooser Activity handles intent resolution specifically for sharing intents.\nBreaks sharing intents.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/IntentResolver/java/src/com/android/intentresolver/ChooserActivity.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
+    "labels": ["IntentResolver"],
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.corner": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Runtime resource overlay.\nUnknown consequences if an app tries to improperly use a different display cutout than your device cutout.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/overlays/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["Corner cutout"],
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.double": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Runtime resource overlay.\nUnknown consequences if an app tries to improperly use a different display cutout than your device cutout.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/overlays/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
-  },
+    "labels": ["Double cutout"],
+    "removal": "Expert"
+    },
   "com.android.internal.display.cutout.emulation.hole": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Runtime resource overlay.\nUnknown consequences if an app tries to improperly use a different display cutout than your device cutout.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/overlays/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["Punch Hole cutout"],
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.narrow": {
     "list": "Aosp",
@@ -7388,19 +7388,19 @@
   },
   "com.android.internal.display.cutout.emulation.tall": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Runtime resource overlay.\nUnknown consequences if an app tries to improperly use a different display cutout than your device cutout.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/overlays/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["Tall cutout"],
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.waterfall": {
     "list": "Aosp",
-    "description": "Display cutout variant\nhttps://developer.android.com/guide/topics/display-cutout\nhttps://source.android.com/devices/tech/display/display-cutouts\nCause bootloop after removal.",
+    "description": "Runtime resource overlay.\nUnknown consequences if an app tries to improperly use a different display cutout than your device cutout.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/overlays/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["Waterfall cutout"],
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.wide": {
     "list": "Aosp",
@@ -7548,19 +7548,19 @@
   },
   "com.android.providers.blockednumber": {
     "list": "Aosp",
-    "description": "Handles blocked number storage.\nOn some devices this seems to be tied to the recent apps menu (see https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/6)\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Blocked phone number provider.\nDisables phone number blocking.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/providers/BlockedNumberProvider/src/com/android/providers/blockednumber/BlockedNumberProvider.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
+    "labels": ["Blocked Numbers Storage"],
+    "removal": "Advanced"
   },
   "com.android.providers.calendar": {
     "list": "Aosp",
-    "description": "Calendar Storage\nNecessary for the stock Calendar app to work correctly.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Calendar content provider.\nDisables Samsung Calendar sync.\n",
     "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
+    "neededBy": ["com.samsung.android.calendar"],
+    "labels": ["Calendar storage"],
+    "removal": "Advanced"
   },
   "com.android.providers.drm": {
     "list": "Aosp",
@@ -7716,11 +7716,11 @@
   },
   "com.android.certinstaller": {
     "list": "Aosp",
-    "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.\nBreaks Wi-Fi if disabled.",
+    "description": "Installs certificates to the system keystore.\nBreaks system keystore certificates.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["Certificate Installer"],
+    "removal": "Expert"
   },
   "com.android.defcontainer": {
     "list": "Aosp",
@@ -7796,11 +7796,11 @@
   },
   "com.android.mtp": {
     "list": "Aosp",
-    "description": "MTP Host\nHandles MTP(Media Transfer Protocol), a protocol for transfering files between the device and a connected PC.",
+    "description": "Media Transfer Protocol.\nStorage will not be recognized via USB cable without factory reset.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/services/Mtp/src/com/android/mtp/",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
+    "labels": ["MTP Host"],
+    "removal": "Expert"
   },
   "com.android.packageinstaller": {
     "list": "Aosp",
@@ -7860,7 +7860,7 @@
   },
   "com.android.providers.media": {
     "list": "Aosp",
-    "description": "Provider of media files (images, videos and such).\nScans the device for media files and allows permitted apps access to them.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Media content provider. Separate databases are kept for each external storage card we see. The content visible changes with the card.\nBreaks external storage indexing.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/providers/MediaProvider/src/com/android/providers/media/MediaProvider.java;bpv=0;bpt=0",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9794,7 +9794,7 @@
   },
   "android.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Auto-generated Product Runtime Resource Overlay (RRO).\nBattery drain.\nhttps://cs.android.com/android/platform/superproject/main/+/main:build/make/core/artifact_path_requirements.mk",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9802,7 +9802,7 @@
   },
   "android.auto_generated_rro_vendor__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Auto-generated Vendor Runtime Resource Overlay (RRO).\nBattery drain.\nhttps://cs.android.com/android/platform/superproject/main/+/main:build/make/core/artifact_path_requirements.mk",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9810,11 +9810,11 @@
   },
   "com.android.hotspot2.osulogin": {
     "list": "Aosp",
-    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "description": "Online Sign Up Login Web View launched during Provision Process of Hotspot 2.0 rel2.\nBreaks Hotspot 2.0 login.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Wifi/OsuLogin/src/com/android/hotspot2/osulogin/OsuLoginActivity.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
+    "labels": ["OsuLogin"],
+    "removal": "Expert"
   },
   "com.android.theme.icon.pebble": {
     "list": "Aosp",
@@ -16025,12 +16025,12 @@
     "removal": "Advanced"
   },
   "com.android.cameraextensions": {
-    "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.",
+    "list": "Aosp",
+    "description": "A per-process global camera extension manager instance, to track and initialize/release extensions depending on client activity.\nBreaks camera extensions in third-party apps.\nhttps://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/packages/services/CameraExtensionsProxy/src/com/android/cameraextensions/CameraExtensionsProxyService.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
+    "labels": ["CameraExtensionsProxy"],
+    "removal": "Advanced"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
@@ -22184,12 +22184,12 @@
     "labels": []
   },
   "com.google.android.apps.carrier.carrierwifi": {
-    "description": "WiFi Provisioner\nOn the code I found only:\nOpenRoaming is a network of free and secure Wi-Fi hotspots. Require google account and google play services.\nIt can be also for wifi calling.",
-    "removal": "Advanced",
-    "list": "Oem",
+    "list": "Aosp",
+    "description": "Carrier Wi-Fi is an auto-connection feature (using encrypted IMSI) that allows devices to automatically connect to carrier-implemented Wi-Fi networks. In areas of high congestion or with minimal cell coverage such as a stadium or an underground train station, carrier Wi-Fi can be used to improve users' connectivity experience and to offload traffic.\n\nhttps://source.android.com/docs/core/connect/carrier-wifi",
     "dependencies": [],
     "neededBy": [],
-    "labels": []
+    "labels": ["Google Wi-Fi Provisioner"],
+    "removal": "Advanced"
   },
   "com.google.android.apps.cbrsnetworkmonitor": {
     "description": "it's used for spying on you. (citizen broadband network monitor)\nRequire google play services and have location permission.",
@@ -26889,11 +26889,11 @@
   },
   "com.android.hotwordenrollment.xgoogle": {
     "list": "Aosp",
-    "description": "\"OK Google\" detection service.\n",
+    "description": "\nBreaks voice assistance.\n",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
+    "labels": ["Google Assistant"],
+    "removal": "Advanced"
   },
   "com.android.partnerbrowsercustomizations.chromeHomepage": {
     "list": "Google",
@@ -28001,11 +28001,11 @@
   },
   "com.google.android.hotspot2.osulogin": {
     "list": "Aosp",
-    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "description": "Online Sign Up Login Web View launched during Provision Process of Hotspot 2.0 rel2.\nBreaks Hotspot 2.0 login.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Wifi/OsuLogin/src/com/android/hotspot2/osulogin/OsuLoginActivity.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
+    "labels": ["OsuLogin"],
+    "removal": "Expert"
   },
   "com.google.android.ims": {
     "list": "Google",
@@ -29263,11 +29263,11 @@
   },
   "com.android.hotwordenrollment.okgoogle": {
     "list": "Aosp",
-    "description": "\"OK Google\" detection service.",
+    "description": "\nBreaks voice assistance.\n",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
+    "labels": ["Google Assistant"],
+    "removal": "Advanced"
   },
   "com.google.android.apps.inbox": {
     "list": "Google",
@@ -29489,10 +29489,10 @@
   },
   "com.android.bips": {
     "list": "Aosp",
-    "description": "Default Print Service.\nGeneric printing service that should work with most printers.\nWill break printing functionality if disabled, but other replacement print services can be downloaded from the Play Store.",
+    "description": "Built-in print service.\nBreaks printing.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/services/BuiltInPrintService/src/com/android/bips/BuiltInPrintService.java",
     "dependencies": [],
     "neededBy": [],
-    "labels": [],
+    "labels": ["Default Print Service"],
     "removal": "Advanced"
   },
   "com.android.email.partnerprovider": {
@@ -29657,10 +29657,10 @@
   },
   "android": {
     "list": "Aosp",
-    "description": "Android System\nAndroid system framework? Apk file name: framework-res\nCould be THE core of the android system.\nProbably very unsafe to disable.",
+    "description": "Android.\nBricks device.\nhttps://cs.android.com/android/platform/superproject/main",
     "dependencies": [],
-    "neededBy": [],
-    "labels": [],
+    "neededBy": ["*"],
+    "labels": ["Android System"],
     "removal": "Unsafe"
   },
   "com.android.phone": {
