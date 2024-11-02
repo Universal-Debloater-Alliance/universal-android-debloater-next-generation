@@ -27169,7 +27169,7 @@
   },
   "com.google.android.apps.messaging": {
     "list": "Google",
-    "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices.\nFor Unihertz users, removing package breaks receiving all messages with one special exception. Sending messages works 100% as it should. If a message is sent and the recipient responds within 5 minutes, I receive it with no problem. If they take longer than 5 minutes it is lost to the universe.\nReinstalling does not fix the problem. Factory reset fixes it. I ran UAD-ng again and removed all the same packages but left com.google.android.apps.messaging and messaging works as it should.",
+    "description": "Google Messages (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nSMS and RCS app.\nNOTE: possibly a global dependency for SMS, MMS, RCS, OTP, and other services/verifications.\nWARNING: once disabled/uninstalled, even if reinstalled, a factory reset may be required to re-obtain full functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
