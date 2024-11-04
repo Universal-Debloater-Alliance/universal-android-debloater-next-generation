@@ -585,3 +585,22 @@ impl rule::StyleSheet for Theme {
         }
     }
 }
+
+// Unit tests
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_palette() {
+        let palette = Theme::default().palette();
+
+        assert_ne!(palette.base.background, palette.base.foreground);
+        assert_ne!(palette.normal.primary, Color::BLACK);
+        assert_ne!(palette.normal.surface, Color::BLACK);
+        assert_ne!(palette.bright.primary, Color::BLACK);
+        assert_ne!(palette.bright.surface, Color::BLACK);
+        assert_ne!(palette.normal.error, Color::BLACK);
+        assert_ne!(palette.bright.error, Color::BLACK);
+    }
+}
