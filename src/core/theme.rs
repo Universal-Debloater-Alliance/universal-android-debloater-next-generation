@@ -1,5 +1,18 @@
 use dark_light;
 use iced::{color, Color};
+use static_init::dynamic;
+
+/*
+In-memory caching.
+This fixes the perf bug
+caused by Iced repeatedly calling `palette`.
+
+Coincidentally, this also ensures consistent colors across the GUI,
+at the cost of requiring a restart to update the palette.
+(this is just a patch, not a fix)
+*/
+#[dynamic(lazy)]
+pub static OS_COLOR_SCHEME: dark_light::Mode = dark_light::detect();
 
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
 /// Color scheme
@@ -52,6 +65,8 @@ impl Theme {
         clippy::unreadable_literal,
         reason = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/578#discussion_r1759653408"
     )]
+    /// This `fn` _could_ be `const`,
+    /// but `deref`ing a lazy-`static` is non-`const`.
     #[must_use]
     pub fn palette(self) -> ColorPalette {
         const DARK: ColorPalette = ColorPalette {
@@ -112,11 +127,9 @@ impl Theme {
             Self::Dark => DARK,
             Self::Light => LIGHT,
             Self::Lupin => LUPIN,
-            #[allow(clippy::match_same_arms)]
-            Self::Auto => match dark_light::detect() {
+            Self::Auto => match *OS_COLOR_SCHEME {
                 dark_light::Mode::Light => LIGHT,
-                dark_light::Mode::Dark => DARK,
-                dark_light::Mode::Default => DARK,
+                dark_light::Mode::Dark | dark_light::Mode::Default => DARK,
             },
         }
     }

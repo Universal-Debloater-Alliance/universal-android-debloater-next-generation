@@ -18,7 +18,8 @@ self-update = ["flate2", "tar"]
 no-self-update = []
 
 [dependencies]
-dark-light = { version = "^1.0.0" }
+# https://github.com/frewsxcv/rust-dark-light/issues/39
+dark-light = "=1.0.0"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 static_init = "^1.0"

@@ -27201,7 +27201,7 @@
   },
   "com.google.android.apps.messaging": {
     "list": "Google",
-    "description": "Google Messages (SMS+RCS) (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nRuns in the background.\nWARNING: Removing this may cause issues with receiving 2FA verification text messages and calls from Google on some devices.",
+    "description": "Google Messages (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nSMS and RCS app.\nNOTE: possibly a global dependency for SMS, MMS, RCS, OTP, and other services/verifications.\nWARNING: once disabled/uninstalled, even if reinstalled, a factory reset may be required to re-obtain full functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
