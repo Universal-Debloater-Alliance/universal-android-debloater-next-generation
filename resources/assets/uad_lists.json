@@ -38046,11 +38046,10 @@
   },
   "com.taboola.scoop": {
     "list": "Oem",
-    "description": "Random wallpaper on lock screen (as i saw it personalizes it too), you need to open this app to make it work and when you swipe from right to left with your hand, it opens a menu on the right where random news appears.",
+    "description": "Random wallpaper on lock screen (as i saw it personalizes it too). You need to open this app to make it work and when you swipe from right to left, it opens a menu on the right where random news appears.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   }
-
 }
