@@ -7700,7 +7700,7 @@
   },
   "com.android.wallpaperbackup": {
     "list": "Aosp",
-    "description": "Backup your wallapaper and load this backup instead of the original file in case you delete it.\nSafe to remove if you really want to.\n",
+    "description": "Backup your wallpaper and load this backup instead of the original file in case you delete it.\nSafe to remove if you really want to.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
