@@ -136,6 +136,7 @@ mod tests {
         settings.device.device_id = device_id.clone();
         Config::save_changes(&settings, &device_id);
         let config = Config::load_configuration_file();
+        assert!(!config.devices.is_empty(), "Devices list is empty after saving changes!");
         assert_eq!(config.devices[0].device_id, device_id);
     }
 
