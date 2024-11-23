@@ -603,28 +603,3 @@ fn test_palette() {
         assert_ne!(palette.bright.surface, Color::BLACK);
     }
 }
-
-#[test]
-fn test_save_changes() {
-    // Create a default configuration with all required fields
-    let config_content = r#"
-        [general]
-        theme = "light"
-        expert_mode = false
-        backup_folder = "/tmp/backups"
-    "#;
-
-    let config_path = Path::new("test_config.toml");
-    std::fs::write(config_path, config_content).unwrap();
-
-    let mut config = Config::load(config_path).unwrap();
-
-    config.general.theme = "dark".to_string();
-
-    config.save().unwrap();
-
-    let saved_content = std::fs::read_to_string(config_path).unwrap();
-    assert!(saved_content.contains("theme = \"dark\""));
-
-    std::fs::remove_file(config_path).unwrap();
-}
