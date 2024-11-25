@@ -16042,11 +16042,11 @@
   },
   "com.android.globalFileexplorer": {
     "list": "Oem",
-    "description": "Misleading package name. It's the Xiaomi Files Manager on older phones\n",
+    "description": "Mi File Manager\nFind files faster, manage files easily, and share them offline with others. Supports: quick search, moving, deleting, opening, and sharing files, as well as renaming, unzipping, and copy-paste. Mi File Manager also recognizes multiple file formats, including music, videos, images, documents, APKs, and zip-files. We update our app regularly to bring you the best experience\nKeyFeatures:\nRecent, Categories, Stoage, Cleaner, Mi Drop, Global search, Multiple file formats support, File compression, Manage multiple filers, Multiple langauges supported.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.incallui": {
     "list": "Oem",
@@ -16276,11 +16276,11 @@
   },
   "com.miui.global.packageinstaller": {
     "list": "Oem",
-    "description": "The security check / virus scan that runs after package installation.\nDisabling/Uninstalling does not cause a bootloop and package installation still works fine.",
+    "description": "Xaomi Package Installer\nEnsures installation and updates of your apps and software updates.\nNOTE: Causes bootloops on EU firmware.\nCoincidentally, latest EU firmware allegedly ships with hidden KPI-based ads that dial out to CN servers (taobao.com, pdd).\nhttps://xiaomi.eu/community/threads/package-installer-issues-on-xiaomi-eu.72959/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Unsafe"
   },
   "com.miui.guardprovider": {
     "list": "Oem",
@@ -27217,7 +27217,7 @@
   },
   "com.google.android.apps.nbu.files": {
     "list": "Google",
-    "description": "Files by Google (https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.files)\nRuns in the background.",
+    "description": "Files by Google (https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.files)\nFree up space on your device with cleaning recommendations. Find files faster with search and simple browsing. Quickly share files offline with Quick Share. Back up files to the cloud to save space on your device. Secure your files with a non-device lock.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27489,7 +27489,7 @@
   },
   "com.google.android.googlequicksearchbox": {
     "list": "Google",
-    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Google Lens.",
+    "description": "Google app (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nFind quick answers, explore your interests, and stay up to date with Discover.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
