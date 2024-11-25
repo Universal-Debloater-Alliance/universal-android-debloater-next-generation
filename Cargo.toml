@@ -18,7 +18,8 @@ self-update = ["flate2", "tar"]
 no-self-update = []
 
 [dependencies]
-dark-light = { version = "^1.0.0" }
+# https://github.com/frewsxcv/rust-dark-light/issues/39
+dark-light = "=1.0.0"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 static_init = "^1.0"
@@ -65,11 +66,12 @@ panic_in_result_fn = "warn"
 unwrap_used = "warn"
 infinite_loop = "warn"
 mem_forget = "warn"
-string_to_string = "deny"
+string_to_string = "warn"
 format_push_string = "warn"
 large_include_file = "warn"
 shadow_unrelated = "warn"
 struct_field_names = "allow" # annoying
 module_name_repetitions = "allow" # annoying
 
+allow_attributes_without_reason = "warn"
 pedantic = { level = "warn", priority = -1 }
