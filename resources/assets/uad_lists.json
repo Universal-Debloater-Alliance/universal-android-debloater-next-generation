@@ -18325,8 +18325,8 @@
     "labels": []
   },
   "com.lge.provider.signboard": {
-    "description": "Needed for Always on display.",
-    "removal": "Recommended",
+    "description": "Needed for Always on display.\nNOTE: May crash Settings app after removal.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
