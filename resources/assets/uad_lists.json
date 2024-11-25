@@ -16042,11 +16042,11 @@
   },
   "com.android.globalFileexplorer": {
     "list": "Oem",
-    "description": "Mi File Manager\nFind files faster, manage files easily, and share them offline with others. Supports: quick search, moving, deleting, opening, and sharing files, as well as renaming, unzipping, and copy-paste. Mi File Manager also recognizes multiple file formats, including music, videos, images, documents, APKs, and zip-files. We update our app regularly to bring you the best experience\nKeyFeatures:\nRecent, Categories, Stoage, Cleaner, Mi Drop, Global search, Multiple file formats support, File compression, Manage multiple filers, Multiple langauges supported.",
+    "description": "Mi File Manager\nFind files faster, manage files easily, and share them offline with others. Supports: quick search, moving, deleting, opening, and sharing files, as well as renaming, unzipping, and copy-paste. Mi File Manager also recognizes multiple file formats, including music, videos, images, documents, APKs, and zip-files. We update our app regularly to bring you the best experience\nKey Features:\nRecent, Categories, Stoage, Cleaner, Mi Drop, Global search, Multiple file formats support, File compression, Manage multiple filers, Multiple langauges supported.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.android.incallui": {
     "list": "Oem",
