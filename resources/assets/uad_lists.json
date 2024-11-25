@@ -4127,11 +4127,11 @@
   },
   "com.samsung.android.dynamiclock": {
     "list": "Oem",
-    "description": "Samsung Wallpaper services (AKA 'Dynamic Lock')\nAutomatically changes your Lock screen’s wallpaper\nhttps://www.samsung.com/us/support/answer/ANS00084210/\n",
+    "description": "Samsung Wallpaper services (Dynamic Lock)\nNOTE: Breaks LockStar customization.\nAutomatically changes your Lock screen’s wallpaper every time your Galaxy phone wakes up (wallpapers update every 2 weeks).\nhttps://www.samsung.com/us/support/answer/ANS10001593\n",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": ["com.samsung.systemui.lockstar"],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.gearoplugin": {
     "list": "Oem",
