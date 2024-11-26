@@ -14680,14 +14680,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.monotype.android.font.roboto": {
-    "list": "Misc",
-    "description": "Roboto font",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-     "removal": "Recommended"
-  },
   "com.monotype.android.font.rosemary": {
     "list": "Misc",
     "description": "Font",
@@ -26027,14 +26019,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.google.android.photopicker": {
-  "list": "Google",
-  "description": "A photo picker app that tracks everything you do.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Recommended"
   },
   "com.oplus.owkservice": {
     "list": "Oem",
