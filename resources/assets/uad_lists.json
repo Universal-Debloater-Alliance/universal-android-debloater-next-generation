@@ -10564,6 +10564,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.callassistant":{
+   "list": "oem",
+   "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Safe to remove.",
+   "dependencies": [],
+   "neededBy": [],
+   "labels": [],
+   "removal": "Recommended"
+  }
   "com.samsung.phone.overlay.common": {
     "list": "Oem",
     "description": "Possibly the incoming-call screen?",
@@ -14671,6 +14679,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.monotype.android.font.roboto": {
+    "list": "Misc",
+    "description": "Roboto font",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+     "removal": "Recommended"
   },
   "com.monotype.android.font.rosemary": {
     "list": "Misc",
@@ -25604,6 +25620,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.samsung.slsi.telephony.silentlogging":{
+   "description": "Hidden network logging. Safe to remove",
+   "removal": "Recommended",
+   "list": "oem",
+   "dependencies": [],
+   "neededBy": [],
+   "labels": []
+  },
   "com.sec.android.app.volumemonitorprovider": {
     "description": "VolumeMonitorProvider\nused in Digital Wellbeing to average the dB heard through earphones and display it.",
     "removal": "Recommended",
@@ -26003,6 +26027,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.google.android.photopicker": {
+  "list": "Google",
+  "description": "A photo picker app that tracks everything you do.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Recommended"
   },
   "com.oplus.owkservice": {
     "list": "Oem",
