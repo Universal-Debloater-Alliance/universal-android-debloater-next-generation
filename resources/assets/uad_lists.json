@@ -10565,7 +10565,7 @@
     "removal": "Advanced"
   },
   "com.samsung.android.callassistant":{
-   "list": "oem",
+   "list": "Oem",
    "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Safe to remove.",
    "dependencies": [],
    "neededBy": [],
@@ -25623,7 +25623,7 @@
   "com.samsung.slsi.telephony.silentlogging":{
    "description": "Hidden network logging. Safe to remove",
    "removal": "Recommended",
-   "list": "oem",
+   "list": "Oem",
    "dependencies": [],
    "neededBy": [],
    "labels": []
