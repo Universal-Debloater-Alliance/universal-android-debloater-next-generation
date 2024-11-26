@@ -10571,7 +10571,7 @@
    "neededBy": [],
    "labels": [],
    "removal": "Recommended"
-  }
+  },
   "com.samsung.phone.overlay.common": {
     "list": "Oem",
     "description": "Possibly the incoming-call screen?",
