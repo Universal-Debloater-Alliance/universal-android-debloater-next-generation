@@ -7708,7 +7708,7 @@
   },
   "com.android.wallpaperbackup": {
     "list": "Aosp",
-    "description": "Backup your wallpaper and load this backup instead of the original file in case you delete it.\nSafe to remove if you really want to.\n",
+    "description": "Wallpaper Backup\nBacks up and restores wallpaper and metadata related to it.\nThis agent has its own package because it does full backup as opposed to SystemBackupAgent which does key/value backup.\nThis class stages wallpaper files for backup by copying them into its own directory because of the following reasons:\nNon-system users don't have permission to read the directory that the system stores the wallpaper files in\nBackupAgent enforces that backed up files must live inside the package's getFilesDir()\nThere are 3 files to back up:\nThe \"wallpaper info\"  file which contains metadata like the crop applied to the wallpaper or the live wallpaper component name.\nThe \"system\" wallpaper file.\nAn optional \"lock\" wallpaper, which is shown on the lockscreen instead of the system wallpaper if set.\nOn restore, the metadata file is parsed and WallpaperManager APIs are used to set the wallpaper.\nNote that if there's a live wallpaper, the live wallpaper package name will be part of the metadata file and the wallpaper will be applied when the package it's installed.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/WallpaperBackup/src/com/android/wallpaperbackup/WallpaperBackupAgent.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
