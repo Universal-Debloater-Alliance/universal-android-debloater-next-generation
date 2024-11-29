@@ -5102,7 +5102,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.storyservice": {
     "list": "Oem",
@@ -7604,7 +7604,7 @@
   },
   "com.android.se": {
     "list": "Aosp",
-    "description": "SecureElementApplication\nRuns in the background as part of the system.\nUnderlying implementation for the OMAPI SE service.\nEnables apps to use the OpenMobile API to access secure elements(SE) to enable smart-card payments and other secure services.\n\nAn SE is a special chip (e.g SIM-card) for storing cryptographic secrets in a way that makes illicit use hard.\nThe Open Mobile Alliance (OPA) is a standards organization which develops open standards for the mobile phone industry.",
+    "description": "SecureElementApplication\nRuns in the background as part of the system.\nNOTE: ColorOS password lock requires this package.\nUnderlying implementation for the OMAPI SE service.\nEnables apps to use the OpenMobile API to access secure elements(SE) to enable smart-card payments and other secure services.\n\nAn SE is a special chip (e.g SIM-card) for storing cryptographic secrets in a way that makes illicit use hard.\nThe Open Mobile Alliance (OPA) is a standards organization which develops open standards for the mobile phone industry.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18325,8 +18325,8 @@
     "labels": []
   },
   "com.lge.provider.signboard": {
-    "description": "Needed for Always on display.",
-    "removal": "Recommended",
+    "description": "Needed for Always on display.\nNOTE: May crash Settings app after removal.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -29093,11 +29093,11 @@
   },
   "com.huawei.lbs": {
     "list": "Oem",
-    "description": "HwLBService\nChinese Location Services(Baidu) only for China. After removal, location still works.",
+    "description": "Location Based Services\nLocation-based services (LBS) are applications or services that utilize location data from a user's device, such as a smartphone or GPS, to provide relevant information, directions, or recommendations tailored to their specific location. These services rely on a combination of technologies, including Global Positioning System (GPS), Wi-Fi, cellular networks, and sensors, to determine a user's position accurately.\nNOTE: Can cause bootloops on some devices.\nThe primary goal of LBS is to offer personalized and context-aware experiences based on a user's geographical location. This can include services like:\n1. Navigation and Mapping, 2. Location-Based Advertising, 3. Social Networking, 4. Emergency Services, 5. IoT Asset Tracking\nhttps://forum.huawei.com/enterprise/en/location-based-services/thread/703168442200375296-667213855346012160",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.huawei.mmitest": {
     "list": "Oem",
