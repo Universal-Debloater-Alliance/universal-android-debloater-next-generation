@@ -18,15 +18,21 @@ const PM_CLEAR_PACK: &str = "pm clear";
 #[dynamic]
 static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
 
+/// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Phone {
-    pub model: String,
+pub struct Device {
+    /// Non-market name
+    pub model: String, // could be `Copy`
+    /// Android API level version
     pub android_sdk: u8,
+    /// In theory, `len < u16::MAX` _should_ always be `true`.
+    /// In practice, `len <= u8::MAX`.
     pub user_list: Vec<User>,
-    pub adb_id: String,
+    /// Unique serial identifier
+    pub adb_id: String, // could be `Copy`
 }
 
-impl Default for Phone {
+impl Default for Device {
     fn default() -> Self {
         Self {
             model: "fetching devices...".to_string(),
@@ -37,7 +43,7 @@ impl Default for Phone {
     }
 }
 
-impl std::fmt::Display for Phone {
+impl std::fmt::Display for Device {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.model)
     }
@@ -210,7 +216,7 @@ pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
     selected_user: &User,
-    phone: &Phone,
+    phone: &Device,
 ) -> Vec<String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
@@ -316,12 +322,12 @@ pub fn get_user_list() -> Vec<User> {
 }
 
 // getprop ro.serialno
-pub async fn get_devices_list() -> Vec<Phone> {
+pub async fn get_devices_list() -> Vec<Device> {
     retry(
         Fixed::from_millis(500).take(120),
         || match adb_shell_command(false, "devices") {
             Ok(devices) => {
-                let mut device_list: Vec<Phone> = vec![];
+                let mut device_list: Vec<Device> = vec![];
                 if !RE.is_match(&devices) {
                     return OperationResult::Retry(vec![]);
                 }
@@ -330,7 +336,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                     unsafe {
                         set_adb_serial(&device[1])
                     };
-                    device_list.push(Phone {
+                    device_list.push(Device {
                         model: get_phone_brand(),
                         android_sdk: get_android_sdk(),
                         user_list: get_user_list(),
@@ -341,7 +347,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
             }
             Err(err) => {
                 error!("get_device_list() -> {}", err);
-                let test: Vec<Phone> = vec![];
+                let test: Vec<Device> = vec![];
                 OperationResult::Retry(test)
             }
         },

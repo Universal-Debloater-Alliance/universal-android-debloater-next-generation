@@ -1,7 +1,7 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
 use crate::core::sync::{
-    apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Phone, User,
+    apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Device, User,
 };
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
@@ -116,7 +116,7 @@ impl List {
     pub fn update(
         &mut self,
         settings: &mut Settings,
-        selected_device: &mut Phone,
+        selected_device: &mut Device,
         list_update_state: &mut UadListState,
         message: Message,
     ) -> Command<Message> {
@@ -354,7 +354,7 @@ impl List {
     pub fn view(
         &self,
         settings: &Settings,
-        selected_device: &Phone,
+        selected_device: &Device,
     ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
@@ -400,7 +400,7 @@ impl List {
         }
     }
 
-    fn control_panel(&self, selected_device: &Phone) -> Element<Message, Theme, Renderer> {
+    fn control_panel(&self, selected_device: &Device) -> Element<Message, Theme, Renderer> {
         let search_packages = text_input("Search packages...", &self.input_value)
             .width(Length::Fill)
             .on_input(Message::SearchInputChanged)
@@ -464,7 +464,7 @@ impl List {
     fn ready_view(
         &self,
         settings: &Settings,
-        selected_device: &Phone,
+        selected_device: &Device,
     ) -> Element<Message, Theme, Renderer> {
         let packages = self
             .filtered_packages
@@ -623,7 +623,7 @@ impl List {
     #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,
-        device: &Phone,
+        device: &Device,
         settings: &Settings,
         packages: &[PackageRow],
     ) -> Element<Message, Theme, Renderer> {
@@ -863,7 +863,7 @@ impl List {
     }
 
     #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn init_apps_view(remote: bool, device: Phone) -> (PackageHashMap, UadListState) {
+    async fn init_apps_view(remote: bool, device: Device) -> (PackageHashMap, UadListState) {
         let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
@@ -943,7 +943,7 @@ fn waiting_view<'a>(
 
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
-    device: &Phone,
+    device: &Device,
     settings: &DeviceSettings,
     selection: (usize, usize),
 ) -> Vec<Command<Message>> {

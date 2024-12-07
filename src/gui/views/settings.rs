@@ -5,7 +5,7 @@ use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSetting
 use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
-use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Phone, User};
+use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Device, User};
 use crate::core::theme::Theme;
 use crate::core::utils::{
     export_packages, open_folder, open_url, string_to_theme, DisplayablePath,
@@ -74,7 +74,7 @@ impl Settings {
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
-        phone: &Phone,
+        phone: &Device,
         packages: &[Vec<PackageRow>],
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
@@ -259,7 +259,7 @@ impl Settings {
 
     // TODO: refactor later
     #[allow(clippy::too_many_lines)]
-    pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
+    pub fn view(&self, phone: &Device, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()
             .fold(row![].spacing(10), |column, option| {

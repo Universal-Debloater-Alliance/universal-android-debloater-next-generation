@@ -1,5 +1,5 @@
 use crate::core::config::{Config, DeviceSettings};
-use crate::core::sync::{apply_pkg_state_commands, CorePackage, Phone, User};
+use crate::core::sync::{apply_pkg_state_commands, CorePackage, Device, User};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
 use crate::CACHE_DIR;
@@ -112,7 +112,7 @@ pub struct BackupPackage {
 }
 
 pub fn restore_backup(
-    selected_device: &Phone,
+    selected_device: &Device,
     packages: &[Vec<PackageRow>],
     settings: &DeviceSettings,
 ) -> Result<Vec<BackupPackage>, String> {
