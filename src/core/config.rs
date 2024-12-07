@@ -1,8 +1,5 @@
 use crate::core::utils::DisplayablePath;
-use crate::core::{
-    sync::{get_android_sdk, User},
-    theme::Theme,
-};
+use crate::core::{sync::User, theme::Theme};
 use crate::gui::views::settings::Settings;
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
@@ -36,6 +33,7 @@ pub struct BackupSettings {
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct DeviceSettings {
+    /// Unique serial identifier
     pub device_id: String,
     pub disable_mode: bool,
     pub multi_user_mode: bool,
@@ -57,7 +55,7 @@ impl Default for DeviceSettings {
     fn default() -> Self {
         Self {
             device_id: String::default(),
-            multi_user_mode: get_android_sdk() > 21,
+            multi_user_mode: false,
             disable_mode: false,
             backup: BackupSettings::default(),
         }

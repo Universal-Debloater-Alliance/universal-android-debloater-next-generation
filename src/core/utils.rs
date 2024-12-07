@@ -5,7 +5,6 @@ use crate::gui::widgets::package_row::PackageRow;
 use chrono::offset::Utc;
 use chrono::{DateTime, Local};
 use csv::Writer;
-use std::ffi::OsStr;
 use std::path::PathBuf;
 use std::process::Command;
 use std::{fmt, fs};
@@ -20,20 +19,16 @@ pub enum Error {
     DialogClosed,
 }
 
-#[allow(unsafe_code)]
-#[allow(
-    clippy::semicolon_if_nothing_returned,
-    reason = "fn must return whatever `set_var` returns"
-)]
-pub unsafe fn set_adb_serial<D: AsRef<OsStr>>(device_serial: D) {
-    // https://developer.android.com/tools/variables#adb
-    std::env::set_var("ANDROID_SERIAL", device_serial)
-}
-
-pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
-    let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
-    let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
-    let disabled_system_packages = hashset_system_packages(PackageState::Disabled, user_id);
+pub fn fetch_packages(
+    uad_lists: &PackageHashMap,
+    device_serial: &str,
+    user_id: Option<&User>,
+) -> Vec<PackageRow> {
+    let all_system_packages = list_all_system_packages(device_serial, user_id);
+    let enabled_system_packages =
+        hashset_system_packages(PackageState::Enabled, device_serial, user_id);
+    let disabled_system_packages =
+        hashset_system_packages(PackageState::Disabled, device_serial, user_id);
     let mut description;
     let mut uad_list;
     let mut state;

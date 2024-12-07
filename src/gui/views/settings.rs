@@ -1,11 +1,12 @@
 use crate::core::helpers::button_primary;
-use crate::core::sync::AdbError;
 
 use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
 use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
-use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Device, User};
+use crate::core::sync::{
+    get_android_sdk, android_sh_cmd, supports_multi_user, AdbError, CommandType, Device, User,
+};
 use crate::core::theme::Theme;
 use crate::core::utils::{
     export_packages, open_folder, open_url, string_to_theme, DisplayablePath,
@@ -137,7 +138,7 @@ impl Settings {
                     None => {
                         self.device = DeviceSettings {
                             device_id: phone.adb_id.clone(),
-                            multi_user_mode: phone.android_sdk > 21,
+                            multi_user_mode: supports_multi_user(phone),
                             disable_mode: false,
                             backup,
                         }
@@ -186,7 +187,8 @@ impl Settings {
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
                             commands.push(Command::perform(
-                                perform_adb_commands(
+                                android_sh_cmd(
+                                    phone.adb_id.clone(),
                                     command,
                                     CommandType::PackageManager(p_info.clone()),
                                 ),
@@ -195,7 +197,7 @@ impl Settings {
                         }
                     }
                     if r_packages.is_empty() {
-                        if get_android_sdk() == 0 {
+                        if get_android_sdk(&phone.adb_id) == 0 {
                             self.device.backup.backup_state = "Device is not connected".to_string();
                         } else {
                             self.device.backup.backup_state =

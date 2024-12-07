@@ -2,13 +2,11 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{
-    get_devices_list, initial_load, perform_adb_commands, CommandType, Device,
-};
+use crate::core::sync::{android_sh_cmd, get_devices_list, initial_load, CommandType, Device};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{set_adb_serial, string_to_theme, NAME};
+use crate::core::utils::{string_to_theme, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -161,10 +159,15 @@ impl Application for UadGui {
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
+                let serial = match &self.selected_device {
+                    Some(d) => d.adb_id.clone(),
+                    _ => String::default(),
+                };
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Command::perform(
-                    perform_adb_commands("reboot".to_string(), CommandType::Shell),
+                    // https://android.stackexchange.com/questions/230256/adb-reboot-vs-adb-shell-reboot
+                    android_sh_cmd(serial, "reboot".to_string(), CommandType::Shell),
                     |_| Message::Nothing,
                 )
             }
@@ -256,10 +259,6 @@ impl Application for UadGui {
             Message::DeviceSelected(s_device) => {
                 self.selected_device = Some(s_device.clone());
                 self.view = View::List;
-                #[allow(unsafe_code)]
-                unsafe {
-                    set_adb_serial(s_device.adb_id)
-                };
                 info!("{:-^65}", "-");
                 info!(
                     "ANDROID_SDK: {} | DEVICE: {}",
