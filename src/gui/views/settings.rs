@@ -5,7 +5,7 @@ use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
 use crate::core::sync::{
-    get_android_sdk, android_sh_cmd, supports_multi_user, AdbError, CommandType, Device, User,
+    android_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User,
 };
 use crate::core::theme::Theme;
 use crate::core::utils::{
