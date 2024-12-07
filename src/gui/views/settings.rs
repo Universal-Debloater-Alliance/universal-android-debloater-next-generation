@@ -5,7 +5,7 @@ use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
 use crate::core::sync::{
-    android_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User,
+    adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User,
 };
 use crate::core::theme::Theme;
 use crate::core::utils::{
@@ -187,7 +187,7 @@ impl Settings {
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
                             commands.push(Command::perform(
-                                android_sh_cmd(
+                                adb_sh_cmd(
                                     phone.adb_id.clone(),
                                     command,
                                     CommandType::PackageManager(p_info.clone()),

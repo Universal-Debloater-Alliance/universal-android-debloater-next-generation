@@ -2,7 +2,7 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{android_sh_cmd, get_devices_list, initial_load, CommandType, Device};
+use crate::core::sync::{adb_sh_cmd, get_devices_list, initial_load, CommandType, Device};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
@@ -167,7 +167,7 @@ impl Application for UadGui {
                 self.devices_list = vec![];
                 Command::perform(
                     // https://android.stackexchange.com/questions/230256/adb-reboot-vs-adb-shell-reboot
-                    android_sh_cmd(serial, "reboot".to_string(), CommandType::Shell),
+                    adb_sh_cmd(serial, "reboot".to_string(), CommandType::Shell),
                     |_| Message::Nothing,
                 )
             }
