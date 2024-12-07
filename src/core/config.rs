@@ -73,7 +73,7 @@ impl Config {
             .iter_mut()
             .find(|x| x.device_id == *device_id)
         {
-            *device = settings.device.clone();
+            device.clone_from(&settings.device);
         } else {
             debug!("config: New device settings saved");
             config.devices.push(settings.device.clone());
@@ -95,5 +95,59 @@ impl Config {
         let toml = toml::to_string(&Self::default()).unwrap();
         fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
         Self::default()
+    }
+}
+
+//write unit tests:
+#[allow(clippy::unwrap_used)]
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::path::Path;
+
+    // create a clean default config file for testing
+    fn create_default_config_file() {
+        let toml = toml::to_string(&Config::default()).unwrap();
+        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
+    }
+
+    #[test]
+    fn test_create_default_config_file() {
+        create_default_config_file();
+        assert!(CONFIG_FILE.exists());
+    }
+
+    #[test]
+    fn test_load_configuration_file() {
+        create_default_config_file();
+        let config = Config::load_configuration_file();
+        assert_eq!(config.devices.len(), 0);
+        assert_eq!(config.general.theme, Theme::default().to_string());
+        assert!(!config.general.expert_mode);
+        assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
+    }
+
+    #[test]
+    fn test_save_changes() {
+        let mut settings = Settings::default();
+        let device_id = "test_device".to_string();
+        settings.device.device_id = device_id.clone();
+        Config::save_changes(&settings, &device_id);
+        let config = Config::load_configuration_file();
+        assert_eq!(config.devices[0].device_id, device_id);
+    }
+
+    #[test]
+    fn test_default_config() {
+        let config = Config::default();
+        assert_eq!(config.devices.len(), 0);
+        assert_eq!(config.general.theme, Theme::default().to_string());
+        assert!(!config.general.expert_mode);
+        assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
+    }
+
+    #[test]
+    fn test_config_file_path() {
+        assert_eq!(&*CONFIG_FILE, Path::new(&*CONFIG_DIR.join("config.toml")));
     }
 }

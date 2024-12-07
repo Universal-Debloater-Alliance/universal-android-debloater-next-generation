@@ -10,16 +10,17 @@ could happen to your phone.
 
 <img src="/resources/screenshots/v1.0.2.png" width="850" alt="uad_screenshot">
 
-**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**
+**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**. We're in **HIGH NEED** of Rust developers for fixing critical issues, see [this announcement](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/731) for more information.
 
 **For real-time communication, consider joining our Discord server:**
 
-[![](https://dcbadge.vercel.app/api/server/YHujHzA57a)](https://discord.gg/YHujHzA57a)
+<a href="https://discord.gg/CzwbMCPEZa">
+  <img src="./resources/images/icon_clyde_blurple_RGB.png" alt="Icon" width="75">
+</a>
 
 **In case you prefer using Matrix (using a Matrix bridge to Discord):**
 
 [<img src="https://matrix.org/images/matrix-logo.svg">](https://matrix.to/#/#uad-ng:matrix.org)
-
 
 ## Summary
 
