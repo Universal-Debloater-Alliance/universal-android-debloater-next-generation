@@ -15,7 +15,7 @@ pub const NAME: &str = "UAD-ng";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum Error {
     DialogClosed,
 }
