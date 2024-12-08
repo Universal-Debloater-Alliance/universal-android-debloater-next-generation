@@ -48,7 +48,7 @@ impl std::fmt::Display for Device {
     }
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Eq, Copy)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct User {
     pub id: u16,
     pub index: usize,
@@ -66,6 +66,8 @@ impl std::fmt::Display for User {
 ///
 /// This is not intended to model the entire ADB API.
 /// It only models the subset that concerns UADNG.
+///
+/// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
 pub struct AdbCmd(Command);
 impl AdbCmd {
@@ -74,8 +76,9 @@ impl AdbCmd {
     }
     /// If `device_serial` is empty, it lets ADB choose the default device.
     pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> AdbShCmd {
-        if !device_serial.as_ref().is_empty() {
-            self.0.args(["-s", device_serial.as_ref()]);
+        let serial = device_serial.as_ref();
+        if !serial.is_empty() {
+            self.0.args(["-s", serial]);
         }
         self.0.arg("shell");
         AdbShCmd(self)
@@ -88,6 +91,7 @@ impl AdbCmd {
         self.0.arg("devices");
         self.run()
     }
+    /// Reboots default device
     pub fn reboot(mut self) -> Result<String, String> {
         self.0.arg("reboot");
         self.run()
@@ -126,6 +130,7 @@ impl AdbCmd {
 
 /// Builder for a command that runs on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
+///
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 #[derive(Debug)]
 pub struct AdbShCmd(AdbCmd);
@@ -134,18 +139,64 @@ impl AdbShCmd {
         self.0 .0.arg("pm");
         ApmCmd(self)
     }
+    /// Reboots device
     pub fn reboot(mut self) -> Result<String, String> {
         self.0 .0.arg("reboot");
         self.0.run()
     }
 }
 
+/// `pm list packages` flag/state/type
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum PmLsPackFlag {
+    /// All: Include uninstalled
+    U,
+    /// Only enabled
+    E,
+    /// Only disabled
+    D,
+}
+impl PmLsPackFlag {
+    // is there a trait for this?
+    fn to_str(self) -> &'static str {
+        match self {
+            PmLsPackFlag::U => "-u",
+            PmLsPackFlag::E => "-e",
+            PmLsPackFlag::D => "-d",
+        }
+    }
+}
+#[expect(clippy::to_string_trait_impl, reason = "This is not user-facing")]
+impl ToString for PmLsPackFlag {
+    fn to_string(&self) -> String {
+        self.to_str().to_string()
+    }
+}
+
 /// Builder for an Android Package Manager command.
+///
+/// [More info](https://developer.android.com/tools/adb#pm)
 #[derive(Debug)]
 pub struct ApmCmd(AdbShCmd);
 impl ApmCmd {
-    pub fn list(mut self, state: PackageState) -> Result<String, String> {
-        self.0 .0 .0.args(["list", "-s"]);
+    pub fn list_packs(
+        mut self,
+        f: Option<PmLsPackFlag>,
+        u: Option<User>,
+    ) -> Result<String, String> {
+        let cmd = &mut self.0 .0 .0;
+        cmd.args(["list", "packages", "-s"]);
+        if let Some(s) = f {
+            cmd.arg(s.to_str());
+        };
+        if let Some(u) = u {
+            cmd.arg("--user");
+            cmd.arg(u.id.to_string());
+        };
+        self.0 .0.run()
+    }
+    pub fn list_users(mut self) -> Result<String, String> {
+        self.0 .0 .0.args(["list", "users"]);
         self.0 .0.run()
     }
 }
@@ -157,25 +208,21 @@ impl ApmCmd {
 /// If `serial` is empty, it lets ADB choose the default device.
 ///
 /// If `shell`, it's likely you want `serial` to _not_ be empty.
-pub fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
-    // this could be a `tinyvec` or `arrayvec`
-    let mut adb_args = Vec::with_capacity(4);
+fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
+    let mut cmd = Command::new("adb");
     if !serial.is_empty() {
-        adb_args.extend(["-s", serial]);
+        cmd.args(["-s", serial]);
     };
     if shell {
-        adb_args.push("shell");
+        cmd.arg("shell");
     }
-    // the rest
-    adb_args.push(args);
-
-    let mut command = Command::new("adb");
-    command.args(adb_args);
+    // this works even without "shell"?
+    cmd.arg(args);
 
     #[cfg(target_os = "windows")]
-    let command = command.creation_flags(0x0800_0000); // do not open a cmd window
+    let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
 
-    match command.output() {
+    match cmd.output() {
         Err(e) => {
             error!("ADB: {}", e);
             Err("Cannot run ADB, likely not found".to_string())
@@ -249,7 +296,7 @@ pub async fn adb_sh_cmd<S: AsRef<str>>(
 }
 
 /// If `None`, returns an empty String, not " --user 0"
-pub fn user_flag(user_id: Option<&User>) -> String {
+pub fn user_flag(user_id: Option<User>) -> String {
     user_id
         .map(|user| format!(" --user {}", user.id))
         .unwrap_or_default()
@@ -262,10 +309,12 @@ pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as u8;
 /// Installed and uninstalled packages.
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> Vec<String> {
-    let action = format!("{PM_LIST_PACKS} -s -u{}", user_flag(user_id));
-
-    match adb_cmd(true, device_serial, &action) {
+pub fn list_all_system_packages(device_serial: &str, user_id: Option<User>) -> Vec<String> {
+    match AdbCmd::new()
+        .shell(device_serial)
+        .pm()
+        .list_packs(Some(PmLsPackFlag::U), user_id)
+    {
         Ok(s) => s
             .lines()
             // Assume every line has the same prefix
@@ -279,7 +328,7 @@ pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> 
 pub fn hashset_system_packages(
     state: PackageState,
     device_serial: &str,
-    user_id: Option<&User>,
+    user_id: Option<User>,
 ) -> HashSet<String> {
     let user = user_flag(user_id);
     let action = match state {
@@ -334,7 +383,7 @@ impl From<&PackageRow> for CorePackage {
 pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
-    selected_user: &User,
+    selected_user: User,
     dev: &Device,
 ) -> Vec<String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
@@ -379,7 +428,7 @@ pub fn apply_pkg_state_commands(
 /// Build a command request to be sent via ADB to a device.
 /// `commands` accepts one or more ADB shell commands
 /// which act on a common `package` and `user`.
-pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) -> Vec<String> {
+pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
@@ -449,11 +498,14 @@ pub fn is_protected_user(user_id: &str, device_serial: &str) -> bool {
     .is_err()
 }
 
-/// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn get_user_list(device_serial: &str) -> Vec<User> {
+/// `pm list users` parsed into a vec with extra info.
+pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
     #[dynamic]
     static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
-    adb_cmd(true, device_serial, "pm list users")
+    AdbCmd::new()
+        .shell(device_serial)
+        .pm()
+        .list_users()
         .map(|users| {
             RE.find_iter(&users)
                 .enumerate()
@@ -481,7 +533,7 @@ pub async fn get_devices_list() -> Vec<Device> {
                     device_list.push(Device {
                         model: get_device_brand(serial),
                         android_sdk: get_android_sdk(serial),
-                        user_list: get_user_list(serial),
+                        user_list: list_users_parsed(serial),
                         adb_id: serial.to_string(),
                     });
                 }

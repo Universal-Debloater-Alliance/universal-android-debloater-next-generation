@@ -22,7 +22,7 @@ pub enum Error {
 pub fn fetch_packages(
     uad_lists: &PackageHashMap,
     device_serial: &str,
-    user_id: Option<&User>,
+    user_id: Option<User>,
 ) -> Vec<PackageRow> {
     let all_sys_packs = list_all_system_packages(device_serial, user_id);
     let enabled_sys_packs = hashset_system_packages(PackageState::Enabled, device_serial, user_id);

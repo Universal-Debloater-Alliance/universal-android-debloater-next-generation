@@ -868,7 +868,7 @@ impl List {
         } else {
             user_list
                 .iter()
-                .map(|user| fetch_packages(&uad_list, serial, Some(user)))
+                .map(|user| fetch_packages(&uad_list, serial, Some(*user)))
                 .collect()
         }
     }
@@ -977,7 +977,7 @@ fn build_action_pkg_commands(
             u_pkg.state.opposite(settings.disable_mode)
         };
 
-        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, u, device);
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
