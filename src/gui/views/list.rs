@@ -127,7 +127,12 @@ impl List {
                 Command::none()
             }
             Message::ModalValidate => {
-                let mut commands = vec![];
+                let mut commands = Vec::with_capacity(
+                    self.selected_packages
+                        .len()
+                        .checked_mul(2)
+                        .unwrap_or_else(|| unreachable!()),
+                );
                 self.selected_packages.sort_unstable();
                 self.selected_packages.dedup();
                 for selection in &self.selected_packages {
