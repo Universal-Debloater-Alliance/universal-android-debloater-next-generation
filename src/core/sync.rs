@@ -61,7 +61,8 @@ impl std::fmt::Display for User {
     }
 }
 
-/// Builder for an ADB CLI command.
+/// Builder for an ADB CLI command,
+/// using the type-state and new-type patterns.
 ///
 /// This is not intended to model the entire ADB API.
 /// It only models the subset that concerns UADNG.
