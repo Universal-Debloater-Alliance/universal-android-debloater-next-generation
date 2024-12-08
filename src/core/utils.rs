@@ -5,7 +5,7 @@ use crate::gui::widgets::package_row::PackageRow;
 use chrono::offset::Utc;
 use chrono::{DateTime, Local};
 use csv::Writer;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::{fmt, fs};
 
@@ -24,18 +24,20 @@ pub fn fetch_packages(
     device_serial: &str,
     user_id: Option<&User>,
 ) -> Vec<PackageRow> {
-    let all_system_packages = list_all_system_packages(device_serial, user_id);
-    let enabled_system_packages =
-        hashset_system_packages(PackageState::Enabled, device_serial, user_id);
-    let disabled_system_packages =
+    let all_sys_packs = list_all_system_packages(device_serial, user_id);
+    let enabled_sys_packs = hashset_system_packages(PackageState::Enabled, device_serial, user_id);
+    let disabled_sys_packs =
         hashset_system_packages(PackageState::Disabled, device_serial, user_id);
     let mut description;
     let mut uad_list;
     let mut state;
     let mut removal;
-    let mut user_package: Vec<PackageRow> = Vec::new();
+    // This assumes `for` iter-count is **exact**:
+    // there are no `continue`s, `break`s, or `return`s.
+    let mut user_package: Vec<PackageRow> = Vec::with_capacity(all_sys_packs.len());
 
-    for p_name in all_system_packages.lines() {
+    for pack_name in all_sys_packs {
+        let p_name = &pack_name;
         state = PackageState::Uninstalled;
         description = "[No description]: CONTRIBUTION WELCOMED";
         uad_list = UadList::Unlisted;
@@ -49,9 +51,9 @@ pub fn fetch_packages(
             removal = package.removal;
         }
 
-        if enabled_system_packages.contains(p_name) {
+        if enabled_sys_packs.contains(p_name) {
             state = PackageState::Enabled;
-        } else if disabled_system_packages.contains(p_name) {
+        } else if disabled_sys_packs.contains(p_name) {
             state = PackageState::Disabled;
         }
 
@@ -74,7 +76,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
     }
 }
 
-pub fn setup_uad_dir(dir: &PathBuf) -> PathBuf {
+pub fn setup_uad_dir(dir: &Path) -> PathBuf {
     let dir = dir.join("uad");
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Can't create directory: {dir:?}");
@@ -105,7 +107,6 @@ pub fn open_url(dir: PathBuf) {
 }
 
 #[rustfmt::skip]
-#[allow(clippy::option_if_let_else)]
 pub fn last_modified_date(file: PathBuf) -> DateTime<Utc> {
     fs::metadata(file).map_or_else(|_| Utc::now(), |metadata| match metadata.modified() {
         Ok(time) => time.into(),

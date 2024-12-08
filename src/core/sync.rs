@@ -166,15 +166,23 @@ pub fn user_flag(user_id: Option<&User>) -> String {
         .unwrap_or_default()
 }
 
+pub const PACK_URI_SCHEME: &str = "package:";
+#[expect(clippy::cast_possible_truncation, reason = "")]
+pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as u8;
+
 /// Installed and uninstalled packages.
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> String {
+pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> Vec<String> {
     let action = format!("{PM_LIST_PACKS} -s -u{}", user_flag(user_id));
 
-    adb_cmd(true, device_serial, &action)
-        .unwrap_or_default()
-        .replace("package:", "")
+    match adb_cmd(true, device_serial, &action) {
+        Ok(s) => s
+            .lines()
+            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
+            .collect(),
+        _ => vec![],
+    }
 }
 
 /// If `device_serial` is empty, it lets ADB choose the default device.
@@ -190,12 +198,13 @@ pub fn hashset_system_packages(
         _ => return HashSet::default(), // You probably don't need to use this function for anything else
     };
 
-    adb_cmd(true, device_serial, &action)
-        .unwrap_or_default()
-        .replace("package:", "")
-        .lines()
-        .map(String::from)
-        .collect()
+    match adb_cmd(true, device_serial, &action) {
+        Ok(s) => s
+            .lines()
+            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
+            .collect(),
+        _ => HashSet::default(),
+    }
 }
 
 // Minimum information for processing adb commands
