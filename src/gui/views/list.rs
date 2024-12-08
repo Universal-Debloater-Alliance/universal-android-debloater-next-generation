@@ -321,7 +321,7 @@ impl List {
                 )
             }
             Message::ClearSelectedPackages => {
-                self.selected_packages = Vec::new();
+                self.selected_packages = vec![];
                 Command::none()
             }
             Message::ADBSatisfied(result) => {
