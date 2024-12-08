@@ -952,8 +952,15 @@ fn build_action_pkg_commands(
     let pkg = &packages[selection.0][selection.1];
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
-    // assume 2 actions per user
-    let mut commands = Vec::with_capacity(device.user_list.len() * 2);
+    // performance, and fail-fast in case of OOM
+    let mut commands = Vec::with_capacity(
+        device
+            .user_list
+            .len()
+            // ~2 actions per user
+            .checked_mul(2)
+            .unwrap_or_else(|| unreachable!()),
+    );
 
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected && (packages[u.index][selection.1].selected || settings.multi_user_mode)
