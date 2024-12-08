@@ -31,8 +31,7 @@ pub struct BackupSettings {
     pub backup_state: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
-#[derive(Default)]
+#[derive(Debug, Serialize, Deserialize, Clone, Default)]
 pub struct DeviceSettings {
     /// Unique serial identifier
     pub device_id: String,
@@ -51,7 +50,6 @@ impl Default for GeneralSettings {
         }
     }
 }
-
 
 #[dynamic]
 static CONFIG_FILE: PathBuf = CONFIG_DIR.join("config.toml");
