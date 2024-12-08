@@ -179,6 +179,7 @@ pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> 
     match adb_cmd(true, device_serial, &action) {
         Ok(s) => s
             .lines()
+            // Assume every line has the same prefix
             .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
             .collect(),
         _ => vec![],
@@ -201,6 +202,7 @@ pub fn hashset_system_packages(
     match adb_cmd(true, device_serial, &action) {
         Ok(s) => s
             .lines()
+            // Assume every line has the same prefix
             .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
             .collect(),
         _ => HashSet::default(),
