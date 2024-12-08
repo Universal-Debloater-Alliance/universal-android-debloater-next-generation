@@ -283,7 +283,7 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) ->
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
-        .map(|c| format!("{}{} {}", c, maybe_user_flag, package))
+        .map(|c| format!("{c}{maybe_user_flag} {package}"))
         .collect()
 }
 

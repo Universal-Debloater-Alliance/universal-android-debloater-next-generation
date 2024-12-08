@@ -32,6 +32,7 @@ pub struct BackupSettings {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Default)]
 pub struct DeviceSettings {
     /// Unique serial identifier
     pub device_id: String,
@@ -51,16 +52,6 @@ impl Default for GeneralSettings {
     }
 }
 
-impl Default for DeviceSettings {
-    fn default() -> Self {
-        Self {
-            device_id: String::default(),
-            multi_user_mode: false,
-            disable_mode: false,
-            backup: BackupSettings::default(),
-        }
-    }
-}
 
 #[dynamic]
 static CONFIG_FILE: PathBuf = CONFIG_DIR.join("config.toml");
