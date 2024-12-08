@@ -1,5 +1,4 @@
 use crate::core::uad_lists::PackageState;
-use crate::core::utils::ANDROID_SERIAL;
 use crate::gui::views::list::PackageInfo;
 use crate::gui::widgets::package_row::PackageRow;
 use regex::Regex;
@@ -7,24 +6,32 @@ use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
 use std::collections::HashSet;
-use std::env;
 use std::process::Command;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
 
-#[dynamic]
-static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap();
+const PM_LIST_PACKS: &str = "pm list packages";
+const PM_CLEAR_PACK: &str = "pm clear";
 
+#[dynamic]
+static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
+
+/// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Phone {
-    pub model: String,
+pub struct Device {
+    /// Non-market name
+    pub model: String, // could be `Copy`
+    /// Android API level version
     pub android_sdk: u8,
+    /// In theory, `len < u16::MAX` _should_ always be `true`.
+    /// In practice, `len <= u8::MAX`.
     pub user_list: Vec<User>,
-    pub adb_id: String,
+    /// Unique serial identifier
+    pub adb_id: String, // could be `Copy`
 }
 
-impl Default for Phone {
+impl Default for Device {
     fn default() -> Self {
         Self {
             model: "fetching devices...".to_string(),
@@ -35,7 +42,7 @@ impl Default for Phone {
     }
 }
 
-impl std::fmt::Display for Phone {
+impl std::fmt::Display for Device {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.model)
     }
@@ -54,35 +61,44 @@ impl std::fmt::Display for User {
     }
 }
 
-pub fn adb_shell_command(shell: bool, args: &str) -> Result<String, String> {
-    let adb_command = if shell {
-        vec!["shell", args]
-    } else {
-        vec![args]
+/// If `shell`, it'll run a command on the device's default `sh` implementation.
+/// Typically MKSH, but could be Ash.
+/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
+///
+/// If `serial` is empty, it lets ADB choose the default device.
+///
+/// If `shell`, it's likely you want `serial` to _not_ be empty.
+pub fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
+    // this could be a `tinyvec` or `arrayvec`
+    let mut adb_args = Vec::with_capacity(4);
+    if !serial.is_empty() {
+        adb_args.extend(["-s", serial]);
     };
+    if shell {
+        adb_args.push("shell");
+    }
+    // the rest
+    adb_args.push(args);
 
     let mut command = Command::new("adb");
-    command.args(adb_command);
+    command.args(adb_args);
 
     #[cfg(target_os = "windows")]
-    let command = command.creation_flags(0x08000000); // do not open a cmd window
+    let command = command.creation_flags(0x0800_0000); // do not open a cmd window
 
     match command.output() {
         Err(e) => {
             error!("ADB: {}", e);
-            Err("ADB was not found".to_string())
+            Err("Cannot run ADB, likely not found".to_string())
         }
         Ok(o) => {
+            let stdout = String::from_utf8(o.stdout)
+                .map_err(|e| e.to_string())?
+                .trim_end()
+                .to_string();
             if o.status.success() {
-                Ok(String::from_utf8(o.stdout)
-                    .map_err(|e| e.to_string())?
-                    .trim_end()
-                    .to_string())
+                Ok(stdout)
             } else {
-                let stdout = String::from_utf8(o.stdout)
-                    .map_err(|e| e.to_string())?
-                    .trim_end()
-                    .to_string();
                 let stderr = String::from_utf8(o.stderr)
                     .map_err(|e| e.to_string())?
                     .trim_end()
@@ -108,7 +124,10 @@ pub enum AdbError {
     Generic(String),
 }
 
-pub async fn perform_adb_commands(
+/// Runs a shell command on the device.
+/// See [`adb_cmd`] for details.
+pub async fn adb_sh_cmd<S: AsRef<str>>(
+    device_serial: S,
     action: String,
     command_type: CommandType,
 ) -> Result<CommandType, AdbError> {
@@ -117,7 +136,7 @@ pub async fn perform_adb_commands(
         CommandType::Shell => "Shell",
     };
 
-    match adb_shell_command(true, &action) {
+    match adb_cmd(true, device_serial.as_ref(), &action) {
         Ok(o) => {
             // On old devices, adb commands can return the `0` exit code even if there
             // is an error. On Android 4.4, ADB doesn't check if the package exists.
@@ -140,34 +159,54 @@ pub async fn perform_adb_commands(
     }
 }
 
+/// If `None`, returns an empty String, not " --user 0"
 pub fn user_flag(user_id: Option<&User>) -> String {
     user_id
         .map(|user| format!(" --user {}", user.id))
         .unwrap_or_default()
 }
 
-pub fn list_all_system_packages(user_id: Option<&User>) -> String {
-    let action = format!("pm list packages -s -u{}", user_flag(user_id));
+pub const PACK_URI_SCHEME: &str = "package:";
+#[expect(clippy::cast_possible_truncation, reason = "")]
+pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as u8;
 
-    adb_shell_command(true, &action)
-        .unwrap_or_default()
-        .replace("package:", "")
+/// Installed and uninstalled packages.
+///
+/// If `device_serial` is empty, it lets ADB choose the default device.
+pub fn list_all_system_packages(device_serial: &str, user_id: Option<&User>) -> Vec<String> {
+    let action = format!("{PM_LIST_PACKS} -s -u{}", user_flag(user_id));
+
+    match adb_cmd(true, device_serial, &action) {
+        Ok(s) => s
+            .lines()
+            // Assume every line has the same prefix
+            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
+            .collect(),
+        _ => vec![],
+    }
 }
 
-pub fn hashset_system_packages(state: PackageState, user_id: Option<&User>) -> HashSet<String> {
+/// If `device_serial` is empty, it lets ADB choose the default device.
+pub fn hashset_system_packages(
+    state: PackageState,
+    device_serial: &str,
+    user_id: Option<&User>,
+) -> HashSet<String> {
     let user = user_flag(user_id);
     let action = match state {
-        PackageState::Enabled => format!("pm list packages -s -e{user}"),
-        PackageState::Disabled => format!("pm list package -s -d{user}"),
-        _ => String::default(), // You probably don't need to use this function for anything else
+        PackageState::Enabled => format!("{PM_LIST_PACKS} -s -e{user}"),
+        PackageState::Disabled => format!("{PM_LIST_PACKS} -s -d{user}"),
+        _ => return HashSet::default(), // You probably don't need to use this function for anything else
     };
 
-    adb_shell_command(true, &action)
-        .unwrap_or_default()
-        .replace("package:", "")
-        .lines()
-        .map(String::from)
-        .collect()
+    match adb_cmd(true, device_serial, &action) {
+        Ok(s) => s
+            .lines()
+            // Assume every line has the same prefix
+            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
+            .collect(),
+        _ => HashSet::default(),
+    }
 }
 
 // Minimum information for processing adb commands
@@ -207,45 +246,44 @@ pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
     selected_user: &User,
-    phone: &Phone,
+    dev: &Device,
 ) -> Vec<String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
-        PackageState::Enabled => {
-            match package.state {
-                PackageState::Disabled => match phone.android_sdk {
-                    i if i >= 23 => vec!["pm enable"],
-                    _ => vec!["pm enable"],
-                },
-                PackageState::Uninstalled => match phone.android_sdk {
-                    i if i >= 23 => vec!["cmd package install-existing"],
-                    21 | 22 => vec!["pm unhide"],
-                    19 | 20 => vec!["pm unblock", "pm clear"],
-                    _ => vec![], // Impossible action already prevented by the GUI
-                },
-                _ => vec![],
-            }
-        }
+        PackageState::Enabled => match package.state {
+            PackageState::Disabled => match dev.android_sdk {
+                i if i >= 23 => vec!["pm enable"],
+                _ => vec!["pm enable"],
+            },
+            PackageState::Uninstalled => match dev.android_sdk {
+                i if i >= 23 => vec!["cmd package install-existing"],
+                21 | 22 => vec!["pm unhide"],
+                19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
+                _ => unreachable!("already prevented by the GUI"),
+            },
+            _ => vec![],
+        },
         PackageState::Disabled => match package.state {
-            PackageState::Uninstalled | PackageState::Enabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", "pm clear"],
+            PackageState::Uninstalled | PackageState::Enabled => match dev.android_sdk {
+                sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK],
                 _ => vec![],
             },
             _ => vec![],
         },
         PackageState::Uninstalled => match package.state {
-            PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
+            PackageState::Enabled | PackageState::Disabled => match dev.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
-                21 | 22 => vec!["pm hide", "pm clear"],   // Android Lollipop (5.x)
-                19 | 20 => vec!["pm block", "pm clear"],  // Android KitKat (4.4/4.4W)
-                _ => vec!["pm block", "pm clear"], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
+                19 | 20 => vec!["pm block", PM_CLEAR_PACK], // Android KitKat (4.4/4.4W) and older
+                _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
         },
         PackageState::All => vec![],
-    };
-    let user = (phone.android_sdk >= 21).then_some(selected_user);
+    }; // this should be a `tinyvec`, as `len <= 4`
+
+    let user = supports_multi_user(dev).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
@@ -256,14 +294,17 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<&User>) ->
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
-        .map(|c| format!("{}{} {}", c, maybe_user_flag, package))
+        .map(|c| format!("{c}{maybe_user_flag} {package}"))
         .collect()
 }
 
-/// Get the current device model by querying the `ro.product.model` property.
-pub fn get_phone_model() -> String {
-    adb_shell_command(true, "getprop ro.product.model").unwrap_or_else(|err| {
+/// Get the model by querying the `ro.product.model` property.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
+pub fn get_device_model(serial: &str) -> String {
+    adb_cmd(true, serial, "getprop ro.product.model").unwrap_or_else(|err| {
         println!("ERROR: {err}");
+        error!("ERROR: {err}");
         if err.contains("adb: no devices/emulators found") {
             "no devices/emulators found".to_string()
         } else {
@@ -272,40 +313,65 @@ pub fn get_phone_model() -> String {
     })
 }
 
-/// Get the current device Android SDK version by querying the
+/// Get Android SDK version by querying the
 // `ro.build.version.sdk` property or defaulting to 0.
-pub fn get_android_sdk() -> u8 {
-    adb_shell_command(true, "getprop ro.build.version.sdk").map_or(0, |sdk| sdk.parse().unwrap())
+///
+/// If `device_serial` is empty, it lets ADB choose the default device.
+pub fn get_android_sdk(device_serial: &str) -> u8 {
+    adb_cmd(true, device_serial, "getprop ro.build.version.sdk").map_or(0, |sdk| {
+        sdk.parse().expect("SDK version numeral must be valid")
+    })
 }
 
-/// Get the current device brand by querying the `ro.product.brand` property.
-pub fn get_phone_brand() -> String {
+/// Get the brand by querying the `ro.product.brand` property.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
+pub fn get_device_brand(serial: &str) -> String {
     format!(
         "{} {}",
-        adb_shell_command(true, "getprop ro.product.brand")
+        adb_cmd(true, serial, "getprop ro.product.brand")
             .map(|s| s.trim().to_string())
             .unwrap_or_default(),
-        get_phone_model()
+        get_device_model(serial)
     )
+}
+
+/// Minimum inclusive Android SDK version
+/// that supports multi-user mode.
+/// Lollipop 5.0
+pub const MULTI_USER_SDK: u8 = 21;
+
+/// Check if it supports multi-user mode, by comparing SDK version.
+#[must_use]
+pub const fn supports_multi_user(dev: &Device) -> bool {
+    dev.android_sdk >= MULTI_USER_SDK
 }
 
 /// Check if a `user_id` is protected on a device by trying
 /// to list associated packages.
-pub fn is_protected_user(user_id: &str) -> bool {
-    adb_shell_command(true, &format!("pm list packages -s --user {user_id}")).is_err()
+///
+/// If `device_serial` is empty, it lets ADB choose the default device.
+pub fn is_protected_user(user_id: &str, device_serial: &str) -> bool {
+    adb_cmd(
+        true,
+        device_serial,
+        &format!("{PM_LIST_PACKS} -s --user {user_id}"),
+    )
+    .is_err()
 }
 
-pub fn get_user_list() -> Vec<User> {
+/// If `device_serial` is empty, it lets ADB choose the default device.
+pub fn get_user_list(device_serial: &str) -> Vec<User> {
     #[dynamic]
-    static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap();
-    adb_shell_command(true, "pm list users")
+    static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
+    adb_cmd(true, device_serial, "pm list users")
         .map(|users| {
             RE.find_iter(&users)
                 .enumerate()
                 .map(|(i, u)| User {
                     id: u.as_str()[1..].parse().unwrap(),
                     index: i,
-                    protected: is_protected_user(&u.as_str()[1..]),
+                    protected: is_protected_user(&u.as_str()[1..], device_serial),
                 })
                 .collect()
         })
@@ -313,38 +379,37 @@ pub fn get_user_list() -> Vec<User> {
 }
 
 // getprop ro.serialno
-pub async fn get_devices_list() -> Vec<Phone> {
-    retry(
-        Fixed::from_millis(500).take(120),
-        || match adb_shell_command(false, "devices") {
+pub async fn get_devices_list() -> Vec<Device> {
+    retry(Fixed::from_millis(500).take(120), || {
+        match adb_cmd(false, "", "devices") {
             Ok(devices) => {
-                let mut device_list: Vec<Phone> = vec![];
+                let mut device_list: Vec<Device> = vec![];
                 if !RE.is_match(&devices) {
                     return OperationResult::Retry(vec![]);
                 }
                 for device in RE.captures_iter(&devices) {
-                    env::set_var(ANDROID_SERIAL, &device[1]);
-                    device_list.push(Phone {
-                        model: get_phone_brand(),
-                        android_sdk: get_android_sdk(),
-                        user_list: get_user_list(),
-                        adb_id: device[1].to_string(),
+                    let serial = &device[1];
+                    device_list.push(Device {
+                        model: get_device_brand(serial),
+                        android_sdk: get_android_sdk(serial),
+                        user_list: get_user_list(serial),
+                        adb_id: serial.to_string(),
                     });
                 }
                 OperationResult::Ok(device_list)
             }
             Err(err) => {
                 error!("get_device_list() -> {}", err);
-                let test: Vec<Phone> = vec![];
+                let test: Vec<Device> = vec![];
                 OperationResult::Retry(test)
             }
-        },
-    )
+        }
+    })
     .unwrap_or_default()
 }
 
 pub async fn initial_load() -> bool {
-    match adb_shell_command(false, "devices") {
+    match adb_cmd(false, "", "devices") {
         Ok(_devices) => true,
         Err(_err) => false,
     }

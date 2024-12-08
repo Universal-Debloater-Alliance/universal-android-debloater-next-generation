@@ -1,11 +1,12 @@
 use crate::core::helpers::button_primary;
-use crate::core::sync::AdbError;
 
 use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
 use crate::core::save::{
     backup_phone, list_available_backup_user, list_available_backups, restore_backup,
 };
-use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Phone, User};
+use crate::core::sync::{
+    adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User,
+};
 use crate::core::theme::Theme;
 use crate::core::utils::{
     export_packages, open_folder, open_url, string_to_theme, DisplayablePath,
@@ -74,7 +75,7 @@ impl Settings {
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
-        phone: &Phone,
+        phone: &Device,
         packages: &[Vec<PackageRow>],
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
@@ -137,7 +138,7 @@ impl Settings {
                     None => {
                         self.device = DeviceSettings {
                             device_id: phone.adb_id.clone(),
-                            multi_user_mode: phone.android_sdk > 21,
+                            multi_user_mode: supports_multi_user(phone),
                             disable_mode: false,
                             backup,
                         }
@@ -175,7 +176,13 @@ impl Settings {
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
                 Ok(r_packages) => {
-                    let mut commands = vec![];
+                    let mut commands = Vec::with_capacity(
+                        r_packages
+                            .len()
+                            // assume ~2 cmds per pack
+                            .checked_mul(2)
+                            .unwrap_or_else(|| unreachable!()),
+                    );
                     *nb_running_async_adb_commands = 0;
                     for p in &r_packages {
                         let p_info = PackageInfo {
@@ -186,7 +193,8 @@ impl Settings {
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
                             commands.push(Command::perform(
-                                perform_adb_commands(
+                                adb_sh_cmd(
+                                    phone.adb_id.clone(),
                                     command,
                                     CommandType::PackageManager(p_info.clone()),
                                 ),
@@ -195,7 +203,7 @@ impl Settings {
                         }
                     }
                     if r_packages.is_empty() {
-                        if get_android_sdk() == 0 {
+                        if get_android_sdk(&phone.adb_id) == 0 {
                             self.device.backup.backup_state = "Device is not connected".to_string();
                         } else {
                             self.device.backup.backup_state =
@@ -259,7 +267,7 @@ impl Settings {
 
     // TODO: refactor later
     #[allow(clippy::too_many_lines)]
-    pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
+    pub fn view(&self, phone: &Device, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()
             .fold(row![].spacing(10), |column, option| {

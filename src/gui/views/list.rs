@@ -1,18 +1,15 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
 use crate::core::sync::{
-    apply_pkg_state_commands, perform_adb_commands, AdbError, CommandType, Phone, User,
+    adb_sh_cmd, apply_pkg_state_commands, AdbError, CommandType, Device, User,
 };
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
 };
-use crate::core::utils::{
-    export_selection, fetch_packages, open_url, ANDROID_SERIAL, EXPORT_FILE_NAME, NAME,
-};
+use crate::core::utils::{export_selection, fetch_packages, open_url, EXPORT_FILE_NAME, NAME};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
-use std::env;
 use std::path::PathBuf;
 
 use crate::gui::views::settings::Settings;
@@ -117,7 +114,7 @@ impl List {
     pub fn update(
         &mut self,
         settings: &mut Settings,
-        selected_device: &mut Phone,
+        selected_device: &mut Device,
         list_update_state: &mut UadListState,
         message: Message,
     ) -> Command<Message> {
@@ -130,7 +127,12 @@ impl List {
                 Command::none()
             }
             Message::ModalValidate => {
-                let mut commands = vec![];
+                let mut commands = Vec::with_capacity(
+                    self.selected_packages
+                        .len()
+                        .checked_mul(2)
+                        .unwrap_or_else(|| unreachable!()),
+                );
                 self.selected_packages.sort_unstable();
                 self.selected_packages.dedup();
                 for selection in &self.selected_packages {
@@ -174,7 +176,11 @@ impl List {
                 self.uad_lists.clone_from(&uad_list);
                 *list_update_state = list_state;
                 Command::perform(
-                    Self::load_packages(uad_list, selected_device.user_list.clone()),
+                    Self::load_packages(
+                        uad_list,
+                        selected_device.adb_id.clone(),
+                        selected_device.user_list.clone(),
+                    ),
                     Message::ApplyFilters,
                 )
             }
@@ -320,7 +326,7 @@ impl List {
                 )
             }
             Message::ClearSelectedPackages => {
-                self.selected_packages = Vec::new();
+                self.selected_packages = vec![];
                 Command::none()
             }
             Message::ADBSatisfied(result) => {
@@ -354,7 +360,7 @@ impl List {
     pub fn view(
         &self,
         settings: &Settings,
-        selected_device: &Phone,
+        selected_device: &Device,
     ) -> Element<Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
@@ -400,7 +406,7 @@ impl List {
         }
     }
 
-    fn control_panel(&self, selected_device: &Phone) -> Element<Message, Theme, Renderer> {
+    fn control_panel(&self, selected_device: &Device) -> Element<Message, Theme, Renderer> {
         let search_packages = text_input("Search packages...", &self.input_value)
             .width(Length::Fill)
             .on_input(Message::SearchInputChanged)
@@ -464,7 +470,7 @@ impl List {
     fn ready_view(
         &self,
         settings: &Settings,
-        selected_device: &Phone,
+        selected_device: &Device,
     ) -> Element<Message, Theme, Renderer> {
         let packages = self
             .filtered_packages
@@ -623,7 +629,7 @@ impl List {
     #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,
-        device: &Phone,
+        device: &Device,
         settings: &Settings,
         packages: &[PackageRow],
     ) -> Element<Message, Theme, Renderer> {
@@ -851,24 +857,28 @@ impl List {
             .collect();
     }
     #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn load_packages(uad_list: PackageHashMap, user_list: Vec<User>) -> Vec<Vec<PackageRow>> {
+    async fn load_packages<S: AsRef<str>>(
+        uad_list: PackageHashMap,
+        device_serial: S,
+        user_list: Vec<User>,
+    ) -> Vec<Vec<PackageRow>> {
+        let serial = device_serial.as_ref();
         if user_list.len() <= 1 {
-            vec![fetch_packages(&uad_list, None)]
+            vec![fetch_packages(&uad_list, serial, None)]
         } else {
             user_list
                 .iter()
-                .map(|user| fetch_packages(&uad_list, Some(user)))
+                .map(|user| fetch_packages(&uad_list, serial, Some(user)))
                 .collect()
         }
     }
 
     #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
+    async fn init_apps_view(remote: bool, device: Device) -> (PackageHashMap, UadListState) {
         let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
-                env::set_var(ANDROID_SERIAL, phone.adb_id.clone());
-                if phone.adb_id.is_empty() {
+                if device.adb_id.is_empty() {
                     error!("AppsView ready but no phone found");
                 }
                 (list, UadListState::Done)
@@ -940,14 +950,23 @@ fn waiting_view<'a>(
 
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
-    device: &Phone,
+    device: &Device,
     settings: &DeviceSettings,
     selection: (usize, usize),
 ) -> Vec<Command<Message>> {
     let pkg = &packages[selection.0][selection.1];
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
-    let mut commands = vec![];
+    // performance, and fail-fast in case of OOM
+    let mut commands = Vec::with_capacity(
+        device
+            .user_list
+            .len()
+            // ~2 actions per user
+            .checked_mul(2)
+            .unwrap_or_else(|| unreachable!()),
+    );
+
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected && (packages[u.index][selection.1].selected || settings.multi_user_mode)
     }) {
@@ -968,7 +987,13 @@ fn build_action_pkg_commands(
             // In the end there is only one package state change
             // even if we run multiple adb commands
             commands.push(Command::perform(
-                perform_adb_commands(action, CommandType::PackageManager(p_info)),
+                adb_sh_cmd(
+                    // this is typically small,
+                    // so it's fine.
+                    device.adb_id.clone(),
+                    action,
+                    CommandType::PackageManager(p_info),
+                ),
                 if j == 0 {
                     Message::ChangePackageState
                 } else {
