@@ -61,6 +61,94 @@ impl std::fmt::Display for User {
     }
 }
 
+/// Builder for an ADB CLI command.
+///
+/// This is not intended to model the entire ADB API.
+/// It only models the subset that concerns UADNG.
+#[derive(Debug)]
+pub struct AdbCmd(Command);
+impl AdbCmd {
+    pub fn new() -> Self {
+        Self(Command::new("adb"))
+    }
+    /// If `device_serial` is empty, it lets ADB choose the default device.
+    pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> AdbShCmd {
+        if !device_serial.as_ref().is_empty() {
+            self.0.args(["-s", device_serial.as_ref()]);
+        }
+        self.0.arg("shell");
+        AdbShCmd(self)
+    }
+    /// List detected devices:
+    /// - USB
+    /// - TCP/IP: WIFI, Ethernet, etc...
+    /// - Local emulators
+    pub fn devices(mut self) -> Result<String, String> {
+        self.0.arg("devices");
+        self.run()
+    }
+    pub fn reboot(mut self) -> Result<String, String> {
+        self.0.arg("reboot");
+        self.run()
+    }
+    pub fn run(self) -> Result<String, String> {
+        let mut cmd = self.0;
+        #[cfg(target_os = "windows")]
+        let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
+
+        match cmd.output() {
+            Err(e) => {
+                error!("ADB: {}", e);
+                Err("Cannot run ADB, likely not found".to_string())
+            }
+            Ok(o) => {
+                let stdout = String::from_utf8(o.stdout)
+                    .map_err(|e| e.to_string())?
+                    .trim_end()
+                    .to_string();
+                if o.status.success() {
+                    Ok(stdout)
+                } else {
+                    let stderr = String::from_utf8(o.stderr)
+                        .map_err(|e| e.to_string())?
+                        .trim_end()
+                        .to_string();
+
+                    // ADB does really weird things. Some errors are not redirected to stderr
+                    let err = if stdout.is_empty() { stderr } else { stdout };
+                    Err(err)
+                }
+            }
+        }
+    }
+}
+
+/// Builder for a command that runs on the device's default `sh` implementation.
+/// Typically MKSH, but could be Ash.
+/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
+#[derive(Debug)]
+pub struct AdbShCmd(AdbCmd);
+impl AdbShCmd {
+    pub fn pm(mut self) -> ApmCmd {
+        self.0 .0.arg("pm");
+        ApmCmd(self)
+    }
+    pub fn reboot(mut self) -> Result<String, String> {
+        self.0 .0.arg("reboot");
+        self.0.run()
+    }
+}
+
+/// Builder for an Android Package Manager command.
+#[derive(Debug)]
+pub struct ApmCmd(AdbShCmd);
+impl ApmCmd {
+    pub fn list(mut self, state: PackageState) -> Result<String, String> {
+        self.0 .0 .0.args(["list", "-s"]);
+        self.0 .0.run()
+    }
+}
+
 /// If `shell`, it'll run a command on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
@@ -381,7 +469,7 @@ pub fn get_user_list(device_serial: &str) -> Vec<User> {
 // getprop ro.serialno
 pub async fn get_devices_list() -> Vec<Device> {
     retry(Fixed::from_millis(500).take(120), || {
-        match adb_cmd(false, "", "devices") {
+        match AdbCmd::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];
                 if !RE.is_match(&devices) {
