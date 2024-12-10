@@ -4,13 +4,13 @@
 [![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=resolved+issues&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
 [![DeepSource](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation.svg/?label=code+coverage&show_trend=true&token=LcP1kzmhgcIk06HCJz8LUf7i)](https://app.deepsource.com/gh/Universal-Debloater-Alliance/universal-android-debloater-next-generation/)
 
-
-**DISCLAIMER**: Use at your own risk. We're not responsible for anything that
-could happen to your phone.
+> [!warning]
+> **DISCLAIMER**: Use at your own risk. We're not responsible for anything that
+could happen to your devices.
 
 <img src="/resources/screenshots/v1.0.2.png" width="850" alt="uad_screenshot">
 
-**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**. We're in **HIGH NEED** of Rust developers for fixing critical issues, see [this announcement](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/731) for more information.
+**Check out the issues, and [feel free to contribute!](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute)**. We're in **HIGH NEED** of [Rust](https://www.rust-lang.org) developers for fixing critical issues, see [this announcement](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/731) for more information.
 
 **For real-time communication, consider joining our Discord server:**
 
