@@ -62,6 +62,12 @@ body:
     label: Desktop Environment
     description: If relevant, please fill it
     placeholder: GNOME 46, KDE Plasma 4, etc...
+- type: input
+  id: adb-v
+  attributes:
+    label: ADB version
+    description: If relevant, please fill it
+    placeholder: 1.0.41
 - type: textarea
   id: logfiles
   attributes:
