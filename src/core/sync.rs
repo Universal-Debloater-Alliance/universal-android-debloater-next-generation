@@ -14,8 +14,28 @@ use std::os::windows::process::CommandExt;
 const PM_LIST_PACKS: &str = "pm list packages";
 const PM_CLEAR_PACK: &str = "pm clear";
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct PackId(String);
+impl PackId {
+    /// Creates a package-ID if it's valid according to
+    /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
+    pub fn new<S: AsRef<str>>(pid: S) -> Option<Self> {
+        #[dynamic]
+        static RE: Regex = Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
+            .unwrap_or_else(|_| unreachable!());
+
+        let pid = pid.as_ref();
+
+        if RE.is_match(pid) {
+            Some(Self(pid.to_string()))
+        } else {
+            None
+        }
+    }
+}
+
 #[dynamic]
-static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
+static DEV_RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -183,7 +203,7 @@ impl ApmCmd {
         mut self,
         f: Option<PmLsPackFlag>,
         u: Option<User>,
-    ) -> Result<String, String> {
+    ) -> Result<Vec<PackId>, String> {
         let cmd = &mut self.0 .0 .0;
         cmd.args(["list", "packages", "-s"]);
         if let Some(s) = f {
@@ -193,7 +213,15 @@ impl ApmCmd {
             cmd.arg("--user");
             cmd.arg(u.id.to_string());
         };
-        self.0 .0.run()
+        self.0 .0.run().map(|pack_ls| {
+            pack_ls
+                .lines()
+                .map(|p_ln| {
+                    debug_assert!(p_ln.starts_with(PACK_URI_SCHEME));
+                    PackId::new(&p_ln[PACK_URI_LEN as usize..]).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")
+                })
+                .collect()
+        })
     }
     pub fn list_users(mut self) -> Result<String, String> {
         self.0 .0 .0.args(["list", "users"]);
@@ -305,24 +333,6 @@ pub fn user_flag(user_id: Option<User>) -> String {
 pub const PACK_URI_SCHEME: &str = "package:";
 #[expect(clippy::cast_possible_truncation, reason = "")]
 pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as u8;
-
-/// Installed and uninstalled packages.
-///
-/// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn list_all_system_packages(device_serial: &str, user_id: Option<User>) -> Vec<String> {
-    match AdbCmd::new()
-        .shell(device_serial)
-        .pm()
-        .list_packs(Some(PmLsPackFlag::U), user_id)
-    {
-        Ok(s) => s
-            .lines()
-            // Assume every line has the same prefix
-            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
-            .collect(),
-        _ => vec![],
-    }
-}
 
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn hashset_system_packages(
@@ -525,10 +535,10 @@ pub async fn get_devices_list() -> Vec<Device> {
         match AdbCmd::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];
-                if !RE.is_match(&devices) {
+                if !DEV_RE.is_match(&devices) {
                     return OperationResult::Retry(vec![]);
                 }
-                for device in RE.captures_iter(&devices) {
+                for device in DEV_RE.captures_iter(&devices) {
                     let serial = &device[1];
                     device_list.push(Device {
                         model: get_device_brand(serial),

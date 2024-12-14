@@ -1,4 +1,4 @@
-use crate::core::sync::{hashset_system_packages, list_all_system_packages, User};
+use crate::core::sync::{AdbCmd, PmLsPackFlag, hashset_system_packages, , User};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
 use crate::gui::widgets::package_row::PackageRow;
@@ -24,7 +24,11 @@ pub fn fetch_packages(
     device_serial: &str,
     user_id: Option<User>,
 ) -> Vec<PackageRow> {
-    let all_sys_packs = list_all_system_packages(device_serial, user_id);
+    let all_sys_packs = AdbCmd::new()
+        .shell(device_serial)
+        .pm()
+        .list_packs(Some(PmLsPackFlag::U), user_id)
+        .unwrap_or_default();
     let enabled_sys_packs = hashset_system_packages(PackageState::Enabled, device_serial, user_id);
     let disabled_sys_packs =
         hashset_system_packages(PackageState::Disabled, device_serial, user_id);
