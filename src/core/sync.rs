@@ -1,6 +1,8 @@
-use crate::core::uad_lists::PackageState;
-use crate::gui::views::list::PackageInfo;
-use crate::gui::widgets::package_row::PackageRow;
+use crate::core::{
+    adb::{to_trimmed_utf8, Cmd as AdbCmd, PACK_URI_LEN, PM_CLEAR_PACK, PM_LIST_PACKS},
+    uad_lists::PackageState,
+};
+use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use regex::Regex;
 use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
@@ -10,32 +12,6 @@ use std::process::Command;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
-
-const PM_LIST_PACKS: &str = "pm list packages";
-const PM_CLEAR_PACK: &str = "pm clear";
-
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct PackId(String);
-impl PackId {
-    /// Creates a package-ID if it's valid according to
-    /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
-    pub fn new<S: AsRef<str>>(pid: S) -> Option<Self> {
-        #[dynamic]
-        static RE: Regex = Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
-            .unwrap_or_else(|_| unreachable!());
-
-        let pid = pid.as_ref();
-
-        if RE.is_match(pid) {
-            Some(Self(pid.to_string()))
-        } else {
-            None
-        }
-    }
-}
-
-#[dynamic]
-static DEV_RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -81,154 +57,6 @@ impl std::fmt::Display for User {
     }
 }
 
-/// Builder for an ADB CLI command,
-/// using the type-state and new-type patterns.
-///
-/// This is not intended to model the entire ADB API.
-/// It only models the subset that concerns UADNG.
-///
-/// [More info here](https://developer.android.com/tools/adb)
-#[derive(Debug)]
-pub struct AdbCmd(Command);
-impl AdbCmd {
-    pub fn new() -> Self {
-        Self(Command::new("adb"))
-    }
-    /// If `device_serial` is empty, it lets ADB choose the default device.
-    pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> AdbShCmd {
-        let serial = device_serial.as_ref();
-        if !serial.is_empty() {
-            self.0.args(["-s", serial]);
-        }
-        self.0.arg("shell");
-        AdbShCmd(self)
-    }
-    /// List detected devices:
-    /// - USB
-    /// - TCP/IP: WIFI, Ethernet, etc...
-    /// - Local emulators
-    pub fn devices(mut self) -> Result<String, String> {
-        self.0.arg("devices");
-        self.run()
-    }
-    /// Reboots default device
-    pub fn reboot(mut self) -> Result<String, String> {
-        self.0.arg("reboot");
-        self.run()
-    }
-    pub fn run(self) -> Result<String, String> {
-        let mut cmd = self.0;
-        #[cfg(target_os = "windows")]
-        let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
-
-        match cmd.output() {
-            Err(e) => {
-                error!("ADB: {}", e);
-                Err("Cannot run ADB, likely not found".to_string())
-            }
-            Ok(o) => {
-                let stdout = String::from_utf8(o.stdout)
-                    .map_err(|e| e.to_string())?
-                    .trim_end()
-                    .to_string();
-                if o.status.success() {
-                    Ok(stdout)
-                } else {
-                    let stderr = String::from_utf8(o.stderr)
-                        .map_err(|e| e.to_string())?
-                        .trim_end()
-                        .to_string();
-
-                    // ADB does really weird things. Some errors are not redirected to stderr
-                    let err = if stdout.is_empty() { stderr } else { stdout };
-                    Err(err)
-                }
-            }
-        }
-    }
-}
-
-/// Builder for a command that runs on the device's default `sh` implementation.
-/// Typically MKSH, but could be Ash.
-///
-/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
-#[derive(Debug)]
-pub struct AdbShCmd(AdbCmd);
-impl AdbShCmd {
-    pub fn pm(mut self) -> ApmCmd {
-        self.0 .0.arg("pm");
-        ApmCmd(self)
-    }
-    /// Reboots device
-    pub fn reboot(mut self) -> Result<String, String> {
-        self.0 .0.arg("reboot");
-        self.0.run()
-    }
-}
-
-/// `pm list packages` flag/state/type
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum PmLsPackFlag {
-    /// All: Include uninstalled
-    U,
-    /// Only enabled
-    E,
-    /// Only disabled
-    D,
-}
-impl PmLsPackFlag {
-    // is there a trait for this?
-    fn to_str(self) -> &'static str {
-        match self {
-            PmLsPackFlag::U => "-u",
-            PmLsPackFlag::E => "-e",
-            PmLsPackFlag::D => "-d",
-        }
-    }
-}
-#[expect(clippy::to_string_trait_impl, reason = "This is not user-facing")]
-impl ToString for PmLsPackFlag {
-    fn to_string(&self) -> String {
-        self.to_str().to_string()
-    }
-}
-
-/// Builder for an Android Package Manager command.
-///
-/// [More info](https://developer.android.com/tools/adb#pm)
-#[derive(Debug)]
-pub struct ApmCmd(AdbShCmd);
-impl ApmCmd {
-    pub fn list_packs(
-        mut self,
-        f: Option<PmLsPackFlag>,
-        u: Option<User>,
-    ) -> Result<Vec<PackId>, String> {
-        let cmd = &mut self.0 .0 .0;
-        cmd.args(["list", "packages", "-s"]);
-        if let Some(s) = f {
-            cmd.arg(s.to_str());
-        };
-        if let Some(u) = u {
-            cmd.arg("--user");
-            cmd.arg(u.id.to_string());
-        };
-        self.0 .0.run().map(|pack_ls| {
-            pack_ls
-                .lines()
-                .map(|p_ln| {
-                    debug_assert!(p_ln.starts_with(PACK_URI_SCHEME));
-                    PackId::new(&p_ln[PACK_URI_LEN as usize..]).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")
-                })
-                .collect()
-        })
-    }
-    pub fn list_users(mut self) -> Result<String, String> {
-        self.0 .0 .0.args(["list", "users"]);
-        self.0 .0.run()
-    }
-}
-
 /// If `shell`, it'll run a command on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
@@ -256,17 +84,11 @@ fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
             Err("Cannot run ADB, likely not found".to_string())
         }
         Ok(o) => {
-            let stdout = String::from_utf8(o.stdout)
-                .map_err(|e| e.to_string())?
-                .trim_end()
-                .to_string();
+            let stdout = to_trimmed_utf8(o.stdout);
             if o.status.success() {
                 Ok(stdout)
             } else {
-                let stderr = String::from_utf8(o.stderr)
-                    .map_err(|e| e.to_string())?
-                    .trim_end()
-                    .to_string();
+                let stderr = to_trimmed_utf8(o.stderr);
 
                 // ADB does really weird things. Some errors are not redirected to stderr
                 let err = if stdout.is_empty() { stderr } else { stdout };
@@ -329,10 +151,6 @@ pub fn user_flag(user_id: Option<User>) -> String {
         .map(|user| format!(" --user {}", user.id))
         .unwrap_or_default()
 }
-
-pub const PACK_URI_SCHEME: &str = "package:";
-#[expect(clippy::cast_possible_truncation, reason = "")]
-pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as u8;
 
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn hashset_system_packages(
@@ -513,9 +331,9 @@ pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
     #[dynamic]
     static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
     AdbCmd::new()
-        .shell(device_serial)
+        .sh(device_serial)
         .pm()
-        .list_users()
+        .ls_users()
         .map(|users| {
             RE.find_iter(&users)
                 .enumerate()
@@ -531,14 +349,18 @@ pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
 
 // getprop ro.serialno
 pub async fn get_devices_list() -> Vec<Device> {
+    /// This matches serials that are authorized by the user.
+    #[dynamic]
+    static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
+
     retry(Fixed::from_millis(500).take(120), || {
         match AdbCmd::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];
-                if !DEV_RE.is_match(&devices) {
+                if !RE.is_match(&devices) {
                     return OperationResult::Retry(vec![]);
                 }
-                for device in DEV_RE.captures_iter(&devices) {
+                for device in RE.captures_iter(&devices) {
                     let serial = &device[1];
                     device_list.push(Device {
                         model: get_device_brand(serial),
@@ -560,7 +382,7 @@ pub async fn get_devices_list() -> Vec<Device> {
 }
 
 pub async fn initial_load() -> bool {
-    match adb_cmd(false, "", "devices") {
+    match AdbCmd::new().devices() {
         Ok(_devices) => true,
         Err(_err) => false,
     }

@@ -1,13 +1,17 @@
-use crate::core::sync::{AdbCmd, PmLsPackFlag, hashset_system_packages, , User};
-use crate::core::theme::Theme;
-use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
+use crate::core::{
+    adb::{Cmd as AdbCmd, PmLsPackFlag},
+    sync::{hashset_system_packages, User},
+    theme::Theme,
+    uad_lists::{PackageHashMap, PackageState, Removal, UadList},
+};
 use crate::gui::widgets::package_row::PackageRow;
-use chrono::offset::Utc;
-use chrono::{DateTime, Local};
+use chrono::{offset::Utc, DateTime, Local};
 use csv::Writer;
-use std::path::{Path, PathBuf};
-use std::process::Command;
-use std::{fmt, fs};
+use std::{
+    fmt, fs,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 /// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
@@ -25,9 +29,9 @@ pub fn fetch_packages(
     user_id: Option<User>,
 ) -> Vec<PackageRow> {
     let all_sys_packs = AdbCmd::new()
-        .shell(device_serial)
+        .sh(device_serial)
         .pm()
-        .list_packs(Some(PmLsPackFlag::U), user_id)
+        .ls_packs(Some(PmLsPackFlag::U), user_id)
         .unwrap_or_default();
     let enabled_sys_packs = hashset_system_packages(PackageState::Enabled, device_serial, user_id);
     let disabled_sys_packs =
