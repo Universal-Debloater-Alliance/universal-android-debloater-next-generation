@@ -19,8 +19,9 @@
 //!
 //! Despite being "low-level", we can still "have cake and eat it too";
 //! After all, what's the point of an abstraction if it doesn't come with goodies?:
-//! We can take some freedoms, such as:
-//! - pre-parsing or validanting output, to provide types with invariants.
+//! We can reserve some artistic license, such as:
+//! - shorter names, complemented by context
+//! - pre-parsing or validanting output, to provide types with invariants
 //! - strongly-typed rather than "stringly-typed" APIs
 //! - nicer IDE support
 //! - compile-time prevention of malformed cmds
@@ -77,14 +78,31 @@ impl Cmd {
         self.0.arg("shell");
         ShCmd(self)
     }
-    /// List all detected devices:
+    /// List attached devices (as serials) and their status:
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
     /// - Local emulators
-    /// Some may not be authorized by the user (yet)
-    pub fn devices(mut self) -> Result<String, String> {
+    /// Status can be (but not limited to):
+    /// - "unauthorized"
+    /// - "device"
+    pub fn devices(mut self) -> Result<Vec<(String, String)>, String> {
         self.0.arg("devices");
-        self.run()
+        Ok(self
+            .run()?
+            .lines()
+            .skip(1) // header
+            .map(|dev_stat| {
+                let tab_idx = dev_stat
+                    .find('\t')
+                    .expect("There must be 1 tab after serial");
+                (
+                    // serial
+                    dev_stat[..tab_idx].to_string(),
+                    // status
+                    dev_stat[(tab_idx + 1)..].to_string(),
+                )
+            })
+            .collect())
     }
     /// Reboots default device
     pub fn reboot(mut self) -> Result<String, String> {
@@ -182,9 +200,9 @@ impl ToString for PmLsPackFlag {
     }
 }
 
-pub const PACK_URI_SCHEME: &str = "package:";
+pub const PACK_PREFIX: &str = "package:";
 #[expect(clippy::cast_possible_truncation, reason = "")]
-pub const PACK_URI_LEN: u8 = PACK_URI_SCHEME.len() as _;
+pub const PACK_URI_LEN: u8 = PACK_PREFIX.len() as _;
 
 pub const PM_LIST_PACKS: &str = "pm list packages";
 pub const PM_CLEAR_PACK: &str = "pm clear";
@@ -195,7 +213,8 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[derive(Debug)]
 pub struct PmCmd(ShCmd);
 impl PmCmd {
-    /// `list packages` sub-command
+    /// `list packages` sub-command,
+    /// stripped of "package:" prefix
     pub fn ls_packs(
         mut self,
         f: Option<PmLsPackFlag>,
@@ -214,13 +233,14 @@ impl PmCmd {
             pack_ls
                 .lines()
                 .map(|p_ln| {
-                    debug_assert!(p_ln.starts_with(PACK_URI_SCHEME));
+                    debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     String::from(&p_ln[PACK_URI_LEN as usize..])
                 })
                 .collect()
         })
     }
-    /// `list packages` sub-command, but pre-validated
+    /// `list packages` sub-command, pre-validated.
+    /// This is strongly-typed, at the cost of regex overhead.
     pub fn ls_packs_valid(
         self,
         f: Option<PmLsPackFlag>,
@@ -230,9 +250,12 @@ impl PmCmd {
             .into_iter()
             .map(|p| PackId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }
-    /// `list users` sub-command
-    pub fn ls_users(mut self) -> Result<String, String> {
+    #[allow(clippy::doc_markdown, reason = "Multi URL")]
+    /// `list users` sub-command.
+    /// - https://source.android.com/docs/devices/admin/multi-user-testing
+    /// - https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name
+    pub fn ls_users(mut self) -> Result<Vec<String>, String> {
         self.0 .0 .0.args(["list", "users"]);
-        self.0 .0.run()
+        Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())
     }
 }

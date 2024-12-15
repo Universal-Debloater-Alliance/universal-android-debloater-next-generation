@@ -7,8 +7,7 @@ use regex::Regex;
 use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
-use std::collections::HashSet;
-use std::process::Command;
+use std::{collections::HashSet, process::Command};
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -327,45 +326,50 @@ pub fn is_protected_user(user_id: &str, device_serial: &str) -> bool {
 }
 
 /// `pm list users` parsed into a vec with extra info.
-pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
+pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
     #[dynamic]
     static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
+
     AdbCmd::new()
         .sh(device_serial)
         .pm()
         .ls_users()
-        .map(|users| {
-            RE.find_iter(&users)
-                .enumerate()
-                .map(|(i, u)| User {
-                    id: u.as_str()[1..].parse().unwrap(),
-                    index: i,
-                    protected: is_protected_user(&u.as_str()[1..], device_serial),
-                })
-                .collect()
-        })
+        // if default, then empty iter, which becomes empty vec (again)
         .unwrap_or_default()
+        .into_iter()
+        .enumerate()
+        .map(|(i, user)| {
+            // It seems each line is a user,
+            // optionally associated with a work-profile.
+            // This will ignore the work-profiles!
+            let u = &RE.captures(&user).expect("Each user should have an ID")[1];
+            User {
+                id: u
+                    .parse()
+                    .unwrap_or_else(|_| unreachable!("User ID must be valid `u16`")),
+                index: i,
+                protected: is_protected_user(u, device_serial),
+            }
+        })
+        .collect()
 }
 
-// getprop ro.serialno
+/// This matches serials (`getprop ro.serialno`)
+/// that are authorized by the user.
 pub async fn get_devices_list() -> Vec<Device> {
-    /// This matches serials that are authorized by the user.
-    #[dynamic]
-    static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!());
-
     retry(Fixed::from_millis(500).take(120), || {
         match AdbCmd::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];
-                if !RE.is_match(&devices) {
+                if devices.iter().all(|(_, stat)| stat != "device") {
                     return OperationResult::Retry(vec![]);
                 }
-                for device in RE.captures_iter(&devices) {
-                    let serial = &device[1];
+                for device in devices {
+                    let serial = &device.0;
                     device_list.push(Device {
                         model: get_device_brand(serial),
                         android_sdk: get_android_sdk(serial),
-                        user_list: list_users_parsed(serial),
+                        user_list: ls_users_parsed(serial),
                         adb_id: serial.to_string(),
                     });
                 }
