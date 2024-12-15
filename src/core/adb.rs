@@ -41,7 +41,7 @@ use crate::core::sync::User;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
-use std::process::Command;
+use std::{collections::HashSet, process::Command};
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -213,8 +213,14 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[derive(Debug)]
 pub struct PmCmd(ShCmd);
 impl PmCmd {
-    /// `list packages` sub-command,
-    /// stripped of "package:" prefix
+    /// `list packages` sub-command, stripped of [`PACK_PREFIX`].
+    /// This is "the rawest" version (minimal overhead).
+    ///
+    /// `Ok` variant:
+    /// - isn't sorted
+    /// - duplicates never _seem_ to happen, but don't assume uniqueness
+    ///
+    /// See also [`ls_packs_valid`].
     pub fn ls_packs(
         mut self,
         f: Option<PmLsPackFlag>,
@@ -240,12 +246,14 @@ impl PmCmd {
         })
     }
     /// `list packages` sub-command, pre-validated.
-    /// This is strongly-typed, at the cost of regex overhead.
+    /// This is strongly-typed, at the cost of regex & hash overhead.
+    ///
+    /// See also [`ls_packs`].
     pub fn ls_packs_valid(
         self,
         f: Option<PmLsPackFlag>,
         u: Option<User>,
-    ) -> Result<Vec<PackId>, String> {
+    ) -> Result<HashSet<PackId>, String> {
         Ok(self.ls_packs(f, u)?
             .into_iter()
             .map(|p| PackId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
