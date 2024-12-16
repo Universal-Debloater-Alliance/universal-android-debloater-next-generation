@@ -1,30 +1,26 @@
-use crate::core::helpers::button_primary;
-
-use crate::core::config::{BackupSettings, Config, DeviceSettings, GeneralSettings};
-use crate::core::save::{
-    backup_phone, list_available_backup_user, list_available_backups, restore_backup,
+use crate::core::{
+    config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
+    helpers::button_primary,
+    save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
+    sync::{adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User},
+    theme::Theme,
+    utils::{
+        export_packages, open_folder, open_url, string_to_theme, DisplayablePath, Error, NAME,
+        UNINSTALLED_PACKAGES_FILE_NAME,
+    },
 };
-use crate::core::sync::{
-    adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User,
+use crate::gui::{
+    style,
+    views::list::{List as AppsView, PackageInfo},
+    widgets::modal::Modal,
+    widgets::navigation_menu::ICONS,
+    widgets::package_row::PackageRow,
 };
-use crate::core::theme::Theme;
-use crate::core::utils::{
-    export_packages, open_folder, open_url, string_to_theme, DisplayablePath,
-    UNINSTALLED_PACKAGES_FILE_NAME,
-};
-use crate::gui::style;
-use crate::gui::views::list::{List as AppsView, PackageInfo};
-use crate::gui::widgets::modal::Modal;
-use crate::gui::widgets::navigation_menu::ICONS;
-use crate::gui::widgets::package_row::PackageRow;
-
 use iced::widget::{
     button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space, Text,
 };
-use iced::{alignment, Alignment, Command, Element, Length, Renderer};
+use iced::{alignment, Alignment, Command as ICmd, Element, Length, Renderer};
 use std::path::PathBuf;
-
-use crate::core::utils::{Error, NAME};
 
 #[derive(Debug, Clone)]
 pub enum PopUpModal {
@@ -80,17 +76,17 @@ impl Settings {
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
         selected_user: Option<User>,
-    ) -> Command<Message> {
+    ) -> ICmd<Message> {
         match msg {
             Message::ModalHide => {
                 self.modal = None;
-                Command::none()
+                ICmd::none()
             }
             Message::ExpertMode(toggled) => {
                 self.general.expert_mode = toggled;
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                Command::none()
+                ICmd::none()
             }
             Message::DisableMode(toggled) => {
                 if phone.android_sdk >= 23 {
@@ -98,23 +94,23 @@ impl Settings {
                     debug!("Config change: {:?}", self);
                     Config::save_changes(self, &phone.adb_id);
                 }
-                Command::none()
+                ICmd::none()
             }
             Message::MultiUserMode(toggled) => {
                 self.device.multi_user_mode = toggled;
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                Command::none()
+                ICmd::none()
             }
             Message::ApplyTheme(theme) => {
                 self.general.theme = theme.to_string();
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                Command::none()
+                ICmd::none()
             }
             Message::UrlPressed(url) => {
                 open_url(url);
-                Command::none()
+                ICmd::none()
             }
             Message::LoadDeviceSettings => {
                 let backups =
@@ -144,14 +140,14 @@ impl Settings {
                         }
                     }
                 };
-                Command::none()
+                ICmd::none()
             }
             Message::BackupSelected(d_path) => {
                 self.device.backup.selected = Some(d_path.clone());
                 self.device.backup.users = list_available_backup_user(d_path);
-                Command::none()
+                ICmd::none()
             }
-            Message::BackupDevice => Command::perform(
+            Message::BackupDevice => ICmd::perform(
                 backup_phone(
                     phone.user_list.clone(),
                     self.device.device_id.clone(),
@@ -172,7 +168,7 @@ impl Settings {
                         error!("[BACKUP FAILED] Backup creation failed: {:?}", err);
                     }
                 }
-                Command::none()
+                ICmd::none()
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
                 Ok(r_packages) => {
@@ -192,7 +188,11 @@ impl Settings {
                         };
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
-                            commands.push(Command::perform(
+                            commands.push(ICmd::perform(
+                                // WARNING: THIS IS INSECURE!
+                                // If a user "A" restores a backup from a malicious user "B",
+                                // then B could run arbitrary high-privilege cmds,
+                                // on A's Android device!
                                 adb_sh_cmd(
                                     phone.adb_id.clone(),
                                     command,
@@ -214,16 +214,16 @@ impl Settings {
                         "[RESTORE] Restoring backup {}",
                         self.device.backup.selected.as_ref().unwrap()
                     );
-                    Command::batch(commands)
+                    ICmd::batch(commands)
                 }
                 Err(e) => {
                     self.device.backup.backup_state.clone_from(&e);
                     error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
-                    Command::none()
+                    ICmd::none()
                 }
             },
             // Trigger an action in mod.rs (Message::SettingsAction(msg))
-            Message::RestoringDevice(_) => Command::none(),
+            Message::RestoringDevice(_) => ICmd::none(),
             Message::FolderChosen(result) => {
                 self.is_loading = false;
 
@@ -241,17 +241,17 @@ impl Settings {
                         );
                     }
                 }
-                Command::none()
+                ICmd::none()
             }
             Message::ChooseBackUpFolder => {
                 if self.is_loading {
-                    Command::none()
+                    ICmd::none()
                 } else {
                     self.is_loading = true;
-                    Command::perform(open_folder(), Message::FolderChosen)
+                    ICmd::perform(open_folder(), Message::FolderChosen)
                 }
             }
-            Message::ExportPackages => Command::perform(
+            Message::ExportPackages => ICmd::perform(
                 export_packages(selected_user.unwrap_or_default(), packages.to_vec()),
                 Message::PackagesExported,
             ),
@@ -260,7 +260,7 @@ impl Settings {
                     Ok(_) => self.modal = Some(PopUpModal::ExportUninstalled),
                     Err(err) => error!("Failed to export list of uninstalled packages: {:?}", err),
                 }
-                Command::none()
+                ICmd::none()
             }
         }
     }
