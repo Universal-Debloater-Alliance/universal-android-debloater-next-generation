@@ -151,29 +151,6 @@ pub fn user_flag(user_id: Option<User>) -> String {
         .unwrap_or_default()
 }
 
-/// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn hashset_system_packages(
-    state: PackageState,
-    device_serial: &str,
-    user_id: Option<User>,
-) -> HashSet<String> {
-    let user = user_flag(user_id);
-    let action = match state {
-        PackageState::Enabled => format!("{PM_LIST_PACKS} -s -e{user}"),
-        PackageState::Disabled => format!("{PM_LIST_PACKS} -s -d{user}"),
-        _ => return HashSet::default(), // You probably don't need to use this function for anything else
-    };
-
-    match adb_cmd(true, device_serial, &action) {
-        Ok(s) => s
-            .lines()
-            // Assume every line has the same prefix
-            .map(|ln| String::from(&ln[PACK_URI_LEN as usize..]))
-            .collect(),
-        _ => HashSet::default(),
-    }
-}
-
 // Minimum information for processing adb commands
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct CorePackage {

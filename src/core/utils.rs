@@ -8,6 +8,7 @@ use crate::gui::widgets::package_row::PackageRow;
 use chrono::{offset::Utc, DateTime, Local};
 use csv::Writer;
 use std::{
+    collections::HashSet,
     fmt, fs,
     path::{Path, PathBuf},
     process::Command,
@@ -33,9 +34,21 @@ pub fn fetch_packages(
         .pm()
         .ls_packs(Some(PmLsPackFlag::U), user_id)
         .unwrap_or_default();
-    let enabled_sys_packs = hashset_system_packages(PackageState::Enabled, device_serial, user_id);
-    let disabled_sys_packs =
-        hashset_system_packages(PackageState::Disabled, device_serial, user_id);
+    let enabled_sys_packs: HashSet<String> = AdbCmd::new()
+        .sh(device_serial)
+        .pm()
+        .ls_packs(Some(PmLsPackFlag::E), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    let disabled_sys_packs: HashSet<String> = AdbCmd::new()
+        .sh(device_serial)
+        .pm()
+        .ls_packs(Some(PmLsPackFlag::D), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+
     let mut description;
     let mut uad_list;
     let mut state;
