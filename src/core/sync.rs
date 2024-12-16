@@ -56,28 +56,48 @@ impl std::fmt::Display for User {
     }
 }
 
-/// If `shell`, it'll run a command on the device's default `sh` implementation.
+#[derive(Debug, Clone)]
+pub enum CommandType {
+    PackageManager(PackageInfo),
+    Shell,
+}
+
+/// An enum to contain different variants for errors yielded by ADB.
+#[derive(Debug, Clone)]
+pub enum AdbError {
+    Generic(String),
+}
+
+/// Runs an **arbitrary command** on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
-///
-/// If `shell`, it's likely you want `serial` to _not_ be empty.
-fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
+#[deprecated = "Use [`adb::Cmd::sh`] with `async` blocks instead"]
+pub async fn adb_sh_cmd<S: AsRef<str>>(
+    device_serial: S,
+    action: String,
+    command_type: CommandType,
+) -> Result<CommandType, AdbError> {
+    let serial = device_serial.as_ref();
+
+    let label = match &command_type {
+        CommandType::PackageManager(p) => &p.removal,
+        CommandType::Shell => "Shell",
+    };
+
     let mut cmd = Command::new("adb");
     if !serial.is_empty() {
         cmd.args(["-s", serial]);
     };
-    if shell {
-        cmd.arg("shell");
-    }
-    // this works even without "shell"?
-    cmd.arg(args);
+    cmd.arg("shell");
+    // this works because `sh` splits spaces
+    cmd.arg(&action);
 
     #[cfg(target_os = "windows")]
     let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
 
-    match cmd.output() {
+    match match cmd.output() {
         Err(e) => {
             error!("ADB: {}", e);
             Err("Cannot run ADB, likely not found".to_string())
@@ -94,34 +114,7 @@ fn adb_cmd(shell: bool, serial: &str, args: &str) -> Result<String, String> {
                 Err(err)
             }
         }
-    }
-}
-
-#[derive(Debug, Clone)]
-pub enum CommandType {
-    PackageManager(PackageInfo),
-    Shell,
-}
-
-/// An enum to contain different variants for errors yielded by ADB.
-#[derive(Debug, Clone)]
-pub enum AdbError {
-    Generic(String),
-}
-
-/// Runs a shell command on the device.
-/// See [`adb_cmd`] for details.
-pub async fn adb_sh_cmd<S: AsRef<str>>(
-    device_serial: S,
-    action: String,
-    command_type: CommandType,
-) -> Result<CommandType, AdbError> {
-    let label = match &command_type {
-        CommandType::PackageManager(p) => &p.removal,
-        CommandType::Shell => "Shell",
-    };
-
-    match adb_cmd(true, device_serial.as_ref(), &action) {
+    } {
         Ok(o) => {
             // On old devices, adb commands can return the `0` exit code even if there
             // is an error. On Android 4.4, ADB doesn't check if the package exists.
@@ -244,15 +237,30 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 pub fn get_device_model(serial: &str) -> String {
-    adb_cmd(true, serial, "getprop ro.product.model").unwrap_or_else(|err| {
-        println!("ERROR: {err}");
-        error!("ERROR: {err}");
-        if err.contains("adb: no devices/emulators found") {
-            "no devices/emulators found".to_string()
-        } else {
-            err
-        }
-    })
+    AdbCmd::new()
+        .sh(serial)
+        .getprop("ro.product.model")
+        .unwrap_or_else(|err| {
+            eprintln!("ERROR: {err}");
+            error!("{err}");
+            if err.contains("adb: no devices/emulators found") {
+                "no devices/emulators found".to_string()
+            } else {
+                err
+            }
+        })
+}
+
+/// Get the brand by querying the `ro.product.brand` property.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
+pub fn get_device_brand(serial: &str) -> String {
+    AdbCmd::new()
+        .sh(serial)
+        .getprop("ro.product.brand")
+        // `trim` is just-in-case
+        .map(|s| s.trim().to_string())
+        .unwrap_or_default()
 }
 
 /// Get Android SDK version by querying the
@@ -260,22 +268,12 @@ pub fn get_device_model(serial: &str) -> String {
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn get_android_sdk(device_serial: &str) -> u8 {
-    adb_cmd(true, device_serial, "getprop ro.build.version.sdk").map_or(0, |sdk| {
-        sdk.parse().expect("SDK version numeral must be valid")
-    })
-}
-
-/// Get the brand by querying the `ro.product.brand` property.
-///
-/// If `serial` is empty, it lets ADB choose the default device.
-pub fn get_device_brand(serial: &str) -> String {
-    format!(
-        "{} {}",
-        adb_cmd(true, serial, "getprop ro.product.brand")
-            .map(|s| s.trim().to_string())
-            .unwrap_or_default(),
-        get_device_model(serial)
-    )
+    AdbCmd::new()
+        .sh(device_serial)
+        .getprop("ro.build.version.sdk")
+        .map_or(0, |sdk| {
+            sdk.parse().expect("SDK version numeral must be valid")
+        })
 }
 
 /// Minimum inclusive Android SDK version
@@ -343,7 +341,7 @@ pub async fn get_devices_list() -> Vec<Device> {
                 for device in devices {
                     let serial = &device.0;
                     device_list.push(Device {
-                        model: get_device_brand(serial),
+                        model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
                         user_list: ls_users_parsed(serial),
                         adb_id: serial.to_string(),

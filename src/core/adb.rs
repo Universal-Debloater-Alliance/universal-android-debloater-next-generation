@@ -63,7 +63,6 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 pub struct Cmd(Command);
 impl Cmd {
     pub fn new() -> Self {
-        Command::new("adb").arg("");
         Self(Command::new("adb"))
     }
     /// `shell` sub-command.
@@ -147,6 +146,17 @@ impl ShCmd {
     pub fn pm(mut self) -> PmCmd {
         self.0 .0.arg("pm");
         PmCmd(self)
+    }
+    /// Query a device property value, by its key.
+    /// These can be of any type:
+    /// - `boolean`
+    /// - `int`
+    /// - chars
+    /// - etc...
+    /// So to avoid lossy conversions, we return strs.
+    pub fn getprop(mut self, key: &str) -> Result<String, String> {
+        self.0 .0.args(["getprop", key]);
+        self.0.run()
     }
     /// Reboots device
     pub fn reboot(mut self) -> Result<String, String> {
