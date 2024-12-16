@@ -108,15 +108,15 @@ pub fn setup_uad_dir(dir: &Path) -> PathBuf {
 
 pub fn open_url(dir: PathBuf) {
     #[cfg(target_os = "windows")]
-    let output = Command::new("explorer").args([dir]).output();
+    let opener = "explorer";
 
     #[cfg(target_os = "macos")]
-    let output = Command::new("open").args([dir]).output();
+    let opener = "open";
 
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    let output = Command::new("xdg-open").args([dir]).output();
+    let opener = "xdg-open";
 
-    match output {
+    match Command::new(opener).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
                 let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
