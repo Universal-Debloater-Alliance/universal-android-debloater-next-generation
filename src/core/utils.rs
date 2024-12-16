@@ -1,6 +1,6 @@
 use crate::core::{
     adb::{Cmd as AdbCmd, PmLsPackFlag},
-    sync::{hashset_system_packages, User},
+    sync::User,
     theme::Theme,
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
@@ -27,7 +27,7 @@ pub enum Error {
 pub fn fetch_packages(
     uad_lists: &PackageHashMap,
     device_serial: &str,
-    user_id: Option<User>,
+    user_id: Option<u16>,
 ) -> Vec<PackageRow> {
     let all_sys_packs = AdbCmd::new()
         .sh(device_serial)

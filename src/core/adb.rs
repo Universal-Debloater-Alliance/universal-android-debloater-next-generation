@@ -37,7 +37,6 @@
 //! For comprehensive info about ADB,
 //! [see this](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/)
 
-use crate::core::sync::User;
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
@@ -200,11 +199,8 @@ impl ToString for PmLsPackFlag {
     }
 }
 
-pub const PACK_PREFIX: &str = "package:";
-#[expect(clippy::cast_possible_truncation, reason = "")]
-pub const PACK_URI_LEN: u8 = PACK_PREFIX.len() as _;
+const PACK_PREFIX: &str = "package:";
 
-pub const PM_LIST_PACKS: &str = "pm list packages";
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
 /// Builder for an Android Package Manager command.
@@ -224,23 +220,23 @@ impl PmCmd {
     pub fn ls_packs(
         mut self,
         f: Option<PmLsPackFlag>,
-        u: Option<User>,
+        user_id: Option<u16>,
     ) -> Result<Vec<String>, String> {
         let cmd = &mut self.0 .0 .0;
         cmd.args(["list", "packages", "-s"]);
         if let Some(s) = f {
             cmd.arg(s.to_str());
         };
-        if let Some(u) = u {
+        if let Some(u) = user_id {
             cmd.arg("--user");
-            cmd.arg(u.id.to_string());
+            cmd.arg(u.to_string());
         };
         self.0 .0.run().map(|pack_ls| {
             pack_ls
                 .lines()
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    String::from(&p_ln[PACK_URI_LEN as usize..])
+                    String::from(&p_ln[PACK_PREFIX.len()..])
                 })
                 .collect()
         })
@@ -252,9 +248,9 @@ impl PmCmd {
     pub fn ls_packs_valid(
         self,
         f: Option<PmLsPackFlag>,
-        u: Option<User>,
+        user_id: Option<u16>,
     ) -> Result<HashSet<PackId>, String> {
-        Ok(self.ls_packs(f, u)?
+        Ok(self.ls_packs(f, user_id)?
             .into_iter()
             .map(|p| PackId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }

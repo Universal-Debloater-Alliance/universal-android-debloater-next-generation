@@ -868,7 +868,7 @@ impl List {
         } else {
             user_list
                 .iter()
-                .map(|user| fetch_packages(&uad_list, serial, Some(*user)))
+                .map(|user| fetch_packages(&uad_list, serial, Some(user.id)))
                 .collect()
         }
     }

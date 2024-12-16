@@ -1,5 +1,5 @@
 use crate::core::{
-    adb::{to_trimmed_utf8, Cmd as AdbCmd, PACK_URI_LEN, PM_CLEAR_PACK, PM_LIST_PACKS},
+    adb::{to_trimmed_utf8, Cmd as AdbCmd, PM_CLEAR_PACK},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
@@ -7,7 +7,7 @@ use regex::Regex;
 use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
 use static_init::dynamic;
-use std::{collections::HashSet, process::Command};
+use std::process::Command;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -293,13 +293,12 @@ pub const fn supports_multi_user(dev: &Device) -> bool {
 /// to list associated packages.
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
-pub fn is_protected_user(user_id: &str, device_serial: &str) -> bool {
-    adb_cmd(
-        true,
-        device_serial,
-        &format!("{PM_LIST_PACKS} -s --user {user_id}"),
-    )
-    .is_err()
+pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
+    AdbCmd::new()
+        .sh(device_serial)
+        .pm()
+        .ls_packs(None, Some(user_id))
+        .is_err()
 }
 
 /// `pm list users` parsed into a vec with extra info.
@@ -319,11 +318,11 @@ pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
             // It seems each line is a user,
             // optionally associated with a work-profile.
             // This will ignore the work-profiles!
-            let u = &RE.captures(&user).expect("Each user should have an ID")[1];
+            let u = RE.captures(&user).expect("Each user should have an ID")[1]
+                .parse()
+                .unwrap_or_else(|_| unreachable!("User ID must be valid `u16`"));
             User {
-                id: u
-                    .parse()
-                    .unwrap_or_else(|_| unreachable!("User ID must be valid `u16`")),
+                id: u,
                 index: i,
                 protected: is_protected_user(u, device_serial),
             }
