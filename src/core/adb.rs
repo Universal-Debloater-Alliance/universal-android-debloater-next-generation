@@ -77,7 +77,7 @@ impl Cmd {
         self.0.arg("shell");
         ShCmd(self)
     }
-    /// List attached devices (as serials) and their status:
+    /// Header-less list of attached devices (as serials) and their statuses:
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
     /// - Local emulators
@@ -92,7 +92,10 @@ impl Cmd {
             .skip(1) // header
             .map(|dev_stat| {
                 let tab_idx = dev_stat
+                    // OS-specific?
                     .find('\t')
+                    // True on Linux,
+                    // no matter if ADB is piped or connected to terminal
                     .expect("There must be 1 tab after serial");
                 (
                     // serial
@@ -209,7 +212,7 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[derive(Debug)]
 pub struct PmCmd(ShCmd);
 impl PmCmd {
-    /// `list packages` sub-command, stripped of [`PACK_PREFIX`].
+    /// `list packages` sub-command, [`PACK_PREFIX`] stripped.
     /// This is "the rawest" version (minimal overhead).
     ///
     /// `Ok` variant:
@@ -255,11 +258,12 @@ impl PmCmd {
             .map(|p| PackId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }
     #[allow(clippy::doc_markdown, reason = "Multi URL")]
-    /// `list users` sub-command.
+    /// `list users` sub-command (header-less).
     /// - https://source.android.com/docs/devices/admin/multi-user-testing
     /// - https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name
     pub fn ls_users(mut self) -> Result<Vec<String>, String> {
         self.0 .0 .0.args(["list", "users"]);
+        // is it actually multi-line?
         Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())
     }
 }
