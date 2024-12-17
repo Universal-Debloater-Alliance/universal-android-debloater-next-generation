@@ -29011,6 +29011,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.htc.masthead": {
+    "list": "Oem",
+    "description": "HTC Lockscreen Theme.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.htc.weather": {
+    "list": "Oem",
+    "description": "HTC Weather",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.huawei.android.totemweather": {
     "list": "Oem",
     "description": "Huawei Weather app (and its widget)",
