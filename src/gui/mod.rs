@@ -2,11 +2,11 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, CommandType, Phone};
+use crate::core::sync::{adb_sh_cmd, get_devices_list, initial_load, CommandType, Device};
 use crate::core::theme::{Theme, OS_COLOR_SCHEME};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, ANDROID_SERIAL, NAME};
+use crate::core::utils::{string_to_theme, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -21,7 +21,6 @@ use iced::{
     window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
     Settings,
 };
-use std::env;
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 
@@ -48,9 +47,9 @@ pub struct UadGui {
     apps_view: AppsView,
     about_view: AboutView,
     settings_view: SettingsView,
-    devices_list: Vec<Phone>,
+    devices_list: Vec<Device>,
     /// index of `devices_list`
-    selected_device: Option<Phone>,
+    selected_device: Option<Device>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
     adb_satisfied: bool,
@@ -62,13 +61,13 @@ pub enum Message {
     AboutPressed,
     SettingsPressed,
     AppsPress,
-    DeviceSelected(Phone),
+    DeviceSelected(Device),
     AboutAction(AboutMessage),
     AppsAction(AppsMessage),
     SettingsAction(SettingsMessage),
     RefreshButtonPressed,
     RebootButtonPressed,
-    LoadDevices(Vec<Phone>),
+    LoadDevices(Vec<Device>),
     #[cfg(feature = "self-update")]
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
@@ -160,10 +159,15 @@ impl Application for UadGui {
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
+                let serial = match &self.selected_device {
+                    Some(d) => d.adb_id.clone(),
+                    _ => String::default(),
+                };
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Command::perform(
-                    perform_adb_commands("reboot".to_string(), CommandType::Shell),
+                    // https://android.stackexchange.com/questions/230256/adb-reboot-vs-adb-shell-reboot
+                    adb_sh_cmd(serial, "reboot".to_string(), CommandType::Shell),
                     |_| Message::Nothing,
                 )
             }
@@ -255,7 +259,6 @@ impl Application for UadGui {
             Message::DeviceSelected(s_device) => {
                 self.selected_device = Some(s_device.clone());
                 self.view = View::List;
-                env::set_var(ANDROID_SERIAL, s_device.adb_id);
                 info!("{:-^65}", "-");
                 info!(
                     "ANDROID_SDK: {} | DEVICE: {}",

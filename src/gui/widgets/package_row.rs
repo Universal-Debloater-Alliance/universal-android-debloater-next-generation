@@ -1,4 +1,4 @@
-use crate::core::sync::Phone;
+use crate::core::sync::Device;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageState, Removal, UadList};
 use crate::gui::style;
@@ -50,7 +50,7 @@ impl PackageRow {
         Command::none()
     }
 
-    pub fn view(&self, settings: &Settings, _phone: &Phone) -> Element<Message, Theme, Renderer> {
+    pub fn view(&self, settings: &Settings, _phone: &Device) -> Element<Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
         let button_style;
