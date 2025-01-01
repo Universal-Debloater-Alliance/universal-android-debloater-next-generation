@@ -5940,7 +5940,7 @@
   },
   "com.sec.location.nsflp2": {
     "list": "Oem",
-    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
+    "description": "Samsung Location SDK\nIt seems to only be used by Samsung (Galaxy) apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32301,7 +32301,7 @@
   },
   "com.samsung.locationhistory": {
     "list": "Oem",
-    "description": "it's only location logs",
+    "description": "It's only location logs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
