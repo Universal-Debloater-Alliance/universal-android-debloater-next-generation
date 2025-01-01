@@ -4319,7 +4319,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "Slocation.\nIt handles GPS queries for some Samsung Galaxy apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\n",
+    "description": "Slocation.\nIt handles GPS queries for some Samsung (Galaxy) apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
