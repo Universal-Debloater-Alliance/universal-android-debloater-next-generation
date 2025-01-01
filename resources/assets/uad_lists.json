@@ -4319,7 +4319,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "IMO it handles GPS needs for some Samsung apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
+    "description": "It handles GPS queries for some Samsung Galaxy apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
