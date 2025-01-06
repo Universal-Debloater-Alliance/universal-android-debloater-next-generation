@@ -921,11 +921,11 @@
   },
   "com.xiaomi.market": {
     "list": "Oem",
-    "description": "GetApps\nChina Mi App Store.\nI used it only to install google play.",
+    "description": "GetApps\nChina Mi App Store.\nEssential for installing the Google Play Store and updating key system applications, such as the System Launcher.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.voiceassist": {
     "list": "Oem",
