@@ -3647,7 +3647,7 @@
   },
   "com.samsung.android.aircommandmanager": {
     "list": "Oem",
-    "description": "AirCommandManager manager\nGives you access to signature S Pen features. You can access Air command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
+    "description": "AirCommandManager (FACM)\nGives you access to signature S Pen features. You can access Air-command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
