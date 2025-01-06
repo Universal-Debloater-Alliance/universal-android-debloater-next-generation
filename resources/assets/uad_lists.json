@@ -4734,7 +4734,7 @@
   },
   "com.samsung.android.themecenter": {
     "list": "Oem",
-    "description": "Samsung Theme Center (AKA Galaxy Themes Service)\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. Has of lot of permissions (including INTERNET and INSTALL_PACKAGES) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
+    "description": "Galaxy Themes Service.\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. On some devices, it provides the built-in wallpaper images to the Theme Store.\nIt will enable itself if you disable it, so try uninstalling (may throw an error).\nHas of lot of permissions (including `INTERNET` and `INSTALL_PACKAGES`) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4742,7 +4742,7 @@
   },
   "com.samsung.android.themestore": {
     "list": "Oem",
-    "description": "Galaxy Themes\nOfficial Samsung app for modifying your smartphone's theme.\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/\nYou'll still be able to change your wallpaper without this app (from the Gallery app)",
+    "description": "Galaxy Themes.\nForces you to login to a Samsung Account if you want to download ANY content (icons, wallpapers, themes...). If you already downloaded something, you can apply it \"freely\".\nNot needed for Wallpaper API, so any app (Samsung or not) can set Home & Lock wallpapers. However, on some devices, this app is required to view/apply built-in wallpapers (in that case, it requires `themecenter` service)\n\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
