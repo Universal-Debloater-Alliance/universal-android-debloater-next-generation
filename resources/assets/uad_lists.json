@@ -25436,6 +25436,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.samsung.android.app.dtv.dmb": {
+    "description": "TV app on Samsung phones and it's only available on Japanese or Korean variants.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.samsung.android.brightnessbackupservice": {
     "description": "Backup brightness configuration\nNot sure if it's for powersaving.",
     "removal": "Expert",
