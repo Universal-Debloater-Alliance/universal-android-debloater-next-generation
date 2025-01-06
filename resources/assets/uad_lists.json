@@ -4319,7 +4319,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "IMO it handles GPS needs for some Samsung apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
+    "description": "Slocation.\nIt handles GPS queries for some Samsung (Galaxy) apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/762#issuecomment-2567149732",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5940,7 +5940,7 @@
   },
   "com.sec.location.nsflp2": {
     "list": "Oem",
-    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
+    "description": "Samsung Location SDK\nIt seems to only be used by Samsung (Galaxy) apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32309,7 +32309,7 @@
   },
   "com.samsung.locationhistory": {
     "list": "Oem",
-    "description": "it's only location logs",
+    "description": "It's only location logs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
