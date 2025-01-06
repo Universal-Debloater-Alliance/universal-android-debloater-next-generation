@@ -30392,7 +30392,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.heytap.themestore": {
     "list": "Oem",
