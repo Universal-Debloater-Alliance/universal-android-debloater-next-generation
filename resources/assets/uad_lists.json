@@ -4335,7 +4335,7 @@
   },
   "com.samsung.android.mdecservice": {
     "list": "Oem",
-    "description": "Samsung Call & Text\nNot 100% sure but by looking at the recompiled java code it seems the apps provides a way to receive call and SMS on\nSamsung accessories. In any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
+    "description": "Samsung Call & Text.\nNot 100% sure, but by looking at the decompiled Java/Dalvik/A.R.T. code it seems the app provides a way to receive call and SMS on Samsung accessories.\nIn any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4978,7 +4978,7 @@
   },
   "com.samsung.klmsagent": {
     "list": "Oem",
-    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) licence.\nThis packages is needed for Samsung Health (com.sec.android.app.shealth) and probably all Knox related apps (like secure folder, samsung Pay...)\n\nNote: KLM licences are depreciated. Samsung now only support KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.\n",
+    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) license.\nThis package is needed for Samsung Health (`com.sec.android.app.shealth`) and probably all Knox-related apps (like Secure Folder, Samsung Pay...)\n\nNote: KLM licences are deprecated. Samsung now only supports KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
