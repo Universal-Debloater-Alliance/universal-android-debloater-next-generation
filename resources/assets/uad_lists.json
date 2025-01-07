@@ -16066,7 +16066,7 @@
   },
   "com.android.thememanager": {
     "list": "Oem",
-    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change lock-screen wallpaper.\nHas a lot trackers. Running in the background.",
+    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change the lock-screen wallpaper and ringtones in the OEM clock app. \nHas a lot trackers. Running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
