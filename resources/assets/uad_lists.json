@@ -30412,11 +30412,11 @@
   },
   "com.heytap.pictorial": {
     "list": "Oem",
-    "description": "Lock screen wallpaper\nPartially or completely breaks the lock screen wallpaper on Realme devices. Instead of the lock screen wallpaper there will be the home screen wallpaper, and there was also a time when after a reboot it was displayed once as it should, but after re-locking the screen everything happened as described earlier.",
+    "description": "Lock Screen Magazine\nLock Screen Magazine provides high-quality wallpapers and allows users to customize their lock screens. Every time you wake your screen, the wallpaper automatically changes.\nhttps://play.google.com/store/apps/details?id=com.heytap.pictorial",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.heytap.themestore": {
     "list": "Oem",
