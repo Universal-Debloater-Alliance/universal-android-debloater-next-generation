@@ -921,11 +921,11 @@
   },
   "com.xiaomi.market": {
     "list": "Oem",
-    "description": "GetApps\nChina Mi App Store.\nI used it only to install google play.",
+    "description": "GetApps\nChina Mi App Store.\nEssential for installing the Google Play Store and updating key system applications, such as the System Launcher.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.voiceassist": {
     "list": "Oem",
@@ -3647,7 +3647,7 @@
   },
   "com.samsung.android.aircommandmanager": {
     "list": "Oem",
-    "description": "AirCommandManager manager\nGives you access to signature S Pen features. You can access Air command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
+    "description": "AirCommandManager (FACM)\nGives you access to signature S Pen features. You can access Air-command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4319,7 +4319,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "IMO it handles GPS needs for some Samsung apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
+    "description": "Slocation.\nIt handles GPS queries for some Samsung (Galaxy) apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/762#issuecomment-2567149732",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4335,7 +4335,7 @@
   },
   "com.samsung.android.mdecservice": {
     "list": "Oem",
-    "description": "Samsung Call & Text\nNot 100% sure but by looking at the recompiled java code it seems the apps provides a way to receive call and SMS on\nSamsung accessories. In any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
+    "description": "Samsung Call & Text.\nNot 100% sure, but by looking at the decompiled Java/Dalvik/A.R.T. code it seems the app provides a way to receive call and SMS on Samsung accessories.\nIn any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4734,7 +4734,7 @@
   },
   "com.samsung.android.themecenter": {
     "list": "Oem",
-    "description": "Samsung Theme Center (AKA Galaxy Themes Service)\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. Has of lot of permissions (including INTERNET and INSTALL_PACKAGES) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
+    "description": "Galaxy Themes Service.\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. On some devices, it provides the built-in wallpaper images to the Theme Store.\nIt will enable itself if you disable it, so try uninstalling (may throw an error).\nHas of lot of permissions (including `INTERNET` and `INSTALL_PACKAGES`) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4742,7 +4742,7 @@
   },
   "com.samsung.android.themestore": {
     "list": "Oem",
-    "description": "Galaxy Themes\nOfficial Samsung app for modifying your smartphone's theme.\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/\nYou'll still be able to change your wallpaper without this app (from the Gallery app)",
+    "description": "Galaxy Themes.\nForces you to login to a Samsung Account if you want to download ANY content (icons, wallpapers, themes...). If you already downloaded something, you can apply it \"freely\".\nNot needed for Wallpaper API, so any app (Samsung or not) can set Home & Lock wallpapers. However, on some devices, this app is required to view/apply built-in wallpapers (in that case, it requires `themecenter` service)\n\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4978,7 +4978,7 @@
   },
   "com.samsung.klmsagent": {
     "list": "Oem",
-    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) licence.\nThis packages is needed for Samsung Health (com.sec.android.app.shealth) and probably all Knox related apps (like secure folder, samsung Pay...)\n\nNote: KLM licences are depreciated. Samsung now only support KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.\n",
+    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) license.\nThis package is needed for Samsung Health (`com.sec.android.app.shealth`) and probably all Knox-related apps (like Secure Folder, Samsung Pay...)\n\nNote: KLM licences are deprecated. Samsung now only supports KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5940,7 +5940,7 @@
   },
   "com.sec.location.nsflp2": {
     "list": "Oem",
-    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
+    "description": "Samsung Location SDK\nIt seems to only be used by Samsung (Galaxy) apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16066,7 +16066,7 @@
   },
   "com.android.thememanager": {
     "list": "Oem",
-    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change lock-screen wallpaper.\nHas a lot trackers. Running in the background.",
+    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change the lock-screen wallpaper and ringtones in the OEM clock app.\nHas a lot trackers. Running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25436,6 +25436,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.samsung.android.app.dtv.dmb": {
+    "description": "TV app on Samsung phones and it's only available on Japanese or Korean variants.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.samsung.android.brightnessbackupservice": {
     "description": "Backup brightness configuration\nNot sure if it's for powersaving.",
     "removal": "Expert",
@@ -30404,11 +30412,11 @@
   },
   "com.heytap.pictorial": {
     "list": "Oem",
-    "description": "Lock screen wallpaper\nPartially or completely breaks the lock screen wallpaper on Realme devices. Instead of the lock screen wallpaper there will be the home screen wallpaper, and there was also a time when after a reboot it was displayed once as it should, but after re-locking the screen everything happened as described earlier.",
+    "description": "Lock Screen Magazine\nLock Screen Magazine provides high-quality wallpapers and allows users to customize their lock screens. Every time you wake your screen, the wallpaper automatically changes.\nhttps://play.google.com/store/apps/details?id=com.heytap.pictorial",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.heytap.themestore": {
     "list": "Oem",
@@ -32301,7 +32309,7 @@
   },
   "com.samsung.locationhistory": {
     "list": "Oem",
-    "description": "it's only location logs",
+    "description": "It's only location logs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
