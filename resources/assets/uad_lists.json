@@ -29697,7 +29697,7 @@
   },
   "com.android.phone": {
     "list": "Aosp",
-    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung",
+    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung. Removing this package made my phone to not see my SIM card.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
