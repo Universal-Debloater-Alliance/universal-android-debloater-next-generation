@@ -381,8 +381,8 @@ impl Application for UadGui {
 impl UadGui {
     pub fn start() -> iced::Result {
         let logo: &[u8] = match *OS_COLOR_SCHEME {
-            // remember to keep `Default` in sync with `src/core/theme`
-            dark_light::Mode::Dark | dark_light::Mode::Default => {
+            // remember to keep `Unspecified` in sync with `src/core/theme`
+            dark_light::Mode::Dark | dark_light::Mode::Unspecified => {
                 include_bytes!("../../resources/assets/logo-dark.png")
             }
             dark_light::Mode::Light => {
