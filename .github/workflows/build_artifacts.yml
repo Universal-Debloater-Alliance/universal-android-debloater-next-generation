@@ -9,19 +9,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build_target: [linux, macos, macos-13, windows]
+        build_target: [linux, macos, macos-intel, windows]
         update_feature: [self-update, no-self-update]
         exclude:
           - build_target: windows
             update_feature: no-self-update
-          - build_target: macos-13
-            os: macos-latest # Avoid duplicate runs on macos-latest
         include:
           - build_target: linux
             os: ubuntu-latest
           - build_target: macos
             os: macos-latest
-          - build_target: macos-13
+          - build_target: macos-intel
             os: macos-13
           - build_target: windows
             os: windows-latest
