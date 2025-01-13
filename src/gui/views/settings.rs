@@ -544,7 +544,7 @@ impl Settings {
             ].padding(20);
 
             let file_row = row![text(format!(
-                "{}_{}.txt",
+                "{}_{}.csv",
                 UNINSTALLED_PACKAGES_FILE_NAME,
                 chrono::Local::now().format("%Y%m%d")
             ))
