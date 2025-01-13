@@ -43,7 +43,7 @@ jobs:
           restore-keys: ${{ runner.OS }}-release-
         if: matrix.os == 'ubuntu-latest'
       - name: Building
-        run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }}
+        run: cargo build --release --no-default-features --features wgpu,tiny_skia${{ matrix.update_feature }}
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-latest'
         run: mv target/release/uad-ng.exe uad-ng-${{ matrix.build_target }}.exe
