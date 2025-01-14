@@ -15114,7 +15114,7 @@
   },
   "com.miui.cloudservice": {
     "list": "Oem",
-    "description": "Mi Cloud Services needed for Mi Cloud\n",
+    "description": "Dependency for synchronizing data with Xiaomi Cloud, including photos, contacts, messages, etc.\nThis feature is essential for Xiaomi phone users in China, as Xiaomi Cloud is their primary cloud storage service.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15178,7 +15178,7 @@
   },
   "com.miui.micloudsync": {
     "list": "Oem",
-    "description": "Mi Cloud Sync\nNeeded for Cloud synchronization.",
+    "description": "Dependency for synchronizing data with Xiaomi Cloud, including photos, contacts, messages, etc.\nThis feature is essential for Xiaomi phone users in China, as Xiaomi Cloud is their primary cloud storage service.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
