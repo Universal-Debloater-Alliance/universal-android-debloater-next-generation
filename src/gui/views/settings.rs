@@ -9,7 +9,7 @@ use crate::core::sync::{get_android_sdk, perform_adb_commands, CommandType, Phon
 use crate::core::theme::Theme;
 use crate::core::utils::{
     export_packages, open_folder, open_url, string_to_theme, DisplayablePath,
-    UNINSTALLED_PACKAGES_FILE_NAME_FORMAT,
+    UNINSTALLED_PACKAGES_FILE_NAME, UNINSTALLED_PACKAGES_FORMAT,
 };
 use crate::gui::style;
 use crate::gui::views::list::{List as AppsView, PackageInfo};
@@ -544,8 +544,10 @@ impl Settings {
             ].padding(20);
 
             let file_row = row![text(format!(
-                UNINSTALLED_PACKAGES_FILE_NAME_FORMAT,
-                chrono::Local::now().format("%Y%m%d")
+                "{}_{}.{}",
+                UNINSTALLED_PACKAGES_FILE_NAME,
+                chrono::Local::now().format("%Y%m%d"),
+                UNINSTALLED_PACKAGES_FORMAT
             ))
             .style(style::Text::Commentary)]
             .padding(20);
