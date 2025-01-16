@@ -17,7 +17,7 @@ pub const NAME: &str = "UAD-ng";
 /// [More info](https://developer.android.com/tools/variables#adb)
 pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
-pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
+pub const UNINSTALLED_PACKAGES_FILE_NAME_FORMAT: &str = "uninstalled_packages_{}.csv";
 
 #[derive(Debug, Clone)]
 pub enum Error {
@@ -184,8 +184,7 @@ pub async fn export_packages(
     phone_packages: Vec<Vec<PackageRow>>,
 ) -> Result<bool, String> {
     let backup_file = format!(
-        "{}_{}.csv",
-        UNINSTALLED_PACKAGES_FILE_NAME,
+        UNINSTALLED_PACKAGES_FILE_NAME_FORMAT,
         Local::now().format("%Y%m%d")
     );
 
