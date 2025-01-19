@@ -2672,7 +2672,9 @@
   "com.huawei.health": {
     "list": "Oem",
     "description": "Huawei Health (discontinued?)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\nRequire HMS.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -3527,11 +3529,11 @@
   },
   "android.autoinstalls.config.samsung": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Samsung Auto-Installs Layout\nAuto-installs layout parser.\nhttps://android.googlesource.com/platform/packages/apps/Launcher3/+/android-14.0.0_r18/src/com/android/launcher3/AutoInstallsLayout.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.aura.oobe.samsung.gl": {
     "list": "Carrier",
@@ -4137,7 +4139,9 @@
     "list": "Oem",
     "description": "Samsung Wallpaper services (Dynamic Lock)\nNOTE: Breaks LockStar customization.\nAutomatically changes your Lock screen’s wallpaper every time your Galaxy phone wakes up (wallpapers update every 2 weeks).\nhttps://www.samsung.com/us/support/answer/ANS10001593\n",
     "dependencies": [],
-    "neededBy": ["com.samsung.systemui.lockstar"],
+    "neededBy": [
+      "com.samsung.systemui.lockstar"
+    ],
     "labels": [],
     "removal": "Advanced"
   },
@@ -6774,39 +6778,39 @@
   },
   "com.android.bluetoothmidiservice": {
     "list": "Aosp",
-    "description": "Provides classes for using the MIDI protocol over Bluetooth. Safe to remove if you don't plan to connect MIDI devices.",
+    "description": "Bluetooth MIDI Service\nImplements Bluetooth MIDI devices.\nhttps://android.googlesource.com/platform/frameworks/base/+/f0a41d1/media/packages/BluetoothMidiService/src/com/android/bluetoothmidiservice/BluetoothMidiDevice.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.bookmarkprovider": {
     "list": "Aosp",
-    "description": "Only exists for compatibility reasons to prevent apps querying it from getting null cursors they do not expect and crash.\nDisabling this on LDPlayer emulator crashes the default browser (`com.android.browser`).",
+    "description": "Bookmark Provider\nExists only to prevent querying null cursor crashes.\nhttps://android.googlesource.com/platform/packages/providers/BookmarkProvider/+/master/src/com/android/bookmarkstore/BookmarkProvider.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.carrierdefaultapp": {
     "list": "Aosp",
-    "description": "This package is a generic solution that allows carriers to indicate when a device has run OOB(Out Of Balance). Android devices that are OOB need carrier mitigation protocols to allow select data through(like to notify users their data/balance is out, or allow them to buy more data through the carrier app).\nWill probably break that functionality if disabled, but is otherwise safe to disable(should only affect users that are out of data/balance?).\nhttps://source.android.com/devices/tech/connect/oob-users",
+    "description": "Carrier Default App\nAllows carrier customization. OEMs could configure a list of carrier actions defined to act upon signals. Allows different interpretations of signals between carriers and could alter an app's behaviour in a configurable way.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/CarrierDefaultApp/src/com/android/carrierdefaultapp/CustomConfigLoader.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.companiondevicemanager": {
     "list": "Aosp",
-    "description": "Companion Device Manager\nThis handles connections to nearby (usually not remote) devices, desktop Operating Systems, etc...\nWARNING: removing this package may result in the inability to read the SD card from your computer's file manager (via USB).",
+    "description": "Companion Device Manager\nSystem level service for managing companion devices through given WiFi MAC address or BSSID.\nhttps://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-30/+/refs/heads/androidx-biometric-release/android/companion/CompanionDeviceManager.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.dreams.basic": {
     "list": "Aosp",
-    "description": "Daydream (not Google Daydream VR) is an interactive screensaver mode built into Android.\nWith it turned on, it activates and shows the screensaver of your choice when you dock or charge your device.\nCan display the time, weather, quotes, photos, news, tweets, or anything else Daydream app developers can think of.\nhttps://developer.android.com/reference/android/service/dreams/DreamService",
+    "description": "Basic\nInteractive colours screen saver.\nhttps://android.googlesource.com/platform/packages/screensavers/Basic/+/jb-mr1-release/src/com/android/dreams/basic/Colors.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6814,7 +6818,7 @@
   },
   "com.android.dreams.phototable": {
     "list": "Aosp",
-    "description": "Photographic screensavers\nDaydream stuff, see com.android.dreams.basic",
+    "description": "Photo Table\nInteractive photo table screen saver.\nhttps://android.googlesource.com/platform/packages/screensavers/PhotoTable/+/e8f4d55/src/com/android/dreams/phototable/PhotoTable.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6830,7 +6834,7 @@
   },
   "com.android.egg": {
     "list": "Aosp",
-    "description": "Android's easter egg feature (spam-tap on the android version in the settings)",
+    "description": "Android Easter Egg\nhttps://android.googlesource.com/platform/frameworks/base/+/172efa1/packages/EasterEgg/src/com/android/egg/paint?autodive=0%2F\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7130,7 +7134,7 @@
   },
   "com.android.apps.tag": {
     "list": "Aosp",
-    "description": "Support for NFC tags interactions (5 permissions, Contacts/Phone On by default).\nNFC Tags are for instance used in buses to validate your transport card with your phone.\nOther example: https://en.wikipedia.org/wiki/TecTile\nYou will still be able to connect to a NFC device (e.g a speaker) with this disabled.",
+    "description": "Tag Viewer\nHandles broadcast of a new tag.\nhttps://android.googlesource.com/platform/packages/apps/Tag/+/master/src/com/android/apps/tag/TagViewer.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7138,7 +7142,7 @@
   },
   "com.android.backupconfirm": {
     "list": "Aosp",
-    "description": "Restores Google settings with Google Backup restore.\nDisplays confirmation popup when doing ADB backup. Disabling this package breaks ADB Backup.",
+    "description": "Backup/Restore confirmation\nUI that confirms with user that a requested full backup/restore operation is legitimate.\nhttps://android.googlesource.com/platform/frameworks/base/+/cd92588/packages/BackupRestoreConfirmation/src/com/android/backupconfirm/BackupRestoreConfirmation.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7154,11 +7158,11 @@
   },
   "com.android.bluetooth": {
     "list": "Aosp",
-    "description": "Bluetooth service\n",
+    "description": "Bluetooth\nhttps://android.googlesource.com/platform/packages/apps/Bluetooth/+/3751015/src/com/android/bluetooth\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.browser": {
     "list": "Aosp",
@@ -7194,11 +7198,11 @@
   },
   "com.android.calllogbackup": {
     "list": "Aosp",
-    "description": "Call Logs Backup/Restore feature.\nRuns in the background.\nhttps://android.googlesource.com/platform/packages/providers/CallLogProvider/+/refs/heads/master/src/com/android/calllogbackup",
+    "description": "Call Log Backup\nTriggers backup accordingly when call log provider changes.\nhttps://android.googlesource.com/platform/packages/providers/CallLogProvider/+/349e0f4/src/com/android/calllogbackup/CallLogChangeReceiver.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.captiveportallogin": {
     "list": "Aosp",
@@ -7210,11 +7214,11 @@
   },
   "com.android.carrierconfig": {
     "list": "Aosp",
-    "description": "Dynamically provides configuration for the carrier network.\nThe config contains: Roaming networks, Voicemail settings, SMS/MMS settings, VoLTE/IMS settings, and more.\nIf a carrier app is installed it will be queried for overrides to these settings.\nSeems to run on boot and when you swap SIM?\nhttps://source.android.com/devices/tech/config/carrier\nhttps://cs.android.com/android/platform/superproject/+/master:packages/apps/CarrierConfig/src/com/android/carrierconfig/DefaultCarrierConfigService.java",
+    "description": "Default Carrier Config Service\nProvides network overrides for carrier configuration.\nhttps://android.googlesource.com/platform/packages/apps/CarrierConfig/+/master/src/com/android/carrierconfig/DefaultCarrierConfigService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.carrierconfig.overlay.common": {
     "list": "Aosp",
@@ -7252,7 +7256,7 @@
   },
   "com.android.cts.priv.ctsshim": {
     "list": "Aosp",
-    "description": "Compatibility Test Service. Verifies certain upgrade scenarios. Disabling could mess with OTA updates.\nA shim is basically a compatibility layer for an API, that makes sure anything that uses the API does so correctly.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim\nhttps://en.wikipedia.org/wiki/Shim_(computing)",
+    "description": "CTS Shim\nVerifies certain upgrade scenarios.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim/build/README\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7260,11 +7264,11 @@
   },
   "com.android.cts.ctsshim": {
     "list": "Aosp",
-    "description": "Compatibility Test Suite\nUsed by manufacturer to test your copy of the device for performance. It just exists and doesn't run in background. More info:\nhttps://source.android.com/docs/compatibility/cts",
+    "description": "CTS Shim\nVerifies certain upgrade scenarios.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim/build/README\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.deskclock": {
     "list": "Aosp",
@@ -7724,11 +7728,11 @@
   },
   "com.android.certinstaller": {
     "list": "Aosp",
-    "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.\nBreaks Wi-Fi if disabled.",
+    "description": "Cert Installer\nInstalls certificates to the system keystore.\nhttps://android.googlesource.com/platform/packages/apps/CertInstaller/+/83df03c8f5d61d37e2fda501c67937f970b7af0c/src/com/android/certinstaller/CertInstaller.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.defcontainer": {
     "list": "Aosp",
@@ -7756,7 +7760,7 @@
   },
   "com.android.dynsystem": {
     "list": "Aosp",
-    "description": "Dynamic System Updates\nRuns on boot, but doesn't seem to run in the background beyond that.\nTreble gives the ability to boot an AOSP Generic System Image (GSI) on any supported device.\nDynamic System Updates allows to boot into a Generic System Image (GSI) without interfering with the current installation.\nThat means the bootloader doesn’t need to be unlocked and the user data doesn’t need to be wiped.\nhttps://developer.android.com/topic/dsu",
+    "description": "Dynamic System Installation Service\nDynamicSystem installation service.\nIt also posts status to notification bar and waits for user cancel/confirm command.\nhttps://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/packages/DynamicSystemInstallationService/src/com/android/dynsystem/DynamicSystemInstallationService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7764,7 +7768,7 @@
   },
   "com.android.externalstorage": {
     "list": "Aosp",
-    "description": "Needed by apps to access external storage (like memory cards).",
+    "description": "Android Auto-generated Product RRO\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9802,7 +9806,7 @@
   },
   "android.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Android Auto-generated Product Runtime Resource Overlay\nRemoving may cause battery drain.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9810,7 +9814,7 @@
   },
   "android.auto_generated_rro_vendor__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Android Auto-Generated Vendor Runtime Resource Overlay\nRemoving may cause battery drain.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9818,11 +9822,11 @@
   },
   "com.android.hotspot2.osulogin": {
     "list": "Aosp",
-    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "description": "Hotspot login\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.theme.icon.pebble": {
     "list": "Aosp",
@@ -16033,12 +16037,12 @@
     "removal": "Advanced"
   },
   "com.android.cameraextensions": {
-    "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.",
+    "list": "Aosp",
+    "description": "Camera Extensions Proxy Service\nPer-process camera extension manager instance to track and initialize/release extensions depending on client activity.\nAlso checks camera extensions for outdated APIs.\nhttps://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-31/+/refs/heads/androidx-camera-release/com/android/cameraextensions/CameraExtensionsProxyService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
@@ -21296,7 +21300,13 @@
     "description": "Screen Recognition (Breeno Touch).\nThis app is used to recognize screen contents and provide quick access to relevant services (like Text Extraction, AI Summarizer). com.coloros.ocrscanner, com.coloros.ocrservice, com.oplus.ocs, com.oplus.aiunit, com.coloros.ocs.opencapabilityservice are also needed for this to work.",
     "removal": "Recommended",
     "list": "Oem",
-    "dependencies": ["com.coloros.ocrscanner", "com.coloros.ocrservice", "com.oplus.ocs", "com.oplus.aiunit", "com.coloros.ocs.opencapabilityservice"],
+    "dependencies": [
+      "com.coloros.ocrscanner",
+      "com.coloros.ocrservice",
+      "com.oplus.ocs",
+      "com.oplus.aiunit",
+      "com.coloros.ocs.opencapabilityservice"
+    ],
     "neededBy": [],
     "labels": []
   },
@@ -22316,7 +22326,9 @@
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
-    "neededBy": ["com.felicanetworks.mfm.main"],
+    "neededBy": [
+      "com.felicanetworks.mfm.main"
+    ],
     "labels": []
   },
   "com.shannon.rcsservice": {
@@ -26128,7 +26140,15 @@
     "description": "Media Controller.\nResponsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.",
     "removal": "Expert",
     "list": "Oem",
-    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "com.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
+    "dependencies": [
+      "com.oneplus.account",
+      "com.oplus.ocs",
+      "com.oplus.onet",
+      "com.oplus.metis",
+      "com.oplus.statistics.rom",
+      "com.coloros.assistantscreen",
+      "com.coloros.scenemode"
+    ],
     "neededBy": [],
     "labels": []
   },
@@ -26928,12 +26948,12 @@
     "removal": "Recommended"
   },
   "com.android.chrome": {
-    "list": "Google",
-    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices",
+    "list": "Aosp",
+    "description": "Chrome\nPreinstalled browser.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.chrome.beta": {
     "list": "Google",
@@ -29521,7 +29541,7 @@
   },
   "com.android.bips": {
     "list": "Aosp",
-    "description": "Default Print Service.\nGeneric printing service that should work with most printers.\nWill break printing functionality if disabled, but other replacement print services can be downloaded from the Play Store.",
+    "description": "Built-In Print Service\nhttps://android.googlesource.com/platform/packages/services/BuiltInPrintService/+/refs/heads/main/src/com/android/bips\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29689,7 +29709,7 @@
   },
   "android": {
     "list": "Aosp",
-    "description": "Android System\nAndroid system framework? Apk file name: framework-res\nCould be THE core of the android system.\nProbably very unsafe to disable.",
+    "description": "Android\nhttps://android.googlesource.com/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30141,7 +30161,9 @@
   "com.huawei.fastapp": {
     "list": "Oem",
     "description": "Quick App Center\nComponent of AppGallery (Huawei's app store) providing Quick Apps support. Quick Apps are Javascript+CSS apps that don't need any installation. This technology has its uses but I'm personally not a huge fan on having to rely on a JS engine to run an application\nThis system app has a lot of permissions (including SEND_SMS, CAMERA, READ_EXTERNAL_STORAGE, RECORD_AUDIO... why?)\nMore information: https://www.xda-developers.com/huawei-quick-apps-alternative-google-instant-apps/\n OW2 Quick App whitepaper: https://quick-app-initiative.ow2.io/docs/Quick_App_White_Paper.pdf",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -33325,11 +33347,11 @@
   },
   "com.android.credentialmanager": {
     "list": "Aosp",
-    "description": "Credential Manager\nManages with Passwords, passkeys.",
+    "description": "Credential Manager\nStores credentials and provides autofill service.\nhttps://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/packages/CredentialManager/src/com/android/credentialmanager?hl=ko%2F%2F%2F%2F&autodive=0%2F%2F%2F%2F%2F\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.stevesoltys.seedvault": {
     "list": "Oem",
@@ -35270,7 +35292,9 @@
   "com.huawei.cloud": {
     "list": "Oem",
     "description": "Chinese only.\nHuawei Cloud Computer provides you with basic services of online desktop.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35302,7 +35326,9 @@
   "com.huawei.android.findmyphone": {
     "list": "Oem",
     "description": "Find Device is an app that lets you locate your device and protect your data remotely.\nTo provide these features, this app needs to connect to the Internet during use.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -35310,7 +35336,9 @@
   "com.huawei.gamebox": {
     "list": "Oem",
     "description": "GameCenter\nRequires HMS Core to run.\nIt's app for installing games.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35318,7 +35346,9 @@
   "com.huawei.hicar": {
     "list": "Oem",
     "description": "Huawei HiCar\nTo connect to Huawei HiCar, press and hold the wireless button on the steering wheel or control panel.\nMore useful in China.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35326,7 +35356,9 @@
   "com.huawei.smarthome": {
     "list": "Oem",
     "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and manage routers and audio accessories.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35366,7 +35398,9 @@
   "com.huawei.hiskytone": {
     "list": "Oem",
     "description": "SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35486,7 +35520,9 @@
   "com.huawei.fans": {
     "list": "Oem",
     "description": "Huawei Club is the official forum for Huawei users.\nIt provides the latest news and information, FAQs, and tutorials about Huawei and Honor products.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35510,7 +35546,9 @@
   "com.huawei.lives": {
     "list": "Oem",
     "description": "HiLives is jointly developed by Huawei and certified third-party service providers to provide lifestyle services for you.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35654,7 +35692,9 @@
   "com.huawei.hwvplayer.youku": {
     "list": "Oem",
     "description": "Video Youku\nVideo Player on Chinese Huawei. Has some ads and bad privacy.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35702,7 +35742,9 @@
   "com.huawei.skytone": {
     "list": "Oem",
     "description": "SkyTone Data Service. Frameworks to 'com.huawei.hiskytone' SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hiskytone"],
+    "dependencies": [
+      "com.huawei.hiskytone"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -37580,14 +37622,14 @@
     "removal": "Advanced"
   },
   "com.samsung.android.server.wifi.mobilewips.client": {
-  "list": "Oem",
-  "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Advanced"
+    "list": "Oem",
+    "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
-"com.onyx.aiassistant": {
+  "com.onyx.aiassistant": {
     "list": "Oem",
     "description": "Onyx Boox AI Assistant. Safe to remove",
     "dependencies": [],
@@ -37603,8 +37645,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
- 
-  "com.onyx.android.production.test":{
+  "com.onyx.android.production.test": {
     "list": "Oem",
     "description": "Test app enabled by clicking 5 times on the Onyx Version, it contains tests for screen quality",
     "dependencies": [],
@@ -37612,7 +37653,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.appmarket":{
+  "com.onyx.appmarket": {
     "list": "Oem",
     "description": "The Onyx Store app, you will not have any other way to install app if you uninstall it\nYou will need to install an alternative store via adb",
     "dependencies": [],
@@ -37628,7 +37669,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.clock":{
+  "com.onyx.clock": {
     "list": "Oem",
     "description": "The Onyx Clock app",
     "dependencies": [],
@@ -37636,7 +37677,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.dict":{
+  "com.onyx.dict": {
     "list": "Oem",
     "description": "The Onyx Dict app",
     "dependencies": [],
@@ -37644,7 +37685,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.easytransfer":{
+  "com.onyx.easytransfer": {
     "list": "Oem",
     "description": "Onyx Easy Transfer app",
     "dependencies": [],
@@ -37652,7 +37693,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.gallery":{
+  "com.onyx.gallery": {
     "list": "Oem",
     "description": "Onyx Gallery app",
     "dependencies": [],
@@ -37660,7 +37701,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.igetshop":{
+  "com.onyx.igetshop": {
     "list": "Oem",
     "description": "Onyx iGetShot app, UNSAFE to remove because it will crash the Onyx Launcher but safe to DISABLE",
     "dependencies": [],
@@ -37668,7 +37709,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "com.onyx.kime":{
+  "com.onyx.kime": {
     "list": "Oem",
     "description": "Onyx Kime app",
     "dependencies": [],
@@ -37676,7 +37717,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.kreader":{
+  "com.onyx.kreader": {
     "list": "Oem",
     "description": "Onyx KReader app, UNSAFE to remove because it will crash the Onyx Launcher can be safely disabled.\nRemember to load another reader app",
     "dependencies": [],
@@ -37684,7 +37725,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "com.onyx.latinime":{
+  "com.onyx.latinime": {
     "list": "Oem",
     "description": "The Onyx Keyboard. Removing it will leave withe google STT keyboard.",
     "dependencies": [],
@@ -37692,7 +37733,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.mail":{
+  "com.onyx.mail": {
     "list": "Oem",
     "description": "Onyx Mail app",
     "dependencies": [],
@@ -37700,7 +37741,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.musicplayer":{
+  "com.onyx.musicplayer": {
     "list": "Oem",
     "description": "Onyx Music Player app",
     "dependencies": [],
@@ -37708,7 +37749,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.voicerecorder":{
+  "com.onyx.voicerecorder": {
     "list": "Oem",
     "description": "Onyx Voice Recorder app",
     "dependencies": [],
@@ -37716,7 +37757,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.preff.kb.xm":{
+  "com.preff.kb.xm": {
     "list": "Oem",
     "description": "'Emoji & Font Keyboard' on Xiaomi.\nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.\nMake sure to install an alternate keyboard app before doing so.",
     "dependencies": [],
@@ -37724,7 +37765,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.nim.rogers":{
+  "com.nim.rogers": {
     "list": "Carrier",
     "description": "Texture, a digital magazine service created by Rogers Media. Discontinued in 2019.",
     "dependencies": [],
@@ -37732,7 +37773,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.Rogers.MyRogersTab":{
+  "com.Rogers.MyRogersTab": {
     "list": "Carrier",
     "description": "Appears to be the tablet version of MyRogers (https://play.google.com/store/apps/details?id=com.fivemobile.myaccount), an app to manage your account with Canadian carrier Rogers.",
     "dependencies": [],
@@ -37740,7 +37781,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.app.colorblind":{
+  "com.samsung.android.app.colorblind": {
     "list": "Oem",
     "description": "This app provides colorblind accessibility features for Samsung devices, helping users with color vision deficiencies by adjusting display colors and improving visibility.",
     "dependencies": [],
@@ -37748,7 +37789,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.framework.res":{
+  "com.samsung.android.framework.res": {
     "list": "Oem",
     "description": "This package is part of Samsung’s custom system framework and manages various resources for Samsung-specific features and UI enhancements.",
     "dependencies": [],
@@ -37756,7 +37797,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.timezone.autoupdate_N":{
+  "com.samsung.android.timezone.autoupdate_N": {
     "list": "Oem",
     "description": "This app handles automatic updates for time zone information on Samsung devices, ensuring accurate timekeeping across different regions.",
     "dependencies": [],
@@ -37764,7 +37805,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.knox.appsupdateagent":{
+  "com.samsung.knox.appsupdateagent": {
     "list": "Oem",
     "description": "This app is part of Samsung Knox, managing updates for apps within the Knox security framework.",
     "dependencies": [],
@@ -37772,7 +37813,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.sec.android.app.kidshome":{
+  "com.sec.android.app.kidshome": {
     "list": "Oem",
     "description": "This app provides a child-friendly interface and controls on Samsung devices, designed to create a safe environment for children by restricting access to apps and content.",
     "dependencies": [],
@@ -37780,7 +37821,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.sec.android.app.wallpaperchooser":{
+  "com.sec.android.app.wallpaperchooser": {
     "list": "Oem",
     "description": "This app provides the functionality to select and manage wallpapers on Samsung devices, including Samsung-specific wallpaper options.",
     "dependencies": [],
@@ -37788,7 +37829,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.sec.app.TransmitPowerService":{
+  "com.sec.app.TransmitPowerService": {
     "list": "Oem",
     "description": "This app manages settings related to the transmit power of wireless communications on Samsung devices, such as Wi-Fi and Bluetooth.",
     "dependencies": [],
