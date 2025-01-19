@@ -6778,39 +6778,39 @@
   },
   "com.android.bluetoothmidiservice": {
     "list": "Aosp",
-    "description": "Provides classes for using the MIDI protocol over Bluetooth. Safe to remove if you don't plan to connect MIDI devices.",
+    "description": "Bluetooth MIDI Service\nImplements Bluetooth MIDI devices.\nhttps://android.googlesource.com/platform/frameworks/base/+/f0a41d1/media/packages/BluetoothMidiService/src/com/android/bluetoothmidiservice/BluetoothMidiDevice.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.bookmarkprovider": {
     "list": "Aosp",
-    "description": "Only exists for compatibility reasons to prevent apps querying it from getting null cursors they do not expect and crash.\nDisabling this on LDPlayer emulator crashes the default browser (`com.android.browser`).",
+    "description": "Bookmark Provider\nExists only to prevent querying null cursor crashes.\nhttps://android.googlesource.com/platform/packages/providers/BookmarkProvider/+/master/src/com/android/bookmarkstore/BookmarkProvider.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.carrierdefaultapp": {
     "list": "Aosp",
-    "description": "This package is a generic solution that allows carriers to indicate when a device has run OOB(Out Of Balance). Android devices that are OOB need carrier mitigation protocols to allow select data through(like to notify users their data/balance is out, or allow them to buy more data through the carrier app).\nWill probably break that functionality if disabled, but is otherwise safe to disable(should only affect users that are out of data/balance?).\nhttps://source.android.com/devices/tech/connect/oob-users",
+    "description": "Carrier Default App\nAllows carrier customization. OEMs could configure a list of carrier actions defined to act upon signals. Allows different interpretations of signals between carriers and could alter an app's behaviour in a configurable way.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/CarrierDefaultApp/src/com/android/carrierdefaultapp/CustomConfigLoader.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.companiondevicemanager": {
     "list": "Aosp",
-    "description": "Companion Device Manager\nThis handles connections to nearby (usually not remote) devices, desktop Operating Systems, etc...\nWARNING: removing this package may result in the inability to read the SD card from your computer's file manager (via USB).",
+    "description": "Companion Device Manager\nSystem level service for managing companion devices through given WiFi MAC address or BSSID.\nhttps://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-30/+/refs/heads/androidx-biometric-release/android/companion/CompanionDeviceManager.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.dreams.basic": {
     "list": "Aosp",
-    "description": "Daydream (not Google Daydream VR) is an interactive screensaver mode built into Android.\nWith it turned on, it activates and shows the screensaver of your choice when you dock or charge your device.\nCan display the time, weather, quotes, photos, news, tweets, or anything else Daydream app developers can think of.\nhttps://developer.android.com/reference/android/service/dreams/DreamService",
+    "description": "Basic\nInteractive colours screen saver.\nhttps://android.googlesource.com/platform/packages/screensavers/Basic/+/jb-mr1-release/src/com/android/dreams/basic/Colors.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6818,7 +6818,7 @@
   },
   "com.android.dreams.phototable": {
     "list": "Aosp",
-    "description": "Photographic screensavers\nDaydream stuff, see com.android.dreams.basic",
+    "description": "Photo Table\nInteractive photo table screen saver.\nhttps://android.googlesource.com/platform/packages/screensavers/PhotoTable/+/e8f4d55/src/com/android/dreams/phototable/PhotoTable.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6834,7 +6834,7 @@
   },
   "com.android.egg": {
     "list": "Aosp",
-    "description": "Android's easter egg feature (spam-tap on the android version in the settings)",
+    "description": "Android Easter Egg\nhttps://android.googlesource.com/platform/frameworks/base/+/172efa1/packages/EasterEgg/src/com/android/egg/paint?autodive=0%2F\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7134,7 +7134,7 @@
   },
   "com.android.apps.tag": {
     "list": "Aosp",
-    "description": "Support for NFC tags interactions (5 permissions, Contacts/Phone On by default).\nNFC Tags are for instance used in buses to validate your transport card with your phone.\nOther example: https://en.wikipedia.org/wiki/TecTile\nYou will still be able to connect to a NFC device (e.g a speaker) with this disabled.",
+    "description": "Tag Viewer\nHandles broadcast of a new tag.\nhttps://android.googlesource.com/platform/packages/apps/Tag/+/master/src/com/android/apps/tag/TagViewer.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7142,7 +7142,7 @@
   },
   "com.android.backupconfirm": {
     "list": "Aosp",
-    "description": "Restores Google settings with Google Backup restore.\nDisplays confirmation popup when doing ADB backup. Disabling this package breaks ADB Backup.",
+    "description": "Backup/Restore confirmation\nUI that confirms with user that a requested full backup/restore operation is legitimate.\nhttps://android.googlesource.com/platform/frameworks/base/+/cd92588/packages/BackupRestoreConfirmation/src/com/android/backupconfirm/BackupRestoreConfirmation.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7158,11 +7158,11 @@
   },
   "com.android.bluetooth": {
     "list": "Aosp",
-    "description": "Bluetooth service\n",
+    "description": "Bluetooth\nhttps://android.googlesource.com/platform/packages/apps/Bluetooth/+/3751015/src/com/android/bluetooth\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.android.browser": {
     "list": "Aosp",
@@ -7198,11 +7198,11 @@
   },
   "com.android.calllogbackup": {
     "list": "Aosp",
-    "description": "Call Logs Backup/Restore feature.\nRuns in the background.\nhttps://android.googlesource.com/platform/packages/providers/CallLogProvider/+/refs/heads/master/src/com/android/calllogbackup",
+    "description": "Call Log Backup\nTriggers backup accordingly when call log provider changes.\nhttps://android.googlesource.com/platform/packages/providers/CallLogProvider/+/349e0f4/src/com/android/calllogbackup/CallLogChangeReceiver.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.captiveportallogin": {
     "list": "Aosp",
@@ -7214,11 +7214,11 @@
   },
   "com.android.carrierconfig": {
     "list": "Aosp",
-    "description": "Dynamically provides configuration for the carrier network.\nThe config contains: Roaming networks, Voicemail settings, SMS/MMS settings, VoLTE/IMS settings, and more.\nIf a carrier app is installed it will be queried for overrides to these settings.\nSeems to run on boot and when you swap SIM?\nhttps://source.android.com/devices/tech/config/carrier\nhttps://cs.android.com/android/platform/superproject/+/master:packages/apps/CarrierConfig/src/com/android/carrierconfig/DefaultCarrierConfigService.java",
+    "description": "Default Carrier Config Service\nProvides network overrides for carrier configuration.\nhttps://android.googlesource.com/platform/packages/apps/CarrierConfig/+/master/src/com/android/carrierconfig/DefaultCarrierConfigService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.carrierconfig.overlay.common": {
     "list": "Aosp",
@@ -7256,7 +7256,7 @@
   },
   "com.android.cts.priv.ctsshim": {
     "list": "Aosp",
-    "description": "Compatibility Test Service. Verifies certain upgrade scenarios. Disabling could mess with OTA updates.\nA shim is basically a compatibility layer for an API, that makes sure anything that uses the API does so correctly.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim\nhttps://en.wikipedia.org/wiki/Shim_(computing)",
+    "description": "CTS Shim\nVerifies certain upgrade scenarios.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim/build/README\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7264,11 +7264,11 @@
   },
   "com.android.cts.ctsshim": {
     "list": "Aosp",
-    "description": "Compatibility Test Suite\nUsed by manufacturer to test your copy of the device for performance. It just exists and doesn't run in background. More info:\nhttps://source.android.com/docs/compatibility/cts",
+    "description": "CTS Shim\nVerifies certain upgrade scenarios.\nhttps://android.googlesource.com/platform/frameworks/base/+/51e458e/packages/CtsShim/build/README\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.deskclock": {
     "list": "Aosp",
@@ -7728,11 +7728,11 @@
   },
   "com.android.certinstaller": {
     "list": "Aosp",
-    "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.\nBreaks Wi-Fi if disabled.",
+    "description": "Cert Installer\nInstalls certificates to the system keystore.\nhttps://android.googlesource.com/platform/packages/apps/CertInstaller/+/83df03c8f5d61d37e2fda501c67937f970b7af0c/src/com/android/certinstaller/CertInstaller.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.defcontainer": {
     "list": "Aosp",
@@ -7760,7 +7760,7 @@
   },
   "com.android.dynsystem": {
     "list": "Aosp",
-    "description": "Dynamic System Updates\nRuns on boot, but doesn't seem to run in the background beyond that.\nTreble gives the ability to boot an AOSP Generic System Image (GSI) on any supported device.\nDynamic System Updates allows to boot into a Generic System Image (GSI) without interfering with the current installation.\nThat means the bootloader doesn’t need to be unlocked and the user data doesn’t need to be wiped.\nhttps://developer.android.com/topic/dsu",
+    "description": "Dynamic System Installation Service\nDynamicSystem installation service.\nIt also posts status to notification bar and waits for user cancel/confirm command.\nhttps://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/packages/DynamicSystemInstallationService/src/com/android/dynsystem/DynamicSystemInstallationService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7768,7 +7768,7 @@
   },
   "com.android.externalstorage": {
     "list": "Aosp",
-    "description": "Needed by apps to access external storage (like memory cards).",
+    "description": "Android Auto-generated Product RRO\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9806,7 +9806,7 @@
   },
   "android.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Android Auto-generated Product Runtime Resource Overlay\nRemoving may cause battery drain.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9814,7 +9814,7 @@
   },
   "android.auto_generated_rro_vendor__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "Android Auto-Generated Vendor Runtime Resource Overlay\nRemoving may cause battery drain.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9822,11 +9822,11 @@
   },
   "com.android.hotspot2.osulogin": {
     "list": "Aosp",
-    "description": "The sole purpose of the OsuLogin App is to provision credentials from the Wi-Fi network to the device and allow them to connect to Wi-Fi Hotspot 2.0. See https://hackanons.com/2021/07/osulogin-android-everything-you-need-to-know.html for more information.",
+    "description": "Hotspot login\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.theme.icon.pebble": {
     "list": "Aosp",
@@ -16037,12 +16037,12 @@
     "removal": "Advanced"
   },
   "com.android.cameraextensions": {
-    "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.",
+    "list": "Aosp",
+    "description": "Camera Extensions Proxy Service\nPer-process camera extension manager instance to track and initialize/release extensions depending on client activity.\nAlso checks camera extensions for outdated APIs.\nhttps://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-31/+/refs/heads/androidx-camera-release/com/android/cameraextensions/CameraExtensionsProxyService.java\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
@@ -26948,12 +26948,12 @@
     "removal": "Recommended"
   },
   "com.android.chrome": {
-    "list": "Google",
-    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices",
+    "list": "Aosp",
+    "description": "Chrome\nPreinstalled browser.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.chrome.beta": {
     "list": "Google",
@@ -29541,7 +29541,7 @@
   },
   "com.android.bips": {
     "list": "Aosp",
-    "description": "Default Print Service.\nGeneric printing service that should work with most printers.\nWill break printing functionality if disabled, but other replacement print services can be downloaded from the Play Store.",
+    "description": "Built-In Print Service\nhttps://android.googlesource.com/platform/packages/services/BuiltInPrintService/+/refs/heads/main/src/com/android/bips\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29709,7 +29709,7 @@
   },
   "android": {
     "list": "Aosp",
-    "description": "Android System\nAndroid system framework? Apk file name: framework-res\nCould be THE core of the android system.\nProbably very unsafe to disable.",
+    "description": "Android\nhttps://android.googlesource.com/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33347,11 +33347,11 @@
   },
   "com.android.credentialmanager": {
     "list": "Aosp",
-    "description": "Credential Manager\nManages with Passwords, passkeys.",
+    "description": "Credential Manager\nStores credentials and provides autofill service.\nhttps://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/packages/CredentialManager/src/com/android/credentialmanager?hl=ko%2F%2F%2F%2F&autodive=0%2F%2F%2F%2F%2F\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.stevesoltys.seedvault": {
     "list": "Oem",
