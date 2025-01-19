@@ -2,8 +2,7 @@ use crate::core::sync::{hashset_system_packages, list_all_system_packages, User}
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
 use crate::gui::widgets::package_row::PackageRow;
-use chrono::offset::Utc;
-use chrono::{DateTime, Local};
+use chrono::{offset::Utc, DateTime};
 use csv::Writer;
 use std::path::PathBuf;
 use std::process::Command;
@@ -17,7 +16,19 @@ pub const NAME: &str = "UAD-ng";
 /// [More info](https://developer.android.com/tools/variables#adb)
 pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
-pub const UNINSTALLED_PACKAGES_FILE_NAME: &str = "uninstalled_packages";
+
+// Takes a time-stamp parameter,
+// for purity and testability.
+//
+// The TZ is generic, because testing requires UTC,
+// while users get the local-aware version.
+pub fn generate_backup_name<T>(t: DateTime<T>) -> String
+where
+    T: chrono::TimeZone,
+    T::Offset: std::fmt::Display,
+{
+    format!("uninstalled_packages_{}.csv", t.format("%Y%m%d"))
+}
 
 #[derive(Debug, Clone)]
 pub enum Error {
@@ -183,11 +194,7 @@ pub async fn export_packages(
     user: User,
     phone_packages: Vec<Vec<PackageRow>>,
 ) -> Result<bool, String> {
-    let backup_file = format!(
-        "{}_{}.csv",
-        UNINSTALLED_PACKAGES_FILE_NAME,
-        Local::now().format("%Y%m%d")
-    );
+    let backup_file = generate_backup_name(chrono::Local::now());
 
     let file = fs::File::create(backup_file).map_err(|err| err.to_string())?;
     let mut wtr = Writer::from_writer(file);
@@ -208,4 +215,20 @@ pub async fn export_packages(
     wtr.flush().map_err(|err| err.to_string())?;
 
     Ok(true)
+}
+
+#[cfg(test)]
+mod tests {
+    #![allow(clippy::unwrap_used, reason = "")]
+
+    use super::*;
+    use chrono::TimeZone;
+
+    #[test]
+    fn backup_name() {
+        assert_eq!(
+            generate_backup_name(chrono::Utc.timestamp_millis_opt(0).unwrap()),
+            "uninstalled_packages_19700101.csv".to_string()
+        );
+    }
 }

@@ -599,7 +599,9 @@ mod tests {
         assert_ne!(palette.normal.primary, Color::BLACK);
         assert_ne!(palette.normal.surface, Color::BLACK);
         assert_ne!(palette.bright.primary, Color::BLACK);
-        assert_ne!(palette.bright.surface, Color::BLACK);
+        // if `LIGHT` then this can be `BLACK`
+        // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/730#issuecomment-2525405134
+        //assert_ne!(palette.bright.surface, Color::BLACK);
         assert_ne!(palette.normal.error, Color::BLACK);
         assert_ne!(palette.bright.error, Color::BLACK);
     }

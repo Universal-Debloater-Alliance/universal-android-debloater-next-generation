@@ -921,11 +921,11 @@
   },
   "com.xiaomi.market": {
     "list": "Oem",
-    "description": "GetApps\nChina Mi App Store.\nI used it only to install google play.",
+    "description": "GetApps\nChina Mi App Store.\nEssential for installing the Google Play Store and updating key system applications, such as the System Launcher.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.voiceassist": {
     "list": "Oem",
@@ -1202,6 +1202,14 @@
   "com.telecomsys.directedsms.android.SCG": {
     "list": "Carrier",
     "description": "Verizon Location Agent\nLocation tracking (does not impact GPS function if deleted, don't worry)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.telus.checkup": {
+    "list": "Carrier",
+    "description": "Checkup app (from Mobile Klinik; a Canadian store for buying, selling, and repairing smartphones)\nMainly used to run device-health diagnostics, estimate device value post-diagnostics (for re-selling at a Mobile Klinik location), and finding nearby Mobile Klinik locations to book appointments for device repair. Also contains ads and promotions for new devices and accessories.\nGenerally regarded as bloatware because diagnostics are generic at best, and is eager to request many unnecessary and potentially invasive device permissions.\nSafe to remove if you don't use it, and can be re-downloaded from the Google Play Store at any time.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3639,7 +3647,7 @@
   },
   "com.samsung.android.aircommandmanager": {
     "list": "Oem",
-    "description": "AirCommandManager manager\nGives you access to signature S Pen features. You can access Air command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
+    "description": "AirCommandManager (FACM)\nGives you access to signature S Pen features. You can access Air-command anytime you are using your phone by simply taking out the S Pen.\nhttps://www.samsung.com/global/galaxy/what-is/air-command/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4127,11 +4135,11 @@
   },
   "com.samsung.android.dynamiclock": {
     "list": "Oem",
-    "description": "Samsung Wallpaper services (AKA 'Dynamic Lock')\nAutomatically changes your Lock screen’s wallpaper\nhttps://www.samsung.com/us/support/answer/ANS00084210/\n",
+    "description": "Samsung Wallpaper services (Dynamic Lock)\nNOTE: Breaks LockStar customization.\nAutomatically changes your Lock screen’s wallpaper every time your Galaxy phone wakes up (wallpapers update every 2 weeks).\nhttps://www.samsung.com/us/support/answer/ANS10001593\n",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": ["com.samsung.systemui.lockstar"],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.gearoplugin": {
     "list": "Oem",
@@ -4311,7 +4319,7 @@
   },
   "com.samsung.android.location": {
     "list": "Oem",
-    "description": "IMO it handles GPS needs for some Samsung apps. I have it removed on my phone and I still can use the GPS with a 3-party app.\n",
+    "description": "Slocation.\nIt handles GPS queries for some Samsung (Galaxy) apps, such as Camera location tagging. Apps exclusively using raw GPS and/or Google Location API are unaffected\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/762#issuecomment-2567149732",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4327,7 +4335,7 @@
   },
   "com.samsung.android.mdecservice": {
     "list": "Oem",
-    "description": "Samsung Call & Text\nNot 100% sure but by looking at the recompiled java code it seems the apps provides a way to receive call and SMS on\nSamsung accessories. In any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
+    "description": "Samsung Call & Text.\nNot 100% sure, but by looking at the decompiled Java/Dalvik/A.R.T. code it seems the app provides a way to receive call and SMS on Samsung accessories.\nIn any case it is only useful for Samsung IoT stuff.\nEmbeded Google Firebase analytics\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4726,7 +4734,7 @@
   },
   "com.samsung.android.themecenter": {
     "list": "Oem",
-    "description": "Samsung Theme Center (AKA Galaxy Themes Service)\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. Has of lot of permissions (including INTERNET and INSTALL_PACKAGES) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
+    "description": "Galaxy Themes Service.\nRuns at startup and allows you to apply themes from `com.samsung.android.themestore`. On some devices, it provides the built-in wallpaper images to the Theme Store.\nIt will enable itself if you disable it, so try uninstalling (may throw an error).\nHas of lot of permissions (including `INTERNET` and `INSTALL_PACKAGES`) and connects to Samsung domains for analytics.\n\nPithus analysis: https://beta.pithus.org/report/973ba78ddd74a13dcf5268e980010a64ba42a3d2a1c4c62df277ead5a17cd10c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4734,7 +4742,7 @@
   },
   "com.samsung.android.themestore": {
     "list": "Oem",
-    "description": "Galaxy Themes\nOfficial Samsung app for modifying your smartphone's theme.\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/\nYou'll still be able to change your wallpaper without this app (from the Gallery app)",
+    "description": "Galaxy Themes.\nForces you to login to a Samsung Account if you want to download ANY content (icons, wallpapers, themes...). If you already downloaded something, you can apply it \"freely\".\nNot needed for Wallpaper API, so any app (Samsung or not) can set Home & Lock wallpapers. However, on some devices, this app is required to view/apply built-in wallpapers (in that case, it requires `themecenter` service)\n\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4970,7 +4978,7 @@
   },
   "com.samsung.klmsagent": {
     "list": "Oem",
-    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) licence.\nThis packages is needed for Samsung Health (com.sec.android.app.shealth) and probably all Knox related apps (like secure folder, samsung Pay...)\n\nNote: KLM licences are depreciated. Samsung now only support KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.\n",
+    "description": "Checks the validity of your KLM/KPE (Knox Licence Manager) license.\nThis package is needed for Samsung Health (`com.sec.android.app.shealth`) and probably all Knox-related apps (like Secure Folder, Samsung Pay...)\n\nNote: KLM licences are deprecated. Samsung now only supports KPE (Knox Platform for Enterprise) keys.\nKPE keys are provided by Samsung and enable app's developers to access knox features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5102,7 +5110,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.storyservice": {
     "list": "Oem",
@@ -5932,7 +5940,7 @@
   },
   "com.sec.location.nsflp2": {
     "list": "Oem",
-    "description": "Samsung Location SDK\nI just know this doesn't have any impact on GPS stuff. \nIt seems to be only used along Samsung apps.\n",
+    "description": "Samsung Location SDK\nIt seems to only be used by Samsung (Galaxy) apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7604,7 +7612,7 @@
   },
   "com.android.se": {
     "list": "Aosp",
-    "description": "SecureElementApplication\nRuns in the background as part of the system.\nUnderlying implementation for the OMAPI SE service.\nEnables apps to use the OpenMobile API to access secure elements(SE) to enable smart-card payments and other secure services.\n\nAn SE is a special chip (e.g SIM-card) for storing cryptographic secrets in a way that makes illicit use hard.\nThe Open Mobile Alliance (OPA) is a standards organization which develops open standards for the mobile phone industry.",
+    "description": "SecureElementApplication\nRuns in the background as part of the system.\nNOTE: ColorOS password lock requires this package.\nUnderlying implementation for the OMAPI SE service.\nEnables apps to use the OpenMobile API to access secure elements(SE) to enable smart-card payments and other secure services.\n\nAn SE is a special chip (e.g SIM-card) for storing cryptographic secrets in a way that makes illicit use hard.\nThe Open Mobile Alliance (OPA) is a standards organization which develops open standards for the mobile phone industry.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7700,7 +7708,7 @@
   },
   "com.android.wallpaperbackup": {
     "list": "Aosp",
-    "description": "Backup your wallapaper and load this backup instead of the original file in case you delete it.\nSafe to remove if you really want to.\n",
+    "description": "Wallpaper Backup\nBacks up and restores wallpaper and metadata related to it.\nThis agent has its own package because it does full backup as opposed to SystemBackupAgent which does key/value backup.\nThis class stages wallpaper files for backup by copying them into its own directory because of the following reasons:\nNon-system users don't have permission to read the directory that the system stores the wallpaper files in\nBackupAgent enforces that backed up files must live inside the package's getFilesDir()\nThere are 3 files to back up:\nThe \"wallpaper info\"  file which contains metadata like the crop applied to the wallpaper or the live wallpaper component name.\nThe \"system\" wallpaper file.\nAn optional \"lock\" wallpaper, which is shown on the lockscreen instead of the system wallpaper if set.\nOn restore, the metadata file is parsed and WallpaperManager APIs are used to set the wallpaper.\nNote that if there's a live wallpaper, the live wallpaper package name will be part of the metadata file and the wallpaper will be applied when the package it's installed.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/WallpaperBackup/src/com/android/wallpaperbackup/WallpaperBackupAgent.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16058,7 +16066,7 @@
   },
   "com.android.thememanager": {
     "list": "Oem",
-    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change lock-screen wallpaper.\nHas a lot trackers. Running in the background.",
+    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change the lock-screen wallpaper and ringtones in the OEM clock app.\nHas a lot trackers. Running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18325,8 +18333,8 @@
     "labels": []
   },
   "com.lge.provider.signboard": {
-    "description": "Needed for Always on display.",
-    "removal": "Recommended",
+    "description": "Needed for Always on display.\nNOTE: May crash Settings app after removal.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -25428,6 +25436,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.samsung.android.app.dtv.dmb": {
+    "description": "TV app on Samsung phones and it's only available on Japanese or Korean variants.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.samsung.android.brightnessbackupservice": {
     "description": "Backup brightness configuration\nNot sure if it's for powersaving.",
     "removal": "Expert",
@@ -29003,6 +29019,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.htc.masthead": {
+    "list": "Oem",
+    "description": "HTC Lockscreen Theme.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.htc.weather": {
+    "list": "Oem",
+    "description": "HTC Weather",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.huawei.android.totemweather": {
     "list": "Oem",
     "description": "Huawei Weather app (and its widget)",
@@ -29093,11 +29125,11 @@
   },
   "com.huawei.lbs": {
     "list": "Oem",
-    "description": "HwLBService\nChinese Location Services(Baidu) only for China. After removal, location still works.",
+    "description": "Location Based Services\nLocation-based services (LBS) are applications or services that utilize location data from a user's device, such as a smartphone or GPS, to provide relevant information, directions, or recommendations tailored to their specific location. These services rely on a combination of technologies, including Global Positioning System (GPS), Wi-Fi, cellular networks, and sensors, to determine a user's position accurately.\nNOTE: Can cause bootloops on some devices.\nThe primary goal of LBS is to offer personalized and context-aware experiences based on a user's geographical location. This can include services like:\n1. Navigation and Mapping, 2. Location-Based Advertising, 3. Social Networking, 4. Emergency Services, 5. IoT Asset Tracking\nhttps://forum.huawei.com/enterprise/en/location-based-services/thread/703168442200375296-667213855346012160",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.huawei.mmitest": {
     "list": "Oem",
@@ -29665,7 +29697,7 @@
   },
   "com.android.phone": {
     "list": "Aosp",
-    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung",
+    "description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung. Removing this package made my phone to not see my SIM card.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30380,11 +30412,11 @@
   },
   "com.heytap.pictorial": {
     "list": "Oem",
-    "description": "Lock screen wallpaper\nPartially or completely breaks the lock screen wallpaper on Realme devices. Instead of the lock screen wallpaper there will be the home screen wallpaper, and there was also a time when after a reboot it was displayed once as it should, but after re-locking the screen everything happened as described earlier.",
+    "description": "Lock Screen Magazine\nLock Screen Magazine provides high-quality wallpapers and allows users to customize their lock screens. Every time you wake your screen, the wallpaper automatically changes.\nhttps://play.google.com/store/apps/details?id=com.heytap.pictorial",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.heytap.themestore": {
     "list": "Oem",
@@ -32277,7 +32309,7 @@
   },
   "com.samsung.locationhistory": {
     "list": "Oem",
-    "description": "it's only location logs",
+    "description": "It's only location logs",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -38043,5 +38075,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.taboola.scoop": {
+    "list": "Oem",
+    "description": "Random wallpaper on lock screen (as i saw it personalizes it too). You need to open this app to make it work and when you swipe from right to left, it opens a menu on the right where random news appears.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
