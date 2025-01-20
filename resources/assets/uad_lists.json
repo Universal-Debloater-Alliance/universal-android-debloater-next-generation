@@ -7022,7 +7022,7 @@
   },
   "com.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. Alternatively, you can use a libre spam-blocking and DNS-blocking solution instead.\nAnyway it looks like a useless frameworks.\nhttps://safety.google",
+    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. This will also revert back the \"Security & privacy\" look to the old style.\nYou can use a libre spam-blocking and DNS-blocking solution instead of this.\nhttps://safety.google",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27393,7 +27393,7 @@
   },
   "com.google.android.apps.wellbeing": {
     "list": "Google",
-    "description": "Digital Wellbeing (https://play.google.com/store/apps/details?id=com.google.android.apps.wellbeing)\nLets you track device and app usage and set usage limits.\nWARNING: It is now a hard dependency for the settings app on Android 12+ on Pixel phones. Disable this package instead of uninstalling it or the settings will crash on launch.",
+    "description": "Digital Wellbeing (https://play.google.com/store/apps/details?id=com.google.android.apps.wellbeing)\nLets you track device and app usage and set usage limits.\nWARNING: It is now a hard dependency for the Settings app on Android 12+ for Pixel phones. After uninstalling, there will be an empty entry on Settings. Rebooting should make it disappear..",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28179,11 +28179,11 @@
   },
   "com.google.android.overlay.permissioncontroller": {
     "list": "Aosp",
-    "description": "I only detect on this app: help_app_permissions (link below)\nIt looks very useless.\nNot needed, it doesnt affect on (com.google.android.permissioncontroller)\nhttps://support.google.com/googleplay/answer/6270602",
-    "dependencies": [],
+    "description": "Breaks Google Play System updates (GPSu), related to Project Mainline. Page on Settings will crash altogether, or ask Play Store to be updated.\nhttps://support.google.com/product-documentation/answer/14343500",
+    "dependencies": ["com.android.vending"],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.verizon.obdm": {
     "list": "Carrier",
@@ -38079,6 +38079,14 @@
   "com.taboola.scoop": {
     "list": "Oem",
     "description": "Random wallpaper on lock screen (as i saw it personalizes it too). You need to open this app to make it work and when you swipe from right to left, it opens a menu on the right where random news appears.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.weather": {
+    "list": "Google",
+    "description": "The new Weather app by Google. If removed, \"At a Glance\" and the lock screen will still redirect to the Google app (like before).\nhttps://play.google.com/store/apps/details?id=com.google.android.apps.weather",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
