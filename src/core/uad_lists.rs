@@ -112,7 +112,7 @@ impl std::fmt::Display for PackageState {
             f,
             "{}",
             match self {
-                Self::All => "All packages",
+                Self::All => "All states",
                 Self::Enabled => "Enabled",
                 Self::Uninstalled => "Uninstalled",
                 Self::Disabled => "Disabled",
@@ -177,7 +177,7 @@ impl std::fmt::Display for Removal {
             f,
             "{}",
             match self {
-                Self::All => "All",
+                Self::All => "All removals",
                 Self::Recommended => "Recommended",
                 Self::Advanced => "Advanced",
                 Self::Expert => "Expert",

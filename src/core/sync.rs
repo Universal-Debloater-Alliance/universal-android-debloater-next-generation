@@ -331,7 +331,7 @@ pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
 /// This matches serials (`getprop ro.serialno`)
 /// that are authorized by the user.
 pub async fn get_devices_list() -> Vec<Device> {
-    retry(Fixed::from_millis(500).take(120), || {
+    retry(Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }), || {
         match AdbCmd::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];

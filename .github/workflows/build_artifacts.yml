@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        build_target: [linux, macos, windows]
+        build_target: [linux, macos, macos-intel, windows]
         update_feature: [self-update, no-self-update]
         exclude:
           - build_target: windows
@@ -19,6 +19,8 @@ jobs:
             os: ubuntu-latest
           - build_target: macos
             os: macos-latest
+          - build_target: macos-intel
+            os: macos-13
           - build_target: windows
             os: windows-latest
           - update_feature: self-update
@@ -52,7 +54,7 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: tar -czf uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}{.tar.gz,}
       - name: Install coreutils for macOS
-        if: matrix.os == 'macos-latest'
+        if: startsWith(matrix.os, 'macos')
         run: brew install coreutils
       - name: Create checksums for binaries and archives [Windows]
         if: matrix.os == 'windows-latest'

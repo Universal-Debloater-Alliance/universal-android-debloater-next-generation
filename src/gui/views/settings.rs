@@ -5,7 +5,7 @@ use crate::core::{
     sync::{adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User},
     theme::Theme,
     utils::{
-        export_packages, open_folder, open_url, string_to_theme, DisplayablePath, Error, NAME,
+        export_packages, generate_backup_name, open_folder, open_url, string_to_theme, DisplayablePath, Error, NAME,
         UNINSTALLED_PACKAGES_FILE_NAME,
     },
 };
@@ -551,12 +551,9 @@ impl Settings {
                 text(format!("Exported uninstalled packages into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
             ].padding(20);
 
-            let file_row = row![text(format!(
-                "{}_{}.txt",
-                UNINSTALLED_PACKAGES_FILE_NAME,
-                chrono::Local::now().format("%Y%m%d")
-            ))
-            .style(style::Text::Commentary)]
+            let file_row = row![
+                text(generate_backup_name(chrono::Local::now())).style(style::Text::Commentary)
+            ]
             .padding(20);
 
             let modal_btn_row = row![

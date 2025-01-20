@@ -12,7 +12,8 @@ at the cost of requiring a restart to update the palette.
 (this is just a patch, not a fix)
 */
 #[dynamic(lazy)]
-pub static OS_COLOR_SCHEME: dark_light::Mode = dark_light::detect();
+pub static OS_COLOR_SCHEME: dark_light::Mode =
+    dark_light::detect().unwrap_or(dark_light::Mode::Unspecified);
 
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
 /// Color scheme
@@ -129,7 +130,7 @@ impl Theme {
             Self::Lupin => LUPIN,
             Self::Auto => match *OS_COLOR_SCHEME {
                 dark_light::Mode::Light => LIGHT,
-                dark_light::Mode::Dark | dark_light::Mode::Default => DARK,
+                dark_light::Mode::Dark | dark_light::Mode::Unspecified => DARK,
             },
         }
     }
