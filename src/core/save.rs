@@ -4,12 +4,13 @@ use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
 use crate::CACHE_DIR;
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
-use std::fs;
-use std::path::{Path, PathBuf};
+use std::sync::LazyLock;
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
-#[dynamic]
-pub static BACKUP_DIR: PathBuf = CACHE_DIR.join("backups");
+pub static BACKUP_DIR: LazyLock<PathBuf> = LazyLock::new(|| CACHE_DIR.join("backups"));
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {

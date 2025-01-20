@@ -5,16 +5,16 @@ use crate::gui::widgets::package_row::PackageRow;
 use regex::Regex;
 use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
 use std::collections::HashSet;
 use std::env;
 use std::process::Command;
+use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
 
-#[dynamic]
-static RE: Regex = Regex::new(r"\n(\S+)\s+device").unwrap();
+static RE: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"\n(\S+)\s+device").unwrap_or_else(|_| unreachable!()));
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Phone {
@@ -296,8 +296,8 @@ pub fn is_protected_user(user_id: &str) -> bool {
 }
 
 pub fn get_user_list() -> Vec<User> {
-    #[dynamic]
-    static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap();
+    static RE: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!()));
     adb_shell_command(true, "pm list users")
         .map(|users| {
             RE.find_iter(&users)

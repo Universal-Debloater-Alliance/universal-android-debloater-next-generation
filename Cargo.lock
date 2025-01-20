@@ -3246,34 +3246,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
-name = "static_init"
-version = "1.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a2a1c578e98c1c16fc3b8ec1328f7659a500737d7a0c6d625e73e830ff9c1f6"
-dependencies = [
- "bitflags 1.3.2",
- "cfg_aliases 0.1.1",
- "libc",
- "parking_lot 0.11.2",
- "parking_lot_core 0.8.6",
- "static_init_macro",
- "winapi",
-]
-
-[[package]]
-name = "static_init_macro"
-version = "1.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "70a2595fc3aa78f2d0e45dd425b22282dd863273761cc77780914b2cf3003acf"
-dependencies = [
- "cfg_aliases 0.1.1",
- "memchr",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "strict-num"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3568,7 +3540,6 @@ dependencies = [
  "rfd",
  "serde",
  "serde_json",
- "static_init",
  "tar",
  "toml",
  "ureq",
