@@ -99,10 +99,11 @@ impl Config {
     }
 }
 
-//write unit tests:
-#[allow(clippy::unwrap_used)]
+#[allow(clippy::unwrap_used, reason = "")]
 #[cfg(test)]
 mod tests {
+    //! Unit tests
+
     use super::*;
     use std::path::Path;
 
