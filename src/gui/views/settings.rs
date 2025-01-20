@@ -5,8 +5,8 @@ use crate::core::{
     sync::{adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User},
     theme::Theme,
     utils::{
-        export_packages, generate_backup_name, open_folder, open_url, string_to_theme, DisplayablePath, Error, NAME,
-        UNINSTALLED_PACKAGES_FILE_NAME,
+        export_packages, generate_backup_name, open_folder, open_url, string_to_theme,
+        DisplayablePath, Error, NAME,
     },
 };
 use crate::gui::{
