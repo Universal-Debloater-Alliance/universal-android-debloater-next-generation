@@ -315,7 +315,7 @@ pub fn get_user_list() -> Vec<User> {
 // getprop ro.serialno
 pub async fn get_devices_list() -> Vec<Phone> {
     retry(
-        Fixed::from_millis(500).take(120),
+        Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }),
         || match adb_shell_command(false, "devices") {
             Ok(devices) => {
                 let mut device_list: Vec<Phone> = vec![];
