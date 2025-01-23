@@ -22,7 +22,7 @@ use crate::gui::{
 use iced::widget::{
     button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space, Text,
 };
-use iced::{alignment, Alignment, Command as ICmd, Element, Length, Renderer};
+use iced::{alignment, Alignment, Element, Length, Renderer};
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
@@ -79,17 +79,17 @@ impl Settings {
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
         selected_user: Option<User>,
-    ) -> ICmd<Message> {
+    ) -> iced::Command<Message> {
         match msg {
             Message::ModalHide => {
                 self.modal = None;
-                ICmd::none()
+                iced::Command::none()
             }
             Message::ExpertMode(toggled) => {
                 self.general.expert_mode = toggled;
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                ICmd::none()
+                iced::Command::none()
             }
             Message::DisableMode(toggled) => {
                 if phone.android_sdk >= 23 {
@@ -97,23 +97,23 @@ impl Settings {
                     debug!("Config change: {:?}", self);
                     Config::save_changes(self, &phone.adb_id);
                 }
-                ICmd::none()
+                iced::Command::none()
             }
             Message::MultiUserMode(toggled) => {
                 self.device.multi_user_mode = toggled;
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                ICmd::none()
+                iced::Command::none()
             }
             Message::ApplyTheme(theme) => {
                 self.general.theme = theme.to_string();
                 debug!("Config change: {:?}", self);
                 Config::save_changes(self, &phone.adb_id);
-                ICmd::none()
+                iced::Command::none()
             }
             Message::UrlPressed(url) => {
                 open_url(url);
-                ICmd::none()
+                iced::Command::none()
             }
             Message::LoadDeviceSettings => {
                 let backups =
@@ -143,14 +143,14 @@ impl Settings {
                         }
                     }
                 };
-                ICmd::none()
+                iced::Command::none()
             }
             Message::BackupSelected(d_path) => {
                 self.device.backup.selected = Some(d_path.clone());
                 self.device.backup.users = list_available_backup_user(d_path);
-                ICmd::none()
+                iced::Command::none()
             }
-            Message::BackupDevice => ICmd::perform(
+            Message::BackupDevice => iced::Command::perform(
                 backup_phone(
                     phone.user_list.clone(),
                     self.device.device_id.clone(),
@@ -171,7 +171,7 @@ impl Settings {
                         error!("[BACKUP FAILED] Backup creation failed: {:?}", err);
                     }
                 }
-                ICmd::none()
+                iced::Command::none()
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
                 Ok(r_packages) => {
@@ -191,7 +191,7 @@ impl Settings {
                         };
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
-                            commands.push(ICmd::perform(
+                            commands.push(iced::Command::perform(
                                 // WARNING: THIS IS INSECURE!
                                 // If a user "A" restores a backup from a malicious user "B",
                                 // then B could run arbitrary high-privilege cmds,
@@ -217,16 +217,16 @@ impl Settings {
                         "[RESTORE] Restoring backup {}",
                         self.device.backup.selected.as_ref().unwrap()
                     );
-                    ICmd::batch(commands)
+                    iced::Command::batch(commands)
                 }
                 Err(e) => {
                     self.device.backup.backup_state.clone_from(&e);
                     error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
-                    ICmd::none()
+                    iced::Command::none()
                 }
             },
             // Trigger an action in mod.rs (Message::SettingsAction(msg))
-            Message::RestoringDevice(_) => ICmd::none(),
+            Message::RestoringDevice(_) => iced::Command::none(),
             Message::FolderChosen(result) => {
                 self.is_loading = false;
 
@@ -244,17 +244,17 @@ impl Settings {
                         );
                     }
                 }
-                ICmd::none()
+                iced::Command::none()
             }
             Message::ChooseBackUpFolder => {
                 if self.is_loading {
-                    ICmd::none()
+                    iced::Command::none()
                 } else {
                     self.is_loading = true;
-                    ICmd::perform(open_folder(), Message::FolderChosen)
+                    iced::Command::perform(open_folder(), Message::FolderChosen)
                 }
             }
-            Message::ExportPackages => ICmd::perform(
+            Message::ExportPackages => iced::Command::perform(
                 export_packages(selected_user.unwrap_or_default(), packages.to_vec()),
                 Message::PackagesExported,
             ),
@@ -263,7 +263,7 @@ impl Settings {
                     Ok(_) => self.modal = Some(PopUpModal::ExportUninstalled),
                     Err(err) => error!("Failed to export list of uninstalled packages: {:?}", err),
                 }
-                ICmd::none()
+                iced::Command::none()
             }
         }
     }
