@@ -1,7 +1,7 @@
 //! This module is intended to group everything that's "intrinsic" of ADB.
 //!
 //! Following the design philosophy of `Vec` and `thread`,
-//! `*Cmd` are intended to be thin wrappers ("low-level" abstractions)
+//! `*Command` are intended to be thin wrappers ("low-level" abstractions)
 //! around the ADB CLI or `adb_client`
 //! ([in the future](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/700) ),
 //! which implies:
@@ -52,7 +52,7 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
         .to_string()
 }
 
-/// Builder for an ADB CLI command,
+/// Builder object for an Android Debug Bridge CLI command,
 /// using the type-state and new-type patterns.
 ///
 /// This is not intended to model the entire ADB API.
@@ -60,21 +60,22 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 ///
 /// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
-pub struct Cmd(Command);
-impl Cmd {
+pub struct ACommand(Command);
+impl ACommand {
+    /// `adb` command builder
     pub fn new() -> Self {
         Self(Command::new("adb"))
     }
-    /// `shell` sub-command.
+    /// `shell` sub-command builder.
     ///
     /// If `device_serial` is empty, it lets ADB choose the default device.
-    pub fn sh<S: AsRef<str>>(mut self, device_serial: S) -> ShCmd {
+    pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> ShellCommand {
         let serial = device_serial.as_ref();
         if !serial.is_empty() {
             self.0.args(["-s", serial]);
         }
         self.0.arg("shell");
-        ShCmd(self)
+        ShellCommand(self)
     }
     /// Header-less list of attached devices (as serials) and their statuses:
     /// - USB
@@ -110,6 +111,7 @@ impl Cmd {
         self.0.arg("reboot");
         self.run()
     }
+    /// General executor
     fn run(self) -> Result<String, String> {
         let mut cmd = self.0;
         #[cfg(target_os = "windows")]
@@ -136,16 +138,17 @@ impl Cmd {
     }
 }
 
-/// Builder for a command that runs on the device's default `sh` implementation.
+/// Builder object for a command that runs on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
 ///
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 #[derive(Debug)]
-pub struct ShCmd(Cmd);
-impl ShCmd {
-    pub fn pm(mut self) -> PmCmd {
+pub struct ShellCommand(ACommand);
+impl ShellCommand {
+    /// `pm` command builder
+    pub fn pm(mut self) -> PmCommand {
         self.0 .0.arg("pm");
-        PmCmd(self)
+        PmCommand(self)
     }
     /// Query a device property value, by its key.
     /// These can be of any type:
@@ -165,9 +168,11 @@ impl ShCmd {
     }
 }
 
+/// `String` with the invariant of being a valid package-name.
+/// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
-pub struct PackId(String);
-impl PackId {
+pub struct PackageId(String);
+impl PackageId {
     /// Creates a package-ID if it's valid according to
     /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
     pub fn new<S: AsRef<str>>(pid: S) -> Option<Self> {
@@ -187,26 +192,26 @@ impl PackId {
 
 /// `pm list packages` flag/state/type
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum PmLsPackFlag {
-    /// All: Include uninstalled
-    U,
-    /// Only enabled
-    E,
-    /// Only disabled
-    D,
+pub enum PmListPacksFlag {
+    /// `-u`, not to be confused with `-a`
+    IncludeUninstalled,
+    /// `-e`
+    OnlyEnabled,
+    /// `-d`
+    OnlyDisabled,
 }
-impl PmLsPackFlag {
+impl PmListPacksFlag {
     // is there a trait for this?
     fn to_str(self) -> &'static str {
         match self {
-            PmLsPackFlag::U => "-u",
-            PmLsPackFlag::E => "-e",
-            PmLsPackFlag::D => "-d",
+            Self::IncludeUninstalled => "-u",
+            Self::OnlyEnabled => "-e",
+            Self::OnlyDisabled => "-d",
         }
     }
 }
 #[expect(clippy::to_string_trait_impl, reason = "This is not user-facing")]
-impl ToString for PmLsPackFlag {
+impl ToString for PmListPacksFlag {
     fn to_string(&self) -> String {
         self.to_str().to_string()
     }
@@ -216,12 +221,12 @@ const PACK_PREFIX: &str = "package:";
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
-/// Builder for an Android Package Manager command.
+/// Builder object for an Android Package Manager command.
 ///
 /// [More info](https://developer.android.com/tools/adb#pm)
 #[derive(Debug)]
-pub struct PmCmd(ShCmd);
-impl PmCmd {
+pub struct PmCommand(ShellCommand);
+impl PmCommand {
     /// `list packages` sub-command, [`PACK_PREFIX`] stripped.
     /// This is "the rawest" version (minimal overhead).
     ///
@@ -229,10 +234,10 @@ impl PmCmd {
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
     ///
-    /// See also [`ls_packs_valid`].
-    pub fn ls_packs(
+    /// See also [`list_packages_valid`].
+    pub fn list_packages(
         mut self,
-        f: Option<PmLsPackFlag>,
+        f: Option<PmListPacksFlag>,
         user_id: Option<u16>,
     ) -> Result<Vec<String>, String> {
         let cmd = &mut self.0 .0 .0;
@@ -257,21 +262,21 @@ impl PmCmd {
     /// `list packages` sub-command, pre-validated.
     /// This is strongly-typed, at the cost of regex & hash overhead.
     ///
-    /// See also [`ls_packs`].
-    pub fn ls_packs_valid(
+    /// See also [`list_packages`].
+    pub fn list_packages_valid(
         self,
-        f: Option<PmLsPackFlag>,
+        f: Option<PmListPacksFlag>,
         user_id: Option<u16>,
-    ) -> Result<HashSet<PackId>, String> {
-        Ok(self.ls_packs(f, user_id)?
+    ) -> Result<HashSet<PackageId>, String> {
+        Ok(self.list_packages(f, user_id)?
             .into_iter()
-            .map(|p| PackId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
+            .map(|p| PackageId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }
     #[allow(clippy::doc_markdown, reason = "Multi URL")]
     /// `list users` sub-command (header-less).
     /// - https://source.android.com/docs/devices/admin/multi-user-testing
     /// - https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name
-    pub fn ls_users(mut self) -> Result<Vec<String>, String> {
+    pub fn list_users(mut self) -> Result<Vec<String>, String> {
         self.0 .0 .0.args(["list", "users"]);
         // is it actually multi-line?
         Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())

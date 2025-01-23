@@ -1,5 +1,5 @@
 use crate::core::{
-    adb::{to_trimmed_utf8, Cmd as AdbCmd, PM_CLEAR_PACK},
+    adb::{to_trimmed_utf8, ACommand as AdbCommand, PM_CLEAR_PACK},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
@@ -73,8 +73,8 @@ pub enum AdbError {
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
-#[deprecated = "Use [`adb::Cmd::sh`] with `async` blocks instead"]
-pub async fn adb_sh_cmd<S: AsRef<str>>(
+#[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
+pub async fn adb_shell_command<S: AsRef<str>>(
     device_serial: S,
     action: String,
     command_type: CommandType,
@@ -237,8 +237,8 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 pub fn get_device_model(serial: &str) -> String {
-    AdbCmd::new()
-        .sh(serial)
+    AdbCommand::new()
+        .shell(serial)
         .getprop("ro.product.model")
         .unwrap_or_else(|err| {
             eprintln!("ERROR: {err}");
@@ -255,8 +255,8 @@ pub fn get_device_model(serial: &str) -> String {
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 pub fn get_device_brand(serial: &str) -> String {
-    AdbCmd::new()
-        .sh(serial)
+    AdbCommand::new()
+        .shell(serial)
         .getprop("ro.product.brand")
         // `trim` is just-in-case
         .map(|s| s.trim().to_string())
@@ -268,8 +268,8 @@ pub fn get_device_brand(serial: &str) -> String {
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn get_android_sdk(device_serial: &str) -> u8 {
-    AdbCmd::new()
-        .sh(device_serial)
+    AdbCommand::new()
+        .shell(device_serial)
         .getprop("ro.build.version.sdk")
         .map_or(0, |sdk| {
             sdk.parse().expect("SDK version numeral must be valid")
@@ -292,10 +292,10 @@ pub const fn supports_multi_user(dev: &Device) -> bool {
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
-    AdbCmd::new()
-        .sh(device_serial)
+    AdbCommand::new()
+        .shell(device_serial)
         .pm()
-        .ls_packs(None, Some(user_id))
+        .list_packages(None, Some(user_id))
         .is_err()
 }
 
@@ -304,10 +304,10 @@ pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
     #[dynamic]
     static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
 
-    AdbCmd::new()
-        .sh(device_serial)
+    AdbCommand::new()
+        .shell(device_serial)
         .pm()
-        .ls_users()
+        .list_users()
         // if default, then empty iter, which becomes empty vec (again)
         .unwrap_or_default()
         .into_iter()
@@ -333,7 +333,7 @@ pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
 pub async fn get_devices_list() -> Vec<Device> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }),
-        || match AdbCmd::new().devices() {
+        || match AdbCommand::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Device> = vec![];
                 if devices.iter().all(|(_, stat)| stat != "device") {
@@ -361,7 +361,7 @@ pub async fn get_devices_list() -> Vec<Device> {
 }
 
 pub async fn initial_load() -> bool {
-    match AdbCmd::new().devices() {
+    match AdbCommand::new().devices() {
         Ok(_devices) => true,
         Err(_err) => false,
     }

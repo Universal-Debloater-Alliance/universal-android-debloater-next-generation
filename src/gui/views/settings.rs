@@ -2,7 +2,10 @@ use crate::core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
-    sync::{adb_sh_cmd, get_android_sdk, supports_multi_user, AdbError, CommandType, Device, User},
+    sync::{
+        adb_shell_command, get_android_sdk, supports_multi_user, AdbError, CommandType, Device,
+        User,
+    },
     theme::Theme,
     utils::{
         export_packages, generate_backup_name, open_folder, open_url, string_to_theme,
@@ -193,7 +196,7 @@ impl Settings {
                                 // If a user "A" restores a backup from a malicious user "B",
                                 // then B could run arbitrary high-privilege cmds,
                                 // on A's Android device!
-                                adb_sh_cmd(
+                                adb_shell_command(
                                     phone.adb_id.clone(),
                                     command,
                                     CommandType::PackageManager(p_info.clone()),

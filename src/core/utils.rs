@@ -1,5 +1,5 @@
 use crate::core::{
-    adb::{Cmd as AdbCmd, PmLsPackFlag},
+    adb::{ACommand as AdbCommand, PmListPacksFlag},
     sync::User,
     theme::Theme,
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
@@ -41,22 +41,22 @@ pub fn fetch_packages(
     device_serial: &str,
     user_id: Option<u16>,
 ) -> Vec<PackageRow> {
-    let all_sys_packs = AdbCmd::new()
-        .sh(device_serial)
+    let all_sys_packs = AdbCommand::new()
+        .shell(device_serial)
         .pm()
-        .ls_packs(Some(PmLsPackFlag::U), user_id)
+        .list_packages(Some(PmListPacksFlag::IncludeUninstalled), user_id)
         .unwrap_or_default();
-    let enabled_sys_packs: HashSet<String> = AdbCmd::new()
-        .sh(device_serial)
+    let enabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
         .pm()
-        .ls_packs(Some(PmLsPackFlag::E), user_id)
+        .list_packages(Some(PmListPacksFlag::OnlyEnabled), user_id)
         .unwrap_or_default()
         .into_iter()
         .collect();
-    let disabled_sys_packs: HashSet<String> = AdbCmd::new()
-        .sh(device_serial)
+    let disabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
         .pm()
-        .ls_packs(Some(PmLsPackFlag::D), user_id)
+        .list_packages(Some(PmListPacksFlag::OnlyDisabled), user_id)
         .unwrap_or_default()
         .into_iter()
         .collect();
