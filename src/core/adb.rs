@@ -1,7 +1,7 @@
 //! This module is intended to group everything that's "intrinsic" of ADB.
 //!
-//! Following the design philosophy of `Vec` and `thread`,
-//! `*Command` are intended to be thin wrappers ("low-level" abstractions)
+//! Following the design philosophy of most of Rust `std`,
+//! `*Command` are intended to be "thin wrappers" (low-overhead abstractions)
 //! around the ADB CLI or `adb_client`
 //! ([in the future](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/700) ),
 //! which implies:
@@ -20,7 +20,6 @@
 //! Despite being "low-level", we can still "have cake and eat it too";
 //! After all, what's the point of an abstraction if it doesn't come with goodies?:
 //! We can reserve some artistic license, such as:
-//! - shorter names, complemented by context
 //! - pre-parsing or validanting output, to provide types with invariants
 //! - strongly-typed rather than "stringly-typed" APIs
 //! - nicer IDE support
