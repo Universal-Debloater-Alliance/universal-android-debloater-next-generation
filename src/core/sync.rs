@@ -295,7 +295,7 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
     AdbCommand::new()
         .shell(device_serial)
         .pm()
-        .list_packages(None, Some(user_id))
+        .list_packages_sys(None, Some(user_id))
         .is_err()
 }
 

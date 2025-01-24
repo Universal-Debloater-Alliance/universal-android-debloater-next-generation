@@ -44,19 +44,19 @@ pub fn fetch_packages(
     let all_sys_packs = AdbCommand::new()
         .shell(device_serial)
         .pm()
-        .list_packages(Some(PmListPacksFlag::IncludeUninstalled), user_id)
+        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
         .unwrap_or_default();
     let enabled_sys_packs: HashSet<String> = AdbCommand::new()
         .shell(device_serial)
         .pm()
-        .list_packages(Some(PmListPacksFlag::OnlyEnabled), user_id)
+        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
         .unwrap_or_default()
         .into_iter()
         .collect();
     let disabled_sys_packs: HashSet<String> = AdbCommand::new()
         .shell(device_serial)
         .pm()
-        .list_packages(Some(PmListPacksFlag::OnlyDisabled), user_id)
+        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
         .unwrap_or_default()
         .into_iter()
         .collect();

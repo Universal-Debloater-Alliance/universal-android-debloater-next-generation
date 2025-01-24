@@ -234,15 +234,15 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[derive(Debug)]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
-    /// `list packages` sub-command, [`PACK_PREFIX`] stripped.
+    /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
     /// This is "the rawest" version (minimal overhead).
     ///
     /// `Ok` variant:
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
     ///
-    /// See also [`list_packages_valid`].
-    pub fn list_packages(
+    /// See also [`list_packages_sys_valid`].
+    pub fn list_packages_sys(
         mut self,
         f: Option<PmListPacksFlag>,
         user_id: Option<u16>,
@@ -266,16 +266,16 @@ impl PmCommand {
                 .collect()
         })
     }
-    /// `list packages` sub-command, pre-validated.
+    /// `list packages -s` sub-command, pre-validated.
     /// This is strongly-typed, at the cost of regex & hash overhead.
     ///
-    /// See also [`list_packages`].
-    pub fn list_packages_valid(
+    /// See also [`list_packages_sys`].
+    pub fn list_packages_sys_valid(
         self,
         f: Option<PmListPacksFlag>,
         user_id: Option<u16>,
     ) -> Result<HashSet<PackageId>, String> {
-        Ok(self.list_packages(f, user_id)?
+        Ok(self.list_packages_sys(f, user_id)?
             .into_iter()
             .map(|p| PackageId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }
