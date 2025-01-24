@@ -2,7 +2,7 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{adb_shell_command, get_devices_list, initial_load, CommandType, Device};
+use crate::core::sync::{adb_shell_command, get_devices_list, initial_load, CommandType, Phone};
 use crate::core::theme::{Theme, OS_COLOR_SCHEME};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
@@ -47,9 +47,9 @@ pub struct UadGui {
     apps_view: AppsView,
     about_view: AboutView,
     settings_view: SettingsView,
-    devices_list: Vec<Device>,
+    devices_list: Vec<Phone>,
     /// index of `devices_list`
-    selected_device: Option<Device>,
+    selected_device: Option<Phone>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
     adb_satisfied: bool,
@@ -61,13 +61,13 @@ pub enum Message {
     AboutPressed,
     SettingsPressed,
     AppsPress,
-    DeviceSelected(Device),
+    DeviceSelected(Phone),
     AboutAction(AboutMessage),
     AppsAction(AppsMessage),
     SettingsAction(SettingsMessage),
     RefreshButtonPressed,
     RebootButtonPressed,
-    LoadDevices(Vec<Device>),
+    LoadDevices(Vec<Phone>),
     #[cfg(feature = "self-update")]
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),

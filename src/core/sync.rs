@@ -14,7 +14,7 @@ use std::os::windows::process::CommandExt;
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Device {
+pub struct Phone {
     /// Non-market name
     pub model: String, // could be `Copy`
     /// Android API level version
@@ -26,7 +26,7 @@ pub struct Device {
     pub adb_id: String, // could be `Copy`
 }
 
-impl Default for Device {
+impl Default for Phone {
     fn default() -> Self {
         Self {
             model: "fetching devices...".to_string(),
@@ -37,7 +37,7 @@ impl Default for Device {
     }
 }
 
-impl std::fmt::Display for Device {
+impl std::fmt::Display for Phone {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{}", self.model)
     }
@@ -181,7 +181,7 @@ pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
     selected_user: User,
-    dev: &Device,
+    dev: &Phone,
 ) -> Vec<String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
@@ -283,7 +283,7 @@ pub const MULTI_USER_SDK: u8 = 21;
 
 /// Check if it supports multi-user mode, by comparing SDK version.
 #[must_use]
-pub const fn supports_multi_user(dev: &Device) -> bool {
+pub const fn supports_multi_user(dev: &Phone) -> bool {
     dev.android_sdk >= MULTI_USER_SDK
 }
 
@@ -330,18 +330,18 @@ pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
 
 /// This matches serials (`getprop ro.serialno`)
 /// that are authorized by the user.
-pub async fn get_devices_list() -> Vec<Device> {
+pub async fn get_devices_list() -> Vec<Phone> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }),
         || match AdbCommand::new().devices() {
             Ok(devices) => {
-                let mut device_list: Vec<Device> = vec![];
+                let mut device_list: Vec<Phone> = vec![];
                 if devices.iter().all(|(_, stat)| stat != "device") {
                     return OperationResult::Retry(vec![]);
                 }
                 for device in devices {
                     let serial = &device.0;
-                    device_list.push(Device {
+                    device_list.push(Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
                         user_list: ls_users_parsed(serial),
@@ -352,7 +352,7 @@ pub async fn get_devices_list() -> Vec<Device> {
             }
             Err(err) => {
                 error!("get_device_list() -> {}", err);
-                let test: Vec<Device> = vec![];
+                let test: Vec<Phone> = vec![];
                 OperationResult::Retry(test)
             }
         },

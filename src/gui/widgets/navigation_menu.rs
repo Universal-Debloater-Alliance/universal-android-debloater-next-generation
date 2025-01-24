@@ -1,5 +1,5 @@
 use crate::core::helpers::button_primary;
-pub use crate::core::sync::Device;
+pub use crate::core::sync::Phone;
 use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
 pub use crate::gui::views::about::Message as AboutMessage;
@@ -15,8 +15,8 @@ pub const ICONS: Font = Font {
 };
 
 pub fn nav_menu<'a>(
-    device_list: &'a [Device],
-    selected_device: Option<Device>,
+    device_list: &'a [Phone],
+    selected_device: Option<Phone>,
     apps_view: &AppsView,
     self_update_state: &SelfUpdateState,
 ) -> Element<'a, Message, Theme, Renderer> {

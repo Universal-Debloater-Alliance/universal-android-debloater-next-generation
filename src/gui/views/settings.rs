@@ -3,8 +3,7 @@ use crate::core::{
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
-        adb_shell_command, get_android_sdk, supports_multi_user, AdbError, CommandType, Device,
-        User,
+        adb_shell_command, get_android_sdk, supports_multi_user, AdbError, CommandType, Phone, User,
     },
     theme::Theme,
     utils::{
@@ -74,7 +73,7 @@ impl Settings {
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
-        phone: &Device,
+        phone: &Phone,
         packages: &[Vec<PackageRow>],
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
@@ -270,7 +269,7 @@ impl Settings {
 
     // TODO: refactor later
     #[allow(clippy::too_many_lines)]
-    pub fn view(&self, phone: &Device, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
+    pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()
             .fold(row![].spacing(10), |column, option| {
