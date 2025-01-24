@@ -281,7 +281,13 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
 /// Lollipop 5.0
 pub const MULTI_USER_SDK: u8 = 21;
 
-/// Check if it supports multi-user mode, by comparing SDK version.
+/// Check if it might support multi-user mode,
+/// by simply comparing SDK version.
+/// `true` isn't reliable, you can only trust `false`.
+///
+/// See:
+/// - <https://source.android.com/docs/devices/admin/multi-user#applying_the_overlay>
+/// - <https://developer.android.com/reference/android/os/UserManager#supportsMultipleUsers()>
 #[must_use]
 pub const fn supports_multi_user(dev: &Phone) -> bool {
     dev.android_sdk >= MULTI_USER_SDK
