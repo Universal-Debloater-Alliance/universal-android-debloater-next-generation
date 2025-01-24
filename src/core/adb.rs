@@ -117,6 +117,13 @@ impl ACommand {
         #[cfg(target_os = "windows")]
         let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
 
+        info!(
+            "Ran command: adb '{}'",
+            cmd.get_args()
+                .map(|s| s.to_str().unwrap_or_else(|| unreachable!()))
+                .collect::<Vec<_>>()
+                .join("' '")
+        );
         match cmd.output() {
             Err(e) => {
                 error!("ADB: {}", e);
