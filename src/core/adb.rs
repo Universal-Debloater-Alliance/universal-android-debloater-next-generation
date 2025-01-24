@@ -279,10 +279,10 @@ impl PmCommand {
             .into_iter()
             .map(|p| PackageId::new(p).expect("One of these is wrong: `PackId` regex, ADB implementation. Or the spec now allows a wider char-set")).collect())
     }
-    #[allow(clippy::doc_markdown, reason = "Multi URL")]
+
     /// `list users` sub-command (header-less).
-    /// - https://source.android.com/docs/devices/admin/multi-user-testing
-    /// - https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name
+    /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
+    /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
     pub fn list_users(mut self) -> Result<Vec<String>, String> {
         self.0 .0 .0.args(["list", "users"]);
         // is it actually multi-line?
