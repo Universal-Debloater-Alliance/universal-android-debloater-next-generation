@@ -174,13 +174,7 @@ impl Settings {
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
                 Ok(r_packages) => {
-                    let mut commands = Vec::with_capacity(
-                        r_packages
-                            .len()
-                            // assume ~2 cmds per pack
-                            .checked_mul(2)
-                            .unwrap_or_else(|| unreachable!()),
-                    );
+                    let mut commands = vec![];
                     *nb_running_async_adb_commands = 0;
                     for p in &r_packages {
                         let p_info = PackageInfo {

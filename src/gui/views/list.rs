@@ -127,12 +127,7 @@ impl List {
                 Command::none()
             }
             Message::ModalValidate => {
-                let mut commands = Vec::with_capacity(
-                    self.selected_packages
-                        .len()
-                        .checked_mul(2)
-                        .unwrap_or_else(|| unreachable!()),
-                );
+                let mut commands = vec![];
                 self.selected_packages.sort_unstable();
                 self.selected_packages.dedup();
                 for selection in &self.selected_packages {
@@ -326,7 +321,7 @@ impl List {
                 )
             }
             Message::ClearSelectedPackages => {
-                self.selected_packages = vec![];
+                self.selected_packages = Vec::new();
                 Command::none()
             }
             Message::ADBSatisfied(result) => {
@@ -874,11 +869,11 @@ impl List {
     }
 
     #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn init_apps_view(remote: bool, device: Phone) -> (PackageHashMap, UadListState) {
+    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
         let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
-                if device.adb_id.is_empty() {
+                if phone.adb_id.is_empty() {
                     error!("AppsView ready but no phone found");
                 }
                 (list, UadListState::Done)
@@ -957,16 +952,7 @@ fn build_action_pkg_commands(
     let pkg = &packages[selection.0][selection.1];
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
-    // performance, and fail-fast in case of OOM
-    let mut commands = Vec::with_capacity(
-        device
-            .user_list
-            .len()
-            // ~2 actions per user
-            .checked_mul(2)
-            .unwrap_or_else(|| unreachable!()),
-    );
-
+    let mut commands = vec![];
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected && (packages[u.index][selection.1].selected || settings.multi_user_mode)
     }) {

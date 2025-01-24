@@ -65,9 +65,7 @@ pub fn fetch_packages(
     let mut uad_list;
     let mut state;
     let mut removal;
-    // This assumes `for` iter-count is **exact**:
-    // there are no `continue`s, `break`s, or `return`s.
-    let mut user_package: Vec<PackageRow> = Vec::with_capacity(all_sys_packs.len());
+    let mut user_package: Vec<PackageRow> = Vec::new();
 
     for pack_name in all_sys_packs {
         let p_name = &pack_name;
