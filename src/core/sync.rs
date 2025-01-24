@@ -181,17 +181,17 @@ pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
     selected_user: User,
-    dev: &Phone,
+    phone: &Phone,
 ) -> Vec<String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
         PackageState::Enabled => match package.state {
-            PackageState::Disabled => match dev.android_sdk {
+            PackageState::Disabled => match phone.android_sdk {
                 i if i >= 23 => vec!["pm enable"],
                 _ => vec!["pm enable"],
             },
-            PackageState::Uninstalled => match dev.android_sdk {
+            PackageState::Uninstalled => match phone.android_sdk {
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
                 19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
@@ -200,14 +200,14 @@ pub fn apply_pkg_state_commands(
             _ => vec![],
         },
         PackageState::Disabled => match package.state {
-            PackageState::Uninstalled | PackageState::Enabled => match dev.android_sdk {
+            PackageState::Uninstalled | PackageState::Enabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK],
                 _ => vec![],
             },
             _ => vec![],
         },
         PackageState::Uninstalled => match package.state {
-            PackageState::Enabled | PackageState::Disabled => match dev.android_sdk {
+            PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
                 19 | 20 => vec!["pm block", PM_CLEAR_PACK], // Android KitKat (4.4/4.4W) and older
@@ -218,7 +218,7 @@ pub fn apply_pkg_state_commands(
         PackageState::All => vec![],
     }; // this should be a `tinyvec`, as `len <= 4`
 
-    let user = supports_multi_user(dev).then_some(selected_user);
+    let user = supports_multi_user(phone).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
@@ -299,8 +299,8 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
         .is_err()
 }
 
-/// `pm list users` parsed into a vec with extra info.
-pub fn ls_users_parsed(device_serial: &str) -> Vec<User> {
+/// `pm list users` parsed into a vector with extra info
+pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
     #[dynamic]
     static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
 
@@ -344,7 +344,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                     device_list.push(Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
-                        user_list: ls_users_parsed(serial),
+                        user_list: list_users_parsed(serial),
                         adb_id: serial.to_string(),
                     });
                 }
