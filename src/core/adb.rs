@@ -300,3 +300,45 @@ impl PmCommand {
         Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    #![allow(clippy::unwrap_used, reason = "")]
+
+    use super::*;
+
+    #[test]
+    fn invalid_pack_ids() {
+        for p_id in [
+            "",
+            "   ",
+            ".",
+            "nodots",
+            "com..example",
+            "net.hello.",
+            "org.0example",
+            "org._foobar",
+            "the.🎂.is.a.lie",
+            "EXCLAMATION!!!!",
+        ] {
+            assert_eq!(PackageId::new(p_id), None);
+        }
+    }
+
+    #[test]
+    fn valid_pack_ids() {
+        for p_id in [
+            "A.a",
+            "x.X",
+            "org.example",
+            "net.hello",
+            "uwu.owo",
+            "Am0Gu5.Zuz",
+            "net.net.net.net.net.net.net.net.net.net.net",
+            "com.github.w1nst0n",
+            "this_.String_.is_.not_.real_",
+        ] {
+            assert_ne!(PackageId::new(p_id), None);
+        }
+    }
+}
