@@ -7348,11 +7348,11 @@
   },
   "com.android.intentresolver": {
     "list": "Aosp",
-    "description": "In Android 14 they moved the share menu into this package; if you uninstall it, you can no longer use it. Uh, also breaks motion photos.",
+    "description": "'Share' functionality will be disabled after uninstalling this package on Android 14 and up. Additionally, motion photos will become broken.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.internal.display.cutout.emulation.corner": {
     "list": "Aosp",
