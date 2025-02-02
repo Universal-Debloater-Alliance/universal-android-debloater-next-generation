@@ -7618,6 +7618,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.android.server.deviceconfig.resources": {
+    "list": "Oem",
+    "description": "Removing this package will prevent the device from connecting to any VPN servers. It is safe to remove if VPN services are not used.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.android.server.NetworkPermissionConfig": {
     "list": "Aosp",
     "description": "Network configurations.",
