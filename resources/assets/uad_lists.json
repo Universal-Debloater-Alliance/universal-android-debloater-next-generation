@@ -15674,7 +15674,7 @@
   },
   "com.mi.healthglobal": {
     "list": "Oem",
-    "description": "Mi Health\nPedometer, menstrual and sleep tracker\nYour data are synchronized in the cloud. \nDo you really want Xiaomi to know you didn't sleep much yesterday (your ovulation day btw...)\n",
+    "description": "Mi Health\nPPedometer, heartbeat rate meter, menstrual and sleep tracker.\nYour data are synchronized in the cloud.\nDo you really want Xiaomi to know you didn't sleep much yesterday (your ovulation day btw...)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
