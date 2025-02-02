@@ -9856,6 +9856,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.appsearch.apk": {
+    "list": "Aosp",
+    "description": "No code is associated with this package. It only has the permission \"EXECUTE_APP_FUNCTION\". Nothing else is known about this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.google.android.apps.assistant": {
     "list": "Google",
     "description": "Google Assistant Go (https://play.google.com/store/apps/details?id=com.google.android.apps.assistant)\nGo apps are lite-versions of their normal counterparts, made for low-RAM devices.",
