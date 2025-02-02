@@ -16244,7 +16244,7 @@
   },
   "com.xiaomi.bluetooth": {
     "list": "Oem",
-    "description": "MIUI Bluetooth Control\nYou must keep this if you want Bluetooth to work properly.",
+    "description": "MIUI Bluetooth Extension. Doesn't seem to affect bluetooth functionality. Tested on Poco M4 Pro 5G HyperOS 1.0.1.0. Note: If you deleted (com.xiaomi.xmsf) this package will likely send \"Bluetooth extension stopped working\" errors, uninstalling it removes them.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
