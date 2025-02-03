@@ -30562,6 +30562,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.oplus.pscanvas": {
+    "list": "Oem",
+    "description": "Open Canvas\nSplit-screen feature, see:\nhttps://community.oneplus.com/thread/1484307668276346883.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.oplus.appplatform": {
     "list": "Oem",
     "description": "App Services\nMight be renamed package of com.heytap.appplatform which is related to Oppo's Heytap account services. Provides a RomUpdateService. Probably not safe to remove.\n\nPithus analysis: https://beta.pithus.org/report/2025ceb69d9379a01771de71ff00051eb0f0c7f44226a72c2066db9649b6dcd2\nCauses bootloop on some phones after uninstall.",
