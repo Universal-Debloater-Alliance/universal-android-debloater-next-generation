@@ -10278,11 +10278,11 @@
   },
   "com.qualcomm.qti.services.systemhelper": {
     "list": "Misc",
-    "description": "System Helper Service\nRuns \"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service, not much to it.",
+    "description": "System Helper Service\nRuns \"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service. On a RedMi Note 13 running HyperOS 2.6.0, no application is running after uninstalling this package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.qualcomm.qti.server.wigig.tethering.rro": {
     "list": "Misc",
