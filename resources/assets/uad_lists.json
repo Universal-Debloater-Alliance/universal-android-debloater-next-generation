@@ -21382,7 +21382,7 @@
     "labels": []
   },
   "com.fintech.life": {
-    "description": "Fineasy\nChinese financial or payment app, note that it access locations, contacts, camera, mic and contain ads, Pithus reports this as 'High Risk'",
+    "description": "Chinese app that spoofs as a Singapore financial and/or payment app to show advertisement notifications (mostly loans)\nItt accesses locations, contacts, camera, mic by default, some people in Thailand also reported that they cannot use legitimate regional banking apps until this app were disabled or uninstalled with ADB method. While newer devices that start with Oppo ColorOS 13 and/or realme UI 4 (around Android 13) are already baked in, it's seems likely that it comes with a system update at older devices of those brands, so this is really shady and constantly lost trusts from many users.\nhttps://safereddit.com/r/Thailand/comments/1hzdwhr",
     "removal": "Recommended",
     "list": "Misc",
     "dependencies": [],
