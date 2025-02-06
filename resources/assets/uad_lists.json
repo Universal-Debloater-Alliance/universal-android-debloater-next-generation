@@ -34253,7 +34253,7 @@
   },
   "com.oplus.aiunit": {
     "list": "Oem",
-    "description": "AIUnit\nSystem service related to the intelligence function. It's safe to remove but also breaks the AI Editor in OnePlus' Photos app.",
+    "description": "AIUnit\nSystem service related to the intelligence function. It's safe to remove but also breaks the Smart Cutout, AI Editor, and potentially other gallery features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
