@@ -10134,7 +10134,7 @@
   },
   "com.google.android.photopicker": {
     "list": "Aosp",
-    "description": "AOSP Photo & Video picker. Is used by many apps to access images and videos without needing the media & music permission.",
+    "description": "Photo picker\nProvides a browsable interface that presents the user with their media library, sorted by date from newest to oldest. Safe, built-in way for users to grant your app access to only selected images and videos, instead of their entire media library.\nhttps://developer.android.com/training/data-storage/shared/photopicker",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
