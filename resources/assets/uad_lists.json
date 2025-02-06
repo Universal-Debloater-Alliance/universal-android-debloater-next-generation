@@ -9872,6 +9872,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.appsearch.apk": {
+    "list": "Aosp",
+    "description": "AppSearch is an on-device search library for managing locally stored structured data, with APIs for indexing data and retrieving data using full-text search. Use it to build custom in-app search capabilities for your users.\nhttps://developer.android.com/jetpack/androidx/releases/appsearch",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.google.android.apps.assistant": {
     "list": "Google",
     "description": "Google Assistant Go (https://play.google.com/store/apps/details?id=com.google.android.apps.assistant)\nGo apps are lite-versions of their normal counterparts, made for low-RAM devices.",
