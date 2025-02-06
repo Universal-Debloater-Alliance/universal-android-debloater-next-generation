@@ -22241,7 +22241,7 @@
   },
   "com.google.android.euicc": {
     "description": "Electronic Sim management\nNeeded for eSIM",
-    "removal": "Advanced",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
