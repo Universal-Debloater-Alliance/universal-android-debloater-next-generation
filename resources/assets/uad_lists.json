@@ -15674,7 +15674,7 @@
   },
   "com.mi.healthglobal": {
     "list": "Oem",
-    "description": "Mi Health\nPPedometer, heartbeat rate meter, menstrual and sleep tracker.\nYour data are synchronized in the cloud.\nDo you really want Xiaomi to know you didn't sleep much yesterday (your ovulation day btw...)\n",
+    "description": "Mi Health. Xiaomi's health and fitness app. Tracks sleep, step count, BMI, and menstruation cycle. Includes heart rate monitoring support using the camera.\nhttps://www.xda-developers.com/mi-health-xiaomi-fitness-app/\nhttps://www.xda-developers.com/xiaomi-mi-health-app-gets-heart-rate-monitoring-support-using-camera/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
