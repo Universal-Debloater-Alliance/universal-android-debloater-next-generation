@@ -473,7 +473,7 @@
   },
   "com.sonymobile.pobox": {
     "list": "Oem",
-    "description": "Xperia Japanese keyboard\nDoes someone know what \"popox\" means?",
+    "description": "Xperia Japanese keyboard\nPackage is named after POBox (Predictive Operation Based On eXample), a Japanese text entry technology and ambiguous retrieval, proposed in 1998 by Sony CSL fellow Toshiyuki Masuda.\nhttps://www.sonycsl.co.jp/project/402/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
