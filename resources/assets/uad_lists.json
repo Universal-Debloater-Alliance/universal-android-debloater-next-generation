@@ -9498,7 +9498,7 @@
   },
   "com.oplus.account": {
     "list": "Oem",
-    "description": "Handles almost anything about your OnePlus account. Some service requires you to be logged in in order to get access.",
+    "description": "Account Center. Required for most OnePlus features. Removal gets rid of Login with OnePlus Account notification.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
