@@ -3550,6 +3550,14 @@
     "removal": "Recommended"
   },
   "com.cnn.mobile.android.phone.edgepanel": {
+    "list": "Misc",
+    "description": "TCL version of Parental Center, a parental control app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.cnn.mobile.android.phone.edgepanel": {
     "list": "Oem",
     "description": "CNN Edge panel. Twitter trends, and news from CNN.\n",
     "dependencies": [],
@@ -7929,6 +7937,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.android.store": {
+    "list": "Oem",
+    "description": "An app called TCL Mobile that you cannot disable and just opens up a link to the OEM in the browser.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.android.storagemanager": {
     "list": "Aosp",
@@ -12707,6 +12723,14 @@
   "in.amazon.mShop.android.shopping": {
     "list": "Misc",
     "description": "Amazon India (https://play.google.com/store/apps/details?id=in.amazon.mShop.android.shopping)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.facebook.lite": {
+    "list": "Misc",
+    "description": "Facebook Lite app (https://play.google.com/store/apps/details?id=com.facebook.lite)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
