@@ -34349,11 +34349,11 @@
   },
   "com.oplus.aiunit": {
     "list": "Oem",
-    "description": "AIUnit\nAI-related, not sure for what exactly, that's why the removal is `Expert`.",
+    "description": "AIUnit\nSystem service related to the intelligence function. It's safe to remove but also breaks the Smart Cutout, AI Editor, and potentially other gallery features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.oplus.apprecover": {
     "list": "Oem",
