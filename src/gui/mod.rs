@@ -2,11 +2,12 @@ pub mod style;
 pub mod views;
 pub mod widgets;
 
-use crate::core::sync::{get_devices_list, initial_load, perform_adb_commands, CommandType, Phone};
+use crate::core::adb;
+use crate::core::sync::{get_devices_list, initial_load, Phone};
 use crate::core::theme::{Theme, OS_COLOR_SCHEME};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, ANDROID_SERIAL, NAME};
+use crate::core::utils::{string_to_theme, NAME};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -21,7 +22,6 @@ use iced::{
     window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
     Settings,
 };
-use std::env;
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 
@@ -160,10 +160,14 @@ impl Application for UadGui {
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
+                let serial = match &self.selected_device {
+                    Some(d) => d.adb_id.clone(),
+                    _ => String::default(),
+                };
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Command::perform(
-                    perform_adb_commands("reboot".to_string(), CommandType::Shell),
+                    async { adb::ACommand::new().shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
             }
@@ -255,7 +259,6 @@ impl Application for UadGui {
             Message::DeviceSelected(s_device) => {
                 self.selected_device = Some(s_device.clone());
                 self.view = View::List;
-                env::set_var(ANDROID_SERIAL, s_device.adb_id);
                 info!("{:-^65}", "-");
                 info!(
                     "ANDROID_SDK: {} | DEVICE: {}",
