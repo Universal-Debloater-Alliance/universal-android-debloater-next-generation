@@ -9512,6 +9512,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.oplus.account": {
+    "list": "Oem",
+    "description": "Account Center. Required for most OnePlus features. Removal gets rid of Login with OnePlus Account notification.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.oplus.aod": {
     "list": "Oem",
     "description": "Aod\nMultiple sources say that AOD doesnt work without tons of extra services, but on some devices it works without extra services\nhttps://droidwin.com/remove-bloatware-debloat-oneplus-10-pro-no-root/#OnePlus_10_Pro_List_of_Bloatware_Apps",
@@ -30105,6 +30113,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.oplus.blur": {
+    "list": "Oem",
+    "description": "All the blur effects in the system UI will be removed and replaced with completely transparent if you remove this package.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.oplus.blacklistapp": {
     "list": "Oem",
     "description": "Block & filter\nCall blocking app that's tied with device caller app, contains fuction to look caller location on Google Maps, potentially untrusted.",
@@ -30449,6 +30465,38 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.oplus.keyguard.clock.graffiti": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.magazine": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.gallery": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.base": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.oplus.kekepay": {
     "list": "Oem",
