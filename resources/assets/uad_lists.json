@@ -38250,6 +38250,54 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.de_DE": {
+    "list": "Oem",
+    "description": "This is the German language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.\nPath: /system/priv-app/SVoiceLang_GermanPack_DE_1.0/SVoiceLang_GermanPack_DE_1.0.apk",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.en_US": {
+    "list": "Oem",
+    "description": "This is the English language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.es_ES": {
+    "list": "Oem",
+    "description": "This is the Spanish language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.fr_FR": {
+    "list": "Oem",
+    "description": "This is the French language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.it_IT": {
+    "list": "Oem",
+    "description": "This is the Italian language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.svoice.lang.ru_RU": {
+    "list": "Oem",
+    "description": "This is the Russian language pack for Samsung's old S Voice assistant, enabling speech recognition and responses.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
 
