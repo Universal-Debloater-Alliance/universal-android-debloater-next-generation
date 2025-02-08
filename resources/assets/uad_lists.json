@@ -38227,6 +38227,516 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
-  }
+  },
+"com.android.nfc.overlay.common": {
+  "list": "Oem",
+  "description": "Common overlay configuration for NFC functionality.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.flex": {
+  "list": "Oem",
+  "description": "Flexible clock interface for system UI customization.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.systemui.overlay.pixelbatteryhealthconfig": {
+  "list": "Oem",
+  "description": "Battery health overlay for Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.rkpdapp": {
+  "list": "Oem",
+  "description": "Security and privacy management app for Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Unsafe"
+},
+"com.google.android.pixelsystemservice": {
+  "list": "Oem",
+  "description": "System service app for Pixel device management.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Unsafe"
+},
+"com.google.android.pixel.avatarpicker": {
+  "list": "Oem",
+  "description": "Avatar picker for Google Pixel personalization.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.appsearch.apk": {
+  "list": "Oem",
+  "description": "App search functionality for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.photopicker": {
+  "list": "Oem",
+  "description": "Photo picker for managing and selecting images.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"android.auto_generated_characteristics_rro": {
+  "list": "Oem",
+  "description": "Automatically generated RRO characteristics for Android customization.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.retaildemo": {
+  "list": "Oem",
+  "description": "Retail demo app for product displays in stores.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Unsafe"
+},
+"com.google.android.apps.pixel.creativeassistant": {
+  "list": "Oem",
+  "description": "Creative Assistant for media editing and artistic tasks on Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.bignum": {
+  "list": "Oem",
+  "description": "Large clock display interface for the system UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.nfc.overlay": {
+  "list": "Oem",
+  "description": "NFC overlay configuration for system-level settings.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.settings.shiba": {
+  "list": "Oem",
+  "description": "Settings app with internal device-specific features.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.telephony": {
+  "list": "Oem",
+  "description": "Core telephony system app for managing calls and messaging.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Unsafe"
+},
+"com.google.android.systemui.overlay.pixelvpnconfig": {
+  "list": "Oem",
+  "description": "Pixel VPN configuration overlay for network management.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.devicediagnostics.auto_generated_rro_vendor__": {
+  "list": "Oem",
+  "description": "Device diagnostics and vendor-specific overlays for troubleshooting.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.settings.overlay.shiba": {
+  "list": "Oem",
+  "description": "Device-specific settings overlay for internal features.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.devicelockcontroller": {
+  "list": "Oem",
+  "description": "Device lock and security controller for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Unsafe"
+},
+"com.google.android.avatarpicker": {
+  "list": "Oem",
+  "description": "Avatar picker for Google account customization.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"android.autoinstalls.config.google.nexus": {
+  "list": "Oem",
+  "description": "Auto-install configuration for Google apps on Nexus devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.companiondevicemanager.auto_generated_characteristics_rro": {
+  "list": "Oem",
+  "description": "Companion device manager for Android device connections.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.overlay.devicelockcontroller": {
+  "list": "Oem",
+  "description": "Pixel device lock configuration overlay.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.microdroid.empty_payload": {
+  "list": "Oem",
+  "description": "Empty payload for MicroDroid sandbox testing.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.tetheringentitlement": {
+  "list": "Oem",
+  "description": "Tethering entitlement management for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.googlequicksearchbox.nga_resources": {
+  "list": "Oem",
+  "description": "Resources for Google Assistant quick search.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.phone.auto_generated_characteristics_rro": {
+  "list": "Oem",
+  "description": "Telephony characteristics for phone app customization.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.pixel.iwlan": {
+  "list": "Oem",
+  "description": "IWlan optimization for Pixel Wi-Fi connections.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.devicediagnostics": {
+  "list": "Oem",
+  "description": "Device diagnostics and health check tools for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.overlay.pixelconfig2021": {
+  "list": "Oem",
+  "description": "Pixel 2021 configuration overlay for device features and UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.compos.payload": {
+  "list": "Oem",
+  "description": "Payload for Google's Compose system handling notifications and widgets.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.pixeldisplayservice.auto_generated_rro_product__": {
+  "list": "Oem",
+  "description": "Auto-generated display service configurations for Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.storagemanager": {
+  "list": "Oem",
+  "description": "Storage management app for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.apps.diagnosticstool": {
+  "list": "Oem",
+  "description": "Diagnostic tool for troubleshooting Google services and system issues.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.wallpaper.effects": {
+  "list": "Oem",
+  "description": "Wallpaper visual effects for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.pixeldisplayservice": {
+  "list": "Oem",
+  "description": "Display management service for Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.inflate": {
+  "list": "Oem",
+  "description": "Customizable clock display for system UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.calligraphy": {
+  "list": "Oem",
+  "description": "Calligraphy-style clock faces for system UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},"com.google.android.bluetooth": {
+  "list": "Oem",
+  "description": "Bluetooth management for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.apps.wallpaper.pixel": {
+  "list": "Oem",
+  "description": "Wallpaper app for Google Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.euiccpixel.permissions": {
+  "list": "Oem",
+  "description": "Permission manager for EU-configured Google Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.rilextension": {
+  "list": "Oem",
+  "description": "Google Assistant extension for enhanced functionality.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.internal.display.cutout.emulation.avoidAppsInCutout": {
+  "list": "Oem",
+  "description": "Avoid displaying apps in the notch area of the screen.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.devicediagnostics.auto_generated_rro_product__": {
+  "list": "Oem",
+  "description": "Auto-generated diagnostics configurations for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.providers.contactkeys": {
+  "list": "Oem",
+  "description": "Contact key manager for Android interactions.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.weather": {
+  "list": "Oem",
+  "description": "Clock with integrated weather updates for system UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.providers.telephony.auto_generated_characteristics_rro": {
+  "list": "Oem",
+  "description": "Telephony characteristics for phone app and services.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.euiccpixel.overlay.zuma": {
+  "list": "Oem",
+  "description": "EU Pixel device overlay for regional functionality.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.iwlan": {
+  "list": "Oem",
+  "description": "IWLAN feature manager for enhanced connectivity.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.numoverlap": {
+  "list": "Oem",
+  "description": "Adjustable number overlap for system clock display.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.settings.overlay.pixelvpnconfig": {
+  "list": "Oem",
+  "description": "VPN configuration for Pixel devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.virtualmachine.res": {
+  "list": "Oem",
+  "description": "Resources for Android virtual machine environment.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.telephony.imsmedia": {
+  "list": "Oem",
+  "description": "IMS media management for VoLTE and video calling.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.healthconnect.overlay": {
+  "list": "Oem",
+  "description": "Health Connect overlay for fitness data integration.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.overlay.trafficlightfaceoverlay": {
+  "list": "Oem",
+  "description": "Traffic light face overlay for system UI enhancement.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.uwb.resources": {
+  "list": "Oem",
+  "description": "UWB technology resources for location tracking.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.android.systemui.clocks.growth": {
+  "list": "Oem",
+  "description": "Growth-themed dynamic clock display for system UI.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+},
+"com.google.android.server.deviceconfig.resources": {
+  "list": "Oem",
+  "description": "Device configuration server resources for Android devices.",
+  "dependencies": [],
+  "neededBy": [],
+  "labels": [],
+  "removal": "Advanced"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
