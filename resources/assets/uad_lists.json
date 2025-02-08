@@ -38203,5 +38203,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "mobile.miki": {
+    "list": "Oem",
+    "description": "Samsung's Factory Mode app for hardware testing and diagnostics.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
