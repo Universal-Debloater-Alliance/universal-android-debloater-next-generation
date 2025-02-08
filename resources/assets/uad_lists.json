@@ -38211,5 +38211,22 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.android.sos": {
+    "list": "Oem",
+    "description": "Emergency SOS app for quick access to emergency services and contacts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.mediatek.security": {
+    "list": "Oem",
+    "description": "MediaTek system security service for device integrity and permission management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
+
 }
