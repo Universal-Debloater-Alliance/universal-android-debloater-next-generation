@@ -14794,7 +14794,7 @@
   },
   "com.mediatek": {
     "list": "Misc",
-    "description": "Mediatek is a Taiwanese chipset manufacturer.\nCan someone share the apk? This package name is really weird.\nIt is most likely a set of general APIs for accessing general mediatek functionalities.\nCause Bootloop.",
+    "description": "Core system services and drivers for MediaTek-powered devices.\nMediatek is a Taiwanese chipset manufacturer.\nCan someone share the apk? This package name is really weird.\nIt is most likely a set of general APIs for accessing general mediatek functionalities.\nCause Bootloop.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14810,7 +14810,7 @@
   },
   "com.mediatek.callrecorder": {
     "list": "Misc",
-    "description": "This is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nCan someone share the apk and verify this?\n",
+    "description": "Call recording app for MediaTek devices.\nThis is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nCan someone share the apk and verify this?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
