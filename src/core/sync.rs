@@ -6,8 +6,8 @@ use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use regex::Regex;
 use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
 use std::process::Command;
+use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -307,8 +307,8 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
 
 /// `pm list users` parsed into a vector with extra info
 pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
-    #[dynamic]
-    static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
+    static RE: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!()));
 
     AdbCommand::new()
         .shell(device_serial)

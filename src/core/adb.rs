@@ -38,7 +38,7 @@
 
 use regex::Regex;
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
+use std::sync::LazyLock;
 use std::{collections::HashSet, process::Command};
 
 #[cfg(target_os = "windows")]
@@ -182,9 +182,10 @@ impl PackageId {
     /// Creates a package-ID if it's valid according to
     /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
     pub fn new<S: AsRef<str>>(p_id: S) -> Option<Self> {
-        #[dynamic]
-        static RE: Regex = Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
-            .unwrap_or_else(|_| unreachable!());
+        static RE: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
+                .unwrap_or_else(|_| unreachable!())
+        });
 
         let p_id = p_id.as_ref();
 

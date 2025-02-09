@@ -4,9 +4,9 @@ use crate::gui::views::settings::Settings;
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
 use std::fs;
 use std::path::PathBuf;
+use std::sync::LazyLock;
 
 #[derive(Default, Debug, Serialize, Deserialize, Clone)]
 pub struct Config {
@@ -51,8 +51,7 @@ impl Default for GeneralSettings {
     }
 }
 
-#[dynamic]
-static CONFIG_FILE: PathBuf = CONFIG_DIR.join("config.toml");
+static CONFIG_FILE: LazyLock<PathBuf> = LazyLock::new(|| CONFIG_DIR.join("config.toml"));
 
 impl Config {
     pub fn save_changes(settings: &Settings, device_id: &String) {
@@ -87,10 +86,11 @@ impl Config {
     }
 }
 
-//write unit tests:
-#[allow(clippy::unwrap_used)]
+#[allow(clippy::unwrap_used, reason = "")]
 #[cfg(test)]
 mod tests {
+    //! Unit tests
+
     use super::*;
     use std::path::Path;
 
