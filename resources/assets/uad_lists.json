@@ -16050,7 +16050,7 @@
   },
   "com.android.incallui": {
     "list": "Oem",
-    "description": "Xiaomi (and OnePlus) Phone dialer\nClosed-source app built on top of the AOSP package.\nThe name is doubly misleading because this package is the whole dialer. It does not provide the 'in call' screen, as well as required to fetch APN lists on some phones.",
+    "description": "Xiaomi Phone 11\nXiaomi's phone (dialer, incallui, etc.) app. Fetches APN lists on some phones. Package name is highly misleading.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
