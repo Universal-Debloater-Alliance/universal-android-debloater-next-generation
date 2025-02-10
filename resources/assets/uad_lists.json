@@ -7620,7 +7620,7 @@
   },
   "com.android.server.deviceconfig.resources": {
     "list": "Oem",
-    "description": "DeviceConfigServiceResources (Server*?). Part of com.android.configinfrastructure. Resources for the device's default server config. Removing this package will prevent the device from connecting to any VPN servers. It is safe to remove if VPN services are not used.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/ConfigInfrastructure/service/ServiceResources/Android.bp",
+    "description": "DeviceConfigServiceResources (Server*?). Part of com.android.configinfrastructure. Resources for the device's default server config.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/ConfigInfrastructure/service/ServiceResources/Android.bp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
