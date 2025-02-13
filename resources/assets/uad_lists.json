@@ -393,7 +393,7 @@
   },
   "com.sonymobile.intelligent.iengine": {
     "list": "Oem",
-    "description": "According to a sony user it is part of Smart Screen rotation (auto screen rotation based on the gyroscope).\nSeems not reliable.\nDoes it break the screen-rotation if removed?\n",
+    "description": "According to a Sony user it is part of Smart Screen rotation (auto screen rotation based on the gyroscope). Doesn't seem reliable.\nDoes it break the screen-rotation if removed?\nOn Xperia 10VI: doesn't break rotation.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -473,7 +473,7 @@
   },
   "com.sonymobile.pobox": {
     "list": "Oem",
-    "description": "Xperia Japanese keyboard\nDoes someone know what \"popox\" means ? \n",
+    "description": "Xperia Japanese keyboard\nPackage is named after POBox (Predictive Operation Based On eXample), a Japanese text entry technology and ambiguous retrieval, proposed in 1998 by Sony CSL fellow Toshiyuki Masuda.\nhttps://www.sonycsl.co.jp/project/402/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -517,7 +517,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sonymobile.support": {
     "list": "Oem",
@@ -3548,6 +3548,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.cnn.mobile.android.phone.edgepanel": {
+    "list": "Misc",
+    "description": "TCL version of Parental Center, a parental control app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.cnn.mobile.android.phone.edgepanel": {
     "list": "Oem",
@@ -7930,6 +7938,14 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.android.store": {
+    "list": "Oem",
+    "description": "An app called TCL Mobile that you cannot disable and just opens up a link to the OEM in the browser.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.android.storagemanager": {
     "list": "Aosp",
     "description": "Storage manager (Maintenance/Storage panel in the settings)\nClean up unused files, show size of files regrouped by categories...\n",
@@ -9496,6 +9512,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.oplus.account": {
+    "list": "Oem",
+    "description": "Account Center. Required for most OnePlus features. Removal gets rid of Login with OnePlus Account notification.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.oplus.aod": {
     "list": "Oem",
     "description": "Aod\nMultiple sources say that AOD doesnt work without tons of extra services, but on some devices it works without extra services\nhttps://droidwin.com/remove-bloatware-debloat-oneplus-10-pro-no-root/#OnePlus_10_Pro_List_of_Bloatware_Apps",
@@ -9856,6 +9880,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.appsearch.apk": {
+    "list": "Aosp",
+    "description": "AppSearch is an on-device search library for managing locally stored structured data, with APIs for indexing data and retrieving data using full-text search. Use it to build custom in-app search capabilities for your users.\nhttps://developer.android.com/jetpack/androidx/releases/appsearch",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.google.android.apps.assistant": {
     "list": "Google",
     "description": "Google Assistant Go (https://play.google.com/store/apps/details?id=com.google.android.apps.assistant)\nGo apps are lite-versions of their normal counterparts, made for low-RAM devices.",
@@ -10132,6 +10164,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.photopicker": {
+    "list": "Aosp",
+    "description": "Photo picker\nProvides a browsable interface that presents the user with their media library, sorted by date from newest to oldest. Safe, built-in way for users to grant your app access to only selected images and videos, instead of their entire media library.\nhttps://developer.android.com/training/data-storage/shared/photopicker",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.google.android.providers.media.module": {
     "list": "Aosp",
     "description": "Media Storage\nIn Android 11 this is literally what provides access to files.\nSafe to disable, but NOT recommended; breaks file browsers and other forms of file access.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
@@ -10278,11 +10318,11 @@
   },
   "com.qualcomm.qti.services.systemhelper": {
     "list": "Misc",
-    "description": "System Helper Service\nRuns \"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service, not much to it.",
+    "description": "System Helper Service\nRuns \"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service. On a RedMi Note 13 running HyperOS 2.6.0, no application is running after uninstalling this package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.qualcomm.qti.server.wigig.tethering.rro": {
     "list": "Misc",
@@ -12712,6 +12752,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.facebook.lite": {
+    "list": "Misc",
+    "description": "Facebook Lite app (https://play.google.com/store/apps/details?id=com.facebook.lite)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.facebook.katana": {
     "list": "Misc",
     "description": "Facebook app (https://play.google.com/store/apps/details?id=com.facebook.katana)\n",
@@ -13529,14 +13577,6 @@
     "removal": "Recommended"
   },
   "com.qualcomm.qti.uceshimservice": {
-    "list": "Misc",
-    "description": "UCE shim service\nUCE = User Capability Exchange. A shim is basically a compatibility layer for an API, that makes sure anything that uses the API does so correctly.\nUsed for RCS. Provides a discovery service for users to see the capabilities of other users.\nUCE is based on SIP PUBLISH and SIP SUBSCRIBE/NOTIFY.\nDevices PUBLISH their capabilities to a presence server, when another device wants to find out what the other party supports, the device sends a SUBSCRIBE to the presence server which then returns a NOTIFY of what the other party supports.\nhttps://fr.wikipedia.org/wiki/Session_Initiation_Protocol",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "com.qualcomm.qti.uceShimService": {
     "list": "Misc",
     "description": "UCE shim service\nUCE = User Capability Exchange. A shim is basically a compatibility layer for an API, that makes sure anything that uses the API does so correctly.\nUsed for RCS. Provides a discovery service for users to see the capabilities of other users.\nUCE is based on SIP PUBLISH and SIP SUBSCRIBE/NOTIFY.\nDevices PUBLISH their capabilities to a presence server, when another device wants to find out what the other party supports, the device sends a SUBSCRIBE to the presence server which then returns a NOTIFY of what the other party supports.\nhttps://fr.wikipedia.org/wiki/Session_Initiation_Protocol",
     "dependencies": [],
@@ -15674,7 +15714,7 @@
   },
   "com.mi.healthglobal": {
     "list": "Oem",
-    "description": "Mi Health\nPedometer, menstrual and sleep tracker\nYour data are synchronized in the cloud. \nDo you really want Xiaomi to know you didn't sleep much yesterday (your ovulation day btw...)\n",
+    "description": "Mi Health. Xiaomi's health and fitness app. Tracks sleep, step count, BMI, and menstruation cycle. Includes heart rate monitoring support using the camera.\nhttps://www.xda-developers.com/mi-health-xiaomi-fitness-app/\nhttps://www.xda-developers.com/xiaomi-mi-health-app-gets-heart-rate-monitoring-support-using-camera/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -21382,7 +21422,7 @@
     "labels": []
   },
   "com.fintech.life": {
-    "description": "Fineasy\nChinese financial or payment app, note that it access locations, contacts, camera, mic and contain ads, Pithus reports this as 'High Risk'",
+    "description": "Chinese app that spoofs as a Singapore financial and/or payment app to show advertisement notifications (mostly loans)\nIt accesses locations, contacts, camera, mic by default, some people in Thailand also reported that they cannot use legitimate regional banking apps until this app was disabled or uninstalled with ADB method. While newer devices that start with Oppo ColorOS 13 and/or Realme UI 4 (around Android 13) are already baked in, it seems likely that it comes with a system update at older devices of those brands, so this is shady and constantly lost trust from many users.\nhttps://safereddit.com/r/Thailand/comments/1hzdwhr",
     "removal": "Recommended",
     "list": "Misc",
     "dependencies": [],
@@ -22241,7 +22281,7 @@
   },
   "com.google.android.euicc": {
     "description": "Electronic Sim management\nNeeded for eSIM",
-    "removal": "Recommended",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -30081,6 +30121,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.oplus.blur": {
+    "list": "Oem",
+    "description": "All the blur effects in the system UI will be removed and replaced with completely transparent if you remove this package.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.oplus.blacklistapp": {
     "list": "Oem",
     "description": "Block & filter\nCall blocking app that's tied with device caller app, contains fuction to look caller location on Google Maps, potentially untrusted.",
@@ -30426,6 +30474,38 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.oplus.keyguard.clock.graffiti": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.magazine": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.gallery": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oplus.keyguard.clock.base": {
+    "list": "Oem",
+    "description": "The clock style available in the lock screen and the theme manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.oplus.kekepay": {
     "list": "Oem",
     "description": "Chinese pay service? Safe to remove but no documentation found online\n[APK NEEDED]",
@@ -30561,6 +30641,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.oplus.pscanvas": {
+    "list": "Oem",
+    "description": "Open Canvas\nSplit-screen feature, see:\nhttps://community.oneplus.com/thread/1484307668276346883.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.oplus.appplatform": {
     "list": "Oem",
@@ -34269,11 +34357,11 @@
   },
   "com.oplus.aiunit": {
     "list": "Oem",
-    "description": "AIUnit\nAI-related, not sure for what exactly, that's why the removal is `Expert`.",
+    "description": "AIUnit\nSystem service related to the intelligence function. It's safe to remove but also breaks the Smart Cutout, AI Editor, and potentially other gallery features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.oplus.apprecover": {
     "list": "Oem",

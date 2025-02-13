@@ -1,20 +1,21 @@
-use crate::core::sync::{hashset_system_packages, list_all_system_packages, User};
-use crate::core::theme::Theme;
-use crate::core::uad_lists::{PackageHashMap, PackageState, Removal, UadList};
+use crate::core::{
+    adb::{ACommand as AdbCommand, PmListPacksFlag},
+    sync::User,
+    theme::Theme,
+    uad_lists::{PackageHashMap, PackageState, Removal, UadList},
+};
 use crate::gui::widgets::package_row::PackageRow;
 use chrono::{offset::Utc, DateTime};
 use csv::Writer;
-use std::path::PathBuf;
-use std::process::Command;
-use std::{fmt, fs};
+use std::{
+    collections::HashSet,
+    fmt, fs,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 /// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
-/// Global environment variable to keep
-/// track of the current device serial.
-///
-/// [More info](https://developer.android.com/tools/variables#adb)
-pub const ANDROID_SERIAL: &str = "ANDROID_SERIAL";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 
 // Takes a time-stamp parameter,
@@ -30,22 +31,44 @@ where
     format!("uninstalled_packages_{}.csv", t.format("%Y%m%d"))
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum Error {
     DialogClosed,
 }
 
-pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec<PackageRow> {
-    let all_system_packages = list_all_system_packages(user_id); // installed and uninstalled packages
-    let enabled_system_packages = hashset_system_packages(PackageState::Enabled, user_id);
-    let disabled_system_packages = hashset_system_packages(PackageState::Disabled, user_id);
+pub fn fetch_packages(
+    uad_lists: &PackageHashMap,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> Vec<PackageRow> {
+    let all_sys_packs = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
+        .unwrap_or_default();
+    let enabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    let disabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+
     let mut description;
     let mut uad_list;
     let mut state;
     let mut removal;
     let mut user_package: Vec<PackageRow> = Vec::new();
 
-    for p_name in all_system_packages.lines() {
+    for pack_name in all_sys_packs {
+        let p_name = &pack_name;
         state = PackageState::Uninstalled;
         description = "[No description]: CONTRIBUTION WELCOMED";
         uad_list = UadList::Unlisted;
@@ -59,9 +82,9 @@ pub fn fetch_packages(uad_lists: &PackageHashMap, user_id: Option<&User>) -> Vec
             removal = package.removal;
         }
 
-        if enabled_system_packages.contains(p_name) {
+        if enabled_sys_packs.contains(p_name) {
             state = PackageState::Enabled;
-        } else if disabled_system_packages.contains(p_name) {
+        } else if disabled_sys_packs.contains(p_name) {
             state = PackageState::Disabled;
         }
 
@@ -84,7 +107,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
     }
 }
 
-pub fn setup_uad_dir(dir: &PathBuf) -> PathBuf {
+pub fn setup_uad_dir(dir: &Path) -> PathBuf {
     let dir = dir.join("uad");
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Can't create directory: {dir:?}");
@@ -95,15 +118,15 @@ pub fn setup_uad_dir(dir: &PathBuf) -> PathBuf {
 
 pub fn open_url(dir: PathBuf) {
     #[cfg(target_os = "windows")]
-    let output = Command::new("explorer").args([dir]).output();
+    let opener = "explorer";
 
     #[cfg(target_os = "macos")]
-    let output = Command::new("open").args([dir]).output();
+    let opener = "open";
 
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    let output = Command::new("xdg-open").args([dir]).output();
+    let opener = "xdg-open";
 
-    match output {
+    match Command::new(opener).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
                 let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
@@ -115,7 +138,6 @@ pub fn open_url(dir: PathBuf) {
 }
 
 #[rustfmt::skip]
-#[allow(clippy::option_if_let_else)]
 pub fn last_modified_date(file: PathBuf) -> DateTime<Utc> {
     fs::metadata(file).map_or_else(|_| Utc::now(), |metadata| match metadata.modified() {
         Ok(time) => time.into(),

@@ -8,18 +8,16 @@ use fern::{
     FormatCallback,
 };
 use log::Record;
-use static_init::dynamic;
-use std::path::PathBuf;
-use std::{fmt::Arguments, fs::OpenOptions};
+use std::sync::LazyLock;
+use std::{fmt::Arguments, fs::OpenOptions, path::PathBuf};
 
 mod core;
 mod gui;
 
-#[dynamic]
-static CONFIG_DIR: PathBuf = setup_uad_dir(&dirs::config_dir().expect("Can't detect config dir"));
-
-#[dynamic]
-static CACHE_DIR: PathBuf = setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir"));
+static CONFIG_DIR: LazyLock<PathBuf> =
+    LazyLock::new(|| setup_uad_dir(&dirs::config_dir().expect("Can't detect config dir")));
+static CACHE_DIR: LazyLock<PathBuf> =
+    LazyLock::new(|| setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir")));
 
 fn main() -> iced::Result {
     setup_logger().expect("setup logging");

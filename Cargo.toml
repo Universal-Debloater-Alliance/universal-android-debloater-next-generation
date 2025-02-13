@@ -21,7 +21,6 @@ no-self-update = []
 dark-light = "2"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
-static_init = "^1.0"
 fern = { version = "^0", features = ["colored"] }
 chrono = { version = "^0.4", default-features = false, features = [
   "std",
@@ -55,8 +54,10 @@ panic = "abort"
 embed-resource = "2.4.2"
 
 [lints.rust]
-# "forbid" may cause conflicts with libs (static and dynamic)
-unsafe_code = "deny"
+# "forbid" may cause conflicts with libs (static and dynamic).
+# "deny" is annoying.
+unsafe_code = "warn"
+deprecated_safe = "warn"
 
 [lints.clippy]
 undocumented_unsafe_blocks = "forbid"
