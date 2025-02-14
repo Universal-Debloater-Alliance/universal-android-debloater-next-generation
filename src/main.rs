@@ -20,6 +20,13 @@ static CACHE_DIR: LazyLock<PathBuf> =
     LazyLock::new(|| setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir")));
 
 fn main() -> iced::Result {
+    // Safety: This function is safe to call in a single-threaded program.
+    // The exact requirement is: you must ensure that there are no other threads concurrently writing or
+    // reading(!) the environment through functions or global variables other than the ones in this module.
+    unsafe {
+        std::env::set_var("WGPU_BACKEND", "gl");
+    }
+
     setup_logger().expect("setup logging");
     gui::UadGui::start()
 }
