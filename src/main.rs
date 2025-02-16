@@ -24,7 +24,9 @@ fn main() -> iced::Result {
     // The exact requirement is: you must ensure that there are no other threads concurrently writing or
     // reading(!) the environment through functions or global variables other than the ones in this module.
     unsafe {
-        std::env::set_var("WGPU_BACKEND", "gl");
+        // Force WGPU/Iced to use discrete GPU to prevent crashes on PCs with two GPUs.
+        // See #848 and related pull 850.
+        std::env::set_var("WGPU_POWER_PREF", "high");
     }
 
     setup_logger().expect("setup logging");
