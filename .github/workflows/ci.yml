@@ -21,16 +21,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-22.04, windows-2022, macOS-14]
         lint: [check, test, clippy, fmt]
         exclude: # https://github.com/community/community/discussions/7835
-          - os: windows-latest
+          - os: windows-2022
             lint: clippy
-          - os: windows-latest
+          - os: windows-2022
             lint: fmt
-          - os: macOS-latest
+          - os: macOS-14
             lint: clippy
-          - os: macOS-latest
+          - os: macOS-14
             lint: fmt
         include:
           - lint: check
@@ -61,7 +61,7 @@ jobs:
 
   coverage:
     name: coverage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
