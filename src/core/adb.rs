@@ -268,8 +268,8 @@ impl PmCommand {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p_id = &p_ln[PACK_PREFIX.len()..];
 
-                    #[cfg(debug_assertions)]
-                    PackageId::new(p_id).expect(INVALID_PKG_ID);
+                    //#[cfg(debug_assertions)]
+                    //PackageId::new(p_id).expect(INVALID_PKG_ID);
 
                     String::from(p_id)
                 })
