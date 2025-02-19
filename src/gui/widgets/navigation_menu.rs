@@ -4,8 +4,8 @@ use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
 pub use crate::gui::views::about::Message as AboutMessage;
 pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingState};
-use crate::gui::{style, Message};
-use iced::widget::{button, container, pick_list, row, text, tooltip, Space, Text};
+use crate::gui::{style, widgets::text, Message};
+use iced::widget::{button, container, pick_list, row, tooltip, Space};
 use iced::{alignment, font, Alignment, Element, Font, Length, Renderer};
 
 /// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
@@ -21,7 +21,7 @@ pub fn nav_menu<'a>(
     self_update_state: &SelfUpdateState,
 ) -> Element<'a, Message, Theme, Renderer> {
     let apps_refresh_btn = button_primary(
-        Text::new("\u{E900}")
+        text("\u{E900}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
@@ -37,17 +37,17 @@ pub fn nav_menu<'a>(
     #[allow(clippy::option_if_let_else)]
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
         match self_update_state.status {
-            SelfUpdateStatus::Failed => Text::new(format!("Failed to update to {}", r.tag_name)),
-            SelfUpdateStatus::Checking => Text::new(SelfUpdateStatus::Checking.to_string()),
-            SelfUpdateStatus::Done => Text::new(format!(
+            SelfUpdateStatus::Failed => text(format!("Failed to update to {}", r.tag_name)),
+            SelfUpdateStatus::Checking => text(SelfUpdateStatus::Checking.to_string()),
+            SelfUpdateStatus::Done => text(format!(
                 "Update available: {} -> {}",
                 env!("CARGO_PKG_VERSION"),
                 r.tag_name
             )),
-            SelfUpdateStatus::Updating => Text::new("Updating please wait..."),
+            SelfUpdateStatus::Updating => text("Updating please wait..."),
         }
     } else {
-        Text::new(format!("v{}", env!("CARGO_PKG_VERSION")))
+        text(format!("v{}", env!("CARGO_PKG_VERSION")))
     };
 
     let update_btn = if self_update_state.latest_release.is_some() {
@@ -64,7 +64,7 @@ pub fn nav_menu<'a>(
     let about_btn = button_primary("About").on_press(Message::AboutPressed);
 
     let settings_btn = button_primary(
-        Text::new("\u{E994}")
+        text("\u{E994}")
             .font(ICONS)
             .width(22)
             .horizontal_alignment(alignment::Horizontal::Center),
