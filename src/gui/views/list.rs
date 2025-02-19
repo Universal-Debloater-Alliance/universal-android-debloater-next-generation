@@ -15,8 +15,9 @@ use std::path::PathBuf;
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
+use crate::gui::widgets::text;
 use iced::widget::{
-    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
+    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable,
     text_input, tooltip, vertical_rule, Column, Space,
 };
 use iced::{alignment, Alignment, Command, Element, Length, Renderer};

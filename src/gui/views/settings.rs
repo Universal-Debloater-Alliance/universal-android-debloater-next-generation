@@ -17,10 +17,9 @@ use crate::gui::{
     widgets::modal::Modal,
     widgets::navigation_menu::ICONS,
     widgets::package_row::PackageRow,
+    widgets::text,
 };
-use iced::widget::{
-    button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space, Text,
-};
+use iced::widget::{button, checkbox, column, container, pick_list, radio, row, scrollable, Space};
 use iced::{alignment, Alignment, Element, Length, Renderer};
 use std::path::PathBuf;
 
@@ -297,7 +296,7 @@ impl Settings {
         let choose_backup_descr = text("Note: If you have previous backups, you will need to transfer them manually to newly changed backup folder to be able to use Restore functionality")
             .style(style::Text::Commentary);
 
-        let choose_backup_btn = button(Text::new("\u{E930}").font(ICONS))
+        let choose_backup_btn = button(text("\u{E930}").font(ICONS))
             .padding([5, 10])
             .on_press(Message::ChooseBackUpFolder)
             .style(style::Button::Primary);
@@ -307,7 +306,7 @@ impl Settings {
             "Choose backup folder",
             Space::new(Length::Fill, Length::Shrink),
             "Current folder: ",
-            Text::new(self.general.backup_folder.to_string_lossy())
+            text(self.general.backup_folder.to_string_lossy())
         ]
         .spacing(10)
         .align_items(Alignment::Center);

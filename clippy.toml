@@ -1,0 +1,7 @@
+disallowed-types = [
+    { path = "iced::widget::Text", reason = "with some fonts text renders as squares without advanced shaping (see #523), instead use [`crate::gui::widgets::text`]" },
+]
+
+disallowed-methods= [
+    { path = "iced::widget::text", reason = "with some fonts text renders as squares without advanced shaping (see #523), instead use [`crate::gui::widgets::text`]" },
+]

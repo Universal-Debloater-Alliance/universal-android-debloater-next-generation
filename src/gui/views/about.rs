@@ -2,9 +2,9 @@ use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
 use crate::core::utils::{last_modified_date, open_url, NAME};
-use crate::gui::{style, UpdateState};
+use crate::gui::{style, widgets::text, UpdateState};
 use crate::CACHE_DIR;
-use iced::widget::{column, container, row, text, Space};
+use iced::widget::{column, container, row, Space};
 use iced::{Alignment, Element, Length, Renderer};
 use std::path::PathBuf;
 
