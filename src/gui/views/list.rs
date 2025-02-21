@@ -921,14 +921,14 @@ fn error_view<'a>(
 }
 
 fn waiting_view<'a>(
-    displayed_text: &str,
+    displayed_text: &(impl ToString + ?Sized),
     btn: Option<button::Button<'a, Message, Theme, Renderer>>,
     text_style: style::Text,
 ) -> Element<'a, Message, Theme, Renderer> {
     let col = column![]
         .spacing(10)
         .align_items(Alignment::Center)
-        .push(text(displayed_text).style(text_style).size(20));
+        .push(text(displayed_text.to_string()).style(text_style).size(20));
 
     let col = match btn {
         Some(btn) => col.push(btn.style(style::Button::Primary).padding([5, 10])),
@@ -1004,7 +1004,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                     text("Uninstall").style(style::Text::Danger)
                 },
                 horizontal_space(),
-                text(recap.discard).style(style::Text::Danger)
+                text(recap.discard.to_string()).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
             vertical_rule(5),
@@ -1015,7 +1015,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                     text("Restore").style(style::Text::Ok)
                 },
                 horizontal_space(),
-                text(recap.restore).style(style::Text::Ok)
+                text(recap.restore.to_string()).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))
         ]
