@@ -4,9 +4,9 @@ use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
 pub use crate::gui::views::about::Message as AboutMessage;
 pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingState};
-use crate::gui::{style, widgets::text, Message};
-use iced::widget::{button, container, pick_list, row, tooltip, Space};
-use iced::{alignment, font, Alignment, Element, Font, Length, Renderer};
+use crate::gui::{Message, style, widgets::text};
+use iced::widget::{Space, button, container, pick_list, row, tooltip};
+use iced::{Alignment, Element, Font, Length, Renderer, alignment, font};
 
 /// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
 pub const ICONS: Font = Font {

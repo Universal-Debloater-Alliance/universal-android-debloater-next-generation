@@ -4,8 +4,8 @@ extern crate log;
 
 use crate::core::utils::setup_uad_dir;
 use fern::{
-    colors::{Color, ColoredLevelConfig},
     FormatCallback,
+    colors::{Color, ColoredLevelConfig},
 };
 use log::Record;
 use std::sync::LazyLock;

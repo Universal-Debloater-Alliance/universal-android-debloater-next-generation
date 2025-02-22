@@ -1,13 +1,13 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
 use crate::core::sync::{
-    adb_shell_command, apply_pkg_state_commands, AdbError, CommandType, Phone, User,
+    AdbError, CommandType, Phone, User, adb_shell_command, apply_pkg_state_commands,
 };
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
-    load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
+    Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
-use crate::core::utils::{export_selection, fetch_packages, open_url, EXPORT_FILE_NAME, NAME};
+use crate::core::utils::{EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, open_url};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
 use std::path::PathBuf;
@@ -17,10 +17,10 @@ use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use crate::gui::widgets::text;
 use iced::widget::{
-    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable,
-    text_input, tooltip, vertical_rule, Column, Space,
+    Column, Space, button, checkbox, column, container, horizontal_space, pick_list, radio, row,
+    scrollable, text_input, tooltip, vertical_rule,
 };
-use iced::{alignment, Alignment, Command, Element, Length, Renderer};
+use iced::{Alignment, Command, Element, Length, Renderer, alignment};
 
 #[derive(Debug, Default, Clone)]
 pub struct PackageInfo {
@@ -413,17 +413,19 @@ impl List {
             .style(style::CheckBox::SettingsEnabled)
             .spacing(0); // no label, so remove space entirely
 
-        let col_sel_all = row![tooltip(
-            select_all_checkbox,
-            if self.all_selected {
-                "Deselect all"
-            } else {
-                "Select all"
-            },
-            tooltip::Position::Top,
-        )
-        .style(style::Container::Tooltip)
-        .gap(4)]
+        let col_sel_all = row![
+            tooltip(
+                select_all_checkbox,
+                if self.all_selected {
+                    "Deselect all"
+                } else {
+                    "Select all"
+                },
+                tooltip::Position::Top,
+            )
+            .style(style::Container::Tooltip)
+            .gap(4)
+        ]
         .padding(8);
 
         let user_picklist = pick_list(
@@ -880,7 +882,9 @@ impl List {
                 (list, UadListState::Done)
             }
             Err(local_list) => {
-                error!("Error loading remote debloat list for the phone. Fallback to embedded (and outdated) list");
+                error!(
+                    "Error loading remote debloat list for the phone. Fallback to embedded (and outdated) list"
+                );
                 (local_list, UadListState::Failed)
             }
         }
@@ -900,13 +904,15 @@ fn error_view<'a>(
     .center_y()
     .center_x();
 
-    let modal_btn_row = row![button(
-        text("Close")
-            .width(Length::Fill)
-            .horizontal_alignment(alignment::Horizontal::Center),
-    )
-    .width(Length::Fill)
-    .on_press(Message::ModalHide)]
+    let modal_btn_row = row![
+        button(
+            text("Close")
+                .width(Length::Fill)
+                .horizontal_alignment(alignment::Horizontal::Center),
+        )
+        .width(Length::Fill)
+        .on_press(Message::ModalHide)
+    ]
     .padding([10, 0, 0, 0]);
 
     let text_box = scrollable(text(error).width(Length::Fill)).height(400);

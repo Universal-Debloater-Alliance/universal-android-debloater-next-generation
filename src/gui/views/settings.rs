@@ -3,12 +3,12 @@ use crate::core::{
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
-        adb_shell_command, get_android_sdk, supports_multi_user, AdbError, CommandType, Phone, User,
+        AdbError, CommandType, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user,
     },
     theme::Theme,
     utils::{
-        export_packages, generate_backup_name, open_folder, open_url, string_to_theme,
-        DisplayablePath, Error, NAME,
+        DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_folder, open_url,
+        string_to_theme,
     },
 };
 use crate::gui::{
@@ -19,8 +19,8 @@ use crate::gui::{
     widgets::package_row::PackageRow,
     widgets::text,
 };
-use iced::widget::{button, checkbox, column, container, pick_list, radio, row, scrollable, Space};
-use iced::{alignment, Alignment, Element, Length, Renderer};
+use iced::widget::{Space, button, checkbox, column, container, pick_list, radio, row, scrollable};
+use iced::{Alignment, Element, Length, Renderer, alignment};
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]

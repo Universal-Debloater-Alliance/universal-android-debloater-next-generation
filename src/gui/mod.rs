@@ -3,11 +3,11 @@ pub mod views;
 pub mod widgets;
 
 use crate::core::adb;
-use crate::core::sync::{get_devices_list, initial_load, Phone};
-use crate::core::theme::{Theme, OS_COLOR_SCHEME};
+use crate::core::sync::{Phone, get_devices_list, initial_load};
+use crate::core::theme::{OS_COLOR_SCHEME, Theme};
 use crate::core::uad_lists::UadListState;
-use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, NAME};
+use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
+use crate::core::utils::{NAME, string_to_theme};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -19,8 +19,8 @@ use widgets::navigation_menu::nav_menu;
 
 use iced::widget::column;
 use iced::{
-    window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
-    Settings,
+    Alignment, Application, Command, Element, Length, Renderer, Settings,
+    window::Settings as Window,
 };
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;

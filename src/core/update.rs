@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 #[cfg(feature = "self-update")]
 use {
-    retry::{delay::Fibonacci, retry, OperationResult},
+    retry::{OperationResult, delay::Fibonacci, retry},
     std::fs,
     std::io,
     std::io::copy,
