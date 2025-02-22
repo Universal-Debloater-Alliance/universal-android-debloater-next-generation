@@ -182,8 +182,8 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
-        .call() {
+    match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+        .call() { Ok(res) => {
         let release: Release = serde_json::from_value(
             res.into_json::<serde_json::Value>()
                 .map_err(|_| ())?
@@ -200,10 +200,10 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
         } else {
             Ok(None)
         }
-    } else {
+    } _ => {
         debug!("Failed to check {NAME} update");
         Err(())
-    }
+    }}
 }
 
 /// Extracts the binary from a `tar.gz` archive to `temp_file` path
