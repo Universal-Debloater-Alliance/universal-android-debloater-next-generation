@@ -90,7 +90,7 @@ impl UadList {
 
 impl std::fmt::Display for UadList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.as_str())
+        f.write_str(self.as_str())
     }
 }
 
@@ -191,7 +191,7 @@ impl Removal {
 
 impl std::fmt::Display for Removal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.as_str())
+        f.write_str(self.as_str())
     }
 }
 
