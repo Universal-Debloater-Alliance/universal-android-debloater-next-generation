@@ -12810,7 +12810,7 @@
   },
   "com.whatsapp": {
     "list": "Misc",
-    "description": "Whatsapp (https://play.google.com/store/apps/details?id=com.whatsapp)\n)\n",
+    "description": "Whatsapp messenger.\nRequires Google Play Services to receive messages in the background.\nhttps://play.google.com/store/apps/details?id=com.whatsapp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
