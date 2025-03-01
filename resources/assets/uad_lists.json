@@ -35053,11 +35053,11 @@
   },
   "com.android.unisoc.telephony.server": {
     "list": "Oem",
-    "description": "UICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nOnly for China.",
+    "description": "Unisoc 4G and 5G drivers. Removal will break incoming calls. https://xdaforums.com/t/oukitel-wp23-pro-unlocking-bootloader-rooting-gsi.4642483/#post-89239693",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.cdfinger.factorytest": {
     "list": "Oem",
