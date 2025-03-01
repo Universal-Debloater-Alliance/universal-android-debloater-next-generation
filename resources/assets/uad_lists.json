@@ -31829,7 +31829,7 @@
   },
   "com.unisoc.phone": {
     "list": "Oem",
-    "description": "LockAssistant\nRuns before the user unlocks the device (direct-boot aware). Reads IMEI, SMS, call log, uses gps/wifi. Unisoc is a CPU manufacturer.",
+    "description": "LockAssistant\nRuns before the user unlocks the device (direct-boot aware). Reads IMEI, SMS, call log, uses gps/wifi. Unisoc is a CPU manufacturer. Related to package `com.android.unisoc.telephony.server`.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
