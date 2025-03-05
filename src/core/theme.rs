@@ -1,5 +1,5 @@
 use dark_light;
-use iced::{color, Color};
+use iced::{Color, color};
 use std::sync::LazyLock;
 
 /*

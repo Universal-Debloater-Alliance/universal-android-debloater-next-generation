@@ -153,7 +153,7 @@ pub struct ShellCommand(ACommand);
 impl ShellCommand {
     /// `pm` command builder
     pub fn pm(mut self) -> PmCommand {
-        self.0 .0.arg("pm");
+        self.0.0.arg("pm");
         PmCommand(self)
     }
     /// Query a device property value, by its key.
@@ -164,12 +164,12 @@ impl ShellCommand {
     /// - etc...
     /// So to avoid lossy conversions, we return strs.
     pub fn getprop(mut self, key: &str) -> Result<String, String> {
-        self.0 .0.args(["getprop", key]);
+        self.0.0.args(["getprop", key]);
         self.0.run()
     }
     /// Reboots device
     pub fn reboot(mut self) -> Result<String, String> {
-        self.0 .0.arg("reboot");
+        self.0.0.arg("reboot");
         self.0.run()
     }
 }
@@ -228,8 +228,7 @@ const PACK_PREFIX: &str = "package:";
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
-const INVALID_PKG_ID: &str =
-    "One of these is wrong: `PackageId` regex, ADB implementation. Or the spec now allows a wider char-set";
+const INVALID_PKG_ID: &str = "One of these is wrong: `PackageId` regex, ADB implementation. Or the spec now allows a wider char-set";
 
 /// Builder object for an Android Package Manager command.
 ///
@@ -250,7 +249,7 @@ impl PmCommand {
         f: Option<PmListPacksFlag>,
         user_id: Option<u16>,
     ) -> Result<Vec<String>, String> {
-        let cmd = &mut self.0 .0 .0;
+        let cmd = &mut self.0.0.0;
 
         cmd.args(["list", "packages", "-s"]);
         if let Some(s) = f {
@@ -261,7 +260,7 @@ impl PmCommand {
             cmd.arg(u.to_string());
         };
 
-        self.0 .0.run().map(|pack_ls| {
+        self.0.0.run().map(|pack_ls| {
             pack_ls
                 .lines()
                 .map(|p_ln| {
@@ -296,9 +295,9 @@ impl PmCommand {
     /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
     pub fn list_users(mut self) -> Result<Vec<String>, String> {
-        self.0 .0 .0.args(["list", "users"]);
+        self.0.0.0.args(["list", "users"]);
         // is it actually multi-line?
-        Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())
+        Ok(self.0.0.run()?.lines().skip(1).map(String::from).collect())
     }
 }
 

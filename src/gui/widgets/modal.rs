@@ -1,7 +1,7 @@
 use iced::advanced::widget::{self, Tree, Widget};
-use iced::advanced::{layout, overlay, renderer, Clipboard, Layout, Shell};
+use iced::advanced::{Clipboard, Layout, Shell, layout, overlay, renderer};
 use iced::mouse::{self, Cursor};
-use iced::{advanced, event, Alignment, Color, Element, Event, Length, Point, Rectangle, Size};
+use iced::{Alignment, Color, Element, Event, Length, Point, Rectangle, Size, advanced, event};
 
 /// A widget that centers a modal element over some base element
 pub struct Modal<'a, Message, Theme, Renderer> {
