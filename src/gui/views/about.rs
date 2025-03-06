@@ -1,10 +1,10 @@
+use crate::CACHE_DIR;
 use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
-use crate::core::utils::{last_modified_date, open_url, NAME};
-use crate::gui::{style, widgets::text, UpdateState};
-use crate::CACHE_DIR;
-use iced::widget::{column, container, row, Space};
+use crate::core::utils::{NAME, last_modified_date, open_url};
+use crate::gui::{UpdateState, style, widgets::text};
+use iced::widget::{Space, column, container, row};
 use iced::{Alignment, Element, Length, Renderer};
 use std::path::PathBuf;
 
@@ -29,7 +29,9 @@ impl About {
         // other events are handled by UadGui update()
     }
     pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
-        let about_text = text(format!("Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."));
+        let about_text = text(format!(
+            "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
+        ));
 
         let descr_container = container(about_text)
             .width(Length::Fill)

@@ -1,8 +1,8 @@
+use crate::CACHE_DIR;
+use crate::CONFIG_DIR;
 use crate::core::utils::DisplayablePath;
 use crate::core::{sync::User, theme::Theme};
 use crate::gui::views::settings::Settings;
-use crate::CACHE_DIR;
-use crate::CONFIG_DIR;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;

@@ -1,8 +1,8 @@
+use crate::CACHE_DIR;
 use crate::core::config::{Config, DeviceSettings};
-use crate::core::sync::{apply_pkg_state_commands, CorePackage, Phone, User};
+use crate::core::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
-use crate::CACHE_DIR;
 use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
 use std::{
@@ -148,7 +148,7 @@ pub fn restore_backup(
                             return Err(format!(
                                 "{} not found for user {}",
                                 backup_package.name, u.id
-                            ))
+                            ));
                         }
                     }
                     let p_commands = apply_pkg_state_commands(

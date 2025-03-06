@@ -1,10 +1,10 @@
 use crate::core::{
-    adb::{to_trimmed_utf8, ACommand as AdbCommand, PM_CLEAR_PACK},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, to_trimmed_utf8},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use regex::Regex;
-use retry::{delay::Fixed, retry, OperationResult};
+use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 use std::process::Command;
 use std::sync::LazyLock;
