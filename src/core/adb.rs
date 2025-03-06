@@ -231,9 +231,10 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
     /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
-    /// This is "the rawest" version (minimal overhead).
     ///
     /// `Ok` variant:
+    /// - isn't guaranteed to contain valid pack-IDs,
+    ///   as "android" can be printed but it's invalid
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
     pub fn list_packages_sys(
