@@ -136,6 +136,7 @@ pub fn open_url(dir: PathBuf) {
     match Command::new(opener).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
+                // does Windows print UTF-16?
                 let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
                 error!("Can't open the following URL: {}", stderr);
             }
