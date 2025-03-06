@@ -172,23 +172,21 @@ impl ShellCommand {
     }
 }
 
-/// `String` with the invariant of being a valid package-name.
+/// String with the invariant of being a valid package-name.
 /// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
-pub struct PackageId(String);
+pub struct PackageId(Box<str>);
 impl PackageId {
     /// Creates a package-ID if it's valid according to
     /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
-    pub fn new<S: AsRef<str>>(p_id: S) -> Option<Self> {
+    pub fn new(p_id: Box<str>) -> Option<Self> {
         static RE: LazyLock<Regex> = LazyLock::new(|| {
             Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
                 .unwrap_or_else(|_| unreachable!())
         });
 
-        let p_id = p_id.as_ref();
-
-        if RE.is_match(p_id) {
-            Some(Self(p_id.to_string()))
+        if RE.is_match(p_id.as_ref()) {
+            Some(Self(p_id))
         } else {
             None
         }
@@ -295,7 +293,7 @@ mod tests {
             "the.🎂.is.a.lie",
             "EXCLAMATION!!!!",
         ] {
-            assert_eq!(PackageId::new(p_id), None);
+            assert_eq!(PackageId::new(p_id.into()), None);
         }
     }
 
@@ -312,7 +310,7 @@ mod tests {
             "com.github.w1nst0n",
             "this_.String_.is_.not_.real_",
         ] {
-            assert_ne!(PackageId::new(p_id), None);
+            assert_ne!(PackageId::new(p_id.into()), None);
         }
     }
 }
