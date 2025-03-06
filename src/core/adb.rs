@@ -292,13 +292,15 @@ impl PmCommand {
             .collect())
     }
 
-    /// `list users` sub-command (header-less).
+    /// `list users` sub-command.
+    /// Output isn't parsed, because
+    /// we don't know if the format is stable across Android versions.
+    ///
     /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
-    pub fn list_users(mut self) -> Result<Vec<String>, String> {
+    pub fn list_users(mut self) -> Result<String, String> {
         self.0 .0 .0.args(["list", "users"]);
-        // is it actually multi-line?
-        Ok(self.0 .0.run()?.lines().skip(1).map(String::from).collect())
+        self.0 .0.run()
     }
 }
 
