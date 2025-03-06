@@ -148,7 +148,7 @@ impl List {
                         self.loading_state = LoadingState::RestoringDevice(
                             self.phone_packages[i_user][p.index].name.clone(),
                         );
-                    }
+                    };
                 } else {
                     self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
                 }
@@ -307,7 +307,6 @@ impl List {
                     Err(AdbError::Generic(err)) => {
                         self.error_modal = Some(err);
                     }
-                    _ => {}
                 }
                 Command::none()
             }

@@ -1,16 +1,12 @@
-use crate::CACHE_DIR;
 use crate::core::config::{Config, DeviceSettings};
 use crate::core::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
 use serde::{Deserialize, Serialize};
-use std::sync::LazyLock;
 use std::{
     fs,
     path::{Path, PathBuf},
 };
-
-pub static BACKUP_DIR: LazyLock<PathBuf> = LazyLock::new(|| CACHE_DIR.join("backups"));
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {
@@ -138,7 +134,6 @@ pub fn restore_backup(
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    
                     let package: CorePackage = match packages[index]
                         .iter()
                         .find(|x| x.name == backup_package.name)

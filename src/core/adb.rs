@@ -41,7 +41,6 @@
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
-use std::{collections::HashSet, process::Command};
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -61,11 +60,11 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 ///
 /// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
-pub struct ACommand(Command);
+pub struct ACommand(std::process::Command);
 impl ACommand {
     /// `adb` command builder
     pub fn new() -> Self {
-        Self(Command::new("adb"))
+        Self(std::process::Command::new("adb"))
     }
     /// `shell` sub-command builder.
     ///
@@ -106,11 +105,6 @@ impl ACommand {
                 )
             })
             .collect())
-    }
-    /// Reboots default device
-    pub fn reboot(mut self) -> Result<String, String> {
-        self.0.arg("reboot");
-        self.run()
     }
     /// General executor
     fn run(self) -> Result<String, String> {
@@ -230,8 +224,6 @@ const PACK_PREFIX: &str = "package:";
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
-const INVALID_PKG_ID: &str = "One of these is wrong: `PackageId` regex, ADB implementation. Or the spec now allows a wider char-set";
-
 /// Builder object for an Android Package Manager command.
 ///
 /// [More info](https://developer.android.com/tools/adb#pm)
@@ -244,8 +236,6 @@ impl PmCommand {
     /// `Ok` variant:
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
-    ///
-    /// See also [`list_packages_sys_parsed`]
     pub fn list_packages_sys(
         mut self,
         f: Option<PmListPacksFlag>,
@@ -267,30 +257,10 @@ impl PmCommand {
                 .lines()
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    let p_id = &p_ln[PACK_PREFIX.len()..];
-
-                    //#[cfg(debug_assertions)]
-                    //PackageId::new(p_id).expect(INVALID_PKG_ID);
-
-                    String::from(p_id)
+                    String::from(&p_ln[PACK_PREFIX.len()..])
                 })
                 .collect()
         })
-    }
-    /// `list packages -s` sub-command, pre-validated.
-    /// This is strongly-typed, at the cost of regex & hash overhead.
-    ///
-    /// See also [`list_packages_sys`]
-    pub fn list_packages_sys_parsed(
-        self,
-        f: Option<PmListPacksFlag>,
-        user_id: Option<u16>,
-    ) -> Result<HashSet<PackageId>, String> {
-        Ok(self
-            .list_packages_sys(f, user_id)?
-            .into_iter()
-            .map(|p| PackageId::new(p).expect(INVALID_PKG_ID))
-            .collect())
     }
 
     /// `list users` sub-command.

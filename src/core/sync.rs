@@ -59,7 +59,6 @@ impl std::fmt::Display for User {
 #[derive(Debug, Clone)]
 pub enum CommandType {
     PackageManager(PackageInfo),
-    Shell,
 }
 
 /// An enum to contain different variants for errors yielded by ADB.
@@ -83,7 +82,6 @@ pub async fn adb_shell_command<S: AsRef<str>>(
 
     let label = match &command_type {
         CommandType::PackageManager(p) => &p.removal,
-        CommandType::Shell => "Shell",
     };
 
     let mut cmd = Command::new("adb");
