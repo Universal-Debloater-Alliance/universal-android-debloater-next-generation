@@ -192,9 +192,9 @@ impl List {
                 Command::none()
             }
             Message::ToggleAllSelected(selected) => {
-                #[allow(unused_must_use)]
                 for i in self.filtered_packages.clone() {
                     if self.phone_packages[i_user][i].selected != selected {
+                        #[expect(unused_must_use, reason = "side-effect")]
                         self.update(
                             settings,
                             selected_device,
@@ -228,7 +228,6 @@ impl List {
             }
             Message::List(i_package, row_message) => {
                 #[expect(unused_must_use, reason = "side-effect")]
-                #[expect(clippy::shadow_unrelated, reason = "same-type")]
                 {
                     self.phone_packages[i_user][i_package]
                         .update(&row_message)
