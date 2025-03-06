@@ -307,6 +307,9 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
 
 /// `pm list users` parsed into a vector with extra info
 pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
+    // this could be thread-local (no lock overhead),
+    // but then each thread would compile its own clone of the regex,
+    // I guess?
     static RE: LazyLock<Regex> =
         LazyLock::new(|| Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!()));
 
@@ -314,24 +317,22 @@ pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
         .shell(device_serial)
         .pm()
         .list_users()
-        // if default, then empty iter, which becomes empty vec (again)
-        .unwrap_or_default()
-        .into_iter()
-        .enumerate()
-        .map(|(i, user)| {
-            // It seems each line is a user,
-            // optionally associated with a work-profile.
-            // This will ignore the work-profiles!
-            let u = RE.captures(&user).expect("Each user should have an ID")[1]
-                .parse()
-                .unwrap_or_else(|_| unreachable!("User ID must be valid `u16`"));
-            User {
-                id: u,
-                index: i,
-                protected: is_protected_user(u, device_serial),
-            }
+        .map(|out| {
+            RE.find_iter(&out)
+                .enumerate()
+                .map(|(i, user)| {
+                    let u = user.as_str()[1..]
+                        .parse()
+                        .unwrap_or_else(|_| unreachable!("User ID must always be a valid `u16`"));
+                    User {
+                        id: u,
+                        index: i,
+                        protected: is_protected_user(u, device_serial),
+                    }
+                })
+                .collect()
         })
-        .collect()
+        .unwrap_or_default()
 }
 
 /// This matches serials (`getprop ro.serialno`)
