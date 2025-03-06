@@ -13,7 +13,6 @@ use std::{
     collections::HashSet,
     fmt, fs,
     path::{Path, PathBuf},
-    process::Command,
 };
 
 /// Canonical shortened name of the application
@@ -124,16 +123,13 @@ pub fn setup_uad_dir(dir: &Path) -> PathBuf {
 }
 
 pub fn open_url(dir: PathBuf) {
-    #[cfg(target_os = "windows")]
-    let opener = "explorer";
-
-    #[cfg(target_os = "macos")]
-    let opener = "open";
-
-    #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    let opener = "xdg-open";
-
-    match Command::new(opener).arg(dir).output() {
+    const OPENER: &str = match std::env::consts::OS.as_bytes() {
+        b"windows" => "explorer",
+        b"macos" => "open",
+        // "linux"
+        _ => "xdg-open",
+    };
+    match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
                 // does Windows print UTF-16?
