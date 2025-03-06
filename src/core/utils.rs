@@ -25,6 +25,10 @@ pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 //
 // The TZ is generic, because testing requires UTC,
 // while users get the local-aware version.
+#[expect(
+    clippy::needless_pass_by_value,
+    reason = "Timestamps should be fresh, no need to borrow"
+)]
 pub fn generate_backup_name<T>(t: DateTime<T>) -> String
 where
     T: chrono::TimeZone,
