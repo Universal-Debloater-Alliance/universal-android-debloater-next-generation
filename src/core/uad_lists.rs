@@ -16,7 +16,6 @@ pub const LIST_FNAME: &str = "uad_lists.json";
 )]
 // not `const`, because it's too big
 pub static DATA: &str = include_str!("../../resources/assets/uad_lists.json");
-// TODO: use `const_format` crate
 
 #[derive(Deserialize, Debug, Clone, PartialEq, Hash, Eq)]
 #[serde(rename_all = "camelCase")]

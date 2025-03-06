@@ -34,7 +34,6 @@ pub fn nav_menu<'a>(
 
     let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
 
-    #[allow(clippy::option_if_let_else)]
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
         match self_update_state.status {
             SelfUpdateStatus::Failed => text(format!("Failed to update to {}", r.tag_name)),

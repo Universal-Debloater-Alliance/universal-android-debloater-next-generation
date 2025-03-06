@@ -69,7 +69,6 @@ pub async fn backup_phone(
 }
 
 pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
-    #[allow(clippy::option_if_let_else)]
     match fs::read_dir(dir) {
         Ok(files) => files
             .filter_map(Result::ok)

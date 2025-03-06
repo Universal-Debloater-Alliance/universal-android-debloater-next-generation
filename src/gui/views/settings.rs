@@ -68,7 +68,6 @@ pub enum Message {
 }
 
 impl Settings {
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -225,7 +224,7 @@ impl Settings {
                 if let Ok(path) = result {
                     self.general.backup_folder = path;
                     Config::save_changes(self, &phone.adb_id);
-                    #[allow(unused_must_use)]
+                    #[expect(unused_must_use, reason = "side-effect")]
                     {
                         self.update(
                             phone,
@@ -260,7 +259,6 @@ impl Settings {
         }
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL

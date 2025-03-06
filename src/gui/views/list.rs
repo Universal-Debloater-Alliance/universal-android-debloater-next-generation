@@ -110,7 +110,6 @@ impl From<Removal> for SummaryEntry {
 }
 
 impl List {
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -461,7 +460,6 @@ impl List {
         .into()
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn ready_view(
         &self,
@@ -621,7 +619,6 @@ impl List {
         }
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,
