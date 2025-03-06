@@ -29,12 +29,13 @@ pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
     clippy::needless_pass_by_value,
     reason = "Timestamps should be fresh, no need to borrow"
 )]
+#[must_use]
 pub fn generate_backup_name<T>(t: DateTime<T>) -> String
 where
     T: chrono::TimeZone,
     T::Offset: std::fmt::Display,
 {
-    format!("uninstalled_packages_{}.csv", t.format("%Y%m%d"))
+    t.format("uninstalled_packages_%Y%m%d.csv").to_string()
 }
 
 #[derive(Debug, Clone, Copy)]
