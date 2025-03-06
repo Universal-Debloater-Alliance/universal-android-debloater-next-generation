@@ -1,3 +1,5 @@
+#![deny(clippy::unwrap_used)]
+
 //! This module is intended to group everything that's "intrinsic" of ADB.
 //!
 //! Following the design philosophy of most of Rust `std`,
@@ -305,8 +307,6 @@ impl PmCommand {
 
 #[cfg(test)]
 mod tests {
-    #![allow(clippy::unwrap_used, reason = "")]
-
     use super::*;
 
     #[test]

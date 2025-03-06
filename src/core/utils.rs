@@ -1,3 +1,5 @@
+#![warn(clippy::unwrap_used)]
+
 use crate::core::{
     adb::{ACommand as AdbCommand, PmListPacksFlag},
     sync::User,
@@ -241,8 +243,6 @@ pub async fn export_packages(
 
 #[cfg(test)]
 mod tests {
-    #![allow(clippy::unwrap_used, reason = "")]
-
     use super::*;
     use chrono::TimeZone;
 
