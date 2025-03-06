@@ -138,19 +138,19 @@ pub fn restore_backup(
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage;
-                    match packages[index]
+                    
+                    let package: CorePackage = match packages[index]
                         .iter()
                         .find(|x| x.name == backup_package.name)
                     {
-                        Some(p) => package = p.into(),
+                        Some(p) => p.into(),
                         None => {
                             return Err(format!(
                                 "{} not found for user {}",
                                 backup_package.name, u.id
                             ));
                         }
-                    }
+                    };
                     let p_commands = apply_pkg_state_commands(
                         &package,
                         backup_package.state,

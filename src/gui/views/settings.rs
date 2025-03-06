@@ -465,7 +465,9 @@ impl Settings {
         .spacing(10)
         .align_items(Alignment::Center);
 
-        let restore_row = if !self.device.backup.backups.is_empty() {
+        let restore_row = if self.device.backup.backups.is_empty() {
+            row![]
+        } else {
             row![
                 restore_btn(true),
                 "Restore the state of the device",
@@ -475,8 +477,6 @@ impl Settings {
             ]
             .spacing(10)
             .align_items(Alignment::Center)
-        } else {
-            row![]
         };
 
         let no_device_ctn = || {
