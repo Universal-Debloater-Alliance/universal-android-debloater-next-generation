@@ -185,10 +185,7 @@ pub fn apply_pkg_state_commands(
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
         PackageState::Enabled => match package.state {
-            PackageState::Disabled => match phone.android_sdk {
-                i if i >= 23 => vec!["pm enable"],
-                _ => vec!["pm enable"],
-            },
+            PackageState::Disabled => vec!["pm enable"],
             PackageState::Uninstalled => match phone.android_sdk {
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
@@ -208,7 +205,6 @@ pub fn apply_pkg_state_commands(
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
-                19 | 20 => vec!["pm block", PM_CLEAR_PACK], // Android KitKat (4.4/4.4W) and older
                 _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
