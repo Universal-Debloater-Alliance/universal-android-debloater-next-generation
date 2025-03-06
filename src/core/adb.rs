@@ -81,6 +81,7 @@ impl ACommand {
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
     /// - Local emulators
+    ///
     /// Status can be (but not limited to):
     /// - "unauthorized"
     /// - "device"
@@ -158,7 +159,8 @@ impl ShellCommand {
     /// - `int`
     /// - chars
     /// - etc...
-    /// So to avoid lossy conversions, we return strs.
+    ///
+    /// So to avoid lossy conversions, we return strs
     pub fn getprop(mut self, key: &str) -> Result<String, String> {
         self.0.0.args(["getprop", key]);
         self.0.run()
