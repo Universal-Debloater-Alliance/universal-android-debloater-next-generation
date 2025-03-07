@@ -110,7 +110,6 @@ impl From<Removal> for SummaryEntry {
 }
 
 impl List {
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -148,7 +147,7 @@ impl List {
                         self.loading_state = LoadingState::RestoringDevice(
                             self.phone_packages[i_user][p.index].name.clone(),
                         );
-                    }
+                    };
                 } else {
                     self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
                 }
@@ -192,9 +191,9 @@ impl List {
                 Command::none()
             }
             Message::ToggleAllSelected(selected) => {
-                #[allow(unused_must_use)]
                 for i in self.filtered_packages.clone() {
                     if self.phone_packages[i_user][i].selected != selected {
+                        #[expect(unused_must_use, reason = "side-effect")]
                         self.update(
                             settings,
                             selected_device,
@@ -228,7 +227,6 @@ impl List {
             }
             Message::List(i_package, row_message) => {
                 #[expect(unused_must_use, reason = "side-effect")]
-                #[expect(clippy::shadow_unrelated, reason = "same-type")]
                 {
                     self.phone_packages[i_user][i_package]
                         .update(&row_message)
@@ -308,7 +306,6 @@ impl List {
                     Err(AdbError::Generic(err)) => {
                         self.error_modal = Some(err);
                     }
-                    _ => {}
                 }
                 Command::none()
             }
@@ -463,7 +460,6 @@ impl List {
         .into()
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn ready_view(
         &self,
@@ -623,7 +619,6 @@ impl List {
         }
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,

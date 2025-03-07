@@ -1,16 +1,12 @@
-use crate::CACHE_DIR;
 use crate::core::config::{Config, DeviceSettings};
 use crate::core::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
 use serde::{Deserialize, Serialize};
-use std::sync::LazyLock;
 use std::{
     fs,
     path::{Path, PathBuf},
 };
-
-pub static BACKUP_DIR: LazyLock<PathBuf> = LazyLock::new(|| CACHE_DIR.join("backups"));
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {
@@ -73,7 +69,6 @@ pub async fn backup_phone(
 }
 
 pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
-    #[allow(clippy::option_if_let_else)]
     match fs::read_dir(dir) {
         Ok(files) => files
             .filter_map(Result::ok)
@@ -138,19 +133,18 @@ pub fn restore_backup(
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage;
-                    match packages[index]
+                    let package: CorePackage = match packages[index]
                         .iter()
                         .find(|x| x.name == backup_package.name)
                     {
-                        Some(p) => package = p.into(),
+                        Some(p) => p.into(),
                         None => {
                             return Err(format!(
                                 "{} not found for user {}",
                                 backup_package.name, u.id
                             ));
                         }
-                    }
+                    };
                     let p_commands = apply_pkg_state_commands(
                         &package,
                         backup_package.state,

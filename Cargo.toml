@@ -54,16 +54,12 @@ panic = "abort"
 embed-resource = "2.4.2"
 
 [lints.rust]
-# "forbid" may cause conflicts with libs (static and dynamic).
-# "deny" is annoying.
-unsafe_code = "warn"
 deprecated_safe = "warn"
 
 [lints.clippy]
 undocumented_unsafe_blocks = "forbid"
 exit = "deny"
 panic_in_result_fn = "warn"
-unwrap_used = "warn"
 infinite_loop = "warn"
 mem_forget = "warn"
 string_to_string = "warn"

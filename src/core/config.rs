@@ -86,7 +86,6 @@ impl Config {
     }
 }
 
-#[allow(clippy::unwrap_used, reason = "")]
 #[cfg(test)]
 mod tests {
     //! Unit tests

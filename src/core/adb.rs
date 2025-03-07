@@ -1,3 +1,5 @@
+#![deny(clippy::unwrap_used)]
+
 //! This module is intended to group everything that's "intrinsic" of ADB.
 //!
 //! Following the design philosophy of most of Rust `std`,
@@ -39,7 +41,6 @@
 use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::sync::LazyLock;
-use std::{collections::HashSet, process::Command};
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -59,11 +60,11 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 ///
 /// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
-pub struct ACommand(Command);
+pub struct ACommand(std::process::Command);
 impl ACommand {
     /// `adb` command builder
     pub fn new() -> Self {
-        Self(Command::new("adb"))
+        Self(std::process::Command::new("adb"))
     }
     /// `shell` sub-command builder.
     ///
@@ -80,6 +81,7 @@ impl ACommand {
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
     /// - Local emulators
+    ///
     /// Status can be (but not limited to):
     /// - "unauthorized"
     /// - "device"
@@ -105,11 +107,6 @@ impl ACommand {
             })
             .collect())
     }
-    /// Reboots default device
-    pub fn reboot(mut self) -> Result<String, String> {
-        self.0.arg("reboot");
-        self.run()
-    }
     /// General executor
     fn run(self) -> Result<String, String> {
         let mut cmd = self.0;
@@ -117,7 +114,7 @@ impl ACommand {
         let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
 
         info!(
-            "Ran command: adb '{}'",
+            "Ran command: adb {}",
             cmd.get_args()
                 .map(|s| s.to_str().unwrap_or_else(|| unreachable!()))
                 .collect::<Vec<_>>()
@@ -162,7 +159,8 @@ impl ShellCommand {
     /// - `int`
     /// - chars
     /// - etc...
-    /// So to avoid lossy conversions, we return strs.
+    ///
+    /// So to avoid lossy conversions, we return strs
     pub fn getprop(mut self, key: &str) -> Result<String, String> {
         self.0.0.args(["getprop", key]);
         self.0.run()
@@ -174,23 +172,21 @@ impl ShellCommand {
     }
 }
 
-/// `String` with the invariant of being a valid package-name.
+/// String with the invariant of being a valid package-name.
 /// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
-pub struct PackageId(String);
+pub struct PackageId(Box<str>);
 impl PackageId {
     /// Creates a package-ID if it's valid according to
     /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
-    pub fn new<S: AsRef<str>>(p_id: S) -> Option<Self> {
+    pub fn new(p_id: Box<str>) -> Option<Self> {
         static RE: LazyLock<Regex> = LazyLock::new(|| {
             Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
                 .unwrap_or_else(|_| unreachable!())
         });
 
-        let p_id = p_id.as_ref();
-
-        if RE.is_match(p_id) {
-            Some(Self(p_id.to_string()))
+        if RE.is_match(p_id.as_ref()) {
+            Some(Self(p_id))
         } else {
             None
         }
@@ -228,8 +224,6 @@ const PACK_PREFIX: &str = "package:";
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
-const INVALID_PKG_ID: &str = "One of these is wrong: `PackageId` regex, ADB implementation. Or the spec now allows a wider char-set";
-
 /// Builder object for an Android Package Manager command.
 ///
 /// [More info](https://developer.android.com/tools/adb#pm)
@@ -237,13 +231,12 @@ const INVALID_PKG_ID: &str = "One of these is wrong: `PackageId` regex, ADB impl
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
     /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
-    /// This is "the rawest" version (minimal overhead).
     ///
     /// `Ok` variant:
+    /// - isn't guaranteed to contain valid pack-IDs,
+    ///   as "android" can be printed but it's invalid
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
-    ///
-    /// See also [`list_packages_sys_parsed`]
     pub fn list_packages_sys(
         mut self,
         f: Option<PmListPacksFlag>,
@@ -265,30 +258,10 @@ impl PmCommand {
                 .lines()
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    let p_id = &p_ln[PACK_PREFIX.len()..];
-
-                    //#[cfg(debug_assertions)]
-                    //PackageId::new(p_id).expect(INVALID_PKG_ID);
-
-                    String::from(p_id)
+                    String::from(&p_ln[PACK_PREFIX.len()..])
                 })
                 .collect()
         })
-    }
-    /// `list packages -s` sub-command, pre-validated.
-    /// This is strongly-typed, at the cost of regex & hash overhead.
-    ///
-    /// See also [`list_packages_sys`]
-    pub fn list_packages_sys_parsed(
-        self,
-        f: Option<PmListPacksFlag>,
-        user_id: Option<u16>,
-    ) -> Result<HashSet<PackageId>, String> {
-        Ok(self
-            .list_packages_sys(f, user_id)?
-            .into_iter()
-            .map(|p| PackageId::new(p).expect(INVALID_PKG_ID))
-            .collect())
     }
 
     /// `list users` sub-command.
@@ -305,8 +278,6 @@ impl PmCommand {
 
 #[cfg(test)]
 mod tests {
-    #![allow(clippy::unwrap_used, reason = "")]
-
     use super::*;
 
     #[test]
@@ -323,7 +294,7 @@ mod tests {
             "the.🎂.is.a.lie",
             "EXCLAMATION!!!!",
         ] {
-            assert_eq!(PackageId::new(p_id), None);
+            assert_eq!(PackageId::new(p_id.into()), None);
         }
     }
 
@@ -340,7 +311,7 @@ mod tests {
             "com.github.w1nst0n",
             "this_.String_.is_.not_.real_",
         ] {
-            assert_ne!(PackageId::new(p_id), None);
+            assert_ne!(PackageId::new(p_id.into()), None);
         }
     }
 }
