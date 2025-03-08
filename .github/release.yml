@@ -11,7 +11,7 @@ changelog:
         - refactor
         - dependencies
         - documentation
-        - testing
+        - ci
     - title: Packages/apps
       labels:
       - package::documentation
