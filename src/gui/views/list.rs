@@ -872,7 +872,7 @@ impl List {
         match uad_lists {
             Ok(list) => {
                 if phone.adb_id.is_empty() {
-                    error!("AppsView ready but no phone found");
+                    warn!("AppsView ready but no phone found");
                 }
                 (list, UadListState::Done)
             }
