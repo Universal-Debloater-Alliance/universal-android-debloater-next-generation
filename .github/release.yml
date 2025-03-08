@@ -6,14 +6,18 @@ changelog:
     - title: Fixed
       labels:
         - bug
-    - title: Miscellaneous
+    - title: Refactors
       labels:
         - refactor
-        - dependencies
-        - documentation
-        - ci
     - title: Packages/apps
       labels:
-      - package::documentation
-      - package::addition
-      - package::breakage
+        - package::documentation
+        - package::addition
+        - package::breakage
+    - title: Development
+      labels:
+        - ci
+        - dependencies
+    - title: Documentation
+      labels:
+        - documentation
