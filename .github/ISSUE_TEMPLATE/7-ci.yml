@@ -1,17 +1,17 @@
 name: CI/CD
-description: File a feature request or bug-report for CI/CD
+description: File an issue for CI/CD
 title: "ci(scope): "
 labels: ["ci"]
 body:
 - type: textarea
   attributes:
-    label: Expected feature
+    label: Expected behavior
     description: A clear and concise description of what the problem is and how it could be approached.
   validations:
     required: true
 - type: textarea
   attributes:
-    label: Alternative solutions
+    label: Alternate solutions
     description: A clear and concise description of any alternative solutions or features you've considered.
   validations:
     required: false
@@ -28,9 +28,9 @@ body:
   id: acknowledgements
   attributes:
     label: Acknowledgements
-    description: Your bug report will be closed if you don't follow the checklist below.
+    description: Your issue will be closed if you don't follow the checklist below.
     options:
-      - label: This issue is not a duplicate of an existing bug report.
+      - label: This issue is not a duplicate of an existing issue.
         required: true
       - label: I have chosen an appropriate title.
         required: true
