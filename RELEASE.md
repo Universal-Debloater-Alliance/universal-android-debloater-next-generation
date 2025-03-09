@@ -25,6 +25,12 @@ When all the above has been checked, you can push a tag to `main` to trigger the
 
 Change the version number to whatever version we're releasing.
 
+## Development process
+
+1. Update dependencies right after a new release, so that we start a new milestone with updated dependencies
+1. On-going development of bug-fixes and new features etc, along with fixing potential bugs, potentially due to the updated dependencies
+1. Release
+
 ## Faulty releases
 
 If we publish a faulty release, for example containing a critical bug, this is how we should deal with it:
