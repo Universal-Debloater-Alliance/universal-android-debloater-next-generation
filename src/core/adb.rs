@@ -143,12 +143,12 @@ impl ACommand {
         });
 
         self.0.arg("version");
-        // typically 5 allocs (after `lines`).
-        // ideally 0, if we didn't use `lines`.
         Ok(self
             .run()?
             .lines()
             .enumerate()
+            // typically 5 allocs.
+            // ideally 0, if we didn't use `lines`.
             .map(|(i, ln)| {
                 debug_assert!(match i {
                     0 => TRIPLE.is_match(ln),
