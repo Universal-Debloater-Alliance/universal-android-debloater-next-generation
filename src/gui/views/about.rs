@@ -46,33 +46,40 @@ impl About {
         let uad_lists_btn = button_primary("Update").on_press(Message::UpdateUadLists);
 
         #[cfg(feature = "self-update")]
-        let self_update_btn = button_primary("Update").on_press(Message::DoSelfUpdate);
+        let self_update_row = {
+            let self_update_btn = button_primary("Update").on_press(Message::DoSelfUpdate);
 
-        #[cfg(feature = "self-update")]
-        let uad_version_text =
-            text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
+            let uad_version_text =
+                text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
 
-        #[cfg(feature = "self-update")]
-        #[rustfmt::skip]
-        let self_update_text = update_state.self_update.latest_release.as_ref().map_or_else(||
-            if update_state.self_update.status == SelfUpdateStatus::Done {
-                "(No update available)".to_string()
-            } else {
-                update_state.self_update.status.to_string()
-            }, |r| if update_state.self_update.status == SelfUpdateStatus::Updating {
-                update_state.self_update.status.to_string()
-            } else {
-                format!("({} available)", r.tag_name)
-            });
+            let self_update_text = update_state
+                .self_update
+                .latest_release
+                .as_ref()
+                .map_or_else(
+                    || {
+                        if update_state.self_update.status == SelfUpdateStatus::Done {
+                            "(No update available)".to_string()
+                        } else {
+                            update_state.self_update.status.to_string()
+                        }
+                    },
+                    |r| {
+                        if update_state.self_update.status == SelfUpdateStatus::Updating {
+                            update_state.self_update.status.to_string()
+                        } else {
+                            format!("({} available)", r.tag_name)
+                        }
+                    },
+                );
 
-        #[cfg(feature = "self-update")]
-        let last_self_update_text = text(self_update_text).style(style::Text::Default);
+            let last_self_update_text = text(self_update_text).style(style::Text::Default);
 
-        #[cfg(feature = "self-update")]
-        let self_update_row = row![uad_version_text, self_update_btn, last_self_update_text,]
-            .align_items(Alignment::Center)
-            .spacing(10)
-            .width(550);
+            row![uad_version_text, self_update_btn, last_self_update_text,]
+                .align_items(Alignment::Center)
+                .spacing(10)
+                .width(550)
+        };
 
         let uad_list_row = row![uad_list_text, uad_lists_btn, last_update_text,]
             .align_items(Alignment::Center)
@@ -105,13 +112,12 @@ impl About {
             .align_items(Alignment::Center)
             .width(550);
 
-        let update_column = if cfg!(feature = "self-update") {
-            column![uad_list_row, self_update_row, adb_version_row]
-        } else {
-            column![uad_list_row, adb_version_row]
-        }
-        .align_items(Alignment::Center)
-        .spacing(10);
+        #[cfg(feature = "self-update")]
+        let update_column = column![uad_list_row, self_update_row, adb_version_row];
+        #[cfg(not(feature = "self-update"))]
+        let update_column = column![uad_list_row, adb_version_row];
+
+        let update_column = update_column.align_items(Alignment::Center).spacing(10);
 
         let update_container = container(update_column)
             .width(Length::Fill)
