@@ -243,7 +243,7 @@ pub const fn bin_name() -> &'static str {
         "uad-ng-macos-intel"
     }
 
-    #[cfg(all(target_os = "macos", target_arch = "arm"))]
+    #[cfg(all(target_os = "macos", any(target_arch = "arm", target_arch = "aarch64")))]
     {
         "uad-ng-macos"
     }
