@@ -117,7 +117,7 @@ impl ACommand {
     /// ## Format
     /// This is just a sample,
     /// we don't know which guarantees are stable (yet):
-    /// ```
+    /// ```txt
     /// Android Debug Bridge version 1.0.41
     /// Version 34.0.5-debian
     /// Installed as /usr/lib/android-sdk/platform-tools/adb
@@ -125,7 +125,7 @@ impl ACommand {
     /// ```
     ///
     /// The expected format should be like:
-    /// ```
+    /// ```txt
     /// Android Debug Bridge version <num>.<num>.<num>
     /// Version <num>.<num>.<num>-<no spaces>
     /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb<optional extension>
