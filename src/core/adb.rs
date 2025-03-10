@@ -113,6 +113,24 @@ impl ACommand {
     }
 
     /// `version` sub-command, splitted by lines
+    ///
+    /// ## Format
+    /// This is just a sample,
+    /// we don't know which guarantees are stable (yet):
+    /// ```
+    /// Android Debug Bridge version 1.0.41
+    /// Version 34.0.5-debian
+    /// Installed as /usr/lib/android-sdk/platform-tools/adb
+    /// Running on Linux 6.12.12-amd64 (x86_64)
+    /// ```
+    ///
+    /// The expected format should be like:
+    /// ```
+    /// Android Debug Bridge version <num>.<num>.<num>
+    /// Version <num>.<num>.<num>-<no spaces>
+    /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb<optional extension>
+    /// Running on <OS/kernel version> (<CPU arch>)
+    /// ```
     pub fn version(mut self) -> Result<Vec<String>, String> {
         self.0.arg("version");
         // typically 5 allocs (after `lines`).
