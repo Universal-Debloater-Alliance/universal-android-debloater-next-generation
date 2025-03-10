@@ -131,7 +131,7 @@ impl ACommand {
             cmd.get_args()
                 .map(|s| s.to_str().unwrap_or_else(|| unreachable!()))
                 .collect::<Vec<_>>()
-                .join("' '")
+                .join(" ")
         );
         match cmd.output() {
             Err(e) => {
