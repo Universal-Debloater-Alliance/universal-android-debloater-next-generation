@@ -63,12 +63,15 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 pub struct ACommand(std::process::Command);
 impl ACommand {
     /// `adb` command builder
+    #[must_use]
     pub fn new() -> Self {
         Self(std::process::Command::new("adb"))
     }
+
     /// `shell` sub-command builder.
     ///
     /// If `device_serial` is empty, it lets ADB choose the default device.
+    #[must_use]
     pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> ShellCommand {
         let serial = device_serial.as_ref();
         if !serial.is_empty() {
@@ -77,6 +80,7 @@ impl ACommand {
         self.0.arg("shell");
         ShellCommand(self)
     }
+
     /// Header-less list of attached devices (as serials) and their statuses:
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
@@ -107,6 +111,61 @@ impl ACommand {
             })
             .collect())
     }
+
+    /// `version` sub-command, splitted by lines
+    ///
+    /// ## Format
+    /// This is just a sample,
+    /// we don't know which guarantees are stable (yet):
+    /// ```txt
+    /// Android Debug Bridge version 1.0.41
+    /// Version 34.0.5-debian
+    /// Installed as /usr/lib/android-sdk/platform-tools/adb
+    /// Running on Linux 6.12.12-amd64 (x86_64)
+    /// ```
+    ///
+    /// The expected format should be like:
+    /// ```txt
+    /// Android Debug Bridge version <num>.<num>.<num>
+    /// Version <num>.<num>.<num>-<no spaces>
+    /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb[.exe]
+    /// Running on <OS/kernel version> (<CPU arch>)
+    /// ```
+    pub fn version(mut self) -> Result<Vec<String>, String> {
+        #[cfg(debug_assertions)]
+        static TRIPLE: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r"^Android Debug Bridge version \d+.\d+.\d+$")
+                .unwrap_or_else(|_| unreachable!())
+        });
+        #[cfg(debug_assertions)]
+        static DISTRO: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r"^Version \d+.\d+.\d+-\S+$").unwrap_or_else(|_| unreachable!())
+        });
+
+        self.0.arg("version");
+        Ok(self
+            .run()?
+            .lines()
+            .enumerate()
+            // typically 5 allocs.
+            // ideally 0, if we didn't use `lines`.
+            .map(|(i, ln)| {
+                debug_assert!(match i {
+                    0 => TRIPLE.is_match(ln),
+                    1 => DISTRO.is_match(ln),
+                    2 =>
+                    // missing test for valid path
+                        ln.starts_with("Installed as ")
+                            && (ln.ends_with("adb") || ln.ends_with("adb.exe")),
+                    // missing test for x86/ARM (both 64b)
+                    3 => ln.starts_with("Running on "),
+                    _ => unreachable!("Expected < 5 lines"),
+                });
+                ln.to_string()
+            })
+            .collect())
+    }
+
     /// General executor
     fn run(self) -> Result<String, String> {
         let mut cmd = self.0;
@@ -118,7 +177,7 @@ impl ACommand {
             cmd.get_args()
                 .map(|s| s.to_str().unwrap_or_else(|| unreachable!()))
                 .collect::<Vec<_>>()
-                .join("' '")
+                .join(" ")
         );
         match cmd.output() {
             Err(e) => {
