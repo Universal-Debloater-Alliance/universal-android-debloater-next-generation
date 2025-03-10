@@ -128,14 +128,42 @@ impl ACommand {
     /// ```txt
     /// Android Debug Bridge version <num>.<num>.<num>
     /// Version <num>.<num>.<num>-<no spaces>
-    /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb<optional extension>
+    /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb[.exe]
     /// Running on <OS/kernel version> (<CPU arch>)
     /// ```
     pub fn version(mut self) -> Result<Vec<String>, String> {
+        #[cfg(debug_assertions)]
+        static TRIPLE: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r"^Android Debug Bridge version \d+.\d+.\d+$")
+                .unwrap_or_else(|_| unreachable!())
+        });
+        #[cfg(debug_assertions)]
+        static DISTRO: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r"^Version \d+.\d+.\d+-\S+$").unwrap_or_else(|_| unreachable!())
+        });
+
         self.0.arg("version");
         // typically 5 allocs (after `lines`).
         // ideally 0, if we didn't use `lines`.
-        Ok(self.run()?.lines().map(str::to_string).collect())
+        Ok(self
+            .run()?
+            .lines()
+            .enumerate()
+            .map(|(i, ln)| {
+                debug_assert!(match i {
+                    0 => TRIPLE.is_match(ln),
+                    1 => DISTRO.is_match(ln),
+                    2 =>
+                    // missing test for valid path
+                        ln.starts_with("Installed as ")
+                            && (ln.ends_with("adb") || ln.ends_with("adb.exe")),
+                    // missing test for x86/ARM (both 64b)
+                    3 => ln.starts_with("Running on "),
+                    _ => unreachable!("Expected < 5 lines"),
+                });
+                ln.to_string()
+            })
+            .collect())
     }
 
     /// General executor
