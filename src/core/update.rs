@@ -238,7 +238,7 @@ pub const fn bin_name() -> &'static str {
         "uad-ng.exe"
     }
 
-    #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
+    #[cfg(all(target_os = "macos", any(target_arch = "x86_64", target_arch = "x86")))]
     {
         "uad-ng-macos-intel"
     }
