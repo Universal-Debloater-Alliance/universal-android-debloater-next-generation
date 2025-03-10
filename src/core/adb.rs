@@ -150,7 +150,10 @@ impl ACommand {
             // typically 5 allocs.
             // ideally 0, if we didn't use `lines`.
             .map(|(i, ln)| {
-                debug_assert!(match i {
+                // DO NOT "REFACTOR" TO `debug_assert`!
+                // it's not the same!
+                #[cfg(debug_assertions)]
+                assert!(match i {
                     0 => TRIPLE.is_match(ln),
                     1 => DISTRO.is_match(ln),
                     2 =>
