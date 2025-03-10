@@ -3529,7 +3529,7 @@ checksum = "42ff0bf0c66b8238c6f3b578df37d0b7848e55df8577b3f74f92a69acceeb825"
 
 [[package]]
 name = "uad-ng"
-version = "1.1.1"
+version = "1.1.2"
 dependencies = [
  "chrono",
  "csv",
