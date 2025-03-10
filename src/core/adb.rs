@@ -63,12 +63,15 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 pub struct ACommand(std::process::Command);
 impl ACommand {
     /// `adb` command builder
+    #[must_use]
     pub fn new() -> Self {
         Self(std::process::Command::new("adb"))
     }
+
     /// `shell` sub-command builder.
     ///
     /// If `device_serial` is empty, it lets ADB choose the default device.
+    #[must_use]
     pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> ShellCommand {
         let serial = device_serial.as_ref();
         if !serial.is_empty() {
@@ -77,6 +80,7 @@ impl ACommand {
         self.0.arg("shell");
         ShellCommand(self)
     }
+
     /// Header-less list of attached devices (as serials) and their statuses:
     /// - USB
     /// - TCP/IP: WIFI, Ethernet, etc...
@@ -107,6 +111,15 @@ impl ACommand {
             })
             .collect())
     }
+
+    /// `version` sub-command, splitted by lines
+    pub fn version(mut self) -> Result<Vec<String>, String> {
+        self.0.arg("version");
+        // typically 5 allocs (after `lines`).
+        // ideally 0, if we didn't use `lines`.
+        Ok(self.run()?.lines().map(str::to_string).collect())
+    }
+
     /// General executor
     fn run(self) -> Result<String, String> {
         let mut cmd = self.0;
