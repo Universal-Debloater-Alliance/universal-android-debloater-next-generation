@@ -1,4 +1,5 @@
 use crate::CACHE_DIR;
+use crate::core::adb;
 use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
@@ -78,15 +79,39 @@ impl About {
             .spacing(10)
             .width(550);
 
-        #[cfg(feature = "self-update")]
-        let update_column = column![uad_list_row, self_update_row]
-            .align_items(Alignment::Center)
-            .spacing(10);
+        /*
+        There's no need to fetch this info every time the view is updated,
+        we could cache it in a `static` `LazyLock`.
 
-        #[cfg(not(feature = "self-update"))]
-        let update_column = column![uad_list_row]
+        But what if the system updates ADB while the app is running?
+        the numbers will be out of sync!
+
+        However, the server will still be the "old" version
+        until the next start
+        */
+        let adb_version_text = text(
+            adb::ACommand::new()
+                .version()
+                .map_err(|e| error!("{e}"))
+                .ok()
+                // 1st line is the relevant one.
+                // 2nd could be useful, too
+                .unwrap_or_default()[0]
+                // there must be some way to avoid this...
+                .clone(),
+        )
+        .width(250);
+        let adb_version_row = row![adb_version_text]
             .align_items(Alignment::Center)
-            .spacing(10);
+            .width(550);
+
+        let update_column = if cfg!(feature = "self-update") {
+            column![uad_list_row, self_update_row, adb_version_row]
+        } else {
+            column![uad_list_row, adb_version_row]
+        }
+        .align_items(Alignment::Center)
+        .spacing(10);
 
         let update_container = container(update_column)
             .width(Length::Fill)
