@@ -7626,6 +7626,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.android.server.deviceconfig.resources": {
+    "list": "Oem",
+    "description": "DeviceConfigServiceResources (Server*?). Part of com.android.configinfrastructure. Resources for the device's default server config.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/ConfigInfrastructure/service/ServiceResources/Android.bp",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.android.server.NetworkPermissionConfig": {
     "list": "Aosp",
     "description": "Network configurations.",
