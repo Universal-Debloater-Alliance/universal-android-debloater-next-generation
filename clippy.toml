@@ -1,0 +1,7 @@
+disallowed-types = [
+    { path = "iced::widget::Text", reason = "Use [`crate::gui::widgets::text`] instead. For further details, see #523 and #858" },
+]
+
+disallowed-methods= [
+    { path = "iced::widget::text", reason = "Use [`crate::gui::widgets::text`] instead. For further details, see #523 and #858" },
+]

@@ -4,7 +4,7 @@ use serde::Deserialize;
 
 #[cfg(feature = "self-update")]
 use {
-    retry::{delay::Fibonacci, retry, OperationResult},
+    retry::{OperationResult, delay::Fibonacci, retry},
     std::fs,
     std::io,
     std::io::copy,
@@ -235,10 +235,15 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
 pub const fn bin_name() -> &'static str {
     #[cfg(target_os = "windows")]
     {
-        "uad-ng.exe"
+        "uad-ng-windows.exe"
     }
 
-    #[cfg(target_os = "macos")]
+    #[cfg(all(target_os = "macos", any(target_arch = "x86_64", target_arch = "x86")))]
+    {
+        "uad-ng-macos-intel"
+    }
+
+    #[cfg(all(target_os = "macos", any(target_arch = "arm", target_arch = "aarch64")))]
     {
         "uad-ng-macos"
     }

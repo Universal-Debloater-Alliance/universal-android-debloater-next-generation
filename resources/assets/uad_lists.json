@@ -7626,6 +7626,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.android.server.deviceconfig.resources": {
+    "list": "Oem",
+    "description": "DeviceConfigServiceResources (Server*?). Part of com.android.configinfrastructure. Resources for the device's default server config.\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/ConfigInfrastructure/service/ServiceResources/Android.bp",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.android.server.NetworkPermissionConfig": {
     "list": "Aosp",
     "description": "Network configurations.",
@@ -12810,7 +12818,7 @@
   },
   "com.whatsapp": {
     "list": "Misc",
-    "description": "Whatsapp (https://play.google.com/store/apps/details?id=com.whatsapp)\n)\n",
+    "description": "Whatsapp messenger.\nRequires Google Play Services to receive messages in the background.\nhttps://play.google.com/store/apps/details?id=com.whatsapp",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16090,11 +16098,11 @@
   },
   "com.android.incallui": {
     "list": "Oem",
-    "description": "Xiaomi (and OnePlus) Phone dialer (here we go again! Another confusing package name)\n\nClosed-source app built on top of the AOSP package.\nThe name is doubly misleading because this package is the whole dialer. It does not only provide the 'in call' screen.",
+    "description": "Xiaomi Phone 11\nXiaomi's phone (dialer, incallui, etc.) app. Fetches APN lists on some phones. Package name is highly misleading.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.thememanager": {
     "list": "Oem",
@@ -21422,7 +21430,7 @@
     "labels": []
   },
   "com.fintech.life": {
-    "description": "Fineasy\nChinese financial or payment app, note that it access locations, contacts, camera, mic and contain ads, Pithus reports this as 'High Risk'",
+    "description": "Chinese app that spoofs as a Singapore financial and/or payment app to show advertisement notifications (mostly loans)\nIt accesses locations, contacts, camera, mic by default, some people in Thailand also reported that they cannot use legitimate regional banking apps until this app was disabled or uninstalled with ADB method. While newer devices that start with Oppo ColorOS 13 and/or Realme UI 4 (around Android 13) are already baked in, it seems likely that it comes with a system update at older devices of those brands, so this is shady and constantly lost trust from many users.\nhttps://safereddit.com/r/Thailand/comments/1hzdwhr",
     "removal": "Recommended",
     "list": "Misc",
     "dependencies": [],
@@ -27945,7 +27953,7 @@
   },
   "com.google.android.gms": {
     "list": "Google",
-    "description": "Google Play Services\ngms = Google Mobile Services\nIt is a layer that sits on top of the OS and provides a bunch of Google APIs, giving apps access to various Google Services.\nIf you remove it all the apps relying on Google Play Services whill either: \n- detect the lack of play services and refuse to run\n- detect the lack of play services but allow you to run (improperly) by dismissing an annoying popup\nRemoving Google Play Services can bootloop some devices, so be careful.\nDisabling this package will improve battery life a lot.\nIMPORTANT: You need to uncheck Find My Device from the \"Device admin apps\" settings panel to be able to disable this package.\nSearch \"admin\" in the settings search bar.",
+    "description": "Google Play Services\nGMS = Google Mobile Services.\nIt is a layer that sits on top of the OS and provides a lot of proprietary Google APIs, giving apps access to various Google Services, such as: \"fused\"-location (internet and GPS chip), QR Code scanner, 2FA, G-Drive storage, Firebase API, Cloud Messaging, etc...\nIf you remove it, all the apps relying on it will either:\n- detect the lack of Play-Services and refuse to run\n- detect the lack of Play-Services but allow you to run (improperly) by dismissing an annoying popup\nRemoving Google Play Services can boot-loop some devices, so be careful.\nDisabling this package will improve battery life significantly, as it always runs in the background.\nIMPORTANT: You need to uncheck \"Find My Device\" from the \"Device admin apps\" settings panel to be able to disable this package.\nSearch \"admin\" in the Settings-app search bar, or go to the Security category.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31829,7 +31837,7 @@
   },
   "com.unisoc.phone": {
     "list": "Oem",
-    "description": "LockAssistant\nRuns before the user unlocks the device (direct-boot aware). Reads IMEI, SMS, call log, uses gps/wifi. Unisoc is a CPU manufacturer.",
+    "description": "LockAssistant\nRuns before the user unlocks the device (direct-boot aware). Reads IMEI, SMS, call log, uses gps/wifi. Unisoc is a CPU manufacturer. Related to package `com.android.unisoc.telephony.server`.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35053,11 +35061,11 @@
   },
   "com.android.unisoc.telephony.server": {
     "list": "Oem",
-    "description": "UICC stands for Universal Integrated Circuit Card.\nIt is a the physical and logical platform for the USIM and may contain additional USIMs and other applications.\n(U)SIM is an application on the UICC.\nOnly for China.",
+    "description": "Unisoc 4G and 5G drivers. Removal will break incoming calls. https://xdaforums.com/t/oukitel-wp23-pro-unlocking-bootloader-rooting-gsi.4642483/#post-89239693",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.cdfinger.factorytest": {
     "list": "Oem",

@@ -4,24 +4,31 @@ extern crate log;
 
 use crate::core::utils::setup_uad_dir;
 use fern::{
-    colors::{Color, ColoredLevelConfig},
     FormatCallback,
+    colors::{Color, ColoredLevelConfig},
 };
 use log::Record;
-use static_init::dynamic;
-use std::path::PathBuf;
-use std::{fmt::Arguments, fs::OpenOptions};
+use std::sync::LazyLock;
+use std::{fmt::Arguments, fs::OpenOptions, path::PathBuf};
 
 mod core;
 mod gui;
 
-#[dynamic]
-static CONFIG_DIR: PathBuf = setup_uad_dir(&dirs::config_dir().expect("Can't detect config dir"));
-
-#[dynamic]
-static CACHE_DIR: PathBuf = setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir"));
+static CONFIG_DIR: LazyLock<PathBuf> =
+    LazyLock::new(|| setup_uad_dir(&dirs::config_dir().expect("Can't detect config dir")));
+static CACHE_DIR: LazyLock<PathBuf> =
+    LazyLock::new(|| setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir")));
 
 fn main() -> iced::Result {
+    // Safety: This function is safe to call in a single-threaded program.
+    // The exact requirement is: you must ensure that there are no other threads concurrently writing or
+    // reading(!) the environment through functions or global variables other than the ones in this module.
+    unsafe {
+        // Force WGPU/Iced to use discrete GPU to prevent crashes on PCs with two GPUs.
+        // See #848 and related pull 850.
+        std::env::set_var("WGPU_POWER_PREF", "high");
+    }
+
     setup_logger().expect("setup logging");
     gui::UadGui::start()
 }

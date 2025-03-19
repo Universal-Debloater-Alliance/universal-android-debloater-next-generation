@@ -3,12 +3,12 @@ use crate::core::{
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
-        adb_shell_command, get_android_sdk, supports_multi_user, AdbError, CommandType, Phone, User,
+        AdbError, CommandType, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user,
     },
     theme::Theme,
     utils::{
-        export_packages, generate_backup_name, open_folder, open_url, string_to_theme,
-        DisplayablePath, Error, NAME,
+        DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_folder, open_url,
+        string_to_theme,
     },
 };
 use crate::gui::{
@@ -17,11 +17,10 @@ use crate::gui::{
     widgets::modal::Modal,
     widgets::navigation_menu::ICONS,
     widgets::package_row::PackageRow,
+    widgets::text,
 };
-use iced::widget::{
-    button, checkbox, column, container, pick_list, radio, row, scrollable, text, Space, Text,
-};
-use iced::{alignment, Alignment, Element, Length, Renderer};
+use iced::widget::{Space, button, checkbox, column, container, pick_list, radio, row, scrollable};
+use iced::{Alignment, Element, Length, Renderer, alignment};
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
@@ -69,7 +68,6 @@ pub enum Message {
 }
 
 impl Settings {
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -226,7 +224,7 @@ impl Settings {
                 if let Ok(path) = result {
                     self.general.backup_folder = path;
                     Config::save_changes(self, &phone.adb_id);
-                    #[allow(unused_must_use)]
+                    #[expect(unused_must_use, reason = "side-effect")]
                     {
                         self.update(
                             phone,
@@ -261,7 +259,6 @@ impl Settings {
         }
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
@@ -297,7 +294,7 @@ impl Settings {
         let choose_backup_descr = text("Note: If you have previous backups, you will need to transfer them manually to newly changed backup folder to be able to use Restore functionality")
             .style(style::Text::Commentary);
 
-        let choose_backup_btn = button(Text::new("\u{E930}").font(ICONS))
+        let choose_backup_btn = button(text("\u{E930}").font(ICONS))
             .padding([5, 10])
             .on_press(Message::ChooseBackUpFolder)
             .style(style::Button::Primary);
@@ -307,7 +304,7 @@ impl Settings {
             "Choose backup folder",
             Space::new(Length::Fill, Length::Shrink),
             "Current folder: ",
-            Text::new(self.general.backup_folder.to_string_lossy())
+            text(self.general.backup_folder.to_string_lossy())
         ]
         .spacing(10)
         .align_items(Alignment::Center);
@@ -466,7 +463,9 @@ impl Settings {
         .spacing(10)
         .align_items(Alignment::Center);
 
-        let restore_row = if !self.device.backup.backups.is_empty() {
+        let restore_row = if self.device.backup.backups.is_empty() {
+            row![]
+        } else {
             row![
                 restore_btn(true),
                 "Restore the state of the device",
@@ -476,8 +475,6 @@ impl Settings {
             ]
             .spacing(10)
             .align_items(Alignment::Center)
-        } else {
-            row![]
         };
 
         let no_device_ctn = || {

@@ -1,3 +1,5 @@
+#![warn(clippy::unwrap_used)]
+
 use crate::core::{
     adb::{ACommand as AdbCommand, PmListPacksFlag},
     sync::User,
@@ -5,13 +7,12 @@ use crate::core::{
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
 use crate::gui::widgets::package_row::PackageRow;
-use chrono::{offset::Utc, DateTime};
+use chrono::{DateTime, offset::Utc};
 use csv::Writer;
 use std::{
     collections::HashSet,
     fmt, fs,
     path::{Path, PathBuf},
-    process::Command,
 };
 
 /// Canonical shortened name of the application
@@ -23,12 +24,17 @@ pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 //
 // The TZ is generic, because testing requires UTC,
 // while users get the local-aware version.
+#[expect(
+    clippy::needless_pass_by_value,
+    reason = "Timestamps should be fresh, no need to borrow"
+)]
+#[must_use]
 pub fn generate_backup_name<T>(t: DateTime<T>) -> String
 where
     T: chrono::TimeZone,
     T::Offset: std::fmt::Display,
 {
-    format!("uninstalled_packages_{}.csv", t.format("%Y%m%d"))
+    t.format("uninstalled_packages_%Y%m%d.csv").to_string()
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -117,18 +123,16 @@ pub fn setup_uad_dir(dir: &Path) -> PathBuf {
 }
 
 pub fn open_url(dir: PathBuf) {
-    #[cfg(target_os = "windows")]
-    let opener = "explorer";
-
-    #[cfg(target_os = "macos")]
-    let opener = "open";
-
-    #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    let opener = "xdg-open";
-
-    match Command::new(opener).arg(dir).output() {
+    const OPENER: &str = match std::env::consts::OS.as_bytes() {
+        b"windows" => "explorer",
+        b"macos" => "open",
+        // "linux"
+        _ => "xdg-open",
+    };
+    match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
+                // does Windows print UTF-16?
                 let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
                 error!("Can't open the following URL: {}", stderr);
             }
@@ -241,8 +245,6 @@ pub async fn export_packages(
 
 #[cfg(test)]
 mod tests {
-    #![allow(clippy::unwrap_used, reason = "")]
-
     use super::*;
     use chrono::TimeZone;
 

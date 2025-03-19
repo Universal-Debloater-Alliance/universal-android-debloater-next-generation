@@ -1,13 +1,13 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
 use crate::core::sync::{
-    adb_shell_command, apply_pkg_state_commands, AdbError, CommandType, Phone, User,
+    AdbError, CommandType, Phone, User, adb_shell_command, apply_pkg_state_commands,
 };
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
-    load_debloat_lists, Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState,
+    Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
-use crate::core::utils::{export_selection, fetch_packages, open_url, EXPORT_FILE_NAME, NAME};
+use crate::core::utils::{EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, open_url};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
 use std::path::PathBuf;
@@ -15,11 +15,12 @@ use std::path::PathBuf;
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
+use crate::gui::widgets::text;
 use iced::widget::{
-    button, checkbox, column, container, horizontal_space, pick_list, radio, row, scrollable, text,
-    text_input, tooltip, vertical_rule, Column, Space,
+    Column, Space, button, checkbox, column, container, horizontal_space, pick_list, radio, row,
+    scrollable, text_input, tooltip, vertical_rule,
 };
-use iced::{alignment, Alignment, Command, Element, Length, Renderer};
+use iced::{Alignment, Command, Element, Length, Renderer, alignment};
 
 #[derive(Debug, Default, Clone)]
 pub struct PackageInfo {
@@ -109,7 +110,6 @@ impl From<Removal> for SummaryEntry {
 }
 
 impl List {
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -147,7 +147,7 @@ impl List {
                         self.loading_state = LoadingState::RestoringDevice(
                             self.phone_packages[i_user][p.index].name.clone(),
                         );
-                    }
+                    };
                 } else {
                     self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
                 }
@@ -191,9 +191,9 @@ impl List {
                 Command::none()
             }
             Message::ToggleAllSelected(selected) => {
-                #[allow(unused_must_use)]
                 for i in self.filtered_packages.clone() {
                     if self.phone_packages[i_user][i].selected != selected {
+                        #[expect(unused_must_use, reason = "side-effect")]
                         self.update(
                             settings,
                             selected_device,
@@ -227,7 +227,6 @@ impl List {
             }
             Message::List(i_package, row_message) => {
                 #[expect(unused_must_use, reason = "side-effect")]
-                #[expect(clippy::shadow_unrelated, reason = "same-type")]
                 {
                     self.phone_packages[i_user][i_package]
                         .update(&row_message)
@@ -307,7 +306,6 @@ impl List {
                     Err(AdbError::Generic(err)) => {
                         self.error_modal = Some(err);
                     }
-                    _ => {}
                 }
                 Command::none()
             }
@@ -412,17 +410,19 @@ impl List {
             .style(style::CheckBox::SettingsEnabled)
             .spacing(0); // no label, so remove space entirely
 
-        let col_sel_all = row![tooltip(
-            select_all_checkbox,
-            if self.all_selected {
-                "Deselect all"
-            } else {
-                "Select all"
-            },
-            tooltip::Position::Top,
-        )
-        .style(style::Container::Tooltip)
-        .gap(4)]
+        let col_sel_all = row![
+            tooltip(
+                select_all_checkbox,
+                if self.all_selected {
+                    "Deselect all"
+                } else {
+                    "Select all"
+                },
+                tooltip::Position::Top,
+            )
+            .style(style::Container::Tooltip)
+            .gap(4)
+        ]
         .padding(8);
 
         let user_picklist = pick_list(
@@ -460,7 +460,6 @@ impl List {
         .into()
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn ready_view(
         &self,
@@ -620,7 +619,6 @@ impl List {
         }
     }
 
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn apply_selection_modal(
         &self,
@@ -874,12 +872,14 @@ impl List {
         match uad_lists {
             Ok(list) => {
                 if phone.adb_id.is_empty() {
-                    error!("AppsView ready but no phone found");
+                    warn!("AppsView ready but no phone found");
                 }
                 (list, UadListState::Done)
             }
             Err(local_list) => {
-                error!("Error loading remote debloat list for the phone. Fallback to embedded (and outdated) list");
+                error!(
+                    "Error loading remote debloat list for the phone. Fallback to embedded (and outdated) list"
+                );
                 (local_list, UadListState::Failed)
             }
         }
@@ -899,13 +899,15 @@ fn error_view<'a>(
     .center_y()
     .center_x();
 
-    let modal_btn_row = row![button(
-        text("Close")
-            .width(Length::Fill)
-            .horizontal_alignment(alignment::Horizontal::Center),
-    )
-    .width(Length::Fill)
-    .on_press(Message::ModalHide)]
+    let modal_btn_row = row![
+        button(
+            text("Close")
+                .width(Length::Fill)
+                .horizontal_alignment(alignment::Horizontal::Center),
+        )
+        .width(Length::Fill)
+        .on_press(Message::ModalHide)
+    ]
     .padding([10, 0, 0, 0]);
 
     let text_box = scrollable(text(error).width(Length::Fill)).height(400);
@@ -920,14 +922,14 @@ fn error_view<'a>(
 }
 
 fn waiting_view<'a>(
-    displayed_text: &str,
+    displayed_text: &(impl ToString + ?Sized),
     btn: Option<button::Button<'a, Message, Theme, Renderer>>,
     text_style: style::Text,
 ) -> Element<'a, Message, Theme, Renderer> {
     let col = column![]
         .spacing(10)
         .align_items(Alignment::Center)
-        .push(text(displayed_text).style(text_style).size(20));
+        .push(text(displayed_text.to_string()).style(text_style).size(20));
 
     let col = match btn {
         Some(btn) => col.push(btn.style(style::Button::Primary).padding([5, 10])),
@@ -1003,7 +1005,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                     text("Uninstall").style(style::Text::Danger)
                 },
                 horizontal_space(),
-                text(recap.discard).style(style::Text::Danger)
+                text(recap.discard.to_string()).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
             vertical_rule(5),
@@ -1014,7 +1016,7 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
                     text("Restore").style(style::Text::Ok)
                 },
                 horizontal_space(),
-                text(recap.restore).style(style::Text::Ok)
+                text(recap.restore.to_string()).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))
         ]

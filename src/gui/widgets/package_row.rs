@@ -3,9 +3,10 @@ use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageState, Removal, UadList};
 use crate::gui::style;
 use crate::gui::views::settings::Settings;
+use crate::gui::widgets::text;
 
-use iced::widget::{button, checkbox, row, text, Space};
-use iced::{alignment, Alignment, Command, Element, Length, Renderer};
+use iced::widget::{Space, button, checkbox, row};
+use iced::{Alignment, Command, Element, Length, Renderer, alignment};
 
 #[derive(Clone, Debug)]
 pub struct PackageRow {

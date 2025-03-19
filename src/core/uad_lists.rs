@@ -1,8 +1,9 @@
-use crate::core::utils::{format_diff_time_from_now, last_modified_date};
 use crate::CACHE_DIR;
-use retry::{delay::Fixed, retry, OperationResult};
+use crate::core::utils::{format_diff_time_from_now, last_modified_date};
+use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 use serde_json;
+use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
@@ -15,7 +16,6 @@ pub const LIST_FNAME: &str = "uad_lists.json";
 )]
 // not `const`, because it's too big
 pub static DATA: &str = include_str!("../../resources/assets/uad_lists.json");
-// TODO: use `const_format` crate
 
 #[derive(Deserialize, Debug, Clone, PartialEq, Hash, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -72,24 +72,30 @@ impl UadList {
         Self::Pending,
         Self::Unlisted,
     ];
+
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::All => "All lists",
+            Self::Aosp => "aosp",
+            Self::Carrier => "carrier",
+            Self::Google => "google",
+            Self::Misc => "misc",
+            Self::Oem => "oem",
+            Self::Pending => "pending",
+            Self::Unlisted => "unlisted",
+        }
+    }
 }
 
 impl std::fmt::Display for UadList {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                Self::All => "All lists",
-                Self::Aosp => "aosp",
-                Self::Carrier => "carrier",
-                Self::Google => "google",
-                Self::Misc => "misc",
-                Self::Oem => "oem",
-                Self::Pending => "pending",
-                Self::Unlisted => "unlisted",
-            }
-        )
+        f.write_str(self.as_str())
+    }
+}
+
+impl From<UadList> for Cow<'_, str> {
+    fn from(list: UadList) -> Self {
+        Cow::Borrowed(list.as_str())
     }
 }
 
@@ -169,22 +175,28 @@ impl Removal {
         Self::Unsafe,
         Self::Unlisted,
     ];
+
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::All => "All removals",
+            Self::Recommended => "Recommended",
+            Self::Advanced => "Advanced",
+            Self::Expert => "Expert",
+            Self::Unsafe => "Unsafe",
+            Self::Unlisted => "Unlisted",
+        }
+    }
 }
 
 impl std::fmt::Display for Removal {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                Self::All => "All removals",
-                Self::Recommended => "Recommended",
-                Self::Advanced => "Advanced",
-                Self::Expert => "Expert",
-                Self::Unsafe => "Unsafe",
-                Self::Unlisted => "Unlisted",
-            }
-        )
+        f.write_str(self.as_str())
+    }
+}
+
+impl From<Removal> for Cow<'_, str> {
+    fn from(list: Removal) -> Self {
+        Cow::Borrowed(list.as_str())
     }
 }
 

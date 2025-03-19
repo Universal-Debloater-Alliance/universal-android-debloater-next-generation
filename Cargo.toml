@@ -1,7 +1,7 @@
 [package]
 name = "uad-ng"
 description = "A cross-platform GUI debloater for android devices"
-version = "1.1.0"
+version = "1.1.2"
 authors = ["Universal-Debloater-Alliance"]
 license = "GPL-3.0"
 homepage = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation"
@@ -9,7 +9,7 @@ repository = "https://github.com/Universal-Debloater-Alliance/universal-android-
 readme = "README.md"
 keywords = ["debloater", "android", "adb", "privacy", "bloatware"]
 categories = ["gui"]
-edition = "2021"
+edition = "2024"
 
 [features]
 default = ["wgpu", "self-update"]
@@ -21,7 +21,6 @@ no-self-update = []
 dark-light = "2"
 serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
-static_init = "^1.0"
 fern = { version = "^0", features = ["colored"] }
 chrono = { version = "^0.4", default-features = false, features = [
   "std",
@@ -55,16 +54,12 @@ panic = "abort"
 embed-resource = "2.4.2"
 
 [lints.rust]
-# "forbid" may cause conflicts with libs (static and dynamic).
-# "deny" is annoying.
-unsafe_code = "warn"
 deprecated_safe = "warn"
 
 [lints.clippy]
 undocumented_unsafe_blocks = "forbid"
 exit = "deny"
 panic_in_result_fn = "warn"
-unwrap_used = "warn"
 infinite_loop = "warn"
 mem_forget = "warn"
 string_to_string = "warn"
@@ -73,6 +68,9 @@ large_include_file = "warn"
 shadow_unrelated = "warn"
 struct_field_names = "allow" # annoying
 module_name_repetitions = "allow" # annoying
+
+disallowed_types = "deny"
+disallowed_methods = "deny"
 
 allow_attributes_without_reason = "warn"
 pedantic = { level = "warn", priority = -1 }

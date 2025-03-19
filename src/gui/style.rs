@@ -3,7 +3,7 @@ use iced::overlay::menu;
 use iced::widget::{
     button, checkbox, container, pick_list, radio, rule, scrollable, text, text_input,
 };
-use iced::{application, Background, Border, Color, Shadow};
+use iced::{Background, Border, Color, Shadow, application};
 
 #[derive(Default, Debug, Clone, Copy)]
 pub enum Application {

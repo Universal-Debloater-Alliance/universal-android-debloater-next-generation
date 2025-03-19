@@ -1,13 +1,13 @@
 use crate::core::{
-    adb::{to_trimmed_utf8, ACommand as AdbCommand, PM_CLEAR_PACK},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, to_trimmed_utf8},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use regex::Regex;
-use retry::{delay::Fixed, retry, OperationResult};
+use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
-use static_init::dynamic;
 use std::process::Command;
+use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -59,7 +59,6 @@ impl std::fmt::Display for User {
 #[derive(Debug, Clone)]
 pub enum CommandType {
     PackageManager(PackageInfo),
-    Shell,
 }
 
 /// An enum to contain different variants for errors yielded by ADB.
@@ -83,7 +82,6 @@ pub async fn adb_shell_command<S: AsRef<str>>(
 
     let label = match &command_type {
         CommandType::PackageManager(p) => &p.removal,
-        CommandType::Shell => "Shell",
     };
 
     let mut cmd = Command::new("adb");
@@ -187,10 +185,7 @@ pub fn apply_pkg_state_commands(
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
         PackageState::Enabled => match package.state {
-            PackageState::Disabled => match phone.android_sdk {
-                i if i >= 23 => vec!["pm enable"],
-                _ => vec!["pm enable"],
-            },
+            PackageState::Disabled => vec!["pm enable"],
             PackageState::Uninstalled => match phone.android_sdk {
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
@@ -210,7 +205,6 @@ pub fn apply_pkg_state_commands(
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
-                19 | 20 => vec!["pm block", PM_CLEAR_PACK], // Android KitKat (4.4/4.4W) and older
                 _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
@@ -307,31 +301,32 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
 
 /// `pm list users` parsed into a vector with extra info
 pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
-    #[dynamic]
-    static RE: Regex = Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!());
+    // this could be thread-local (no lock overhead),
+    // but then each thread would compile its own clone of the regex,
+    // I guess?
+    static RE: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!()));
 
     AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_users()
-        // if default, then empty iter, which becomes empty vec (again)
-        .unwrap_or_default()
-        .into_iter()
-        .enumerate()
-        .map(|(i, user)| {
-            // It seems each line is a user,
-            // optionally associated with a work-profile.
-            // This will ignore the work-profiles!
-            let u = RE.captures(&user).expect("Each user should have an ID")[1]
-                .parse()
-                .unwrap_or_else(|_| unreachable!("User ID must be valid `u16`"));
-            User {
-                id: u,
-                index: i,
-                protected: is_protected_user(u, device_serial),
-            }
+        .map(|out| {
+            RE.find_iter(&out)
+                .enumerate()
+                .map(|(i, user)| {
+                    let u = user.as_str()[1..]
+                        .parse()
+                        .unwrap_or_else(|_| unreachable!("User ID must always be a valid `u16`"));
+                    User {
+                        id: u,
+                        index: i,
+                        protected: is_protected_user(u, device_serial),
+                    }
+                })
+                .collect()
         })
-        .collect()
+        .unwrap_or_default()
 }
 
 /// This matches serials (`getprop ro.serialno`)

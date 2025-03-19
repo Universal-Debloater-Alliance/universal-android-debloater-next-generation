@@ -1,6 +1,6 @@
 use dark_light;
-use iced::{color, Color};
-use static_init::dynamic;
+use iced::{Color, color};
+use std::sync::LazyLock;
 
 /*
 In-memory caching.
@@ -11,9 +11,8 @@ Coincidentally, this also ensures consistent colors across the GUI,
 at the cost of requiring a restart to update the palette.
 (this is just a patch, not a fix)
 */
-#[dynamic(lazy)]
-pub static OS_COLOR_SCHEME: dark_light::Mode =
-    dark_light::detect().unwrap_or(dark_light::Mode::Unspecified);
+pub static OS_COLOR_SCHEME: LazyLock<dark_light::Mode> =
+    LazyLock::new(|| dark_light::detect().unwrap_or(dark_light::Mode::Unspecified));
 
 #[derive(Default, Debug, PartialEq, Eq, Copy, Clone)]
 /// Color scheme

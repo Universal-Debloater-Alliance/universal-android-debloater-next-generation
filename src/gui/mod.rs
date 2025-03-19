@@ -3,11 +3,11 @@ pub mod views;
 pub mod widgets;
 
 use crate::core::adb;
-use crate::core::sync::{get_devices_list, initial_load, Phone};
-use crate::core::theme::{Theme, OS_COLOR_SCHEME};
+use crate::core::sync::{Phone, get_devices_list, initial_load};
+use crate::core::theme::{OS_COLOR_SCHEME, Theme};
 use crate::core::uad_lists::UadListState;
-use crate::core::update::{get_latest_release, Release, SelfUpdateState, SelfUpdateStatus};
-use crate::core::utils::{string_to_theme, NAME};
+use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
+use crate::core::utils::{NAME, string_to_theme};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
@@ -19,8 +19,8 @@ use widgets::navigation_menu::nav_menu;
 
 use iced::widget::column;
 use iced::{
-    window::Settings as Window, Alignment, Application, Command, Element, Length, Renderer,
-    Settings,
+    Alignment, Application, Command, Element, Length, Renderer, Settings,
+    window::Settings as Window,
 };
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
@@ -107,11 +107,9 @@ impl Application for UadGui {
     fn title(&self) -> String {
         String::from("Universal Android Debloater Next Generation")
     }
-    // TODO: refactor later
     #[allow(clippy::too_many_lines)]
     fn update(&mut self, msg: Message) -> Command<Message> {
         match msg {
-            #[allow(clippy::option_if_let_else)]
             Message::LoadDevices(devices_list) => {
                 self.selected_device = match &self.selected_device {
                     Some(s_device) => {
@@ -125,7 +123,7 @@ impl Application for UadGui {
                 };
                 self.devices_list = devices_list;
 
-                #[allow(unused_must_use)]
+                #[expect(unused_must_use, reason = "side-effect")]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
                 }
@@ -150,7 +148,7 @@ impl Application for UadGui {
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
-                #[allow(unused_must_use)]
+                #[expect(unused_must_use, reason = "side-effect")]
                 {
                     self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
                         self.adb_satisfied,
@@ -186,7 +184,7 @@ impl Application for UadGui {
                         self.nb_running_async_adb_commands -= 1;
                         self.view = View::List;
 
-                        #[allow(unused_must_use)]
+                        #[expect(unused_must_use, reason = "side-effect")]
                         {
                             self.apps_view.update(
                                 &mut self.settings_view,
@@ -267,7 +265,7 @@ impl Application for UadGui {
                 info!("{:-^65}", "-");
                 self.apps_view.loading_state = ListLoadingState::FindingPhones;
 
-                #[allow(unused_must_use)]
+                #[expect(unused_must_use, reason = "side-effects")]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
                     self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
@@ -315,7 +313,7 @@ impl Application for UadGui {
                     }
                 } else {
                     error!("Failed to update {NAME}!");
-                    #[allow(unused_must_use)]
+                    #[expect(unused_must_use, reason = "side-effect")]
                     {
                         self.update(Message::AppsAction(AppsMessage::UpdateFailed));
                         self.update_state.self_update.status = SelfUpdateStatus::Failed;
