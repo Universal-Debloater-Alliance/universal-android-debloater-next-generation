@@ -10612,6 +10612,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.callassistant": {
+   "list": "Oem",
+   "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Can break stuff in OneUI 6.1+",
+   "dependencies": [],
+   "neededBy": [],
+   "labels": [],
+   "removal": "Expert"
+  },
   "com.samsung.phone.overlay.common": {
     "list": "Oem",
     "description": "Possibly the incoming-call screen?",
@@ -25643,6 +25651,14 @@
     "dependencies": [],
     "neededBy": [],
     "labels": []
+  },
+  "com.samsung.slsi.telephony.silentlogging": {
+   "description": "Hidden network logging. Safe to remove",
+   "removal": "Recommended",
+   "list": "Oem",
+   "dependencies": [],
+   "neededBy": [],
+   "labels": []
   },
   "com.sec.android.app.volumemonitorprovider": {
     "description": "VolumeMonitorProvider\nused in Digital Wellbeing to average the dB heard through earphones and display it.",
