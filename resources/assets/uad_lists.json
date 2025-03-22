@@ -10564,13 +10564,13 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.callassistant":{
+  "com.samsung.android.callassistant": {
    "list": "Oem",
-   "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Safe to remove.",
+   "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Can break stuff in OneUI 6.1+",
    "dependencies": [],
    "neededBy": [],
    "labels": [],
-   "removal": "Recommended"
+   "removal": "Expert"
   },
   "com.samsung.phone.overlay.common": {
     "list": "Oem",
@@ -25612,7 +25612,7 @@
     "neededBy": [],
     "labels": []
   },
-  "com.samsung.slsi.telephony.silentlogging":{
+  "com.samsung.slsi.telephony.silentlogging": {
    "description": "Hidden network logging. Safe to remove",
    "removal": "Recommended",
    "list": "Oem",
