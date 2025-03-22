@@ -8620,6 +8620,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.mediatek.datatransfer": {
+    "list": "Misc",
+    "description": "The com.mediatek.datatransfer package is part of MediaTek's suite of utilities and is typically used for managing data transfer between devices or during device setup. This app often supports functions like transferring files, contacts, and other data from one device to another. Removing this package might impair the ability to use MediaTek-specific data transfer tools and could impact some setup or migration processes.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.mediatek.dataprotection": {
     "list": "Misc",
     "description": "Possibly related to user partition encryption/decryption.\nA device should works flawlessly without it.",
@@ -13344,6 +13352,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.mediatek.filemanager": {
+    "list": "Misc",
+    "description": "The com.mediatek.filemanager package is MediaTek’s proprietary file management app, designed to handle file browsing, organization, and management on devices with MediaTek chipsets. While it provides basic file management functions, there are many more advanced and feature-rich file manager apps available on Google Play.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mediatek.fwk.plugin": {
+    "list": "Misc",
+    "description": "The com.mediatek.fwk.plugin package is part of MediaTek’s framework for managing plugins and extensions specific to MediaTek’s hardware and software ecosystem. This package may handle integration and support for various MediaTek-specific features and enhancements. Removing this package could affect some advanced functionalities or custom features provided by MediaTek, but it generally should not disrupt basic system operations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.mediatek.frameworkresoverlay": {
     "list": "Misc",
     "description": "It have something to config AOD.\nAnd power saving.",
@@ -13363,6 +13387,14 @@
   "com.mediatek.MtkSettingsResOverlay": {
     "list": "Misc",
     "description": "Nothing found in this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mediatek.security": {
+    "list": "Misc",
+    "description": "The com.mediatek.security package is part of MediaTek’s security suite, providing features such as malware protection, privacy settings, and secure browsing options. While the package may offer added security features specific to MediaTek devices, there are alternative security solutions available on Google Play that can provide similar or enhanced protection. Removing this package might lead to a loss of MediaTek-specific security features, but it is generally not critical to the basic operation of the device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13439,6 +13471,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.mediatek.videoplayer": {
+    "list": "Misc",
+    "description": "The com.mediatek.videoplayer package is MediaTek’s default video player app, designed to handle video playback and provide basic media management features. Since there are numerous alternative video player apps available on Google Play that offer advanced features and better performance, removing this package is generally recommended.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.mediatek.voicecommand": {
     "list": "Misc",
@@ -14088,6 +14128,30 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.nbbird.hardwareinfo": {
+    "list": "Oem",
+    "description": "The com.nbbird.hardwareinfo package is likely associated with providing detailed information about the device’s hardware components, such as CPU, GPU, memory, and other system specifications. This app might be used for diagnostics or detailed hardware monitoring specific to the device. Removing it might disable access to this hardware information and could affect the ability to view detailed system diagnostics. However, it generally does not affect core system functionality and should not cause bootloop issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nbbsw.mmi_test": {
+    "list": "Oem",
+    "description": "The com.nbbsw.mmi_test package is likely associated with the Mobile Management Interface (MMI) testing tools provided by the OEM, possibly used for diagnostic and testing purposes to check various hardware and software functions of the device. Removing this package might impact the ability to perform certain diagnostic tests or troubleshooting functions provided by the OEM. While its removal should not affect the basic operation of the device, it could limit access to some specific testing tools or functionalities, which might be used for device maintenance or troubleshooting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nbbsw.theme": {
+    "list": "Oem",
+    "description": "The com.nbbsw.theme package is likely related to theme management or customization features provided by the OEM, allowing users to apply and manage themes or visual styles on the device. Since many third-party launchers and theme apps available on Google Play offer similar or enhanced customization options, removing this package is generally recommended.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.netflix.mediaclient": {
     "list": "Misc",
     "description": "Netflix app (https://play.google.com/store/apps/details?id=com.netflix.mediaclient)\n",
@@ -14115,6 +14179,14 @@
   "com.nuance.swype.input": {
     "list": "Misc",
     "description": "Swype keyboard by Nuance\nhttps://www.nuance.com/mobile/mobile-applications/swype/android.html\nhttps://en.wikipedia.org/wiki/Swype\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nuumobile.agingtest": {
+    "list": "Oem",
+    "description": "The com.nuumobile.agingtest package is used for running diagnostic tests related to hardware aging or wear, likely provided by the OEM. Since this package is mainly for diagnostic purposes and does not impact the core functionality of the device, it is safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16353,6 +16425,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.simalliance.openmobileapi.eseterminal": {
+    "list": "Oem",
+    "description": "The com.simalliance.openmobileapi.eseterminal package is part of the Open Mobile API framework, which provides services for accessing and managing Secure Elements (SEs) on the device, such as SIM cards or embedded secure elements. This package specifically handles communication with the ESE (Embedded Secure Element) terminal. Removing this package might affect the device's ability to interact with certain secure services or applications that rely on the SE framework. While it is not crucial for basic device functionality, it may impact specific features related to secure transactions or services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.silead.fingerprint": {
     "list": "Oem",
@@ -35011,6 +35091,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.android.music": {
+    "list": "Oem",
+    "description": "The com.android.music package is the default music player app that comes pre-installed on many Android devices. It provides basic music playback functionality and may include features like playlists and library management. Since there are many better and more feature-rich music player apps available on Google Play, and this app does not offer any unique features specific to your device, removing it should not impact the core functionality of the operating system.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.android.overlay.music": {
     "list": "Oem",
     "description": "Overlay to 'com.android.music' icons png.",
@@ -35058,6 +35146,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.android.writeimei": {
+    "list": "Oem",
+    "description": "The com.android.writeimei package is responsible for handling the IMEI (International Mobile Equipment Identity) number on the device. This app is used for writing or managing the device’s IMEI, which is a unique identifier for mobile devices. Removing or tampering with this package can cause significant issues, such as loss of network connectivity, inability to make calls or send texts, and potential bootloop issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   },
   "com.android.providers.settings.auto_generated_rro_vendor__": {
     "list": "Oem",
@@ -36482,6 +36578,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.bird.motionrecognition": {
+    "list": "Oem",
+    "description": "The com.bird.motionrecognition package is likely related to motion recognition features on your device, such as gesture controls or other motion-based functionalities. This package may be specific to the OEM and provide unique functionalities not found in standard Android builds. While removing it might disable certain gesture or motion-based features, it should not impact core system functionalities.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.baidu.BaiduMap": {
     "list": "Oem",
