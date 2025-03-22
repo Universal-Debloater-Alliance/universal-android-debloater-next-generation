@@ -26801,13 +26801,7 @@
   },
   "miui.systemui.plugin": {
     "list": "Oem",
-<<<<<<< Updated upstream
-    "description": "System UI Plug-in. If using HyperOS, when removed this breaks the iOS-style quick settings and Android will use the AOSP-version of the volume bar & reboot screen (AKA the option to power off/reboot your device). If your device is using MIUI, only the volume bar will change.",
-||||||| Stash base
-    "description": "System UI Plug-in. When removed, Android will use the AOSP style volume bar and reboot screen (option to power off or reboot your phone). Will break the iOS-style quick settings. The volume bar breakage only applies to MIUI-users. For HyperOS-users, all the above will apply.",
-=======
     "description": "System UI Plug-in. When using HyperOS, removing this package breaks the iOS-style quick settings and Android will use the AOSP-version of the volume bar & reboot screen (AKA the option to power off/reboot your device). If your device is using MIUI, only the volume bar will change.",
->>>>>>> Stashed changes
     "dependencies": [],
     "neededBy": [],
     "labels": [],
