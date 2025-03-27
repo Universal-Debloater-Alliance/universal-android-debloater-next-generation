@@ -94,19 +94,23 @@ impl About {
         the numbers will be out of sync!
 
         However, the server will still be the "old" version
-        until the next start
+        until it's killed
         */
-        let adb_version_text = text(
-            adb::ACommand::new()
-                .version()
-                .map_err(|e| error!("{e}"))
-                .ok()
-                // 1st line is the relevant one.
-                // 2nd could be useful, too
-                .unwrap_or_default()[0]
-                // there must be some way to avoid this...
-                .clone(),
-        )
+        let adb_version_text = text(match adb::ACommand::new().version() {
+            Ok(s) => s
+                .lines()
+                .nth(0)
+                .unwrap_or_else(|| unreachable!())
+                // This allocation is good.
+                // If it was a ref, the app would hold the entire string
+                // instead of the relevant slice.
+                .to_string(),
+            Err(e) => {
+                error!("{e}");
+                "Couldn't fetch ADB version. Is it installed?".into()
+                // satisfy `match` by inferring the type of the `Ok` arm
+            }
+        })
         .width(250);
         let adb_version_row = row![adb_version_text]
             .align_items(Alignment::Center)
