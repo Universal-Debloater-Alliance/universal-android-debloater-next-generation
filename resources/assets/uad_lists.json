@@ -26985,7 +26985,7 @@
   },
   "com.android.chrome": {
     "list": "Google",
-    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices",
+    "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: Disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices.\nWhen Chrome is updated via the Play Store, the Trichrome Library is also updated automatically. If Chrome is disabled or removed, it may impact WebView functionality.\nThis is because Chrome, WebView, and the Trichrome Library work together as a bundle starting from Android 10 (API 29) and above.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
