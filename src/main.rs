@@ -69,7 +69,7 @@ fn setup_logger() -> Result<(), fern::InitError> {
         .create(true)
         .append(true)
         .truncate(false)
-        .open(CACHE_DIR.join(format!("UAD_{}.log", chrono::Local::now().format("%Y%m%d"))))?;
+        .open(CACHE_DIR.join("uadng.log"))?;
 
     let file_dispatcher = fern::Dispatch::new()
         .format(make_formatter(false))
