@@ -36365,7 +36365,7 @@
   },
   "com.android.role.notes.enabled": {
     "list": "Oem",
-    "description": "Notes Role enabled\nUnknown overlay, but looks like a safe to remove, sets default notes.",
+    "description": "Notes Role enabled\nUnknown overlay, sets default notes. Breaks seamlessly disabling and enabling developer options on Google Pixel(s).\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
