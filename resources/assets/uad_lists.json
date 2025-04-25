@@ -16090,7 +16090,7 @@
   },
   "com.android.globalFileexplorer": {
     "list": "Oem",
-    "description": "Misleading package name. It's the Xiaomi Files Manager on older phones\n",
+    "description": "Xiaomi File Explorer\/Manager.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16324,11 +16324,11 @@
   },
   "com.miui.global.packageinstaller": {
     "list": "Oem",
-    "description": "The security check / virus scan that runs after package installation.\nDisabling/Uninstalling does not cause a bootloop and package installation still works fine.",
+    "description": "MIUI Package Installer. Removal causes bootloop on Xiaomi EU ROMs. Use the built-in `com.*.android.packageinstaller instead`.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Unsafe"
   },
   "com.miui.guardprovider": {
     "list": "Oem",
