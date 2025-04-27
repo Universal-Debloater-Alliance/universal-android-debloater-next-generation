@@ -34661,11 +34661,11 @@
   },
   "com.android.DeviceAsWebcam": {
     "list": "Oem",
-    "description": "Using smartphone as webcam.",
+    "description": "Using smartphone as webcam. Dependency for Private space on Pixel devices.\nhttps://source.android.com/docs/security/features/private-space",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.omadm.service": {
     "list": "Oem",
@@ -34749,11 +34749,11 @@
   },
   "com.google.pixel.camera.services": {
     "list": "Oem",
-    "description": "CameraIDRemapper and a lot Debug stuff.",
+    "description": "CameraIDRemapper and a lot Debug stuff. Dependency for Private space on Pixel devices.\nhttps://source.android.com/docs/security/features/private-space",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.apps.camera.services": {
     "list": "Oem",
