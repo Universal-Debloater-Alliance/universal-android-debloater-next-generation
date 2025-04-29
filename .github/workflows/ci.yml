@@ -30,7 +30,7 @@ jobs:
             lint: fmt
         include:
           - lint: clippy
-            args: " --all-features"
+            args: " --all-features -- -D clippy::all -W clippy::style"
           - lint: test
             args: ""
           - lint: fmt
