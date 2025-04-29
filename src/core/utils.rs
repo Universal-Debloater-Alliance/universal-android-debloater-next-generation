@@ -118,7 +118,7 @@ pub fn setup_uad_dir(dir: &Path) -> PathBuf {
     if let Err(e) = fs::create_dir_all(&dir) {
         error!("Can't create directory: {dir:?}");
         panic!("{e}");
-    };
+    }
     dir
 }
 

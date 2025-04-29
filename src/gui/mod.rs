@@ -328,7 +328,7 @@ impl Application for UadGui {
                         self.update_state.self_update.latest_release = r;
                     }
                     Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
-                };
+                }
                 Command::none()
             }
             Message::FontLoaded(result) => {

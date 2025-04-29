@@ -147,7 +147,7 @@ impl List {
                         self.loading_state = LoadingState::RestoringDevice(
                             self.phone_packages[i_user][p.index].name.clone(),
                         );
-                    };
+                    }
                 } else {
                     self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
                 }
@@ -342,7 +342,7 @@ impl List {
                 match export {
                     Ok(_) => self.export_modal = true,
                     Err(err) => error!("Failed to export current selection: {:?}", err),
-                };
+                }
                 Command::none()
             }
             Message::Nothing => Command::none(),
@@ -511,7 +511,7 @@ impl List {
             export_selection = export_selection
                 .on_press(Message::ExportSelection)
                 .style(style::Button::Primary);
-        };
+        }
         // lock
         let export_selection = export_selection;
 
