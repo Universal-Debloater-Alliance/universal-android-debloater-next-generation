@@ -1,8 +1,6 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
-use crate::core::sync::{
-    AdbError, CommandType, Phone, User, adb_shell_command, apply_pkg_state_commands,
-};
+use crate::core::sync::{AdbError, Phone, User, adb_shell_command, apply_pkg_state_commands};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -70,7 +68,7 @@ pub struct List {
 pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages((PackageHashMap, UadListState)),
-    RestoringDevice(Result<CommandType, AdbError>),
+    RestoringDevice(Result<PackageInfo, AdbError>),
     ApplyFilters(Vec<Vec<PackageRow>>),
     SearchInputChanged(String),
     ToggleAllSelected(bool),
@@ -80,7 +78,7 @@ pub enum Message {
     RemovalSelected(Removal),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    ChangePackageState(Result<CommandType, AdbError>),
+    ChangePackageState(Result<PackageInfo, AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -142,12 +140,10 @@ impl List {
                 Command::batch(commands)
             }
             Message::RestoringDevice(output) => {
-                if let Ok(res) = output {
-                    if let CommandType::PackageManager(p) = res {
-                        self.loading_state = LoadingState::RestoringDevice(
-                            self.phone_packages[i_user][p.index].name.clone(),
-                        );
-                    }
+                if let Ok(p) = output {
+                    self.loading_state = LoadingState::RestoringDevice(
+                        self.phone_packages[i_user][p.index].name.clone(),
+                    );
                 } else {
                     self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
                 }
@@ -295,7 +291,7 @@ impl List {
             }
             Message::ChangePackageState(res) => {
                 match res {
-                    Ok(CommandType::PackageManager(p)) => {
+                    Ok(p) => {
                         let package = &mut self.phone_packages[p.i_user][p.index];
                         package.state = package.state.opposite(settings.device.disable_mode);
                         package.selected = false;
@@ -980,7 +976,7 @@ fn build_action_pkg_commands(
                     // so it's fine.
                     device.adb_id.clone(),
                     action,
-                    CommandType::PackageManager(p_info),
+                    p_info,
                 ),
                 if j == 0 {
                     Message::ChangePackageState

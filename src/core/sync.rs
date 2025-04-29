@@ -56,11 +56,6 @@ impl std::fmt::Display for User {
     }
 }
 
-#[derive(Debug, Clone)]
-pub enum CommandType {
-    PackageManager(PackageInfo),
-}
-
 /// An enum to contain different variants for errors yielded by ADB.
 #[derive(Debug, Clone)]
 pub enum AdbError {
@@ -76,13 +71,11 @@ pub enum AdbError {
 pub async fn adb_shell_command<S: AsRef<str>>(
     device_serial: S,
     action: String,
-    command_type: CommandType,
-) -> Result<CommandType, AdbError> {
+    p: PackageInfo,
+) -> Result<PackageInfo, AdbError> {
     let serial = device_serial.as_ref();
 
-    let label = match &command_type {
-        CommandType::PackageManager(p) => &p.removal,
-    };
+    let label = &p.removal;
 
     let mut cmd = Command::new("adb");
     if !serial.is_empty() {
@@ -124,7 +117,7 @@ pub async fn adb_shell_command<S: AsRef<str>>(
             }
 
             info!("[{label}] {action} -> {o}");
-            Ok(command_type)
+            Ok(p)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
