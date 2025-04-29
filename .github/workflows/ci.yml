@@ -38,9 +38,9 @@ jobs:
           - lint: test
             args: ""
           - lint: clippy
-            args: " --all --all-features"
+            args: " --all-features"
           - lint: fmt
-            args: " --all -- --check"
+            args: " -- --check"
     steps:
       - uses: actions/checkout@v4
       - uses: rui314/setup-mold@v1 # faster linker
