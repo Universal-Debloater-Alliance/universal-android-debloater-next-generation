@@ -305,11 +305,11 @@ impl PmCommand {
         cmd.args(["list", "packages", "-s"]);
         if let Some(s) = f {
             cmd.arg(s.to_str());
-        };
+        }
         if let Some(u) = user_id {
             cmd.arg("--user");
             cmd.arg(u.to_string());
-        };
+        }
 
         self.0.0.run().map(|pack_ls| {
             pack_ls

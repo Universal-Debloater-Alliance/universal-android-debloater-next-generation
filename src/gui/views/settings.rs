@@ -139,7 +139,7 @@ impl Settings {
                             backup,
                         }
                     }
-                };
+                }
                 iced::Command::none()
             }
             Message::BackupSelected(d_path) => {

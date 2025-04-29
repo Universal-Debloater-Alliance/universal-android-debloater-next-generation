@@ -54,7 +54,7 @@ pub async fn backup_phone(
             if let Err(e) = fs::create_dir_all(backup_path) {
                 error!("BACKUP: could not create backup dir: {}", e);
                 return Err(e.to_string());
-            };
+            }
 
             let backup_filename =
                 format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
