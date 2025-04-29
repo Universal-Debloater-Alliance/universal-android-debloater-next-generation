@@ -112,7 +112,7 @@ impl ACommand {
             .collect())
     }
 
-    /// `version` sub-command, splitted by lines
+    /// `version` sub-command
     ///
     /// ## Format
     /// This is just a sample,
@@ -131,7 +131,8 @@ impl ACommand {
     /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb[.exe]
     /// Running on <OS/kernel version> (<CPU arch>)
     /// ```
-    pub fn version(mut self) -> Result<Vec<String>, String> {
+    #[expect(clippy::panic_in_result_fn, reason = "Assertions are fine")]
+    pub fn version(mut self) -> Result<String, String> {
         #[cfg(debug_assertions)]
         static TRIPLE: LazyLock<Regex> = LazyLock::new(|| {
             Regex::new(r"^Android Debug Bridge version \d+.\d+.\d+$")
@@ -143,30 +144,25 @@ impl ACommand {
         });
 
         self.0.arg("version");
-        Ok(self
-            .run()?
-            .lines()
-            .enumerate()
-            // typically 5 allocs.
-            // ideally 0, if we didn't use `lines`.
-            .map(|(i, ln)| {
-                // DO NOT "REFACTOR" TO `debug_assert`!
-                // it's not the same!
-                #[cfg(debug_assertions)]
-                assert!(match i {
-                    0 => TRIPLE.is_match(ln),
-                    1 => DISTRO.is_match(ln),
-                    2 =>
-                    // missing test for valid path
-                        ln.starts_with("Installed as ")
-                            && (ln.ends_with("adb") || ln.ends_with("adb.exe")),
-                    // missing test for x86/ARM (both 64b)
-                    3 => ln.starts_with("Running on "),
-                    _ => unreachable!("Expected < 5 lines"),
-                });
-                ln.to_string()
-            })
-            .collect())
+
+        let out = self.run()?;
+
+        #[cfg(debug_assertions)]
+        for (i, ln) in out.lines().enumerate() {
+            assert!(match i {
+                0 => TRIPLE.is_match(ln),
+                1 => DISTRO.is_match(ln),
+                2 =>
+                // missing test for valid path
+                    ln.starts_with("Installed as ")
+                        && (ln.ends_with("adb") || ln.ends_with("adb.exe")),
+                // missing test for x86/ARM (both 64b)
+                3 => ln.starts_with("Running on "),
+                _ => unreachable!("Expected < 5 lines"),
+            });
+        }
+
+        Ok(out)
     }
 
     /// General executor
