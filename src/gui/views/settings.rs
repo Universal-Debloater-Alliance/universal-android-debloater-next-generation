@@ -2,9 +2,7 @@ use crate::core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
-    sync::{
-        AdbError, CommandType, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user,
-    },
+    sync::{AdbError, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user},
     theme::Theme,
     utils::{
         DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_folder, open_url,
@@ -58,7 +56,7 @@ pub enum Message {
     BackupSelected(DisplayablePath),
     BackupDevice,
     RestoreDevice,
-    RestoringDevice(Result<CommandType, AdbError>),
+    RestoringDevice(Result<PackageInfo, AdbError>),
     DeviceBackedUp(Result<bool, String>),
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
@@ -139,7 +137,7 @@ impl Settings {
                             backup,
                         }
                     }
-                };
+                }
                 iced::Command::none()
             }
             Message::BackupSelected(d_path) => {
@@ -183,15 +181,9 @@ impl Settings {
                         for command in p.commands.clone() {
                             *nb_running_async_adb_commands += 1;
                             commands.push(iced::Command::perform(
-                                // WARNING: THIS IS INSECURE!
-                                // If a user "A" restores a backup from a malicious user "B",
-                                // then B could run arbitrary high-privilege cmds,
-                                // on A's Android device!
-                                adb_shell_command(
-                                    phone.adb_id.clone(),
-                                    command,
-                                    CommandType::PackageManager(p_info.clone()),
-                                ),
+                                // This is "safe" thanks to serde:
+                                // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/760
+                                adb_shell_command(phone.adb_id.clone(), command, p_info.clone()),
                                 Message::RestoringDevice,
                             ));
                         }

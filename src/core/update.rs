@@ -55,11 +55,10 @@ impl std::fmt::Display for SelfUpdateStatus {
 /// Download a file from the internet
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
-pub async fn download_file<T: ToString + Send>(url: T, dest_file: PathBuf) -> Result<(), String> {
-    let url = url.to_string();
-    debug!("downloading file from {}", &url);
+pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> {
+    debug!("downloading file from {}", url);
 
-    match ureq::get(&url).call() {
+    match ureq::get(url).call() {
         Ok(res) => {
             let mut file = fs::File::create(dest_file).map_err(|e| e.to_string())?;
 
@@ -77,7 +76,7 @@ pub async fn download_file<T: ToString + Send>(url: T, dest_file: PathBuf) -> Re
 /// then returns both the original file name (new version) and temp path (old version)
 #[cfg(feature = "self-update")]
 pub async fn download_update_to_temp_file(
-    bin_name: String,
+    bin_name: &str,
     release: Release,
 ) -> Result<(PathBuf, PathBuf), ()> {
     let current_bin_path = std::env::current_exe().map_err(|_| ())?;
@@ -110,7 +109,7 @@ pub async fn download_update_to_temp_file(
 
         let archive_path = current_bin_path.parent().ok_or(())?.join(&asset_name);
 
-        if let Err(e) = download_file(asset.download_url, archive_path.clone()).await {
+        if let Err(e) = download_file(&asset.download_url, archive_path.clone()).await {
             error!("Couldn't download {NAME} update: {}", e);
             return Err(());
         }
@@ -133,7 +132,7 @@ pub async fn download_update_to_temp_file(
             .cloned()
             .ok_or(())?;
 
-        if let Err(e) = download_file(asset.download_url, download_path.clone()).await {
+        if let Err(e) = download_file(&asset.download_url, download_path.clone()).await {
             error!("Couldn't download {NAME} update: {}", e);
             return Err(());
         }
@@ -232,7 +231,7 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
 /// Hardcoded binary names for each compilation target
 /// that gets published to the GitHub Release
 #[cfg(feature = "self-update")]
-pub const fn bin_name() -> &'static str {
+pub const BIN_NAME: &str = {
     #[cfg(target_os = "windows")]
     {
         "uad-ng-windows.exe"
@@ -252,7 +251,7 @@ pub const fn bin_name() -> &'static str {
     {
         "uad-ng-linux"
     }
-}
+};
 
 /// Rename a file or directory to a new name, retrying if the operation fails because of permissions
 ///
