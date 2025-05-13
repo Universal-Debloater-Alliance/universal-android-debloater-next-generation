@@ -87,7 +87,7 @@ pub async fn adb_shell_command<S: AsRef<str>>(
     let mut cmd = Command::new("adb");
     if !serial.is_empty() {
         cmd.args(["-s", serial]);
-    };
+    }
     cmd.arg("shell");
     // this works because `sh` splits spaces
     cmd.arg(&action);
