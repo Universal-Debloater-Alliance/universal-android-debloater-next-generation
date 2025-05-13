@@ -352,7 +352,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                 OperationResult::Ok(device_list)
             }
             Err(err) => {
-                error!("get_device_list() -> {}", err);
+                error!("get_devices_list() -> {}", err);
                 let test: Vec<Phone> = vec![];
                 OperationResult::Retry(test)
             }
