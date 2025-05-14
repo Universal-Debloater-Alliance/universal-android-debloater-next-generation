@@ -27633,11 +27633,11 @@
   },
   "com.google.android.pixel.setupwizard": {
     "list": "Google",
-    "description": "It's the basic configuration setup guides you through the basics of setting up Google features on your device.\nThe second package is only present on Pixel phones.\n",
+    "description": "It's the basic configuration setup guides you through the basics of setting up Google features on your device.\nThe second package is only present on Pixel phones.\nBreaks the Google Play System update page found on \"Security & privacy\", for whatever reason...",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.soundpicker": {
     "list": "Google",
