@@ -87,7 +87,7 @@ pub async fn adb_shell_command<S: AsRef<str>>(
     let mut cmd = Command::new("adb");
     if !serial.is_empty() {
         cmd.args(["-s", serial]);
-    };
+    }
     cmd.arg("shell");
     // this works because `sh` splits spaces
     cmd.arg(&action);
@@ -352,7 +352,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                 OperationResult::Ok(device_list)
             }
             Err(err) => {
-                error!("get_device_list() -> {}", err);
+                error!("get_devices_list() -> {}", err);
                 let test: Vec<Phone> = vec![];
                 OperationResult::Retry(test)
             }
