@@ -26,7 +26,7 @@ use iced::{
 use std::path::PathBuf;
 
 #[cfg(feature = "self-update")]
-use crate::core::update::{bin_name, download_update_to_temp_file, remove_file};
+use crate::core::update::{BIN_NAME, download_update_to_temp_file, remove_file};
 
 #[derive(Default, Debug, Clone)]
 enum View {
@@ -240,9 +240,8 @@ impl Application for UadGui {
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
-                            let bin_name = bin_name().to_owned();
                             Command::perform(
-                                download_update_to_temp_file(bin_name, release.clone()),
+                                download_update_to_temp_file(BIN_NAME, release.clone()),
                                 Message::_NewReleaseDownloaded,
                             )
                         } else {
@@ -328,7 +327,7 @@ impl Application for UadGui {
                         self.update_state.self_update.latest_release = r;
                     }
                     Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
-                };
+                }
                 Command::none()
             }
             Message::FontLoaded(result) => {
