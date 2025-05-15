@@ -26672,8 +26672,8 @@
     "labels": []
   },
   "com.oplus.trafficmonitor": {
-    "description": "OnePlus Data usage\nOneplus traffic monitor (monthly data usage, etc). This app is so bloated.",
-    "removal": "Recommended",
+    "description": "OnePlus Data usage\nOneplus traffic monitor (monthly data usage, etc). If removed, the 'Data Usage' option under 'Mobile network' will not work. Also App Info screen's 'Data usage' option will disappear",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
