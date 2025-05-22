@@ -54,7 +54,7 @@ pub async fn backup_phone(
             if let Err(e) = fs::create_dir_all(backup_path) {
                 error!("BACKUP: could not create backup dir: {}", e);
                 return Err(e.to_string());
-            };
+            }
 
             let backup_filename =
                 format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
@@ -80,20 +80,16 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
 
 pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
     match fs::read_to_string(backup.path) {
-        Ok(data) => {
-            let phone_backup: PhoneBackup =
-                serde_json::from_str(&data).expect("Unable to parse backup file");
-
-            let mut users = vec![];
-            for u in phone_backup.users {
-                users.push(User {
-                    id: u.id,
-                    index: 0,
-                    protected: false,
-                });
-            }
-            users
-        }
+        Ok(data) => serde_json::from_str::<PhoneBackup>(&data)
+            .expect("Unable to parse backup file")
+            .users
+            .into_iter()
+            .map(|u| User {
+                id: u.id,
+                index: 0,
+                protected: false,
+            })
+            .collect(),
         Err(e) => {
             error!("[BACKUP]: Selected backup file not found: {}", e);
             vec![]
