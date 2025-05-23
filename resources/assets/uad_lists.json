@@ -1071,6 +1071,78 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.motorola.livewallpaper3.prebuilt.chroma_plume": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Chroma Plume",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.livewallpaper3.prebuilt.cool_bamboo": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Cool Bamboo",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.livewallpaper3.prebuilt.titan": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Cosmic journey",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.livewallpaper3.prebuilt.lovely_peach": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Lovely Peach",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.motorola.livewallpaper3.prebuilt.mysterious_amber": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Mysterious Amber",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.motorola.livewallpaper3.prebuilt.romantic_wisteria": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Romantic Wisteria",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.motorola.livewallpaper3.prebuilt.tranquil_whale": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Tranquil Whale",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.motorola.livewallpaper3.prebuilt.twilight_twist": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Twilight twist",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.motorola.livewallpaper3.prebuilt.vibrant_sapling": {
+    "list": "Oem",
+    "description": "Motorola Prebuilt themes Vibrant Sapling",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.android.connectivity.resources": {
     "list": "Aosp",
     "description": "Network connectivity resources.\nCause BOOTLOOP.",
