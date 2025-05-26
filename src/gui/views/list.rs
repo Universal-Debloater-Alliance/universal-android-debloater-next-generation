@@ -953,9 +953,9 @@ fn build_action_pkg_commands(
     let mut commands = vec![];
     for u in device.user_list.iter().filter(|&&u| {
         !u.protected
-            && u.index < packages.len()
-            && selection.1 < packages[u.index].len()
-            && (packages[u.index][selection.1].selected || settings.multi_user_mode)
+            && packages.get(u.index)
+                .and_then(|user_pkgs| user_pkgs.get(selection.1))
+                .map_or(false, |pkg| pkg.selected || settings.multi_user_mode)
     }) {
         let u_pkg = &packages[u.index][selection.1];
         let wanted_state = if settings.multi_user_mode {
