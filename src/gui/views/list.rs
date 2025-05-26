@@ -240,9 +240,17 @@ impl List {
 
                         if settings.device.multi_user_mode {
                             for u in selected_device.user_list.iter().filter(|&u| !u.protected) {
-                                self.phone_packages[u.index][i_package].selected = toggle;
-                                if toggle {
-                                    self.selected_packages.push((u.index, i_package));
+                                if let Some(pkg) = self
+                                    .phone_packages
+                                    .get_mut(u.index)
+                                    .and_then(|pkgs| pkgs.get_mut(i_package))
+                                {
+                                    pkg.selected = toggle;
+                                    if toggle
+                                        && !self.selected_packages.contains(&(u.index, i_package))
+                                    {
+                                        self.selected_packages.push((u.index, i_package));
+                                    }
                                 }
                             }
                             if !toggle {
@@ -251,7 +259,9 @@ impl List {
                         } else {
                             package.selected = toggle;
                             if toggle {
-                                self.selected_packages.push((i_user, i_package));
+                                if !self.selected_packages.contains(&(i_user, i_package)) {
+                                    self.selected_packages.push((i_user, i_package));
+                                }
                             } else {
                                 self.selected_packages
                                     .retain(|&x| x.1 != i_package || x.0 != i_user);
