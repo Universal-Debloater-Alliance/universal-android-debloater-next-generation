@@ -38170,5 +38170,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
-}
+  },
+  "com.android.avatarpicker": {
+    "list": "Aosp",
+    "description": "Lets you assign pictures to contacts. It has two options: take picture from the camera, or choose from the gallery.\nSource code: https://android.googlesource.com/platform/packages/apps/AvatarPicker/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ 
