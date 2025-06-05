@@ -37021,11 +37021,11 @@
   },
   "com.samsung.android.providers.trash": {
     "list": "Oem",
-    "description": "SecTrashProvider\nIndexes almost things to trash.\nThis app probably only exist on China Samsung.",
+    "description": "SecTrashProvider\nTrash feature for Galaxy phones since One UI 6.0\nAllows users to delete and restore files from My Files, Gallery, Voice Recordings, etc. directly from the Trash folder in My Files.\nBreaks apps that delete to Trash.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.tencentwifisecurity": {
     "list": "Oem",
