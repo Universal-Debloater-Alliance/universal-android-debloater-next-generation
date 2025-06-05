@@ -25765,8 +25765,8 @@
     "labels": []
   },
   "com.samsung.android.providers.factory": {
-    "description": "FactoryTestProvider\nIt's used for log or testing.",
-    "removal": "Recommended",
+    "description": "FactoryTestProvider\nDisabling breaks hwmoduletest.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
