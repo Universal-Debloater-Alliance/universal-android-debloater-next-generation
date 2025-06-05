@@ -22288,7 +22288,7 @@
     "removal": "Recommended"
   },
   "com.google.android.euicc": {
-    "description": "Electronic Sim management\nNeeded for eSIM",
+    "description": "eUICC (embedded UICC) refers to the architectural standards for eSIM, a device used to securely store one or more SIM card profiles, which are the unique identifiers and cryptographic keys used by cellular network service providers to uniquely identify and securely connect to mobile network devices.\nBreaks SIM Manager.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
