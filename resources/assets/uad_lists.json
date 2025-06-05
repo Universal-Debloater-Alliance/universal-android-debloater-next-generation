@@ -27865,11 +27865,11 @@
   },
   "com.google.android.apps.turbo": {
     "list": "Google",
-    "description": "Device Health Services (discontinued)",
+    "description": "Device Health Services.\nBreaks battery settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.apps.tycho": {
     "list": "Google",
