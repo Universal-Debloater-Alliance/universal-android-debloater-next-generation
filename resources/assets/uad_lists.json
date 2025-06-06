@@ -4119,11 +4119,11 @@
   },
   "com.samsung.android.dqagent": {
     "list": "Oem",
-    "description": "Samsung Device Quality Agent\nMonitors how the device uses wifi. Has the ability to identify network operator related data.\nFound mention of some packages in the Java code:\n- com.samsung.android.app.mobiledoctor (https://play.google.com/store/apps/details?id=com.samsung.heartwiseVcr)\n- com.samsung.android.dhr (Device Health Report)\n- om.salab.act (https://play.google.com/store/apps/details?id=com.jquiz.act)\n- kr.co.avad.diagnostictool (unknown stuff from South Korea)\n\n2 hard-coded URLs:\nPRD = https://dc.dqa.samsung.com\nSTG = https://stg-dc.dqa.samsung.com\nPRD = Portable Recording Device, STG = Security Threat Group. 2 terms related to law enforcment.",
+    "description": "Samsung Device Quality Agent\nLogging agent for diagnostic device information.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.drivelink.stub": {
     "list": "Oem",
