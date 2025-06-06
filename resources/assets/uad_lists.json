@@ -10582,11 +10582,11 @@
   },
   "com.samsung.android.app.telephonyui": {
     "list": "Oem",
-    "description": "It's calling app from samsung China, Korea.\nI don't know how important this app is.",
+    "description": "Samsung Dialer UI.\nDisabling breaks Phone app settings and SIM Manager.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.appseparation": {
     "list": "Oem",
