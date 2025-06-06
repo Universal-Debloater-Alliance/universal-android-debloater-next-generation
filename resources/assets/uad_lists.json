@@ -27617,7 +27617,7 @@
   },
   "com.google.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. Alternatively, you can use a libre spam-blocking and DNS-blocking solution instead.\nAnyway it looks like a useless frameworks.\nhttps://safety.google",
+    "description": "Google Safety Center.\nGoogle Safe Browsing.\nCrashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
