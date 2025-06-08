@@ -850,7 +850,9 @@ impl List {
                 (list_filter == UadList::All || p.uad_list == list_filter)
                     && (package_filter == PackageState::All || p.state == package_filter)
                     && (removal_filter == Removal::All || p.removal == removal_filter)
-                    && (self.input_value.is_empty() || p.name.contains(&self.input_value) || p.description.contains(&self.input_value))
+                    && (self.input_value.is_empty()
+                        || p.name.contains(&self.input_value)
+                        || p.description.contains(&self.input_value))
             })
             .map(|(i, _)| i)
             .collect();
