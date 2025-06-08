@@ -4413,6 +4413,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.opencalendar": {
+    "list": "Oem",
+    "description": "Samsung Subscription Calendars.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.photoremasterservice": {
     "list": "Oem",
     "description": "PhotoRemasterService\nIf removed, Photo Remaster in the gallery won't work.",
@@ -5136,6 +5144,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.systemui.hidenotch": {
+    "list": "Oem",
+    "description": "Hide notch overlay.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.systemui.hidenotch.withoutcornerround": {
+    "list": "Oem",
+    "description": "Hide notch overlay without corner round.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.tmovvm": {
     "list": "Oem",
     "description": "Samsung Visual Voicemail (for T-mobile only)\nAllows you to review and manage your voicemail directly from your smartphone, eliminating the need to dial into your mailbox.\nhttps://mobile.spectrum.com/support/article/360001296667/samsung-visual-voicemail\n",
@@ -5610,6 +5634,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.sec.android.QRreader": {
+    "list": "Oem",
+    "description": "Samsung QR code reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.sec.android.providers.security": {
     "list": "Oem",
     "description": "Provider of password security policies?\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html\nSeems to provide access to a password database but I don't know under what circumstances this database is used.\nThis provider is only usable by Samsung apps.\nI see a com.android.security.PASSWORD_EXPIRED intent filter in the AndroidManifest so my guess is it handles password policies.\nFor example: A policy could force a user to change their password after a certain amount of time. That's a common policy in enterprise work.",
@@ -5669,6 +5701,14 @@
   "com.sec.android.uibcvirtualsoftkey": {
     "list": "Oem",
     "description": "UIBC (User input back channel) \nAllows users to experience the dual monitor function, with the keyboard and mouse having the ability to control your smartphone device.\nEither discontinued (for the benefit of Smart View : com.samsung.android.smartmirroring) or related to Smart View. \n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.UsimRegistrationKOR": {
+    "list": "Oem",
+    "description": "USIM Registration.\nThis app is used to register your USIM card in South Korea.\nIt is not needed outside of South Korea.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6225,6 +6265,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.samsung.android.biometrics.service": {
+    "list": "Oem",
+    "description": "Intelligent Scan for Samsung Galaxy S9(+) and Note 9.\nNOTE: Removing this will break Intelligent Scan.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.android.bluelightfilter": {
     "list": "Oem",
