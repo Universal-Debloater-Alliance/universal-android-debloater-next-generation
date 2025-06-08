@@ -4119,11 +4119,11 @@
   },
   "com.samsung.android.dqagent": {
     "list": "Oem",
-    "description": "Samsung Device Quality Agent\nMonitors how the device uses wifi. Has the ability to identify network operator related data.\nFound mention of some packages in the Java code:\n- com.samsung.android.app.mobiledoctor (https://play.google.com/store/apps/details?id=com.samsung.heartwiseVcr)\n- com.samsung.android.dhr (Device Health Report)\n- om.salab.act (https://play.google.com/store/apps/details?id=com.jquiz.act)\n- kr.co.avad.diagnostictool (unknown stuff from South Korea)\n\n2 hard-coded URLs:\nPRD = https://dc.dqa.samsung.com\nSTG = https://stg-dc.dqa.samsung.com\nPRD = Portable Recording Device, STG = Security Threat Group. 2 terms related to law enforcment.",
+    "description": "Samsung Device Quality Agent\nLogging agent for diagnostic device information.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.drivelink.stub": {
     "list": "Oem",
@@ -10582,11 +10582,11 @@
   },
   "com.samsung.android.app.telephonyui": {
     "list": "Oem",
-    "description": "It's calling app from samsung China, Korea.\nI don't know how important this app is.",
+    "description": "Samsung Dialer UI.\nDisabling breaks Phone app settings and SIM Manager.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.appseparation": {
     "list": "Oem",
@@ -22288,7 +22288,7 @@
     "removal": "Recommended"
   },
   "com.google.android.euicc": {
-    "description": "Electronic Sim management\nNeeded for eSIM",
+    "description": "eUICC (embedded UICC) refers to the architectural standards for eSIM, a device used to securely store one or more SIM card profiles, which are the unique identifiers and cryptographic keys used by cellular network service providers to uniquely identify and securely connect to mobile network devices.\nBreaks SIM Manager.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -25765,8 +25765,8 @@
     "labels": []
   },
   "com.samsung.android.providers.factory": {
-    "description": "FactoryTestProvider\nIt's used for log or testing.",
-    "removal": "Recommended",
+    "description": "FactoryTestProvider\nDisabling breaks hwmoduletest.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -27617,7 +27617,7 @@
   },
   "com.google.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. Alternatively, you can use a libre spam-blocking and DNS-blocking solution instead.\nAnyway it looks like a useless frameworks.\nhttps://safety.google",
+    "description": "Google Safety Center.\nGoogle Safe Browsing.\nCrashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -27865,11 +27865,11 @@
   },
   "com.google.android.apps.turbo": {
     "list": "Google",
-    "description": "Device Health Services (discontinued)",
+    "description": "Device Health Services.\nBreaks battery settings.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.apps.tycho": {
     "list": "Google",
@@ -37021,11 +37021,11 @@
   },
   "com.samsung.android.providers.trash": {
     "list": "Oem",
-    "description": "SecTrashProvider\nIndexes almost things to trash.\nThis app probably only exist on China Samsung.",
+    "description": "SecTrashProvider\nTrash feature for Galaxy phones since One UI 6.0\nAllows users to delete and restore files from My Files, Gallery, Voice Recordings, etc. directly from the Trash folder in My Files.\nBreaks apps that delete to Trash.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.samsung.android.tencentwifisecurity": {
     "list": "Oem",
