@@ -33949,11 +33949,11 @@
   },
   "com.google.android.tungsten.setupwraith": {
     "list": "Oem",
-    "description": "First boot setup TV.\nhttps://play.google.com/store/apps/details?id=com.google.android.tungsten.setupwraith&hl=en&gl=US",
+    "description": "First boot setup TV.\nRemoving it crashes sound related system settings and breaks volume control on Sony Bravia TV.\nhttps://play.google.com/store/apps/details?id=com.google.android.tungsten.setupwraith&hl=en&gl=US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.tv.axel": {
     "list": "Oem",
