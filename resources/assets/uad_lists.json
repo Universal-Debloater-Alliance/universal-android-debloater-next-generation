@@ -10414,7 +10414,7 @@
   },
   "com.mediatek.miravision.ui": {
     "list": "Misc",
-    "description": "it's for SmartScreen and display effects.\nBUT I think it's not available and it's so bloated.",
+    "description": "Mediatek MiraVision\nProvides extensive hardware and software optimizations that improve the viewing quality.\nBUT I think it's not available and it's so bloated.\nhttps://www.mediatek.com/technology/miravision-for-smartphones",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
