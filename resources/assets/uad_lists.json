@@ -10418,7 +10418,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.qti.simcontacts": {
     "list": "Misc",
