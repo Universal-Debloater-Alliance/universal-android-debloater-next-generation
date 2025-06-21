@@ -23634,8 +23634,8 @@
     "labels": []
   },
   "com.transsion.applock": {
-    "description": "AppLock\nProvides the only way to hide files and lock apps when using Transsion launchers (which the Transsion devices require for certain functionality like multiapps not working with other launchers). These are the only apps that hide files and lock apps with them.",
-    "removal": "Advanced",
+    "description": "AppLock\nProvides the only way to hide files and lock apps when using Transsion launchers (which the Transsion devices require for certain functionality like multiapps not working with other launchers). These are the only apps that hide files and lock apps with them.\nRemoval breaks recents.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
