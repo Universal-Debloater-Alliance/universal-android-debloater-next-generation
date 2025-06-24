@@ -21936,8 +21936,8 @@
     "labels": []
   },
   "com.coloros.wifibackuprestore": {
-    "description": "WifiBackupRestore\nBackup Wi-Fi to the cloud",
-    "removal": "Recommended",
+    "description": "WifiBackupRestore\nBackup Wi-Fi to the cloud\nNOTE: Removing or disabling this app would lose the ability for Backup and Restore functionality to backup and restore saved access points locally on your device",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
