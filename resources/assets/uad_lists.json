@@ -21936,8 +21936,8 @@
     "labels": []
   },
   "com.coloros.wifibackuprestore": {
-    "description": "WifiBackupRestore\nBackup Wi-Fi to the cloud",
-    "removal": "Recommended",
+    "description": "WifiBackupRestore\nBackup Wi-Fi to the cloud\nNOTE: Removing or disabling this app would lose the ability for Backup and Restore functionality to backup locally stored wifi access points or credentials locally on your device",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -30807,11 +30807,11 @@
   },
   "com.oplus.wifibackuprestore": {
     "list": "Oem",
-    "description": "Lets you backup your wifi credentials to the cloud. This app has obviously access to your wifi credential and have the INTERNET permission.\n\nPithus analysis: https://beta.pithus.org/report/76e43cf4dc55452f39d9b6117074f4072189d3c8ad9cb295a86e49438545f7aa",
+    "description": "Lets you backup your wifi credentials to the cloud and possibly local wifi access point backups with local backup and restore feature. This app has obviously access to your wifi credential and have the INTERNET permission.\n\nPithus analysis: https://beta.pithus.org/report/76e43cf4dc55452f39d9b6117074f4072189d3c8ad9cb295a86e49438545f7aa\n\nWARNING: Removing this package may have similar effects of removing `com.coloros.wifibackuprestore` (see desc) as this could also break local wifi credential backups functionality without it. However, it's effects is only tested with ColorOS devices with similar package before Oneplus merge.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.tripledot.solitaire": {
     "list": "Misc",
