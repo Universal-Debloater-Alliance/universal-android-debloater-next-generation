@@ -44,9 +44,14 @@ tar = { version = "^0.4", optional = true }
 win32console = "^0.1.5"
 
 [profile.release]
+lto = "thin"
+codegen-units = 4
+
+[profile.opt]
+inherits = "release"
 opt-level = "s"
 codegen-units = 1
-lto = true
+lto = "fat"
 strip = true
 panic = "abort"
 
