@@ -45,6 +45,7 @@ win32console = "^0.1.5"
 
 [profile.release]
 lto = "thin"
+opt-level = 2
 codegen-units = 4
 
 [profile.opt]
