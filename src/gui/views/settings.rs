@@ -82,27 +82,27 @@ impl Settings {
             }
             Message::ExpertMode(toggled) => {
                 self.general.expert_mode = toggled;
-                debug!("Config change: {:?}", self);
+                debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
                 iced::Command::none()
             }
             Message::DisableMode(toggled) => {
                 if phone.android_sdk >= 23 {
                     self.device.disable_mode = toggled;
-                    debug!("Config change: {:?}", self);
+                    debug!("Config change: {self:?}");
                     Config::save_changes(self, &phone.adb_id);
                 }
                 iced::Command::none()
             }
             Message::MultiUserMode(toggled) => {
                 self.device.multi_user_mode = toggled;
-                debug!("Config change: {:?}", self);
+                debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
                 iced::Command::none()
             }
             Message::ApplyTheme(theme) => {
                 self.general.theme = theme.to_string();
-                debug!("Config change: {:?}", self);
+                debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
                 iced::Command::none()
             }
@@ -163,7 +163,7 @@ impl Settings {
                         self.device.backup.selected = self.device.backup.backups.first().cloned();
                     }
                     Err(err) => {
-                        error!("[BACKUP FAILED] Backup creation failed: {:?}", err);
+                        error!("[BACKUP FAILED] Backup creation failed: {err:?}");
                     }
                 }
                 iced::Command::none()
@@ -244,7 +244,7 @@ impl Settings {
             Message::PackagesExported(exported) => {
                 match exported {
                     Ok(_) => self.modal = Some(PopUpModal::ExportUninstalled),
-                    Err(err) => error!("Failed to export list of uninstalled packages: {:?}", err),
+                    Err(err) => error!("Failed to export list of uninstalled packages: {err:?}"),
                 }
                 iced::Command::none()
             }

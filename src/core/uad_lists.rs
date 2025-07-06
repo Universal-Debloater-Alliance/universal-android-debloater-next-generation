@@ -222,7 +222,7 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
                     OperationResult::Ok(list)
                 }
                 Err(e) => {
-                    warn!("Could not load remote debloat list: {}", e);
+                    warn!("Could not load remote debloat list: {e}");
                     error = true;
                     OperationResult::Retry(PackageHashMap::new())
                 }

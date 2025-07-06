@@ -299,15 +299,15 @@ impl Application for UadGui {
                     {
                         Ok(_) => {
                             if let Err(e) = remove_file(cleanup_path) {
-                                error!("Could not remove temp update file: {}", e);
+                                error!("Could not remove temp update file: {e}");
                             }
                             std::process::exit(0)
                         }
                         Err(error) => {
                             if let Err(e) = remove_file(cleanup_path) {
-                                error!("Could not remove temp update file: {}", e);
+                                error!("Could not remove temp update file: {e}");
                             }
-                            error!("Failed to update {NAME}: {}", error);
+                            error!("Failed to update {NAME}: {error}");
                         }
                     }
                 } else {

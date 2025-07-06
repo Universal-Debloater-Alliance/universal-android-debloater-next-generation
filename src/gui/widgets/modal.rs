@@ -189,12 +189,12 @@ where
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
     ) -> event::Status {
-        if let Some(message) = self.on_blur.as_ref() {
-            if matches!(
+        if let Some(message) = self.on_blur.as_ref()
+            && matches!(
                 event,
                 Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
-            ) {
-                if let Some(cursor_position) = cursor.position() {
+            )
+                && let Some(cursor_position) = cursor.position() {
                     let content_bounds = layout
                         .children()
                         .next()
@@ -205,8 +205,6 @@ where
                         return event::Status::Captured;
                     }
                 }
-            }
-        }
 
         self.content.as_widget_mut().on_event(
             self.tree,
