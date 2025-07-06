@@ -57,7 +57,7 @@ strip = true
 panic = "abort"
 
 [build-dependencies]
-embed-resource = "2.4.2"
+embed-resource = "3"
 
 [lints.rust]
 deprecated_safe = "warn"
