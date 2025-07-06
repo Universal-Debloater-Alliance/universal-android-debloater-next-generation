@@ -194,17 +194,18 @@ where
                 event,
                 Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
             )
-                && let Some(cursor_position) = cursor.position() {
-                    let content_bounds = layout
-                        .children()
-                        .next()
-                        .expect("Layout must have at least 1 child")
-                        .bounds();
-                    if !content_bounds.contains(cursor_position) {
-                        shell.publish(message.clone());
-                        return event::Status::Captured;
-                    }
-                }
+            && let Some(cursor_position) = cursor.position()
+        {
+            let content_bounds = layout
+                .children()
+                .next()
+                .expect("Layout must have at least 1 child")
+                .bounds();
+            if !content_bounds.contains(cursor_position) {
+                shell.publish(message.clone());
+                return event::Status::Captured;
+            }
+        }
 
         self.content.as_widget_mut().on_event(
             self.tree,
