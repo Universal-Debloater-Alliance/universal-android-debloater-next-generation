@@ -59,10 +59,10 @@ pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> 
     debug!("downloading file from {url}");
 
     match ureq::get(url).call() {
-        Ok(res) => {
+        Ok(mut res) => {
             let mut file = fs::File::create(dest_file).map_err(|e| e.to_string())?;
 
-            if let Err(e) = copy(&mut res.into_reader(), &mut file) {
+            if let Err(e) = copy(&mut res.body_mut().as_reader(), &mut file) {
                 return Err(e.to_string());
             }
         }
@@ -175,10 +175,10 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
         .call() {
         let release: Release = serde_json::from_value(
-            res.into_json::<serde_json::Value>()
+            res.body_mut().read_json::<serde_json::Value>()
                 .map_err(|_| ())?
                 .clone(),
         )
