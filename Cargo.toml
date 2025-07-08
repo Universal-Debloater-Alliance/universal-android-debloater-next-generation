@@ -27,7 +27,6 @@ chrono = { version = "^0.4", default-features = false, features = [
   "clock",
 ] }
 log = "^0.4"
-regex = "^1.10.2"
 toml = "^0"
 dirs = "^6"
 ureq = { version = "3", features = ["json"] }

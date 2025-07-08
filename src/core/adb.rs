@@ -356,15 +356,66 @@ impl PmCommand {
         })
     }
 
-    /// `list users` sub-command.
-    /// Output isn't parsed, because
-    /// we don't know if the format is stable across Android versions.
+    /// `list users` sub-command, deserialized/parsed.
     ///
     /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
-    pub fn list_users(mut self) -> Result<String, String> {
+    pub fn list_users(mut self) -> Result<Box<[UserInfo]>, String> {
         self.0.0.0.args(["list", "users"]);
-        self.0.0.run()
+        Ok(self
+            .0
+            .0
+            .run()?
+            .lines()
+            .skip(1) // omit header
+            .map(|ln| {
+                // this could be optimized by making more API-stability assumptions
+                let ln = ln.trim_ascii_start();
+                let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
+                let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
+                let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
+                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
+                // the format seems to be stable across Android versions:
+                // "\tUserInfo{<id>:<name>:<flags>}"
+
+                let mut comps = ln.split(':');
+
+                let id = comps
+                    .next()
+                    .expect("There must be at least 1 ':'-separated component")
+                    .parse()
+                    .expect("string assumed to be UID numeral");
+                //let name = comps
+                //    .next()
+                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
+                //let flags = u32::from_str_radix(
+                //    comps.next().expect(
+                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
+                //    ),
+                //    16,
+                //)
+                //.expect("string assumed to be hexadecimal bit-flags");
+                UserInfo {
+                    id,
+                    //name: name.into(),
+                    //flags,
+                }
+            })
+            .collect())
+    }
+}
+
+/// Mirror of AOSP `UserInfo` Java Class
+#[derive(Debug, Clone)]
+pub struct UserInfo {
+    id: u16,
+    //name: Box<str>,
+    //flags: u32,
+}
+impl UserInfo {
+    #[must_use]
+    pub const fn get_id(&self) -> u16 {
+        self.id
     }
 }
 
