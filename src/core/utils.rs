@@ -19,6 +19,28 @@ use std::{
 pub const NAME: &str = "UAD-ng";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 
+/// Returns `true` if `c` matches the regex `\w`
+#[inline]
+#[must_use]
+pub const fn is_w(c: u8) -> bool {
+    // https://github.com/rust-lang/rust/issues/93279
+    // https://github.com/rust-lang/rust/issues/83623
+    (c == b'_') | c.is_ascii_alphanumeric()
+}
+
+/// Returns `true` if `s` matches the regex `^\w+$`
+#[must_use]
+pub const fn is_all_w_c(s: &[u8]) -> bool {
+    let mut i = 0;
+    while i < s.len() {
+        if !is_w(s[i]) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
 // Takes a time-stamp parameter,
 // for purity and testability.
 //
