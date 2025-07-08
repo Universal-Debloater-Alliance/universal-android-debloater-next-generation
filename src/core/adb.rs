@@ -39,7 +39,6 @@
 //! [see this](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/)
 
 use serde::{Deserialize, Serialize};
-use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -51,6 +50,23 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
         .expect("ADB should always output valid ASCII (or UTF-8, at least)")
         .trim_end()
         .to_string()
+}
+
+#[must_use]
+fn is_version_triple(s: &str) -> bool {
+    let mut components = s.split('.');
+    for _ in 0..3 {
+        if !components
+            .next()
+            .is_some_and(|comp| comp.as_bytes().iter().all(u8::is_ascii_digit))
+        {
+            return false;
+        }
+    }
+    if components.next().is_some() {
+        return false;
+    }
+    true
 }
 
 /// Builder object for an Android Debug Bridge CLI command,
@@ -139,19 +155,17 @@ impl ACommand {
 
         #[cfg(debug_assertions)]
         {
-            use regex::Regex;
-
-            static TRIPLE: LazyLock<Regex> = LazyLock::new(|| {
-                Regex::new(r"^Android Debug Bridge version \d+.\d+.\d+$")
-                    .unwrap_or_else(|_| unreachable!())
-            });
-            static DISTRO: LazyLock<Regex> = LazyLock::new(|| {
-                Regex::new(r"^Version \d+.\d+.\d+-\S+$").unwrap_or_else(|_| unreachable!())
-            });
+            const ADBV: &str = "Android Debug Bridge version ";
+            const V: &str = "Version ";
 
             let mut lns = out.lines();
-            assert!(lns.next().is_some_and(|ln| TRIPLE.is_match(ln)));
-            assert!(lns.next().is_some_and(|ln| DISTRO.is_match(ln)));
+
+            assert!(
+                lns.next()
+                    .is_some_and(|ln| ln.starts_with(ADBV) && is_version_triple(&ln[ADBV.len()..]))
+            );
+            assert!(lns.next().is_some_and(|ln| ln.starts_with(V)
+                && is_version_triple(&ln[V.len()..ln.find('-').unwrap_or(ln.len())])));
             // missing test for valid path
             assert!(lns.next().is_some_and(|ln| ln.starts_with("Installed as ")
                 && (ln.ends_with("adb") || ln.ends_with("adb.exe"))));
