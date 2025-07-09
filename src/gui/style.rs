@@ -1,10 +1,10 @@
 use crate::core::theme::Theme;
 use iced::overlay::menu;
+use iced::widget::text_editor;
 use iced::widget::{
     button, checkbox, container, pick_list, radio, rule, scrollable, text, text_input,
 };
 use iced::{Background, Border, Color, Shadow, application};
-use iced::widget::text_editor;
 
 #[derive(Default, Debug, Clone, Copy)]
 pub enum Application {
@@ -599,7 +599,10 @@ impl text_editor::StyleSheet for Theme {
 
     fn selection_color(&self, _style: &Self::Style) -> Color {
         let p = self.palette();
-        Color { a: 0.3, ..p.normal.primary }
+        Color {
+            a: 0.3,
+            ..p.normal.primary
+        }
     }
 
     fn disabled(&self, style: &Self::Style) -> text_editor::Appearance {
