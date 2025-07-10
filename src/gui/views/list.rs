@@ -16,7 +16,7 @@ use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use crate::gui::widgets::text;
 use iced::widget::{
     Column, Space, button, checkbox, column, container, horizontal_space, pick_list, radio, row,
-    scrollable, text_input, tooltip, vertical_rule,
+    scrollable, text_editor, text_input, tooltip, vertical_rule,
 };
 use iced::{Alignment, Command, Element, Length, Renderer, alignment};
 
@@ -39,7 +39,7 @@ pub enum LoadingState {
     FailedToUpdate,
 }
 
-#[derive(Default, Debug, Clone)]
+#[derive(Default, Debug)]
 #[allow(clippy::struct_excessive_bools, reason = "Not a state-machine")]
 pub struct List {
     pub loading_state: LoadingState,
@@ -57,6 +57,7 @@ pub struct List {
     all_selected: bool,
     pub input_value: String,
     description: String,
+    description_content: text_editor::Content,
     selection_modal: bool,
     error_modal: Option<String>,
     export_modal: bool,
@@ -89,6 +90,7 @@ pub enum Message {
     GoToUrl(PathBuf),
     ExportSelection,
     SelectionExported(Result<bool, String>),
+    DescriptionEdit(text_editor::Action),
 }
 
 pub struct SummaryEntry {
@@ -280,6 +282,8 @@ impl List {
                     }
                     RowMessage::PackagePressed => {
                         self.description = package.clone().description;
+                        self.description_content =
+                            text_editor::Content::with_text(&package.description);
                         package.current = true;
                         if self.current_package_index != i_package {
                             self.phone_packages[i_user][self.current_package_index].current = false;
@@ -352,6 +356,18 @@ impl List {
                 Command::none()
             }
             Message::Nothing => Command::none(),
+            Message::DescriptionEdit(action) => {
+                match action {
+                    text_editor::Action::Edit(_) => {
+                        // Do nothing - ignore all editing operations
+                    }
+                    // Allow all other actions (movement, selection, clicking, scrolling, etc.)
+                    _ => {
+                        self.description_content.perform(action);
+                    }
+                }
+                Command::none()
+            }
         }
     }
 
@@ -487,8 +503,9 @@ impl List {
             .height(Length::FillPortion(6))
             .style(style::Scrollable::Packages);
 
-        let description_scroll = scrollable(text(&self.description).width(Length::Fill))
-            .style(style::Scrollable::Description);
+        let description_scroll =
+            scrollable(text_editor(&self.description_content).on_action(Message::DescriptionEdit))
+                .style(style::Scrollable::Description);
 
         let description_panel = container(description_scroll)
             .padding(6)

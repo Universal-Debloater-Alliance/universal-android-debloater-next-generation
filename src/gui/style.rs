@@ -1,5 +1,6 @@
 use crate::core::theme::Theme;
 use iced::overlay::menu;
+use iced::widget::text_editor;
 use iced::widget::{
     button, checkbox, container, pick_list, radio, rule, scrollable, text, text_input,
 };
@@ -562,6 +563,50 @@ impl radio::StyleSheet for Theme {
             border_width: 2.0,
             ..active
         }
+    }
+}
+
+impl text_editor::StyleSheet for Theme {
+    type Style = ();
+
+    fn active(&self, _style: &Self::Style) -> text_editor::Appearance {
+        let p = self.palette();
+        text_editor::Appearance {
+            background: Background::Color(p.base.foreground),
+            border: Border {
+                width: 0.0,
+                radius: 0.0.into(),
+                color: Color::TRANSPARENT,
+            },
+        }
+    }
+
+    fn focused(&self, style: &Self::Style) -> text_editor::Appearance {
+        self.active(style)
+    }
+
+    fn placeholder_color(&self, _style: &Self::Style) -> Color {
+        self.palette().normal.surface
+    }
+
+    fn value_color(&self, _style: &Self::Style) -> Color {
+        self.palette().bright.surface
+    }
+
+    fn disabled_color(&self, _style: &Self::Style) -> Color {
+        self.palette().normal.surface
+    }
+
+    fn selection_color(&self, _style: &Self::Style) -> Color {
+        let p = self.palette();
+        Color {
+            a: 0.3,
+            ..p.normal.primary
+        }
+    }
+
+    fn disabled(&self, style: &Self::Style) -> text_editor::Appearance {
+        self.active(style)
     }
 }
 

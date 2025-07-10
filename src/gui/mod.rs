@@ -42,7 +42,7 @@ pub struct UpdateState {
     uad_list: UadListState,
 }
 
-#[derive(Default, Clone)]
+#[derive(Default)]
 pub struct UadGui {
     view: View,
     apps_view: AppsView,
