@@ -357,7 +357,6 @@ impl List {
             }
             Message::Nothing => Command::none(),
             Message::DescriptionEdit(action) => {
-                // Only block actual editing actions
                 match action {
                     text_editor::Action::Edit(_) => {
                         // Do nothing - ignore all editing operations
