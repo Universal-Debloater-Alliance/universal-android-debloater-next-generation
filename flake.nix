@@ -15,7 +15,6 @@
               cargo
               clang
               pkg-config
-              mold
               android-tools
             ];
 
