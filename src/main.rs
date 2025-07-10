@@ -33,7 +33,7 @@ fn main() -> iced::Result {
     gui::UadGui::start()
 }
 
-/// Sets up logging to a new file in `CACHE_DIR/UAD`_{time}.log
+/// Sets up logging to a new file in `CACHE_DIR"/uadng.log"`
 /// Also attaches the terminal on Windows machines
 /// '''
 /// match `setup_logger().expect("Error` setting up logger")
