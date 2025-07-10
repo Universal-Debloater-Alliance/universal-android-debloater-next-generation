@@ -373,10 +373,18 @@ impl PmCommand {
                 let ln = ln.trim_ascii_start();
                 let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
                 let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
+                let run;
+                let ln = if let Some(l) = ln.strip_suffix("running") {
+                    run = true;
+                    l.trim_ascii_end()
+                } else {
+                    run = false;
+                    ln
+                };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
                 // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
                 // the format seems to be stable across Android versions:
-                // "\tUserInfo{<id>:<name>:<flags>}"
+                // "\tUserInfo{<id>:<name>:<flags>}[ running]"
 
                 let mut comps = ln.split(':');
 
@@ -399,23 +407,32 @@ impl PmCommand {
                     id,
                     //name: name.into(),
                     //flags,
+                    running: run,
                 }
             })
             .collect())
     }
 }
 
-/// Mirror of AOSP `UserInfo` Java Class
+/// Mirror of AOSP `UserInfo` Java Class,
+/// with an extra field
 #[derive(Debug, Clone)]
 pub struct UserInfo {
     id: u16,
     //name: Box<str>,
     //flags: u32,
+    running: bool,
 }
 impl UserInfo {
     #[must_use]
     pub const fn get_id(&self) -> u16 {
         self.id
+    }
+    /// Check if the user was logged-in
+    /// at the time `pm list users` was invoked
+    #[must_use]
+    pub const fn was_running(&self) -> bool {
+        self.running
     }
 }
 
