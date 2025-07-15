@@ -7226,7 +7226,7 @@
   },
   "com.android.bluetooth": {
     "list": "Aosp",
-    "description": "Bluetooth service\n",
+    "description": "Bluetooth service\nHandles all Bluetooth functionality including device discovery, pairing, and data transfer.\nRemoving this will completely break Bluetooth functionality on the device.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7356,7 +7356,7 @@
   },
   "com.android.emergency": {
     "list": "Aosp",
-    "description": "Emergency rescue\nShows emergency info on lockscreen and power menu. Safe to disable if you don't want it.\nLoads on device unlock/lockscreen and power menu, so it's basically always cached in RAM, but shouldn't use much/any battery, so the main thing gained from disabling this package is the ~9MB RAM it uses.",
+    "description": "Emergency rescue\nShows emergency info on lockscreen and power menu. Safe to disable if you don't want it.\nLoads on device unlock/lockscreen and power menu, so it's basically always cached in RAM, but shouldn't use much/any battery, so the main thing gained from disabling this package is the ~9MB RAM it uses.\nRemoving this will break Safety and Emergency in Settings and you will miss SOS alerts.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16396,11 +16396,11 @@
   },
   "com.miui.global.packageinstaller": {
     "list": "Oem",
-    "description": "MIUI Package Installer. Removal causes bootloop on Xiaomi EU ROMs. Use the built-in `com.*.android.packageinstaller instead`.",
+    "description": "MIUI Package Installer. Provides sideload apps virus checker when installing APKs. Removal causes bootloop on Xiaomi.EU custom ROMs. Use the built-in com.android.packageinstaller instead.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.guardprovider": {
     "list": "Oem",
@@ -26953,7 +26953,7 @@
   },
   "com.miui.securitycore": {
     "list": "Oem",
-    "description": "Core features of the \"com.miui.securitycenter\"\nREMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn Miui 13 and above it doesnt bootloop and looks performance like the same, also this app has annoying notifications when you running new app.",
+    "description": "Core features of the \"com.miui.securitycenter\"\nProvides Enterprise Mode, Dual App, Second Space, Fingerprint Add, Gesture Settings\nREMOVING THIS MAY BOOTLOOP YOUR DEVICE! Depends on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn MIUI 13 and above it doesn't bootloop and performance appears similar, but this app shows annoying notifications when running new apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
