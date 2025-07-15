@@ -16396,11 +16396,11 @@
   },
   "com.miui.global.packageinstaller": {
     "list": "Oem",
-    "description": "MIUI Package Installer. Removal causes bootloop on Xiaomi EU ROMs. Use the built-in `com.*.android.packageinstaller instead`.",
+    "description": "MIUI Package Installer. Provides sideload apps virus checker when installing APKs. Removal causes bootloop on Xiaomi.EU custom ROMs. Use the built-in com.android.packageinstaller instead.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.guardprovider": {
     "list": "Oem",
