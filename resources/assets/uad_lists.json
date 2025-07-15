@@ -7356,7 +7356,7 @@
   },
   "com.android.emergency": {
     "list": "Aosp",
-    "description": "Emergency rescue\nShows emergency info on lockscreen and power menu. Safe to disable if you don't want it.\nLoads on device unlock/lockscreen and power menu, so it's basically always cached in RAM, but shouldn't use much/any battery, so the main thing gained from disabling this package is the ~9MB RAM it uses.",
+    "description": "Emergency rescue\nShows emergency info on lockscreen and power menu. Safe to disable if you don't want it.\nLoads on device unlock/lockscreen and power menu, so it's basically always cached in RAM, but shouldn't use much/any battery, so the main thing gained from disabling this package is the ~9MB RAM it uses.\nRemoving this will break Safety and Emergency in Settings and you will miss SOS alerts.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
