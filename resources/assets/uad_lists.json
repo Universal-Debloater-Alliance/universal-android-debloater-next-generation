@@ -27649,7 +27649,7 @@
   },
   "com.google.android.marvin.talkback": {
     "list": "Google",
-    "description": "Android Accessibility Suite (https://play.google.com/store/apps/details?id=com.google.android.marvin.talkback)\nHelps blind and vision-impaired users.\n",
+    "description": "Android Accessibility Suite (https://play.google.com/store/apps/details?id=com.google.android.marvin.talkback)\nHelps blind and visually impaired users.\nWARNING: Causes com.motorola.dynamicvolume to not display individual apps and their respective volumes when volume button pressed. Seems to revert to an older (maybe testing) version of the dynamicvolume pkg?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
