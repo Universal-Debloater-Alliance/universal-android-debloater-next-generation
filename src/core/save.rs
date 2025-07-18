@@ -52,7 +52,7 @@ pub async fn backup_phone(
             let backup_path = &*backup_dir.join(device_id);
 
             if let Err(e) = fs::create_dir_all(backup_path) {
-                error!("BACKUP: could not create backup dir: {}", e);
+                error!("BACKUP: could not create backup dir: {e}");
                 return Err(e.to_string());
             }
 
@@ -91,7 +91,7 @@ pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
             })
             .collect(),
         Err(e) => {
-            error!("[BACKUP]: Selected backup file not found: {}", e);
+            error!("[BACKUP]: Selected backup file not found: {e}");
             vec![]
         }
     }

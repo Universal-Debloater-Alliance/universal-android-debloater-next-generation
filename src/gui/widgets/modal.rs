@@ -189,22 +189,21 @@ where
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
     ) -> event::Status {
-        if let Some(message) = self.on_blur.as_ref() {
-            if matches!(
+        if let Some(message) = self.on_blur.as_ref()
+            && matches!(
                 event,
                 Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
-            ) {
-                if let Some(cursor_position) = cursor.position() {
-                    let content_bounds = layout
-                        .children()
-                        .next()
-                        .expect("Layout must have at least 1 child")
-                        .bounds();
-                    if !content_bounds.contains(cursor_position) {
-                        shell.publish(message.clone());
-                        return event::Status::Captured;
-                    }
-                }
+            )
+            && let Some(cursor_position) = cursor.position()
+        {
+            let content_bounds = layout
+                .children()
+                .next()
+                .expect("Layout must have at least 1 child")
+                .bounds();
+            if !content_bounds.contains(cursor_position) {
+                shell.publish(message.clone());
+                return event::Status::Captured;
             }
         }
 
