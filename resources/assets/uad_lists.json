@@ -23058,7 +23058,15 @@
   "com.focaltech.fingerprint": {
     "description": "Another fingerprint sensor test tool but Chinese.",
     "removal": "Recommended",
-    "list": "Oem",
+    "list": "Misc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.focaltech.fpsensormmitest": {
+    "description": "Related to `com.focaltech.fingerprint`?",
+    "removal": "Recommended",
+    "list": "Misc",
     "dependencies": [],
     "neededBy": [],
     "labels": []
@@ -23114,6 +23122,14 @@
   "com.tcl.android.launcher": {
     "description": "Smart Launcher\nStock Launcher app.",
     "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tcl.android.launcher.hotapp": {
+    "description": "Hot Apps. Unrelated to Recent Apps (launcher and/or app-switcher).\nSeemingly empty, but requests network+internet access. The manifest references `com.bumptech.glide.integration.okhttp3.OkHttpGlideModule`",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
