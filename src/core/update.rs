@@ -56,13 +56,13 @@ impl std::fmt::Display for SelfUpdateStatus {
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
 pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> {
-    debug!("downloading file from {}", url);
+    debug!("downloading file from {url}");
 
     match ureq::get(url).call() {
-        Ok(res) => {
+        Ok(mut res) => {
             let mut file = fs::File::create(dest_file).map_err(|e| e.to_string())?;
 
-            if let Err(e) = copy(&mut res.into_reader(), &mut file) {
+            if let Err(e) = copy(&mut res.body_mut().as_reader(), &mut file) {
                 return Err(e.to_string());
             }
         }
@@ -110,7 +110,7 @@ pub async fn download_update_to_temp_file(
         let archive_path = current_bin_path.parent().ok_or(())?.join(&asset_name);
 
         if let Err(e) = download_file(&asset.download_url, archive_path.clone()).await {
-            error!("Couldn't download {NAME} update: {}", e);
+            error!("Couldn't download {NAME} update: {e}");
             return Err(());
         }
 
@@ -146,23 +146,17 @@ pub async fn download_update_to_temp_file(
         let mut permissions = fs::metadata(&download_path).map_err(|_| ())?.permissions();
         permissions.set_mode(0o755);
         if let Err(e) = fs::set_permissions(&download_path, permissions) {
-            error!("[SelfUpdate] Couldn't set permission to temp file: {}", e);
+            error!("[SelfUpdate] Couldn't set permission to temp file: {e}");
             return Err(());
         }
     }
 
     if let Err(e) = rename(&current_bin_path, &tmp_path) {
-        error!(
-            "[SelfUpdate] Couldn't rename from current to temporary binary path: {}",
-            e
-        );
+        error!("[SelfUpdate] Couldn't rename from current to temporary binary path: {e}");
         return Err(());
     }
     if let Err(e) = rename(&download_path, &current_bin_path) {
-        error!(
-            "[SelfUpdate] Couldn't rename from downloaded to current binary path: {}",
-            e
-        );
+        error!("[SelfUpdate] Couldn't rename from downloaded to current binary path: {e}");
         return Err(());
     }
 
@@ -181,10 +175,10 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
         .call() {
         let release: Release = serde_json::from_value(
-            res.into_json::<serde_json::Value>()
+            res.body_mut().read_json::<serde_json::Value>()
                 .map_err(|_| ())?
                 .clone(),
         )

@@ -134,10 +134,10 @@ pub fn open_url(dir: PathBuf) {
             if !o.status.success() {
                 // does Windows print UTF-16?
                 let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
-                error!("Can't open the following URL: {}", stderr);
+                error!("Can't open the following URL: {stderr}");
             }
         }
-        Err(e) => error!("Failed to run command to open the file explorer: {}", e),
+        Err(e) => error!("Failed to run command to open the file explorer: {e}"),
     }
 }
 
@@ -194,7 +194,7 @@ impl fmt::Display for DisplayablePath {
             |p| match p.to_os_string().into_string() {
                 Ok(stem) => stem,
                 Err(e) => {
-                    error!("[PATH ENCODING]: {:?}", e);
+                    error!("[PATH ENCODING]: {e:?}");
                     "[PATH ENCODING ERROR]".to_string()
                 }
             },

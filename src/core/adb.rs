@@ -180,7 +180,7 @@ impl ACommand {
         );
         match cmd.output() {
             Err(e) => {
-                error!("ADB: {}", e);
+                error!("ADB: {e}");
                 Err("Cannot run ADB, likely not found".to_string())
             }
             Ok(o) => {

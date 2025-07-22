@@ -206,23 +206,32 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
     let mut error = false;
     let list: PackageHashMap = if remote {
         retry(Fixed::from_millis(1000).take(60), || {
-            match ureq::get(
-                &format!("https://raw.githubusercontent.com/Universal-Debloater-Alliance/universal-android-debloater/\
-           main/resources/assets/{LIST_FNAME}"),
-            )
+            match ureq::get(format!(
+                "https://raw.githubusercontent.com\
+                    /Universal-Debloater-Alliance\
+                    /universal-android-debloater\
+                    /main\
+                    /resources\
+                    /assets\
+                    /{LIST_FNAME}"
+            ))
             .call()
             {
-                Ok(data) => {
-                    // TODO: max resp size is 10MB, list is ~1.3MB;
-                    // TODO: https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
-                    #[warn(clippy::expect_used, reason = "this will panic if GH servers rate-limit the user, or many other reasons.")]
-                    let text = data.into_string().expect("response should be Ok type");
+                Ok(mut data) => {
+                    // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
+                    let text = data
+                        .body_mut()
+                        .with_config()
+                        .limit(1 << (3 + 10 + 10))
+                        .read_to_string()
+                        .expect("remote list is bigger than 8MiB");
                     fs::write(cached_uad_lists.clone(), &text).expect("Unable to write file");
-                    let list: PackageHashMap = serde_json::from_str(&text).expect("Unable to parse");
+                    let list: PackageHashMap =
+                        serde_json::from_str(&text).expect("Unable to parse");
                     OperationResult::Ok(list)
                 }
                 Err(e) => {
-                    warn!("Could not load remote debloat list: {}", e);
+                    warn!("Could not load remote debloat list: {e}");
                     error = true;
                     OperationResult::Retry(PackageHashMap::new())
                 }
