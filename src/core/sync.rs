@@ -3,11 +3,9 @@ use crate::core::{
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
-use regex::Regex;
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 use std::process::Command;
-use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -43,6 +41,7 @@ impl std::fmt::Display for Phone {
     }
 }
 
+/// `UserInfo` but relevant to UAD
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct User {
     pub id: u16,
@@ -292,29 +291,20 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
         .is_err()
 }
 
-/// `pm list users` parsed into a vector with extra info
-pub fn list_users_parsed(device_serial: &str) -> Vec<User> {
-    // this could be thread-local (no lock overhead),
-    // but then each thread would compile its own clone of the regex,
-    // I guess?
-    static RE: LazyLock<Regex> =
-        LazyLock::new(|| Regex::new(r"\{([0-9]+)").unwrap_or_else(|_| unreachable!()));
-
+pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
     AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_users()
         .map(|out| {
-            RE.find_iter(&out)
+            out.into_iter()
                 .enumerate()
                 .map(|(i, user)| {
-                    let u = user.as_str()[1..]
-                        .parse()
-                        .unwrap_or_else(|_| unreachable!("User ID must always be a valid `u16`"));
+                    let id = user.get_id();
                     User {
-                        id: u,
+                        id,
                         index: i,
-                        protected: is_protected_user(u, device_serial),
+                        protected: is_protected_user(id, device_serial),
                     }
                 })
                 .collect()
@@ -338,7 +328,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                     device_list.push(Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
-                        user_list: list_users_parsed(serial),
+                        user_list: list_users_idx_prot(serial),
                         adb_id: serial.to_string(),
                     });
                 }

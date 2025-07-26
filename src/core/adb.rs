@@ -38,18 +38,35 @@
 //! For comprehensive info about ADB,
 //! [see this](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/)
 
-use regex::Regex;
 use serde::{Deserialize, Serialize};
-use std::sync::LazyLock;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
+
+use crate::core::utils::is_all_w_c;
 
 pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
     String::from_utf8(v)
         .expect("ADB should always output valid ASCII (or UTF-8, at least)")
         .trim_end()
         .to_string()
+}
+
+#[must_use]
+fn is_version_triple(s: &str) -> bool {
+    let mut components = s.split('.');
+    for _ in 0..3 {
+        if !components
+            .next()
+            .is_some_and(|comp| comp.as_bytes().iter().all(u8::is_ascii_digit))
+        {
+            return false;
+        }
+    }
+    if components.next().is_some() {
+        return false;
+    }
+    true
 }
 
 /// Builder object for an Android Debug Bridge CLI command,
@@ -133,33 +150,30 @@ impl ACommand {
     /// ```
     #[expect(clippy::panic_in_result_fn, reason = "Assertions are fine")]
     pub fn version(mut self) -> Result<String, String> {
-        #[cfg(debug_assertions)]
-        static TRIPLE: LazyLock<Regex> = LazyLock::new(|| {
-            Regex::new(r"^Android Debug Bridge version \d+.\d+.\d+$")
-                .unwrap_or_else(|_| unreachable!())
-        });
-        #[cfg(debug_assertions)]
-        static DISTRO: LazyLock<Regex> = LazyLock::new(|| {
-            Regex::new(r"^Version \d+.\d+.\d+-\S+$").unwrap_or_else(|_| unreachable!())
-        });
-
         self.0.arg("version");
-
         let out = self.run()?;
 
         #[cfg(debug_assertions)]
-        for (i, ln) in out.lines().enumerate() {
-            assert!(match i {
-                0 => TRIPLE.is_match(ln),
-                1 => DISTRO.is_match(ln),
-                2 =>
-                // missing test for valid path
-                    ln.starts_with("Installed as ")
-                        && (ln.ends_with("adb") || ln.ends_with("adb.exe")),
-                // missing test for x86/ARM (both 64b)
-                3 => ln.starts_with("Running on "),
-                _ => unreachable!("Expected < 5 lines"),
-            });
+        {
+            const ADBV: &str = "Android Debug Bridge version ";
+            const V: &str = "Version ";
+
+            let mut lns = out.lines();
+
+            assert!(
+                lns.next()
+                    .is_some_and(|ln| ln.starts_with(ADBV) && is_version_triple(&ln[ADBV.len()..]))
+            );
+            assert!(lns.next().is_some_and(|ln| ln.starts_with(V)
+                && is_version_triple(&ln[V.len()..ln.find('-').unwrap_or(ln.len())])));
+            // missing test for valid path
+            assert!(lns.next().is_some_and(|ln| ln.starts_with("Installed as ")
+                && (ln.ends_with("adb") || ln.ends_with("adb.exe"))));
+            // missing test for x86/ARM (both 64b)
+            assert!(lns.next().is_some_and(|ln| ln.starts_with("Running on ")));
+            if lns.next().is_some() {
+                unreachable!("Expected < 5 lines")
+            }
         }
 
         Ok(out)
@@ -230,6 +244,19 @@ impl ShellCommand {
     }
 }
 
+#[must_use]
+pub const fn is_pkg_component(s: &[u8]) -> bool {
+    if s.is_empty() {
+        return false;
+    }
+    s[0].is_ascii_alphabetic()
+        && if s.len() > 1 {
+            is_all_w_c(s.split_at(1).1)
+        } else {
+            true
+        }
+}
+
 /// String with the invariant of being a valid package-name.
 /// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
@@ -238,12 +265,16 @@ impl PackageId {
     /// Creates a package-ID if it's valid according to
     /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
     pub fn new(p_id: Box<str>) -> Option<Self> {
-        static RE: LazyLock<Regex> = LazyLock::new(|| {
-            Regex::new(r"^[a-zA-Z][a-zA-Z0-9_]*(?:\.[a-zA-Z][a-zA-Z0-9_]*)+$")
-                .unwrap_or_else(|_| unreachable!())
-        });
-
-        if RE.is_match(p_id.as_ref()) {
+        let mut components = p_id.split('.');
+        for _ in 0..2 {
+            if !components
+                .next()
+                .is_some_and(|comp| is_pkg_component(comp.as_bytes()))
+            {
+                return None;
+            }
+        }
+        if components.all(|comp| is_pkg_component(comp.as_bytes())) {
             Some(Self(p_id))
         } else {
             None
@@ -316,21 +347,92 @@ impl PmCommand {
                 .lines()
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    String::from(&p_ln[PACK_PREFIX.len()..])
+                    let p = &p_ln[PACK_PREFIX.len()..];
+                    #[cfg(debug_assertions)]
+                    assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    String::from(p)
                 })
                 .collect()
         })
     }
 
-    /// `list users` sub-command.
-    /// Output isn't parsed, because
-    /// we don't know if the format is stable across Android versions.
+    /// `list users` sub-command, deserialized/parsed.
     ///
     /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
-    pub fn list_users(mut self) -> Result<String, String> {
+    pub fn list_users(mut self) -> Result<Box<[UserInfo]>, String> {
         self.0.0.0.args(["list", "users"]);
-        self.0.0.run()
+        Ok(self
+            .0
+            .0
+            .run()?
+            .lines()
+            .skip(1) // omit header
+            .map(|ln| {
+                // this could be optimized by making more API-stability assumptions
+                let ln = ln.trim_ascii_start();
+                let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
+                let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
+                let run;
+                let ln = if let Some(l) = ln.strip_suffix("running") {
+                    run = true;
+                    l.trim_ascii_end()
+                } else {
+                    run = false;
+                    ln
+                };
+                let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
+                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
+                // the format seems to be stable across Android versions:
+                // "\tUserInfo{<id>:<name>:<flags>}[ running]"
+
+                let mut comps = ln.split(':');
+
+                let id = comps
+                    .next()
+                    .expect("There must be at least 1 ':'-separated component")
+                    .parse()
+                    .expect("string assumed to be UID numeral");
+                //let name = comps
+                //    .next()
+                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
+                //let flags = u32::from_str_radix(
+                //    comps.next().expect(
+                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
+                //    ),
+                //    16,
+                //)
+                //.expect("string assumed to be hexadecimal bit-flags");
+                UserInfo {
+                    id,
+                    //name: name.into(),
+                    //flags,
+                    running: run,
+                }
+            })
+            .collect())
+    }
+}
+
+/// Mirror of AOSP `UserInfo` Java Class,
+/// with an extra field
+#[derive(Debug, Clone)]
+pub struct UserInfo {
+    id: u16,
+    //name: Box<str>,
+    //flags: u32,
+    running: bool,
+}
+impl UserInfo {
+    #[must_use]
+    pub const fn get_id(&self) -> u16 {
+        self.id
+    }
+    /// Check if the user was logged-in
+    /// at the time `pm list users` was invoked
+    #[must_use]
+    pub const fn was_running(&self) -> bool {
+        self.running
     }
 }
 
