@@ -38250,6 +38250,78 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+ "com.yandex.browser": {
+    "list": "rus gov",
+    "description": "rus Yandex browser, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "com.yandex.searchapp": {
+    "list": "rus gov",
+    "description": "rus Yandex search, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.yandex.yandexmaps": {
+    "list": "rus gov",
+    "description": "rus Yandex maps, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },  
+ "ru.vk.store": {
+    "list": "rus gov",
+    "description": "Rustore, rus app market, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.ivi.client": {
+    "list": "rus gov",
+    "description": "Ivi, rus video service, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.litres.android": {
+    "list": "rus gov",
+    "description": "Litres, rus bookstore service, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.ivi.client": {
+    "list": "rus gov",
+    "description": "Ivi, rus video service, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.ozon.app.android": {
+    "list": "rus gov",
+    "description": "Ozon, rus marketplace, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+ "ru.dublgis.dgismobile": {
+    "list": "rus gov",
+    "description": "2GIS, rus mapping service, preinstalled by rus law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
 
