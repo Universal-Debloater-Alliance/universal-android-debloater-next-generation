@@ -375,7 +375,9 @@ impl List {
                 self.copy_confirmation = true;
                 Command::batch(vec![
                     iced::clipboard::write::<Message>(err),
-                    Command::perform(Self::delay_hide_copy_confirmation(), |_| Message::HideCopyConfirmation)
+                    Command::perform(Self::delay_hide_copy_confirmation(), |_| {
+                        Message::HideCopyConfirmation
+                    }),
                 ])
             }
             Message::HideCopyConfirmation => {
@@ -945,13 +947,25 @@ fn error_view<'a>(
 
     let modal_btn_row = row![
         button(
-            text(if copy_confirmation { "Copied!" } else { "Copy error" })
-                .width(Length::Fill)
-                .horizontal_alignment(alignment::Horizontal::Center),
+            text(if copy_confirmation {
+                "Copied!"
+            } else {
+                "Copy error"
+            })
+            .width(Length::Fill)
+            .horizontal_alignment(alignment::Horizontal::Center),
         )
         .width(Length::Fill)
-        .on_press_maybe(if copy_confirmation { None } else { Some(Message::CopyError(error.to_string())) })
-        .style(if copy_confirmation { style::Button::Primary } else { style::Button::default() }),
+        .on_press_maybe(if copy_confirmation {
+            None
+        } else {
+            Some(Message::CopyError(error.to_string()))
+        })
+        .style(if copy_confirmation {
+            style::Button::Primary
+        } else {
+            style::Button::default()
+        }),
         button(
             text("Close")
                 .width(Length::Fill)
