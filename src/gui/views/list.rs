@@ -91,6 +91,7 @@ pub enum Message {
     ExportSelection,
     SelectionExported(Result<bool, String>),
     DescriptionEdit(text_editor::Action),
+    CopyError(String),
 }
 
 pub struct SummaryEntry {
@@ -368,6 +369,7 @@ impl List {
                 }
                 Command::none()
             }
+            Message::CopyError(err) => iced::clipboard::write::<Message>(err),
         }
     }
 
@@ -925,6 +927,13 @@ fn error_view<'a>(
     .center_x();
 
     let modal_btn_row = row![
+        button(
+            text("Copy error")
+                .width(Length::Fill)
+                .horizontal_alignment(alignment::Horizontal::Center),
+        )
+        .width(Length::Fill)
+        .on_press(Message::CopyError(error.to_string())),
         button(
             text("Close")
                 .width(Length::Fill)
