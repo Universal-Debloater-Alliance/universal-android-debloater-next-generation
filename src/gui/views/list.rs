@@ -63,6 +63,7 @@ pub struct List {
     export_modal: bool,
     current_package_index: usize,
     is_adb_satisfied: bool,
+    copy_confirmation: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -92,6 +93,7 @@ pub enum Message {
     SelectionExported(Result<bool, String>),
     DescriptionEdit(text_editor::Action),
     CopyError(String),
+    HideCopyConfirmation,
 }
 
 pub struct SummaryEntry {
@@ -369,7 +371,17 @@ impl List {
                 }
                 Command::none()
             }
-            Message::CopyError(err) => iced::clipboard::write::<Message>(err),
+            Message::CopyError(err) => {
+                self.copy_confirmation = true;
+                Command::batch(vec![
+                    iced::clipboard::write::<Message>(err),
+                    Command::perform(Self::delay_hide_copy_confirmation(), |_| Message::HideCopyConfirmation)
+                ])
+            }
+            Message::HideCopyConfirmation => {
+                self.copy_confirmation = false;
+                Command::none()
+            }
         }
     }
 
@@ -638,7 +650,7 @@ impl List {
         }
 
         if let Some(err) = &self.error_modal {
-            error_view(err, content).into()
+            error_view(err, content, self.copy_confirmation).into()
         } else {
             container(content).height(Length::Fill).padding(10).into()
         }
@@ -911,11 +923,16 @@ impl List {
             }
         }
     }
+
+    async fn delay_hide_copy_confirmation() {
+        std::thread::sleep(std::time::Duration::from_secs(1));
+    }
 }
 
 fn error_view<'a>(
     error: &'a str,
     content: Column<'a, Message, Theme, Renderer>,
+    copy_confirmation: bool,
 ) -> Modal<'a, Message, Theme, Renderer> {
     let title_ctn = container(
         row![text("Failed to perform ADB operation").size(24)].align_items(Alignment::Center),
@@ -928,12 +945,13 @@ fn error_view<'a>(
 
     let modal_btn_row = row![
         button(
-            text("Copy error")
+            text(if copy_confirmation { "Copied!" } else { "Copy error" })
                 .width(Length::Fill)
                 .horizontal_alignment(alignment::Horizontal::Center),
         )
         .width(Length::Fill)
-        .on_press(Message::CopyError(error.to_string())),
+        .on_press_maybe(if copy_confirmation { None } else { Some(Message::CopyError(error.to_string())) })
+        .style(if copy_confirmation { style::Button::Primary } else { style::Button::default() }),
         button(
             text("Close")
                 .width(Length::Fill)
