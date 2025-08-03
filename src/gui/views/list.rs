@@ -364,6 +364,7 @@ impl List {
                     text_editor::Action::Edit(_) => {
                         // Do nothing - ignore all editing operations
                     }
+                    text_editor::Action::Scroll { lines } => { }
                     // Allow all other actions (movement, selection, clicking, scrolling, etc.)
                     _ => {
                         self.description_content.perform(action);
