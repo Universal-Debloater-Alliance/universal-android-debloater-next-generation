@@ -1,16 +1,11 @@
 use crate::core::utils::NAME;
-
 use serde::Deserialize;
-
-#[cfg(feature = "self-update")]
-use {
-    retry::{OperationResult, delay::Fibonacci, retry},
-    std::fs,
-    std::io,
-    std::io::copy,
-    std::path::Path,
-    std::path::PathBuf,
-};
+use retry::{OperationResult, delay::Fibonacci};
+use std::fs;
+use std::io;
+use std::io::copy;
+use std::path::Path;
+use std::path::PathBuf;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Release {
@@ -52,23 +47,58 @@ impl std::fmt::Display for SelfUpdateStatus {
     }
 }
 
+#[derive(Debug)]
+pub enum UpdateError {
+    Network(String),
+    JsonParse(String),
+    FileIo(String),
+    InvalidVersion(String),
+    RateLimit,
+}
+
+impl std::fmt::Display for UpdateError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            UpdateError::Network(e) => write!(f, "Network error: {}", e),
+            UpdateError::JsonParse(e) => write!(f, "JSON parsing error: {}", e),
+            UpdateError::FileIo(e) => write!(f, "File I/O error: {}", e),
+            UpdateError::InvalidVersion(e) => write!(f, "Invalid version: {}", e),
+            UpdateError::RateLimit => write!(f, "GitHub API rate limit exceeded"),
+        }
+    }
+}
+
 /// Download a file from the internet
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
-pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> {
+pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), UpdateError> {
     debug!("downloading file from {url}");
 
-    match ureq::get(url).call() {
-        Ok(mut res) => {
-            let mut file = fs::File::create(dest_file).map_err(|e| e.to_string())?;
-
-            if let Err(e) = copy(&mut res.body_mut().as_reader(), &mut file) {
-                return Err(e.to_string());
+    let result = retry(Fibonacci::from_millis(100).take(5), || {
+        match ureq::get(url).timeout(std::time::Duration::from_secs(10)).call() {
+            Ok(response) => {
+                if response.status() == 429 {
+                    OperationResult::Retry(UpdateError::RateLimit)
+                } else if response.status() == 200 {
+                    OperationResult::Ok(response)
+                } else {
+                    OperationResult::Err(UpdateError::Network(format!("HTTP {}", response.status())))
+                }
             }
+            Err(e) => OperationResult::Err(UpdateError::Network(e.to_string())),
         }
-        Err(e) => return Err(e.to_string()),
+    });
+
+    match result {
+        Ok(response) => {
+            let mut file = fs::File::create(&dest_file).map_err(|e| UpdateError::FileIo(e.to_string()))?;
+            copy(&mut response.body_mut().as_reader(), &mut file)
+                .map_err(|e| UpdateError::FileIo(e.to_string()))?;
+            Ok(())
+        }
+        Err(UpdateError::RateLimit) => Err(UpdateError::RateLimit),
+        Err(e) => Err(e),
     }
-    Ok(())
 }
 
 /// Downloads the latest release file that matches `bin_name`, renames the current
@@ -78,51 +108,36 @@ pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> 
 pub async fn download_update_to_temp_file(
     bin_name: &str,
     release: Release,
-) -> Result<(PathBuf, PathBuf), ()> {
-    let current_bin_path = std::env::current_exe().map_err(|_| ())?;
+) -> Result<(PathBuf, PathBuf), UpdateError> {
+    let current_bin_path = std::env::current_exe().map_err(|e| UpdateError::FileIo(e.to_string()))?;
 
-    // Path to download the new version to
     let download_path = current_bin_path
         .parent()
-        .ok_or(())?
+        .ok_or(UpdateError::FileIo("No parent directory".to_string()))?
         .join(format!("tmp_{bin_name}"));
 
-    // Path to temporarily force rename current process to, se we can then
-    // rename `download_path` to `current_bin_path` and then launch new version
-    // cleanly as `current_bin_path`
     let tmp_path = current_bin_path
         .parent()
-        .ok_or(())?
+        .ok_or(UpdateError::FileIo("No parent directory".to_string()))?
         .join(format!("tmp2_{bin_name}"));
 
-    // MacOS and Linux release are gziped tarball
     #[cfg(not(target_os = "windows"))]
     {
         let asset_name = format!("{bin_name}.tar.gz");
-
         let asset = release
             .assets
             .iter()
             .find(|a| a.name == asset_name)
             .cloned()
-            .ok_or(())?;
+            .ok_or(UpdateError::FileIo("Asset not found".to_string()))?;
 
-        let archive_path = current_bin_path.parent().ok_or(())?.join(&asset_name);
+        let archive_path = current_bin_path.parent().ok_or(UpdateError::FileIo("No parent directory".to_string()))?.join(&asset_name);
 
-        if let Err(e) = download_file(&asset.download_url, archive_path.clone()).await {
-            error!("Couldn't download {NAME} update: {e}");
-            return Err(());
-        }
-
-        if extract_binary_from_tar(&archive_path, &download_path).is_err() {
-            error!("Couldn't extract {NAME} release tarball");
-            return Err(());
-        }
-
-        std::fs::remove_file(&archive_path).map_err(|_| ())?;
+        download_file(&asset.download_url, archive_path.clone()).await?;
+        extract_binary_from_tar(&archive_path, &download_path).map_err(|e| UpdateError::FileIo(e.to_string()))?;
+        fs::remove_file(&archive_path).map_err(|e| UpdateError::FileIo(e.to_string()))?;
     }
 
-    // For Windows we download the new binary directly
     #[cfg(target_os = "windows")]
     {
         let asset = release
@@ -130,35 +145,21 @@ pub async fn download_update_to_temp_file(
             .iter()
             .find(|a| a.name == bin_name)
             .cloned()
-            .ok_or(())?;
+            .ok_or(UpdateError::FileIo("Asset not found".to_string()))?;
 
-        if let Err(e) = download_file(&asset.download_url, download_path.clone()).await {
-            error!("Couldn't download {NAME} update: {}", e);
-            return Err(());
-        }
+        download_file(&asset.download_url, download_path.clone()).await?;
     }
 
-    // Make the file executable
     #[cfg(not(target_os = "windows"))]
     {
         use std::os::unix::fs::PermissionsExt;
-
-        let mut permissions = fs::metadata(&download_path).map_err(|_| ())?.permissions();
+        let mut permissions = fs::metadata(&download_path).map_err(|e| UpdateError::FileIo(e.to_string()))?.permissions();
         permissions.set_mode(0o755);
-        if let Err(e) = fs::set_permissions(&download_path, permissions) {
-            error!("[SelfUpdate] Couldn't set permission to temp file: {e}");
-            return Err(());
-        }
+        fs::set_permissions(&download_path, permissions).map_err(|e| UpdateError::FileIo(e.to_string()))?;
     }
 
-    if let Err(e) = rename(&current_bin_path, &tmp_path) {
-        error!("[SelfUpdate] Couldn't rename from current to temporary binary path: {e}");
-        return Err(());
-    }
-    if let Err(e) = rename(&download_path, &current_bin_path) {
-        error!("[SelfUpdate] Couldn't rename from downloaded to current binary path: {e}");
-        return Err(());
-    }
+    rename(&current_bin_path, &tmp_path)?;
+    rename(&download_path, &current_bin_path)?;
 
     Ok((current_bin_path, tmp_path))
 }
@@ -168,38 +169,47 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
     Ok(None)
 }
 
-// UAD-ng only has pre-releases so we can't use
-// https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest
-// to only get the latest release
 #[cfg(feature = "self-update")]
-pub fn get_latest_release() -> Result<Option<Release>, ()> {
+pub fn get_latest_release() -> Result<Option<Release>, UpdateError> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
-        .call() {
-        let release: Release = serde_json::from_value(
-            res.body_mut().read_json::<serde_json::Value>()
-                .map_err(|_| ())?
-                .clone(),
-        )
-        .map_err(|_| ())?;
-
-        let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
-
-        if release_version != "dev-build"
-            && release_version > env!("CARGO_PKG_VERSION")
+    let result = retry(Fibonacci::from_millis(100).take(5), || {
+        match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+            .timeout(std::time::Duration::from_secs(10))
+            .call()
         {
-            Ok(Some(release))
-        } else {
-            Ok(None)
+            Ok(response) => {
+                if response.status() == 429 {
+                    OperationResult::Retry(UpdateError::RateLimit)
+                } else if response.status() == 200 {
+                    OperationResult::Ok(response)
+                } else {
+                    OperationResult::Err(UpdateError::Network(format!("HTTP {}", response.status())))
+                }
+            }
+            Err(e) => OperationResult::Err(UpdateError::Network(e.to_string())),
         }
-    } else {
-        debug!("Failed to check {NAME} update");
-        Err(())
+    });
+
+    match result {
+        Ok(response) => {
+            let json = response.body_mut().read_json::<serde_json::Value>()
+                .map_err(|e| UpdateError::JsonParse(e.to_string()))?;
+            let release: Release = serde_json::from_value(json)
+                .map_err(|e| UpdateError::JsonParse(e.to_string()))?;
+
+            let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
+            if release_version != "dev-build" && release_version > env!("CARGO_PKG_VERSION") {
+                Ok(Some(release))
+            } else {
+                Ok(None)
+            }
+        }
+        Err(UpdateError::RateLimit) => Err(UpdateError::RateLimit),
+        Err(e) => Err(e),
     }
 }
 
-/// Extracts the binary from a `tar.gz` archive to `temp_file` path
 #[cfg(feature = "self-update")]
 #[cfg(not(target_os = "windows"))]
 pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Result<()> {
@@ -207,14 +217,12 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
     use std::fs::File;
     use tar::Archive;
     let mut archive = Archive::new(GzDecoder::new(File::open(archive_path)?));
-
     let mut temp_file = File::create(temp_file)?;
 
     for file in archive.entries()? {
         let mut file = file?;
-
         let path = file.path()?;
-        if path.to_str().is_some() {
+        if path.to_str().map(|s| s.contains("uad-ng")).unwrap_or(false) {
             io::copy(&mut file, &mut temp_file)?;
             return Ok(());
         }
@@ -222,47 +230,26 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
     Err(io::ErrorKind::NotFound.into())
 }
 
-/// Hardcoded binary names for each compilation target
-/// that gets published to the GitHub Release
 #[cfg(feature = "self-update")]
 pub const BIN_NAME: &str = {
     #[cfg(target_os = "windows")]
-    {
-        "uad-ng-windows.exe"
-    }
-
+    { "uad-ng-windows.exe" }
     #[cfg(all(target_os = "macos", any(target_arch = "x86_64", target_arch = "x86")))]
-    {
-        "uad-ng-macos-intel"
-    }
-
+    { "uad-ng-macos-intel" }
     #[cfg(all(target_os = "macos", any(target_arch = "arm", target_arch = "aarch64")))]
-    {
-        "uad-ng-macos"
-    }
-
+    { "uad-ng-macos" }
     #[cfg(not(any(target_os = "macos", target_os = "windows")))]
-    {
-        "uad-ng-linux"
-    }
+    { "uad-ng-linux" }
 };
 
-/// Rename a file or directory to a new name, retrying if the operation fails because of permissions
-///
-/// Will retry for ~30 seconds with longer and longer delays between each, to allow for virus scan
-/// and other automated operations to complete.
 #[cfg(feature = "self-update")]
 pub fn rename<F, T>(from: F, to: T) -> Result<(), String>
 where
     F: AsRef<Path>,
     T: AsRef<Path>,
 {
-    // 21 Fibonacci steps starting at 1 ms is ~28 seconds total
-    // See https://github.com/rust-lang/rustup/pull/1873 where this was used by Rustup to work around
-    // virus scanning file locks
     let from = from.as_ref();
     let to = to.as_ref();
-
     retry(Fibonacci::from_millis(1).take(21), || {
         match fs::rename(from, to) {
             Ok(()) => OperationResult::Ok(()),
@@ -275,20 +262,12 @@ where
     .map_err(|e| e.to_string())
 }
 
-/// Remove a file, retrying if the operation fails because of permissions
-///
-/// Will retry for ~30 seconds with longer and longer delays between each, to allow for virus scan
-/// and other automated operations to complete.
 #[cfg(feature = "self-update")]
 pub fn remove_file<P>(path: P) -> Result<(), String>
 where
     P: AsRef<Path>,
 {
-    // 21 Fibonacci steps starting at 1 ms is ~28 seconds total
-    // See https://github.com/rust-lang/rustup/pull/1873 where this was used by Rustup to work around
-    // virus scanning file locks
     let path = path.as_ref();
-
     retry(
         Fibonacci::from_millis(1).take(21),
         || match fs::remove_file(path) {
