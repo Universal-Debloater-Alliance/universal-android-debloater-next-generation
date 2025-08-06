@@ -6,6 +6,7 @@ use std::io;
 use std::io::copy;
 use std::path::Path;
 use std::path::PathBuf;
+use std::time::Duration;
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Release {
@@ -53,7 +54,7 @@ pub enum UpdateError {
     JsonParse(String),
     FileIo(String),
     InvalidVersion(String),
-    RateLimit,
+    RateLimit(u64), // Include Retry-After duration in seconds
 }
 
 impl std::fmt::Display for UpdateError {
@@ -63,7 +64,7 @@ impl std::fmt::Display for UpdateError {
             UpdateError::JsonParse(e) => write!(f, "JSON parsing error: {}", e),
             UpdateError::FileIo(e) => write!(f, "File I/O error: {}", e),
             UpdateError::InvalidVersion(e) => write!(f, "Invalid version: {}", e),
-            UpdateError::RateLimit => write!(f, "GitHub API rate limit exceeded"),
+            UpdateError::RateLimit(seconds) => write!(f, "GitHub API rate limit exceeded, retry after {} seconds", seconds),
         }
     }
 }
@@ -72,13 +73,23 @@ impl std::fmt::Display for UpdateError {
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
 pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), UpdateError> {
-    debug!("downloading file from {url}");
+    debug!("Downloading file from {}", url);
 
     let result = retry(Fibonacci::from_millis(100).take(5), || {
-        match ureq::get(url).timeout(std::time::Duration::from_secs(10)).call() {
+        match ureq::get(url)
+            .timeout(Duration::from_secs(15)) // Increased timeout for CI
+            .set("User-Agent", &format!("{}/{}", NAME, env!("CARGO_PKG_VERSION"))) // Proper User-Agent
+            .call()
+        {
             Ok(response) => {
                 if response.status() == 429 {
-                    OperationResult::Retry(UpdateError::RateLimit)
+                    // Check Retry-After header
+                    let retry_after = response
+                        .header("Retry-After")
+                        .and_then(|s| s.parse::<u64>().ok())
+                        .unwrap_or(60); // Default to 60 seconds
+                    debug!("Rate limit hit, retry after {} seconds", retry_after);
+                    OperationResult::Retry(UpdateError::RateLimit(retry_after))
                 } else if response.status() == 200 {
                     OperationResult::Ok(response)
                 } else {
@@ -91,12 +102,16 @@ pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), UpdateEr
 
     match result {
         Ok(response) => {
-            let mut file = fs::File::create(&dest_file).map_err(|e| UpdateError::FileIo(e.to_string()))?;
-            copy(&mut response.body_mut().as_reader(), &mut file)
-                .map_err(|e| UpdateError::FileIo(e.to_string()))?;
+            let mut file = fs::File::create(&dest_file).map_err(|e| UpdateError::FileIo(format!("Failed to create file {}: {}", dest_file.display(), e)))?;
+            copy(&mut response.into_reader(), &mut file)
+                .map_err(|e| UpdateError::FileIo(format!("Failed to write to file {}: {}", dest_file.display(), e)))?;
+            debug!("Successfully downloaded file to {}", dest_file.display());
             Ok(())
         }
-        Err(UpdateError::RateLimit) => Err(UpdateError::RateLimit),
+        Err(UpdateError::RateLimit(seconds)) => {
+            std::thread::sleep(Duration::from_secs(seconds)); // Respect Retry-After
+            Err(UpdateError::RateLimit(seconds))
+        }
         Err(e) => Err(e),
     }
 }
@@ -109,16 +124,17 @@ pub async fn download_update_to_temp_file(
     bin_name: &str,
     release: Release,
 ) -> Result<(PathBuf, PathBuf), UpdateError> {
-    let current_bin_path = std::env::current_exe().map_err(|e| UpdateError::FileIo(e.to_string()))?;
+    let current_bin_path = std::env::current_exe()
+        .map_err(|e| UpdateError::FileIo(format!("Failed to get current executable: {}", e)))?;
 
     let download_path = current_bin_path
         .parent()
-        .ok_or(UpdateError::FileIo("No parent directory".to_string()))?
+        .ok_or(UpdateError::FileIo("No parent directory for current executable".to_string()))?
         .join(format!("tmp_{bin_name}"));
 
     let tmp_path = current_bin_path
         .parent()
-        .ok_or(UpdateError::FileIo("No parent directory".to_string()))?
+        .ok_or(UpdateError::FileIo("No parent directory for current executable".to_string()))?
         .join(format!("tmp2_{bin_name}"));
 
     #[cfg(not(target_os = "windows"))]
@@ -129,13 +145,21 @@ pub async fn download_update_to_temp_file(
             .iter()
             .find(|a| a.name == asset_name)
             .cloned()
-            .ok_or(UpdateError::FileIo("Asset not found".to_string()))?;
+            .ok_or(UpdateError::FileIo(format!("Asset {} not found", asset_name)))?;
 
-        let archive_path = current_bin_path.parent().ok_or(UpdateError::FileIo("No parent directory".to_string()))?.join(&asset_name);
+        let archive_path = current_bin_path
+            .parent()
+            .ok_or(UpdateError::FileIo("No parent directory".to_string()))?
+            .join(&asset_name);
 
+        debug!("Downloading archive to {}", archive_path.display());
         download_file(&asset.download_url, archive_path.clone()).await?;
-        extract_binary_from_tar(&archive_path, &download_path).map_err(|e| UpdateError::FileIo(e.to_string()))?;
-        fs::remove_file(&archive_path).map_err(|e| UpdateError::FileIo(e.to_string()))?;
+        debug!("Extracting binary from {}", archive_path.display());
+        extract_binary_from_tar(&archive_path, &download_path)
+            .map_err(|e| UpdateError::FileIo(format!("Failed to extract tar: {}", e)))?;
+        debug!("Removing archive {}", archive_path.display());
+        fs::remove_file(&archive_path)
+            .map_err(|e| UpdateError::FileIo(format!("Failed to remove archive {}: {}", archive_path.display(), e)))?;
     }
 
     #[cfg(target_os = "windows")]
@@ -145,21 +169,29 @@ pub async fn download_update_to_temp_file(
             .iter()
             .find(|a| a.name == bin_name)
             .cloned()
-            .ok_or(UpdateError::FileIo("Asset not found".to_string()))?;
+            .ok_or(UpdateError::FileIo(format!("Asset {} not found", bin_name)))?;
 
+        debug!("Downloading Windows binary to {}", download_path.display());
         download_file(&asset.download_url, download_path.clone()).await?;
     }
 
     #[cfg(not(target_os = "windows"))]
     {
         use std::os::unix::fs::PermissionsExt;
-        let mut permissions = fs::metadata(&download_path).map_err(|e| UpdateError::FileIo(e.to_string()))?.permissions();
+        let mut permissions = fs::metadata(&download_path)
+            .map_err(|e| UpdateError::FileIo(format!("Failed to get metadata for {}: {}", download_path.display(), e)))?
+            .permissions();
         permissions.set_mode(0o755);
-        fs::set_permissions(&download_path, permissions).map_err(|e| UpdateError::FileIo(e.to_string()))?;
+        fs::set_permissions(&download_path, permissions)
+            .map_err(|e| UpdateError::FileIo(format!("Failed to set permissions for {}: {}", download_path.display(), e)))?;
     }
 
-    rename(&current_bin_path, &tmp_path)?;
-    rename(&download_path, &current_bin_path)?;
+    debug!("Renaming current binary {} to {}", current_bin_path.display(), tmp_path.display());
+    rename(&current_bin_path, &tmp_path)
+        .map_err(|e| UpdateError::FileIo(format!("Failed to rename binary: {}", e)))?;
+    debug!("Renaming downloaded binary {} to {}", download_path.display(), current_bin_path.display());
+    rename(&download_path, &current_bin_path)
+        .map_err(|e| UpdateError::FileIo(format!("Failed to rename downloaded binary: {}", e)))?;
 
     Ok((current_bin_path, tmp_path))
 }
@@ -171,16 +203,23 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
 
 #[cfg(feature = "self-update")]
 pub fn get_latest_release() -> Result<Option<Release>, UpdateError> {
-    debug!("Checking for {NAME} update");
+    debug!("Checking for {} update", NAME);
 
     let result = retry(Fibonacci::from_millis(100).take(5), || {
         match ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
-            .timeout(std::time::Duration::from_secs(10))
+            .timeout(Duration::from_secs(15)) // Increased timeout for CI
+            .set("User-Agent", &format!("{}/{}", NAME, env!("CARGO_PKG_VERSION"))) // Proper User-Agent
             .call()
         {
             Ok(response) => {
                 if response.status() == 429 {
-                    OperationResult::Retry(UpdateError::RateLimit)
+                    // Check Retry-After header
+                    let retry_after = response
+                        .header("Retry-After")
+                        .and_then(|s| s.parse::<u64>().ok())
+                        .unwrap_or(60); // Default to 60 seconds
+                    debug!("Rate limit hit, retry after {} seconds", retry_after);
+                    OperationResult::Retry(UpdateError::RateLimit(retry_after))
                 } else if response.status() == 200 {
                     OperationResult::Ok(response)
                 } else {
@@ -193,19 +232,28 @@ pub fn get_latest_release() -> Result<Option<Release>, UpdateError> {
 
     match result {
         Ok(response) => {
-            let json = response.body_mut().read_json::<serde_json::Value>()
-                .map_err(|e| UpdateError::JsonParse(e.to_string()))?;
+            let body = response.into_string().map_err(|e| UpdateError::JsonParse(format!("Failed to read response: {}", e)))?;
+            if body.is_empty() {
+                return Err(UpdateError::JsonParse("Empty response from GitHub API".to_string()));
+            }
+            let json = serde_json::from_str::<serde_json::Value>(&body)
+                .map_err(|e| UpdateError::JsonParse(format!("Failed to parse JSON: {}", e)))?;
             let release: Release = serde_json::from_value(json)
-                .map_err(|e| UpdateError::JsonParse(e.to_string()))?;
+                .map_err(|e| UpdateError::JsonParse(format!("Failed to deserialize release: {}", e)))?;
 
             let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
             if release_version != "dev-build" && release_version > env!("CARGO_PKG_VERSION") {
+                debug!("Found newer release: {}", release_version);
                 Ok(Some(release))
             } else {
+                debug!("No newer release found (current: {}, latest: {})", env!("CARGO_PKG_VERSION"), release_version);
                 Ok(None)
             }
         }
-        Err(UpdateError::RateLimit) => Err(UpdateError::RateLimit),
+        Err(UpdateError::RateLimit(seconds)) => {
+            std::thread::sleep(Duration::from_secs(seconds)); // Respect Retry-After
+            Err(UpdateError::RateLimit(seconds))
+        }
         Err(e) => Err(e),
     }
 }
@@ -223,11 +271,12 @@ pub fn extract_binary_from_tar(archive_path: &Path, temp_file: &Path) -> io::Res
         let mut file = file?;
         let path = file.path()?;
         if path.to_str().map(|s| s.contains("uad-ng")).unwrap_or(false) {
+            debug!("Extracting binary from tar: {}", path.display());
             io::copy(&mut file, &mut temp_file)?;
             return Ok(());
         }
     }
-    Err(io::ErrorKind::NotFound.into())
+    Err(io::Error::new(io::ErrorKind::NotFound, "Binary not found in archive"))
 }
 
 #[cfg(feature = "self-update")]
@@ -250,16 +299,17 @@ where
 {
     let from = from.as_ref();
     let to = to.as_ref();
+    debug!("Renaming {} to {}", from.display(), to.display());
     retry(Fibonacci::from_millis(1).take(21), || {
         match fs::rename(from, to) {
             Ok(()) => OperationResult::Ok(()),
             Err(e) => match e.kind() {
-                io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
+                io::ErrorKind::PermissionDenied | io::ErrorKind::NotFound => OperationResult::Retry(e),
                 _ => OperationResult::Err(e),
             },
         }
     })
-    .map_err(|e| e.to_string())
+    .map_err(|e| format!("Failed to rename {} to {}: {}", from.display(), to.display(), e))
 }
 
 #[cfg(feature = "self-update")]
@@ -268,15 +318,16 @@ where
     P: AsRef<Path>,
 {
     let path = path.as_ref();
+    debug!("Removing file {}", path.display());
     retry(
         Fibonacci::from_millis(1).take(21),
         || match fs::remove_file(path) {
             Ok(()) => OperationResult::Ok(()),
             Err(e) => match e.kind() {
-                io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
+                io::ErrorKind::PermissionDenied | io::ErrorKind::NotFound => OperationResult::Retry(e),
                 _ => OperationResult::Err(e),
             },
         },
     )
-    .map_err(|e| e.to_string())
+    .map_err(|e| format!("Failed to remove {}: {}", path.display(), e))
 }
