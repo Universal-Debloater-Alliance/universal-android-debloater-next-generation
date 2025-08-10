@@ -333,7 +333,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
                         user_list: list_users_idx_prot(serial),
-                        adb_id: serial.to_string(),
+                        adb_id: serial.clone(),
                     });
                 }
                 OperationResult::Ok(device_list)

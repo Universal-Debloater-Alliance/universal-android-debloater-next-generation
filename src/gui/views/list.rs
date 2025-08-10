@@ -376,7 +376,7 @@ impl List {
                 self.copy_confirmation = true;
                 Command::batch(vec![
                     iced::clipboard::write::<Message>(err),
-                    Command::perform(Self::delay_hide_copy_confirmation(), |_| {
+                    Command::perform(Self::delay_hide_copy_confirmation(), |()| {
                         Message::HideCopyConfirmation
                     }),
                 ])
@@ -393,7 +393,7 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
                 &format!("Downloading latest {NAME} lists from GitHub. Please wait..."),
@@ -438,7 +438,7 @@ impl List {
         }
     }
 
-    fn control_panel(&self, selected_device: &Phone) -> Element<Message, Theme, Renderer> {
+    fn control_panel(&self, selected_device: &Phone) -> Element<'_, Message, Theme, Renderer> {
         let search_packages = text_input("Search packages...", &self.input_value)
             .width(Length::Fill)
             .on_input(Message::SearchInputChanged)
@@ -504,7 +504,7 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         let packages = self
             .filtered_packages
             .iter()
@@ -665,7 +665,7 @@ impl List {
         device: &Phone,
         settings: &Settings,
         packages: &[PackageRow],
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         const PACK_NO_USER_MSG: &str = "`selected_packages` implies a user must be selected";
 
         // 5 element slice is cheap
