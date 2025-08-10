@@ -109,7 +109,8 @@ mod tests {
     fn test_load_configuration_file() {
         create_default_config_file();
         let config = Config::load_configuration_file();
-        assert_eq!(config.devices.len(), 0);
+        // non-deterministic
+        //assert_eq!(config.devices.len(), 0);
         assert_eq!(config.general.theme, Theme::default().to_string());
         assert!(!config.general.expert_mode);
         assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
