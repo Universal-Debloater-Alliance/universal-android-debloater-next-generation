@@ -61,12 +61,16 @@ pub enum AdbError {
     Generic(String),
 }
 
+/// # WARNING
+/// Use `adb::ACommand::shell` with `async` blocks instead.
+/// This `fn` is prone to abuse!
+///
+/// # About
 /// Runs an **arbitrary command** on the device's default `sh` implementation.
 /// Typically MKSH, but could be Ash.
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
-#[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
 pub async fn adb_shell_command<S: AsRef<str>>(
     device_serial: S,
     action: String,
