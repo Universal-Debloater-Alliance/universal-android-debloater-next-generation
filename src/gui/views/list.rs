@@ -376,9 +376,11 @@ impl List {
                 self.copy_confirmation = true;
                 Command::batch(vec![
                     iced::clipboard::write::<Message>(err),
-                    Command::perform(Self::delay_hide_copy_confirmation(), |()| {
-                        Message::HideCopyConfirmation
-                    }),
+                    Command::perform(
+                        // intentional delay
+                        async { std::thread::sleep(std::time::Duration::from_secs(1)) },
+                        |()| Message::HideCopyConfirmation,
+                    ),
                 ])
             }
             Message::HideCopyConfirmation => {
@@ -925,10 +927,6 @@ impl List {
                 (local_list, UadListState::Failed)
             }
         }
-    }
-
-    async fn delay_hide_copy_confirmation() {
-        std::thread::sleep(std::time::Duration::from_secs(1));
     }
 }
 
