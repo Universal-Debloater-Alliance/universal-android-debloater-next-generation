@@ -348,8 +348,7 @@ impl PmCommand {
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    #[cfg(debug_assertions)]
-                    assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    debug_assert!(PackageId::new(p.into()).is_some() || p == "android");
                     String::from(p)
                 })
                 .collect()
