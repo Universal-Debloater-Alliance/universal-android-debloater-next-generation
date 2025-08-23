@@ -1,16 +1,25 @@
 {
   description = "devshell for uad-ng";
 
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem
-      (system:
-        let pkgs = nixpkgs.legacyPackages.${system}; in
+  outputs =
+    { self, nixpkgs, ... }:
+    let
+      forSystems =
+        f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: f { pkgs = import nixpkgs { inherit system; }; }
+        );
+    in
+    {
+      formatter = forSystems ({ pkgs }: pkgs.nixfmt-tree);
+
+      devShells = forSystems (
+        { pkgs }:
         {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs;
-            [
+          default = pkgs.mkShell {
+            packages = with pkgs; [
               rustc
               cargo
               clang
@@ -29,8 +38,9 @@
               pkgs.libxkbcommon
               pkgs.wayland
             ]}";
-            LIBCLANG_PATH="${pkgs.llvmPackages.libclang.lib}/lib";
+            LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
           };
         }
       );
+    };
 }
