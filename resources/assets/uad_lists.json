@@ -1103,7 +1103,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.motorola.livewallpaper3.prebuilt.mysterious_amber": {
+  "com.motorola.livewallpaper3.prebuilt.mysterious_amber": {
     "list": "Oem",
     "description": "Motorola Prebuilt themes Mysterious Amber",
     "dependencies": [],
@@ -1111,7 +1111,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.motorola.livewallpaper3.prebuilt.romantic_wisteria": {
+  "com.motorola.livewallpaper3.prebuilt.romantic_wisteria": {
     "list": "Oem",
     "description": "Motorola Prebuilt themes Romantic Wisteria",
     "dependencies": [],
@@ -1119,7 +1119,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.motorola.livewallpaper3.prebuilt.tranquil_whale": {
+  "com.motorola.livewallpaper3.prebuilt.tranquil_whale": {
     "list": "Oem",
     "description": "Motorola Prebuilt themes Tranquil Whale",
     "dependencies": [],
@@ -1127,7 +1127,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.motorola.livewallpaper3.prebuilt.twilight_twist": {
+  "com.motorola.livewallpaper3.prebuilt.twilight_twist": {
     "list": "Oem",
     "description": "Motorola Prebuilt themes Twilight twist",
     "dependencies": [],
@@ -1135,7 +1135,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.motorola.livewallpaper3.prebuilt.vibrant_sapling": {
+  "com.motorola.livewallpaper3.prebuilt.vibrant_sapling": {
     "list": "Oem",
     "description": "Motorola Prebuilt themes Vibrant Sapling",
     "dependencies": [],
@@ -2744,7 +2744,9 @@
   "com.huawei.health": {
     "list": "Oem",
     "description": "Huawei Health (discontinued?)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\nRequire HMS.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -4209,7 +4211,9 @@
     "list": "Oem",
     "description": "Samsung Wallpaper services (Dynamic Lock)\nNOTE: Breaks LockStar customization.\nAutomatically changes your Lock screen’s wallpaper every time your Galaxy phone wakes up (wallpapers update every 2 weeks).\nhttps://www.samsung.com/us/support/answer/ANS10001593\n",
     "dependencies": [],
-    "neededBy": ["com.samsung.systemui.lockstar"],
+    "neededBy": [
+      "com.samsung.systemui.lockstar"
+    ],
     "labels": [],
     "removal": "Advanced"
   },
@@ -10677,12 +10681,12 @@
     "removal": "Advanced"
   },
   "com.samsung.android.callassistant": {
-   "list": "Oem",
-   "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Can break stuff in OneUI 6.1+",
-   "dependencies": [],
-   "neededBy": [],
-   "labels": [],
-   "removal": "Expert"
+    "list": "Oem",
+    "description": "Appears to handle a whole bunch of AI services related to Gallery and Phone. Can break stuff in OneUI 6.1+",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.samsung.phone.overlay.common": {
     "list": "Oem",
@@ -21408,7 +21412,13 @@
     "description": "Screen Recognition (Breeno Touch).\nThis app is used to recognize screen contents and provide quick access to relevant services (like Text Extraction, AI Summarizer). com.coloros.ocrscanner, com.coloros.ocrservice, com.oplus.ocs, com.oplus.aiunit, com.coloros.ocs.opencapabilityservice are also needed for this to work.",
     "removal": "Recommended",
     "list": "Oem",
-    "dependencies": ["com.coloros.ocrscanner", "com.coloros.ocrservice", "com.oplus.ocs", "com.oplus.aiunit", "com.coloros.ocs.opencapabilityservice"],
+    "dependencies": [
+      "com.coloros.ocrscanner",
+      "com.coloros.ocrservice",
+      "com.oplus.ocs",
+      "com.oplus.aiunit",
+      "com.coloros.ocs.opencapabilityservice"
+    ],
     "neededBy": [],
     "labels": []
   },
@@ -22428,7 +22438,9 @@
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
-    "neededBy": ["com.felicanetworks.mfm.main"],
+    "neededBy": [
+      "com.felicanetworks.mfm.main"
+    ],
     "labels": []
   },
   "com.shannon.rcsservice": {
@@ -25717,12 +25729,12 @@
     "labels": []
   },
   "com.samsung.slsi.telephony.silentlogging": {
-   "description": "Hidden network logging. Safe to remove",
-   "removal": "Recommended",
-   "list": "Oem",
-   "dependencies": [],
-   "neededBy": [],
-   "labels": []
+    "description": "Hidden network logging. Safe to remove",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
   },
   "com.sec.android.app.volumemonitorprovider": {
     "description": "VolumeMonitorProvider\nused in Digital Wellbeing to average the dB heard through earphones and display it.",
@@ -26248,7 +26260,15 @@
     "description": "Media Controller.\nResponsible for the Dynamic Island feature for music applications and showing the 'Now playing' notification on lockscreen.",
     "removal": "Expert",
     "list": "Oem",
-    "dependencies": ["com.oneplus.account", "com.oplus.ocs", "com.oplus.onet", "com.oplus.metis", "com.oplus.statistics.rom", "com.coloros.assistantscreen", "com.coloros.scenemode"],
+    "dependencies": [
+      "com.oneplus.account",
+      "com.oplus.ocs",
+      "com.oplus.onet",
+      "com.oplus.metis",
+      "com.oplus.statistics.rom",
+      "com.coloros.assistantscreen",
+      "com.coloros.scenemode"
+    ],
     "neededBy": [],
     "labels": []
   },
@@ -28300,7 +28320,9 @@
   "com.google.android.overlay.permissioncontroller": {
     "list": "Aosp",
     "description": "Breaks Google Play System updates (GPSu), related to Project Mainline. Page on Settings will crash altogether, or ask Play Store to be updated.\nhttps://support.google.com/product-documentation/answer/14343500",
-    "dependencies": ["com.android.vending"],
+    "dependencies": [
+      "com.android.vending"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -30269,7 +30291,9 @@
   "com.huawei.fastapp": {
     "list": "Oem",
     "description": "Quick App Center\nComponent of AppGallery (Huawei's app store) providing Quick Apps support. Quick Apps are Javascript+CSS apps that don't need any installation. This technology has its uses but I'm personally not a huge fan on having to rely on a JS engine to run an application\nThis system app has a lot of permissions (including SEND_SMS, CAMERA, READ_EXTERNAL_STORAGE, RECORD_AUDIO... why?)\nMore information: https://www.xda-developers.com/huawei-quick-apps-alternative-google-instant-apps/\n OW2 Quick App whitepaper: https://quick-app-initiative.ow2.io/docs/Quick_App_White_Paper.pdf",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -35422,7 +35446,9 @@
   "com.huawei.cloud": {
     "list": "Oem",
     "description": "Chinese only.\nHuawei Cloud Computer provides you with basic services of online desktop.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35454,7 +35480,9 @@
   "com.huawei.android.findmyphone": {
     "list": "Oem",
     "description": "Find Device is an app that lets you locate your device and protect your data remotely.\nTo provide these features, this app needs to connect to the Internet during use.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
@@ -35462,7 +35490,9 @@
   "com.huawei.gamebox": {
     "list": "Oem",
     "description": "GameCenter\nRequires HMS Core to run.\nIt's app for installing games.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35470,7 +35500,9 @@
   "com.huawei.hicar": {
     "list": "Oem",
     "description": "Huawei HiCar\nTo connect to Huawei HiCar, press and hold the wireless button on the steering wheel or control panel.\nMore useful in China.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35478,7 +35510,9 @@
   "com.huawei.smarthome": {
     "list": "Oem",
     "description": "AI Life\nRequire Logging in to your Huawei ID, HMSCore.\nIt's app that lets your control and manage routers and audio accessories.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35518,7 +35552,9 @@
   "com.huawei.hiskytone": {
     "list": "Oem",
     "description": "SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35638,7 +35674,9 @@
   "com.huawei.fans": {
     "list": "Oem",
     "description": "Huawei Club is the official forum for Huawei users.\nIt provides the latest news and information, FAQs, and tutorials about Huawei and Honor products.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35662,7 +35700,9 @@
   "com.huawei.lives": {
     "list": "Oem",
     "description": "HiLives is jointly developed by Huawei and certified third-party service providers to provide lifestyle services for you.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35806,7 +35846,9 @@
   "com.huawei.hwvplayer.youku": {
     "list": "Oem",
     "description": "Video Youku\nVideo Player on Chinese Huawei. Has some ads and bad privacy.",
-    "dependencies": ["com.huawei.hwid"],
+    "dependencies": [
+      "com.huawei.hwid"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -35854,7 +35896,9 @@
   "com.huawei.skytone": {
     "list": "Oem",
     "description": "SkyTone Data Service. Frameworks to 'com.huawei.hiskytone' SkyTone Overseas Data Service.",
-    "dependencies": ["com.huawei.hiskytone"],
+    "dependencies": [
+      "com.huawei.hiskytone"
+    ],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
@@ -37732,14 +37776,14 @@
     "removal": "Advanced"
   },
   "com.samsung.android.server.wifi.mobilewips.client": {
-  "list": "Oem",
-  "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
-  "dependencies": [],
-  "neededBy": [],
-  "labels": [],
-  "removal": "Advanced"
+    "list": "Oem",
+    "description": "MobileWips\nDetects suspicious activity on Wi-Fi network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
-"com.onyx.aiassistant": {
+  "com.onyx.aiassistant": {
     "list": "Oem",
     "description": "Onyx Boox AI Assistant. Safe to remove",
     "dependencies": [],
@@ -37763,7 +37807,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.appmarket":{
+  "com.onyx.appmarket": {
     "list": "Oem",
     "description": "The Onyx Store app, you will not have any other way to install app if you uninstall it\nYou will need to install an alternative store via adb",
     "dependencies": [],
@@ -37779,7 +37823,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.clock":{
+  "com.onyx.clock": {
     "list": "Oem",
     "description": "The Onyx Clock app",
     "dependencies": [],
@@ -37787,7 +37831,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.dict":{
+  "com.onyx.dict": {
     "list": "Oem",
     "description": "The Onyx Dict app",
     "dependencies": [],
@@ -37795,7 +37839,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.easytransfer":{
+  "com.onyx.easytransfer": {
     "list": "Oem",
     "description": "Onyx Easy Transfer app",
     "dependencies": [],
@@ -37803,7 +37847,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.gallery":{
+  "com.onyx.gallery": {
     "list": "Oem",
     "description": "Onyx Gallery app",
     "dependencies": [],
@@ -37811,7 +37855,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.igetshop":{
+  "com.onyx.igetshop": {
     "list": "Oem",
     "description": "Onyx iGetShot app, UNSAFE to remove because it will crash the Onyx Launcher but safe to DISABLE",
     "dependencies": [],
@@ -37819,7 +37863,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "com.onyx.kime":{
+  "com.onyx.kime": {
     "list": "Oem",
     "description": "Onyx Kime app",
     "dependencies": [],
@@ -37827,7 +37871,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.kreader":{
+  "com.onyx.kreader": {
     "list": "Oem",
     "description": "Onyx KReader app, UNSAFE to remove because it will crash the Onyx Launcher can be safely disabled.\nRemember to load another reader app",
     "dependencies": [],
@@ -37835,7 +37879,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "com.onyx.latinime":{
+  "com.onyx.latinime": {
     "list": "Oem",
     "description": "The Onyx Keyboard. Removing it will leave withe google STT keyboard.",
     "dependencies": [],
@@ -37843,7 +37887,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.mail":{
+  "com.onyx.mail": {
     "list": "Oem",
     "description": "Onyx Mail app",
     "dependencies": [],
@@ -37851,7 +37895,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.musicplayer":{
+  "com.onyx.musicplayer": {
     "list": "Oem",
     "description": "Onyx Music Player app",
     "dependencies": [],
@@ -37859,7 +37903,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.onyx.voicerecorder":{
+  "com.onyx.voicerecorder": {
     "list": "Oem",
     "description": "Onyx Voice Recorder app",
     "dependencies": [],
@@ -37867,7 +37911,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.preff.kb.xm":{
+  "com.preff.kb.xm": {
     "list": "Oem",
     "description": "'Emoji & Font Keyboard' on Xiaomi.\nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.\nMake sure to install an alternate keyboard app before doing so.",
     "dependencies": [],
@@ -37875,7 +37919,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.nim.rogers":{
+  "com.nim.rogers": {
     "list": "Carrier",
     "description": "Texture, a digital magazine service created by Rogers Media. Discontinued in 2019.",
     "dependencies": [],
@@ -37883,7 +37927,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.Rogers.MyRogersTab":{
+  "com.Rogers.MyRogersTab": {
     "list": "Carrier",
     "description": "Appears to be the tablet version of MyRogers (https://play.google.com/store/apps/details?id=com.fivemobile.myaccount), an app to manage your account with Canadian carrier Rogers.",
     "dependencies": [],
@@ -37891,7 +37935,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.android.app.colorblind":{
+  "com.samsung.android.app.colorblind": {
     "list": "Oem",
     "description": "This app provides colorblind accessibility features for Samsung devices, helping users with color vision deficiencies by adjusting display colors and improving visibility.",
     "dependencies": [],
@@ -37899,7 +37943,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.framework.res":{
+  "com.samsung.android.framework.res": {
     "list": "Oem",
     "description": "This package is part of Samsung’s custom system framework and manages various resources for Samsung-specific features and UI enhancements.",
     "dependencies": [],
@@ -37907,7 +37951,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.android.timezone.autoupdate_N":{
+  "com.samsung.android.timezone.autoupdate_N": {
     "list": "Oem",
     "description": "This app handles automatic updates for time zone information on Samsung devices, ensuring accurate timekeeping across different regions.",
     "dependencies": [],
@@ -37915,7 +37959,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.samsung.knox.appsupdateagent":{
+  "com.samsung.knox.appsupdateagent": {
     "list": "Oem",
     "description": "This app is part of Samsung Knox, managing updates for apps within the Knox security framework.",
     "dependencies": [],
@@ -37923,7 +37967,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.sec.android.app.kidshome":{
+  "com.sec.android.app.kidshome": {
     "list": "Oem",
     "description": "This app provides a child-friendly interface and controls on Samsung devices, designed to create a safe environment for children by restricting access to apps and content.",
     "dependencies": [],
@@ -37931,7 +37975,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.sec.android.app.wallpaperchooser":{
+  "com.sec.android.app.wallpaperchooser": {
     "list": "Oem",
     "description": "This app provides the functionality to select and manage wallpapers on Samsung devices, including Samsung-specific wallpaper options.",
     "dependencies": [],
@@ -37939,7 +37983,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.sec.app.TransmitPowerService":{
+  "com.sec.app.TransmitPowerService": {
     "list": "Oem",
     "description": "This app manages settings related to the transmit power of wireless communications on Samsung devices, such as Wi-Fi and Bluetooth.",
     "dependencies": [],
@@ -38243,7 +38287,7 @@
     "labels": [],
     "removal": "Recommended"
   },
- "com.android.avatarpicker": {
+  "com.android.avatarpicker": {
     "list": "Aosp",
     "description": "Lets you assign pictures to contacts. It has two options: take picture from the camera, or choose from the gallery.\nSource code: https://android.googlesource.com/platform/packages/apps/AvatarPicker",
     "dependencies": [],
@@ -38313,7 +38357,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.mediatek.security": {
     "list": "Oem",
@@ -38329,7 +38373,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.systemui.clocks.flex": {
     "list": "Oem",
@@ -38337,7 +38381,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.systemui.overlay.pixelbatteryhealthconfig": {
     "list": "Oem",
@@ -38345,7 +38389,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.rkpdapp": {
     "list": "Oem",
@@ -38371,29 +38415,13 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.google.android.appsearch.apk": {
-    "list": "Oem",
-    "description": "App search functionality for Android devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "com.google.android.photopicker": {
-    "list": "Oem",
-    "description": "Photo picker for managing and selecting images.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
   "android.auto_generated_characteristics_rro": {
     "list": "Oem",
     "description": "Automatically generated RRO characteristics for Android customization.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.retaildemo": {
     "list": "Oem",
@@ -38401,7 +38429,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.google.android.apps.pixel.creativeassistant": {
     "list": "Oem",
@@ -38425,7 +38453,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.settings.shiba": {
     "list": "Oem",
@@ -38433,7 +38461,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.telephony": {
     "list": "Oem",
@@ -38441,7 +38469,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.google.android.systemui.overlay.pixelvpnconfig": {
     "list": "Oem",
@@ -38449,7 +38477,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.devicediagnostics.auto_generated_rro_vendor__": {
     "list": "Oem",
@@ -38457,7 +38485,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.settings.overlay.shiba": {
     "list": "Oem",
@@ -38465,7 +38493,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.devicelockcontroller": {
     "list": "Oem",
@@ -38505,7 +38533,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.microdroid.empty_payload": {
     "list": "Oem",
@@ -38561,7 +38589,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.compos.payload": {
     "list": "Oem",
@@ -38569,7 +38597,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.pixeldisplayservice.auto_generated_rro_product__": {
     "list": "Oem",
@@ -38585,7 +38613,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.apps.diagnosticstool": {
     "list": "Oem",
@@ -38617,7 +38645,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.systemui.clocks.calligraphy": {
     "list": "Oem",
@@ -38626,13 +38654,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-  },"com.google.android.bluetooth": {
+  },
+  "com.google.android.bluetooth": {
     "list": "Oem",
     "description": "Bluetooth management for Android devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.apps.wallpaper.pixel": {
     "list": "Oem",
@@ -38648,7 +38677,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.rilextension": {
     "list": "Oem",
@@ -38704,7 +38733,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.iwlan": {
     "list": "Oem",
@@ -38712,7 +38741,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.systemui.clocks.numoverlap": {
     "list": "Oem",
@@ -38728,7 +38757,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.virtualmachine.res": {
     "list": "Oem",
@@ -38744,7 +38773,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.healthconnect.overlay": {
     "list": "Oem",
@@ -38752,7 +38781,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.overlay.trafficlightfaceoverlay": {
     "list": "Oem",
@@ -38760,7 +38789,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.uwb.resources": {
     "list": "Oem",
@@ -38768,7 +38797,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.systemui.clocks.growth": {
     "list": "Oem",
@@ -38787,4 +38816,3 @@
     "removal": "Advanced"
   }
 }
-
