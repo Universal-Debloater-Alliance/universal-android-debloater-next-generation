@@ -1,16 +1,19 @@
 use crate::CACHE_DIR;
 use crate::core::adb;
 use crate::core::helpers::button_primary;
-use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
 use crate::core::utils::{NAME, last_modified_date, open_url};
 use crate::gui::{UpdateState, style, widgets::text};
 use iced::widget::{Space, column, container, row};
-use iced::{Alignment, Element, Length, Renderer};
+use iced::{Alignment, Element, Length};
 use std::path::PathBuf;
 
 #[cfg(feature = "self-update")]
 use crate::core::update::SelfUpdateStatus;
+
+const VERSION: &str = env!("CARGO_PKG_VERSION");
+const ROW_WIDTH: u16 = 550;
+const TEXT_WIDTH: u16 = 250;
 
 #[derive(Default, Debug, Clone)]
 pub struct About {}
@@ -29,19 +32,22 @@ impl About {
         }
         // other events are handled by UadGui update()
     }
-    pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
+
+    pub fn view(&self, update_state: &UpdateState) -> Element<Message> {
         let about_text = text(format!(
-            "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
+            "Universal Android Debloater Next Generation ({NAME}) is a free \
+             and open-source community project \naiming at simplifying the \
+             removal of pre-installed apps on any Android device."
         ));
 
         let descr_container = container(about_text)
             .width(Length::Fill)
             .padding(25)
-            .style(style::Container::Frame);
+            .style(style::frame_container());
 
         let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let uad_list_text =
-            text(format!("{NAME} package list: v{}", date.format("%Y%m%d"))).width(250);
+            text(format!("{NAME} package list: v{}", date.format("%Y%m%d"))).width(TEXT_WIDTH);
         let last_update_text = text(update_state.uad_list.to_string());
         let uad_lists_btn = button_primary("Update").on_press(Message::UpdateUadLists);
 
@@ -49,102 +55,80 @@ impl About {
         let self_update_row = {
             let self_update_btn = button_primary("Update").on_press(Message::DoSelfUpdate);
 
-            let uad_version_text =
-                text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
+            let uad_version_text = text(format!("{NAME} version: v{VERSION}")).width(TEXT_WIDTH);
 
-            let self_update_text = update_state
-                .self_update
-                .latest_release
-                .as_ref()
-                .map_or_else(
-                    || {
-                        if update_state.self_update.status == SelfUpdateStatus::Done {
-                            "(No update available)".to_string()
-                        } else {
-                            update_state.self_update.status.to_string()
-                        }
-                    },
-                    |r| {
-                        if update_state.self_update.status == SelfUpdateStatus::Updating {
-                            update_state.self_update.status.to_string()
-                        } else {
-                            format!("({} available)", r.tag_name)
-                        }
-                    },
-                );
+            let status = &update_state.self_update.status;
+            let latest = update_state.self_update.latest_release.as_ref();
+            let self_update_text = if let Some(r) = latest {
+                if matches!(status, SelfUpdateStatus::Updating) {
+                    status.to_string()
+                } else {
+                    format!("({} available)", r.tag_name)
+                }
+            } else if matches!(status, SelfUpdateStatus::Done) {
+                "(No update available)".to_string()
+            } else {
+                status.to_string()
+            };
 
-            let last_self_update_text = text(self_update_text).style(style::Text::Default);
+            let last_self_update_text = text(self_update_text);
 
             row![uad_version_text, self_update_btn, last_self_update_text,]
-                .align_items(Alignment::Center)
+                .align_y(Alignment::Center)
                 .spacing(10)
-                .width(550)
+                .width(ROW_WIDTH)
         };
 
         let uad_list_row = row![uad_list_text, uad_lists_btn, last_update_text,]
-            .align_items(Alignment::Center)
+            .align_y(Alignment::Center)
             .spacing(10)
-            .width(550);
+            .width(ROW_WIDTH);
 
-        /*
-        There's no need to fetch this info every time the view is updated,
-        we could cache it in a `static` `LazyLock`.
-
-        But what if the system updates ADB while the app is running?
-        the numbers will be out of sync!
-
-        However, the server will still be the "old" version
-        until it's killed
-        */
         let adb_version_text = text(match adb::ACommand::new().version() {
-            Ok(s) => s
-                .lines()
-                .nth(0)
-                .unwrap_or_else(|| unreachable!())
-                // This allocation is good.
-                // If it was a ref, the app would hold the entire string
-                // instead of the relevant slice.
-                .to_string(),
+            Ok(s) => s.lines().next().unwrap_or("").to_string(),
             Err(e) => {
                 error!("{e}");
                 "Couldn't fetch ADB version. Is it installed?".into()
-                // satisfy `match` by inferring the type of the `Ok` arm
             }
         })
-        .width(250);
+        .width(TEXT_WIDTH);
         let adb_version_row = row![adb_version_text]
-            .align_items(Alignment::Center)
-            .width(550);
+            .align_y(Alignment::Center)
+            .width(ROW_WIDTH);
 
         #[cfg(feature = "self-update")]
         let update_column = column![uad_list_row, self_update_row, adb_version_row];
         #[cfg(not(feature = "self-update"))]
         let update_column = column![uad_list_row, adb_version_row];
 
-        let update_column = update_column.align_items(Alignment::Center).spacing(10);
+        let update_column = update_column.align_x(Alignment::Center).spacing(10);
 
         let update_container = container(update_column)
             .width(Length::Fill)
-            .center_x()
+            .align_x(Alignment::Center)
             .padding(10)
-            .style(style::Container::Frame);
+            .style(style::frame_container());
 
-        let website_btn =
-            button_primary("GitHub page").on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
-            )));
+        let link_btn = |label: &'static str, url: &'static str| {
+            button_primary(label).on_press(Message::UrlPressed(PathBuf::from(url)))
+        };
 
-        let issue_btn = button_primary("Have an issue?")
-            .on_press(Message::UrlPressed(PathBuf::from(
+        let website_btn = link_btn(
+            "GitHub page",
+            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
+        );
+        let issue_btn = link_btn(
+            "Have an issue?",
             "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
-        )));
+        );
 
         let log_btn = button_primary("Locate the logfiles")
             .on_press(Message::UrlPressed(CACHE_DIR.to_path_buf()));
 
-        let wiki_btn = button_primary("Wiki").on_press(Message::UrlPressed(PathBuf::from(
+        let wiki_btn = link_btn(
+            "Wiki",
             "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
-        )));
+        );
 
         let row = row![website_btn, wiki_btn, issue_btn, log_btn,].spacing(20);
 
@@ -156,7 +140,7 @@ impl About {
         ]
         .width(Length::Fill)
         .spacing(20)
-        .align_items(Alignment::Center);
+        .align_x(Alignment::Center);
 
         container(content)
             .width(Length::Fill)
