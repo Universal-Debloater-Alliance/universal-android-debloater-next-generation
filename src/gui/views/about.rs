@@ -1,12 +1,11 @@
 use crate::CACHE_DIR;
 use crate::core::adb;
 use crate::core::helpers::button_primary;
-use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
 use crate::core::utils::{NAME, last_modified_date, open_url};
-use crate::gui::{UpdateState, style, widgets::text};
+use crate::gui::{UpdateState, styling, widgets::text};
 use iced::widget::{Space, column, container, row};
-use iced::{Alignment, Element, Length, Renderer};
+use iced::{Alignment, Element, Length};
 use std::path::PathBuf;
 
 #[cfg(feature = "self-update")]
@@ -29,7 +28,8 @@ impl About {
         }
         // other events are handled by UadGui update()
     }
-    pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
+    
+    pub fn view(&self, update_state: &UpdateState) -> Element<Message> {
         let about_text = text(format!(
             "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
         ));
@@ -37,7 +37,7 @@ impl About {
         let descr_container = container(about_text)
             .width(Length::Fill)
             .padding(25)
-            .style(style::Container::Frame);
+            .style(styling::frame_container());
 
         let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let uad_list_text =
@@ -73,47 +73,33 @@ impl About {
                     },
                 );
 
-            let last_self_update_text = text(self_update_text).style(style::Text::Default);
+            let last_self_update_text = text(self_update_text);
 
             row![uad_version_text, self_update_btn, last_self_update_text,]
-                .align_items(Alignment::Center)
+                .align_y(Alignment::Center)
                 .spacing(10)
                 .width(550)
         };
 
         let uad_list_row = row![uad_list_text, uad_lists_btn, last_update_text,]
-            .align_items(Alignment::Center)
+            .align_y(Alignment::Center)
             .spacing(10)
             .width(550);
 
-        /*
-        There's no need to fetch this info every time the view is updated,
-        we could cache it in a `static` `LazyLock`.
-
-        But what if the system updates ADB while the app is running?
-        the numbers will be out of sync!
-
-        However, the server will still be the "old" version
-        until it's killed
-        */
         let adb_version_text = text(match adb::ACommand::new().version() {
             Ok(s) => s
                 .lines()
-                .nth(0)
-                .unwrap_or_else(|| unreachable!())
-                // This allocation is good.
-                // If it was a ref, the app would hold the entire string
-                // instead of the relevant slice.
+                .next()
+                .unwrap_or("")
                 .to_string(),
             Err(e) => {
                 error!("{e}");
                 "Couldn't fetch ADB version. Is it installed?".into()
-                // satisfy `match` by inferring the type of the `Ok` arm
             }
         })
         .width(250);
         let adb_version_row = row![adb_version_text]
-            .align_items(Alignment::Center)
+            .align_y(Alignment::Center)
             .width(550);
 
         #[cfg(feature = "self-update")]
@@ -121,13 +107,15 @@ impl About {
         #[cfg(not(feature = "self-update"))]
         let update_column = column![uad_list_row, adb_version_row];
 
-        let update_column = update_column.align_items(Alignment::Center).spacing(10);
+        let update_column = update_column
+            .align_x(Alignment::Center)
+            .spacing(10);
 
         let update_container = container(update_column)
             .width(Length::Fill)
-            .center_x()
+            .align_x(Alignment::Center)
             .padding(10)
-            .style(style::Container::Frame);
+            .style(styling::frame_container());
 
         let website_btn =
             button_primary("GitHub page").on_press(Message::UrlPressed(PathBuf::from(
@@ -156,7 +144,7 @@ impl About {
         ]
         .width(Length::Fill)
         .spacing(20)
-        .align_items(Alignment::Center);
+        .align_x(Alignment::Center);
 
         container(content)
             .width(Length::Fill)

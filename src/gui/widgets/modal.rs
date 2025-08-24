@@ -4,7 +4,7 @@ use iced::mouse::{self, Cursor};
 use iced::{Alignment, Color, Element, Event, Length, Point, Rectangle, Size, advanced, event};
 
 /// A widget that centers a modal element over some base element
-pub struct Modal<'a, Message, Theme, Renderer> {
+pub struct Modal<'a, Message, Theme = iced::Theme, Renderer = iced::Renderer> {
     base: Element<'a, Message, Theme, Renderer>,
     modal: Element<'a, Message, Theme, Renderer>,
     on_blur: Option<Message>,
@@ -144,7 +144,7 @@ where
         state: &mut Tree,
         layout: Layout<'_>,
         renderer: &Renderer,
-        operation: &mut dyn widget::Operation<Message>,
+        operation: &mut dyn widget::Operation,
     ) {
         self.base
             .as_widget()
@@ -253,7 +253,7 @@ where
         &mut self,
         layout: Layout<'_>,
         renderer: &Renderer,
-        operation: &mut dyn widget::Operation<Message>,
+        operation: &mut dyn widget::Operation,
     ) {
         self.content.as_widget().operate(
             self.tree,

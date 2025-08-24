@@ -1,27 +1,22 @@
-pub mod style;
+pub mod styling;
 pub mod views;
 pub mod widgets;
 
 use crate::core::adb;
 use crate::core::sync::{Phone, get_devices_list, initial_load};
-use crate::core::theme::{OS_COLOR_SCHEME, Theme};
+use crate::core::theme::{to_iced_theme, string_to_theme, OS_COLOR_SCHEME};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
-use crate::core::utils::{NAME, string_to_theme};
+use crate::core::utils::NAME;
 
-use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
-use iced::window::icon;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
 use views::settings::{Message as SettingsMessage, Settings as SettingsView};
 use widgets::navigation_menu::nav_menu;
 
 use iced::widget::column;
-use iced::{
-    Alignment, Application, Command, Element, Length, Renderer, Settings,
-    window::Settings as Window,
-};
+use iced::{Alignment, Task, Element, Length};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 
@@ -49,7 +44,6 @@ pub struct UadGui {
     about_view: AboutView,
     settings_view: SettingsView,
     devices_list: Vec<Phone>,
-    /// index of `devices_list`
     selected_device: Option<Phone>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
@@ -58,7 +52,6 @@ pub struct UadGui {
 
 #[derive(Debug, Clone)]
 pub enum Message {
-    /// Navigation Panel
     AboutPressed,
     SettingsPressed,
     AppsPress,
@@ -77,43 +70,12 @@ pub enum Message {
     ADBSatisfied(bool),
 }
 
-impl Application for UadGui {
-    type Theme = Theme;
-    type Executor = iced::executor::Default;
-    type Message = Message;
-    type Flags = ();
-
-    fn new(_flags: ()) -> (Self, Command<Message>) {
-        (
-            Self::default(),
-            Command::batch([
-                // Used in crate::gui::widgets::navigation_menu::ICONS. Name is `icomoon`.
-                font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
-                    .map(Message::FontLoaded),
-                Command::perform(initial_load(), Message::ADBSatisfied),
-                Command::perform(get_devices_list(), Message::LoadDevices),
-                Command::perform(
-                    async move { get_latest_release() },
-                    Message::GetLatestRelease,
-                ),
-            ]),
-        )
-    }
-
-    fn theme(&self) -> Theme {
-        string_to_theme(&self.settings_view.general.theme)
-    }
-
-    fn title(&self) -> String {
-        String::from("Universal Android Debloater Next Generation")
-    }
-    #[allow(clippy::too_many_lines)]
-    fn update(&mut self, msg: Message) -> Command<Message> {
+impl UadGui {
+    fn update(&mut self, msg: Message) -> Task<Message> {
         match msg {
             Message::LoadDevices(devices_list) => {
                 self.selected_device = match &self.selected_device {
                     Some(s_device) => {
-                        // Try to reload last selected phone
                         devices_list
                             .iter()
                             .find(|phone| phone.adb_id == s_device.adb_id)
@@ -123,38 +85,34 @@ impl Application for UadGui {
                 };
                 self.devices_list = devices_list;
 
-                #[expect(unused_must_use, reason = "side-effect")]
-                {
-                    self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
-                }
-
-                self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
+                let settings_task = self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
+                let apps_task = self.update(Message::AppsAction(AppsMessage::LoadUadList(true)));
+                
+                Task::batch([settings_task, apps_task])
             }
             Message::AppsPress => {
                 self.view = View::List;
-                Command::none()
+                Task::none()
             }
             Message::AboutPressed => {
                 self.view = View::About;
                 self.update_state.self_update = SelfUpdateState::default();
-                Command::perform(
+                Task::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
                 )
             }
             Message::SettingsPressed => {
                 self.view = View::Settings;
-                Command::none()
+                Task::none()
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
-                #[expect(unused_must_use, reason = "side-effect")]
-                {
-                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    )));
-                }
-                Command::perform(get_devices_list(), Message::LoadDevices)
+                let adb_task = self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                    self.adb_satisfied,
+                )));
+                let devices_task = Task::perform(get_devices_list(), Message::LoadDevices);
+                Task::batch([adb_task, devices_task])
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
@@ -164,7 +122,7 @@ impl Application for UadGui {
                 };
                 self.selected_device = None;
                 self.devices_list = vec![];
-                Command::perform(
+                Task::perform(
                     async { adb::ACommand::new().shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
@@ -184,17 +142,16 @@ impl Application for UadGui {
                         self.nb_running_async_adb_commands -= 1;
                         self.view = View::List;
 
-                        #[expect(unused_must_use, reason = "side-effect")]
-                        {
-                            self.apps_view.update(
-                                &mut self.settings_view,
-                                &mut self.selected_device.clone().unwrap_or_default(),
-                                &mut self.update_state.uad_list,
-                                AppsMessage::RestoringDevice(output.clone()),
-                            );
-                        }
+                        let restore_task = self.apps_view.update(
+                            &mut self.settings_view,
+                            &mut self.selected_device.clone().unwrap_or_default(),
+                            &mut self.update_state.uad_list,
+                            AppsMessage::RestoringDevice(output.clone()),
+                        );
+                        
                         if self.nb_running_async_adb_commands == 0 {
-                            return self.update(Message::RefreshButtonPressed);
+                            let refresh_task = self.update(Message::RefreshButtonPressed);
+                            return Task::batch([restore_task.map(Message::AppsAction), refresh_task]);
                         }
                     }
                     SettingsMessage::MultiUserMode(toggled) if toggled => {
@@ -240,17 +197,17 @@ impl Application for UadGui {
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
-                            Command::perform(
+                            Task::perform(
                                 download_update_to_temp_file(BIN_NAME, release.clone()),
                                 Message::_NewReleaseDownloaded,
                             )
                         } else {
-                            Command::none()
+                            Task::none()
                         }
                         #[cfg(not(feature = "self-update"))]
-                        Command::none()
+                        Task::none()
                     }
-                    AboutMessage::UrlPressed(_) => Command::none(),
+                    AboutMessage::UrlPressed(_) => Task::none(),
                 }
             }
             Message::DeviceSelected(s_device) => {
@@ -264,16 +221,15 @@ impl Application for UadGui {
                 info!("{:-^65}", "-");
                 self.apps_view.loading_state = ListLoadingState::FindingPhones;
 
-                #[expect(unused_must_use, reason = "side-effects")]
-                {
-                    self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
-                    self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
-                    self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
-                }
-                self.update(Message::AppsAction(AppsMessage::LoadPhonePackages((
+                let settings_task = self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
+                let toggle_task = self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
+                let clear_task = self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
+                let load_task = self.update(Message::AppsAction(AppsMessage::LoadPhonePackages((
                     self.apps_view.uad_lists.clone(),
                     UadListState::Done,
-                ))))
+                ))));
+                
+                Task::batch([settings_task, toggle_task, clear_task, load_task])
             }
             #[cfg(feature = "self-update")]
             Message::_NewReleaseDownloaded(res) => {
@@ -282,12 +238,8 @@ impl Application for UadGui {
                 if let Ok((relaunch_path, cleanup_path)) = res {
                     let mut args: Vec<_> = std::env::args().skip(1).collect();
 
-                    // Remove the `--self-update-temp` arg from args if it exists,
-                    // since we need to pass it cleanly. Otherwise new process will
-                    // fail during arg parsing.
                     if let Some(idx) = args.iter().position(|a| a == "--self-update-temp") {
                         args.remove(idx);
-                        // Remove path passed after this arg
                         args.remove(idx);
                     }
 
@@ -308,17 +260,15 @@ impl Application for UadGui {
                                 error!("Could not remove temp update file: {e}");
                             }
                             error!("Failed to update {NAME}: {error}");
+                            Task::none()
                         }
                     }
                 } else {
                     error!("Failed to update {NAME}!");
-                    #[expect(unused_must_use, reason = "side-effect")]
-                    {
-                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
-                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
-                    }
+                    let update_task = self.update(Message::AppsAction(AppsMessage::UpdateFailed));
+                    self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                    update_task
                 }
-                Command::none()
             }
             Message::GetLatestRelease(release) => {
                 match release {
@@ -328,14 +278,13 @@ impl Application for UadGui {
                     }
                     Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
                 }
-                Command::none()
+                Task::none()
             }
             Message::FontLoaded(result) => {
                 if let Err(error) = result {
                     error!("Couldn't load font: {error:?}");
                 }
-
-                Command::none()
+                Task::none()
             }
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
@@ -343,11 +292,11 @@ impl Application for UadGui {
                     self.adb_satisfied,
                 )))
             }
-            Message::Nothing => Command::none(),
+            Message::Nothing => Task::none(),
         }
     }
 
-    fn view(&self) -> Element<Self::Message, Self::Theme, Renderer> {
+    fn view(&self) -> Element<Message> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),
@@ -373,15 +322,12 @@ impl Application for UadGui {
 
         column![navigation_container, main_container]
             .width(Length::Fill)
-            .align_items(Alignment::Center)
+            .align_x(Alignment::Center)
             .into()
     }
-}
 
-impl UadGui {
     pub fn start() -> iced::Result {
         let logo: &[u8] = match *OS_COLOR_SCHEME {
-            // remember to keep `Unspecified` in sync with `src/core/theme`
             dark_light::Mode::Dark | dark_light::Mode::Unspecified => {
                 include_bytes!("../../resources/assets/logo-dark.png")
             }
@@ -390,20 +336,38 @@ impl UadGui {
             }
         };
 
-        Self::run(Settings {
-            id: Some(String::from(NAME)),
-            window: Window {
-                size: iced::Size {
-                    width: 950.0,
-                    height: 700.0,
-                },
-                resizable: true,
-                decorations: true,
-                icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
-                ..iced::window::Settings::default()
+        iced::application(
+            "Universal Android Debloater Next Generation", 
+            UadGui::update,
+            UadGui::view
+        )
+        .theme(|state: &UadGui| {
+            to_iced_theme(string_to_theme(&state.settings_view.general.theme))
+        })
+        .window(iced::window::Settings {
+            size: iced::Size {
+                width: 950.0,
+                height: 700.0,
             },
-            default_text_size: iced::Pixels(16.0),
-            ..Settings::default()
+            resizable: true,
+            decorations: true,
+            icon: iced::window::icon::from_file_data(logo, Some(iced::advanced::graphics::image::image_rs::ImageFormat::Png)).ok(),
+            ..Default::default()
+        })
+        .run_with(|| {
+            (
+                Self::default(),
+                Task::batch([
+                    font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
+                        .map(Message::FontLoaded),
+                    Task::perform(initial_load(), Message::ADBSatisfied),
+                    Task::perform(get_devices_list(), Message::LoadDevices),
+                    Task::perform(
+                        async move { get_latest_release() },
+                        Message::GetLatestRelease,
+                    ),
+                ])
+            )
         })
     }
 }
