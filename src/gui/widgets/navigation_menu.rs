@@ -1,14 +1,11 @@
-use crate::core::helpers::button_primary;
 pub use crate::core::sync::Phone;
-use crate::core::theme::Theme;
 use crate::core::update::{SelfUpdateState, SelfUpdateStatus};
 pub use crate::gui::views::about::Message as AboutMessage;
 pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingState};
-use crate::gui::{Message, style, widgets::text};
+use crate::gui::{Message, styling, widgets::text};
 use iced::widget::{Space, button, container, pick_list, row, tooltip};
-use iced::{Alignment, Element, Font, Length, Renderer, alignment, font};
+use iced::{Alignment, Element, Font, Length, alignment, font};
 
-/// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
 pub const ICONS: Font = Font {
     family: font::Family::Name("icomoon"),
     ..Font::DEFAULT
@@ -19,20 +16,23 @@ pub fn nav_menu<'a>(
     selected_device: Option<Phone>,
     apps_view: &AppsView,
     self_update_state: &SelfUpdateState,
-) -> Element<'a, Message, Theme, Renderer> {
-    let apps_refresh_btn = button_primary(
+) -> Element<'a, Message> {
+    let apps_refresh_btn = button(
         text("\u{E900}")
             .font(ICONS)
             .width(22)
-            .horizontal_alignment(alignment::Horizontal::Center),
+            .align_x(alignment::Horizontal::Center),
     )
+    .style(styling::primary_button())
     .on_press(Message::RefreshButtonPressed);
 
     let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps", tooltip::Position::Bottom)
-        .style(style::Container::Tooltip)
+        .style(styling::tooltip_container())
         .gap(4);
 
-    let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
+    let reboot_btn = button("Reboot")
+        .style(styling::primary_button())
+        .on_press(Message::RebootButtonPressed);
 
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
         match self_update_state.status {
@@ -53,21 +53,26 @@ pub fn nav_menu<'a>(
         button("Update")
             .on_press(Message::AboutAction(AboutMessage::DoSelfUpdate))
             .padding([5, 10])
-            .style(style::Button::SelfUpdate)
+            .style(styling::primary_button())
     } else {
-        button("").height(0).width(0).style(style::Button::Hidden)
+        button("").height(0).width(0)
     };
 
-    let apps_btn = button_primary("Apps").on_press(Message::AppsPress);
+    let apps_btn = button("Apps")
+        .style(styling::primary_button())
+        .on_press(Message::AppsPress);
 
-    let about_btn = button_primary("About").on_press(Message::AboutPressed);
+    let about_btn = button("About")
+        .style(styling::primary_button())
+        .on_press(Message::AboutPressed);
 
-    let settings_btn = button_primary(
+    let settings_btn = button(
         text("\u{E994}")
             .font(ICONS)
             .width(22)
-            .horizontal_alignment(alignment::Horizontal::Center),
+            .align_x(alignment::Horizontal::Center),
     )
+    .style(styling::primary_button())
     .on_press(Message::SettingsPressed);
 
     let device_list_text = match apps_view.loading_state {
@@ -88,7 +93,7 @@ pub fn nav_menu<'a>(
             settings_btn,
         ]
         .width(Length::Fill)
-        .align_items(Alignment::Center)
+        .align_y(Alignment::Center)
         .spacing(10),
         None => row![
             reboot_btn,
@@ -102,13 +107,13 @@ pub fn nav_menu<'a>(
             settings_btn,
         ]
         .width(Length::Fill)
-        .align_items(Alignment::Center)
+        .align_y(Alignment::Center)
         .spacing(10),
     };
 
     container(row)
         .width(Length::Fill)
         .padding(10)
-        .style(style::Container::Frame)
+        .style(styling::frame_container())
         .into()
 }
