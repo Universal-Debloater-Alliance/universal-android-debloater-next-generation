@@ -3,7 +3,6 @@ use crate::core::{
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{AdbError, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user},
-    theme::Theme,
     utils::{
         DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_folder, open_url,
         string_to_theme,
@@ -18,7 +17,8 @@ use crate::gui::{
     widgets::text,
 };
 use iced::widget::{Space, button, checkbox, column, container, pick_list, radio, row, scrollable};
-use iced::{Alignment, Element, Length, Renderer, alignment};
+use iced::{Alignment, Element, Length, alignment};
+use std::fmt::Write as _;
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]
@@ -51,7 +51,7 @@ pub enum Message {
     ExpertMode(bool),
     DisableMode(bool),
     MultiUserMode(bool),
-    ApplyTheme(Theme),
+    ApplyTheme(crate::core::theme::Theme),
     UrlPressed(PathBuf),
     BackupSelected(DisplayablePath),
     BackupDevice,
@@ -66,6 +66,33 @@ pub enum Message {
 }
 
 impl Settings {
+    fn load_device_settings_for(&mut self, phone: &Phone) {
+        let backups = list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
+        let backup = BackupSettings {
+            backups: backups.clone(),
+            selected: backups.first().cloned(),
+            users: phone.user_list.clone(),
+            selected_user: phone.user_list.first().copied(),
+            backup_state: String::default(),
+        };
+
+        if let Some(device) = Config::load_configuration_file()
+            .devices
+            .iter()
+            .find(|d| d.device_id == phone.adb_id)
+        {
+            self.device.clone_from(device);
+            self.device.backup = backup;
+        } else {
+            self.device = DeviceSettings {
+                device_id: phone.adb_id.clone(),
+                multi_user_mode: supports_multi_user(phone),
+                disable_mode: false,
+                backup,
+            };
+        }
+    }
+
     #[allow(clippy::too_many_lines)]
     pub fn update(
         &mut self,
@@ -74,17 +101,17 @@ impl Settings {
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
         selected_user: Option<User>,
-    ) -> iced::Command<Message> {
+    ) -> iced::Task<Message> {
         match msg {
             Message::ModalHide => {
                 self.modal = None;
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::ExpertMode(toggled) => {
                 self.general.expert_mode = toggled;
                 debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::DisableMode(toggled) => {
                 if phone.android_sdk >= 23 {
@@ -92,60 +119,34 @@ impl Settings {
                     debug!("Config change: {self:?}");
                     Config::save_changes(self, &phone.adb_id);
                 }
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::MultiUserMode(toggled) => {
                 self.device.multi_user_mode = toggled;
                 debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::ApplyTheme(theme) => {
                 self.general.theme = theme.to_string();
                 debug!("Config change: {self:?}");
                 Config::save_changes(self, &phone.adb_id);
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::UrlPressed(url) => {
                 open_url(url);
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::LoadDeviceSettings => {
-                let backups =
-                    list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
-                let backup = BackupSettings {
-                    backups: backups.clone(),
-                    selected: backups.first().cloned(),
-                    users: phone.user_list.clone(),
-                    selected_user: phone.user_list.first().copied(),
-                    backup_state: String::default(),
-                };
-                match Config::load_configuration_file()
-                    .devices
-                    .iter()
-                    .find(|d| d.device_id == phone.adb_id)
-                {
-                    Some(device) => {
-                        self.device.clone_from(device);
-                        self.device.backup = backup;
-                    }
-                    None => {
-                        self.device = DeviceSettings {
-                            device_id: phone.adb_id.clone(),
-                            multi_user_mode: supports_multi_user(phone),
-                            disable_mode: false,
-                            backup,
-                        }
-                    }
-                }
-                iced::Command::none()
+                self.load_device_settings_for(phone);
+                iced::Task::none()
             }
             Message::BackupSelected(d_path) => {
                 self.device.backup.selected = Some(d_path.clone());
                 self.device.backup.users = list_available_backup_user(d_path);
-                iced::Command::none()
+                iced::Task::none()
             }
-            Message::BackupDevice => iced::Command::perform(
+            Message::BackupDevice => iced::Task::perform(
                 backup_phone(
                     phone.user_list.clone(),
                     self.device.device_id.clone(),
@@ -157,20 +158,21 @@ impl Settings {
                 match is_backed_up {
                     Ok(_) => {
                         info!("[BACKUP] Backup successfully created");
-                        self.device.backup.backups = list_available_backups(
-                            &self.general.backup_folder.join(phone.adb_id.clone()),
-                        );
+                        self.device.backup.backups =
+                            list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
                         self.device.backup.selected = self.device.backup.backups.first().cloned();
                     }
                     Err(err) => {
                         error!("[BACKUP FAILED] Backup creation failed: {err:?}");
                     }
                 }
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::RestoreDevice => match restore_backup(phone, packages, &self.device) {
                 Ok(r_packages) => {
-                    let mut commands = vec![];
+                    // Pre-allocate tasks for efficiency
+                    let total_cmds: usize = r_packages.iter().map(|p| p.commands.len()).sum();
+                    let mut commands = Vec::with_capacity(total_cmds);
                     *nb_running_async_adb_commands = 0;
                     for p in &r_packages {
                         let p_info = PackageInfo {
@@ -178,12 +180,16 @@ impl Settings {
                             index: p.index,
                             removal: "RESTORE".to_string(),
                         };
-                        for command in p.commands.clone() {
+                        for command in &p.commands {
                             *nb_running_async_adb_commands += 1;
-                            commands.push(iced::Command::perform(
+                            commands.push(iced::Task::perform(
                                 // This is "safe" thanks to serde:
                                 // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/760
-                                adb_shell_command(phone.adb_id.clone(), command, p_info.clone()),
+                                adb_shell_command(
+                                    phone.adb_id.clone(),
+                                    command.clone(),
+                                    p_info.clone(),
+                                ),
                                 Message::RestoringDevice,
                             ));
                         }
@@ -200,44 +206,35 @@ impl Settings {
                         "[RESTORE] Restoring backup {}",
                         self.device.backup.selected.as_ref().unwrap()
                     );
-                    iced::Command::batch(commands)
+                    iced::Task::batch(commands)
                 }
                 Err(e) => {
                     self.device.backup.backup_state.clone_from(&e);
                     error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
-                    iced::Command::none()
+                    iced::Task::none()
                 }
             },
             // Trigger an action in mod.rs (Message::SettingsAction(msg))
-            Message::RestoringDevice(_) => iced::Command::none(),
+            Message::RestoringDevice(_) => iced::Task::none(),
             Message::FolderChosen(result) => {
                 self.is_loading = false;
 
                 if let Ok(path) = result {
                     self.general.backup_folder = path;
                     Config::save_changes(self, &phone.adb_id);
-                    #[expect(unused_must_use, reason = "side-effect")]
-                    {
-                        self.update(
-                            phone,
-                            packages,
-                            nb_running_async_adb_commands,
-                            Message::LoadDeviceSettings,
-                            selected_user,
-                        );
-                    }
+                    self.load_device_settings_for(phone);
                 }
-                iced::Command::none()
+                iced::Task::none()
             }
             Message::ChooseBackUpFolder => {
                 if self.is_loading {
-                    iced::Command::none()
+                    iced::Task::none()
                 } else {
                     self.is_loading = true;
-                    iced::Command::perform(open_folder(), Message::FolderChosen)
+                    iced::Task::perform(open_folder(), Message::FolderChosen)
                 }
             }
-            Message::ExportPackages => iced::Command::perform(
+            Message::ExportPackages => iced::Task::perform(
                 export_packages(selected_user.unwrap_or_default(), packages.to_vec()),
                 Message::PackagesExported,
             ),
@@ -246,50 +243,61 @@ impl Settings {
                     Ok(_) => self.modal = Some(PopUpModal::ExportUninstalled),
                     Err(err) => error!("Failed to export list of uninstalled packages: {err:?}"),
                 }
-                iced::Command::none()
+                iced::Task::none()
             }
         }
     }
 
     #[allow(clippy::too_many_lines)]
-    pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
-        let radio_btn_theme = Theme::ALL
-            .iter()
-            .fold(row![].spacing(10), |column, option| {
-                column.push(
-                    radio(
-                        format!("{}", option.clone()),
-                        *option,
-                        Some(string_to_theme(&self.general.theme)),
-                        Message::ApplyTheme,
+    pub fn view<'a>(&'a self, phone: &'a Phone, apps_view: &'a AppsView) -> Element<'a, Message> {
+        const HEADER_SIZE: u16 = 26;
+        let android_sdk_ge_23 = phone.android_sdk >= 23;
+        // Reuse common colors locally
+        let palette = crate::core::theme::string_to_theme(&self.general.theme).palette();
+        let commentary = palette.surface;
+        let danger = palette.bright_error;
+        // Lightweight style closures (Copy) for buttons
+        let primary_btn = style::primary_button();
+        let restore_btn_style = style::danger_button();
+        let danger_btn = style::danger_button();
+
+        let radio_btn_theme =
+            crate::core::theme::Theme::ALL
+                .iter()
+                .fold(row![].spacing(10), |acc, option| {
+                    acc.push(
+                        radio(
+                            option.to_string(),
+                            *option,
+                            Some(string_to_theme(&self.general.theme)),
+                            Message::ApplyTheme,
+                        )
+                        .size(24),
                     )
-                    .size(24),
-                )
-            });
+                });
         let theme_ctn = container(radio_btn_theme)
             .padding(10)
             .width(Length::Fill)
             .height(Length::Shrink)
-            .style(style::Container::Frame);
+            .style(style::frame_container());
 
         let expert_mode_checkbox = checkbox(
             "Allow to uninstall packages marked as \"unsafe\" (I KNOW WHAT I AM DOING)",
             self.general.expert_mode,
         )
-        .on_toggle(Message::ExpertMode)
-        .style(style::CheckBox::SettingsEnabled);
+        .on_toggle(Message::ExpertMode);
 
         let expert_mode_descr =
             text("Most unsafe packages are known to bootloop the device if removed.")
-                .style(style::Text::Commentary);
+                .color(commentary);
 
         let choose_backup_descr = text("Note: If you have previous backups, you will need to transfer them manually to newly changed backup folder to be able to use Restore functionality")
-            .style(style::Text::Commentary);
+            .color(commentary);
 
         let choose_backup_btn = button(text("\u{E930}").font(ICONS))
             .padding([5, 10])
             .on_press(Message::ChooseBackUpFolder)
-            .style(style::Button::Primary);
+            .style(primary_btn);
 
         let choose_backup_row = row![
             choose_backup_btn,
@@ -299,7 +307,7 @@ impl Settings {
             text(self.general.backup_folder.to_string_lossy())
         ]
         .spacing(10)
-        .align_items(Alignment::Center);
+        .align_y(Alignment::Center);
 
         let general_ctn = container(
             column![
@@ -313,61 +321,55 @@ impl Settings {
         .padding(10)
         .width(Length::Fill)
         .height(Length::Shrink)
-        .style(style::Container::Frame);
+        .style(style::frame_container());
 
         let warning_ctn = container(
             row![
                 text("The following settings only affect the currently selected device:")
-                    .style(style::Text::Danger),
-                text(phone.model.clone()),
+                    .color(danger),
+                text(&phone.model),
                 Space::new(Length::Fill, Length::Shrink),
-                text(phone.adb_id.clone()).style(style::Text::Commentary)
+                text(&phone.adb_id).color(commentary)
             ]
             .spacing(7),
         )
         .padding(10)
         .width(Length::Fill)
-        .style(style::Container::BorderedFrame);
+        .style(style::bordered_frame_container());
+
+        let protected_ids = {
+            let mut s = String::new();
+            for (i, u) in phone.user_list.iter().filter(|u| u.protected).enumerate() {
+                if i > 0 {
+                    s.push_str(", ");
+                }
+                let _ = write!(&mut s, "{}", u.id);
+            }
+            s
+        };
 
         let multi_user_mode_descr = row![
             text("This will not affect the following protected work profile users: ")
-                .style(style::Text::Commentary),
-            text(
-                phone
-                    .user_list
-                    .iter()
-                    .filter(|&u| u.protected)
-                    .map(|u| u.id.to_string())
-                    .collect::<Vec<String>>()
-                    .join(", ")
-            )
-            .style(style::Text::Danger)
+                .color(commentary),
+            text(protected_ids).color(danger)
         ];
 
         let multi_user_mode_checkbox = checkbox(
             "Affect all the users of the device (not only the selected user)",
             self.device.multi_user_mode,
         )
-        .on_toggle(Message::MultiUserMode)
-        .style(style::CheckBox::SettingsEnabled);
-
-        let disable_checkbox_style = if phone.android_sdk >= 23 {
-            style::CheckBox::SettingsEnabled
-        } else {
-            style::CheckBox::SettingsDisabled
-        };
+        .on_toggle(Message::MultiUserMode);
 
         let disable_mode_descr =
             text("In some cases, it can be better to disable a package instead of uninstalling it")
-                .style(style::Text::Commentary);
+                .color(commentary);
 
         let unavailable_btn = button(text("Unavailable").size(14))
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#\
-                    why-is-the-disable-mode-setting-not-available-for-my-device",
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#why-is-the-disable-mode-setting-not-available-for-my-device",
             )))
             .height(22)
-            .style(style::Button::Unavailable);
+            .style(danger_btn);
 
         // Disabling package without root isn't really possible before Android Oreo (8.0)
         // see https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
@@ -375,10 +377,13 @@ impl Settings {
             "Clear and disable packages instead of uninstalling them",
             self.device.disable_mode,
         )
-        .on_toggle(Message::DisableMode)
-        .style(disable_checkbox_style);
+        .on_toggle(if android_sdk_ge_23 {
+            Message::DisableMode
+        } else {
+            |_| Message::ModalHide // Dummy message that does nothing
+        });
 
-        let disable_setting_row = if phone.android_sdk >= 23 {
+        let disable_setting_row = if android_sdk_ge_23 {
             row![
                 disable_mode_checkbox,
                 Space::new(Length::Fill, Length::Shrink),
@@ -405,7 +410,7 @@ impl Settings {
         .padding(10)
         .width(Length::Fill)
         .height(Length::Shrink)
-        .style(style::Container::Frame);
+        .style(style::frame_container());
 
         let backup_pick_list = pick_list(
             self.device.backup.backups.clone(),
@@ -414,33 +419,34 @@ impl Settings {
         )
         .padding(6);
 
-        let backup_btn =
-            button_primary(text("Backup").horizontal_alignment(alignment::Horizontal::Center))
-                .on_press(Message::BackupDevice)
-                .width(77);
+        let backup_btn = button_primary(text("Backup").align_x(alignment::Horizontal::Center))
+            .on_press(Message::BackupDevice)
+            .width(77);
 
-        let restore_btn = |enabled| {
+        let make_restore_button = |enabled: bool| {
             if enabled {
-                button(text("Restore").horizontal_alignment(alignment::Horizontal::Center))
+                button(text("Restore").align_x(alignment::Horizontal::Center))
                     .padding([5, 10])
                     .on_press(Message::RestoreDevice)
+                    .style(restore_btn_style)
                     .width(77)
             } else {
                 button(
                     text("No backup")
-                        .horizontal_alignment(alignment::Horizontal::Center)
-                        .vertical_alignment(alignment::Vertical::Center),
+                        .align_x(alignment::Horizontal::Center)
+                        .align_y(alignment::Vertical::Center),
                 )
                 .padding([5, 10])
                 .width(77)
             }
         };
 
-        let locate_backup_btn = if self.device.backup.backups.is_empty() {
+        let has_backups = !self.device.backup.backups.is_empty();
+        let locate_backup_btn = if !has_backups {
             button_primary("Open backup directory")
         } else {
             button_primary("Open backup directory").on_press(Message::UrlPressed(
-                self.general.backup_folder.join(phone.adb_id.clone()),
+                self.general.backup_folder.join(&phone.adb_id),
             ))
         };
 
@@ -453,38 +459,38 @@ impl Settings {
             locate_backup_btn,
         ]
         .spacing(10)
-        .align_items(Alignment::Center);
+        .align_y(Alignment::Center);
 
-        let restore_row = if self.device.backup.backups.is_empty() {
+        let restore_row = if !has_backups {
             row![]
         } else {
             row![
-                restore_btn(true),
+                make_restore_button(true),
                 "Restore the state of the device",
                 Space::new(Length::Fill, Length::Shrink),
-                text(self.device.backup.backup_state.clone()).style(style::Text::Danger),
+                text(&self.device.backup.backup_state).color(danger),
                 backup_pick_list,
             ]
             .spacing(10)
-            .align_items(Alignment::Center)
+            .align_y(Alignment::Center)
         };
 
         let no_device_ctn = || {
-            container(text("No device detected").style(style::Text::Danger))
+            container(text("No device detected").color(danger))
                 .padding(10)
                 .width(Length::Fill)
-                .style(style::Container::BorderedFrame)
+                .style(style::bordered_frame_container())
         };
 
         let content = if phone.adb_id.is_empty() {
             column![
-                text("Theme").size(26),
+                text("Theme").size(HEADER_SIZE),
                 theme_ctn,
-                text("General").size(26),
+                text("General").size(HEADER_SIZE),
                 general_ctn,
-                text("Current device").size(26),
+                text("Current device").size(HEADER_SIZE),
                 no_device_ctn(),
-                text("Backup / Restore").size(26),
+                text("Backup / Restore").size(HEADER_SIZE),
                 no_device_ctn(),
             ]
             .width(Length::Fill)
@@ -500,24 +506,24 @@ impl Settings {
                 )),
             ]
             .spacing(10)
-            .align_items(Alignment::Center);
+            .align_y(Alignment::Center);
 
             let backup_restore_ctn =
                 container(column![backup_row, restore_row, export_row].spacing(10))
                     .padding(10)
                     .width(Length::Fill)
                     .height(Length::Shrink)
-                    .style(style::Container::Frame);
+                    .style(style::frame_container());
 
             column![
-                text("Theme").size(26),
+                text("Theme").size(HEADER_SIZE),
                 theme_ctn,
-                text("General").size(26),
+                text("General").size(HEADER_SIZE),
                 general_ctn,
-                text("Current device").size(26),
+                text("Current device").size(HEADER_SIZE),
                 warning_ctn,
                 device_specific_ctn,
-                text("Backup / Restore").size(26),
+                text("Backup / Restore").size(HEADER_SIZE),
                 backup_restore_ctn,
             ]
             .width(Length::Fill)
@@ -525,27 +531,26 @@ impl Settings {
         };
 
         if let Some(PopUpModal::ExportUninstalled) = self.modal {
-            let title = container(row![text("Success").size(24)].align_items(Alignment::Center))
+            let title = container(row![text("Success").size(24)].align_y(Alignment::Center))
                 .width(Length::Fill)
-                .style(style::Container::Frame)
-                .padding([10, 0, 10, 0])
-                .center_y()
-                .center_x();
+                .style(style::frame_container())
+                .padding(iced::Padding::from([10.0, 0.0]))
+                .center_y(Length::Shrink)
+                .center_x(Length::Shrink);
 
             let text_box = row![
                 text(format!("Exported uninstalled packages into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
             ].padding(20);
 
-            let file_row = row![
-                text(generate_backup_name(chrono::Local::now())).style(style::Text::Commentary)
-            ]
-            .padding(20);
+            let file_row = row![text(generate_backup_name(chrono::Local::now())).color(commentary)]
+                .padding(20);
 
             let modal_btn_row = row![
                 Space::new(Length::Fill, Length::Shrink),
                 button(text("Close").width(Length::Shrink))
                     .width(Length::Shrink)
-                    .on_press(Message::ModalHide),
+                    .on_press(Message::ModalHide)
+                    .style(style::primary_button()),
                 Space::new(Length::Fill, Length::Shrink),
             ];
 
@@ -553,7 +558,7 @@ impl Settings {
                 .height(Length::Shrink)
                 .width(500)
                 .padding(10)
-                .style(style::Container::Frame);
+                .style(style::frame_container());
 
             return Modal::new(content.padding(10), ctn)
                 .on_blur(Message::ModalHide)
