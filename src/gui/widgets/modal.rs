@@ -1,10 +1,11 @@
 use iced::advanced::widget::{self, Tree, Widget};
 use iced::advanced::{Clipboard, Layout, Shell, layout, overlay, renderer};
 use iced::mouse::{self, Cursor};
+use iced::touch;
 use iced::{Alignment, Color, Element, Event, Length, Point, Rectangle, Size, advanced, event};
 
 /// A widget that centers a modal element over some base element
-pub struct Modal<'a, Message, Theme, Renderer> {
+pub struct Modal<'a, Message, Theme = iced::Theme, Renderer = iced::Renderer> {
     base: Element<'a, Message, Theme, Renderer>,
     modal: Element<'a, Message, Theme, Renderer>,
     on_blur: Option<Message>,
@@ -118,7 +119,7 @@ where
             content: &mut self.modal,
             tree: &mut state.children[1],
             size: layout.bounds().size(),
-            on_blur: self.on_blur.clone(),
+            on_blur: self.on_blur.as_ref(),
         })))
     }
 
@@ -144,7 +145,7 @@ where
         state: &mut Tree,
         layout: Layout<'_>,
         renderer: &Renderer,
-        operation: &mut dyn widget::Operation<Message>,
+        operation: &mut dyn widget::Operation,
     ) {
         self.base
             .as_widget()
@@ -157,7 +158,7 @@ struct Overlay<'a, 'b, Message, Theme, Renderer> {
     content: &'b mut Element<'a, Message, Theme, Renderer>,
     tree: &'b mut Tree,
     size: Size,
-    on_blur: Option<Message>,
+    on_blur: Option<&'b Message>,
 }
 
 impl<Message, Theme, Renderer> overlay::Overlay<Message, Theme, Renderer>
@@ -189,19 +190,31 @@ where
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
     ) -> event::Status {
-        if let Some(message) = self.on_blur.as_ref()
-            && matches!(
-                event,
-                Event::Mouse(mouse::Event::ButtonPressed(mouse::Button::Left))
-            )
-            && let Some(cursor_position) = cursor.position()
-        {
-            let content_bounds = layout
+        if let Some(message) = self.on_blur {
+            let mut publish_blur = false;
+            let child_layout = layout
                 .children()
                 .next()
-                .expect("Layout must have at least 1 child")
-                .bounds();
-            if !content_bounds.contains(cursor_position) {
+                .expect("Modal overlay layout must have a child");
+            let content_bounds = child_layout.bounds();
+
+            match event {
+                Event::Mouse(mouse::Event::ButtonPressed(_)) => {
+                    if let Some(pos) = cursor.position() {
+                        if !content_bounds.contains(pos) {
+                            publish_blur = true;
+                        }
+                    }
+                }
+                Event::Touch(touch::Event::FingerPressed { position, .. }) => {
+                    if !content_bounds.contains(position) {
+                        publish_blur = true;
+                    }
+                }
+                _ => {}
+            }
+
+            if publish_blur {
                 shell.publish(message.clone());
                 return event::Status::Captured;
             }
@@ -210,7 +223,10 @@ where
         self.content.as_widget_mut().on_event(
             self.tree,
             event,
-            layout.children().next().unwrap(),
+            layout
+                .children()
+                .next()
+                .expect("Modal content layout is present"),
             cursor,
             renderer,
             clipboard,
@@ -243,7 +259,10 @@ where
             renderer,
             theme,
             style,
-            layout.children().next().unwrap(),
+            layout
+                .children()
+                .next()
+                .expect("Modal content layout is present"),
             cursor,
             &layout.bounds(),
         );
@@ -253,11 +272,14 @@ where
         &mut self,
         layout: Layout<'_>,
         renderer: &Renderer,
-        operation: &mut dyn widget::Operation<Message>,
+        operation: &mut dyn widget::Operation,
     ) {
         self.content.as_widget().operate(
             self.tree,
-            layout.children().next().unwrap(),
+            layout
+                .children()
+                .next()
+                .expect("Modal content layout is present"),
             renderer,
             operation,
         );
@@ -272,7 +294,10 @@ where
     ) -> mouse::Interaction {
         self.content.as_widget().mouse_interaction(
             self.tree,
-            layout.children().next().unwrap(),
+            layout
+                .children()
+                .next()
+                .expect("Modal content layout is present"),
             cursor,
             viewport,
             renderer,
