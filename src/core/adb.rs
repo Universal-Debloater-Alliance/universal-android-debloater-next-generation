@@ -348,8 +348,7 @@ impl PmCommand {
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    #[cfg(debug_assertions)]
-                    assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    debug_assert!(PackageId::new(p.into()).is_some() || p == "android");
                     String::from(p)
                 })
                 .collect()
@@ -373,12 +372,12 @@ impl PmCommand {
                 let ln = ln.trim_ascii_start();
                 let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
                 let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
-                let run;
+                //let run;
                 let ln = if let Some(l) = ln.strip_suffix("running") {
-                    run = true;
+                    //run = true;
                     l.trim_ascii_end()
                 } else {
-                    run = false;
+                    //run = false;
                     ln
                 };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
@@ -407,7 +406,7 @@ impl PmCommand {
                     id,
                     //name: name.into(),
                     //flags,
-                    running: run,
+                    //running: run,
                 }
             })
             .collect())
@@ -421,19 +420,21 @@ pub struct UserInfo {
     id: u16,
     //name: Box<str>,
     //flags: u32,
-    running: bool,
+    //running: bool,
 }
 impl UserInfo {
     #[must_use]
     pub const fn get_id(&self) -> u16 {
         self.id
     }
+    /*
     /// Check if the user was logged-in
     /// at the time `pm list users` was invoked
     #[must_use]
     pub const fn was_running(&self) -> bool {
         self.running
     }
+    */
 }
 
 #[cfg(test)]
