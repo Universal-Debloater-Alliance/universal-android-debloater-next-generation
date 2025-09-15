@@ -10166,11 +10166,11 @@
   },
   "com.google.android.overlay.gmsconfig.searchselector": {
     "list": "Google",
-    "description": "Not needed for (com.google.android.apps.setupwizard.searchselector).",
+    "description": "Removal will crash most apps like settings, clock, firefox, github, termux etc.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.ww": {
     "list": "Google",
