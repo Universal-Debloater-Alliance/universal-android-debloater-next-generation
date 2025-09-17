@@ -23,8 +23,8 @@ serde = { version = "^1.0", features = ["derive"] }
 serde_json = "^1.0"
 fern = { version = "^0", features = ["colored"] }
 chrono = { version = "^0.4", default-features = false, features = [
-  "std",
-  "clock",
+	"std",
+	"clock",
 ] }
 log = "^0.4"
 toml = "^0"
@@ -63,11 +63,8 @@ deprecated_safe = "warn"
 
 [lints.clippy]
 undocumented_unsafe_blocks = "forbid"
-exit = "deny"
 panic_in_result_fn = "warn"
 infinite_loop = "warn"
-mem_forget = "warn"
-string_to_string = "warn"
 format_push_string = "warn"
 large_include_file = "warn"
 shadow_unrelated = "warn"
@@ -77,5 +74,4 @@ module_name_repetitions = "allow" # annoying
 disallowed_types = "deny"
 disallowed_methods = "deny"
 
-allow_attributes_without_reason = "warn"
 pedantic = { level = "warn", priority = -1 }
