@@ -154,14 +154,15 @@ pub fn open_url(dir: PathBuf) {
     match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
-                // does Windows print UTF-16?
-                let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
+                // Use lossy decoding to avoid panic on non-UTF8 output
+                let stderr = String::from_utf8_lossy(&o.stderr).trim_end().to_string();
                 error!("Can't open the following URL: {stderr}");
             }
         }
         Err(e) => error!("Failed to run command to open the file explorer: {e}"),
     }
 }
+
 
 #[rustfmt::skip]
 pub fn last_modified_date(file: PathBuf) -> DateTime<Utc> {

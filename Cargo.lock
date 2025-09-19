@@ -3901,6 +3901,7 @@ dependencies = [
  "serde",
  "serde_json",
  "tar",
+ "thiserror 1.0.69",
  "toml",
  "ureq",
  "win32console",

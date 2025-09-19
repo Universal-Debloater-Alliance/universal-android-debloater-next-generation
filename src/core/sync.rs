@@ -67,63 +67,75 @@ pub enum AdbError {
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 #[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
-pub async fn adb_shell_command<S: AsRef<str>>(
-    device_serial: S,
-    action: String,
-    p: PackageInfo,
-) -> Result<PackageInfo, AdbError> {
-    let serial = device_serial.as_ref();
+/// Run an ADB shell command for a specific device.
+/// Returns Ok(p_info) on success, or Err(AdbError::Generic(msg)) on failure.
+/// NOTE: `async` because it's awaited via `Command::perform(...)` in the GUI.
+pub async fn adb_shell_command(
+    adb_id: String,
+    command: String,
+    p_info: crate::gui::views::list::PackageInfo,
+) -> Result<crate::gui::views::list::PackageInfo, AdbError> {
+    // Spawn ADB without unwrap()/expect()
+    let output = Command::new("adb")
+        .args(["-s", &adb_id, "shell", &command])
+        .output();
 
-    let label = &p.removal;
-
-    let mut cmd = Command::new("adb");
-    if !serial.is_empty() {
-        cmd.args(["-s", serial]);
-    }
-    cmd.arg("shell");
-    // this works because `sh` splits spaces
-    cmd.arg(&action);
-
-    #[cfg(target_os = "windows")]
-    let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
-
-    match match cmd.output() {
+    let output = match output {
+        Ok(o) => o,
         Err(e) => {
-            error!("ADB: {e}");
-            Err("Cannot run ADB, likely not found".to_string())
+            return Err(AdbError::Generic(format!(
+                "Failed to start ADB: {}\n\
+                 • Make sure Android Platform Tools are installed and `adb` is in PATH.\n\
+                 • Check that the device is connected and authorized (run `adb devices`).",
+                e
+            )));
         }
-        Ok(o) => {
-            let stdout = to_trimmed_utf8(o.stdout);
-            if o.status.success() {
-                Ok(stdout)
-            } else {
-                let stderr = to_trimmed_utf8(o.stderr);
+    };
 
-                // ADB does really weird things. Some errors are not redirected to stderr
-                let err = if stdout.is_empty() { stderr } else { stdout };
-                Err(err)
-            }
-        }
-    } {
-        Ok(o) => {
-            // On old devices, adb commands can return the `0` exit code even if there
-            // is an error. On Android 4.4, ADB doesn't check if the package exists.
-            // It does not return any error if you try to `pm block` a non-existent package.
-            // Some commands are even killed by ADB before finishing and UAD-ng can't catch
-            // the output.
-            if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
-            }
+    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
 
-            info!("[{label}] {action} -> {o}");
-            Ok(p)
+    if !output.status.success() {
+        // Many OEMs print failure info to stdout instead of stderr.
+        let mut msg = if !stderr.is_empty() { stderr } else { stdout.clone() };
+
+        if let Some(hint) = friendly_hint(&msg) {
+            msg.push_str(&format!("\nTip: {}", hint));
         }
-        Err(err) => {
-            if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
-            }
-            Err(AdbError::Generic(err))
-        }
+
+        return Err(AdbError::Generic(msg));
+    }
+
+    // Success path: log any warnings but don't fail.
+    if !stdout.is_empty() {
+        info!("[adb ok] {}", stdout);
+    }
+    if !stderr.is_empty() {
+        info!("[adb warn] {}", stderr);
+    }
+
+    Ok(p_info)
+}
+
+/// Map frequent OEM failure strings to actionable hints shown to the user.
+fn friendly_hint(err_msg: &str) -> Option<&'static str> {
+    let e = err_msg;
+    if e.contains("DELETE_FAILED_USER_RESTRICTED")
+        || e.contains("package is protected")
+        || e.contains("Cannot uninstall a protected package")
+    {
+        Some("Package is protected by the vendor. Try Disable instead.")
+    } else if e.contains("NOT_INSTALLED_FOR_USER") || e.contains("Unknown package:") {
+        Some("It seems this app isn’t installed for the selected user. Refresh the list.")
+    } else if e.contains("permission to access user")
+        || e.contains("Shell does not have permission to access user")
+    {
+        Some("Wrong user/profile. Select the primary user or a permitted profile.")
+    } else if e.contains("Failure [") && e.contains(']') {
+        // Generic pm failure catch-all
+        Some("Android Package Manager rejected the operation. Try Disable, or re-check Expert Mode.")
+    } else {
+        None
     }
 }
 
