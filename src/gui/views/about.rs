@@ -29,7 +29,7 @@ impl About {
         }
         // other events are handled by UadGui update()
     }
-    pub fn view(&self, update_state: &UpdateState) -> Element<Message, Theme, Renderer> {
+    pub fn view(&self, update_state: &UpdateState) -> Element<'_, Message, Theme, Renderer> {
         let about_text = text(format!(
             "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
         ));
