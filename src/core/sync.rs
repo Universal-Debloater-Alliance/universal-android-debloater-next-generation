@@ -1,14 +1,11 @@
 use crate::core::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, to_trimmed_utf8},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
-use retry::{OperationResult, delay::Fixed, retry};
+use retry::{delay::Fixed, retry, OperationResult};
 use serde::{Deserialize, Serialize};
 use std::process::Command;
-
-#[cfg(target_os = "windows")]
-use std::os::windows::process::CommandExt;
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -55,27 +52,21 @@ impl std::fmt::Display for User {
     }
 }
 
-/// An enum to contain different variants for errors yielded by ADB.
+/// ADB error type (GUI expects `Generic(String)` for errors)
 #[derive(Debug, Clone)]
 pub enum AdbError {
     Generic(String),
 }
 
-/// Runs an **arbitrary command** on the device's default `sh` implementation.
-/// Typically MKSH, but could be Ash.
-/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
-///
-/// If `serial` is empty, it lets ADB choose the default device.
-#[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
 /// Run an ADB shell command for a specific device.
 /// Returns Ok(p_info) on success, or Err(AdbError::Generic(msg)) on failure.
 /// NOTE: `async` because it's awaited via `Command::perform(...)` in the GUI.
+#[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
 pub async fn adb_shell_command(
     adb_id: String,
     command: String,
-    p_info: crate::gui::views::list::PackageInfo,
-) -> Result<crate::gui::views::list::PackageInfo, AdbError> {
-    // Spawn ADB without unwrap()/expect()
+    p_info: PackageInfo,
+) -> Result<PackageInfo, AdbError> {
     let output = Command::new("adb")
         .args(["-s", &adb_id, "shell", &command])
         .output();
@@ -106,7 +97,6 @@ pub async fn adb_shell_command(
         return Err(AdbError::Generic(msg));
     }
 
-    // Success path: log any warnings but don't fail.
     if !stdout.is_empty() {
         info!("[adb ok] {}", stdout);
     }
@@ -132,8 +122,9 @@ fn friendly_hint(err_msg: &str) -> Option<&'static str> {
     {
         Some("Wrong user/profile. Select the primary user or a permitted profile.")
     } else if e.contains("Failure [") && e.contains(']') {
-        // Generic pm failure catch-all
-        Some("Android Package Manager rejected the operation. Try Disable, or re-check Expert Mode.")
+        Some(
+            "Android Package Manager rejected the operation. Try Disable, or re-check Expert Mode.",
+        )
     } else {
         None
     }
@@ -169,7 +160,6 @@ impl From<PackageRow> for CorePackage {
         }
     }
 }
-
 impl From<&PackageRow> for CorePackage {
     fn from(pr: &PackageRow) -> Self {
         Self {
@@ -207,22 +197,20 @@ pub fn apply_pkg_state_commands(
         },
         PackageState::Uninstalled => match package.state {
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
-                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
-                _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                sdk if sdk >= 23 => vec!["pm uninstall"],        // > Android Marshmallow (6.0)
+                21 | 22 => vec!["pm hide", PM_CLEAR_PACK],       // Android Lollipop (5.x)
+                _ => vec!["pm block", PM_CLEAR_PACK],            // very old devices
             },
             _ => vec![],
         },
         PackageState::All => vec![],
-    }; // this should be a `tinyvec`, as `len <= 4`
+    }; // `len <= 4`
 
     let user = supports_multi_user(phone).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
 /// Build a command request to be sent via ADB to a device.
-/// `commands` accepts one or more ADB shell commands
-/// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
     let maybe_user_flag = user_flag(user);
     commands
@@ -256,15 +244,11 @@ pub fn get_device_brand(serial: &str) -> String {
     AdbCommand::new()
         .shell(serial)
         .getprop("ro.product.brand")
-        // `trim` is just-in-case
         .map(|s| s.trim().to_string())
         .unwrap_or_default()
 }
 
-/// Get Android SDK version by querying the
-// `ro.build.version.sdk` property or defaulting to 0.
-///
-/// If `device_serial` is empty, it lets ADB choose the default device.
+/// Get Android SDK version by querying `ro.build.version.sdk` or defaulting to 0.
 pub fn get_android_sdk(device_serial: &str) -> u8 {
     AdbCommand::new()
         .shell(device_serial)
@@ -274,27 +258,16 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
         })
 }
 
-/// Minimum inclusive Android SDK version
-/// that supports multi-user mode.
-/// Lollipop 5.0
+/// Minimum inclusive Android SDK version that supports multi-user mode (Lollipop 5.0)
 pub const MULTI_USER_SDK: u8 = 21;
 
-/// Check if it might support multi-user mode,
-/// by simply comparing SDK version.
-/// `true` isn't reliable, you can only trust `false`.
-///
-/// See:
-/// - <https://source.android.com/docs/devices/admin/multi-user#applying_the_overlay>
-/// - <https://developer.android.com/reference/android/os/UserManager#supportsMultipleUsers()>
+/// Check if it might support multi-user mode by simply comparing SDK version.
 #[must_use]
 pub const fn supports_multi_user(dev: &Phone) -> bool {
     dev.android_sdk >= MULTI_USER_SDK
 }
 
-/// Check if a `user_id` is protected on a device by trying
-/// to list associated packages.
-///
-/// If `device_serial` is empty, it lets ADB choose the default device.
+/// Check if a `user_id` is protected on a device by trying to list associated packages.
 pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
     AdbCommand::new()
         .shell(device_serial)
@@ -324,8 +297,7 @@ pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
         .unwrap_or_default()
 }
 
-/// This matches serials (`getprop ro.serialno`)
-/// that are authorized by the user.
+/// This matches serials (`getprop ro.serialno`) that are authorized by the user.
 pub async fn get_devices_list() -> Vec<Phone> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }),

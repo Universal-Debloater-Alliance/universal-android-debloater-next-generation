@@ -7,7 +7,7 @@ use crate::core::{
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
 use crate::gui::widgets::package_row::PackageRow;
-use chrono::{DateTime, offset::Utc};
+use chrono::{offset::Utc, DateTime};
 use csv::Writer;
 use std::{
     collections::HashSet,
@@ -41,11 +41,6 @@ pub const fn is_all_w_c(s: &[u8]) -> bool {
     true
 }
 
-// Takes a time-stamp parameter,
-// for purity and testability.
-//
-// The TZ is generic, because testing requires UTC,
-// while users get the local-aware version.
 #[expect(
     clippy::needless_pass_by_value,
     reason = "Timestamps should be fresh, no need to borrow"
@@ -129,7 +124,6 @@ pub fn string_to_theme(theme: &str) -> Theme {
         "Dark" => Theme::Dark,
         "Light" => Theme::Light,
         "Lupin" => Theme::Lupin,
-        // Auto uses `Display`, so it doesn't have a canonical repr
         t if t.starts_with("Auto") => Theme::Auto,
         _ => Theme::default(),
     }
@@ -148,13 +142,12 @@ pub fn open_url(dir: PathBuf) {
     const OPENER: &str = match std::env::consts::OS.as_bytes() {
         b"windows" => "explorer",
         b"macos" => "open",
-        // "linux"
         _ => "xdg-open",
     };
     match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
-                // Use lossy decoding to avoid panic on non-UTF8 output
+                // Avoid panic on non-UTF8 stderr
                 let stderr = String::from_utf8_lossy(&o.stderr).trim_end().to_string();
                 error!("Can't open the following URL: {stderr}");
             }
@@ -162,7 +155,6 @@ pub fn open_url(dir: PathBuf) {
         Err(e) => error!("Failed to run command to open the file explorer: {e}"),
     }
 }
-
 
 #[rustfmt::skip]
 pub fn last_modified_date(file: PathBuf) -> DateTime<Utc> {
@@ -238,7 +230,6 @@ pub async fn open_folder() -> Result<PathBuf, Error> {
 }
 
 /// Export uninstalled packages in a csv file.
-/// Exported information will contain package name and description.
 pub async fn export_packages(
     user: User,
     phone_packages: Vec<Vec<PackageRow>>,
@@ -262,7 +253,6 @@ pub async fn export_packages(
     }
 
     wtr.flush().map_err(|err| err.to_string())?;
-
     Ok(true)
 }
 

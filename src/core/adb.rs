@@ -257,13 +257,11 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
         }
 }
 
-/// String with the invariant of being a valid package-name.
-/// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
 pub struct PackageId(Box<str>);
 impl PackageId {
     /// Creates a package-ID if it's valid according to
-    /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
+    /// <https://developer.android.com/build/configure-app-module#set-application-id>
     pub fn new(p_id: Box<str>) -> Option<Self> {
         let mut components = p_id.split('.');
         for _ in 0..2 {
@@ -293,7 +291,6 @@ pub enum PmListPacksFlag {
     OnlyDisabled,
 }
 impl PmListPacksFlag {
-    // is there a trait for this?
     fn to_str(self) -> &'static str {
         match self {
             Self::IncludeUninstalled => "-u",
@@ -310,12 +307,10 @@ impl ToString for PmListPacksFlag {
 }
 
 const PACK_PREFIX: &str = "package:";
-
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
 /// Builder object for an Android Package Manager command.
-///
-/// [More info](https://developer.android.com/tools/adb#pm)
+/// <https://developer.android.com/tools/adb#pm>
 #[derive(Debug)]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
@@ -382,10 +377,8 @@ impl PmCommand {
                     ln
                 };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
-                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
-                // the format seems to be stable across Android versions:
-                // "\tUserInfo{<id>:<name>:<flags>}[ running]"
 
+                // Format: "\tUserInfo{<id>:<name>:<flags>}[ running]"
                 let mut comps = ln.split(':');
 
                 let id = comps
@@ -393,20 +386,9 @@ impl PmCommand {
                     .expect("There must be at least 1 ':'-separated component")
                     .parse()
                     .expect("string assumed to be UID numeral");
-                //let name = comps
-                //    .next()
-                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
-                //let flags = u32::from_str_radix(
-                //    comps.next().expect(
-                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
-                //    ),
-                //    16,
-                //)
-                //.expect("string assumed to be hexadecimal bit-flags");
+
                 UserInfo {
                     id,
-                    //name: name.into(),
-                    //flags,
                     running: run,
                 }
             })
@@ -414,13 +396,12 @@ impl PmCommand {
     }
 }
 
-/// Mirror of AOSP `UserInfo` Java Class,
-/// with an extra field
+/// Mirror of AOSP `UserInfo` Java Class, with an extra field
 #[derive(Debug, Clone)]
 pub struct UserInfo {
     id: u16,
-    //name: Box<str>,
-    //flags: u32,
+    // name: Box<str>,
+    // flags: u32,
     running: bool,
 }
 impl UserInfo {
@@ -428,8 +409,7 @@ impl UserInfo {
     pub const fn get_id(&self) -> u16 {
         self.id
     }
-    /// Check if the user was logged-in
-    /// at the time `pm list users` was invoked
+    /// Check if the user was logged-in at the time `pm list users` was invoked
     #[must_use]
     pub const fn was_running(&self) -> bool {
         self.running
