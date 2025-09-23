@@ -387,10 +387,7 @@ impl PmCommand {
                     .parse()
                     .expect("string assumed to be UID numeral");
 
-                UserInfo {
-                    id,
-                    running: run,
-                }
+                UserInfo { id, running: run }
             })
             .collect())
     }

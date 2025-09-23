@@ -3,7 +3,7 @@ use crate::core::{
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
-use retry::{delay::Fixed, retry, OperationResult};
+use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 use std::process::Command;
 
@@ -88,7 +88,11 @@ pub async fn adb_shell_command(
 
     if !output.status.success() {
         // Many OEMs print failure info to stdout instead of stderr.
-        let mut msg = if !stderr.is_empty() { stderr } else { stdout.clone() };
+        let mut msg = if !stderr.is_empty() {
+            stderr
+        } else {
+            stdout.clone()
+        };
 
         if let Some(hint) = friendly_hint(&msg) {
             msg.push_str(&format!("\nTip: {}", hint));
@@ -197,9 +201,9 @@ pub fn apply_pkg_state_commands(
         },
         PackageState::Uninstalled => match package.state {
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm uninstall"],        // > Android Marshmallow (6.0)
-                21 | 22 => vec!["pm hide", PM_CLEAR_PACK],       // Android Lollipop (5.x)
-                _ => vec!["pm block", PM_CLEAR_PACK],            // very old devices
+                sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
+                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
+                _ => vec!["pm block", PM_CLEAR_PACK],     // very old devices
             },
             _ => vec![],
         },

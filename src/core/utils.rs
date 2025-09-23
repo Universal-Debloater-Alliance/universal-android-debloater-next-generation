@@ -7,7 +7,7 @@ use crate::core::{
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
 use crate::gui::widgets::package_row::PackageRow;
-use chrono::{offset::Utc, DateTime};
+use chrono::{DateTime, offset::Utc};
 use csv::Writer;
 use std::{
     collections::HashSet,
