@@ -4705,6 +4705,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.service.pentastic": {
+    "list": "Oem",
+    "description": "Glance\nSamsung S-Pen Gestures.\nSafe to remove?\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.samsung.android.service.travel": {
     "list": "Oem",
     "description": "Samsung Travel Wallpaper (discontinued)\n",
@@ -11760,6 +11768,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.sizechangable.musicwidget.music": {
+    "list": "Oem",
+    "description": "Music widget\nIt breaks when LG Music is removed.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.lge.sizechangable.weather": {
     "list": "Oem",
     "description": "Music widget\nNot sure if it only manages Music widget for the launcher or also for the lockscreen.\n\nWeather widget for the home screen.\n",
@@ -11840,6 +11856,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.upsell": {
+    "list": "Oem",
+    "description": "Contains dialogs from different carriers about upgrading the mobile plan\nShould be safe to remove?\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.lge.video.vr.wallpaper": {
     "list": "Oem",
     "description": "Video Wallpaper\nLG 360° VR Wallpapers\n",
@@ -11871,6 +11895,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.lge.voicerecorder": {
+    "list": "Oem",
+    "description": "LG Voice Recorder\nSimple voice recording app.\nSafe to remove.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.lge.vrplayer": {
     "list": "Oem",
@@ -11995,6 +12027,14 @@
   "com.lge.theme.titan": {
     "list": "Oem",
     "description": "LG Titan theme (labelled 'Platinum' in the theming app).\nSafe to remove, but also probably pointless to do so as most theme packages are just data containers.\nMake sure you don't delete the package for the theme you're currently using. I don't know what will happen then.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.lge.theme.blackgold": {
+    "list": "Oem",
+    "description": "LG Black Bold theme.\nSafe to remove, but also probably pointless to do so as most theme packages are just data containers.\nMake sure you don't delete the package for the theme you're currently using. I don't know what will happen then.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12790,11 +12830,11 @@
   },
   "com.amazon.venezia": {
     "list": "Misc",
-    "description": "Amazon AppStore\n",
+    "description": "Amazon AppStore\n Removal will result in breakage of app drawer on Amazon Fire TV devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.amazon.aa": {
     "list": "Misc",
@@ -18086,6 +18126,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.lge.concierge": {
+    "description": "LG Smart Notice\nProvides a widget which has a clock, weather, lists notifications and much more, it's LG's version of Google Now.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.lge.sui.widget": {
     "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
     "removal": "Advanced",
@@ -18371,6 +18419,14 @@
   "com.lge.livemessage": {
     "description": "Draw chat\nNot needed for chats.",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.lge.lockscreen.livewallpaper.kaleidoscope": {
+    "description": "The Kaleidoscope Live Wallpaper used in the lockscreen.\nSafe to remove but make sure it's not set as the Wallpaper.\n",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21495,6 +21551,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oplus.callrecorder": {
+    "description": "Allows you to toggle call recording in the stock Dialer app.\nSafe to remove?\n",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.oplus.customize.coreapp": {
     "description": "Useless frameworks",
     "removal": "Recommended",
@@ -22288,6 +22352,14 @@
     "list": "Oem",
     "dependencies": [],
     "neededBy": []
+  },
+  "com.android.providers.media.module": {
+    "description": "Media picker module\nNot recommended to remove this as it can break apps that use the photo picker.\n",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
   },
   "com.google.ambient.streaming": {
     "description": "Access and use your Android phone's apps from your Chromebook",
@@ -26379,6 +26451,14 @@
   "com.oplus.powermonitor": {
     "description": "Power monitor\nLogging component to upload temperature control logs.",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.oplus.sau": {
+    "description": "System Upgrade Service\nAllows you to update your phone.\nRuns at boot and could cause bootloop when removed.\n",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
