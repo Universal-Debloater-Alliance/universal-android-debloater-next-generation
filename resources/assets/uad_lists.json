@@ -1,4 +1,510 @@
 {
+  
+  "com.sonyericsson.android.conversations": {
+    "list": "oem",
+    "description": "Sony's default messages (SMS/Conversations) app (stackoverflow.com/questions/8388028), can be replaced by more updated apps like Quik SMS or Fossify",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "android-res-305": {
+    "list": "oem",
+    "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.res.overlay_310_311": {
+    "list": "oem",
+    "description": "An overlay that draws over android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.browser.res.overlay_305": {
+    "list": "oem",
+    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.carrierconfig.res.overlay_305": {
+    "list": "oem",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.carrierconfig.res.overlay_310_311": {
+    "list": "oem",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.advancedwidget.photo": {
+    "list": "oem",
+    "description": "Videos and photos, safe to remove: https://www.apkmirror.com/apk/sony-mobile-communications/photos-and-videos/photos-and-videos-2-2-a-0-8-release/photos-and-videos-2-2-a-0-8-android-apk-download",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.android.camera": {
+    "list": "oem",
+    "description": "Sony's default camera app, can be replaced but you will lose camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.partnerbrowsercustomizations.chromeHomepage.res.overlay_310_311": {
+    "list": "oem",
+    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.fingerprints.fido.asm": {
+    "list": "oem",
+    "description": "Fido Alliance fingerprint. It is possible that ASM stands for Authentication Service Module/Application Security Module",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.phone.product.res.overlay": {
+    "list": "oem",
+    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.product.res.overlay.no_imei_emergency_call": {
+    "list": "oem",
+    "description": "Unsure but I would just leave it as need to stay safe",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.providers.icccust": {
+    "list": "oem",
+    "description": "Looks to be linked to SIM management. would advise keeping it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.partnerbookmarks.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays Bookmark customisation, probably not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.partnerbookmarks.res.overlay_310_311": {
+    "list": "oem",
+    "description": "Overlays Bookmark customisation, probably not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.settings.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.res.overlay_310_311": {
+    "list": "oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.stk.product.res.overlay.common": {
+    "list": "oem",
+    "description": "SIM Tool Kit overlay, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.systemui.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays SystemUI, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.systemui.res.overlay_310_311": {
+    "list": "oem",
+    "description": "Overlays SystemUI, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.noknok.android.mfac.service": {
+    "list": "oem",
+    "description": "Part of the FIDO authentication for fingerprint",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.qti.vzw.ims.internal.tests": {
+    "list": "oem",
+    "description": "Seems to be linked with Verizon internal tests but many sources including XDA developers suggest getting rid",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sony.nfx.app.sfrc": {
+    "list": "oem",
+    "description": "Tied to Sony's recommendations and can be safely got rid of, maybe break suggestions/recommendations",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.android.bootinfo": {
+    "list": "oem",
+    "description": "May break boot, bootloader checks. No removal tested",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.android.camera": {
+    "list": "oem",
+    "description": "Sony's default camera app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
+    "list": "oem",
+    "description": "Overlays default camera app, removing could break camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.camera.product.res.overlay.enable.scene.setting": {
+    "list": "oem",
+    "description": "Overlays default camera app, removing could break camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.servicemenu": {
+    "list": "oem",
+    "description": "Provides access to service menus for testing",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.android.servicemenu.product.res.overlay.suzu": {
+    "list": "oem",
+    "description": "Overlays service com.sonyericsson.android.servicemenu",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.autopoweroffservice": {
+    "list": "oem",
+    "description": "This service helps safe shutdown, could cause negative effect by removing but system settings > apps > autopoweroff > lets you disable it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.cameraextension.permission": {
+    "list": "oem",
+    "description": "Provides third party apps access to AR effect and other plugins, removing will break camera functionality",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.crashmonitor": {
+    "list": "oem",
+    "description": "Sony's crash monitor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.credentialmanagerservice": {
+    "list": "oem",
+    "description": "Said to be Sony's custom credential storage and obsolete these days due to Google's storage manager",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.customizedsettings": {
+    "list": "oem",
+    "description": "Settings that are customised by carriers for region specifics",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.devicemonitor": {
+    "list": "oem",
+    "description": "Safe to remove if you don't use PC to manage device",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.fmradio": {
+    "list": "oem",
+    "description": "Sony's FM radio app, safe to remove if you don't use it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.home": {
+    "list": "oem",
+    "description": "Sony's default launcher, do not remove unless you have another launcher or you will brick your device",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.home.product.res.overlay": {
+    "list": "oem",
+    "description": "Launcher overlay, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.home.res.overlay_305": {
+    "list": "oem",
+    "description": "Launcher overlay, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.lockscreen.uxpnxt": {
+    "list": "oem",
+    "description": "",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": ""
+  },
+  "com.sonyericsson.mtp.extension.factoryreset": {
+    "list": "oem",
+    "description": "Sony phone says 'lock screen settings'. Removing it can cause bootloop",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.omadl": {
+    "list": "oem",
+    "description": "Provides carrier/APN updates and OTA in some cases. Sony phone says 'OMA download client', best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.organizer": {
+    "list": "oem",
+    "description": "Tied to Sony calendar, deprecated by Google and other calendars",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.photoeditor": {
+    "list": "oem",
+    "description": "Sony's photo editor: https://www.apkmirror.com/apk/sony-mobile-communications/photo-editor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.providers.cnap": {
+    "list": "oem",
+    "description": "Allows carriers to show incoming caller name instead of just the number via CNAP, best left enabled to see who is calling",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.psm.sysmonservice": {
+    "list": "oem",
+    "description": "Power management, stamina mode. Best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.settings": {
+    "list": "oem",
+    "description": "This is the system settings app, do not remove it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.settings.res.overlay_310_311": {
+    "list": "oem",
+    "description": "System settings overlay",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.setupwizard": {
+    "list": "oem",
+    "description": "Onboarding that occurs after factory reset or first boot, safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.setupwizard.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.simdetection": {
+    "list": "oem",
+    "description": "Detects SIM connection, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.soundenhancement": {
+    "list": "oem",
+    "description": "Not essential for audio to work but provides sound effects/enhancements such as Clear Audio+",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.suquashi.soundpicker": {
+    "list": "oem",
+    "description": "Ringtone/notification/alarm time picker",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.tetherentitlementcheck": {
+    "list": "oem",
+    "description": "Needed for tethering checks such as carrier conditions and regional restrictions, safe to remove if you don't tether/hotspot",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.updatecenter": {
+    "list": "oem",
+    "description": "The system updater found on settings > about > software update, safe to remove if your device no longer receives updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.updatecenter.res.overlay_305": {
+    "list": "oem",
+    "description": "Overlay for updater found in Settings > about > system update, safe to remove if your device no longer gets updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.usbux": {
+    "list": "oem",
+    "description": "Provides the USB options such as MTP, PTP, charge only. Leave enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonymobile.android.addoncamera.dual": {
+    "list": "oem",
+    "description": "Provides an addon to enable dual camera functionality, safe to remove if you don’t need camera add-ons",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonymobile.btidd": {
+    "list": "oem",
+    "description": "Bluetooth stack identifier, may be tied to pairing/security. Best to keep enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonymobile.cameracommon": {
+    "list": "oem",
+    "description": "Shared library for Sony’s camera app and add-ons. Removing breaks camera functionality",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonymobile.coresettings": {
+    "list": "oem",
+    "description": "Contains Sony-specific customisations and settings overlays. Needed for Xperia custom features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  }
+
   "com.mi.appfinder": {
     "list": "Oem",
     "description": "HyperOs 2.0.202.0, it didn't break the system or ui search function or poco launcher search app function. Havent heard of it breaking stuff for others so dont think it's of much concern \n has 15 trackers",
