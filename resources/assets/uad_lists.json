@@ -1,12 +1,4 @@
 {
-  "com.sonyericsson.android.conversations": {
-    "list": "oem",
-    "description": "Sony's default messages (SMS/Conversations) app (stackoverflow.com/questions/8388028), can be replaced by more updated apps like Quik SMS or Fossify",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
   "android.res.305": {
     "list": "oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
