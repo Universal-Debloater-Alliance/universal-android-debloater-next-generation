@@ -1,6 +1,6 @@
 {
   "android.res.305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
@@ -8,7 +8,7 @@
     "removal": "Unsafe"
   },
   "android.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "An overlay that draws over android",
     "dependencies": [],
     "neededBy": [],
@@ -16,7 +16,7 @@
     "removal": "Unsafe"
   },
   "com.android.browser.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "An overlay that draws over the browser, probably safe to disable if you use another browser",
     "dependencies": [],
     "neededBy": [],
@@ -24,7 +24,7 @@
     "removal": "Advanced"
   },
   "com.android.carrierconfig.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
     "dependencies": [],
     "neededBy": [],
@@ -32,7 +32,7 @@
     "removal": "Expert"
   },
   "com.android.carrierconfig.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
     "dependencies": [],
     "neededBy": [],
@@ -40,7 +40,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.advancedwidget.photo": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Videos and photos, safe to remove: https://www.apkmirror.com/apk/sony-mobile-communications/photos-and-videos/photos-and-videos-2-2-a-0-8-release/photos-and-videos-2-2-a-0-8-android-apk-download",
     "dependencies": [],
     "neededBy": [],
@@ -48,7 +48,7 @@
     "removal": "Recommended"
   },
   "com.sonyericsson.android.camera": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's default camera app, can be replaced but you will lose camera features",
     "dependencies": [],
     "neededBy": [],
@@ -56,15 +56,15 @@
     "removal": "Advanced"
   },
   "com.android.partnerbrowsercustomizations.chromeHomepage.res.overlay_310_311": {
-    "list": "oem",
-    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier.",
+    "list": "Oem",
+    "description": "Adds a customised homepage to Google Chrome provided by either Oem or carrier.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
   },
   "com.fingerprints.fido.asm": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Fido Alliance fingerprint. It is possible that ASM stands for Authentication Service Module/Application Security Module",
     "dependencies": [],
     "neededBy": [],
@@ -72,7 +72,7 @@
     "removal": "Advanced"
   },
   "com.android.phone.product.res.overlay": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management",
     "dependencies": [],
     "neededBy": [],
@@ -80,7 +80,7 @@
     "removal": "Expert"
   },
   "com.android.phone.product.res.overlay.no_imei_emergency_call": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Unsure but I would just leave it as need to stay safe",
     "dependencies": [],
     "neededBy": [],
@@ -88,7 +88,7 @@
     "removal": "Expert"
   },
   "com.android.phone.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work",
     "dependencies": [],
     "neededBy": [],
@@ -96,7 +96,7 @@
     "removal": "Expert"
   },
   "com.android.providers.icccust": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Looks to be linked to SIM management. would advise keeping it",
     "dependencies": [],
     "neededBy": [],
@@ -104,7 +104,7 @@
     "removal": "Advanced"
   },
   "com.android.providers.partnerbookmarks.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays Bookmark customisation, probably not needed",
     "dependencies": [],
     "neededBy": [],
@@ -112,7 +112,7 @@
     "removal": "Advanced"
   },
   "com.android.providers.partnerbookmarks.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays Bookmark customisation, probably not needed",
     "dependencies": [],
     "neededBy": [],
@@ -120,7 +120,7 @@
     "removal": "Advanced"
   },
   "com.android.providers.settings.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays system settings, probably needed",
     "dependencies": [],
     "neededBy": [],
@@ -128,7 +128,7 @@
     "removal": "Expert"
   },
   "com.android.settings.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays system settings, probably needed",
     "dependencies": [],
     "neededBy": [],
@@ -136,7 +136,7 @@
     "removal": "Expert"
   },
   "com.android.settings.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays system settings, probably needed",
     "dependencies": [],
     "neededBy": [],
@@ -144,7 +144,7 @@
     "removal": "Expert"
   },
   "com.android.stk.product.res.overlay.common": {
-    "list": "oem",
+    "list": "Oem",
     "description": "SIM Tool Kit overlay, best kept",
     "dependencies": [],
     "neededBy": [],
@@ -152,7 +152,7 @@
     "removal": "Expert"
   },
   "com.android.systemui.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays SystemUI, best kept",
     "dependencies": [],
     "neededBy": [],
@@ -160,7 +160,7 @@
     "removal": "Unsafe"
   },
   "com.android.systemui.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays SystemUI, best kept",
     "dependencies": [],
     "neededBy": [],
@@ -168,7 +168,7 @@
     "removal": "Unsafe"
   },
   "com.noknok.android.mfac.service": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Part of the FIDO authentication for fingerprint",
     "dependencies": [],
     "neededBy": [],
@@ -176,7 +176,7 @@
     "removal": "Expert"
   },
   "com.qti.vzw.ims.internal.tests": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Seems to be linked with Verizon internal tests but many sources including XDA developers suggest getting rid",
     "dependencies": [],
     "neededBy": [],
@@ -184,7 +184,7 @@
     "removal": "Expert"
   },
   "com.sony.nfx.app.sfrc": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Tied to Sony's recommendations and can be safely got rid of, maybe break suggestions/recommendations",
     "dependencies": [],
     "neededBy": [],
@@ -192,7 +192,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.android.bootinfo": {
-    "list": "oem",
+    "list": "Oem",
     "description": "May break boot, bootloader checks. No removal tested",
     "dependencies": [],
     "neededBy": [],
@@ -200,7 +200,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.android.camera": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's default camera app",
     "dependencies": [],
     "neededBy": [],
@@ -208,7 +208,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays default camera app, removing could break camera features",
     "dependencies": [],
     "neededBy": [],
@@ -216,7 +216,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.scene.setting": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays default camera app, removing could break camera features",
     "dependencies": [],
     "neededBy": [],
@@ -224,7 +224,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.android.servicemenu": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Provides access to service menus for testing",
     "dependencies": [],
     "neededBy": [],
@@ -232,7 +232,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.android.servicemenu.product.res.overlay.suzu": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays service com.sonyericsson.android.servicemenu",
     "dependencies": [],
     "neededBy": [],
@@ -240,7 +240,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.autopoweroffservice": {
-    "list": "oem",
+    "list": "Oem",
     "description": "This service helps safe shutdown, could cause negative effect by removing but system settings > apps > autopoweroff > lets you disable it",
     "dependencies": [],
     "neededBy": [],
@@ -248,7 +248,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.cameraextension.permission": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Provides third party apps access to AR effect and other plugins, removing will break camera functionality",
     "dependencies": [],
     "neededBy": [],
@@ -256,7 +256,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.crashmonitor": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's crash monitor",
     "dependencies": [],
     "neededBy": [],
@@ -264,7 +264,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.credentialmanagerservice": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Said to be Sony's custom credential storage and obsolete these days due to Google's storage manager",
     "dependencies": [],
     "neededBy": [],
@@ -272,7 +272,7 @@
     "removal": "Recommended"
   },
   "com.sonyericsson.customizedsettings": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Settings that are customised by carriers for region specifics",
     "dependencies": [],
     "neededBy": [],
@@ -280,7 +280,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.devicemonitor": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Safe to remove if you don't use PC to manage device",
     "dependencies": [],
     "neededBy": [],
@@ -288,7 +288,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.fmradio": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's FM radio app, safe to remove if you don't use it",
     "dependencies": [],
     "neededBy": [],
@@ -296,7 +296,7 @@
     "removal": "Recommended"
   },
   "com.sonyericsson.home": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's default launcher, do not remove unless you have another launcher or you will brick your device",
     "dependencies": [],
     "neededBy": [],
@@ -304,7 +304,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.home.product.res.overlay": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Launcher overlay, best left enabled",
     "dependencies": [],
     "neededBy": [],
@@ -312,7 +312,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.home.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Launcher overlay, best left enabled",
     "dependencies": [],
     "neededBy": [],
@@ -320,7 +320,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.lockscreen.uxpnxt": {
-    "list": "oem",
+    "list": "Oem",
     "description": "",
     "dependencies": [],
     "neededBy": [],
@@ -328,7 +328,7 @@
     "removal": ""
   },
   "com.sonyericsson.mtp.extension.factoryreset": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony phone says 'lock screen settings'. Removing it can cause bootloop",
     "dependencies": [],
     "neededBy": [],
@@ -336,7 +336,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.omadl": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Provides carrier/APN updates and OTA in some cases. Sony phone says 'OMA download client', best left enabled",
     "dependencies": [],
     "neededBy": [],
@@ -344,7 +344,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.organizer": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Tied to Sony calendar, deprecated by Google and other calendars",
     "dependencies": [],
     "neededBy": [],
@@ -352,7 +352,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.photoeditor": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Sony's photo editor: https://www.apkmirror.com/apk/sony-mobile-communications/photo-editor",
     "dependencies": [],
     "neededBy": [],
@@ -360,7 +360,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.providers.cnap": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Allows carriers to show incoming caller name instead of just the number via CNAP, best left enabled to see who is calling",
     "dependencies": [],
     "neededBy": [],
@@ -368,7 +368,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.psm.sysmonservice": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Power management, stamina mode. Best left enabled",
     "dependencies": [],
     "neededBy": [],
@@ -376,7 +376,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.settings": {
-    "list": "oem",
+    "list": "Oem",
     "description": "This is the system settings app, do not remove it",
     "dependencies": [],
     "neededBy": [],
@@ -384,7 +384,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.settings.res.overlay_310_311": {
-    "list": "oem",
+    "list": "Oem",
     "description": "System settings overlay",
     "dependencies": [],
     "neededBy": [],
@@ -392,7 +392,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.setupwizard": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Onboarding that occurs after factory reset or first boot, safe to remove",
     "dependencies": [],
     "neededBy": [],
@@ -400,7 +400,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.setupwizard.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlays setup wizard during first boot or after factory reset, safe to remove",
     "dependencies": [],
     "neededBy": [],
@@ -408,7 +408,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.simdetection": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Detects SIM connection, best left enabled",
     "dependencies": [],
     "neededBy": [],
@@ -416,7 +416,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.soundenhancement": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Not essential for audio to work but provides sound effects/enhancements such as Clear Audio+",
     "dependencies": [],
     "neededBy": [],
@@ -424,7 +424,7 @@
     "removal": "Advanced"
   },
   "com.sonyericsson.suquashi.soundpicker": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Ringtone/notification/alarm time picker",
     "dependencies": [],
     "neededBy": [],
@@ -432,7 +432,7 @@
     "removal": "Unsafe"
   },
   "com.sonyericsson.tetherentitlementcheck": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Needed for tethering checks such as carrier conditions and regional restrictions, safe to remove if you don't tether/hotspot",
     "dependencies": [],
     "neededBy": [],
@@ -440,7 +440,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.updatecenter": {
-    "list": "oem",
+    "list": "Oem",
     "description": "The system updater found on settings > about > software update, safe to remove if your device no longer receives updates",
     "dependencies": [],
     "neededBy": [],
@@ -448,7 +448,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.updatecenter.res.overlay_305": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Overlay for updater found in Settings > about > system update, safe to remove if your device no longer gets updates",
     "dependencies": [],
     "neededBy": [],
@@ -456,7 +456,7 @@
     "removal": "Expert"
   },
   "com.sonyericsson.usbux": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Provides the USB options such as MTP, PTP, charge only. Leave enabled",
     "dependencies": [],
     "neededBy": [],
@@ -464,7 +464,7 @@
     "removal": "Expert"
   },
   "com.sonymobile.android.addoncamera.dual": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Provides an addon to enable dual camera functionality, safe to remove if you don’t need camera add-ons",
     "dependencies": [],
     "neededBy": [],
@@ -472,7 +472,7 @@
     "removal": "Advanced"
   },
   "com.sonymobile.btidd": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Bluetooth stack identifier, may be tied to pairing/security. Best to keep enabled",
     "dependencies": [],
     "neededBy": [],
@@ -480,7 +480,7 @@
     "removal": "Expert"
   },
   "com.sonymobile.cameracommon": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Shared library for Sony’s camera app and add-ons. Removing breaks camera functionality",
     "dependencies": [],
     "neededBy": [],
@@ -488,7 +488,7 @@
     "removal": "Unsafe"
   },
   "com.sonymobile.coresettings": {
-    "list": "oem",
+    "list": "Oem",
     "description": "Contains Sony-specific customisations and settings overlays. Needed for Xperia custom features",
     "dependencies": [],
     "neededBy": [],
@@ -3554,7 +3554,7 @@
   },
   "android.autoinstalls.config.motorola.layout": {
     "list": "Oem",
-    "description": "Device configuration for Motorola\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).\nA layout?",
+    "description": "Device configuration for Motorola\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).\nA layout?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3818,7 +3818,7 @@
   },
   "com.motorola.motodisplay": {
     "list": "Oem",
-    "description": "Moto Display (https://play.google.com/store/apps/details?id=com.motorola.motodisplay)\nDisplays notifications with the screen off (like the Always On Display feature from other OEMs)\nhttps://support.motorola.com/uk/en/solution/ms108519",
+    "description": "Moto Display (https://play.google.com/store/apps/details?id=com.motorola.motodisplay)\nDisplays notifications with the screen off (like the Always On Display feature from other Oems)\nhttps://support.motorola.com/uk/en/solution/ms108519",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4098,7 +4098,7 @@
   },
   "android.autoinstalls.config.samsung": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "AutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7619,7 +7619,7 @@
   },
   "com.android.soundrecorder": {
     "list": "Aosp",
-    "description": "AOSP Sound recorder\nOEMs often use their own solution\nNOTE: On some phones, Huawei & Xiaomi also use this package name for their own browser app.",
+    "description": "AOSP Sound recorder\nOems often use their own solution\nNOTE: On some phones, Huawei & Xiaomi also use this package name for their own browser app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7695,7 +7695,7 @@
   },
   "android.auto_generated_rro__": {
     "list": "Aosp",
-    "description": "rro = Runtime Resources Overlay.\nChanges values of a package config, based in the overlay definitions (heavily used by OEMs to customize the look and feel of Android) \nLink: https://source.android.com/devices/architecture/rros and https://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708\n",
+    "description": "rro = Runtime Resources Overlay.\nChanges values of a package config, based in the overlay definitions (heavily used by Oems to customize the look and feel of Android) \nLink: https://source.android.com/devices/architecture/rros and https://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7751,7 +7751,7 @@
   },
   "com.android.calendar": {
     "list": "Aosp",
-    "description": "AOSP Calendar app\nNOTE: Some OEMs (like Huawei & Xiaomi) use the same package name for their app.",
+    "description": "AOSP Calendar app\nNOTE: Some Oems (like Huawei & Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7759,7 +7759,7 @@
   },
   "com.android.calculator2": {
     "list": "Aosp",
-    "description": "AOSP calculator app\nNOTE: Some OEMs (like Huawei & Xiaomi) use the same package name for their app.",
+    "description": "AOSP calculator app\nNOTE: Some Oems (like Huawei & Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7817,7 +7817,7 @@
   },
   "com.android.contacts": {
     "list": "Aosp",
-    "description": "AOSP Contacts\nSome OEMs(for example Xiaomi) use the same package name for their app.",
+    "description": "AOSP Contacts\nSome Oems(for example Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7841,7 +7841,7 @@
   },
   "com.android.deskclock": {
     "list": "Aosp",
-    "description": "AOSP Clock app\nSome OEMs (like Huawei & Xiaomi) use the same package name for their app.\n",
+    "description": "AOSP Clock app\nSome Oems (like Huawei & Xiaomi) use the same package name for their app.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7881,7 +7881,7 @@
   },
   "com.android.gallery3d": {
     "list": "Aosp",
-    "description": "Huawei Gallery app and the AOSP Gallery app\nIt may appear on Chinese OEMs as documented.",
+    "description": "Huawei Gallery app and the AOSP Gallery app\nIt may appear on Chinese Oems as documented.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8057,7 +8057,7 @@
   },
   "com.android.mms": {
     "list": "Aosp",
-    "description": "AOSP SMS app.\nOccasionally runs in the background.\nSome OEMs (like Huawei, Xiaomi, Vivo, Oppo) use the same package name for their app.\nQKSMS is a good FOSS replacement: https://f-droid.org/en/packages/com.moez.QKSMS/",
+    "description": "AOSP SMS app.\nOccasionally runs in the background.\nSome Oems (like Huawei, Xiaomi, Vivo, Oppo) use the same package name for their app.\nQKSMS is a good FOSS replacement: https://f-droid.org/en/packages/com.moez.QKSMS/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8089,7 +8089,7 @@
   },
   "com.android.otaprovisioningclient": {
     "list": "Aosp",
-    "description": "OTA Access Point Configuration\nOTA (Over the air) is the method used by OEMs to push updates to your device.\nAn OTA access point is used to run system software updates over a special gateway. This package is most likely customized by your OEM.",
+    "description": "OTA Access Point Configuration\nOTA (Over the air) is the method used by Oems to push updates to your device.\nAn OTA access point is used to run system software updates over a special gateway. This package is most likely customized by your Oem.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8105,7 +8105,7 @@
   },
   "com.android.phone.recorder": {
     "list": "Aosp",
-    "description": "AOSP Call recorder function. Most of the time OEM use their own code for this.\nNOTE: Some OEMs (like Huawei & Xiaomi) use the same package name for their app.",
+    "description": "AOSP Call recorder function. Most of the time Oem use their own code for this.\nNOTE: Some Oems (like Huawei & Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8169,7 +8169,7 @@
   },
   "com.android.quicksearchbox": {
     "list": "Aosp",
-    "description": "Google quick search box. OEMs (e.g. Xiaomi) can modify this for their use.",
+    "description": "Google quick search box. Oems (e.g. Xiaomi) can modify this for their use.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8273,7 +8273,7 @@
   },
   "com.android.voicedialer": {
     "list": "Aosp",
-    "description": "AOSP Voice dialer. Lets you call someone or open an app with your voice from the dialer.\nOEM often use their own code (embeded in their voice-controlled digital assistant)\nNOTE: On some phones Huawei & Xiaomi also use this package name for their own voice dialer app.\n",
+    "description": "AOSP Voice dialer. Lets you call someone or open an app with your voice from the dialer.\nOem often use their own code (embeded in their voice-controlled digital assistant)\nNOTE: On some phones Huawei & Xiaomi also use this package name for their own voice dialer app.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8441,7 +8441,7 @@
   },
   "com.android.providers.downloads.ui": {
     "list": "Aosp",
-    "description": "Downloads\nUser interface for downloads.\nOn some OEM's this app has ads, tracking things.",
+    "description": "Downloads\nUser interface for downloads.\nOn some Oem's this app has ads, tracking things.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8513,7 +8513,7 @@
   },
   "com.android.store": {
     "list": "Oem",
-    "description": "An app called TCL Mobile that you cannot disable and just opens up a link to the OEM in the browser.",
+    "description": "An app called TCL Mobile that you cannot disable and just opens up a link to the Oem in the browser.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8583,7 +8583,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.oem.autotest": {
+  "com.Oem.autotest": {
     "list": "Oem",
     "description": "Auto Test Server\nUsed to test the hardware of your device and change hidden settings.\n",
     "dependencies": [],
@@ -8591,15 +8591,15 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.oem.logkitsdservice": {
+  "com.Oem.logkitsdservice": {
     "list": "Oem",
-    "description": "Used by com.oem.oemlogkit, a shady logging app.\nDoesn't run by default, but can easily be triggered by system apps.",
+    "description": "Used by com.Oem.Oemlogkit, a shady logging app.\nDoesn't run by default, but can easily be triggered by system apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
-  "com.oem.nfc": {
+  "com.Oem.nfc": {
     "list": "Oem",
     "description": "OnePlus NFC tester\n",
     "dependencies": [],
@@ -8607,7 +8607,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.oem.oemlogkit": {
+  "com.Oem.Oemlogkit": {
     "list": "Oem",
     "description": "OnePlus LogKit\nShady logging app that system apps can use to log WiFi traffic, Bluetooth traffic, NFC activity, GPS coordinates over time, power consumption, modem signal/data details, \"lag issues,\" and more.\nhttps://thehackernews.com/2017/11/oneplus-logkit-app.html\nhttps://www.bleepingcomputer.com/news/security/second-oneplus-factory-app-discovered-this-one-dumps-photos-wifi-and-gps-logs/\nhttps://web.archive.org/web/20210611122551/https://twitter.com/fs0c131y/status/930773795656396801",
     "dependencies": [],
@@ -8787,7 +8787,7 @@
   },
   "net.oneplus.commonlogtool": {
     "list": "Oem",
-    "description": "OnePlus Common Log Tool\n9 permissions and given what we know about OnePlus logging apps, it's a good idea to disable this.\nSee com.oneplus.opbugreportlite, com.oem.oemlogkit and net.oneplus.odm",
+    "description": "OnePlus Common Log Tool\n9 permissions and given what we know about OnePlus logging apps, it's a good idea to disable this.\nSee com.oneplus.opbugreportlite, com.Oem.Oemlogkit and net.oneplus.odm",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8905,7 +8905,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "cn.oneplus.oemtcma": {
+  "cn.oneplus.Oemtcma": {
     "list": "Oem",
     "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the \"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
     "dependencies": [],
@@ -8913,7 +8913,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "cn.oneplus.oem_tcma": {
+  "cn.oneplus.Oem_tcma": {
     "list": "Oem",
     "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the \"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
     "dependencies": [],
@@ -8995,7 +8995,7 @@
   },
   "com.android.bluetooth.tempow": {
     "list": "Oem",
-    "description": "Implementation of a improved bluetooth protocol (developed by french company Tempow)\nhttps://www.tempow.com/tap\nNOTE: This is NOT an AOSP package. It is OEMs who choose to implement this procotol or not.\nFor now, only TCL has this.\n",
+    "description": "Implementation of a improved bluetooth protocol (developed by french company Tempow)\nhttps://www.tempow.com/tap\nNOTE: This is NOT an AOSP package. It is Oems who choose to implement this procotol or not.\nFor now, only TCL has this.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9091,7 +9091,7 @@
   },
   "com.android.launcher3": {
     "list": "Aosp",
-    "description": "The AOSP launcher. OEMs frequently use this to deliver their own launcher.\nYou need to install another launcher before removing it.",
+    "description": "The AOSP launcher. Oems frequently use this to deliver their own launcher.\nYou need to install another launcher before removing it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9195,7 +9195,7 @@
   },
   "android.autoinstalls.config.oneplus": {
     "list": "Oem",
-    "description": "Device configuration\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Device configuration\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9485,7 +9485,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.oem.rftoolkit": {
+  "com.Oem.rftoolkit": {
     "list": "Misc",
     "description": "RfToolkit\nTesting things like Wi-Fi, lots of Chinese words",
     "dependencies": [],
@@ -10399,7 +10399,7 @@
   },
   "android.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "RRO = Runtime Resources Overlay. Used by Oems to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10407,7 +10407,7 @@
   },
   "android.auto_generated_rro_vendor__": {
     "list": "Aosp",
-    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
+    "description": "RRO = Runtime Resources Overlay. Used by Oems to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11467,7 +11467,7 @@
   },
   "android.autoinstalls.config.TCL.PAI": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "AutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13111,7 +13111,7 @@
   },
   "com.oppo.logkitservice": {
     "list": "Oem",
-    "description": "Probably same as \"com.oem.oemlogkit\", which is a shady logging package on Oneplus devices.",
+    "description": "Probably same as \"com.Oem.Oemlogkit\", which is a shady logging package on Oneplus devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13213,7 +13213,7 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.sohu.inputmethod.sogouoem": {
+  "com.sohu.inputmethod.sogouOem": {
     "list": "Oem",
     "description": "Default keyboard\n",
     "dependencies": [],
@@ -13583,7 +13583,7 @@
   },
   "com.qualcomm.atfwd": {
     "list": "Misc",
-    "description": "Used to send AT command messages from/to the modem\nAttention commands commands are a collection of short-string commands developed in the early 1980s \nthat were designed to be transmitted via phone lines and control modems. Different AT command strings can be merged together \nto tell a modem to dial, hang up, or change connection parameters. \nSmartphones include a basic modem component inside them, which allows the smartphone to connect to the Internet \nvia its telephony function.\nThis can be abused. It's been known for many years that Android devices are vulnerable to attacks carried out via AT commands:\nhttps://www.bleepingcomputer.com/news/security/smartphones-from-11-oems-vulnerable-to-attacks-via-hidden-at-commands/\n",
+    "description": "Used to send AT command messages from/to the modem\nAttention commands commands are a collection of short-string commands developed in the early 1980s \nthat were designed to be transmitted via phone lines and control modems. Different AT command strings can be merged together \nto tell a modem to dial, hang up, or change connection parameters. \nSmartphones include a basic modem component inside them, which allows the smartphone to connect to the Internet \nvia its telephony function.\nThis can be abused. It's been known for many years that Android devices are vulnerable to attacks carried out via AT commands:\nhttps://www.bleepingcomputer.com/news/security/smartphones-from-11-Oems-vulnerable-to-attacks-via-hidden-at-commands/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13743,7 +13743,7 @@
   },
   "com.qualcomm.qti.server.qtiwifi": {
     "list": "Misc",
-    "description": "it's made for analytics.\nThis service can be used to have oem specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
+    "description": "it's made for analytics.\nThis service can be used to have Oem specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14885,9 +14885,9 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.smithmicro.netwise.director.comcast.oem": {
+  "com.smithmicro.netwise.director.comcast.Oem": {
     "list": "Misc",
-    "description": "XFINITY Wifi settings (https://play.google.com/store/apps/details?id=com.smithmicro.netwise.director.comcast.oem)\nAuto-connects you to XFINITY WiFi hotspot.\nXFINITY is a subsidiary of the Comcast Corporation (https://en.wikipedia.org/wiki/Xfinity)\n",
+    "description": "XFINITY Wifi settings (https://play.google.com/store/apps/details?id=com.smithmicro.netwise.director.comcast.Oem)\nAuto-connects you to XFINITY WiFi hotspot.\nXFINITY is a subsidiary of the Comcast Corporation (https://en.wikipedia.org/wiki/Xfinity)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15343,7 +15343,7 @@
   },
   "com.trustonic.tuiservice": {
     "list": "Misc",
-    "description": "tuiService (Trusted User Interface) is a security layer by Trustonic.\nAllows a \"Trusted App\" to interact directly with the user, completely isolated from the device OS.\nIt's closed source and normal devs can't use it for their apps.\nhttps://stackoverflow.com/questions/16909576/how-to-make-use-of-arm-trust-zone-in-android-application\nMainly used by OEM apps like Samsung Pay and for DRM.\nGoogle implemented their own TUI in Android Pie: https://android-developers.googleblog.com/search/label/Trusted%20User%20Interface\nhttps://www.trustonic.com/news/blog/benefits-trusted-user-interface/\nhttps://en.wikipedia.org/wiki/Trusted_execution_environment\nDisabling will break \"Trusted Apps\".\nhttps://en.wikipedia.org/wiki/ARM_architecture#Security_extensions\nhttps://googleprojectzero.blogspot.com/2017/07/trust-issues-exploiting-trustzone-tees.html\nhttps://www.synacktiv.com/posts/exploit/kinibi-tee-trusted-application-exploitation.html\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nGood ressources:\nhttps://medium.com/@nimronagy/arm-trustzone-on-android-975bfe7497d2\nhttps://www.gsd.inesc-id.pt/~nsantos/papers/pinto_acsur19.pdf\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nhttps://medium.com/taszksec/unbox-your-phone-part-i-331bbf44c30c",
+    "description": "tuiService (Trusted User Interface) is a security layer by Trustonic.\nAllows a \"Trusted App\" to interact directly with the user, completely isolated from the device OS.\nIt's closed source and normal devs can't use it for their apps.\nhttps://stackoverflow.com/questions/16909576/how-to-make-use-of-arm-trust-zone-in-android-application\nMainly used by Oem apps like Samsung Pay and for DRM.\nGoogle implemented their own TUI in Android Pie: https://android-developers.googleblog.com/search/label/Trusted%20User%20Interface\nhttps://www.trustonic.com/news/blog/benefits-trusted-user-interface/\nhttps://en.wikipedia.org/wiki/Trusted_execution_environment\nDisabling will break \"Trusted Apps\".\nhttps://en.wikipedia.org/wiki/ARM_architecture#Security_extensions\nhttps://googleprojectzero.blogspot.com/2017/07/trust-issues-exploiting-trustzone-tees.html\nhttps://www.synacktiv.com/posts/exploit/kinibi-tee-trusted-application-exploitation.html\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nGood ressources:\nhttps://medium.com/@nimronagy/arm-trustzone-on-android-975bfe7497d2\nhttps://www.gsd.inesc-id.pt/~nsantos/papers/pinto_acsur19.pdf\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nhttps://medium.com/taszksec/unbox-your-phone-part-i-331bbf44c30c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15479,7 +15479,7 @@
   },
   "android.autoinstalls.config.Xiaomi.cactus": {
     "list": "Oem",
-    "description": "Cactus is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Cactus is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15487,7 +15487,7 @@
   },
   "android.autoinstalls.config.Xiaomi.cepheus": {
     "list": "Oem",
-    "description": "Cepheus is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Cepheus is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15495,7 +15495,7 @@
   },
   "android.autoinstalls.config.Xiaomi.cereus": {
     "list": "Oem",
-    "description": "Cepheus is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset). For example, Personal Activity Intelligence.\nAn algorithm that determines a personal activity index based on resting heart rate, heart condition during exercise, gender, weight, and age. Requires smart bracelet to work.",
+    "description": "Cepheus is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset). For example, Personal Activity Intelligence.\nAn algorithm that determines a personal activity index based on resting heart rate, heart condition during exercise, gender, weight, and age. Requires smart bracelet to work.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15503,7 +15503,7 @@
   },
   "android.autoinstalls.config.Xiaomi.daisy": {
     "list": "Oem",
-    "description": "Daisy is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Daisy is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15511,7 +15511,7 @@
   },
   "android.autoinstalls.config.Xiaomi.dipper": {
     "list": "Oem",
-    "description": "Dipper is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "Dipper is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15519,7 +15519,7 @@
   },
   "android.autoinstalls.config.Xiaomi.qssi": {
     "list": "Oem",
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15527,7 +15527,7 @@
   },
   "android.autoinstalls.config.Xiaomi.willow": {
     "list": "Oem",
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16679,7 +16679,7 @@
   },
   "com.android.thememanager": {
     "list": "Oem",
-    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change the lock-screen wallpaper and ringtones in the OEM clock app.\nHas a lot trackers. Running in the background.",
+    "description": "MIUI Themes (manager)\nXiaomi seems to love confusing package names.\nLets you select and apply themes provided by Xiaomi.\nNOTE: Disabling will break the ability to change the lock-screen wallpaper and ringtones in the Oem clock app.\nHas a lot trackers. Running in the background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17137,7 +17137,7 @@
   },
   "android.autoinstalls.config.asus.pai": {
     "list": "Oem",
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -18922,7 +18922,7 @@
     "labels": []
   },
   "android.autoinstalls.config.lge.device": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -20569,7 +20569,7 @@
     "labels": []
   },
   "android.autoinstalls.config.Nothing.Pong": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24369,7 +24369,7 @@
     "labels": []
   },
   "android.autoinstalls.config.transsion.device": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25472,7 +25472,7 @@
     "labels": []
   },
   "android.autoinstalls.config.vivo.devices": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25922,7 +25922,7 @@
     "labels": []
   },
   "android.autoinstalls.config.Xiaomi.model": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28126,7 +28126,7 @@
   },
   "com.google.android.gallery3d": {
     "list": "Aosp",
-    "description": "Built-in Gallery app.\nThe ID could be \"recycled\" by OEMs for their own gallery implementations.",
+    "description": "Built-in Gallery app.\nThe ID could be \"recycled\" by Oems for their own gallery implementations.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28470,7 +28470,7 @@
   },
   "com.google.android.apps.work.oobconfig": {
     "list": "Google",
-    "description": "Device Setup\nSets up device to be managed by EMM (Enterprise Mobility Management), which \"allows organizations to securely enable employee use of mobile devices\".\nMight also be what does the actual management on your device, if you set it up as a work device.\nOnly seems to run on boot(not in the background after boot) if you haven't set up your device as a work device.\nI tried to disable it through UAD-ng, but nothing happens? Seems immune to disabling?\nhttps://bayton.org/2020/11/google-announce-big-changes-to-zero-touch/\nhttps://bayton.org/docs/enterprise-mobility/android/what-is-android-zero-touch-enrolment/\nContains 4 services: GcmJobService, GservicesChangedObserverService, AppMeasurementService and FirebaseInstanceIdService.\nGCM(Google Cloud Messaging) was the backend for Android's push messaging system 2012-2019, after which it was replaced by FCM(Firebase Cloud Messaging). I assume the GCM/Firebase connection is for Push notification functionality.\nThe MANAGE_CARRIER_OEM_UNLOCK_STATE permission hints at doing something with carrier locks?\nNeeds Google Play Services to function?",
+    "description": "Device Setup\nSets up device to be managed by EMM (Enterprise Mobility Management), which \"allows organizations to securely enable employee use of mobile devices\".\nMight also be what does the actual management on your device, if you set it up as a work device.\nOnly seems to run on boot(not in the background after boot) if you haven't set up your device as a work device.\nI tried to disable it through UAD-ng, but nothing happens? Seems immune to disabling?\nhttps://bayton.org/2020/11/google-announce-big-changes-to-zero-touch/\nhttps://bayton.org/docs/enterprise-mobility/android/what-is-android-zero-touch-enrolment/\nContains 4 services: GcmJobService, GservicesChangedObserverService, AppMeasurementService and FirebaseInstanceIdService.\nGCM(Google Cloud Messaging) was the backend for Android's push messaging system 2012-2019, after which it was replaced by FCM(Firebase Cloud Messaging). I assume the GCM/Firebase connection is for Push notification functionality.\nThe MANAGE_CARRIER_Oem_UNLOCK_STATE permission hints at doing something with carrier locks?\nNeeds Google Play Services to function?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30086,7 +30086,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.opera.max.oem": {
+  "com.opera.max.Oem": {
     "list": "Misc",
     "description": "Opera Max (discontinued)\nSystem-wide data-saving proxy that funnell all app data through Opera’s servers to compress images and videos",
     "dependencies": [],
@@ -30168,7 +30168,7 @@
   },
   "com.android.email.partnerprovider": {
     "list": "Aosp",
-    "description": "Lets Google partners (OEM in most of the case) to customize the default email settings.\nThe manufacturer often changes the default signature displayed at the end of each of your mail (e.g \"Sent from my Nokia phone\")",
+    "description": "Lets Google partners (Oem in most of the case) to customize the default email settings.\nThe manufacturer often changes the default signature displayed at the end of each of your mail (e.g \"Sent from my Nokia phone\")",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31125,7 +31125,7 @@
   },
   "com.oplus.logkit": {
     "list": "Oem",
-    "description": "Logs service and bug reporting app\nSafe to remove if you don't report bugs to OEM",
+    "description": "Logs service and bug reporting app\nSafe to remove if you don't report bugs to Oem",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31772,7 +31772,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.google.android.clockwork.oemsetup": {
+  "com.google.android.clockwork.Oemsetup": {
     "list": "Oem",
     "description": "Installs carrier apps after the first time setup. Haven't noticed any consequences after uninstalling. I also saw some similar bloatware packages on the net, ending with clockwork.gestures.tutorial - first time use tutorial or clockwork.flashlight, clockwork.nfc, clockwork.brightness",
     "dependencies": [],
@@ -32780,7 +32780,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.oem.euiccpartnerapp": {
+  "com.Oem.euiccpartnerapp": {
     "list": "Carrier",
     "description": "EuiccPartnerApp\nNeeded for eSIM (eUICC)?\nI think it's useless.",
     "dependencies": [],
@@ -33406,14 +33406,14 @@
   },
   "android.autoinstalls.config.Xiaomi.land": {
     "list": "Oem",
-    "description": "land is the device codename.\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "land is the device codename.\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
   "android.autoinstalls.config.oppo": {
-    "description": "PlayAutoInstalls\nAutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "PlayAutoInstalls\nAutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -34366,7 +34366,7 @@
   },
   "android.autoinstalls.config.google.sabrina": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "AutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34710,7 +34710,7 @@
   },
   "android.autoinstalls.config.xioami.mibox3": {
     "list": "Oem",
-    "description": "AutoInstalls a set of OEM apps on device setup (first boot/factory reset).",
+    "description": "AutoInstalls a set of Oem apps on device setup (first boot/factory reset).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35324,7 +35324,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.samsung.slsi.telephony.oem.oemrilhookservice": {
+  "com.samsung.slsi.telephony.Oem.Oemrilhookservice": {
     "list": "Carrier",
     "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
@@ -35332,7 +35332,7 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.samsung.slsi.telephony.oemril": {
+  "com.samsung.slsi.telephony.Oemril": {
     "list": "Carrier",
     "description": "Part of the Samsung cellular modem infrastructure used by the OS to provide cellular support.",
     "dependencies": [],
@@ -35646,7 +35646,7 @@
   },
   "com.android.providers.settings.auto_generated_rro_vendor__": {
     "list": "Oem",
-    "description": "rro = Runtime Resources Overlay.\nChanges values of a package config, based in the overlay definitions (heavily used by OEMs to customize the look and feel of Android).",
+    "description": "rro = Runtime Resources Overlay.\nChanges values of a package config, based in the overlay definitions (heavily used by Oems to customize the look and feel of Android).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -36350,7 +36350,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.kikaoem.hw.qisiemoji.inputmethod": {
+  "com.kikaOem.hw.qisiemoji.inputmethod": {
     "list": "Oem",
     "description": "Kika Keyboard\nThird party keyboard. Installs on some Huawei devices.",
     "dependencies": [],
@@ -38760,9 +38760,9 @@
     "labels": [],
     "removal": "Expert"
   },
-  "com.oem.euiccpartnerapp.overlay.retca": {
+  "com.Oem.euiccpartnerapp.overlay.retca": {
     "list": "Oem",
-    "description": "This package is related to the eUICC (embedded Universal Integrated Circuit Card) partner application, specifically an OEM overlay that deals with eSIM functionality and management.",
+    "description": "This package is related to the eUICC (embedded Universal Integrated Circuit Card) partner application, specifically an Oem overlay that deals with eSIM functionality and management.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
