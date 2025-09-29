@@ -8,7 +8,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "android-res-305": {
+  "android.res.305": {
     "list": "oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
@@ -503,7 +503,7 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  }
+  },
 
   "com.mi.appfinder": {
     "list": "Oem",
