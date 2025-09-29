@@ -12790,11 +12790,11 @@
   },
   "com.amazon.venezia": {
     "list": "Misc",
-    "description": "Amazon AppStore\n",
+    "description": "Amazon AppStore\n Removal will result in breakage of app drawer on Amazon Fire TV devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.amazon.aa": {
     "list": "Misc",
