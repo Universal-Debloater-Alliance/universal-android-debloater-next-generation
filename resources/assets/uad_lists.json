@@ -1096,14 +1096,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.sonymobile.camera": {
-    "list": "Oem",
-    "description": "Sony camera app\n",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
   "com.sonyericsson.android.camera3d": {
     "list": "Oem",
     "description": "Sony camera app (on older phones)\n",
