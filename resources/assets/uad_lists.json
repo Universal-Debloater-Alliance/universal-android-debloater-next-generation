@@ -325,7 +325,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": ""
+    "removal": "Unlisted"
   },
   "com.sonyericsson.mtp.extension.factoryreset": {
     "list": "Oem",
