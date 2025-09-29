@@ -114,6 +114,10 @@ pub async fn adb_shell_command(
 /// Map frequent OEM failure strings to actionable hints shown to the user.
 fn friendly_hint(err_msg: &str) -> Option<&'static str> {
     let e = err_msg;
+    if e.contains("Shell cannot change component state for null to 1") {
+        // The "null" target indicates the package/component argument was missing.
+        return Some("Package name was empty when enabling. Refresh the package list and retry.");
+    }
     if e.contains("DELETE_FAILED_USER_RESTRICTED")
         || e.contains("package is protected")
         || e.contains("Cannot uninstall a protected package")
@@ -179,6 +183,12 @@ pub fn apply_pkg_state_commands(
     selected_user: User,
     phone: &Phone,
 ) -> Vec<String> {
+    // If the package name is empty, bail early (avoid "null" target)
+    if package.name.trim().is_empty() {
+        error!("apply_pkg_state_commands: empty package name, skipping command build");
+        return vec![];
+    }
+
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
@@ -216,10 +226,16 @@ pub fn apply_pkg_state_commands(
 
 /// Build a command request to be sent via ADB to a device.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
+    let p = package.trim();
+    if p.is_empty() {
+        error!("request_builder: empty package name; not issuing adb shell command");
+        return vec![]; // no-ops — prevents "null" errors from reaching ADB
+    }
+
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
-        .map(|c| format!("{c}{maybe_user_flag} {package}"))
+        .map(|c| format!("{c}{maybe_user_flag} {p}"))
         .collect()
 }
 
