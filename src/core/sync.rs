@@ -5,6 +5,8 @@ use crate::core::{
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
+#[cfg(target_os = "windows")]
+use std::os::windows::process::CommandExt;
 use std::process::Command;
 
 /// An Android device, typically a phone
@@ -58,6 +60,9 @@ pub enum AdbError {
     Generic(String),
 }
 
+/// Runs an **arbitrary command** on the device's default shell.
+/// Be cautious when calling this to avoid introducing security issues.
+///
 /// Run an ADB shell command for a specific device.
 /// Returns Ok(p_info) on success, or Err(AdbError::Generic(msg)) on failure.
 /// NOTE: `async` because it's awaited via `Command::perform(...)` in the GUI.
@@ -67,9 +72,18 @@ pub async fn adb_shell_command(
     command: String,
     p_info: PackageInfo,
 ) -> Result<PackageInfo, AdbError> {
-    let output = Command::new("adb")
-        .args(["-s", &adb_id, "shell", &command])
-        .output();
+    let mut cmd = Command::new("adb");
+    #[cfg(target_os = "windows")]
+    {
+        // Avoid opening a new console window on older Windows
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+    // Only pass -s when we actually have an ID; otherwise let ADB pick default device
+    if !adb_id.is_empty() {
+        cmd.args(["-s", &adb_id]);
+    }
+    let output = cmd.args(["shell", &command]).output();
 
     let output = match output {
         Ok(o) => o,
@@ -97,6 +111,25 @@ pub async fn adb_shell_command(
         if let Some(hint) = friendly_hint(&msg) {
             msg.push_str(&format!("\nTip: {}", hint));
         }
+        //             Ok(o) => {
+        //         let stdout = to_trimmed_utf8(o.stdout);
+        //         if o.status.success() {
+        //             Ok(stdout)
+        //         } else {
+        //             let stderr = to_trimmed_utf8(o.stderr);
+
+        //             // ADB does really weird things. Some errors are not redirected to stderr
+        //             let err = if stdout.is_empty() { stderr } else { stdout };
+        //             Err(err)
+        //         }
+        //     }
+        // } {
+        //     Ok(o) => {
+        // On old devices, adb commands can return the `0` exit code even if there
+        // is an error. On Android 4.4, ADB doesn't check if the package exists.
+        // It does not return any error if you try to `pm block` a non-existent package.
+        // Some commands are even killed by ADB before finishing and UAD-ng can't catch
+        // the output.
 
         return Err(AdbError::Generic(msg));
     }
@@ -105,7 +138,7 @@ pub async fn adb_shell_command(
         info!("[adb ok] {}", stdout);
     }
     if !stderr.is_empty() {
-        info!("[adb warn] {}", stderr);
+        warn!("[adb warn] {}", stderr);
     }
 
     Ok(p_info)
@@ -269,6 +302,7 @@ pub fn get_device_brand(serial: &str) -> String {
 }
 
 /// Get Android SDK version by querying `ro.build.version.sdk` or defaulting to 0.
+/// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn get_android_sdk(device_serial: &str) -> u8 {
     AdbCommand::new()
         .shell(device_serial)
