@@ -40,7 +40,11 @@ pub const fn is_all_w_c(s: &[u8]) -> bool {
     }
     true
 }
-
+// Takes a time-stamp parameter,
+// for purity and testability.
+//
+// The TZ is generic, because testing requires UTC,
+// while users get the local-aware version.
 #[expect(
     clippy::needless_pass_by_value,
     reason = "Timestamps should be fresh, no need to borrow"
