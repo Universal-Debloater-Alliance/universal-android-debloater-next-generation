@@ -256,7 +256,8 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
             true
         }
 }
-
+/// String with the invariant of being a valid package-name.
+/// See [`PackageId::new`] for validation details.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
 pub struct PackageId(Box<str>);
 impl PackageId {
@@ -314,6 +315,7 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[derive(Debug)]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
+    
     /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
     ///
     /// `Ok` variant:
@@ -377,8 +379,10 @@ impl PmCommand {
                     ln
                 };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
-
-                // Format: "\tUserInfo{<id>:<name>:<flags>}[ running]"
+                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
+                // The format looks stable today, but google may change it in future Android versions
+                // (and very old Androids might differ). Keep parsing defensive.
+                // Expected shape: "UserInfo{<id>:<name>:<flags>}[ running]"
                 let mut comps = ln.split(':');
 
                 let id = comps
@@ -386,6 +390,22 @@ impl PmCommand {
                     .expect("There must be at least 1 ':'-separated component")
                     .parse()
                     .expect("string assumed to be UID numeral");
+                //let name = comps
+                //    .next()
+                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
+                //let flags = u32::from_str_radix(
+                //    comps.next().expect(
+                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
+                //    ),
+                //    16,
+                //)
+                //.expect("string assumed to be hexadecimal bit-flags");
+                // UserInfo {
+                //     id,
+                //     //name: name.into(),
+                //     //flags,
+                //     running: run,
+                // }
 
                 UserInfo { id, running: run }
             })
