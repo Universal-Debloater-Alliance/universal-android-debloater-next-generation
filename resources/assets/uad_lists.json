@@ -29531,6 +29531,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.apps.bard": {
+    "list": "Google",
+    "description": "Google Gemini, safe to remove",
+    "dependencies": null,
+    "neededBy": null,
+    "labels": null,
+    "removal": "Recommended"
+},
   "com.google.android.apps.inbox": {
     "list": "Google",
     "description": "Inbox by Gmail (Discontinued)",
