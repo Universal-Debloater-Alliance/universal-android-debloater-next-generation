@@ -29534,9 +29534,9 @@
   "com.google.android.apps.bard": {
     "list": "Google",
     "description": "Google Gemini, safe to remove",
-    "dependencies": null,
-    "neededBy": null,
-    "labels": null,
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
     "removal": "Recommended"
 },
   "com.google.android.apps.inbox": {
