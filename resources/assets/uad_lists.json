@@ -38910,5 +38910,64 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "Info.Plateau.Einkbro":
+  {
+    "list": "Misc",
+    "description": "Open source web browser designed to fit E-ink devices, https://github.com/plateaukao/einkbro",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+    
+  },
+  "com.inkbook.awesomereader":
+  {
+    "list": "Oem",
+    "description": "Stock reader app on Inkbook e-readers. Uninstall only if planning to use a different reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+    
+  },
+  "com.inkbook.exoereader":
+  {
+    "list": "Oem",
+    "description": "Stock reader app on Inkbook e-readers. Uninstall only if planning to use a different reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.inkbook.os.plus":
+  {
+    "list": "Oem",
+    "description": "App repository for Inkbook e-readers: Kindle, Kobo etc. Safe to uninstall if not using them. Also installs and updates EinkBro and a stats tracking app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.inkbook.os.library":
+  {
+    "list": "Oem",
+    "description": "Default library app on Inkbook e-readers. Will break the UI if uninstalled so only do so if you plan to replace the default UI app with e.g. SimpleLauncher or somehting of the sort.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.inkbook.os.settings":
+  {
+    "list": "Oem",
+    "description": "Wrapper for Android settings which hides most irrelevant settings for e-ink devices e.g enabling animations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
+
+
+
