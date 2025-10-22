@@ -131,7 +131,7 @@ impl Application for UadGui {
                 // Modifying to unable automatic download! 
                 // IMPORTANT: In the main version this is enable by default but in this 
                 // case we dont want to download another json file. 
-                self.update(Message::AppsAction(AppsMessage::LoadUadList(false)))
+                self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
             }
             Message::AppsPress => {
                 self.view = View::List;

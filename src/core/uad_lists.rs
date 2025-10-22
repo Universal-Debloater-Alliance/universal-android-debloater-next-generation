@@ -206,15 +206,7 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
     let mut error = false;
     let list: PackageHashMap = if remote {
         retry(Fixed::from_millis(1000).take(60), || {
-            match ureq::get(format!(
-                "https://raw.githubusercontent.com\
-                    /Universal-Debloater-Alliance\
-                    /universal-android-debloater\
-                    /main\
-                    /resources\
-                    /assets\
-                    /{LIST_FNAME}"
-            ))
+            match ureq::get(format!("https://raw.githubusercontent.com/Muriilow/universal-android-debloater-next-generation/refs/heads/fixJson/resources/assets/uad_lists.json"))
             .call()
             {
                 Ok(mut data) => {
