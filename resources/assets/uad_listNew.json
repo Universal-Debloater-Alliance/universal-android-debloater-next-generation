@@ -6261,7 +6261,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Used for USB and/or Wi-Fi tethering?",
+    "description": "Uninstalling/Disabling this app will Break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) And will bring you back to your device\nIt's safe to Uninstall if you are going to use hotspot and Bluetooth/USB Tethering.",
     "removal": "Disruptive"
   },
   "com.google.android.networkstack.tethering.overlay": {
@@ -19264,8 +19264,8 @@
   },
   "com.oplus.exsystemservice": {
     "list": "Oem",
-    "description": "[NEED MORE INFO / APK NEEDED] Lots of permissions. The screenshot function will stop working when the app is disabled.",
-    "removal": "Disruptive"
+    "description": "Has a lot of permissions. The screenshot function will stop working when the app is disabled.\n Can cause bootloop on some phones\n https://gist.github.com/zxdawn/21771f89f0e6ee01bcb0bb740058e2a0 \n https://xdaforums.com/t/extreme-debloat-op12.4688984/ \n https://www.apkmirror.com/apk/oneplus-ltd/system-service-2/system-service-2-1-1-5-release/system-service-1-1-5-2-android-apk-download/",
+    "removal": "Unsafe"
   },
   "com.oplus.stdid": {
     "list": "Oem",
@@ -24286,5 +24286,10 @@
     "list": "Oem",
     "description": "Wrapper for Android settings which hides most irrelevant settings for e-ink devices e.g enabling animations.",
     "removal": "Disruptive"
+  },
+  "com.zte.linkspeedup": {
+    "list": "Oem",
+    "description": "Causes bootloop",
+    "removal": "Unsafe"
   }
 }
