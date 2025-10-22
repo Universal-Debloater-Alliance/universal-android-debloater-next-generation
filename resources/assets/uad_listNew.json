@@ -4906,7 +4906,7 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi. Causes bootloop",
     "removal": "Unsafe"
   },
   "com.android.mms.service": {
@@ -24291,5 +24291,10 @@
     "list": "Oem",
     "description": "Causes bootloop",
     "removal": "Unsafe"
+  },
+  "com.google.android.settings.intelligence": {
+    "list": "Aosp",
+    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings./nUses location, nearby devices, notifications permissions by default.",
+    "removal": "Advanced"
   }
 }
