@@ -22,9 +22,9 @@ pub static DATA: &str = include_str!("../../resources/assets/uad_lists.json");
 pub struct Package {
     pub list: UadList,
     pub description: String,
-    dependencies: Vec<String>,
-    needed_by: Vec<String>,
-    labels: Vec<String>,
+    dependencies: Option<Vec<String>>,
+    needed_by: Option<Vec<String>>, //Legacy: Not displayed on the UI
+    labels: Option<Vec<String>>, //Legacy: Not displayed on the UI
     pub removal: Removal,
 }
 
@@ -151,9 +151,9 @@ impl Opposite for PackageState {
 #[derive(Default, Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Removal {
     #[default]
-    Recommended,
+    Safe,
     Advanced,
-    Expert,
+    Disruptive,
     Unsafe,
     Unlisted,
     All,
@@ -162,16 +162,16 @@ pub enum Removal {
 impl Removal {
     pub const ALL: [Self; 6] = [
         Self::All,
-        Self::Recommended,
+        Self::Safe,
         Self::Advanced,
-        Self::Expert,
+        Self::Disruptive,
         Self::Unsafe,
         Self::Unlisted,
     ];
     pub const CATEGORIES: [Self; 5] = [
-        Self::Recommended,
+        Self::Safe,
         Self::Advanced,
-        Self::Expert,
+        Self::Disruptive,
         Self::Unsafe,
         Self::Unlisted,
     ];
@@ -179,9 +179,9 @@ impl Removal {
     pub const fn as_str(self) -> &'static str {
         match self {
             Self::All => "All removals",
-            Self::Recommended => "Recommended",
+            Self::Safe => "Safe",
             Self::Advanced => "Advanced",
-            Self::Expert => "Expert",
+            Self::Disruptive => "Disruptive",
             Self::Unsafe => "Unsafe",
             Self::Unlisted => "Unlisted",
         }
@@ -226,8 +226,9 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
                         .read_to_string()
                         .expect("remote list is bigger than 8MiB");
                     fs::write(cached_uad_lists.clone(), &text).expect("Unable to write file");
-                    let list: PackageHashMap =
-                        serde_json::from_str(&text).expect("Unable to parse");
+
+                    let list: PackageHashMap = serde_json::from_str(&text).expect("Unable to parse");
+
                     OperationResult::Ok(list)
                 }
                 Err(e) => {
@@ -247,6 +248,8 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
 }
 
 fn get_local_lists() -> PackageHashMap {
+    warn!("Loading local debloat list");
+    
     let cached_uad_lists = CACHE_DIR.join(LIST_FNAME);
     serde_json::from_str(
         fs::read_to_string(cached_uad_lists)

@@ -184,7 +184,7 @@ impl List {
                 self.phone_packages = packages;
                 self.filtered_packages = (0..self.phone_packages[i_user].len()).collect();
                 self.selected_package_state = Some(PackageState::Enabled);
-                self.selected_removal = Some(Removal::Recommended);
+                self.selected_removal = Some(Removal::Safe);
                 self.selected_list = Some(UadList::All);
                 self.selected_user = Some(User::default());
                 Self::filter_package_lists(self);

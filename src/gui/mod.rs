@@ -127,8 +127,11 @@ impl Application for UadGui {
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
                 }
-
-                self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
+                
+                // Modifying to unable automatic download! 
+                // IMPORTANT: In the main version this is enable by default but in this 
+                // case we dont want to download another json file. 
+                self.update(Message::AppsAction(AppsMessage::LoadUadList(false)))
             }
             Message::AppsPress => {
                 self.view = View::List;
