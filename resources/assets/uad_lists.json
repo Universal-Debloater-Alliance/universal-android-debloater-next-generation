@@ -32301,23 +32301,23 @@
   },
   "com.felicanetworks.mfc": {
     "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "description": "[モバイルFeliCaクライアント](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)(Mobile FeliCa Client) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": ["com.felicanetworks.mfw.a.boot", "com.felicanetworks.mfm.main"],
     "labels": [],
     "removal": "Recommended"
   },
   "com.felicanetworks.mfm.main": {
     "list": "Carrier",
-    "description": "Chinese felicanetworks",
-    "dependencies": [],
+    "description": "[おサイフケータイ アプリ](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)(Osaifu-Keitai App) is a digital wallet app for おサイフケータイ(Osaifu-Keitai) brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the おサイフケータイ(Osaifu-Keitai) brand, such as iD and モバイルSuica (Mobile Suica).\nFor details, please [check the app description](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on the Play Store.",
+    "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
   "com.felicanetworks.mfs": {
     "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "description": "Initial setup application for FeliCa. Payments with FeliCa still works after uninstalling this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32325,11 +32325,27 @@
   },
   "com.felicanetworks.mfw.a.boot": {
     "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "description": "おサイフケータイ Webプラグイン(Osaifu-Keitai Web Plugin) is used by websites on your browser to get payment information and process payments with FeliCa. Safe to remove if you don't use おサイフケータイ(Osaifu-Keitai) online.",
+    "dependencies": ["com.felicanetworks.mfc"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.nfc.felicalocktest": {
+    "list": "Carrier",
+    "description": "Testing FeliCa carrier remote lock. Common to Softbank, au, and docomo.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.nfc.resources.japan": {
+    "list": "Oem",
+    "description": "Overlay for com.android.nfc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.aura.oobe.motorola": {
     "list": "Carrier",
@@ -32669,7 +32685,7 @@
   },
   "com.sec.android.app.felicatest": {
     "list": "Oem",
-    "description": "FeliCa Test, hidden debugs,logs HAL_Nfc",
+    "description": "FeliCa Test, hidden debugs, logs HAL_Nfc",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33126,14 +33142,6 @@
   "com.samsung.sec.mtv": {
     "list": "Oem",
     "description": "Hidden testing mobiletv",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.felicanetworks.mfm": {
-    "list": "Carrier",
-    "description": "Setup Chinese felicanetworks",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
