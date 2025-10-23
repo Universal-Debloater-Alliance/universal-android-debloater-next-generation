@@ -1,6 +1,6 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
-use crate::core::sync::{AdbError, Phone, User, adb_shell_command, apply_pkg_state_commands};
+use crate::core::sync::{AdbError, Phone, User, apply_pkg_state_commands, run_adb_action};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -1067,7 +1067,7 @@ fn build_action_pkg_commands(
             // In the end there is only one package state change
             // even if we run multiple adb commands
             commands.push(Task::perform(
-                adb_shell_command(
+                run_adb_action(
                     // this is typically small,
                     // so it's fine.
                     device.adb_id.clone(),

@@ -2,7 +2,7 @@ use crate::core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     helpers::button_primary,
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
-    sync::{AdbError, Phone, User, adb_shell_command, get_android_sdk, supports_multi_user},
+    sync::{AdbError, Phone, User, get_android_sdk, run_adb_action, supports_multi_user},
     theme::Theme,
     utils::{
         DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_folder, open_url,
@@ -183,7 +183,7 @@ impl Settings {
                             commands.push(Task::perform(
                                 // This is "safe" thanks to serde:
                                 // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/760
-                                adb_shell_command(phone.adb_id.clone(), command, p_info.clone()),
+                                run_adb_action(phone.adb_id.clone(), command, p_info.clone()),
                                 Message::RestoringDevice,
                             ));
                         }
