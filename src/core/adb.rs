@@ -242,6 +242,14 @@ impl ShellCommand {
         self.0.0.arg("reboot");
         self.0.run()
     }
+
+    /// Execute an arbitrary shell action string on the device's default shell.
+    /// The action string is passed as a single argument to `adb shell` and
+    /// interpreted by the remote shell (which splits on spaces).
+    pub fn raw(mut self, action: &str) -> Result<String, String> {
+        self.0.0.arg(action);
+        self.0.run()
+    }
 }
 
 #[must_use]
