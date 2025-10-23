@@ -76,13 +76,13 @@ impl About {
             let last_self_update_text = text(self_update_text).style(style::Text::Default);
 
             row![uad_version_text, self_update_btn, last_self_update_text,]
-                .align_items(Alignment::Center)
+                .align_y(Alignment::Center)
                 .spacing(10)
                 .width(550)
         };
 
         let uad_list_row = row![uad_list_text, uad_lists_btn, last_update_text,]
-            .align_items(Alignment::Center)
+            .align_y(Alignment::Center)
             .spacing(10)
             .width(550);
 
@@ -112,20 +112,18 @@ impl About {
             }
         })
         .width(250);
-        let adb_version_row = row![adb_version_text]
-            .align_items(Alignment::Center)
-            .width(550);
+        let adb_version_row = row![adb_version_text].align_y(Alignment::Center).width(550);
 
         #[cfg(feature = "self-update")]
         let update_column = column![uad_list_row, self_update_row, adb_version_row];
         #[cfg(not(feature = "self-update"))]
         let update_column = column![uad_list_row, adb_version_row];
 
-        let update_column = update_column.align_items(Alignment::Center).spacing(10);
+        let update_column = update_column.align_x(Alignment::Center).spacing(10);
 
         let update_container = container(update_column)
             .width(Length::Fill)
-            .center_x()
+            .center_x(Length::Fill)
             .padding(10)
             .style(style::Container::Frame);
 
@@ -156,7 +154,7 @@ impl About {
         ]
         .width(Length::Fill)
         .spacing(20)
-        .align_items(Alignment::Center);
+        .align_x(Alignment::Center);
 
         container(content)
             .width(Length::Fill)

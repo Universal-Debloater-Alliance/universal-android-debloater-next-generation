@@ -421,6 +421,7 @@ pub struct UserInfo {
     id: u16,
     //name: Box<str>,
     //flags: u32,
+    #[allow(dead_code)]
     running: bool,
 }
 impl UserInfo {
@@ -431,6 +432,7 @@ impl UserInfo {
     /// Check if the user was logged-in
     /// at the time `pm list users` was invoked
     #[must_use]
+    #[allow(dead_code)]
     pub const fn was_running(&self) -> bool {
         self.running
     }
