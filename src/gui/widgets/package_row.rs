@@ -47,6 +47,10 @@ impl PackageRow {
         }
     }
 
+    #[allow(
+        clippy::unused_self,
+        reason = "Consistent component API; may change later"
+    )]
     pub fn update(&mut self, _message: &Message) -> Task<Message> {
         Task::none()
     }

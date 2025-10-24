@@ -23,12 +23,20 @@ pub enum Message {
 }
 
 impl About {
+    #[allow(
+        clippy::unused_self,
+        reason = "Trait-like shape required by GUI architecture"
+    )]
     pub fn update(&mut self, msg: Message) {
         if let Message::UrlPressed(url) = msg {
             open_url(url);
         }
         // other events are handled by UadGui update()
     }
+    #[allow(
+        clippy::unused_self,
+        reason = "Trait-like shape required by GUI architecture"
+    )]
     pub fn view(&self, update_state: &UpdateState) -> Element<'_, Message, Theme, Renderer> {
         let about_text = text(format!(
             "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."

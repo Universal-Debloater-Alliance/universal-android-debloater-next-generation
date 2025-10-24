@@ -59,6 +59,8 @@ pub enum AdbError {
 
 /// Run an arbitrary shell action via the typed ADB wrapper.
 /// This replaces the deprecated `adb_shell_command`.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
 pub async fn run_adb_action<S: AsRef<str>>(
     device_serial: S,
     action: String,
