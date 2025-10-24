@@ -7728,7 +7728,7 @@
   },
   "com.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Suggestions\nHandles the search and suggestions features in the settings app.\nDisabling this package makes the Settings app crash when you tap on search.\nDoesn't run in the background, so there's little benefit in disabling.\nhttps://gitlab.com/W1nst0n/universal-android-debloater/-/issues/51",
+    "description": "Settings Suggestions\nHandles the search and suggestions features in the settings app.\nDisabling this package makes the Settings app crash when you tap on search.\nDoesn't run in the background, so there's little benefit in disabling.\nUses location, nearby devices, notifications permissions by default\nhttps://gitlab.com/W1nst0n/universal-android-debloater/-/issues/51",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7888,7 +7888,7 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nIt might cause a bootloop",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10066,7 +10066,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Used for USB and/or Wi-Fi tethering?",
+    "description": "Uninstalling/Disabling this app will Break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25393,7 +25393,7 @@
     "labels": []
   },
   "com.spreadtrum.sgps": {
-    "description": "Useless GPS Test.",
+    "description": "A Chinese spyware GPS system app, consider removing if your phone doesn't have a GPS sensor. \nThis app is developed by a company called Zhantang, the same organization that made a dropper malware (com.redstone.ota.ui):\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany\nhttps://thehackernews.com/2021/04/pre-installed-malware-dropper-found-on.html",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -30892,11 +30892,11 @@
   },
   "com.oplus.exsystemservice": {
     "list": "Oem",
-    "description": "[NEED MORE INFO / APK NEEDED] Lots of permissions. The screenshot function will stop working when the app is disabled.",
+    "description": "Has a lot of permissions. The screenshot function will stop working when the app is disabled.\nCan cause bootloop on some phones\nhttps://gist.github.com/zxdawn/21771f89f0e6ee01bcb0bb740058e2a0 \nhttps://xdaforums.com/t/extreme-debloat-op12.4688984/ \nhttps://www.apkmirror.com/apk/oneplus-ltd/system-service-2/system-service-2-1-1-5-release/system-service-1-1-5-2-android-apk-download/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.oplus.stdid": {
     "list": "Oem",
@@ -38966,8 +38966,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.zte.linkspeedup": {
+    "list": "Oem",
+    "description": "Causes bootloop",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.settings.intelligence": {
+    "list": "Aosp",
+    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings./nUses location, nearby devices, notifications permissions by default.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.redstone.ota.ui": {
+    "list": "Oem",
+    "description": "This malware disguises itself as an update app, tracks the user and installs malware in the background.\nhttps://www.virustotal.com/gui/file/0aefcffd253e575474dbbbf1f60d77cfaa679c0abe3241d0ee397fbbb2ad9924/details\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany\nhttps://thehackernews.com/2021/04/pre-installed-malware-dropper-found-on.html",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.gem": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.smarter": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.xiaoan": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
-
-
-
