@@ -92,7 +92,10 @@ impl UadGui {
         )
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[allow(
+        clippy::too_many_lines,
+        reason = "Root GUI update orchestrates many flows"
+    )]
     fn update(&mut self, msg: Message) -> Task<Message> {
         match msg {
             Message::LoadDevices(devices_list) => {
@@ -332,7 +335,7 @@ impl UadGui {
         }
     }
 
-    fn view(&self) -> Element<Message, Theme> {
+    fn view(&self) -> Element<'_, Message, Theme> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),

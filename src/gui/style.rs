@@ -1,3 +1,9 @@
+#![allow(
+    non_snake_case,
+    clippy::trivially_copy_pass_by_ref,
+    clippy::wildcard_imports,
+    reason = "Iced style modules use PascalCase and &Theme; wildcard for local convenience"
+)]
 use crate::core::theme::Theme;
 use iced::widget::{
     button, checkbox, container, overlay, pick_list, radio, scrollable, text, text_editor,
@@ -187,7 +193,7 @@ impl pick_list::Catalog for Theme {
                 text_color: p.bright.surface,
                 placeholder_color: p.bright.surface,
                 handle_color: p.bright.surface,
-                background: Background::Color(p.base.background.into()),
+                background: Background::Color(p.base.background),
                 border: Border {
                     color: border_color,
                     width: 1.0,
@@ -268,9 +274,9 @@ impl text_editor::Catalog for Theme {
     type Class<'a> = text_editor::StyleFn<'a, Theme>;
 
     fn default<'a>() -> <Self as text_editor::Catalog>::Class<'a> {
-        Box::new(|t: &Theme, s: text_editor::Status| {
+        Box::new(|t: &Theme, _s: text_editor::Status| {
             let p = t.palette();
-            let active = text_editor::Style {
+            text_editor::Style {
                 background: Background::Color(p.base.foreground),
                 border: Border {
                     color: Color::TRANSPARENT,
@@ -284,12 +290,6 @@ impl text_editor::Catalog for Theme {
                     a: 0.3,
                     ..p.normal.primary
                 },
-            };
-            match s {
-                text_editor::Status::Active
-                | text_editor::Status::Focused
-                | text_editor::Status::Hovered => active,
-                text_editor::Status::Disabled => active,
             }
         })
     }
@@ -327,11 +327,10 @@ impl iced::widget::rule::Catalog for Theme {
     }
 }
 
-#[allow(non_snake_case)]
 pub mod Container {
     use super::*;
 
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Used by other themes or future styles")]
     pub fn Invisible(_: &Theme) -> container::Style {
         container::Style::default()
     }
@@ -364,7 +363,7 @@ pub mod Container {
         }
     }
 
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Currently unused in some views")]
     pub fn Tooltip(theme: &Theme) -> container::Style {
         let p = theme.palette();
         container::Style {
@@ -394,11 +393,13 @@ pub mod Container {
     }
 }
 
-#[allow(non_snake_case)]
 pub mod Button {
     use super::*;
 
-    #[allow(dead_code)]
+    #[allow(
+        dead_code,
+        reason = "Helper used by multiple styles; may be inlined by compiler"
+    )]
     fn base(border_color: Color) -> button::Style {
         button::Style {
             background: None,
@@ -421,7 +422,10 @@ pub mod Button {
         style
     }
 
-    #[allow(dead_code)]
+    #[allow(
+        dead_code,
+        reason = "Alias kept for semantic clarity in some call-sites"
+    )]
     pub fn SelfUpdate(theme: &Theme, status: button::Status) -> button::Style {
         Primary(theme, status)
     }
@@ -451,7 +455,10 @@ pub mod Button {
         style
     }
 
-    #[allow(dead_code)]
+    #[allow(
+        dead_code,
+        reason = "Style exposed for disabled state buttons in some contexts"
+    )]
     pub fn Unavailable(theme: &Theme, status: button::Status) -> button::Style {
         UninstallPackage(theme, status)
     }
@@ -459,16 +466,6 @@ pub mod Button {
     pub fn NormalPackage(theme: &Theme, status: button::Status) -> button::Style {
         let p = theme.palette();
         match status {
-            button::Status::Active | button::Status::Pressed => button::Style {
-                background: Some(Background::Color(p.base.foreground)),
-                text_color: p.bright.surface,
-                border: Border {
-                    color: p.base.background,
-                    width: 0.0,
-                    radius: 5.0.into(),
-                },
-                shadow: Shadow::default(),
-            },
             button::Status::Hovered => button::Style {
                 background: Some(Background::Color(Color {
                     a: 0.25,
@@ -482,7 +479,7 @@ pub mod Button {
                 },
                 shadow: Shadow::default(),
             },
-            button::Status::Disabled => button::Style {
+            _ => button::Style {
                 background: Some(Background::Color(p.base.foreground)),
                 text_color: p.bright.surface,
                 border: Border {
@@ -512,7 +509,7 @@ pub mod Button {
         }
     }
 
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Used in views where buttons must be invisible")]
     pub fn Hidden(_: &Theme, _: button::Status) -> button::Style {
         button::Style {
             background: Some(Background::Color(Color::TRANSPARENT)),
@@ -566,11 +563,10 @@ pub mod Button {
     }
 }
 
-#[allow(non_snake_case)]
 pub mod Scrollable {
     use super::*;
 
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Kept for future custom rails variations")]
     fn rails(scroller_color: Color) -> (scrollable::Rail, scrollable::Rail) {
         let rail = scrollable::Rail {
             background: Some(Background::Color(Color::TRANSPARENT)),
@@ -614,71 +610,69 @@ pub mod Scrollable {
     }
 }
 
-#[allow(non_snake_case)]
 pub mod CheckBox {
     use super::*;
 
     pub fn PackageEnabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
-        let pal = theme.palette();
+        let p = theme.palette();
         checkbox::Style {
-            background: Background::Color(pal.base.background),
-            icon_color: pal.bright.primary,
+            background: Background::Color(p.base.background),
+            icon_color: p.bright.primary,
             border: Border {
-                color: pal.base.background,
+                color: p.base.background,
                 width: 1.0,
                 radius: 5.0.into(),
             },
-            text_color: Some(pal.bright.surface),
+            text_color: Some(p.bright.surface),
         }
     }
 
     pub fn PackageDisabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
-        let pal = theme.palette();
+        let p = theme.palette();
         checkbox::Style {
             background: Background::Color(Color {
                 a: 0.55,
-                ..pal.base.background
+                ..p.base.background
             }),
-            icon_color: pal.bright.primary,
+            icon_color: p.bright.primary,
             border: Border {
-                color: pal.normal.primary,
+                color: p.normal.primary,
                 width: 1.0,
                 radius: 5.0.into(),
             },
-            text_color: Some(pal.normal.primary),
+            text_color: Some(p.normal.primary),
         }
     }
 
     pub fn SettingsEnabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
-        let pal = theme.palette();
+        let p = theme.palette();
         checkbox::Style {
-            background: Background::Color(pal.base.background),
-            icon_color: pal.bright.primary,
+            background: Background::Color(p.base.background),
+            icon_color: p.bright.primary,
             border: Border {
-                color: pal.bright.primary,
+                color: p.bright.primary,
                 width: 1.0,
                 radius: 5.0.into(),
             },
-            text_color: Some(pal.bright.surface),
+            text_color: Some(p.bright.surface),
         }
     }
 
     pub fn SettingsDisabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
-        let pal = theme.palette();
+        let p = theme.palette();
         checkbox::Style {
-            background: Background::Color(pal.base.foreground),
-            icon_color: pal.bright.primary,
+            background: Background::Color(p.base.foreground),
+            icon_color: p.bright.primary,
             border: Border {
-                color: pal.normal.primary,
+                color: p.normal.primary,
                 width: 1.0,
                 radius: 5.0.into(),
             },
-            text_color: Some(pal.bright.surface),
+            text_color: Some(p.bright.surface),
         }
     }
 }
 
-#[allow(non_snake_case)]
 pub mod Text {
     use super::*;
 
@@ -708,7 +702,10 @@ pub mod Text {
         }
     }
 
-    #[allow(dead_code)]
+    #[allow(
+        dead_code,
+        reason = "Convenience factory used by dynamic text coloring"
+    )]
     pub fn Color(c: Color) -> impl Fn(&Theme) -> text::Style {
         move |_t: &Theme| text::Style { color: Some(c) }
     }
