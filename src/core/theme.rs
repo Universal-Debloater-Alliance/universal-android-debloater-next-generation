@@ -37,7 +37,7 @@ pub struct BaseColors {
 #[derive(Debug, Clone, Copy)]
 pub struct NormalColors {
     pub primary: Color,
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Reserved for future palette updates")]
     pub secondary: Color,
     pub surface: Color,
     pub error: Color,

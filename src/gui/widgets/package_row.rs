@@ -47,11 +47,19 @@ impl PackageRow {
         }
     }
 
+    #[allow(
+        clippy::unused_self,
+        reason = "Consistent component API; may change later"
+    )]
     pub fn update(&mut self, _message: &Message) -> Task<Message> {
         Task::none()
     }
 
-    pub fn view(&self, settings: &Settings, _phone: &Phone) -> Element<Message, Theme, Renderer> {
+    pub fn view(
+        &self,
+        settings: &Settings,
+        _phone: &Phone,
+    ) -> Element<'_, Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
         let button_style: fn(&Theme, iced::widget::button::Status) -> iced::widget::button::Style;

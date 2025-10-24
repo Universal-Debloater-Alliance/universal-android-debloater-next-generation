@@ -53,6 +53,7 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 }
 
 #[must_use]
+#[cfg(debug_assertions)]
 fn is_version_triple(s: &str) -> bool {
     let mut components = s.split('.');
     for _ in 0..3 {
@@ -356,8 +357,7 @@ impl PmCommand {
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    #[cfg(debug_assertions)]
-                    assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    debug_assert!(PackageId::new(p.into()).is_some() || p == "android");
                     String::from(p)
                 })
                 .collect()
@@ -429,7 +429,7 @@ pub struct UserInfo {
     id: u16,
     //name: Box<str>,
     //flags: u32,
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Field read only in certain UI flows and tests")]
     running: bool,
 }
 impl UserInfo {
@@ -440,7 +440,7 @@ impl UserInfo {
     /// Check if the user was logged-in
     /// at the time `pm list users` was invoked
     #[must_use]
-    #[allow(dead_code)]
+    #[allow(dead_code, reason = "Currently unused by UI; kept for future features")]
     pub const fn was_running(&self) -> bool {
         self.running
     }

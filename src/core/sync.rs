@@ -59,6 +59,8 @@ pub enum AdbError {
 
 /// Run an arbitrary shell action via the typed ADB wrapper.
 /// This replaces the deprecated `adb_shell_command`.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
 pub async fn run_adb_action<S: AsRef<str>>(
     device_serial: S,
     action: String,
@@ -286,7 +288,7 @@ pub async fn get_devices_list() -> Vec<Phone> {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
                         user_list: list_users_idx_prot(serial),
-                        adb_id: serial.to_string(),
+                        adb_id: serial.clone(),
                     });
                 }
                 OperationResult::Ok(device_list)
