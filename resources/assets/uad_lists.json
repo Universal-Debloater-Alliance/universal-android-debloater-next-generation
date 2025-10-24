@@ -39014,5 +39014,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.oplus.studycenter": {
+    "list": "Oem",
+    "description": "Study Center is an educational application officially developed by OPPO for children aged 0-12 in China.\nAsk for a lot of permissions. Has a lot of security issues:\nhttps://beta.pithus.org/report/e006d8b22e473e603ceb86c654889e08da460b73d609cd9b17642f49d530239a",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.oplus.ovoicemanager.wakeup": {
+    "list": "Oem",
+    "description": "Voice Assistant related. A component for com.oplus.ovoicemanager.\nhttps://www.apkmirror.com/apk/oneplus-ltd/ovoicemanagerskillservice-2/ovoicemanagerskillservice-1-1-13-release/ovoicemanagerskillservice-1-1-13-android-apk-download/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
