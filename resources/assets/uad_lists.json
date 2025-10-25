@@ -26796,7 +26796,7 @@
     "labels": []
   },
   "com.coloros.karaoke": {
-    "description": "In-ear monitoring, basically ColorOS's high volume warning system. Can be removed fine if you don't want it.",
+    "description": "In-ear monitoring\nBasically ColorOS's high volume warning system. Can be removed fine if you don't want it.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
