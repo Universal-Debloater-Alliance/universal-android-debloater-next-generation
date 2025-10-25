@@ -1,0 +1,56 @@
+[package]
+name = "uad-core"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories = ["command-line-utilities"]
+edition.workspace = true
+
+[features]
+default = []
+gui = ["dep:iced", "dep:dark-light"]
+self-update = ["dep:flate2", "dep:tar"]
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+log.workspace = true
+chrono.workspace = true
+toml.workspace = true
+dirs.workspace = true
+ureq.workspace = true
+retry.workspace = true
+csv.workspace = true
+iced = { workspace = true, optional = true }
+dark-light = { workspace = true, optional = true }
+flate2 = { workspace = true, optional = true }
+tar = { workspace = true, optional = true }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+win32console.workspace = true
+
+[lints.rust]
+deprecated_safe = "warn"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "forbid"
+exit = "deny"
+panic_in_result_fn = "warn"
+infinite_loop = "warn"
+mem_forget = "warn"
+implicit_clone = "warn"
+format_push_string = "warn"
+large_include_file = "warn"
+shadow_unrelated = "warn"
+struct_field_names = "allow" # annoying
+module_name_repetitions = "allow" # annoying
+
+disallowed_types = "deny"
+disallowed_methods = "deny"
+
+allow_attributes_without_reason = "warn"
+pedantic = { level = "warn", priority = -1 }
