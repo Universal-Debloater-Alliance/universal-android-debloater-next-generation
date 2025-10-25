@@ -1,0 +1,53 @@
+[package]
+name = "uad-cli"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
+readme.workspace = true
+keywords.workspace = true
+categories = ["command-line-utilities"]
+edition.workspace = true
+
+[[bin]]
+name = "uad"
+path = "src/main.rs"
+
+[dependencies]
+uad-core = { path = "../uad-core" }
+clap.workspace = true
+clap_complete = "4.4"
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+log.workspace = true
+chrono.workspace = true
+toml.workspace = true
+dirs.workspace = true
+ureq.workspace = true
+retry.workspace = true
+csv.workspace = true
+rustyline = "14.0"
+
+[lints.rust]
+deprecated_safe = "warn"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "deny"
+exit = "deny"
+panic_in_result_fn = "warn"
+infinite_loop = "warn"
+mem_forget = "warn"
+implicit_clone = "warn"
+format_push_string = "warn"
+large_include_file = "warn"
+shadow_unrelated = "warn"
+struct_field_names = "allow" # annoying
+module_name_repetitions = "allow" # annoying
+
+disallowed_types = "deny"
+disallowed_methods = "deny"
+
+allow_attributes_without_reason = "warn"
+pedantic = { level = "warn", priority = -1 }
