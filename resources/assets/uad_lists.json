@@ -7758,6 +7758,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.contactkeys": {
+    "list": "Google",
+    "description": "Android System Key Verifier is a system service for verifying interlocutors using messengers with end-to-end encryption.\nIts job is to verify end-to-end encryption keys across chat apps.\nIt has no internet permissions and performs local key comparisons only.\nIt doesn’t access your chats, contacts, or files.\nIt doesn’t run in the background unless called by another apps\nhttps://grouphowto.com/com-google-android-contactkeys/\nhttps://developers.google.com/android/binary_transparency/google1p/overview",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.android.systemui.theme.dark": {
     "list": "Aosp",
     "description": "Enables you to use Android dark theme.",
@@ -10130,7 +10138,7 @@
   },
   "com.google.android.overlay.gmsconfig.comms": {
     "list": "Google",
-    "description": "Useless configurations dialer, sms, contacts Google(GApps)\neverything works without it.",
+    "description": "Useless configurations dialer, sms, contacts Google(GApps)\nIt may break PackageInstaller.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28213,7 +28221,7 @@
   },
   "com.google.android.webview": {
     "list": "Google",
-    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
+    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nIf you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.\nIt can cause notifications problems",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29538,7 +29546,15 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-},
+  },
+  "com.google.android.apps.pixel.subzero": {
+    "list": "Google",
+    "description": "Daily Hub - useless a general-purpose news app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.google.android.apps.inbox": {
     "list": "Google",
     "description": "Inbox by Gmail (Discontinued)",
@@ -34108,8 +34124,8 @@
     "removal": "Expert"
   },
   "com.google.android.tvlauncher": {
-    "list": "Oem",
-    "description": "Android TV Home\nhttps://play.google.com/store/apps/details?id=com.google.android.tvlauncher&hl=en&gl=US",
+    "list": "Google",
+    "description": "Android TV Home, on some devices, removing this causes the device to restore default settings on the next power on.\nhttps://play.google.com/store/apps/details?id=com.google.android.tvlauncher&hl=en&gl=US\nhttps://www.clrn.org/how-to-disable-google-tv-on-android/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
