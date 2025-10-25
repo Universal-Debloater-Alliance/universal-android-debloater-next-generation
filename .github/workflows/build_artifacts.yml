@@ -42,7 +42,7 @@ jobs:
           restore-keys: ${{ runner.OS }}-release-
         if: matrix.os == 'ubuntu-22.04'
       - name: Building
-        run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }}
+        run: cargo build --release -p uad-gui --no-default-features --features wgpu,${{ matrix.update_feature }}
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-2022'
         run: mv target/release/uad-ng.exe uad-ng-${{ matrix.build_target }}.exe
@@ -68,3 +68,59 @@ jobs:
         with:
           name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
           path: uad-ng-*
+
+  build-cli:
+    name: Building CLI ${{ matrix.build_target }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - build_target: linux
+            os: ubuntu-22.04
+          - build_target: macos
+            os: macos-15
+          - build_target: macos-intel
+            os: macos-15-intel
+          - build_target: windows
+            os: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target
+          key: ${{ runner.os }}-release-cli-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.OS }}-release-cli-
+        if: matrix.os == 'ubuntu-22.04'
+      - name: Building
+        run: cargo build --release -p uad-cli
+      - name: Renaming binaries [Windows]
+        if: matrix.os == 'windows-2022'
+        run: mv target/release/uad.exe uad-cli-${{ matrix.build_target }}.exe
+      - name: Renaming binaries [Others]
+        if: matrix.os != 'windows-2022'
+        run: mv target/release/uad uad-cli-${{ matrix.build_target }}
+      - name: Tarball Linux/MacOS binary
+        if: matrix.os != 'windows-2022'
+        run: tar -czf uad-cli-${{ matrix.build_target }}{.tar.gz,}
+      - name: Install coreutils for macOS
+        if: startsWith(matrix.os, 'macos')
+        run: brew install coreutils
+      - name: Create checksums for binaries and archives [Windows]
+        if: matrix.os == 'windows-2022'
+        run: sha256sum uad-cli-${{ matrix.build_target }}.exe | tee uad-cli-${{ matrix.build_target }}.exe-checksum.txt
+      - name: Create checksums for binaries and archives [Others]
+        if: matrix.os != 'windows-2022'
+        run: |
+          sha256sum uad-cli-${{ matrix.build_target }} | tee uad-cli-${{ matrix.build_target }}-checksum
+          sha256sum uad-cli-${{ matrix.build_target }}.tar.gz | tee uad-cli-${{ matrix.build_target }}.tar.gz-checksum
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: uad-cli-${{ matrix.build_target }}
+          path: uad-cli-*
