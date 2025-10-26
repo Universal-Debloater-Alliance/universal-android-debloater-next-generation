@@ -309,3 +309,159 @@ pub async fn initial_load() -> bool {
         Err(_err) => false,
     }
 }
+
+/// Verify the actual state of a package on the device
+pub fn verify_package_state(
+    package_name: &str,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> PackageState {
+    use crate::core::adb::{ACommand as AdbCommand, PmListPacksFlag};
+
+    // Check if package is enabled
+    if let Ok(enabled_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
+    {
+        if enabled_packages.contains(&package_name.to_string()) {
+            return PackageState::Enabled;
+        }
+    }
+
+    // Check if package is disabled
+    if let Ok(disabled_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
+    {
+        if disabled_packages.contains(&package_name.to_string()) {
+            return PackageState::Disabled;
+        }
+    }
+
+    // Check if package exists at all (including uninstalled)
+    if let Ok(all_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
+    {
+        if all_packages.contains(&package_name.to_string()) {
+            return PackageState::Uninstalled;
+        }
+    }
+
+    // Package not found at all
+    PackageState::Uninstalled
+}
+
+/// Attempt fallback action when package state verification fails
+pub fn attempt_fallback(
+    package: &crate::gui::widgets::package_row::PackageRow,
+    wanted_state: PackageState,
+    actual_state: PackageState,
+    user: User,
+    phone: &Phone,
+) -> Result<String, String> {
+    match (wanted_state, actual_state) {
+        // Case 1: Tried to uninstall but package was reinstalled -> disable it
+        (PackageState::Uninstalled, PackageState::Enabled) => {
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Enabled,
+            };
+            let commands =
+                apply_pkg_state_commands(&core_package, PackageState::Disabled, user, phone);
+
+            if !commands.is_empty() {
+                // Execute the disable command
+                let action = commands[0].clone();
+                match AdbCommand::new().shell(&phone.adb_id).raw(&action) {
+                    Ok(_) => Ok("disabled package instead of uninstalling".to_string()),
+                    Err(err) => Err(format!("Failed to disable package: {}", err)),
+                }
+            } else {
+                Err("No disable command available for this Android version".to_string())
+            }
+        }
+
+        // Case 2: Tried to disable but package re-enabled itself -> try uninstall
+        (PackageState::Disabled, PackageState::Enabled) => {
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Enabled,
+            };
+            let commands =
+                apply_pkg_state_commands(&core_package, PackageState::Uninstalled, user, phone);
+
+            if !commands.is_empty() {
+                // Execute the uninstall command
+                let action = commands[0].clone();
+                match AdbCommand::new().shell(&phone.adb_id).raw(&action) {
+                    Ok(_) => Ok("uninstalled package instead of disabling".to_string()),
+                    Err(err) => Err(format!("Failed to uninstall package: {}", err)),
+                }
+            } else {
+                Err("No uninstall command available for this Android version".to_string())
+            }
+        }
+
+        // Case 3: Tried to enable but package was disabled -> try uninstall then reinstall
+        (PackageState::Enabled, PackageState::Disabled) => {
+            // First try to uninstall
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Disabled,
+            };
+            let uninstall_commands =
+                apply_pkg_state_commands(&core_package, PackageState::Uninstalled, user, phone);
+
+            if !uninstall_commands.is_empty() {
+                let uninstall_action = uninstall_commands[0].clone();
+                match AdbCommand::new()
+                    .shell(&phone.adb_id)
+                    .raw(&uninstall_action)
+                {
+                    Ok(_) => {
+                        // Now try to reinstall/enable
+                        let core_package_uninstalled = CorePackage {
+                            name: package.name.clone(),
+                            state: PackageState::Uninstalled,
+                        };
+                        let enable_commands = apply_pkg_state_commands(
+                            &core_package_uninstalled,
+                            PackageState::Enabled,
+                            user,
+                            phone,
+                        );
+
+                        if !enable_commands.is_empty() {
+                            let enable_action = enable_commands[0].clone();
+                            match AdbCommand::new().shell(&phone.adb_id).raw(&enable_action) {
+                                Ok(_) => {
+                                    Ok("uninstalled and reinstalled package to enable it"
+                                        .to_string())
+                                }
+                                Err(err) => Err(format!("Failed to reinstall package: {}", err)),
+                            }
+                        } else {
+                            Ok("uninstalled package but couldn't reinstall".to_string())
+                        }
+                    }
+                    Err(err) => Err(format!(
+                        "Failed to uninstall package for reinstall: {}",
+                        err
+                    )),
+                }
+            } else {
+                Err("No uninstall command available for reinstall attempt".to_string())
+            }
+        }
+
+        // Other cases - no fallback available
+        _ => Err(format!(
+            "No fallback available for wanted state {:?} and actual state {:?}",
+            wanted_state, actual_state
+        )),
+    }
+}

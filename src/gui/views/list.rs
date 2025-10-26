@@ -65,6 +65,7 @@ pub struct List {
     current_package_index: usize,
     is_adb_satisfied: bool,
     copy_confirmation: bool,
+    fallback_notifications: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -73,6 +74,7 @@ pub enum Message {
     LoadPhonePackages((PackageHashMap, UadListState)),
     RestoringDevice(Result<PackageInfo, AdbError>),
     ApplyFilters(Vec<Vec<PackageRow>>),
+    DismissFallbackNotifications,
     SearchInputChanged(String),
     ToggleAllSelected(bool),
     ListSelected(UadList),
@@ -81,7 +83,7 @@ pub enum Message {
     RemovalSelected(Removal),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    ChangePackageState(Result<PackageInfo, AdbError>),
+    VerifyAndFallback(Result<PackageInfo, AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -130,6 +132,7 @@ impl List {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
             Message::ApplyFilters(packages) => self.on_apply_filters(packages),
+            Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
             Message::ToggleAllSelected(selected) => {
                 self.on_toggle_all_selected(selected, settings, selected_device, list_update_state)
             }
@@ -140,7 +143,9 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::ChangePackageState(res) => self.on_change_package_state(res, settings),
+            Message::VerifyAndFallback(res) => {
+                self.on_verify_and_fallback(res, settings, selected_device)
+            }
             Message::ModalUserSelected(user) => {
                 self.on_modal_user_selected(user, settings, selected_device, list_update_state)
             }
@@ -361,6 +366,37 @@ impl List {
                 .style(style::Container::BorderedFrame);
 
         let control_panel = self.control_panel(selected_device);
+
+        // Fallback notifications area
+        let notifications_area: Element<'_, Message, Theme, Renderer> =
+            if !self.fallback_notifications.is_empty() {
+                let notification_texts: Vec<_> = self
+                    .fallback_notifications
+                    .iter()
+                    .map(|msg| text(msg).style(style::Text::Commentary).into())
+                    .collect();
+
+                container(
+                    column![
+                        text("Fallback Actions Performed:").style(style::Text::Default),
+                        column(notification_texts).spacing(4),
+                        row![
+                            Space::new(Length::Fill, Length::Shrink),
+                            button(text("Dismiss"))
+                                .on_press(Message::DismissFallbackNotifications)
+                                .style(style::Button::Primary)
+                                .padding([4, 10]),
+                        ]
+                    ]
+                    .spacing(6),
+                )
+                .padding(8)
+                .style(style::Container::BorderedFrame)
+                .into()
+            } else {
+                Space::new(Length::Shrink, Length::Shrink).into()
+            };
+
         let content = if selected_device.user_list.is_empty()
             || match self.selected_user {
                 Some(u) => !self.phone_packages[u.index].is_empty(),
@@ -373,6 +409,7 @@ impl List {
             } {
             column![
                 control_panel,
+                notifications_area,
                 packages_scrollable,
                 description_panel,
                 action_row,
@@ -380,6 +417,7 @@ impl List {
         } else {
             column![
                 control_panel,
+                notifications_area,
                 container(unavailable)
                     .height(Length::Fill)
                     .center_y(Length::Fill),
@@ -739,6 +777,7 @@ impl List {
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
+        self.fallback_notifications.clear();
         let mut commands = vec![];
         self.selected_packages.sort_unstable();
         self.selected_packages.dedup();
@@ -807,6 +846,7 @@ impl List {
         self.selected_removal = Some(Removal::Recommended);
         self.selected_list = Some(UadList::All);
         self.selected_user = Some(User::default());
+        self.fallback_notifications.clear();
         Self::filter_package_lists(self);
         self.loading_state = LoadingState::Ready;
         Task::none()
@@ -913,6 +953,7 @@ impl List {
                 Task::none()
             }
             RowMessage::ActionPressed => {
+                self.fallback_notifications.clear();
                 self.phone_packages[i_user][i_package].selected = true;
                 Task::batch(build_action_pkg_commands(
                     &self.phone_packages,
@@ -941,20 +982,75 @@ impl List {
 
     fn on_user_selected(&mut self, user: User) -> Task<Message> {
         self.selected_user = Some(user);
+        self.fallback_notifications.clear();
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
         Self::filter_package_lists(self);
         Task::none()
     }
 
-    fn on_change_package_state(
+    fn on_verify_and_fallback(
         &mut self,
         res: Result<PackageInfo, AdbError>,
         settings: &Settings,
+        selected_device: &Phone,
     ) -> Task<Message> {
         match res {
             Ok(p) => {
                 let package = &mut self.phone_packages[p.i_user][p.index];
-                package.state = package.state.opposite(settings.device.disable_mode);
+                let wanted_state = package.state.opposite(settings.device.disable_mode);
+
+                // Verify the actual package state after the operation
+                let actual_state = crate::core::sync::verify_package_state(
+                    &package.name,
+                    selected_device.adb_id.as_str(),
+                    Some(selected_device.user_list[p.i_user].id),
+                );
+
+                if actual_state != wanted_state {
+                    // Package state verification failed, attempt fallback
+                    let fallback_result = crate::core::sync::attempt_fallback(
+                        package,
+                        wanted_state,
+                        actual_state,
+                        selected_device.user_list[p.i_user],
+                        selected_device,
+                    );
+
+                    match fallback_result {
+                        Ok(fallback_action) => {
+                            let notification = format!(
+                                "Package '{}' was {} but {} instead. Fallback: {}",
+                                package.name,
+                                match wanted_state {
+                                    PackageState::Uninstalled => "uninstalled",
+                                    PackageState::Disabled => "disabled",
+                                    PackageState::Enabled => "enabled",
+                                    PackageState::All => "modified",
+                                },
+                                match actual_state {
+                                    PackageState::Uninstalled => "remains uninstalled",
+                                    PackageState::Disabled => "was disabled",
+                                    PackageState::Enabled => "was enabled",
+                                    PackageState::All => "state unknown",
+                                },
+                                fallback_action
+                            );
+                            self.fallback_notifications.push(notification);
+
+                            // Update package state to reflect the fallback
+                            package.state = actual_state;
+                        }
+                        Err(err) => {
+                            let notification =
+                                format!("Package '{}' verification failed: {}", package.name, err);
+                            self.fallback_notifications.push(notification);
+                        }
+                    }
+                } else {
+                    // Operation succeeded as expected
+                    package.state = wanted_state;
+                }
+
                 package.selected = false;
                 self.selected_packages
                     .retain(|&x| x.1 != p.index && x.0 != p.i_user);
@@ -1047,6 +1143,12 @@ impl List {
     }
 }
 
+impl List {
+    fn on_dismiss_fallback_notifications(&mut self) -> Task<Message> {
+        self.fallback_notifications.clear();
+        Task::none()
+    }
+}
 fn error_view<'a>(
     error: &'a str,
     content: Column<'a, Message, Theme, Renderer>,
@@ -1170,7 +1272,7 @@ fn build_action_pkg_commands(
                     p_info,
                 ),
                 if j == 0 {
-                    Message::ChangePackageState
+                    Message::VerifyAndFallback
                 } else {
                     |_| Message::Nothing
                 },
