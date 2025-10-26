@@ -72,18 +72,77 @@ pub async fn run_adb_action<S: AsRef<str>>(
     match AdbCommand::new().shell(serial).raw(&action) {
         Ok(o) => {
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
+                let friendly_msg = make_friendly_error_message(&o, &action);
+                return Err(AdbError::Generic(format!("[{label}] {friendly_msg}")));
             }
             info!("[{label}] {action} -> {o}");
             Ok(p)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
+                let friendly_msg = make_friendly_error_message(&err, &action);
+                return Err(AdbError::Generic(format!("[{label}] {friendly_msg}")));
             }
             Err(AdbError::Generic(err))
         }
     }
+}
+
+/// Convert common OEM-specific ADB error messages into user-friendly explanations.
+fn make_friendly_error_message(error_output: &str, action: &str) -> String {
+    // Common Samsung errors
+    if error_output.contains("DELETE_FAILED_USER_RESTRICTED") {
+        return format!(
+            "Cannot uninstall: This package is restricted by the device manufacturer (Samsung Knox or similar).\n\
+            Error: {}\n\
+            Tip: Try disabling the package instead, or check device settings for Knox/security restrictions.",
+            error_output
+        );
+    }
+
+    if error_output.contains("NOT_INSTALLED_FOR_USER") {
+        return format!(
+            "Package is not installed for the current user.\n\
+            Error: {}\n\
+            Tip: The package may be installed for a different user profile or work profile.",
+            error_output
+        );
+    }
+
+    // Empty package name error
+    if error_output.contains("Shell cannot change component state for null") {
+        return format!(
+            "Invalid package: Empty package name detected.\n\
+            Error: {}\n\
+            Tip: Please refresh the package list and try again.",
+            error_output
+        );
+    }
+
+    // Generic permission errors
+    if error_output.contains("Permission denied")
+        || error_output.contains("INSTALL_FAILED_PERMISSION_MODEL_DOWNGRADE")
+    {
+        return format!(
+            "Permission denied: Insufficient privileges to perform this action.\n\
+            Error: {}\n\
+            Tip: This may require root access or the package is protected by the system.",
+            error_output
+        );
+    }
+
+    // Work profile / managed device errors
+    if error_output.contains("DELETE_FAILED_DEVICE_POLICY_MANAGER") {
+        return format!(
+            "Cannot modify: Package is managed by device policy (MDM/EMM).\n\
+            Error: {}\n\
+            Tip: Contact your IT administrator if this is a work device.",
+            error_output
+        );
+    }
+
+    // Generic failure with context
+    format!("{} -> {}", action, error_output)
 }
 
 /// If `None`, returns an empty String, not " --user 0"
