@@ -26,6 +26,7 @@ pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
     pub removal: String,
+    pub before_cross_user_states: Vec<(u16, PackageState)>,
 }
 
 #[derive(Default, Debug, Clone)]
@@ -1006,7 +1007,30 @@ impl List {
                     Some(selected_device.user_list[p.i_user].id),
                 );
 
-                if actual_state != wanted_state {
+                // Check for unexpected cross-user behavior
+                if actual_state == wanted_state {
+                    // Use core detection function
+                    if let Some(notification) = crate::core::sync::detect_cross_user_behavior(
+                        &package.name,
+                        selected_device.adb_id.as_str(),
+                        selected_device.user_list[p.i_user].id,
+                        wanted_state,
+                        actual_state,
+                        selected_device,
+                        &p.before_cross_user_states,
+                    ) {
+                        // Show cross-user behavior in error modal
+                        self.error_modal = Some(format!(
+                            "Cross-User Behavior Detected:\n\n{}\n\n\
+                            This is unusual behavior that may be specific to your device manufacturer (OEM). \
+                            The package state has been successfully changed on the target user.",
+                            notification
+                        ));
+                    }
+
+                    // Update package state to reflect the successful operation
+                    package.state = wanted_state;
+                } else {
                     // Package state verification failed, attempt fallback
                     let fallback_result = crate::core::sync::attempt_fallback(
                         package,
@@ -1046,9 +1070,6 @@ impl List {
                             self.fallback_notifications.push(notification);
                         }
                     }
-                } else {
-                    // Operation succeeded as expected
-                    package.state = wanted_state;
                 }
 
                 package.selected = false;
@@ -1245,7 +1266,11 @@ fn build_action_pkg_commands(
             && packages
                 .get(u.index)
                 .and_then(|user_pkgs| user_pkgs.get(selection.1))
-                .is_some_and(|row_pkg| row_pkg.selected || settings.multi_user_mode)
+                .is_some_and(|row_pkg| {
+                    // Only apply to users where package is explicitly selected
+                    // OR if multi_user_mode is enabled AND this is the initiating user
+                    row_pkg.selected || (settings.multi_user_mode && u.index == selection.0)
+                })
     }) {
         let u_pkg = &packages[u.index][selection.1];
         let wanted_state = if settings.multi_user_mode {
@@ -1255,11 +1280,17 @@ fn build_action_pkg_commands(
         };
 
         let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
+
+        // Capture the before-state of packages on other users for cross-user detection
+        let before_cross_user_states =
+            crate::core::sync::capture_cross_user_states(&u_pkg.name, &device.adb_id, u.id, device);
+
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
                 index: selection.1,
                 removal: pkg.removal.to_string(),
+                before_cross_user_states: before_cross_user_states.clone(),
             };
             // In the end there is only one package state change
             // even if we run multiple adb commands

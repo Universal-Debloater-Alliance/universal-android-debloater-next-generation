@@ -226,6 +226,7 @@ impl Settings {
                         i_user: 0,
                         index: p.index,
                         removal: "RESTORE".to_string(),
+                        before_cross_user_states: vec![],
                     };
                     for command in p.commands.clone() {
                         *nb_running_async_adb_commands += 1;
