@@ -8626,7 +8626,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.mediatek.dataprotection": {
     "list": "Misc",
@@ -13398,7 +13398,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.mediatek.SettingsProviderResOverlay": {
     "list": "Misc",
@@ -36585,7 +36585,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.baidu.BaiduMap": {
     "list": "Oem",
