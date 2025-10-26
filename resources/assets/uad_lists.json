@@ -26796,7 +26796,7 @@
     "labels": []
   },
   "com.coloros.karaoke": {
-    "description": "Karaoke\nKaraoke (Do not delete if you need Karaoke)",
+    "description": "In-ear monitoring\nBasically ColorOS's high volume warning system. Can be removed fine if you don't want it.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
