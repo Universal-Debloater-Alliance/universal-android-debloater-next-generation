@@ -26000,6 +26000,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.monotype.android.font.roboto": {
+    "description": "Roboto Font",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.samsung.android.uds": {
     "description": "Ultra data saving\nHave boring notifications and theres no point of keeping this app.\nhttps://play.google.com/store/apps/details?id=com.samsung.android.uds",
     "removal": "Recommended",
@@ -37415,6 +37423,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.val.hardware": {
+    "list": "Oem",
+    "description": "FactoryApp\nOEM hardware diagnostic tool for manufacturing/service testing (camera, Bluetooth, WiFi, FM radio, telephony, battery, flashlight). Requires broad system permissions (reboot, audio/phone mods, secure settings).\nNot for end-users; safe to remove to reduce bloat.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.sskds": {
     "list": "Oem",
     "description": "SoterSskdsService\nThis app has something to 'com.tencent.soter.soterserver'.\nOnly china.",
@@ -37496,6 +37512,14 @@
     "removal": "Unsafe"
   },
   "com.samsung.android.wifi.resources.wifilock": {
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.samsung.android.wifi.resources.wpa2": {
     "list": "Oem",
     "description": "Needed for WiFi.",
     "dependencies": [],
@@ -39150,5 +39174,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.knox.er": {
+    "list": "Oem",
+    "description": "Knox ER component. Part of Samsung Knox enterprise features; safe to remove only if you do not use Knox/enterprise functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.knox.kfbp": {
+    "list": "Oem",
+    "description": "Knox Frame Buffer Provider. Provides graphics buffer services for Knox UI/containers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.knox.knnr": {
+    "list": "Oem",
+    "description": "Knox Neural Network Runtime. ML runtime used by some Knox/enterprise features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.knox.sandbox": {
+    "list": "Oem",
+    "description": "Knox Sandbox. Isolation/sandboxing support for Knox secure environments.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.app.vex.scanner": {
+    "list": "Oem",
+    "description": "Document Scanner. Samsung's VEX document scanning component used by Camera/Gallery/Office features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.motionphoto.app": {
+    "list": "Oem",
+    "description": "Motion Photo. Enables capture/view of motion photos (short video with still photo) in Samsung Camera/Gallery.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
