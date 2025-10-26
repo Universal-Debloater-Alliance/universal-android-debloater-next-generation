@@ -218,10 +218,10 @@ impl Settings {
         nb_running_async_adb_commands: &mut u32,
     ) -> Task<Message> {
         match restore_backup(phone, packages, &self.device) {
-            Ok(r_packages) => {
+            Ok(restore_result) => {
                 let mut commands = vec![];
                 *nb_running_async_adb_commands = 0;
-                for p in &r_packages {
+                for p in &restore_result.packages {
                     let p_info = PackageInfo {
                         i_user: 0,
                         index: p.index,
@@ -235,13 +235,20 @@ impl Settings {
                         ));
                     }
                 }
-                if r_packages.is_empty() {
+                if restore_result.packages.is_empty() {
                     if get_android_sdk(&phone.adb_id) == 0 {
                         self.device.backup.backup_state = "Device is not connected".to_string();
                     } else {
                         self.device.backup.backup_state =
                             "Device state is already restored".to_string();
                     }
+                } else if restore_result.skipped_count > 0 {
+                    self.device.backup.backup_state = format!(
+                        "Restore completed with {} packages skipped (not found on device)",
+                        restore_result.skipped_count
+                    );
+                } else {
+                    self.device.backup.backup_state = "Restore completed successfully".to_string();
                 }
                 info!(
                     "[RESTORE] Restoring backup {}",
