@@ -32397,7 +32397,7 @@
   },
   "com.felicanetworks.mfc": {
     "list": "Oem",
-    "description": "[モバイルFeliCaクライアント](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)(Mobile FeliCa Client) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services.",
+    "description": "[Mobile FeliCa Client](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services.",
     "dependencies": [],
     "neededBy": ["com.felicanetworks.mfw.a.boot", "com.felicanetworks.mfm.main"],
     "labels": [],
@@ -32405,7 +32405,7 @@
   },
   "com.felicanetworks.mfm.main": {
     "list": "Oem",
-    "description": "[おサイフケータイ アプリ](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)(Osaifu-Keitai App) is a digital wallet app for おサイフケータイ(Osaifu-Keitai) brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the おサイフケータイ(Osaifu-Keitai) brand, such as iD and モバイルSuica (Mobile Suica).\nFor details, please [check the app description](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on the Play Store.",
+    "description": "[Osaifu-Keitai App](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is a digital wallet app for Osaifu-Keitai brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the Osaifu-Keitai brand, such as iD and Mobile Suica.\nFor details, please [check the app description](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on Play Store.",
     "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
@@ -32421,7 +32421,7 @@
   },
   "com.felicanetworks.mfw.a.boot": {
     "list": "Oem",
-    "description": "おサイフケータイ Webプラグイン(Osaifu-Keitai Web Plugin) is used by websites on your browser to get payment information and process payments with FeliCa. Safe to remove if you don't use おサイフケータイ(Osaifu-Keitai) online.",
+    "description": "[Osaifu-Keitai Web Plugin](https://play.google.com/store/apps/details?id=com.felicanetworks.mfw.a.boot) is used by websites on your browser to get payment information and process payments with FeliCa. Safe to remove if you don't use Osaifu-Keitai online.",
     "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
