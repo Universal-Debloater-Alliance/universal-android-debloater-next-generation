@@ -32397,7 +32397,7 @@
   },
   "com.felicanetworks.mfc": {
     "list": "Oem",
-    "description": "[Mobile FeliCa Client](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services.",
+    "description": "[Mobile FeliCa Client](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services. Uninstalling this does not remove the data saved in FeliCa.",
     "dependencies": [],
     "neededBy": ["com.felicanetworks.mfw.a.boot", "com.felicanetworks.mfm.main"],
     "labels": [],
