@@ -39223,7 +39223,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-    "com.android.partnerbrowsercustomizations.example": {
+  "com.android.partnerbrowsercustomizations.example": {
     "list": "Oem",
     "description": "This hidden Chinese/Romanian adware changes Google Chrome's home page, it varies by manufacturers.",
     "dependencies": [],
@@ -39238,14 +39238,14 @@
     "labels": [],
     "removal": "Advanced"
   },
-    "com.sencatech.iwawa.iwawahome": {
+  "com.sencatech.iwawa.iwawahome": {
     "list": "Misc",
     "description": "Pre-installed parental control bloatware with ads. (https://play.google.com/store/apps/details?id=com.sencatech.iwawa.iwawahome)"
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
-    "com.flipkart.android": {
+  "com.flipkart.android": {
     "list": "Misc",
     "description": "Pre-installed Indian shopping bloatware with ads. (https://play.google.com/store/apps/details?id=com.flipkart.android)"
     "neededBy": [],
