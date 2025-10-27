@@ -159,10 +159,10 @@ pub fn open_url(dir: PathBuf) {
                 // may output non-UTF8 characters in error messages
                 let stderr = String::from_utf8_lossy(&o.stderr);
                 let stderr_trimmed = stderr.trim_end();
-                if !stderr_trimmed.is_empty() {
-                    error!("Can't open the following URL: {}", stderr_trimmed);
-                } else {
+                if stderr_trimmed.is_empty() {
                     error!("Can't open URL: command failed with no error message");
+                } else {
+                    error!("Can't open the following URL: {stderr_trimmed}");
                 }
             }
         }

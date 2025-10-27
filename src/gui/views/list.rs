@@ -370,7 +370,9 @@ impl List {
 
         // Fallback notifications area
         let notifications_area: Element<'_, Message, Theme, Renderer> =
-            if !self.fallback_notifications.is_empty() {
+            if self.fallback_notifications.is_empty() {
+                Space::new(Length::Shrink, Length::Shrink).into()
+            } else {
                 let notification_texts: Vec<_> = self
                     .fallback_notifications
                     .iter()
@@ -394,8 +396,6 @@ impl List {
                 .padding(8)
                 .style(style::Container::BorderedFrame)
                 .into()
-            } else {
-                Space::new(Length::Shrink, Length::Shrink).into()
             };
 
         let content = if selected_device.user_list.is_empty()
@@ -1021,10 +1021,9 @@ impl List {
                     ) {
                         // Show cross-user behavior in error modal
                         self.error_modal = Some(format!(
-                            "Cross-User Behavior Detected:\n\n{}\n\n\
+                            "Cross-User Behavior Detected:\n\n{notification}\n\n\
                             This is unusual behavior that may be specific to your device manufacturer (OEM). \
-                            The package state has been successfully changed on the target user.",
-                            notification
+                            The package state has been successfully changed on the target user."
                         ));
                     }
 

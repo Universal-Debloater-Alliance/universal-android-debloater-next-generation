@@ -137,19 +137,18 @@ pub fn restore_backup(
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage = match packages[index]
+                    let package: CorePackage = if let Some(p) = packages[index]
                         .iter()
                         .find(|x| x.name == backup_package.name)
                     {
-                        Some(p) => p.into(),
-                        None => {
-                            skipped_packages += 1;
-                            warn!(
-                                "{} not found for user {} - skipping package during restore",
-                                backup_package.name, u.id
-                            );
-                            continue; // Skip this package and continue with others
-                        }
+                        p.into()
+                    } else {
+                        skipped_packages += 1;
+                        warn!(
+                            "{} not found for user {} - skipping package during restore",
+                            backup_package.name, u.id
+                        );
+                        continue;
                     };
                     let p_commands = apply_pkg_state_commands(
                         &package,
@@ -170,8 +169,7 @@ pub fn restore_backup(
             }
             if skipped_packages > 0 {
                 info!(
-                    "Restore completed with {} packages skipped (not found on device)",
-                    skipped_packages
+                    "Restore completed with {skipped_packages} packages skipped (not found on device)"
                 );
             }
             if !commands.is_empty() {
