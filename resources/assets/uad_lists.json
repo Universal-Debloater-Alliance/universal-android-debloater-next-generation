@@ -39233,21 +39233,21 @@
   },
   "com.sprd.systemupdate": {
     "list": "Oem",
-    "description": "Another update app by Zhantang, this one seems to provide updates unlike other app com.redstone.ota.ui, which is a dropper. Removing it after your update support ends is probably the safest option."
+    "description": "Another update app by Zhantang, this one seems to provide updates unlike other app com.redstone.ota.ui, which is a dropper. Removing it after your update support ends is probably the safest option.",
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
   },
   "com.sencatech.iwawa.iwawahome": {
     "list": "Misc",
-    "description": "Pre-installed parental control bloatware with ads. (https://play.google.com/store/apps/details?id=com.sencatech.iwawa.iwawahome)"
+    "description": "Pre-installed parental control bloatware with ads. (https://play.google.com/store/apps/details?id=com.sencatech.iwawa.iwawahome)",
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
   "com.flipkart.android": {
     "list": "Misc",
-    "description": "Pre-installed Indian shopping bloatware with ads. (https://play.google.com/store/apps/details?id=com.flipkart.android)"
+    "description": "Pre-installed Indian shopping bloatware with ads. (https://play.google.com/store/apps/details?id=com.flipkart.android)",
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
