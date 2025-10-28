@@ -5194,6 +5194,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.service.pentastic": {
+    "list": "Oem",
+    "description": "Glance\nSamsung S-Pen Gestures.\nSafe to remove?\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.samsung.android.service.travel": {
     "list": "Oem",
     "description": "Samsung Travel Wallpaper (discontinued)\n",
@@ -8209,7 +8217,7 @@
   },
   "com.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Suggestions\nHandles the search and suggestions features in the settings app.\nDisabling this package makes the Settings app crash when you tap on search.\nDoesn't run in the background, so there's little benefit in disabling.\nhttps://gitlab.com/W1nst0n/universal-android-debloater/-/issues/51",
+    "description": "Settings Suggestions\nHandles the search and suggestions features in the settings app.\nDisabling this package makes the Settings app crash when you tap on search.\nDoesn't run in the background, so there's little benefit in disabling.\nUses location, nearby devices, notifications permissions by default\nhttps://gitlab.com/W1nst0n/universal-android-debloater/-/issues/51",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8238,6 +8246,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.google.android.contactkeys": {
+    "list": "Google",
+    "description": "Android System Key Verifier is a system service for verifying interlocutors using messengers with end-to-end encryption.\nIts job is to verify end-to-end encryption keys across chat apps.\nIt has no internet permissions and performs local key comparisons only.\nIt doesn’t access your chats, contacts, or files.\nIt doesn’t run in the background unless called by another apps\nhttps://grouphowto.com/com-google-android-contactkeys/\nhttps://developers.google.com/android/binary_transparency/google1p/overview",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.android.systemui.theme.dark": {
     "list": "Aosp",
@@ -8369,7 +8385,7 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nIt might cause a bootloop",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9180,6 +9196,14 @@
   "com.mediatek.location.mtknlp": {
     "list": "Misc",
     "description": "Mtk Nlp\nNetwork Location Provider? This app has location permissions and no code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.mediatek.datatransfer": {
+    "list": "Misc",
+    "description": "The com.mediatek.datatransfer package is part of MediaTek's suite of utilities and is typically used for managing data transfer between devices or during device setup. This app often supports functions like transferring files, contacts, and other data from one device to another. Removing this package might impair the ability to use MediaTek-specific data transfer tools and could impact some setup or migration processes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10547,7 +10571,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Used for USB and/or Wi-Fi tethering?",
+    "description": "Uninstalling/Disabling this app will Break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10611,7 +10635,7 @@
   },
   "com.google.android.overlay.gmsconfig.comms": {
     "list": "Google",
-    "description": "Useless configurations dialer, sms, contacts Google(GApps)\neverything works without it.",
+    "description": "Useless configurations dialer, sms, contacts Google(GApps)\nIt may break PackageInstaller.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12249,6 +12273,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.sizechangable.musicwidget.music": {
+    "list": "Oem",
+    "description": "Music widget\nIt breaks when LG Music is removed.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.lge.sizechangable.weather": {
     "list": "Oem",
     "description": "Music widget\nNot sure if it only manages Music widget for the launcher or also for the lockscreen.\n\nWeather widget for the home screen.\n",
@@ -12329,6 +12361,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.lge.upsell": {
+    "list": "Oem",
+    "description": "Contains dialogs from different carriers about upgrading the mobile plan\nShould be safe to remove?\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.lge.video.vr.wallpaper": {
     "list": "Oem",
     "description": "Video Wallpaper\nLG 360° VR Wallpapers\n",
@@ -12360,6 +12400,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.lge.voicerecorder": {
+    "list": "Oem",
+    "description": "LG Voice Recorder\nSimple voice recording app.\nSafe to remove.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.lge.vrplayer": {
     "list": "Oem",
@@ -12484,6 +12532,14 @@
   "com.lge.theme.titan": {
     "list": "Oem",
     "description": "LG Titan theme (labelled 'Platinum' in the theming app).\nSafe to remove, but also probably pointless to do so as most theme packages are just data containers.\nMake sure you don't delete the package for the theme you're currently using. I don't know what will happen then.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.lge.theme.blackgold": {
+    "list": "Oem",
+    "description": "LG Black Bold theme.\nSafe to remove, but also probably pointless to do so as most theme packages are just data containers.\nMake sure you don't delete the package for the theme you're currently using. I don't know what will happen then.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13279,11 +13335,11 @@
   },
   "com.amazon.venezia": {
     "list": "Misc",
-    "description": "Amazon AppStore\n",
+    "description": "Amazon AppStore\n Removal will result in breakage of app drawer on Amazon Fire TV devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.amazon.aa": {
     "list": "Misc",
@@ -13909,6 +13965,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.mediatek.filemanager": {
+    "list": "Misc",
+    "description": "The com.mediatek.filemanager package is MediaTek’s proprietary file management app, designed to handle file browsing, organization, and management on devices with MediaTek chipsets. While it provides basic file management functions, there are many more advanced and feature-rich file manager apps available on Google Play.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mediatek.fwk.plugin": {
+    "list": "Misc",
+    "description": "The com.mediatek.fwk.plugin package is part of MediaTek’s framework for managing plugins and extensions specific to MediaTek’s hardware and software ecosystem. This package may handle integration and support for various MediaTek-specific features and enhancements. Removing this package could affect some advanced functionalities or custom features provided by MediaTek, but it generally should not disrupt basic system operations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.mediatek.frameworkresoverlay": {
     "list": "Misc",
     "description": "It have something to config AOD.\nAnd power saving.",
@@ -13932,6 +14004,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.mediatek.security": {
+    "list": "Misc",
+    "description": "The com.mediatek.security package is part of MediaTek’s security suite, providing features such as malware protection, privacy settings, and secure browsing options. While the package may offer added security features specific to MediaTek devices, there are alternative security solutions available on Google Play that can provide similar or enhanced protection. Removing this package might lead to a loss of MediaTek-specific security features, but it is generally not critical to the basic operation of the device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.mediatek.SettingsProviderResOverlay": {
     "list": "Misc",
@@ -14004,6 +14084,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.mediatek.videoplayer": {
+    "list": "Misc",
+    "description": "The com.mediatek.videoplayer package is MediaTek’s default video player app, designed to handle video playback and provide basic media management features. Since there are numerous alternative video player apps available on Google Play that offer advanced features and better performance, removing this package is generally recommended.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.mediatek.voicecommand": {
     "list": "Misc",
@@ -14653,6 +14741,30 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.nbbird.hardwareinfo": {
+    "list": "Oem",
+    "description": "The com.nbbird.hardwareinfo package is likely associated with providing detailed information about the device’s hardware components, such as CPU, GPU, memory, and other system specifications. This app might be used for diagnostics or detailed hardware monitoring specific to the device. Removing it might disable access to this hardware information and could affect the ability to view detailed system diagnostics. However, it generally does not affect core system functionality and should not cause bootloop issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nbbsw.mmi_test": {
+    "list": "Oem",
+    "description": "The com.nbbsw.mmi_test package is likely associated with the Mobile Management Interface (MMI) testing tools provided by the OEM, possibly used for diagnostic and testing purposes to check various hardware and software functions of the device. Removing this package might impact the ability to perform certain diagnostic tests or troubleshooting functions provided by the OEM. While its removal should not affect the basic operation of the device, it could limit access to some specific testing tools or functionalities, which might be used for device maintenance or troubleshooting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nbbsw.theme": {
+    "list": "Oem",
+    "description": "The com.nbbsw.theme package is likely related to theme management or customization features provided by the OEM, allowing users to apply and manage themes or visual styles on the device. Since many third-party launchers and theme apps available on Google Play offer similar or enhanced customization options, removing this package is generally recommended.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.netflix.mediaclient": {
     "list": "Misc",
     "description": "Netflix app (https://play.google.com/store/apps/details?id=com.netflix.mediaclient)\n",
@@ -14680,6 +14792,14 @@
   "com.nuance.swype.input": {
     "list": "Misc",
     "description": "Swype keyboard by Nuance\nhttps://www.nuance.com/mobile/mobile-applications/swype/android.html\nhttps://en.wikipedia.org/wiki/Swype\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nuumobile.agingtest": {
+    "list": "Oem",
+    "description": "The com.nuumobile.agingtest package is used for running diagnostic tests related to hardware aging or wear, likely provided by the OEM. Since this package is mainly for diagnostic purposes and does not impact the core functionality of the device, it is safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16919,6 +17039,14 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.simalliance.openmobileapi.eseterminal": {
+    "list": "Oem",
+    "description": "The com.simalliance.openmobileapi.eseterminal package is part of the Open Mobile API framework, which provides services for accessing and managing Secure Elements (SEs) on the device, such as SIM cards or embedded secure elements. This package specifically handles communication with the ESE (Embedded Secure Element) terminal. Removing this package might affect the device's ability to interact with certain secure services or applications that rely on the SE framework. While it is not crucial for basic device functionality, it may impact specific features related to secure transactions or services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.silead.fingerprint": {
     "list": "Oem",
     "description": "Fingerprint silead manager\nHidden app for testing Fingerprint things. Not needed for normal users.",
@@ -18575,6 +18703,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.lge.concierge": {
+    "description": "LG Smart Notice\nProvides a widget which has a clock, weather, lists notifications and much more, it's LG's version of Google Now.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.lge.sui.widget": {
     "description": "Removing this package causes the clock app to crash when trying to set an alarm for a specific date instead of a day of the week.",
     "removal": "Advanced",
@@ -18860,6 +18996,14 @@
   "com.lge.livemessage": {
     "description": "Draw chat\nNot needed for chats.",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.lge.lockscreen.livewallpaper.kaleidoscope": {
+    "description": "The Kaleidoscope Live Wallpaper used in the lockscreen.\nSafe to remove but make sure it's not set as the Wallpaper.\n",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -21984,6 +22128,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oplus.callrecorder": {
+    "description": "Allows you to toggle call recording in the stock Dialer app.\nSafe to remove?\n",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.oplus.customize.coreapp": {
     "description": "Useless frameworks",
     "removal": "Recommended",
@@ -22777,6 +22929,14 @@
     "list": "Oem",
     "dependencies": [],
     "neededBy": []
+  },
+  "com.android.providers.media.module": {
+    "description": "Media picker module\nNot recommended to remove this as it can break apps that use the photo picker.\n",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
   },
   "com.google.ambient.streaming": {
     "description": "Access and use your Android phone's apps from your Chromebook",
@@ -25810,7 +25970,7 @@
     "labels": []
   },
   "com.spreadtrum.sgps": {
-    "description": "Useless GPS Test.",
+    "description": "A Chinese spyware GPS system app, consider removing if your phone doesn't have a GPS sensor. \nThis app is developed by a company called Zhantang, the same organization that made a dropper malware (com.redstone.ota.ui):\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany\nhttps://thehackernews.com/2021/04/pre-installed-malware-dropper-found-on.html",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26324,6 +26484,14 @@
   "com.monotype.android.font.samsungsans": {
     "description": "SamsungSans font\nFont",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.monotype.android.font.roboto": {
+    "description": "Roboto Font",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26873,6 +27041,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oplus.sau": {
+    "description": "System Upgrade Service\nAllows you to update your phone.\nRuns at boot and could cause bootloop when removed.\n",
+    "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.oplus.sauhelper": {
     "description": "SAUHelper\nIt's very much a placeholder app with no real functionality, but it can't be uninstalled or deactivated, and it can be SUSPENDED.",
     "removal": "Recommended",
@@ -27205,7 +27381,7 @@
     "labels": []
   },
   "com.coloros.karaoke": {
-    "description": "Karaoke\nKaraoke (Do not delete if you need Karaoke)",
+    "description": "In-ear monitoring\nBasically ColorOS's high volume warning system. Can be removed fine if you don't want it.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28622,7 +28798,7 @@
   },
   "com.google.android.webview": {
     "list": "Google",
-    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nNo root? Don't uninstall.\nRoot? If you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.",
+    "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nIf you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.\nIt can cause notifications problems",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29935,6 +30111,22 @@
   "com.android.hotwordenrollment.okgoogle": {
     "list": "Aosp",
     "description": "\"OK Google\" detection service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.bard": {
+    "list": "Google",
+    "description": "Google Gemini, safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.pixel.subzero": {
+    "list": "Google",
+    "description": "Daily Hub - useless a general-purpose news app",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31293,11 +31485,11 @@
   },
   "com.oplus.exsystemservice": {
     "list": "Oem",
-    "description": "[NEED MORE INFO / APK NEEDED] Lots of permissions. The screenshot function will stop working when the app is disabled.",
+    "description": "Has a lot of permissions. The screenshot function will stop working when the app is disabled.\nCan cause bootloop on some phones\nhttps://gist.github.com/zxdawn/21771f89f0e6ee01bcb0bb740058e2a0 \nhttps://xdaforums.com/t/extreme-debloat-op12.4688984/ \nhttps://www.apkmirror.com/apk/oneplus-ltd/system-service-2/system-service-2-1-1-5-release/system-service-1-1-5-2-android-apk-download/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.oplus.stdid": {
     "list": "Oem",
@@ -32701,36 +32893,52 @@
     "removal": "Recommended"
   },
   "com.felicanetworks.mfc": {
-    "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "list": "Oem",
+    "description": "[Mobile FeliCa Client](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services. Uninstalling this does not remove the data saved in FeliCa.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": ["com.felicanetworks.mfw.a.boot", "com.felicanetworks.mfm.main"],
     "labels": [],
     "removal": "Recommended"
   },
   "com.felicanetworks.mfm.main": {
-    "list": "Carrier",
-    "description": "Chinese felicanetworks",
-    "dependencies": [],
+    "list": "Oem",
+    "description": "[Osaifu-Keitai App](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is a digital wallet app for Osaifu-Keitai brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the Osaifu-Keitai brand, such as iD and Mobile Suica.\nFor details, please [check the app description](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on Play Store.",
+    "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
   "com.felicanetworks.mfs": {
-    "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "list": "Oem",
+    "description": "Initial setup application for FeliCa. Payments with FeliCa still works after uninstalling this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
   },
   "com.felicanetworks.mfw.a.boot": {
+    "list": "Oem",
+    "description": "[Osaifu-Keitai Web Plugin](https://play.google.com/store/apps/details?id=com.felicanetworks.mfw.a.boot) is used by websites on your browser to get payment information and process payments with FeliCa. Safe to remove if you don't use Osaifu-Keitai online.",
+    "dependencies": ["com.felicanetworks.mfc"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.nfc.felicalocktest": {
     "list": "Carrier",
-    "description": "Chinese felicanetworks",
+    "description": "Testing FeliCa carrier remote lock. Common to Softbank, au, and docomo.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.nfc.resources.japan": {
+    "list": "Oem",
+    "description": "Overlay for com.android.nfc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   },
   "com.aura.oobe.motorola": {
     "list": "Carrier",
@@ -33070,7 +33278,7 @@
   },
   "com.sec.android.app.felicatest": {
     "list": "Oem",
-    "description": "FeliCa Test, hidden debugs,logs HAL_Nfc",
+    "description": "FeliCa Test, hidden debugs, logs HAL_Nfc",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33527,14 +33735,6 @@
   "com.samsung.sec.mtv": {
     "list": "Oem",
     "description": "Hidden testing mobiletv",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.felicanetworks.mfm": {
-    "list": "Carrier",
-    "description": "Setup Chinese felicanetworks",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34509,8 +34709,8 @@
     "removal": "Expert"
   },
   "com.google.android.tvlauncher": {
-    "list": "Oem",
-    "description": "Android TV Home\nhttps://play.google.com/store/apps/details?id=com.google.android.tvlauncher&hl=en&gl=US",
+    "list": "Google",
+    "description": "Android TV Home, on some devices, removing this causes the device to restore default settings on the next power on.\nhttps://play.google.com/store/apps/details?id=com.google.android.tvlauncher&hl=en&gl=US\nhttps://www.clrn.org/how-to-disable-google-tv-on-android/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35596,6 +35796,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.android.music": {
+    "list": "Oem",
+    "description": "The com.android.music package is the default music player app that comes pre-installed on many Android devices. It provides basic music playback functionality and may include features like playlists and library management. Since there are many better and more feature-rich music player apps available on Google Play, and this app does not offer any unique features specific to your device, removing it should not impact the core functionality of the operating system.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.android.overlay.music": {
     "list": "Oem",
     "description": "Overlay to 'com.android.music' icons png.",
@@ -35643,6 +35851,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.android.writeimei": {
+    "list": "Oem",
+    "description": "The com.android.writeimei package is responsible for handling the IMEI (International Mobile Equipment Identity) number on the device. This app is used for writing or managing the device’s IMEI, which is a unique identifier for mobile devices. Removing or tampering with this package can cause significant issues, such as loss of network connectivity, inability to make calls or send texts, and potential bootloop issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   },
   "com.android.providers.settings.auto_generated_rro_vendor__": {
     "list": "Oem",
@@ -37088,6 +37304,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.bird.motionrecognition": {
+    "list": "Oem",
+    "description": "The com.bird.motionrecognition package is likely related to motion recognition features on your device, such as gesture controls or other motion-based functionalities. This package may be specific to the OEM and provide unique functionalities not found in standard Android builds. While removing it might disable certain gesture or motion-based features, it should not impact core system functionalities.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.baidu.BaiduMap": {
     "list": "Oem",
     "description": "Chinese Baidu Map.",
@@ -37696,6 +37920,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.val.hardware": {
+    "list": "Oem",
+    "description": "FactoryApp\nOEM hardware diagnostic tool for manufacturing/service testing (camera, Bluetooth, WiFi, FM radio, telephony, battery, flashlight). Requires broad system permissions (reboot, audio/phone mods, secure settings).\nNot for end-users; safe to remove to reduce bloat.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.sskds": {
     "list": "Oem",
     "description": "SoterSskdsService\nThis app has something to 'com.tencent.soter.soterserver'.\nOnly china.",
@@ -37777,6 +38009,14 @@
     "removal": "Unsafe"
   },
   "com.samsung.android.wifi.resources.wifilock": {
+    "list": "Oem",
+    "description": "Needed for WiFi.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.samsung.android.wifi.resources.wpa2": {
     "list": "Oem",
     "description": "Needed for WiFi.",
     "dependencies": [],
@@ -39311,5 +39551,205 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "Info.Plateau.Einkbro":
+  {
+    "list": "Misc",
+    "description": "Open source web browser designed to fit E-ink devices, https://github.com/plateaukao/einkbro",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+    
+  },
+  "com.inkbook.awesomereader":
+  {
+    "list": "Oem",
+    "description": "Stock reader app on Inkbook e-readers. Uninstall only if planning to use a different reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+    
+  },
+  "com.inkbook.exoereader":
+  {
+    "list": "Oem",
+    "description": "Stock reader app on Inkbook e-readers. Uninstall only if planning to use a different reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.inkbook.os.plus":
+  {
+    "list": "Oem",
+    "description": "App repository for Inkbook e-readers: Kindle, Kobo etc. Safe to uninstall if not using them. Also installs and updates EinkBro and a stats tracking app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.inkbook.os.library":
+  {
+    "list": "Oem",
+    "description": "Default library app on Inkbook e-readers. Will break the UI if uninstalled so only do so if you plan to replace the default UI app with e.g. SimpleLauncher or somehting of the sort.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.inkbook.os.settings":
+  {
+    "list": "Oem",
+    "description": "Wrapper for Android settings which hides most irrelevant settings for e-ink devices e.g enabling animations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.zte.linkspeedup": {
+    "list": "Oem",
+    "description": "Causes bootloop",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.settings.intelligence": {
+    "list": "Aosp",
+    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings./nUses location, nearby devices, notifications permissions by default.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.redstone.ota.ui": {
+    "list": "Oem",
+    "description": "This malware disguises itself as an update app, tracks the user and installs malware in the background.\nhttps://www.virustotal.com/gui/file/0aefcffd253e575474dbbbf1f60d77cfaa679c0abe3241d0ee397fbbb2ad9924/details\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany\nhttps://thehackernews.com/2021/04/pre-installed-malware-dropper-found-on.html",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.gem": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.smarter": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.wagd.xiaoan": {
+    "list": "Oem",
+    "description": "This malware is capable of sending malicious messages via WhatsApp, opening new tabs in the default web browser to game websites, downloading more malicious apps, and possibly other malicious behaviors.\nThe malicious WhatsApp messages are most likely in order to further spread the infection to other mobile devices.\nhttps://www.malwarebytes.com/blog/news/2021/04/pre-installed-auto-installer-threat-found-on-android-mobile-devices-in-germany",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.oplus.studycenter": {
+    "list": "Oem",
+    "description": "Study Center is an educational application officially developed by OPPO for children aged 0-12 in China.\nAsk for a lot of permissions. Has a lot of security issues:\nhttps://beta.pithus.org/report/e006d8b22e473e603ceb86c654889e08da460b73d609cd9b17642f49d530239a",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.oplus.ovoicemanager.wakeup": {
+    "list": "Oem",
+    "description": "Voice Assistant related. A component for com.oplus.ovoicemanager.\nhttps://www.apkmirror.com/apk/oneplus-ltd/ovoicemanagerskillservice-2/ovoicemanagerskillservice-1-1-13-release/ovoicemanagerskillservice-1-1-13-android-apk-download/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.knox.er": {
+    "list": "Oem",
+    "description": "Knox ER component. Part of Samsung Knox enterprise features; safe to remove only if you do not use Knox/enterprise functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.knox.kfbp": {
+    "list": "Oem",
+    "description": "Knox Frame Buffer Provider. Provides graphics buffer services for Knox UI/containers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.knox.knnr": {
+    "list": "Oem",
+    "description": "Knox Neural Network Runtime. ML runtime used by some Knox/enterprise features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.knox.sandbox": {
+    "list": "Oem",
+    "description": "Knox Sandbox. Isolation/sandboxing support for Knox secure environments.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.app.vex.scanner": {
+    "list": "Oem",
+    "description": "Document Scanner. Samsung's VEX document scanning component used by Camera/Gallery/Office features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.motionphoto.app": {
+    "list": "Oem",
+    "description": "Motion Photo. Enables capture/view of motion photos (short video with still photo) in Samsung Camera/Gallery.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.partnerbrowsercustomizations.example": {
+    "list": "Oem",
+    "description": "This hidden Chinese/Romanian adware changes Google Chrome's home page, it varies by manufacturers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.systemupdate": {
+    "list": "Oem",
+    "description": "Another update app by Zhantang, this one seems to provide updates unlike other app com.redstone.ota.ui, which is a dropper. Removing it after your update support ends is probably the safest option.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sencatech.iwawa.iwawahome": {
+    "list": "Misc",
+    "description": "Pre-installed parental control bloatware with ads. (https://play.google.com/store/apps/details?id=com.sencatech.iwawa.iwawahome)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.flipkart.android": {
+    "list": "Misc",
+    "description": "Pre-installed Indian shopping bloatware with ads. (https://play.google.com/store/apps/details?id=com.flipkart.android)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
