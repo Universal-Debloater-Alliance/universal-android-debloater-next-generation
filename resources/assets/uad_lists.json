@@ -39273,7 +39273,7 @@
   },
   "com.sprd": {
     "list": "Oem",
-    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA."",
+    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39289,7 +39289,7 @@
   },
   "com.unisoc.keyboxchecker": {
     "list": "Oem",
-    "description": "Unknown purpose, likely spyware. Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA."",
+    "description": "Unknown purpose, likely spyware. Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
