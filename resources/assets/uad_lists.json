@@ -39313,7 +39313,7 @@
   },
   "com.sprd.powersavemodelauncher": {
     "list": "Oem",
-    "description": "PowerSaveModeLauncher\nUnisoc's default home app/launcher for Ultra saving mode, no permissions requested. May oddly appear as disabled to UADng and NetGuard. \nhttps://www.virustotal.com/gui/file/787a4de0bc440c62bde9bf913c6f9ba188307d850e1ee6fb575ad62950cfbdc1",
+    "description": "PowerSaveModeLauncher\nUnisoc's default home app/launcher for Ultra saving mode connects to the internet. May oddly appear as disabled to UADng and NetGuard. \nhttps://www.virustotal.com/gui/file/787a4de0bc440c62bde9bf913c6f9ba188307d850e1ee6fb575ad62950cfbdc1",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
