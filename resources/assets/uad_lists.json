@@ -39273,7 +39273,7 @@
   },
   "com.sprd": {
     "list": "Oem",
-    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.\nhttps://www.virustotal.com/gui/file/7b37c59c10eae2e73fd0b7efe616eb8f445d56749773bf9df8af858f6d300550",
+    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/7b37c59c10eae2e73fd0b7efe616eb8f445d56749773bf9df8af858f6d300550",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
