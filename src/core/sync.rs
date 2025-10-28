@@ -1,14 +1,13 @@
 use crate::core::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, to_trimmed_utf8},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
-use std::process::Command;
-
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
+use std::process::Command;
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -55,75 +54,120 @@ impl std::fmt::Display for User {
     }
 }
 
-/// An enum to contain different variants for errors yielded by ADB.
+/// ADB error type (GUI expects `Generic(String)` for errors)
 #[derive(Debug, Clone)]
 pub enum AdbError {
     Generic(String),
 }
 
-/// Runs an **arbitrary command** on the device's default `sh` implementation.
-/// Typically MKSH, but could be Ash.
-/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
+/// Runs an **arbitrary command** on the device's default shell.
+/// Be cautious when calling this to avoid introducing security issues.
 ///
-/// If `serial` is empty, it lets ADB choose the default device.
+/// Run an ADB shell command for a specific device.
+/// Returns Ok(p_info) on success, or Err(AdbError::Generic(msg)) on failure.
+/// NOTE: `async` because it's awaited via `Command::perform(...)` in the GUI.
 #[deprecated = "Use [`adb::ACommand::shell`] with `async` blocks instead"]
-pub async fn adb_shell_command<S: AsRef<str>>(
-    device_serial: S,
-    action: String,
-    p: PackageInfo,
+pub async fn adb_shell_command(
+    adb_id: String,
+    command: String,
+    p_info: PackageInfo,
 ) -> Result<PackageInfo, AdbError> {
-    let serial = device_serial.as_ref();
-
-    let label = &p.removal;
-
     let mut cmd = Command::new("adb");
-    if !serial.is_empty() {
-        cmd.args(["-s", serial]);
-    }
-    cmd.arg("shell");
-    // this works because `sh` splits spaces
-    cmd.arg(&action);
-
     #[cfg(target_os = "windows")]
-    let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
+    {
+        // Avoid opening a new console window on older Windows
+        const CREATE_NO_WINDOW: u32 = 0x0800_0000;
+        cmd.creation_flags(CREATE_NO_WINDOW);
+    }
+    // Only pass -s when we actually have an ID; otherwise let ADB pick default device
+    if !adb_id.is_empty() {
+        cmd.args(["-s", &adb_id]);
+    }
+    let output = cmd.args(["shell", &command]).output();
 
-    match match cmd.output() {
+    let output = match output {
+        Ok(o) => o,
         Err(e) => {
-            error!("ADB: {e}");
-            Err("Cannot run ADB, likely not found".to_string())
+            return Err(AdbError::Generic(format!(
+                "Failed to start ADB: {}\n\
+                 • Make sure Android Platform Tools are installed and `adb` is in PATH.\n\
+                 • Check that the device is connected and authorized (run `adb devices`).",
+                e
+            )));
         }
-        Ok(o) => {
-            let stdout = to_trimmed_utf8(o.stdout);
-            if o.status.success() {
-                Ok(stdout)
-            } else {
-                let stderr = to_trimmed_utf8(o.stderr);
+    };
 
-                // ADB does really weird things. Some errors are not redirected to stderr
-                let err = if stdout.is_empty() { stderr } else { stdout };
-                Err(err)
-            }
-        }
-    } {
-        Ok(o) => {
-            // On old devices, adb commands can return the `0` exit code even if there
-            // is an error. On Android 4.4, ADB doesn't check if the package exists.
-            // It does not return any error if you try to `pm block` a non-existent package.
-            // Some commands are even killed by ADB before finishing and UAD-ng can't catch
-            // the output.
-            if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
-            }
+    let stdout = String::from_utf8_lossy(&output.stdout).trim().to_string();
+    let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
 
-            info!("[{label}] {action} -> {o}");
-            Ok(p)
+    if !output.status.success() {
+        // Many OEMs print failure info to stdout instead of stderr.
+        let mut msg = if !stderr.is_empty() {
+            stderr
+        } else {
+            stdout.clone()
+        };
+
+        if let Some(hint) = friendly_hint(&msg) {
+            msg.push_str(&format!("\nTip: {}", hint));
         }
-        Err(err) => {
-            if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
-            }
-            Err(AdbError::Generic(err))
-        }
+        //             Ok(o) => {
+        //         let stdout = to_trimmed_utf8(o.stdout);
+        //         if o.status.success() {
+        //             Ok(stdout)
+        //         } else {
+        //             let stderr = to_trimmed_utf8(o.stderr);
+
+        //             // ADB does really weird things. Some errors are not redirected to stderr
+        //             let err = if stdout.is_empty() { stderr } else { stdout };
+        //             Err(err)
+        //         }
+        //     }
+        // } {
+        //     Ok(o) => {
+        // On old devices, adb commands can return the `0` exit code even if there
+        // is an error. On Android 4.4, ADB doesn't check if the package exists.
+        // It does not return any error if you try to `pm block` a non-existent package.
+        // Some commands are even killed by ADB before finishing and UAD-ng can't catch
+        // the output.
+
+        return Err(AdbError::Generic(msg));
+    }
+
+    if !stdout.is_empty() {
+        info!("[adb ok] {}", stdout);
+    }
+    if !stderr.is_empty() {
+        warn!("[adb warn] {}", stderr);
+    }
+
+    Ok(p_info)
+}
+
+/// Map frequent OEM failure strings to actionable hints shown to the user.
+fn friendly_hint(err_msg: &str) -> Option<&'static str> {
+    let e = err_msg;
+    if e.contains("Shell cannot change component state for null to 1") {
+        // The "null" target indicates the package/component argument was missing.
+        return Some("Package name was empty when enabling. Refresh the package list and retry.");
+    }
+    if e.contains("DELETE_FAILED_USER_RESTRICTED")
+        || e.contains("package is protected")
+        || e.contains("Cannot uninstall a protected package")
+    {
+        Some("Package is protected by the vendor. Try Disable instead.")
+    } else if e.contains("NOT_INSTALLED_FOR_USER") || e.contains("Unknown package:") {
+        Some("It seems this app isn’t installed for the selected user. Refresh the list.")
+    } else if e.contains("permission to access user")
+        || e.contains("Shell does not have permission to access user")
+    {
+        Some("Wrong user/profile. Select the primary user or a permitted profile.")
+    } else if e.contains("Failure [") && e.contains(']') {
+        Some(
+            "Android Package Manager rejected the operation. Try Disable, or re-check Expert Mode.",
+        )
+    } else {
+        None
     }
 }
 
@@ -157,7 +201,6 @@ impl From<PackageRow> for CorePackage {
         }
     }
 }
-
 impl From<&PackageRow> for CorePackage {
     fn from(pr: &PackageRow) -> Self {
         Self {
@@ -173,6 +216,12 @@ pub fn apply_pkg_state_commands(
     selected_user: User,
     phone: &Phone,
 ) -> Vec<String> {
+    // If the package name is empty, bail early (avoid "null" target)
+    if package.name.trim().is_empty() {
+        error!("apply_pkg_state_commands: empty package name, skipping command build");
+        return vec![];
+    }
+
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
@@ -197,25 +246,29 @@ pub fn apply_pkg_state_commands(
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
                 sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
                 21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
-                _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
+                _ => vec!["pm block", PM_CLEAR_PACK],     // very old devices
             },
             _ => vec![],
         },
         PackageState::All => vec![],
-    }; // this should be a `tinyvec`, as `len <= 4`
+    }; // `len <= 4`
 
     let user = supports_multi_user(phone).then_some(selected_user);
     request_builder(&commands, &package.name, user)
 }
 
 /// Build a command request to be sent via ADB to a device.
-/// `commands` accepts one or more ADB shell commands
-/// which act on a common `package` and `user`.
 pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
+    let p = package.trim();
+    if p.is_empty() {
+        error!("request_builder: empty package name; not issuing adb shell command");
+        return vec![]; // no-ops — prevents "null" errors from reaching ADB
+    }
+
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
-        .map(|c| format!("{c}{maybe_user_flag} {package}"))
+        .map(|c| format!("{c}{maybe_user_flag} {p}"))
         .collect()
 }
 
@@ -244,14 +297,11 @@ pub fn get_device_brand(serial: &str) -> String {
     AdbCommand::new()
         .shell(serial)
         .getprop("ro.product.brand")
-        // `trim` is just-in-case
         .map(|s| s.trim().to_string())
         .unwrap_or_default()
 }
 
-/// Get Android SDK version by querying the
-// `ro.build.version.sdk` property or defaulting to 0.
-///
+/// Get Android SDK version by querying `ro.build.version.sdk` or defaulting to 0.
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn get_android_sdk(device_serial: &str) -> u8 {
     AdbCommand::new()
@@ -262,27 +312,16 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
         })
 }
 
-/// Minimum inclusive Android SDK version
-/// that supports multi-user mode.
-/// Lollipop 5.0
+/// Minimum inclusive Android SDK version that supports multi-user mode (Lollipop 5.0)
 pub const MULTI_USER_SDK: u8 = 21;
 
-/// Check if it might support multi-user mode,
-/// by simply comparing SDK version.
-/// `true` isn't reliable, you can only trust `false`.
-///
-/// See:
-/// - <https://source.android.com/docs/devices/admin/multi-user#applying_the_overlay>
-/// - <https://developer.android.com/reference/android/os/UserManager#supportsMultipleUsers()>
+/// Check if it might support multi-user mode by simply comparing SDK version.
 #[must_use]
 pub const fn supports_multi_user(dev: &Phone) -> bool {
     dev.android_sdk >= MULTI_USER_SDK
 }
 
-/// Check if a `user_id` is protected on a device by trying
-/// to list associated packages.
-///
-/// If `device_serial` is empty, it lets ADB choose the default device.
+/// Check if a `user_id` is protected on a device by trying to list associated packages.
 pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
     AdbCommand::new()
         .shell(device_serial)
@@ -312,8 +351,7 @@ pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
         .unwrap_or_default()
 }
 
-/// This matches serials (`getprop ro.serialno`)
-/// that are authorized by the user.
+/// This matches serials (`getprop ro.serialno`) that are authorized by the user.
 pub async fn get_devices_list() -> Vec<Phone> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 120 }),
