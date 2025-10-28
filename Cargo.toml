@@ -31,7 +31,7 @@ toml = "^0"
 dirs = "^6"
 ureq = { version = "3", features = ["json"] }
 retry = "^2.0.0"
-iced = { version = "^0.12.0", features = ["advanced", "image"] }
+iced = { version = "=0.13.1", features = ["advanced", "image"] }
 rfd = "^0.15"
 csv = "^1.3"
 
