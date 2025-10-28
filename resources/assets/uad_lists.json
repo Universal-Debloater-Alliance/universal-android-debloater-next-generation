@@ -39262,5 +39262,61 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.android.sprd.telephony.server": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/1654eb4b845870ec81dd52745a7bb0762a54968c253e8b2f98ea93814c865da6",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd": {
+    "list": "Oem",
+    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA."",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.spreadtrum.csvt": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA."",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.keyboxchecker": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA."",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.storageclearmanager": {
+    "list": "Oem",
+    "description": "Storage Clear Manager, whatever that means. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/478e3ac5a3f7a69b73ae34d58ac246507deb0fdec439f9f5f6c7a2b28d450ae0",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.photosgo": {
+    "list": "Google",
+    "description": "Google Gallery (https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.powersavemodelauncher": {
+    "list": "Oem",
+    "description": "PowerSaveModeLauncher\nUnisoc's default home app/launcher for Ultra saving mode, no permissions requested. May oddly appear as disabled to UADng and NetGuard. \nhttps://www.virustotal.com/gui/file/787a4de0bc440c62bde9bf913c6f9ba188307d850e1ee6fb575ad62950cfbdc1",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 }
