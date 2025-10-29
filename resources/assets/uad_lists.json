@@ -39297,7 +39297,7 @@
   },
   "com.unisoc.storageclearmanager": {
     "list": "Oem",
-    "description": "Storage Clear Manager, whatever that means. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/478e3ac5a3f7a69b73ae34d58ac246507deb0fdec439f9f5f6c7a2b28d450ae0",
+    "description": "StorageClearManager\nUninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/478e3ac5a3f7a69b73ae34d58ac246507deb0fdec439f9f5f6c7a2b28d450ae0",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39318,5 +39318,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.samsung.android.app.sketchbook": {
+    "list": "Oem",
+    "description": "Drawing Assistant\nThis is an useless AI extension for Samsung Keyboard. It keeps a notification dot on the emoji button.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.mydevice": {
+    "list": "Oem",
+    "description": "This app shows your devices on the QuickPanel.\nhttps://galaxystore.samsung.com/prepost/000008084719?appId=com.samsung.android.mydevice",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
