@@ -39262,5 +39262,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.opencalendar": {
+    "list": "Oem",
+    "description": "Samsung Subscription Calendars.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.systemui.hidenotch": {
+    "list": "Oem",
+    "description": "Hide notch overlay.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.systemui.hidenotch.withoutcornerround": {
+    "list": "Oem",
+    "description": "Hide notch overlay without corner round.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.QRreader": {
+    "list": "Oem",
+    "description": "Samsung QR code reader.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.UsimRegistrationKOR": {
+    "list": "Oem",
+    "description": "USIM Registration.\nThis app is used to register your USIM card in South Korea.\nIt is not needed outside of South Korea.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.biometrics.service": {
+    "list": "Oem",
+    "description": "Intelligent Scan for Samsung Galaxy S9(+) and Note 9.\nNOTE: Removing this will break Intelligent Scan.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
