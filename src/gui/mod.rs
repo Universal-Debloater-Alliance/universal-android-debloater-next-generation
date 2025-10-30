@@ -11,6 +11,7 @@ use crate::core::utils::{NAME, string_to_theme};
 
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
+use iced::Font;
 use iced::window::icon;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
@@ -402,6 +403,7 @@ impl UadGui {
                 icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
                 ..iced::window::Settings::default()
             },
+            default_font: Font::MONOSPACE,
             default_text_size: iced::Pixels(16.0),
             ..Settings::default()
         })
