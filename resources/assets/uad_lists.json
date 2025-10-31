@@ -245,7 +245,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.sonyericsson.cameraextension.permission": {
     "list": "Oem",
@@ -321,11 +321,11 @@
   },
   "com.sonyericsson.lockscreen.uxpnxt": {
     "list": "Oem",
-    "description": "",
+    "description": "Sony lockscreen settings",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unlisted"
+    "removal": "Expert"
   },
   "com.sonyericsson.mtp.extension.factoryreset": {
     "list": "Oem",
@@ -349,7 +349,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.sonyericsson.photoeditor": {
     "list": "Oem",
@@ -357,7 +357,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.sonyericsson.providers.cnap": {
     "list": "Oem",
