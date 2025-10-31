@@ -22,17 +22,23 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, windows-2022, macOS-14]
-        lint: [clippy, test, fmt]
+        lint: [check, test, clippy, fmt]
         exclude: # https://github.com/community/community/discussions/7835
+          - os: windows-2022
+            lint: clippy
           - os: windows-2022
             lint: fmt
           - os: macOS-14
+            lint: clippy
+          - os: macOS-14
             lint: fmt
         include:
-          - lint: clippy
-            args: " --all-features -- -D clippy::all -W clippy::style"
+          - lint: check
+            args: " --all-features"
           - lint: test
             args: ""
+          - lint: clippy
+            args: " --all-features -- -D clippy::all -W clippy::style"
           - lint: fmt
             args: " -- --check"
     steps:
