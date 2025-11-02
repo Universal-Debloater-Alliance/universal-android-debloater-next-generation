@@ -39943,7 +39943,7 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-},
+  },
   "com.sprd": {
     "list": "Oem",
     "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
