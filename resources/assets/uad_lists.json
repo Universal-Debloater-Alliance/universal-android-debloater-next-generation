@@ -1,4 +1,501 @@
 {
+  "android.res.305": {
+    "list": "Oem",
+    "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "An overlay that draws over android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.browser.res.overlay_305": {
+    "list": "Oem",
+    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.carrierconfig.res.overlay_305": {
+    "list": "Oem",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.carrierconfig.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.advancedwidget.photo": {
+    "list": "Oem",
+    "description": "Videos and photos, safe to remove: https://www.apkmirror.com/apk/sony-mobile-communications/photos-and-videos/photos-and-videos-2-2-a-0-8-release/photos-and-videos-2-2-a-0-8-android-apk-download",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.android.camera": {
+    "list": "Oem",
+    "description": "Sony's default camera app, can be replaced but you will lose camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.partnerbrowsercustomizations.chromeHomepage.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.fingerprints.fido.asm": {
+    "list": "Oem",
+    "description": "Fido Alliance fingerprint. It is possible that ASM stands for Authentication Service Module/Application Security Module",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.phone.product.res.overlay": {
+    "list": "Oem",
+    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.product.res.overlay.no_imei_emergency_call": {
+    "list": "Oem",
+    "description": "Unsure but I would just leave it as need to stay safe",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.providers.icccust": {
+    "list": "Oem",
+    "description": "Looks to be linked to SIM management. would advise keeping it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.partnerbookmarks.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays Bookmark customisation, probably not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.partnerbookmarks.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "Overlays Bookmark customisation, probably not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.settings.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "Overlays system settings, probably needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.stk.product.res.overlay.common": {
+    "list": "Oem",
+    "description": "SIM Tool Kit overlay, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.systemui.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays SystemUI, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.systemui.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "Overlays SystemUI, best kept",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.noknok.android.mfac.service": {
+    "list": "Oem",
+    "description": "Part of the FIDO authentication for fingerprint",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.qti.vzw.ims.internal.tests": {
+    "list": "Oem",
+    "description": "Seems to be linked with Verizon internal tests but many sources including XDA developers suggest getting rid",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sony.nfx.app.sfrc": {
+    "list": "Oem",
+    "description": "Tied to Sony's recommendations and can be safely got rid of, maybe break suggestions/recommendations",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.android.bootinfo": {
+    "list": "Oem",
+    "description": "May break boot, bootloader checks. No removal tested",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.android.camera": {
+    "list": "Oem",
+    "description": "Sony's default camera app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
+    "list": "Oem",
+    "description": "Overlays default camera app, removing could break camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.camera.product.res.overlay.enable.scene.setting": {
+    "list": "Oem",
+    "description": "Overlays default camera app, removing could break camera features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.android.servicemenu": {
+    "list": "Oem",
+    "description": "Provides access to service menus for testing",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.android.servicemenu.product.res.overlay.suzu": {
+    "list": "Oem",
+    "description": "Overlays service com.sonyericsson.android.servicemenu",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.autopoweroffservice": {
+    "list": "Oem",
+    "description": "This service helps safe shutdown, could cause negative effect by removing but system settings > apps > autopoweroff > lets you disable it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.cameraextension.permission": {
+    "list": "Oem",
+    "description": "Provides third party apps access to AR effect and other plugins, removing will break camera functionality",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.crashmonitor": {
+    "list": "Oem",
+    "description": "Sony's crash monitor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.credentialmanagerservice": {
+    "list": "Oem",
+    "description": "Said to be Sony's custom credential storage and obsolete these days due to Google's storage manager",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.customizedsettings": {
+    "list": "Oem",
+    "description": "Settings that are customised by carriers for region specifics",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.devicemonitor": {
+    "list": "Oem",
+    "description": "Safe to remove if you don't use PC to manage device",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.fmradio": {
+    "list": "Oem",
+    "description": "Sony's FM radio app, safe to remove if you don't use it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.home": {
+    "list": "Oem",
+    "description": "Sony's default launcher, do not remove unless you have another launcher or you will brick your device",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.home.product.res.overlay": {
+    "list": "Oem",
+    "description": "Launcher overlay, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.home.res.overlay_305": {
+    "list": "Oem",
+    "description": "Launcher overlay, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.lockscreen.uxpnxt": {
+    "list": "Oem",
+    "description": "Sony lockscreen settings",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.mtp.extension.factoryreset": {
+    "list": "Oem",
+    "description": "Sony phone says 'lock screen settings'. Removing it can cause bootloop",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.omadl": {
+    "list": "Oem",
+    "description": "Provides carrier/APN updates and OTA in some cases. Sony phone says 'OMA download client', best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.organizer": {
+    "list": "Oem",
+    "description": "Tied to Sony calendar, deprecated by Google and other calendars",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.photoeditor": {
+    "list": "Oem",
+    "description": "Sony's photo editor: https://www.apkmirror.com/apk/sony-mobile-communications/photo-editor",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sonyericsson.providers.cnap": {
+    "list": "Oem",
+    "description": "Allows carriers to show incoming caller name instead of just the number via CNAP, best left enabled to see who is calling",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.psm.sysmonservice": {
+    "list": "Oem",
+    "description": "Power management, stamina mode. Best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.settings": {
+    "list": "Oem",
+    "description": "This is the system settings app, do not remove it",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.settings.res.overlay_310_311": {
+    "list": "Oem",
+    "description": "System settings overlay",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.setupwizard": {
+    "list": "Oem",
+    "description": "Onboarding that occurs after factory reset or first boot, safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.setupwizard.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.simdetection": {
+    "list": "Oem",
+    "description": "Detects SIM connection, best left enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.soundenhancement": {
+    "list": "Oem",
+    "description": "Not essential for audio to work but provides sound effects/enhancements such as Clear Audio+",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonyericsson.suquashi.soundpicker": {
+    "list": "Oem",
+    "description": "Ringtone/notification/alarm time picker",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonyericsson.tetherentitlementcheck": {
+    "list": "Oem",
+    "description": "Needed for tethering checks such as carrier conditions and regional restrictions, safe to remove if you don't tether/hotspot",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.updatecenter": {
+    "list": "Oem",
+    "description": "The system updater found on settings > about > software update, safe to remove if your device no longer receives updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.updatecenter.res.overlay_305": {
+    "list": "Oem",
+    "description": "Overlay for updater found in Settings > about > system update, safe to remove if your device no longer gets updates",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonyericsson.usbux": {
+    "list": "Oem",
+    "description": "Provides the USB options such as MTP, PTP, charge only. Leave enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonymobile.android.addoncamera.dual": {
+    "list": "Oem",
+    "description": "Provides an addon to enable dual camera functionality, safe to remove if you don’t need camera add-ons",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sonymobile.btidd": {
+    "list": "Oem",
+    "description": "Bluetooth stack identifier, may be tied to pairing/security. Best to keep enabled",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sonymobile.cameracommon": {
+    "list": "Oem",
+    "description": "Shared library for Sony’s camera app and add-ons. Removing breaks camera functionality",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sonymobile.coresettings": {
+    "list": "Oem",
+    "description": "Contains Sony-specific customisations and settings overlays. Needed for Xperia custom features",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+
   "com.mi.appfinder": {
     "list": "Oem",
     "description": "HyperOs 2.0.202.0, it didn't break the system or ui search function or poco launcher search app function. Havent heard of it breaking stuff for others so dont think it's of much concern \n has 15 trackers",
@@ -594,14 +1091,6 @@
   "com.sonyericsson.album": {
     "list": "Oem",
     "description": "Sony gallery app (https://play.google.com/store/apps/details?id=com.sonyericsson.album)\n",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "com.sonymobile.camera": {
-    "list": "Oem",
-    "description": "Sony camera app\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13310,7 +13799,7 @@
   },
   "com.qualcomm.qti.server.qtiwifi": {
     "list": "Misc",
-    "description": "it's made for analytics.\nThis service can be used to have oem specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
+    "description": "it's made for analytics.\nThis service can be used to have OEM specific feature development. \nCurrently this service is being used to collect CSI data from cfrtool \nvia hidl and then pass the data to application(user level).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14676,6 +15165,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.yandex.searchapp": {
+    "list": "Oem",
+    "description": "Yandex' Search App\nRussian search app, similar to the Google search bar that appears on the phone's home screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "ru.yandex.disk": {
     "list": "Oem",
     "description": "Yandex' file cloud storage\nMay be installed with Samsung firmware update to comply with http://publication.pravo.gov.ru/Document/View/0001202011230051 if you're Russian. Can be installed manually from Google Play.",
@@ -14695,6 +15192,46 @@
   "ru.yandex.yandexmaps": {
     "list": "Oem",
     "description": "Yandex' Maps\nMay be installed with Samsung firmware update to comply with http://publication.pravo.gov.ru/Document/View/0001202011230051 if you're Russian. Can be installed manually from Google Play.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.vk.store": {
+    "list": "Oem",
+    "description": "Rustore, russian app market, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.ivi.client": {
+    "list": "Oem",
+    "description": "Ivi, russian video service, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.litres.android": {
+    "list": "Oem",
+    "description": "Litres, russian bookstore service, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.ozon.app.android": {
+    "list": "Oem",
+    "description": "Ozon, russian marketplace, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.dublgis.dgismobile": {
+    "list": "Oem",
+    "description": "2GIS, russian mapping service, preinstalled by rus law from 2019",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15022,11 +15559,11 @@
   },
   "com.mediatek.callrecorder": {
     "list": "Misc",
-    "description": "Call recording app for MediaTek devices.\nThis is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nCan someone share the apk and verify this?\n",
+    "description": "Call recording app for MediaTek devices.\nThis is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nIf disabled, phone calls don't work. You can disable it, but then need to use the Google Phone app to place calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.mediatek.engineermode": {
     "list": "Misc",
@@ -39262,6 +39799,214 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.example.test": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro calendar optimized for e-ink displays.\nCheck that you have this phone before disabling! The package name is generic.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.test.logcollect": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app to submit log reports when user requests it. Uploads Android and kernel logs to a Chinese cloud (Baidu). If uninstalled, Log Report button in the settings will not open a pop-up.\nCheck that you have this phone before disabling! The package name is generic.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sohu.inputmethod.sogou.oem": {
+    "list": "Oem",
+    "description": "Keyboard app used in some Chinese phones. There is a report that this keyboard might have contained security vulnerabilities in the past: https://citizenlab.ca/2024/04/vulnerabilities-across-keyboard-apps-reveal-keystrokes-to-network-eavesdroppers/",
+  "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xsyt.faceregister": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app to unlock the phone with your face.\nThis app frequently connected to lp.xl-ads.com in the past, which caused security concerns on Reddit in relation to the BadBox 2.0 botnet and Bigme to issue a firmware upgrade that changes the usage of that domain.\nIf disabled, face unlock won't work and the option to activate it in the settings will crash Bigme's settings app.",
+  "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.xrz.ai": {
+    "list": "Oem",
+    "description": "Wrapper around ChatGPT used on Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.dictapp": {
+    "list": "Oem",
+    "description": "Dictionary provided on the Bigme HiBreak Pro (XDict). Requires to download the dictionaries manually in the app's settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.b300.xrz.web": {
+    "list": "Oem",
+    "description": "App called XRZWebExport on the Bigme HiBreak Pro. Does not show up in the app list when enabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.soundrecord": {
+    "list": "Oem",
+    "description": "Voice Recorder app on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.voice.text": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app that doesn't show up in the app list. Likely used as voice to text application. Installed as the DaWoYuJi.apk.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.scandoc": {
+    "list": "Oem",
+    "description": "Document scan app on the Bigme HiBreak Pro. Does not show up in the app list.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.video": {
+    "list": "Oem",
+    "description": "Video player of the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.bookmall": {
+    "list": "Oem",
+    "description": "Chinese book store on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.bookself": {
+    "list": "Oem",
+    "description": "App that collects epub files and other documents to read on the Bigme HiBreak Pro.\nCan work together with xReader to act as a libary.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.xreaderV3": {
+    "list": "Oem",
+    "description": "eBook reader app used on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.btranslate": {
+    "list": "Oem",
+    "description": "Translator on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.ebook": {
+    "list": "Oem",
+    "description": "xReader, used by Bigme HiBreak Pro. In the state of my phone, this app crashes and does not provide useful functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ebook.wifitransferbook": {
+    "list": "Oem",
+    "description": "Allows to transfer files on the Bigme HiBreak Pro via Wi-Fi by exposing a web interface on the local network that you can access from another device on the same network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.iflytek.speechcloud": {
+    "list": "Oem",
+    "description": "App called OfflineTTs on the Bigme HiBreak Pro. Does not show up in the app list.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd": {
+    "list": "Oem",
+    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.spreadtrum.csvt": {
+    "list": "Oem",
+    "description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.unisoc.keyboxchecker": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.storageclearmanager": {
+    "list": "Oem",
+    "description": "StorageClearManager\nUninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/478e3ac5a3f7a69b73ae34d58ac246507deb0fdec439f9f5f6c7a2b28d450ae0",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.photosgo": {
+    "list": "Google",
+    "description": "Google Gallery (https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.powersavemodelauncher": {
+    "list": "Oem",
+    "description": "PowerSaveModeLauncher\nUnisoc's default home app/launcher for Ultra saving mode connects to the internet. May oddly appear as disabled to UADng and NetGuard. \nhttps://www.virustotal.com/gui/file/787a4de0bc440c62bde9bf913c6f9ba188307d850e1ee6fb575ad62950cfbdc1",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.samsung.android.app.sketchbook": {
+    "list": "Oem",
+    "description": "Drawing Assistant\nThis is an useless AI extension for Samsung Keyboard. It keeps a notification dot on the emoji button.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.mydevice": {
+    "list": "Oem",
+    "description": "This app shows your devices on the QuickPanel.\nhttps://galaxystore.samsung.com/prepost/000008084719?appId=com.samsung.android.mydevice",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "ca.bell.selfserve.mybellmobile": {
     "list": "Carrier",
