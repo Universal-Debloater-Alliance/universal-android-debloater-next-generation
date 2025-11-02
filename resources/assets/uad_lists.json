@@ -15165,6 +15165,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.yandex.searchapp": {
+    "list": "Oem",
+    "description": "Yandex' Search App\nRussian search app, similar to the Google search bar that appears on the phone's home screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "ru.yandex.disk": {
     "list": "Oem",
     "description": "Yandex' file cloud storage\nMay be installed with Samsung firmware update to comply with http://publication.pravo.gov.ru/Document/View/0001202011230051 if you're Russian. Can be installed manually from Google Play.",
@@ -15184,6 +15192,46 @@
   "ru.yandex.yandexmaps": {
     "list": "Oem",
     "description": "Yandex' Maps\nMay be installed with Samsung firmware update to comply with http://publication.pravo.gov.ru/Document/View/0001202011230051 if you're Russian. Can be installed manually from Google Play.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.vk.store": {
+    "list": "Oem",
+    "description": "Rustore, russian app market, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.ivi.client": {
+    "list": "Oem",
+    "description": "Ivi, russian video service, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.litres.android": {
+    "list": "Oem",
+    "description": "Litres, russian bookstore service, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.ozon.app.android": {
+    "list": "Oem",
+    "description": "Ozon, russian marketplace, preinstalled by russian law from 2019",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ru.dublgis.dgismobile": {
+    "list": "Oem",
+    "description": "2GIS, russian mapping service, preinstalled by rus law from 2019",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
