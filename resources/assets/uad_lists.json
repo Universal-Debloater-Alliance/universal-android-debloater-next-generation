@@ -39262,5 +39262,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "ca.bell.selfserve.mybellmobile": {
+    "list": "Carrier",
+    "description": "Bell's 'award winning' (no source) app for managing your Bell account and services. Useless, especially if you don't use Bell. (https://play.google.com/store/apps/details?id=ca.bell.selfserve.mybellmobile). Note that Bell violates section F.1 of the Canadian Wireless Code by selling locked devices. If you use Bell, switch carriers if possible! Don't support lawbreaking companies.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.quickplay.android.bellmediaplayer": {
+    "list": "Carrier",
+    "description": "App for watching your Bell Fibe TV on the go. Useless, especially if you don't use Bell. (https://play.google.com/store/apps/details?id=com.quickplay.android.bellmediaplayer). Note that Bell violates section F.1 of the Canadian Wireless Code by selling locked devices. If you use Bell, switch carriers if possible! Don't support lawbreaking companies.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
