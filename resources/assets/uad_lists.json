@@ -40071,5 +40071,133 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.hancom.office.editor": {
+    "list": "Oem",
+    "description": "Proprietary office suite, primarly targeted towards Korean users. This version, typically preinstalled on old Samsung devices, is no longer maintained",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.appupdater": {
+    "list": "Oem",
+    "description": "Discontinued app to update Samsung's proprietary apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.scrollcapture": {
+    "list": "Oem",
+    "description": "Samsung's app for taking screenshots.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.authservice": {
+    "list": "Oem",
+    "description": "Runs in the background on Galaxy S7 and earlier, can't seem to find a purpose for this app. No issues when removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.radiobasedlocation": {
+    "list": "Oem",
+    "description": "Tracks location in the background. Doesn't seem to be needed for anything.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.radiobasedlocation.manager": {
+    "list": "Oem",
+    "description": "Tracks location in the background. Doesn't seem to be needed for anything.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.tzdata.update": {
+    "list": "Oem",
+    "description": "App for updating time zone changes on Samsung devices. Now discontinued and completely useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.videolist": {
+    "list": "Oem",
+    "description": "Video player included on Samsung devices (https://play.google.com/store/apps/details?id=com.samsung.android.videolist). Works fine enough as a basic video player.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.tmowfc.wfccontroller": {
+    "list": "Oem",
+    "description": "Wifi Calling for T-mobile clients only! (tmowfc = t-mobile only wifi calling)\nLets you call or text on Wi-Fi networks with your T-Mobile phone number\nhttps://www.t-mobile.com/support/coverage/wi-fi-calling-from-t-mobile\nVoLTE/IMS is needed for this to work (see com.sec.imsservice)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.camera.plb": {
+    "list": "Oem",
+    "description": "Looks like an app to record videos for Facebook. Despite having 'camera' in the name, it is not needed for the camera at all.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.clipvideo": {
+    "list": "Oem",
+    "description": "App to create a video collage.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.easylauncher": {
+    "list": "Oem",
+    "description": "TouchWiz easy home -- gives you large icons and makes things the home screen significantly simpler. Primarly designed for elderly users. Discontinued after the release of Samsung Experience in 2017.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.music": {
+    "list": "Oem",
+    "description": "Samsung's proprietary music app, allows you to play local music or connect your Spotify account (https://play.google.com/store/apps/details?id=com.sec.android.app.music). Safe to uninstall, and there's much better open source alternatives for both local music and Spotify.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.spen.flashannotate": {
+    "list": "Oem",
+    "description": "Take notes on your screen. Unneeded, and can't even be accessed unless you're using a Galaxy Note or S Ultra, despite being preinstalled on all Samsungs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.telus.featuredapps": {
+    "list": "Carrier",
+    "description": "Recommended apps from Telus. Now discontinued and doesn't show any apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "service.odtcfactory.sec.com.odtcfactoryservice": {
+    "list": "Oem",
+    "description": "Purpose of this app is completely unknown, but it eats battery and data and is safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
