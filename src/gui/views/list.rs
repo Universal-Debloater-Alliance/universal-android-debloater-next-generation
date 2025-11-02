@@ -364,7 +364,7 @@ impl List {
                     text_editor::Action::Edit(_) => {
                         // Do nothing - ignore all editing operations
                     }
-                    text_editor::Action::Scroll { lines } => {}
+                    text_editor::Action::Scroll { lines: _ } => {}
                     // Allow all other actions (movement, selection, clicking, scrolling, etc.)
                     _ => {
                         self.description_content.perform(action);
@@ -376,9 +376,11 @@ impl List {
                 self.copy_confirmation = true;
                 Command::batch(vec![
                     iced::clipboard::write::<Message>(err),
-                    Command::perform(Self::delay_hide_copy_confirmation(), |_| {
-                        Message::HideCopyConfirmation
-                    }),
+                    Command::perform(
+                        // intentional delay
+                        async { std::thread::sleep(std::time::Duration::from_secs(1)) },
+                        |()| Message::HideCopyConfirmation,
+                    ),
                 ])
             }
             Message::HideCopyConfirmation => {
@@ -393,7 +395,7 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
                 &format!("Downloading latest {NAME} lists from GitHub. Please wait..."),
@@ -438,7 +440,7 @@ impl List {
         }
     }
 
-    fn control_panel(&self, selected_device: &Phone) -> Element<Message, Theme, Renderer> {
+    fn control_panel(&self, selected_device: &Phone) -> Element<'_, Message, Theme, Renderer> {
         let search_packages = text_input("Search packages...", &self.input_value)
             .width(Length::Fill)
             .on_input(Message::SearchInputChanged)
@@ -504,7 +506,7 @@ impl List {
         &self,
         settings: &Settings,
         selected_device: &Phone,
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         let packages = self
             .filtered_packages
             .iter()
@@ -665,7 +667,7 @@ impl List {
         device: &Phone,
         settings: &Settings,
         packages: &[PackageRow],
-    ) -> Element<Message, Theme, Renderer> {
+    ) -> Element<'_, Message, Theme, Renderer> {
         const PACK_NO_USER_MSG: &str = "`selected_packages` implies a user must be selected";
 
         // 5 element slice is cheap
@@ -926,10 +928,6 @@ impl List {
             }
         }
     }
-
-    async fn delay_hide_copy_confirmation() {
-        std::thread::sleep(std::time::Duration::from_secs(1));
-    }
 }
 
 fn error_view<'a>(
@@ -1027,7 +1025,7 @@ fn build_action_pkg_commands(
             && packages
                 .get(u.index)
                 .and_then(|user_pkgs| user_pkgs.get(selection.1))
-                .is_some_and(|pkg| pkg.selected || settings.multi_user_mode)
+                .is_some_and(|p| p.selected || settings.multi_user_mode)
     }) {
         let u_pkg = &packages[u.index][selection.1];
         let wanted_state = if settings.multi_user_mode {

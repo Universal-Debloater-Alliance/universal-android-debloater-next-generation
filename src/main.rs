@@ -39,7 +39,6 @@ fn main() -> iced::Result {
 /// match `setup_logger().expect("Error` setting up logger")
 /// '''
 fn setup_logger() -> Result<(), fern::InitError> {
-    /// Attach Windows terminal, only on Windows
     #[cfg(target_os = "windows")]
     {
         attach_windows_console();
