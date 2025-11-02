@@ -39943,5 +39943,69 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.sprd": {
+    "list": "Oem",
+    "description": "Unisoc's hidden aging test. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.spreadtrum.csvt": {
+    "list": "Oem",
+    "description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.unisoc.keyboxchecker": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.unisoc.storageclearmanager": {
+    "list": "Oem",
+    "description": "StorageClearManager\nUninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA. \nhttps://www.virustotal.com/gui/file/478e3ac5a3f7a69b73ae34d58ac246507deb0fdec439f9f5f6c7a2b28d450ae0",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.photosgo": {
+    "list": "Google",
+    "description": "Google Gallery (https://play.google.com/store/apps/details?id=com.google.android.apps.photosgo)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.powersavemodelauncher": {
+    "list": "Oem",
+    "description": "PowerSaveModeLauncher\nUnisoc's default home app/launcher for Ultra saving mode connects to the internet. May oddly appear as disabled to UADng and NetGuard. \nhttps://www.virustotal.com/gui/file/787a4de0bc440c62bde9bf913c6f9ba188307d850e1ee6fb575ad62950cfbdc1",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.samsung.android.app.sketchbook": {
+    "list": "Oem",
+    "description": "Drawing Assistant\nThis is an useless AI extension for Samsung Keyboard. It keeps a notification dot on the emoji button.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.mydevice": {
+    "list": "Oem",
+    "description": "This app shows your devices on the QuickPanel.\nhttps://galaxystore.samsung.com/prepost/000008084719?appId=com.samsung.android.mydevice",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
