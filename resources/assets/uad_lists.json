@@ -15511,11 +15511,11 @@
   },
   "com.mediatek.callrecorder": {
     "list": "Misc",
-    "description": "Call recording app for MediaTek devices.\nThis is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nCan someone share the apk and verify this?\n",
+    "description": "Call recording app for MediaTek devices.\nThis is not the kind of feature expected from a Soc company.\nIf you remove this I guess you will not be able to record your calls from the stock dialer\nIf disabled, phone calls don't work. You can disable it, but then need to use the Google Phone app to place calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.mediatek.engineermode": {
     "list": "Misc",
@@ -39747,6 +39747,150 @@
   "com.flipkart.android": {
     "list": "Misc",
     "description": "Pre-installed Indian shopping bloatware with ads. (https://play.google.com/store/apps/details?id=com.flipkart.android)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.example.test": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro calendar optimized for e-ink displays.\nCheck that you have this phone before disabling! The package name is generic.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.test.logcollect": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app to submit log reports when user requests it. Uploads Android and kernel logs to a Chinese cloud (Baidu). If uninstalled, Log Report button in the settings will not open a pop-up.\nCheck that you have this phone before disabling! The package name is generic.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sohu.inputmethod.sogou.oem": {
+    "list": "Oem",
+    "description": "Keyboard app used in some Chinese phones. There is a report that this keyboard might have contained security vulnerabilities in the past: https://citizenlab.ca/2024/04/vulnerabilities-across-keyboard-apps-reveal-keystrokes-to-network-eavesdroppers/",
+  "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xsyt.faceregister": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app to unlock the phone with your face.\nThis app frequently connected to lp.xl-ads.com in the past, which caused security concerns on Reddit in relation to the BadBox 2.0 botnet and Bigme to issue a firmware upgrade that changes the usage of that domain.\nIf disabled, face unlock won't work and the option to activate it in the settings will crash Bigme's settings app.",
+  "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.xrz.ai": {
+    "list": "Oem",
+    "description": "Wrapper around ChatGPT used on Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.dictapp": {
+    "list": "Oem",
+    "description": "Dictionary provided on the Bigme HiBreak Pro (XDict). Requires to download the dictionaries manually in the app's settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.b300.xrz.web": {
+    "list": "Oem",
+    "description": "App called XRZWebExport on the Bigme HiBreak Pro. Does not show up in the app list when enabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.soundrecord": {
+    "list": "Oem",
+    "description": "Voice Recorder app on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.voice.text": {
+    "list": "Oem",
+    "description": "Bigme HiBreak Pro app that doesn't show up in the app list. Likely used as voice to text application. Installed as the DaWoYuJi.apk.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.scandoc": {
+    "list": "Oem",
+    "description": "Document scan app on the Bigme HiBreak Pro. Does not show up in the app list.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.video": {
+    "list": "Oem",
+    "description": "Video player of the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.bookmall": {
+    "list": "Oem",
+    "description": "Chinese book store on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.bookself": {
+    "list": "Oem",
+    "description": "App that collects epub files and other documents to read on the Bigme HiBreak Pro.\nCan work together with xReader to act as a libary.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.xreaderV3": {
+    "list": "Oem",
+    "description": "eBook reader app used on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.btranslate": {
+    "list": "Oem",
+    "description": "Translator on the Bigme HiBreak Pro.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xrz.ebook": {
+    "list": "Oem",
+    "description": "xReader, used by Bigme HiBreak Pro. In the state of my phone, this app crashes and does not provide useful functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ebook.wifitransferbook": {
+    "list": "Oem",
+    "description": "Allows to transfer files on the Bigme HiBreak Pro via Wi-Fi by exposing a web interface on the local network that you can access from another device on the same network.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.iflytek.speechcloud": {
+    "list": "Oem",
+    "description": "App called OfflineTTs on the Bigme HiBreak Pro. Does not show up in the app list.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
