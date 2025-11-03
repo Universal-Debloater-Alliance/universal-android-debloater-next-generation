@@ -33,7 +33,7 @@
   },
   "com.android.carrierconfig.res.overlay_310_311": {
     "list": "Oem",
-    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS". Find out more by running: adb shell cmd overlay list, to see other packages",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
