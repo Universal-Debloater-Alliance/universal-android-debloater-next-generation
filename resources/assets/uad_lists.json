@@ -9991,7 +9991,7 @@
   },
   "com.oneplus.overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10699,7 +10699,7 @@
   },
   "com.google.android.overlay.modules.cellbroadcastservice": {
     "list": "Aosp",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10995,7 +10995,7 @@
   },
   "com.verizon.cloudsetupwizard": {
     "list": "Carrier",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11003,7 +11003,7 @@
   },
   "com.jrd.verizonuriintentservice": {
     "list": "Carrier",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11011,7 +11011,7 @@
   },
   "com.tcl.vzwintents": {
     "list": "Carrier",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11019,7 +11019,7 @@
   },
   "com.tct.vzwwifioffload": {
     "list": "Carrier",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11027,7 +11027,7 @@
   },
   "com.vzw.easvalidation": {
     "list": "Carrier",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11035,7 +11035,7 @@
   },
   "com.ts.setupwizard.overlay.overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11043,7 +11043,7 @@
   },
   "com.jrdcom.Elabel.overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11059,7 +11059,7 @@
   },
   "com.hiya.axolotl.tcl": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11067,7 +11067,7 @@
   },
   "com.jrdcom.filemanager": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11075,7 +11075,7 @@
   },
   "com.jrdcom.filemanager.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11083,7 +11083,7 @@
   },
   "com.vendor.frameworkresoverlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11155,7 +11155,7 @@
   },
   "com.samsung.gamedriver.sm8250": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11163,7 +11163,7 @@
   },
   "com.samsung.huxplatform": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11331,7 +11331,7 @@
   },
   "com.samsung.android.wifi.softapwpathree.resources": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11347,7 +11347,7 @@
   },
   "com.samsung.gamedriver.ex2100": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11355,7 +11355,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_extra_wide_back": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11363,7 +11363,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_narrow_back": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11371,7 +11371,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11379,7 +11379,7 @@
   },
   "com.samsung.pregpudriver.ex2100": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11443,7 +11443,7 @@
   },
   "com.sonymobile.home.product.res.overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11451,7 +11451,7 @@
   },
   "com.sonymobile.swiqisystemservice": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11459,7 +11459,7 @@
   },
   "com.evenwell.whitebalance": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11467,7 +11467,7 @@
   },
   "com.evenwell.whitebalance.overlay.base": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11483,7 +11483,7 @@
   },
   "com.android.gallery3d.refocus": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11499,7 +11499,7 @@
   },
   "com.android.providers.tctdatahubprovider": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11507,7 +11507,7 @@
   },
   "com.tcl.android.launchertheme.res.overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11515,7 +11515,7 @@
   },
   "com.tcl.android.wallpaper.livepicker": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11523,7 +11523,7 @@
   },
   "com.tcl.aota.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11531,7 +11531,7 @@
   },
   "com.tcl.camera": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11539,7 +11539,7 @@
   },
   "com.tcl.camera.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11547,7 +11547,7 @@
   },
   "com.tcl.compass": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11555,7 +11555,7 @@
   },
   "com.tcl.compass.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11563,7 +11563,7 @@
   },
   "com.tcl.demopage": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11571,7 +11571,7 @@
   },
   "com.tcl.entitlement": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11587,7 +11587,7 @@
   },
   "com.tcl.fota.system.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11595,7 +11595,7 @@
   },
   "com.tcl.healthy": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11603,7 +11603,7 @@
   },
   "com.tcl.mibc.tclplus": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11611,7 +11611,7 @@
   },
   "com.tcl.mibc.tclplus.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11619,7 +11619,7 @@
   },
   "com.tcl.nfc.gsma.usermenu": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11627,7 +11627,7 @@
   },
   "com.tcl.screenrecorder": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11635,7 +11635,7 @@
   },
   "com.tcl.screenrecorder.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11643,7 +11643,7 @@
   },
   "com.tcl.screenshotex": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11651,7 +11651,7 @@
   },
   "com.tcl.sos": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11659,7 +11659,7 @@
   },
   "com.tcl.tclswitch.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11675,7 +11675,7 @@
   },
   "com.tclhz.gallery.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11683,7 +11683,7 @@
   },
   "com.tct": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11691,7 +11691,7 @@
   },
   "com.tct.calculator.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11699,7 +11699,7 @@
   },
   "com.tct.cellular.arda": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11707,7 +11707,7 @@
   },
   "com.tct.diagprotector": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11715,7 +11715,7 @@
   },
   "com.tct.dialer.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11739,7 +11739,7 @@
   },
   "com.tct.gdpr": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11747,7 +11747,7 @@
   },
   "com.tct.onetouchbooster.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11755,7 +11755,7 @@
   },
   "com.tct.privacymode": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11763,7 +11763,7 @@
   },
   "com.tct.retaildemo.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11771,7 +11771,7 @@
   },
   "com.tct.simplelauncher.a_overlay": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11779,7 +11779,7 @@
   },
   "com.tct.simsettings": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11787,7 +11787,7 @@
   },
   "com.tct.smart.account": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11795,7 +11795,7 @@
   },
   "com.tct.smart.aikey": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11803,7 +11803,7 @@
   },
   "com.tct.smart.cloud": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11811,7 +11811,7 @@
   },
   "com.tct.smart.drivemode": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11819,7 +11819,7 @@
   },
   "com.tct.smart.switchphone.service": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11835,7 +11835,7 @@
   },
   "com.tct.video": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13037,7 +13037,7 @@
   },
   "com.coloros.mcs": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13077,7 +13077,7 @@
   },
   "com.coloros.widget.smallweather": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13175,7 +13175,7 @@
   },
   "com.oppo.logkit": {
     "list": "Oem",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13471,7 +13471,7 @@
   },
   "com.microsoft.office.powerpoint": {
     "list": "Misc",
-    "description": ",
+    "description": "",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
