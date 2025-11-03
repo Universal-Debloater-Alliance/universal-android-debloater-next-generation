@@ -9,7 +9,7 @@
   },
   "android.res.overlay_310_311": {
     "list": "Oem",
-    "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17,7 +17,7 @@
   },
   "com.android.browser.res.overlay_305": {
     "list": "Oem",
-    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25,7 +25,7 @@
   },
   "com.android.carrierconfig.res.overlay_305": {
     "list": "Oem",
-    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -57,7 +57,7 @@
   },
   "com.android.partnerbrowsercustomizations.chromeHomepage.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -73,7 +73,7 @@
   },
   "com.android.phone.product.res.overlay": {
     "list": "Oem",
-    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -81,7 +81,7 @@
   },
   "com.android.phone.product.res.overlay.no_imei_emergency_call": {
     "list": "Oem",
-    "description": "Unsure but I would just leave it as you need to stay safe. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Unsure but I would just leave it as you need to stay safe. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -89,7 +89,7 @@
   },
   "com.android.phone.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -105,7 +105,7 @@
   },
   "com.android.providers.partnerbookmarks.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -113,7 +113,7 @@
   },
   "com.android.providers.partnerbookmarks.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -121,7 +121,7 @@
   },
   "com.android.providers.settings.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -129,7 +129,7 @@
   },
   "com.android.settings.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -137,7 +137,7 @@
   },
   "com.android.settings.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -145,7 +145,7 @@
   },
   "com.android.stk.product.res.overlay.common": {
     "list": "Oem",
-    "description": "SIM Tool Kit overlay, best kept. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "SIM Tool Kit overlay, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -153,7 +153,7 @@
   },
   "com.android.systemui.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -161,7 +161,7 @@
   },
   "com.android.systemui.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -209,7 +209,7 @@
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
     "list": "Oem",
-    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -217,7 +217,7 @@
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.scene.setting": {
     "list": "Oem",
-    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -233,7 +233,7 @@
   },
   "com.sonyericsson.android.servicemenu.product.res.overlay.suzu": {
     "list": "Oem",
-    "description": "Overlays service com.sonyericsson.android.servicemenu. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays service com.sonyericsson.android.servicemenu. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -305,7 +305,7 @@
   },
   "com.sonyericsson.home.product.res.overlay": {
     "list": "Oem",
-    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -313,7 +313,7 @@
   },
   "com.sonyericsson.home.res.overlay_305": {
     "list": "Oem",
-    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -385,7 +385,7 @@
   },
   "com.sonyericsson.settings.res.overlay_310_311": {
     "list": "Oem",
-    "description": "System settings overlay, do not remove. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "System settings overlay, do not remove. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -401,7 +401,7 @@
   },
   "com.sonyericsson.setupwizard.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove. Find out more by running: adb shell cmd overlay list, to see other packages"",
+    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8771,7 +8771,7 @@
   },
   "com.oneplus.skin": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9991,7 +9991,7 @@
   },
   "com.oneplus.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10699,7 +10699,7 @@
   },
   "com.google.android.overlay.modules.cellbroadcastservice": {
     "list": "Aosp",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10995,7 +10995,7 @@
   },
   "com.verizon.cloudsetupwizard": {
     "list": "Carrier",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11003,7 +11003,7 @@
   },
   "com.jrd.verizonuriintentservice": {
     "list": "Carrier",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11011,7 +11011,7 @@
   },
   "com.tcl.vzwintents": {
     "list": "Carrier",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11019,7 +11019,7 @@
   },
   "com.tct.vzwwifioffload": {
     "list": "Carrier",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11027,7 +11027,7 @@
   },
   "com.vzw.easvalidation": {
     "list": "Carrier",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11035,7 +11035,7 @@
   },
   "com.ts.setupwizard.overlay.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11043,7 +11043,7 @@
   },
   "com.jrdcom.Elabel.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11059,7 +11059,7 @@
   },
   "com.hiya.axolotl.tcl": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11067,7 +11067,7 @@
   },
   "com.jrdcom.filemanager": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11075,7 +11075,7 @@
   },
   "com.jrdcom.filemanager.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11083,7 +11083,7 @@
   },
   "com.vendor.frameworkresoverlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11155,7 +11155,7 @@
   },
   "com.samsung.gamedriver.sm8250": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11163,7 +11163,7 @@
   },
   "com.samsung.huxplatform": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11331,7 +11331,7 @@
   },
   "com.samsung.android.wifi.softapwpathree.resources": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11347,7 +11347,7 @@
   },
   "com.samsung.gamedriver.ex2100": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11355,7 +11355,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_extra_wide_back": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11363,7 +11363,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_narrow_back": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11371,7 +11371,7 @@
   },
   "com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11379,7 +11379,7 @@
   },
   "com.samsung.pregpudriver.ex2100": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11443,7 +11443,7 @@
   },
   "com.sonymobile.home.product.res.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11451,7 +11451,7 @@
   },
   "com.sonymobile.swiqisystemservice": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11459,7 +11459,7 @@
   },
   "com.evenwell.whitebalance": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11467,7 +11467,7 @@
   },
   "com.evenwell.whitebalance.overlay.base": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11483,7 +11483,7 @@
   },
   "com.android.gallery3d.refocus": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11499,7 +11499,7 @@
   },
   "com.android.providers.tctdatahubprovider": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11507,7 +11507,7 @@
   },
   "com.tcl.android.launchertheme.res.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11515,7 +11515,7 @@
   },
   "com.tcl.android.wallpaper.livepicker": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11523,7 +11523,7 @@
   },
   "com.tcl.aota.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11531,7 +11531,7 @@
   },
   "com.tcl.camera": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11539,7 +11539,7 @@
   },
   "com.tcl.camera.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11547,7 +11547,7 @@
   },
   "com.tcl.compass": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11555,7 +11555,7 @@
   },
   "com.tcl.compass.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11563,7 +11563,7 @@
   },
   "com.tcl.demopage": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11571,7 +11571,7 @@
   },
   "com.tcl.entitlement": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11587,7 +11587,7 @@
   },
   "com.tcl.fota.system.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11595,7 +11595,7 @@
   },
   "com.tcl.healthy": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11603,7 +11603,7 @@
   },
   "com.tcl.mibc.tclplus": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11611,7 +11611,7 @@
   },
   "com.tcl.mibc.tclplus.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11619,7 +11619,7 @@
   },
   "com.tcl.nfc.gsma.usermenu": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11627,7 +11627,7 @@
   },
   "com.tcl.screenrecorder": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11635,7 +11635,7 @@
   },
   "com.tcl.screenrecorder.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11643,7 +11643,7 @@
   },
   "com.tcl.screenshotex": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11651,7 +11651,7 @@
   },
   "com.tcl.sos": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11659,7 +11659,7 @@
   },
   "com.tcl.tclswitch.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11675,7 +11675,7 @@
   },
   "com.tclhz.gallery.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11683,7 +11683,7 @@
   },
   "com.tct": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11691,7 +11691,7 @@
   },
   "com.tct.calculator.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11699,7 +11699,7 @@
   },
   "com.tct.cellular.arda": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11707,7 +11707,7 @@
   },
   "com.tct.diagprotector": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11715,7 +11715,7 @@
   },
   "com.tct.dialer.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11739,7 +11739,7 @@
   },
   "com.tct.gdpr": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11747,7 +11747,7 @@
   },
   "com.tct.onetouchbooster.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11755,7 +11755,7 @@
   },
   "com.tct.privacymode": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11763,7 +11763,7 @@
   },
   "com.tct.retaildemo.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11771,7 +11771,7 @@
   },
   "com.tct.simplelauncher.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11779,7 +11779,7 @@
   },
   "com.tct.simsettings": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11787,7 +11787,7 @@
   },
   "com.tct.smart.account": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11795,7 +11795,7 @@
   },
   "com.tct.smart.aikey": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11803,7 +11803,7 @@
   },
   "com.tct.smart.cloud": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11811,7 +11811,7 @@
   },
   "com.tct.smart.drivemode": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11819,7 +11819,7 @@
   },
   "com.tct.smart.switchphone.service": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11835,7 +11835,7 @@
   },
   "com.tct.video": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13037,7 +13037,7 @@
   },
   "com.coloros.mcs": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13077,7 +13077,7 @@
   },
   "com.coloros.widget.smallweather": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13175,7 +13175,7 @@
   },
   "com.oppo.logkit": {
     "list": "Oem",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13471,7 +13471,7 @@
   },
   "com.microsoft.office.powerpoint": {
     "list": "Misc",
-    "description": "",
+    "description": ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15495,7 +15495,7 @@
   },
   "com.gd.mobicore.pa": {
     "list": "Misc",
-    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and \"normal\" devs can't use it for their apps.\nSee \"com.trustonic.tuiservice\"",
+    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and \"normal\" devs can't use it for their apps.\nSee \"com.trustonic.tuiservice\",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30004,7 +30004,7 @@
   },
   "com.huawei.mirror": {
     "list": "Oem",
-    "description": "Huawei Mirror app.\nMirror like \"Glass\"",
+    "description": "Huawei Mirror app.\nMirror like \"Glass\",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
