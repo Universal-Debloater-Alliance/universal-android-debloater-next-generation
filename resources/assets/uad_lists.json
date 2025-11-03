@@ -1,5 +1,5 @@
 {
-  "android.res.305": {
+  "android.res_305": {
     "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
