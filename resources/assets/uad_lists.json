@@ -1,5 +1,5 @@
 {
-  "android.res.305": {
+  "android.res.overlay_305": {
     "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
@@ -9,7 +9,7 @@
   },
   "android.res.overlay_310_311": {
     "list": "Oem",
-    "description": "An overlay that draws over android",
+    "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17,7 +17,7 @@
   },
   "com.android.browser.res.overlay_305": {
     "list": "Oem",
-    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser",
+    "description": "An overlay that draws over the browser, probably safe to disable if you use another browser. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -25,7 +25,7 @@
   },
   "com.android.carrierconfig.res.overlay_305": {
     "list": "Oem",
-    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33,7 +33,7 @@
   },
   "com.android.carrierconfig.res.overlay_310_311": {
     "list": "Oem",
-    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS",
+    "description": "An overlay that draws over the android.carrierconfig package, probably safe if you do not use calls/SMS. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -57,7 +57,7 @@
   },
   "com.android.partnerbrowsercustomizations.chromeHomepage.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier.",
+    "description": "Adds a customised homepage to Google Chrome provided by either OEM or carrier. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -73,7 +73,7 @@
   },
   "com.android.phone.product.res.overlay": {
     "list": "Oem",
-    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management",
+    "description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -81,7 +81,7 @@
   },
   "com.android.phone.product.res.overlay.no_imei_emergency_call": {
     "list": "Oem",
-    "description": "Unsure but I would just leave it as need to stay safe",
+    "description": "Unsure but I would just leave it as you need to stay safe. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -89,7 +89,7 @@
   },
   "com.android.phone.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work",
+    "description": "Overlays the phone app, keep if you want calls/SMS/contact management to work. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -97,7 +97,7 @@
   },
   "com.android.providers.icccust": {
     "list": "Oem",
-    "description": "Looks to be linked to SIM management. would advise keeping it",
+    "description": "Looks to be linked to SIM management. I would advise keeping it",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -105,7 +105,7 @@
   },
   "com.android.providers.partnerbookmarks.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays Bookmark customisation, probably not needed",
+    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -113,7 +113,7 @@
   },
   "com.android.providers.partnerbookmarks.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays Bookmark customisation, probably not needed",
+    "description": "Overlays Bookmark customisation, probably not needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -121,7 +121,7 @@
   },
   "com.android.providers.settings.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -129,7 +129,7 @@
   },
   "com.android.settings.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -137,7 +137,7 @@
   },
   "com.android.settings.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays system settings, probably needed",
+    "description": "Overlays system settings, probably needed. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -145,7 +145,7 @@
   },
   "com.android.stk.product.res.overlay.common": {
     "list": "Oem",
-    "description": "SIM Tool Kit overlay, best kept",
+    "description": "SIM Tool Kit overlay, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -153,7 +153,7 @@
   },
   "com.android.systemui.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays SystemUI, best kept",
+    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -161,7 +161,7 @@
   },
   "com.android.systemui.res.overlay_310_311": {
     "list": "Oem",
-    "description": "Overlays SystemUI, best kept",
+    "description": "Overlays SystemUI, best kept. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -209,7 +209,7 @@
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
     "list": "Oem",
-    "description": "Overlays default camera app, removing could break camera features",
+    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -217,7 +217,7 @@
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.scene.setting": {
     "list": "Oem",
-    "description": "Overlays default camera app, removing could break camera features",
+    "description": "Overlays default camera app, removing could break camera features. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -233,7 +233,7 @@
   },
   "com.sonyericsson.android.servicemenu.product.res.overlay.suzu": {
     "list": "Oem",
-    "description": "Overlays service com.sonyericsson.android.servicemenu",
+    "description": "Overlays service com.sonyericsson.android.servicemenu. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -305,7 +305,7 @@
   },
   "com.sonyericsson.home.product.res.overlay": {
     "list": "Oem",
-    "description": "Launcher overlay, best left enabled",
+    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -313,7 +313,7 @@
   },
   "com.sonyericsson.home.res.overlay_305": {
     "list": "Oem",
-    "description": "Launcher overlay, best left enabled",
+    "description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -369,7 +369,7 @@
   },
   "com.sonyericsson.psm.sysmonservice": {
     "list": "Oem",
-    "description": "Power management, stamina mode. Best left enabled",
+    "description": "Power management, Stamina mode. Best left enabled",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -385,7 +385,7 @@
   },
   "com.sonyericsson.settings.res.overlay_310_311": {
     "list": "Oem",
-    "description": "System settings overlay",
+    "description": "System settings overlay, do not remove. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -401,7 +401,7 @@
   },
   "com.sonyericsson.setupwizard.res.overlay_305": {
     "list": "Oem",
-    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove",
+    "description": "Overlays setup wizard during first boot or after factory reset, safe to remove. Find out more by running: adb shell cmd overlay list, to see other packages",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8771,7 +8771,7 @@
   },
   "com.oneplus.skin": {
     "list": "Oem",
-    "description": "",
+    "description": "Icon styles/themes/animations and visual effects",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15495,7 +15495,7 @@
   },
   "com.gd.mobicore.pa": {
     "list": "Misc",
-    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and \"normal\" devs can't use it for their apps.\nSee \"com.trustonic.tuiservice\"",
+    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and \"normal\" devs can't use it for their apps.\nSee \"com.trustonic.tuiservice\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
