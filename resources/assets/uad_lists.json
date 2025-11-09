@@ -1,4 +1,12 @@
 {
+  "com.aura.oobe.deutsche": {
+    "list": "Carrier",
+    "description": "Provides an Out Of The Box experience. You can disable it via Settings > Apps > Three dots > Show system > App selector. It has a T-Mobile icon",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "android.res.overlay_305": {
     "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
