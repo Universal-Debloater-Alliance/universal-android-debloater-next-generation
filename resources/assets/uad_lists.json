@@ -1,4 +1,12 @@
 {
+  "com.android.overlay.circletosearch": {
+    "list": "Aosp",
+    "description": "An overlay likely deeply tied with system ui, causes soft brick (all system apps crashing and inability to launch anything) on HyperOS 2.0. Even despite it looking like useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "android.res.overlay_305": {
     "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
