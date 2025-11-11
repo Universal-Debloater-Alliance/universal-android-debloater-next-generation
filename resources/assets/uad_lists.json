@@ -40175,5 +40175,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.android.sprd.telephony.server": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
