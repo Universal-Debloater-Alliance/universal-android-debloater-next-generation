@@ -40074,7 +40074,7 @@
   },
   "com.android.overlay.iconrecentsconfig": {
     "list": "Oem",
-    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "description": "A completely useless 0 bytes app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40082,7 +40082,7 @@
   },
   "com.android.overlay.wallpaperconfig": {
     "list": "Oem",
-    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "description": "A completely useless 0 bytes app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40090,7 +40090,7 @@
   },
   "com.android.settings.overlay.oversea": {
     "list": "Oem",
-    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "description": "A completely useless 0 bytes app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40098,7 +40098,7 @@
   },
   "com.google.android.overlay.gmsagoconfig": {
     "list": "Oem",
-    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "description": "A completely useless 0 bytes app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40106,7 +40106,7 @@
   },
   "com.google.android.overlay.gmsgoconfig": {
     "list": "Oem",
-    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "description": "A completely useless 0 bytes app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
