@@ -40071,5 +40071,109 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.overlay.iconrecentsconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.wallpaperconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.settings.overlay.oversea": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.gmsagoconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.gmsgoconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app in "/product/overlay/". Can't be pulled with ADB. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nousguide.android.rbtv": {
+    "list": "Misc",
+    "description": "Red Bull TV\nA 1 star streaming service owned by a company that sells electronic cigars and energy drinks to the youth. Can be uninstalled via Settings.\nhttps://play.google.com/store/apps/details?id=com.nousguide.android.rbtv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.davincikids.tv": {
+    "list": "Misc",
+    "description": "Davinci Media\nA 2 star streaming service.\nhttps://play.google.com/store/apps/details?id=com.davincikids.tv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.artorial.client": {
+    "list": "Oem",
+    "description": "SmartArt\nProvides AI slop wallpapers, mobile games and news to Blackview devices. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy\nhttps://www.virustotal.com/gui/file-analysis/YTg5NWU0ZTVkNzFiMDk4NjliZjdlNWQ0NjNjNDk5Yjk6MTc2MjAwNTk1OA==",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.weather": {
+    "list": "Oem",
+    "description": "Weather\nBlackview's weather app. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.userfeedback": {
+    "list": "Oem",
+    "description": "User feedback\nRequires agreeing to a Privacy Policy (that allows Blackview to sell your location to data brokers) to send feedback to Blackview. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy\nhttps://www.virustotal.com/gui/file-analysis/NWNjODQ4OWEwZjU5MzkzZTFmN2MxNjkwMzcyZTExNjc6MTc2MjAwNzkxNQ==",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.launcher": {
+    "list": "Oem",
+    "description": "BvLauncher\nBlackview's launcher app.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tripledot.triple.tile.match.pair.game.three.master.object": {
+    "list": "Misc",
+    "description": "Triple Tile\nPre-installed mobile game with ads and in-app purchases up to 129.99 USD. Can be disabled via Settings.\nhttps://play.google.com/store/apps/details?id=com.tripledot.triple.tile.match.pair.game.three.master.object",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.speechservices": {
+    "list": "Google",
+    "description": "Google Speech Services\nAndroid GO speech recognition. Can be disabled via Settings.\nhttps://www.virustotal.com/gui/file/9340b2aa1cb6f3fab3481a4bd5c0dacae2441bbb0849691b08a6e8bcedae2662/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
