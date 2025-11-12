@@ -23003,8 +23003,8 @@
     "labels": []
   },
   "com.android.angle": {
-    "description": "Have only empty main activity. it's not a joke.",
-    "removal": "Recommended",
+    "description": "Almost Native Graphics Layer Engine, open source experimental project that improves rendering performance.\nConverts the calls from the graphics drivers to a more consistent APIs like Vulkan.\nSee the source code here: https://github.com/google/angle",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
