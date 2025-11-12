@@ -1,4 +1,20 @@
 {
+  "com.android.overlay.circletosearch": {
+    "list": "Aosp",
+    "description": "An overlay likely deeply tied with system ui, causes soft brick (all system apps crashing and inability to launch anything) on HyperOS 2.0.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.aura.oobe.deutsche": {
+    "list": "Carrier",
+    "description": "Provides an Out Of The Box experience. You can disable it via Settings > Apps > Three dots > Show system > App selector. It has a T-Mobile icon",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "android.res.overlay_305": {
     "list": "Oem",
     "description": "An overlay that draws over android. Find out more by running: adb shell cmd overlay list, to see other packages",
@@ -22995,8 +23011,8 @@
     "labels": []
   },
   "com.android.angle": {
-    "description": "Have only empty main activity. it's not a joke.",
-    "removal": "Recommended",
+    "description": "Almost Native Graphics Layer Engine, open source experimental project that improves rendering performance.\nConverts the calls from the graphics drivers to a more consistent APIs like Vulkan.\nSee the source code here: https://github.com/google/angle",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -34262,11 +34278,11 @@
   },
   "com.stevesoltys.seedvault": {
     "list": "Oem",
-    "description": "Seedvault\nRunning in the background.\nit's app for Backup, Restore your data.",
+    "description": "Seedvault: https://github.com/seedvault-app/seedvault\nOpen source component for custom ROMs for backuping up apps (and files) with Android's internal backup APIs\nUseful but should be safe to remove, there aren't other rootless backup tools\nDoes not run in the background unless the user uses it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.airlink": {
     "list": "Oem",
@@ -40104,6 +40120,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.hancom.office.editor": {
+    "list": "Oem",
+    "description": "Proprietary office suite, primarly targeted towards Korean users. This version, typically preinstalled on old Samsung devices, is no longer maintained",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.appupdater": {
+    "list": "Oem",
+    "description": "Discontinued app to update Samsung's proprietary apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.google.android.overlay.gmsgoconfig": {
     "list": "Oem",
     "description": "A completely useless 0 bytes app.",
@@ -40176,9 +40208,121 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.samsung.android.app.scrollcapture": {
+    "list": "Oem",
+    "description": "Samsung's app for taking screenshots.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.android.sprd.telephony.server": {
     "list": "Oem",
     "description": "Unknown purpose, likely spyware. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.authservice": {
+    "list": "Oem",
+    "description": "Runs in the background on Galaxy S7 and earlier, can't seem to find a purpose for this app. No issues when removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.radiobasedlocation": {
+    "list": "Oem",
+    "description": "Tracks location in the background. Doesn't seem to be needed for anything.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.radiobasedlocation.manager": {
+    "list": "Oem",
+    "description": "Tracks location in the background. Doesn't seem to be needed for anything.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.tzdata.update": {
+    "list": "Oem",
+    "description": "App for updating time zone changes on Samsung devices. Now discontinued and completely useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.videolist": {
+    "list": "Oem",
+    "description": "Video player included on Samsung devices (https://play.google.com/store/apps/details?id=com.samsung.android.videolist). Works fine enough as a basic video player.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.tmowfc.wfccontroller": {
+    "list": "Oem",
+    "description": "Wifi Calling for T-mobile clients only! (tmowfc = t-mobile only wifi calling)\nLets you call or text on Wi-Fi networks with your T-Mobile phone number\nhttps://www.t-mobile.com/support/coverage/wi-fi-calling-from-t-mobile\nVoLTE/IMS is needed for this to work (see com.sec.imsservice)\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.camera.plb": {
+    "list": "Oem",
+    "description": "Looks like an app to record videos for Facebook. Despite having 'camera' in the name, it is not needed for the camera at all.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.clipvideo": {
+    "list": "Oem",
+    "description": "App to create a video collage.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.easylauncher": {
+    "list": "Oem",
+    "description": "TouchWiz easy home -- gives you large icons and makes things the home screen significantly simpler. Primarly designed for elderly users. Discontinued after the release of Samsung Experience in 2017.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.music": {
+    "list": "Oem",
+    "description": "Samsung's proprietary music app, allows you to play local music or connect your Spotify account (https://play.google.com/store/apps/details?id=com.sec.android.app.music). Safe to uninstall, and there's much better open source alternatives for both local music and Spotify.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.spen.flashannotate": {
+    "list": "Oem",
+    "description": "Take notes on your screen. Unneeded, and can't even be accessed unless you're using a Galaxy Note or S Ultra, despite being preinstalled on all Samsungs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.telus.featuredapps": {
+    "list": "Carrier",
+    "description": "Recommended apps from Telus. Now discontinued and doesn't show any apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "service.odtcfactory.sec.com.odtcfactoryservice": {
+    "list": "Oem",
+    "description": "Purpose of this app is completely unknown, but it eats battery and data and is safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
