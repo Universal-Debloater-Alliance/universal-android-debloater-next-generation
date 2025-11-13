@@ -7375,7 +7375,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.bookmarkprovider": {
     "list": "Aosp",
@@ -9163,11 +9163,11 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
-    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3).",
+    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3).\nUninstalling it will break emergency calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.mediatek.calendarimporter": {
     "list": "Misc",
@@ -28410,7 +28410,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.music": {
     "list": "Google",
