@@ -2638,7 +2638,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.hwmirror": {
     "list": "Oem",
@@ -3164,7 +3164,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.mycenter": {
     "list": "Oem",
@@ -4984,7 +4984,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.networkdiagnostic": {
     "list": "Oem",
