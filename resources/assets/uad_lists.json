@@ -9163,7 +9163,7 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
-    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3).\nUninstalling it will break emergency calls.",
+    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). Uninstalling it will break emergency calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
