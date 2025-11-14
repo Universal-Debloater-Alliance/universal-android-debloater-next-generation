@@ -28445,7 +28445,7 @@
   },
   "com.google.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nGoogle Safe Browsing.\nWARNING: Crashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
+    "description": "Google Safety Center.\nGoogle Safe Browsing. \nWARNING: Crashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39681,7 +39681,7 @@
   },
   "com.google.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings./nUses location, nearby devices, notifications permissions by default.",
+    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings. /nUses location, nearby devices, notifications permissions by default.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
