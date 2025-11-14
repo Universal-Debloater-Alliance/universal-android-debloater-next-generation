@@ -40215,5 +40215,37 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.blackview.launcher": {
+    "list": "Oem",
+    "description": "BvLauncher\nThe default Blackview's Launcher for applications. Make sure you have an alternative launcher if you want to remove or disable.\nIf you remove or disable, you won't have any task manager, you won't be able to switch applications or close them, as only the manufacturer's launcher can do it.\nTested on Blackview BV4900.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.htc.blackviewhome": {
+    "list": "Oem",
+    "description": "BV Family\nBlackiew's application for access to their store, website, feedback and other things. Can track like a browser.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.filetrans": {
+    "list": "Oem",
+    "description": "Moving Assistant\nApp used to transfer data from a phone to another.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.artorial.client": {
+    "list": "Oem",
+    "description": "SmartArt\nDynamic wallpaper manager that have games, news, ads in the lock screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
