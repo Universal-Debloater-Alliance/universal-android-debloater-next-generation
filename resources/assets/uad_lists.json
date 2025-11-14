@@ -10690,11 +10690,11 @@
   },
   "com.google.android.overlay.gmsconfig.searchlauncherqs": {
     "list": "Google",
-    "description": "Useless gmsconfig. it's config default launcher but not needed.",
+    "description": "WARNING: Uninstalling it breaks the Settings app for Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.searchselector": {
     "list": "Google",
