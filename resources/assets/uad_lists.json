@@ -31525,7 +31525,7 @@
   },
   "com.oplus.athena": {
     "list": "Oem",
-    "description": "OnePlus background process manager. Removing it will solve the notification delay you can have but will disable the virtual ram expansion feature (swap RAM to disk) and the 'close all' button in the 'recent apps' page.\nRemoving this app may deteriorate battery performance.",
+    "description": "OnePlus background process manager. It aggressively kills apps. Despite battery optimization settings it kills Chrome not in use within few seconds; and Tasker can't run long-time jobs.\nRemoving it will disable the virtual ram expansion feature (swap RAM to disk) and the 'close all' button in the 'recent apps' page.\nKeep the app if you worry about battery life. Remove if your apps are killed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
