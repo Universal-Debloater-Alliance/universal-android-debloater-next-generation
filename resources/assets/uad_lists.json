@@ -10682,15 +10682,15 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in Motorola. It's also installed on some Samsung Galaxy devices. Useless.",
+    "description": "WARNING: Uninstalling it makes it impossible to unlock Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.google.android.overlay.gmsconfig.searchlauncherqs": {
     "list": "Google",
-    "description": "WARNING: Uninstalling it breaks the Settings app for Blackview TAB 60 WiFi!",
+    "description": "WARNING: Uninstalling it breaks the Settings app for Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10710,7 +10710,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.modules.cellbroadcastservice": {
     "list": "Aosp",
@@ -10726,7 +10726,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.modules.modulemetadata.forframework": {
     "list": "Oem",
