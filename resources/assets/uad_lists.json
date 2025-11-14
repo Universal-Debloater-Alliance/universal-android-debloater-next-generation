@@ -40326,5 +40326,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.uncube.launcher3": {
+    "list": "Oem",
+    "description": "Torque Launcher\nDefault launcher for BlueStacks. Has ads. \nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nhttps://play.google.com/store/apps/details?id=com.uncube.launcher3&hl=en-US",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "org.lineageos.waydroidupdater": {
+    "list": "Oem",
+    "description": "Waydroid Updater\nhttps://www.virustotal.com/gui/file/543f8eb038c052c4a00a6f3fdda026f2cec327a435c81f62d8738412c748510b/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
