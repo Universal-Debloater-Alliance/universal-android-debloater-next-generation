@@ -28445,11 +28445,11 @@
   },
   "com.google.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nGoogle Safe Browsing.\nCrashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
+    "description": "Google Safety Center.\nGoogle Safe Browsing.\nWARNING: Crashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.projection.gearhead": {
     "list": "Google",
