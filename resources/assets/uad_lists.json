@@ -1354,11 +1354,11 @@
   },
   "com.xiaomi.aicr": {
     "list": "Oem",
-    "description": "Mi AI Engine\nAnother app to Mi AI from MIUI China. (https://hyperosupdates.com/apps/com.xiaomi.aicr/)",
+    "description": "Mi AI Engine\nAnother app to Mi AI from MIUI China. Might break the ability to set wallpapers\nSee https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/1110\nhttps://hyperosupdates.com/apps/com.xiaomi.aicr/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.aiasst.service": {
     "list": "Oem",
