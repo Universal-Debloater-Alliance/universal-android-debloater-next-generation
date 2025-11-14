@@ -10722,11 +10722,11 @@
   },
   "com.google.android.overlay.modules.documentsui": {
     "list": "Aosp",
-    "description": "In code only found: `is_launcher_enabled` false\nOn pixel phones this app overlay not exist.\nit's only made to hide app icon (com.google.android.documentsui)\nNo effects after remove(so icon will be not back), it's useless.",
+    "description": "WARNING: Uninstalling it breaks the Scheduled power on/off page of the Settings app for Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.google.android.overlay.modules.modulemetadata.forframework": {
     "list": "Oem",
