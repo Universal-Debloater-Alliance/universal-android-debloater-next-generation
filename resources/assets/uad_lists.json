@@ -40362,7 +40362,7 @@
   },
   "com.lge.shutdownmonitor": {
     "list": "Oem",
-    "description": "LG app for logging shutdowns. Probably only needed for internal purposes.",
+    "description": "Shows the shut down animation when powering off or rebooting LG devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
