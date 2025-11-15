@@ -40478,5 +40478,37 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
+  },
+  "com.kddi.android.cmail": {
+    "list": "Carrier",
+    "description": "＋メッセージ\nA messaging app. \nhttps://play.google.com/store/apps/details?id=com.kddi.android.cmail",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.miui.carrierinstructions": {
+    "list": "Carrier",
+    "description": "Manual\nShortcut to the carrier's online manual.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.kddi": {
+    "list": "Carrier",
+    "description": "AppCloud\nSeems to exist to try to get you to download games and another testimonial.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.provision.carrieroverlay.kddi": {
+    "list": "Carrier",
+    "description": "Useless Japanese overlay app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
