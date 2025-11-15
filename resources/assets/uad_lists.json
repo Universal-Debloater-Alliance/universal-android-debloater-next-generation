@@ -40342,5 +40342,133 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.blackview.surfline": {
+    "list": "Oem",
+    "description": "Surfline\nBackview's Safari ripoff with ads. They didn't even bother to remove Chrome, probably because they knew you won't use it. Can be disabled via Settings. \nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.dokegamecenter": {
+    "list": "Oem",
+    "description": "DKGame Center",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.vidgen": {
+    "list": "Oem",
+    "description": "VidGen",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommmended"
+  },
+  "com.blackview.ai.doki": {
+    "list": "Oem",
+    "description": "Hi Doki",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.imagex": {
+    "list": "Oem",
+    "description": "ImageX",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.soundle": {
+    "list": "Oem",
+    "description": "Soundle",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "bnd.com": {
+    "list": "Oem",
+    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Blackview Tab 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.blackview.appsedge": {
+    "list": "Oem",
+    "description": "AppsEdge",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.note": {
+    "list": "Oem",
+    "description": "Notebook",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.runtime": {
+    "list": "Oem",
+    "description": "RuntimeTest",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.gamemode": {
+    "list": "Oem",
+    "description": "Game mode",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.cplog": {
+    "list": "Oem",
+    "description": "cplog",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.clock.pt1.keeptesting": {
+    "list": "Oem",
+    "description": "KeepTesting2.9.42",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.useguide": {
+    "list": "Oem",
+    "description": "User's Manual",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.easytrans": {
+    "list": "Oem",
+    "description": "EasyShare",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.frozenapp": {
+    "list": "Oem",
+    "description": "Cold Room",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
