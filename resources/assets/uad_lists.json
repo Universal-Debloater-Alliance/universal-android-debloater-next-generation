@@ -40470,5 +40470,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "lineageos.platform": {
+    "list": "Oem",
+    "description": "LineageOS System",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 }
