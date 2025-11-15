@@ -40201,7 +40201,7 @@
   },
   "com.google.android.apps.speechservices": {
     "list": "Google",
-    "description": "Google Speech Services\nAbsolute garbage. There is already another speech recognition app (Speech Recognition and Synthesis from Google), so this app is just spyware judging by the URLs it connects to. \nhttps://www.virustotal.com/gui/file/9340b2aa1cb6f3fab3481a4bd5c0dacae2441bbb0849691b08a6e8bcedae2662/details",
+    "description": "Google Speech Services\nAbsolute garbage. There is already another speech recognition app (Speech Recognition and Synthesis from Google), so this app is just spyware, judging by the URLs it connects to. \nhttps://www.virustotal.com/gui/file/9340b2aa1cb6f3fab3481a4bd5c0dacae2441bbb0849691b08a6e8bcedae2662/details",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
