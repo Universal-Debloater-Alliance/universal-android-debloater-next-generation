@@ -30420,7 +30420,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.email.partnerprovider": {
     "list": "Aosp",
