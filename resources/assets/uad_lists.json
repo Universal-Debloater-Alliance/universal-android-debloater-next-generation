@@ -30415,11 +30415,11 @@
   },
   "com.android.bips": {
     "list": "Aosp",
-    "description": "Default Print Service.\nGeneric printing service that should work with most printers.\nWill break printing functionality if disabled, but other replacement print services can be downloaded from the Play Store.",
+    "description": "Disabling this can cause Settings app to crash and general device slowness. Tested on Sony Xperia X, Fairphone 4 and Lenovo Yoga tab. Default Print Service.\nGeneric printing service that should work with most printers.\nWill break printing functionality if disabled, but other replacement print services can be downloaded from the Play Store.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.email.partnerprovider": {
     "list": "Aosp",
