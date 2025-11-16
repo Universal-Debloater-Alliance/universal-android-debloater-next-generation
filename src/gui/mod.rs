@@ -347,7 +347,7 @@ impl Application for UadGui {
         }
     }
 
-    fn view(&self) -> Element<Self::Message, Self::Theme, Renderer> {
+    fn view(&self) -> Element<'_, Self::Message, Self::Theme, Renderer> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),

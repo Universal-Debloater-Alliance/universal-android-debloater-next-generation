@@ -252,7 +252,11 @@ impl Settings {
     }
 
     #[allow(clippy::too_many_lines)]
-    pub fn view(&self, phone: &Phone, apps_view: &AppsView) -> Element<Message, Theme, Renderer> {
+    pub fn view(
+        &self,
+        phone: &Phone,
+        apps_view: &AppsView,
+    ) -> Element<'_, Message, Theme, Renderer> {
         let radio_btn_theme = Theme::ALL
             .iter()
             .fold(row![].spacing(10), |column, option| {

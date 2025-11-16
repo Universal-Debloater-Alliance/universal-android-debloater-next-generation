@@ -511,7 +511,6 @@
     "labels": [],
     "removal": "Expert"
   },
-
   "com.mi.appfinder": {
     "list": "Oem",
     "description": "HyperOs 2.0.202.0, it didn't break the system or ui search function or poco launcher search app function. Havent heard of it breaking stuff for others so dont think it's of much concern \n has 15 trackers",
@@ -1354,11 +1353,11 @@
   },
   "com.xiaomi.aicr": {
     "list": "Oem",
-    "description": "Mi AI Engine\nAnother app to Mi AI from MIUI China. (https://hyperosupdates.com/apps/com.xiaomi.aicr/)",
+    "description": "Mi AI Engine\nAnother app to Mi AI from MIUI China. Might break the ability to set wallpapers\nSee https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/1110\nhttps://hyperosupdates.com/apps/com.xiaomi.aicr/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.aiasst.service": {
     "list": "Oem",
@@ -2638,7 +2637,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.hwmirror": {
     "list": "Oem",
@@ -3164,7 +3163,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.mycenter": {
     "list": "Oem",
@@ -4984,7 +4983,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.networkdiagnostic": {
     "list": "Oem",
@@ -7375,7 +7374,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.bookmarkprovider": {
     "list": "Aosp",
@@ -9163,11 +9162,11 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
-    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3).",
+    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). Uninstalling it will break emergency calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.mediatek.calendarimporter": {
     "list": "Misc",
@@ -10683,19 +10682,19 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "overlay to\nconfig_systemGallery to com.google.android.apps.photos in Motorola. It's also installed on some Samsung Galaxy devices. Useless.",
+    "description": "WARNING: Uninstalling it makes it impossible to unlock Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.google.android.overlay.gmsconfig.searchlauncherqs": {
     "list": "Google",
-    "description": "Useless gmsconfig. it's config default launcher but not needed.",
+    "description": "WARNING: Uninstalling it breaks the Settings app for Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.gmsconfig.searchselector": {
     "list": "Google",
@@ -10711,7 +10710,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.modules.cellbroadcastservice": {
     "list": "Aosp",
@@ -10723,11 +10722,11 @@
   },
   "com.google.android.overlay.modules.documentsui": {
     "list": "Aosp",
-    "description": "In code only found: `is_launcher_enabled` false\nOn pixel phones this app overlay not exist.\nit's only made to hide app icon (com.google.android.documentsui)\nNo effects after remove(so icon will be not back), it's useless.",
+    "description": "WARNING: Uninstalling it breaks the Scheduled power on/off page of the Settings app for Android 15, Blackview TAB 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.overlay.modules.modulemetadata.forframework": {
     "list": "Oem",
@@ -28410,7 +28409,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.music": {
     "list": "Google",
@@ -28446,11 +28445,11 @@
   },
   "com.google.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nGoogle Safe Browsing.\nCrashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
+    "description": "Google Safety Center.\nGoogle Safe Browsing. \nWARNING: Crashes Security and Privacy settings if removed.\nhttps://www.android.com/safety/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.projection.gearhead": {
     "list": "Google",
@@ -31525,7 +31524,7 @@
   },
   "com.oplus.athena": {
     "list": "Oem",
-    "description": "OnePlus background process manager. Removing it will solve the notification delay you can have but will disable the virtual ram expansion feature (swap RAM to disk) and the 'close all' button in the 'recent apps' page.\nRemoving this app may deteriorate battery performance.",
+    "description": "OnePlus background process manager. It aggressively kills apps. Despite battery optimization settings it kills Chrome not in use within few seconds; and Tasker can't run long-time jobs.\nRemoving it will disable the virtual ram expansion feature (swap RAM to disk) and the 'close all' button in the 'recent apps' page.\nKeep the app if you worry about battery life. Remove if your apps are killed.\nhttps://xdaforums.com/t/did-anyone-find-a-solution-against-the-agressive-background-killing-of-apps.4491351/post-87421063",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39682,7 +39681,7 @@
   },
   "com.google.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings./nUses location, nearby devices, notifications permissions by default.",
+    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings. /nUses location, nearby devices, notifications permissions by default.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40088,6 +40087,38 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.android.overlay.iconrecentsconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.overlay.wallpaperconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.settings.overlay.oversea": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.gmsagoconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.hancom.office.editor": {
     "list": "Oem",
     "description": "Proprietary office suite, primarly targeted towards Korean users. This version, typically preinstalled on old Samsung devices, is no longer maintained",
@@ -40104,6 +40135,78 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.google.android.overlay.gmsgoconfig": {
+    "list": "Oem",
+    "description": "A completely useless 0 bytes app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nousguide.android.rbtv": {
+    "list": "Misc",
+    "description": "Red Bull TV\nA 1 star streaming service owned by a company that sells electronic cigars and energy drinks to the youth. Can be uninstalled via Settings.\nhttps://play.google.com/store/apps/details?id=com.nousguide.android.rbtv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.davincikids.tv": {
+    "list": "Misc",
+    "description": "Davinci Media\nA 2 star streaming service.\nhttps://play.google.com/store/apps/details?id=com.davincikids.tv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.artorial.client": {
+    "list": "Oem",
+    "description": "SmartArt\nProvides AI slop wallpapers, mobile games and news to Blackview devices. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy\nhttps://www.virustotal.com/gui/file-analysis/YTg5NWU0ZTVkNzFiMDk4NjliZjdlNWQ0NjNjNDk5Yjk6MTc2MjAwNTk1OA==",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.weather": {
+    "list": "Oem",
+    "description": "Weather\nBlackview's weather app. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.userfeedback": {
+    "list": "Oem",
+    "description": "User feedback\nRequires agreeing to a Privacy Policy (that allows Blackview to sell your location to data brokers) to send feedback to Blackview. Can be disabled via Settings.\nhttps://www.blackview.hk/privacy\nhttps://www.virustotal.com/gui/file-analysis/NWNjODQ4OWEwZjU5MzkzZTFmN2MxNjkwMzcyZTExNjc6MTc2MjAwNzkxNQ==",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.launcher": {
+    "list": "Oem",
+    "description": "BvLauncher\nBlackview's launcher app.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tripledot.triple.tile.match.pair.game.three.master.object": {
+    "list": "Misc",
+    "description": "Triple Tile\nPre-installed mobile game with ads and in-app purchases up to 129.99 USD. Can be disabled via Settings.\nhttps://play.google.com/store/apps/details?id=com.tripledot.triple.tile.match.pair.game.three.master.object",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.speechservices": {
+    "list": "Google",
+    "description": "Google Speech Services\nAbsolute garbage. There is already another speech recognition app (Speech Recognition and Synthesis from Google), so this app is just spyware, judging by the URLs it connects to. \nhttps://www.virustotal.com/gui/file/9340b2aa1cb6f3fab3481a4bd5c0dacae2441bbb0849691b08a6e8bcedae2662/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.app.scrollcapture": {
     "list": "Oem",
     "description": "Samsung's app for taking screenshots.",
@@ -40111,6 +40214,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.android.sprd.telephony.server": {
+    "list": "Oem",
+    "description": "Unknown purpose, likely spyware. Uninstalling it doesn't seem to break anything for Android 10 GO, S21 Plus 2021_EEA.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.samsung.android.authservice": {
     "list": "Oem",
@@ -40216,9 +40327,9 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.blackview.launcher": {
+  "com.uncube.launcher3": {
     "list": "Oem",
-    "description": "BvLauncher\nThe default Blackview's Launcher for applications. Make sure you have an alternative launcher if you want to remove or disable.\nIf you remove or disable, you won't have any task manager, you won't be able to switch applications or close them, as only the manufacturer's launcher can do it.\nTested on Blackview BV4900.",
+    "description": "Torque Launcher\nDefault launcher for BlueStacks. Has ads. \nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nhttps://play.google.com/store/apps/details?id=com.uncube.launcher3&hl=en-US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40232,6 +40343,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "org.lineageos.waydroidupdater": {
+    "list": "Oem",
+    "description": "Waydroid Updater\nhttps://www.virustotal.com/gui/file/543f8eb038c052c4a00a6f3fdda026f2cec327a435c81f62d8738412c748510b/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.blackview.surfline": {
+    "list": "Oem",
+    "description": "Surfline\nBackview's Safari ripoff with ads. They didn't even bother to remove Chrome, probably because they knew you won't use it. Can be disabled via Settings. \nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.blackview.filetrans": {
     "list": "Oem",
     "description": "Moving Assistant\nApp used to transfer data from a phone to another.",
@@ -40240,9 +40367,161 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.blackview.artorial.client": {
+  "com.blackview.dokegamecenter": {
     "list": "Oem",
-    "description": "SmartArt\nDynamic wallpaper manager that have games, news, ads in the lock screen.",
+    "description": "DKGame Center",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.vidgen": {
+    "list": "Oem",
+    "description": "VidGen",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.doki": {
+    "list": "Oem",
+    "description": "Hi Doki",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.imagex": {
+    "list": "Oem",
+    "description": "ImageX",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.ai.soundle": {
+    "list": "Oem",
+    "description": "Soundle",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "bnd.com": {
+    "list": "Oem",
+    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Blackview Tab 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.blackview.appsedge": {
+    "list": "Oem",
+    "description": "AppsEdge",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.note": {
+    "list": "Oem",
+    "description": "Notebook",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sprd.runtime": {
+    "list": "Oem",
+    "description": "RuntimeTest",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.gamemode": {
+    "list": "Oem",
+    "description": "Game mode",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.cplog": {
+    "list": "Oem",
+    "description": "cplog",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.clock.pt1.keeptesting": {
+    "list": "Oem",
+    "description": "KeepTesting2.9.42",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.useguide": {
+    "list": "Oem",
+    "description": "User's Manual",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.easytrans": {
+    "list": "Oem",
+    "description": "EasyShare",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.frozenapp": {
+    "list": "Oem",
+    "description": "Cold Room",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "lineageos.platform": {
+    "list": "Oem",
+    "description": "LineageOS System",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.kddi.android.cmail": {
+    "list": "Carrier",
+    "description": "+Message\nA Japanese messaging and e-mail app. \nhttps://play.google.com/store/apps/details?id=com.kddi.android.cmail",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.miui.carrierinstructions": {
+    "list": "Carrier",
+    "description": "Manual\nShortcut to the carrier's online manual.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.kddi": {
+    "list": "Carrier",
+    "description": "AppCloud\nSeems to exist to try to get you to download games and another testimonial.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.provision.carrieroverlay.kddi": {
+    "list": "Carrier",
+    "description": "Useless Japanese overlay app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
