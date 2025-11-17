@@ -40359,6 +40359,14 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.htc.blackviewhome": {
+    "list": "Oem",
+    "description": "BV Family\nBlackiew's application for access to their store, website, feedback and other things. Can track like a browser.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "org.lineageos.waydroidupdater": {
     "list": "Oem",
     "description": "Waydroid Updater\nhttps://www.virustotal.com/gui/file/543f8eb038c052c4a00a6f3fdda026f2cec327a435c81f62d8738412c748510b/details",
@@ -40370,6 +40378,14 @@
   "com.blackview.surfline": {
     "list": "Oem",
     "description": "Surfline\nBackview's Safari ripoff with ads. They didn't even bother to remove Chrome, probably because they knew you won't use it. Can be disabled via Settings. \nhttps://www.blackview.hk/privacy",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.filetrans": {
+    "list": "Oem",
+    "description": "Moving Assistant\nApp used to transfer data from a phone to another.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
