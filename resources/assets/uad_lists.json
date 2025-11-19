@@ -5,7 +5,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.uwb.resources.overlay.common": {
     "list": "Aosp",
@@ -7622,7 +7622,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.providers.partnerbookmarks": {
     "list": "Aosp",
@@ -9286,7 +9286,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.nearby.halfsheet": {
     "list": "Aosp",
@@ -9354,7 +9354,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.cellbroadcastservice": {
     "list": "Aosp",
@@ -9514,7 +9514,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.theme.icon.circle": {
     "list": "Aosp",
@@ -10298,7 +10298,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.qtil.aptxui": {
     "list": "Misc",
@@ -10580,7 +10580,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.cellbroadcastservice.overlay.miui": {
     "list": "Oem",
@@ -10588,7 +10588,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.cellbroadcastservice": {
     "list": "Aosp",
@@ -10646,7 +10646,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig": {
     "list": "Google",
@@ -10662,7 +10662,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.common": {
     "list": "Google",
@@ -10782,7 +10782,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.notch.overlay": {
     "list": "Oem",
@@ -10798,7 +10798,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.photopicker": {
     "list": "Aosp",
@@ -11894,7 +11894,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.tct.wfcwebiew": {
     "list": "Oem",
@@ -13938,7 +13938,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.zramwritebackoverlay": {
     "list": "Misc",
@@ -14002,7 +14002,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.filemanager": {
     "list": "Misc",
@@ -14042,7 +14042,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.security": {
     "list": "Misc",
@@ -14058,7 +14058,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.systemuiwmshellresoverlay": {
     "list": "Misc",
@@ -16026,7 +16026,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.miwallpaper.overlay.customize": {
     "list": "Oem",
@@ -16034,7 +16034,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.qr": {
     "list": "Oem",
@@ -16354,7 +16354,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.vsimcore": {
     "list": "Oem",
@@ -16402,7 +16402,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.wallpaper.overlay.customize": {
     "list": "Oem",
@@ -16410,7 +16410,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.yellowpage": {
     "list": "Oem",
@@ -16522,7 +16522,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mi.webkit.core": {
     "list": "Oem",
@@ -16898,7 +16898,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.thememanager.module": {
     "list": "Oem",
@@ -17188,7 +17188,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.miwallpaper.telcel.overlay": {
     "list": "Oem",
@@ -17196,7 +17196,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.alwayson": {
     "list": "Oem",
@@ -17212,7 +17212,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.appupdater": {
     "list": "Oem",
@@ -17956,7 +17956,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.cellbroadcastservice.overlay": {
     "list": "Oem",
@@ -17964,7 +17964,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "asusims.overlay.common": {
     "list": "Oem",
@@ -17980,7 +17980,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "asusims.overlay.documentsui": {
     "list": "Oem",
@@ -17988,7 +17988,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.teleserv.overlay.odm": {
     "list": "Oem",
@@ -18588,7 +18588,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.mostbeautiful": {
     "list": "Oem",
@@ -18596,7 +18596,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.phantom": {
     "list": "Oem",
@@ -18604,7 +18604,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.redstorm": {
     "description": "Overlay to theme icon Security app.",
@@ -26910,7 +26910,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.overlay.charging.anim.siphon_wireless": {
     "list": "Oem",
@@ -28825,7 +28825,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.gms.location.history": {
     "list": "Google",
@@ -29067,7 +29067,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.modules.permissioncontroller.forframework": {
     "list": "Aosp",
@@ -30137,7 +30137,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sonyericsson.warrantytime": {
     "list": "Oem",
@@ -30259,7 +30259,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.youtube": {
     "list": "Google",
@@ -31905,7 +31905,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.aura.oobe.kbdi": {
     "list": "Oem",
@@ -32865,7 +32865,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmssettingprovider": {
     "list": "Oem",
@@ -32873,7 +32873,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmssettings": {
     "list": "Oem",
@@ -32881,7 +32881,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmstelecomm": {
     "list": "Oem",
@@ -32889,7 +32889,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmstelephony": {
     "list": "Oem",
@@ -32897,7 +32897,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.systemui": {
     "list": "Aosp",
@@ -33521,7 +33521,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sec.android.settingsmaps": {
     "list": "Oem",
@@ -33745,7 +33745,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.ims.dm": {
     "list": "Oem",
@@ -34049,7 +34049,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.commonimsservice": {
     "list": "Oem",
@@ -34921,7 +34921,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.motorola.paramupdater": {
     "list": "Oem",
@@ -35329,7 +35329,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.oplus.engineercamera": {
     "list": "Oem",
@@ -35385,7 +35385,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.launcher": {
     "list": "Oem",
@@ -35577,7 +35577,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.grilservice": {
     "list": "Oem",
@@ -35825,7 +35825,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.emergency": {
     "list": "Oem",
@@ -35865,7 +35865,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.logmanager": {
     "list": "Oem",
@@ -35873,7 +35873,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.messaging": {
     "list": "Oem",
@@ -35897,7 +35897,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.quicksearchbox": {
     "list": "Oem",
@@ -35921,7 +35921,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.stk": {
     "list": "Oem",
@@ -36185,7 +36185,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.transsion.powercenter": {
     "list": "Oem",
@@ -36821,7 +36821,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.tier1": {
     "list": "Oem",
@@ -37053,7 +37053,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.alam.overlay.android.systemui": {
     "list": "Oem",
@@ -37061,7 +37061,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.atfwd2": {
     "list": "Misc",
@@ -37093,7 +37093,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.securitycenter.securitycenter_phone_overlay.config.overlay": {
     "list": "Oem",
@@ -37101,7 +37101,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.touchservice": {
     "list": "Oem",
@@ -37173,7 +37173,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.magiear.handsfree.assistant": {
     "list": "Misc",
@@ -40117,7 +40117,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.wallpaperconfig": {
     "list": "Oem",
@@ -40125,7 +40125,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.settings.overlay.oversea": {
     "list": "Oem",
@@ -40133,7 +40133,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsagoconfig": {
     "list": "Oem",
@@ -40141,7 +40141,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.hancom.office.editor": {
     "list": "Oem",
@@ -40165,7 +40165,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.nousguide.android.rbtv": {
     "list": "Misc",
@@ -40549,6 +40549,6 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   }
 }
