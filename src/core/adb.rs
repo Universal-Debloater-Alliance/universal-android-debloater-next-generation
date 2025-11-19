@@ -53,6 +53,7 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 }
 
 #[must_use]
+#[cfg(debug_assertions)]
 fn is_version_triple(s: &str) -> bool {
     let mut components = s.split('.');
     for _ in 0..3 {
@@ -240,6 +241,14 @@ impl ShellCommand {
     /// Reboots device
     pub fn reboot(mut self) -> Result<String, String> {
         self.0.0.arg("reboot");
+        self.0.run()
+    }
+
+    /// Execute an arbitrary shell action string on the device's default shell.
+    /// The action string is passed as a single argument to `adb shell` and
+    /// interpreted by the remote shell (which splits on spaces).
+    pub fn raw(mut self, action: &str) -> Result<String, String> {
+        self.0.0.arg(action);
         self.0.run()
     }
 }
@@ -431,6 +440,7 @@ impl UserInfo {
     /// Check if the user was logged-in
     /// at the time `pm list users` was invoked
     #[must_use]
+    #[allow(dead_code, reason = "Currently unused by UI; kept for future features")]
     pub const fn was_running(&self) -> bool {
         self.running
     }

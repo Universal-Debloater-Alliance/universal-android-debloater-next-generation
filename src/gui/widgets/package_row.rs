@@ -6,7 +6,7 @@ use crate::gui::views::settings::Settings;
 use crate::gui::widgets::text;
 
 use iced::widget::{Space, button, checkbox, row};
-use iced::{Alignment, Command, Element, Length, Renderer, alignment};
+use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
 #[derive(Clone, Debug)]
 pub struct PackageRow {
@@ -47,8 +47,12 @@ impl PackageRow {
         }
     }
 
-    pub fn update(&mut self, _message: &Message) -> Command<Message> {
-        Command::none()
+    #[allow(
+        clippy::unused_self,
+        reason = "Consistent component API; may change later"
+    )]
+    pub fn update(&mut self, _message: &Message) -> Task<Message> {
+        Task::none()
     }
 
     pub fn view(
@@ -58,7 +62,7 @@ impl PackageRow {
     ) -> Element<'_, Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
-        let button_style;
+        let button_style: fn(&Theme, iced::widget::button::Status) -> iced::widget::button::Style;
         let action_text;
         let action_btn;
         let selection_checkbox;
@@ -93,22 +97,24 @@ impl PackageRow {
         {
             selection_checkbox = checkbox("", self.selected)
                 .on_toggle(Message::ToggleSelection)
+                .size(20)
                 .style(style::CheckBox::PackageEnabled);
 
             action_btn = button(
                 text(action_text)
-                    .horizontal_alignment(alignment::Horizontal::Center)
+                    .align_x(alignment::Horizontal::Center)
                     .width(100),
             )
             .on_press(Message::ActionPressed);
         } else {
             selection_checkbox = checkbox("", self.selected)
                 .on_toggle(Message::ToggleSelection)
+                .size(20)
                 .style(style::CheckBox::PackageDisabled);
 
             action_btn = button(
                 text(action_text)
-                    .horizontal_alignment(alignment::Horizontal::Center)
+                    .align_x(alignment::Horizontal::Center)
                     .width(100),
             );
         }
@@ -120,7 +126,7 @@ impl PackageRow {
                     text(&self.name).width(Length::FillPortion(8)),
                     action_btn.style(button_style)
                 ]
-                .align_items(Alignment::Center)
+                .align_y(Alignment::Center)
             )
             .padding(8)
             .style(if self.current {
@@ -132,7 +138,7 @@ impl PackageRow {
             .on_press(Message::PackagePressed),
             Space::with_width(15)
         ]
-        .align_items(Alignment::Center)
+        .align_y(Alignment::Center)
         .into()
     }
 }

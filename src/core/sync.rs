@@ -1,14 +1,10 @@
 use crate::core::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, to_trimmed_utf8},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK},
     uad_lists::PackageState,
 };
 use crate::gui::{views::list::PackageInfo, widgets::package_row::PackageRow};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
-use std::process::Command;
-
-#[cfg(target_os = "windows")]
-use std::os::windows::process::CommandExt;
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -61,64 +57,23 @@ pub enum AdbError {
     Generic(String),
 }
 
-/// # WARNING
-/// Use `adb::ACommand::shell` with `async` blocks instead.
-/// This `fn` is prone to abuse!
-///
-/// # About
-/// Runs an **arbitrary command** on the device's default `sh` implementation.
-/// Typically MKSH, but could be Ash.
-/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
+/// Run an arbitrary shell action via the typed ADB wrapper.
+/// This replaces the deprecated `adb_shell_command`.
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
-pub async fn adb_shell_command<S: AsRef<str>>(
+pub async fn run_adb_action<S: AsRef<str>>(
     device_serial: S,
     action: String,
     p: PackageInfo,
 ) -> Result<PackageInfo, AdbError> {
     let serial = device_serial.as_ref();
-
     let label = &p.removal;
 
-    let mut cmd = Command::new("adb");
-    if !serial.is_empty() {
-        cmd.args(["-s", serial]);
-    }
-    cmd.arg("shell");
-    // this works because `sh` splits spaces
-    cmd.arg(&action);
-
-    #[cfg(target_os = "windows")]
-    let cmd = cmd.creation_flags(0x0800_0000); // do not open a cmd window
-
-    match match cmd.output() {
-        Err(e) => {
-            error!("ADB: {e}");
-            Err("Cannot run ADB, likely not found".to_string())
-        }
+    match AdbCommand::new().shell(serial).raw(&action) {
         Ok(o) => {
-            let stdout = to_trimmed_utf8(o.stdout);
-            if o.status.success() {
-                Ok(stdout)
-            } else {
-                let stderr = to_trimmed_utf8(o.stderr);
-
-                // ADB does really weird things. Some errors are not redirected to stderr
-                let err = if stdout.is_empty() { stderr } else { stdout };
-                Err(err)
-            }
-        }
-    } {
-        Ok(o) => {
-            // On old devices, adb commands can return the `0` exit code even if there
-            // is an error. On Android 4.4, ADB doesn't check if the package exists.
-            // It does not return any error if you try to `pm block` a non-existent package.
-            // Some commands are even killed by ADB before finishing and UAD-ng can't catch
-            // the output.
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
                 return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
             }
-
             info!("[{label}] {action} -> {o}");
             Ok(p)
         }
