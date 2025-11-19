@@ -9186,7 +9186,7 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
-    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). Uninstalling it will break emergency calls.",
+    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). WARNING: Uninstalling it may break the entire phone app; emergency calls; SIM card detection, and the software update screen on Samsung.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
