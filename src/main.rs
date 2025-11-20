@@ -33,12 +33,13 @@ fn main() -> iced::Result {
     gui::UadGui::start()
 }
 
-/// Sets up logging to a new file in `CACHE_DIR"/uadng.log"`
-/// Also attaches the terminal on Windows machines
-/// '''
-/// match `setup_logger().expect("Error` setting up logger")
-/// '''
+// Sets up logging to a new file in `CACHE_DIR"/uadng.log"`
+// Also attaches the terminal on Windows machines
+// '''
+// match `setup_logger().expect("Error` setting up logger")
+// '''
 fn setup_logger() -> Result<(), fern::InitError> {
+    // Attach Windows terminal, only on Windows
     #[cfg(target_os = "windows")]
     {
         attach_windows_console();
@@ -62,7 +63,6 @@ fn setup_logger() -> Result<(), fern::InitError> {
             ));
         }
     };
-
     let default_log_level = log::LevelFilter::Warn;
     let log_file = OpenOptions::new()
         .create(true)
@@ -92,10 +92,10 @@ fn setup_logger() -> Result<(), fern::InitError> {
     Ok(())
 }
 
-/// (Windows) Allow the application to display logs to the terminal
-/// regardless if it was compiled with `windows_subsystem = "windows"`.
-///
-/// This is excluded on non-Windows targets.
+// (Windows) Allow the application to display logs to the terminal
+// regardless if it was compiled with `windows_subsystem = "windows"`.
+//
+// This is excluded on non-Windows targets.
 #[cfg(target_os = "windows")]
 fn attach_windows_console() {
     use win32console::console::WinConsole;

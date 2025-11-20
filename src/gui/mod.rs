@@ -18,7 +18,10 @@ use views::settings::{Message as SettingsMessage, Settings as SettingsView};
 use widgets::navigation_menu::nav_menu;
 
 use iced::widget::column;
-use iced::{Alignment, Element, Length, Settings, Task, window::Settings as Window};
+use iced::{
+    Alignment, Application, Command, Element, Length, Renderer, Settings,
+    window::Settings as Window,
+};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 
@@ -74,17 +77,22 @@ pub enum Message {
     ADBSatisfied(bool),
 }
 
-impl UadGui {
-    fn new() -> (Self, Task<Message>) {
+impl Application for UadGui {
+    type Theme = Theme;
+    type Executor = iced::executor::Default;
+    type Message = Message;
+    type Flags = ();
+
+    fn new(_flags: ()) -> (Self, Command<Message>) {
         (
             Self::default(),
-            Task::batch([
+            Command::batch([
                 // Used in crate::gui::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
-                Task::perform(initial_load(), Message::ADBSatisfied),
-                Task::perform(get_devices_list(), Message::LoadDevices),
-                Task::perform(
+                Command::perform(initial_load(), Message::ADBSatisfied),
+                Command::perform(get_devices_list(), Message::LoadDevices),
+                Command::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
                 ),
@@ -92,11 +100,15 @@ impl UadGui {
         )
     }
 
-    #[allow(
-        clippy::too_many_lines,
-        reason = "Root GUI update orchestrates many flows"
-    )]
-    fn update(&mut self, msg: Message) -> Task<Message> {
+    fn theme(&self) -> Theme {
+        string_to_theme(&self.settings_view.general.theme)
+    }
+
+    fn title(&self) -> String {
+        String::from("Universal Android Debloater Next Generation")
+    }
+    #[allow(clippy::too_many_lines)]
+    fn update(&mut self, msg: Message) -> Command<Message> {
         match msg {
             Message::LoadDevices(devices_list) => {
                 self.selected_device = match &self.selected_device {
@@ -120,19 +132,19 @@ impl UadGui {
             }
             Message::AppsPress => {
                 self.view = View::List;
-                Task::none()
+                Command::none()
             }
             Message::AboutPressed => {
                 self.view = View::About;
                 self.update_state.self_update = SelfUpdateState::default();
-                Task::perform(
+                Command::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
                 )
             }
             Message::SettingsPressed => {
                 self.view = View::Settings;
-                Task::none()
+                Command::none()
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
@@ -142,7 +154,7 @@ impl UadGui {
                         self.adb_satisfied,
                     )));
                 }
-                Task::perform(get_devices_list(), Message::LoadDevices)
+                Command::perform(get_devices_list(), Message::LoadDevices)
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
@@ -152,7 +164,7 @@ impl UadGui {
                 };
                 self.selected_device = None;
                 self.devices_list = vec![];
-                Task::perform(
+                Command::perform(
                     async { adb::ACommand::new().shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
@@ -228,17 +240,17 @@ impl UadGui {
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
-                            Task::perform(
+                            Command::perform(
                                 download_update_to_temp_file(BIN_NAME, release.clone()),
                                 Message::_NewReleaseDownloaded,
                             )
                         } else {
-                            Task::none()
+                            Command::none()
                         }
                         #[cfg(not(feature = "self-update"))]
-                        Task::none()
+                        Command::none()
                     }
-                    AboutMessage::UrlPressed(_) => Task::none(),
+                    AboutMessage::UrlPressed(_) => Command::none(),
                 }
             }
             Message::DeviceSelected(s_device) => {
@@ -306,7 +318,7 @@ impl UadGui {
                         self.update_state.self_update.status = SelfUpdateStatus::Failed;
                     }
                 }
-                Task::none()
+                Command::none()
             }
             Message::GetLatestRelease(release) => {
                 match release {
@@ -316,14 +328,14 @@ impl UadGui {
                     }
                     Err(()) => self.update_state.self_update.status = SelfUpdateStatus::Failed,
                 }
-                Task::none()
+                Command::none()
             }
             Message::FontLoaded(result) => {
                 if let Err(error) = result {
                     error!("Couldn't load font: {error:?}");
                 }
 
-                Task::none()
+                Command::none()
             }
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
@@ -331,11 +343,11 @@ impl UadGui {
                     self.adb_satisfied,
                 )))
             }
-            Message::Nothing => Task::none(),
+            Message::Nothing => Command::none(),
         }
     }
 
-    fn view(&self) -> Element<'_, Message, Theme> {
+    fn view(&self) -> Element<Self::Message, Self::Theme, Renderer> {
         let navigation_container = nav_menu(
             &self.devices_list,
             self.selected_device.clone(),
@@ -361,12 +373,8 @@ impl UadGui {
 
         column![navigation_container, main_container]
             .width(Length::Fill)
-            .align_x(Alignment::Center)
+            .align_items(Alignment::Center)
             .into()
-    }
-
-    fn theme(&self) -> Theme {
-        string_to_theme(&self.settings_view.general.theme)
     }
 }
 
@@ -382,27 +390,20 @@ impl UadGui {
             }
         };
 
-        iced::application(
-            "Universal Android Debloater Next Generation",
-            UadGui::update,
-            UadGui::view,
-        )
-        .theme(UadGui::theme)
-        .settings(Settings {
+        Self::run(Settings {
             id: Some(String::from(NAME)),
+            window: Window {
+                size: iced::Size {
+                    width: 950.0,
+                    height: 700.0,
+                },
+                resizable: true,
+                decorations: true,
+                icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
+                ..iced::window::Settings::default()
+            },
             default_text_size: iced::Pixels(16.0),
             ..Settings::default()
         })
-        .window(Window {
-            size: iced::Size {
-                width: 950.0,
-                height: 700.0,
-            },
-            resizable: true,
-            decorations: true,
-            icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
-            ..iced::window::Settings::default()
-        })
-        .run_with(UadGui::new)
     }
 }

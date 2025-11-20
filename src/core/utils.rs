@@ -138,7 +138,7 @@ pub fn string_to_theme(theme: &str) -> Theme {
 pub fn setup_uad_dir(dir: &Path) -> PathBuf {
     let dir = dir.join("uad");
     if let Err(e) = fs::create_dir_all(&dir) {
-        error!("Can't create directory: {}", dir.display());
+        error!("Can't create directory: {dir:?}");
         panic!("{e}");
     }
     dir
@@ -155,10 +155,8 @@ pub fn open_url(dir: PathBuf) {
         Ok(o) => {
             if !o.status.success() {
                 // does Windows print UTF-16?
-                match String::from_utf8(o.stderr) {
-                    Ok(s) => error!("Can't open the following URL: {}", s.trim_end()),
-                    Err(_e) => error!("Can't open the following URL: <non-UTF8 output>"),
-                }
+                let stderr = String::from_utf8(o.stderr).unwrap().trim_end().to_string();
+                error!("Can't open the following URL: {stderr}");
             }
         }
         Err(e) => error!("Failed to run command to open the file explorer: {e}"),
@@ -215,11 +213,10 @@ impl fmt::Display for DisplayablePath {
                 error!("[PATH STEM]: No file stem found");
                 "[File steam not found]".to_string()
             },
-            |p| {
-                if let Ok(stem) = p.to_os_string().into_string() {
-                    stem
-                } else {
-                    error!("[PATH ENCODING]: {}", self.path.display());
+            |p| match p.to_os_string().into_string() {
+                Ok(stem) => stem,
+                Err(e) => {
+                    error!("[PATH ENCODING]: {e:?}");
                     "[PATH ENCODING ERROR]".to_string()
                 }
             },

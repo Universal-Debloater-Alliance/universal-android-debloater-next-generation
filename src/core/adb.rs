@@ -44,6 +44,8 @@ use serde::{Deserialize, Serialize};
 use std::os::windows::process::CommandExt;
 
 use crate::core::utils::is_all_w_c;
+use std::process::Command;
+use std::path::PathBuf;
 
 pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
     String::from_utf8(v)
@@ -53,7 +55,6 @@ pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
 }
 
 #[must_use]
-#[cfg(debug_assertions)]
 fn is_version_triple(s: &str) -> bool {
     let mut components = s.split('.');
     for _ in 0..3 {
@@ -69,26 +70,85 @@ fn is_version_triple(s: &str) -> bool {
     }
     true
 }
+pub fn pull_apk(package_name: &str, apk_dir: &PathBuf) -> Result<PathBuf, String> {
+let local_path = apk_dir.join(format!("{}.apk", package_name));
 
-/// Builder object for an Android Debug Bridge CLI command,
-/// using the type-state and new-type patterns.
-///
-/// This is not intended to model the entire ADB API.
-/// It only models the subset that concerns UADNG.
-///
-/// [More info here](https://developer.android.com/tools/adb)
+    let output = Command::new("adb")
+        .args(&["shell", "pm", "path", package_name])
+        .output()
+        .map_err(|e| format!("Failed to run adb: {:?}", e))?;
+
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let path_on_device = stdout
+        .lines()
+        .find(|line| line.starts_with("package:"))
+        .and_then(|line| line.strip_prefix("package:"))
+        .map(str::trim)
+        .ok_or_else(|| format!("Invalid pm path output for {}", package_name))?;
+
+    // Try adb pull first
+    let pull_output = Command::new("adb")
+        .args(&["pull", path_on_device, local_path.to_str().unwrap()])
+        .output();
+
+    match pull_output {
+        Ok(o) if o.status.success() => {
+            println!("Extracted {} successfully", package_name);
+            return Ok(local_path);
+        }
+        Ok(o) => {
+            eprintln!(
+                "ADB pull failed for {}: {}. Falling back to cat...",
+                package_name,
+                String::from_utf8_lossy(&o.stderr)
+            );
+        }
+        Err(e) => {
+            eprintln!("Failed to execute adb pull for {}: {:?}", package_name, e);
+        }
+    }
+
+    //Fallback: use adb shell cat
+    let cat_output = Command::new("adb")
+        .args(&["shell", "cat", path_on_device])
+        .output()
+        .map_err(|e| format!("Failed to run adb cat for {}: {:?}", package_name, e))?;
+
+    if cat_output.status.success() {
+        std::fs::write(&local_path, &cat_output.stdout)
+            .map_err(|e| format!("Failed to write APK locally: {:?}", e))?;
+        Ok(local_path)
+    } else {
+        Err(format!(
+            "ADB cat failed for {}: {}",
+            package_name,
+            String::from_utf8_lossy(&cat_output.stderr)
+        ))
+    }
+}
+
+
+
+
+// Builder object for an Android Debug Bridge CLI command,
+// using the type-state and new-type patterns.
+//
+// This is not intended to model the entire ADB API.
+// It only models the subset that concerns UADNG.
+//
+// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
 pub struct ACommand(std::process::Command);
 impl ACommand {
-    /// `adb` command builder
+    // `adb` command builder
     #[must_use]
     pub fn new() -> Self {
         Self(std::process::Command::new("adb"))
     }
 
-    /// `shell` sub-command builder.
-    ///
-    /// If `device_serial` is empty, it lets ADB choose the default device.
+    // `shell` sub-command builder.
+    //
+    // If `device_serial` is empty, it lets ADB choose the default device.
     #[must_use]
     pub fn shell<S: AsRef<str>>(mut self, device_serial: S) -> ShellCommand {
         let serial = device_serial.as_ref();
@@ -99,14 +159,14 @@ impl ACommand {
         ShellCommand(self)
     }
 
-    /// Header-less list of attached devices (as serials) and their statuses:
-    /// - USB
-    /// - TCP/IP: WIFI, Ethernet, etc...
-    /// - Local emulators
-    ///
-    /// Status can be (but not limited to):
-    /// - "unauthorized"
-    /// - "device"
+    // Header-less list of attached devices (as serials) and their statuses:
+    // - USB
+    // - TCP/IP: WIFI, Ethernet, etc...
+    // - Local emulators
+    //
+    // Status can be (but not limited to):
+    // - "unauthorized"
+    // - "device"
     pub fn devices(mut self) -> Result<Vec<(String, String)>, String> {
         self.0.arg("devices");
         Ok(self
@@ -130,25 +190,25 @@ impl ACommand {
             .collect())
     }
 
-    /// `version` sub-command
-    ///
-    /// ## Format
-    /// This is just a sample,
-    /// we don't know which guarantees are stable (yet):
-    /// ```txt
-    /// Android Debug Bridge version 1.0.41
-    /// Version 34.0.5-debian
-    /// Installed as /usr/lib/android-sdk/platform-tools/adb
-    /// Running on Linux 6.12.12-amd64 (x86_64)
-    /// ```
-    ///
-    /// The expected format should be like:
-    /// ```txt
-    /// Android Debug Bridge version <num>.<num>.<num>
-    /// Version <num>.<num>.<num>-<no spaces>
-    /// Installed as <ANDROID_SDK_HOME>/platform-tools/adb[.exe]
-    /// Running on <OS/kernel version> (<CPU arch>)
-    /// ```
+    // `version` sub-command
+    //
+    // ## Format
+    // This is just a sample,
+    // we don't know which guarantees are stable (yet):
+    // ```txt
+    // Android Debug Bridge version 1.0.41
+    // Version 34.0.5-debian
+    // Installed as /usr/lib/android-sdk/platform-tools/adb
+    // Running on Linux 6.12.12-amd64 (x86_64)
+    // ```
+    //
+    // The expected format should be like:
+    // ```txt
+    // Android Debug Bridge version <num>.<num>.<num>
+    // Version <num>.<num>.<num>-<no spaces>
+    // Installed as <ANDROID_SDK_HOME>/platform-tools/adb[.exe]
+    // Running on <OS/kernel version> (<CPU arch>)
+    // ```
     #[expect(clippy::panic_in_result_fn, reason = "Assertions are fine")]
     pub fn version(mut self) -> Result<String, String> {
         self.0.arg("version");
@@ -180,7 +240,7 @@ impl ACommand {
         Ok(out)
     }
 
-    /// General executor
+    // General executor
     fn run(self) -> Result<String, String> {
         let mut cmd = self.0;
         #[cfg(target_os = "windows")]
@@ -214,41 +274,33 @@ impl ACommand {
     }
 }
 
-/// Builder object for a command that runs on the device's default `sh` implementation.
-/// Typically MKSH, but could be Ash.
-///
-/// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
+// Builder object for a command that runs on the device's default `sh` implementation.
+// Typically MKSH, but could be Ash.
+//
+// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 #[derive(Debug)]
 pub struct ShellCommand(ACommand);
 impl ShellCommand {
-    /// `pm` command builder
+    // `pm` command builder
     pub fn pm(mut self) -> PmCommand {
         self.0.0.arg("pm");
         PmCommand(self)
     }
-    /// Query a device property value, by its key.
-    /// These can be of any type:
-    /// - `boolean`
-    /// - `int`
-    /// - chars
-    /// - etc...
-    ///
-    /// So to avoid lossy conversions, we return strs
+    // Query a device property value, by its key.
+    // These can be of any type:
+    // - `boolean`
+    // - `int`
+    // - chars
+    // - etc...
+    //
+    // So to avoid lossy conversions, we return strs
     pub fn getprop(mut self, key: &str) -> Result<String, String> {
         self.0.0.args(["getprop", key]);
         self.0.run()
     }
-    /// Reboots device
+    // Reboots device
     pub fn reboot(mut self) -> Result<String, String> {
         self.0.0.arg("reboot");
-        self.0.run()
-    }
-
-    /// Execute an arbitrary shell action string on the device's default shell.
-    /// The action string is passed as a single argument to `adb shell` and
-    /// interpreted by the remote shell (which splits on spaces).
-    pub fn raw(mut self, action: &str) -> Result<String, String> {
-        self.0.0.arg(action);
         self.0.run()
     }
 }
@@ -266,13 +318,13 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
         }
 }
 
-/// String with the invariant of being a valid package-name.
-/// See its `new` constructor for more info.
+// String with the invariant of being a valid package-name.
+// See its `new` constructor for more info.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
 pub struct PackageId(Box<str>);
 impl PackageId {
-    /// Creates a package-ID if it's valid according to
-    /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
+    // Creates a package-ID if it's valid according to
+    // [this](https://developer.android.com/build/configure-app-module#set-application-id)
     pub fn new(p_id: Box<str>) -> Option<Self> {
         let mut components = p_id.split('.');
         for _ in 0..2 {
@@ -291,14 +343,14 @@ impl PackageId {
     }
 }
 
-/// `pm list packages` flag/state/type
+// `pm list packages` flag/state/type
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum PmListPacksFlag {
-    /// `-u`, not to be confused with `-a`
+    // `-u`, not to be confused with `-a`
     IncludeUninstalled,
-    /// `-e`
+    // `-e`
     OnlyEnabled,
-    /// `-d`
+    // `-d`
     OnlyDisabled,
 }
 impl PmListPacksFlag {
@@ -322,19 +374,19 @@ const PACK_PREFIX: &str = "package:";
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
-/// Builder object for an Android Package Manager command.
-///
-/// [More info](https://developer.android.com/tools/adb#pm)
+// Builder object for an Android Package Manager command.
+//
+// [More info](https://developer.android.com/tools/adb#pm)
 #[derive(Debug)]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
-    /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
-    ///
-    /// `Ok` variant:
-    /// - isn't guaranteed to contain valid pack-IDs,
-    ///   as "android" can be printed but it's invalid
-    /// - isn't sorted
-    /// - duplicates never _seem_ to happen, but don't assume uniqueness
+    // `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
+    //
+    // `Ok` variant:
+    // - isn't guaranteed to contain valid pack-IDs,
+    //   as "android" can be printed but it's invalid
+    // - isn't sorted
+    // - duplicates never _seem_ to happen, but don't assume uniqueness
     pub fn list_packages_sys(
         mut self,
         f: Option<PmListPacksFlag>,
@@ -357,17 +409,18 @@ impl PmCommand {
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    debug_assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    #[cfg(debug_assertions)]
+                    assert!(PackageId::new(p.into()).is_some() || p == "android");
                     String::from(p)
                 })
                 .collect()
         })
     }
 
-    /// `list users` sub-command, deserialized/parsed.
-    ///
-    /// - <https://source.android.com/docs/devices/admin/multi-user-testing>
-    /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
+    // `list users` sub-command, deserialized/parsed.
+    //
+    // - <https://source.android.com/docs/devices/admin/multi-user-testing>
+    // - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
     pub fn list_users(mut self) -> Result<Box<[UserInfo]>, String> {
         self.0.0.0.args(["list", "users"]);
         Ok(self
@@ -381,12 +434,12 @@ impl PmCommand {
                 let ln = ln.trim_ascii_start();
                 let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
                 let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
-                //let run;
+                let run;
                 let ln = if let Some(l) = ln.strip_suffix("running") {
-                    //run = true;
+                    run = true;
                     l.trim_ascii_end()
                 } else {
-                    //run = false;
+                    run = false;
                     ln
                 };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
@@ -415,36 +468,33 @@ impl PmCommand {
                     id,
                     //name: name.into(),
                     //flags,
-                    //running: run,
+                    running: run,
                 }
             })
             .collect())
     }
 }
 
-/// Mirror of AOSP `UserInfo` Java Class,
-/// with an extra field
+// Mirror of AOSP `UserInfo` Java Class,
+// with an extra field
 #[derive(Debug, Clone)]
 pub struct UserInfo {
     id: u16,
     //name: Box<str>,
     //flags: u32,
-    //running: bool,
+    running: bool,
 }
 impl UserInfo {
     #[must_use]
     pub const fn get_id(&self) -> u16 {
         self.id
     }
-    /*
-    /// Check if the user was logged-in
-    /// at the time `pm list users` was invoked
+    // Check if the user was logged-in
+    // at the time `pm list users` was invoked
     #[must_use]
-    #[allow(dead_code, reason = "Currently unused by UI; kept for future features")]
     pub const fn was_running(&self) -> bool {
         self.running
     }
-    */
 }
 
 #[cfg(test)]
