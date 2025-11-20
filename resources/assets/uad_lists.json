@@ -40481,7 +40481,7 @@
   },
   "com.clock.pt1.keeptesting": {
     "list": "Oem",
-    "description": "KeepTesting2.9.42\nWARNING: This app is changed from Recommended to Expert; to investigate if uninstalling it will fix unpredictable bootloops for Android 15, Blackview TAB 60 WiFi.",
+    "description": "KeepTesting2.9.42\nWARNING: Each boot, the system randomly decides whether to perform checks or not. If a check is attempted while the app is missing, the device won't boot past the OEM's logo until restart. Teseted for Android 15, Blackview TAB 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
