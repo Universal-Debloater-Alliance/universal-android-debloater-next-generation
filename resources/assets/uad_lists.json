@@ -40550,5 +40550,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.microsoft.copilot": {
+    "list": "Misc",
+    "description": "Microsoft Copilot (https://play.google.com/store/apps/details?id=com.microsoft.copilot)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
