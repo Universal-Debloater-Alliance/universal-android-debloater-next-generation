@@ -277,6 +277,9 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
 
 /// Capture the current state of a package across all non-protected users.
 /// This is used to detect cross-user behavior by comparing before and after states.
+///
+/// Only includes users where the package exists (Some state). Users where the package
+/// doesn't exist (None) are not tracked.
 pub fn capture_cross_user_states(
     package_name: &str,
     device_serial: &str,
@@ -287,9 +290,8 @@ pub fn capture_cross_user_states(
         .user_list
         .iter()
         .filter(|u| !u.protected && u.id != target_user_id)
-        .map(|u| {
-            let state = verify_package_state(package_name, device_serial, Some(u.id));
-            (u.id, state)
+        .filter_map(|u| {
+            verify_package_state(package_name, device_serial, Some(u.id)).map(|state| (u.id, state))
         })
         .collect()
 }
@@ -330,9 +332,8 @@ pub fn detect_cross_user_behavior(
                     .filter(|(uid, before_state)| {
                         // Only flag if the package was installed/enabled/disabled before
                         *before_state != PackageState::Uninstalled
-                            // And is now uninstalled
-                            && verify_package_state(package_name, device_serial, Some(*uid))
-                                == PackageState::Uninstalled
+                            // And is NOT in after_states (doesn't exist in usable state anymore)
+                            && !after_states.iter().any(|(after_uid, _)| after_uid == uid)
                     })
                     .map(|(uid, _)| uid)
                     .collect();
@@ -366,7 +367,7 @@ pub fn detect_cross_user_behavior(
         PackageState::Enabled | PackageState::Disabled => {
             // Case C: Restore → Restore (package appears on other users)
 
-            // Check if a user didn't have the package before (not tracked or explicitly uninstalled).
+            // Check if a user didn't have the package before (not tracked or package didn't exist).
             // Detects packages that appear on users where they didn't exist previously (OEM cross-user restoration).
             let was_package_absent_before = |uid: &u16| {
                 before_states
@@ -497,7 +498,7 @@ pub fn verify_package_state(
     package_name: &str,
     device_serial: &str,
     user_id: Option<u16>,
-) -> PackageState {
+) -> Option<PackageState> {
     use crate::core::adb::{ACommand as AdbCommand, PmListPacksFlag};
 
     // Check if package is enabled
@@ -507,7 +508,7 @@ pub fn verify_package_state(
         .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
         && enabled_packages.contains(&package_name.to_string())
     {
-        return PackageState::Enabled;
+        return Some(PackageState::Enabled);
     }
 
     // Check if package is disabled
@@ -517,7 +518,7 @@ pub fn verify_package_state(
         .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
         && disabled_packages.contains(&package_name.to_string())
     {
-        return PackageState::Disabled;
+        return Some(PackageState::Disabled);
     }
 
     // Check if package exists at all (including uninstalled)
@@ -527,15 +528,18 @@ pub fn verify_package_state(
         .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
         && all_packages.contains(&package_name.to_string())
     {
-        return PackageState::Uninstalled;
+        return Some(PackageState::Uninstalled);
     }
 
-    // Package not found at all
-    PackageState::Uninstalled
+    // Package not found at all - it doesn't exist on this device/user
+    None
 }
 
 /// Check if a package exists on any other users besides the target user.
 /// This helps detect OEM-specific cross-user restoration behavior.
+///
+/// Only includes users where the package exists in a non-uninstalled state
+/// (i.e., Enabled or Disabled).
 pub fn check_cross_user_package_existence(
     package_name: &str,
     device_serial: &str,
@@ -545,11 +549,12 @@ pub fn check_cross_user_package_existence(
     let mut other_user_states = Vec::new();
 
     for user in &phone.user_list {
-        if user.id != target_user_id && !user.protected {
-            let state = verify_package_state(package_name, device_serial, Some(user.id));
-            if state != PackageState::Uninstalled {
-                other_user_states.push((user.id, state));
-            }
+        if user.id != target_user_id
+            && !user.protected
+            && let Some(state) = verify_package_state(package_name, device_serial, Some(user.id))
+            && state != PackageState::Uninstalled
+        {
+            other_user_states.push((user.id, state));
         }
     }
 
@@ -601,7 +606,15 @@ pub fn attempt_fallback(
                 // Execute the uninstall command
                 let action = commands[0].clone();
                 match AdbCommand::new().shell(&phone.adb_id).raw(&action) {
-                    Ok(_) => Ok("uninstalled package instead of disabling".to_string()),
+                    Ok(_) => {
+                        // Verify the package was actually uninstalled
+                        match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+                            Some(PackageState::Uninstalled) | None => {
+                                Ok("uninstalled package instead of disabling".to_string())
+                            }
+                            _ => Err("Package still exists after uninstall attempt".to_string()),
+                        }
+                    }
                     Err(err) => Err(format!("Failed to uninstall package: {err}")),
                 }
             }

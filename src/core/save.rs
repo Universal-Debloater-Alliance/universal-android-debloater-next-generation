@@ -100,6 +100,7 @@ pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
 
 #[derive(Debug)]
 pub struct BackupPackage {
+    pub i_user: usize,
     pub index: usize,
     pub commands: Vec<String>,
 }
@@ -131,13 +132,13 @@ pub fn restore_backup(
             let mut commands = vec![];
             let mut skipped_packages = 0;
             for u in phone_backup.users {
-                let index = match selected_device.user_list.iter().find(|x| x.id == u.id) {
+                let i_user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
                     Some(i) => i.index,
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage = if let Some(p) = packages[index]
+                    let package: CorePackage = if let Some(p) = packages[i_user]
                         .iter()
                         .find(|x| x.name == backup_package.name)
                     {
@@ -161,6 +162,7 @@ pub fn restore_backup(
                     );
                     if !p_commands.is_empty() {
                         commands.push(BackupPackage {
+                            i_user,
                             index: i,
                             commands: p_commands,
                         });
@@ -174,6 +176,7 @@ pub fn restore_backup(
             }
             if !commands.is_empty() {
                 commands.push(BackupPackage {
+                    i_user: 0,
                     index: 0,
                     commands: vec![],
                 });
