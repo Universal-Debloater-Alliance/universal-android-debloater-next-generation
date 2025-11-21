@@ -45,11 +45,10 @@ use std::os::windows::process::CommandExt;
 
 use crate::core::utils::is_all_w_c;
 
-pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
-    String::from_utf8(v)
-        .expect("ADB should always output valid ASCII (or UTF-8, at least)")
-        .trim_end()
-        .to_string()
+/// Convert ADB output bytes to a trimmed UTF-8 string.
+/// Uses lossy conversion to prevent panics on non-UTF8 output from certain OEMs.
+pub fn to_trimmed_utf8(v: &[u8]) -> String {
+    String::from_utf8_lossy(v).trim_end().to_string()
 }
 
 #[must_use]
@@ -199,11 +198,11 @@ impl ACommand {
                 Err("Cannot run ADB, likely not found".to_string())
             }
             Ok(o) => {
-                let stdout = to_trimmed_utf8(o.stdout);
+                let stdout = to_trimmed_utf8(&o.stdout);
                 if o.status.success() {
                     Ok(stdout)
                 } else {
-                    let stderr = to_trimmed_utf8(o.stderr);
+                    let stderr = to_trimmed_utf8(&o.stderr);
                     // ADB does really weird things:
                     // Some errors are not redirected to `stderr`
                     let err = if stdout.is_empty() { stderr } else { stdout };
@@ -267,12 +266,12 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
 }
 
 /// String with the invariant of being a valid package-name.
-/// See its `new` constructor for more info.
+/// See [`PackageId::new`] for validation details.
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
 pub struct PackageId(Box<str>);
 impl PackageId {
     /// Creates a package-ID if it's valid according to
-    /// [this](https://developer.android.com/build/configure-app-module#set-application-id)
+    /// <https://developer.android.com/build/configure-app-module#set-application-id>
     pub fn new(p_id: Box<str>) -> Option<Self> {
         let mut components = p_id.split('.');
         for _ in 0..2 {
@@ -323,8 +322,7 @@ const PACK_PREFIX: &str = "package:";
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
 /// Builder object for an Android Package Manager command.
-///
-/// [More info](https://developer.android.com/tools/adb#pm)
+/// <https://developer.android.com/tools/adb#pm>
 #[derive(Debug)]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
@@ -391,8 +389,9 @@ impl PmCommand {
                 };
                 let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
                 // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
-                // the format seems to be stable across Android versions:
-                // "\tUserInfo{<id>:<name>:<flags>}[ running]"
+                // The format looks stable today, but google may change it in future Android versions
+                // (and very old Androids might differ). Keep parsing defensive.
+                // Expected shape: "UserInfo{<id>:<name>:<flags>}[ running]"
 
                 let mut comps = ln.split(':');
 
@@ -422,8 +421,7 @@ impl PmCommand {
     }
 }
 
-/// Mirror of AOSP `UserInfo` Java Class,
-/// with an extra field
+/// Mirror of AOSP `UserInfo` Java Class, with an extra field
 #[derive(Debug, Clone)]
 pub struct UserInfo {
     id: u16,
@@ -437,8 +435,7 @@ impl UserInfo {
         self.id
     }
     /*
-    /// Check if the user was logged-in
-    /// at the time `pm list users` was invoked
+    /// Check if the user was logged-in at the time `pm list users` was invoked
     #[must_use]
     #[allow(dead_code, reason = "Currently unused by UI; kept for future features")]
     pub const fn was_running(&self) -> bool {

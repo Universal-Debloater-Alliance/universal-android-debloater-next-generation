@@ -2,6 +2,7 @@ use crate::core::config::{Config, DeviceSettings};
 use crate::core::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::core::utils::DisplayablePath;
 use crate::gui::widgets::package_row::PackageRow;
+use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
 use std::{
     fs,
@@ -99,15 +100,22 @@ pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
 
 #[derive(Debug)]
 pub struct BackupPackage {
+    pub i_user: usize,
     pub index: usize,
     pub commands: Vec<String>,
+}
+
+#[derive(Debug)]
+pub struct RestoreResult {
+    pub packages: Vec<BackupPackage>,
+    pub skipped_count: usize,
 }
 
 pub fn restore_backup(
     selected_device: &Phone,
     packages: &[Vec<PackageRow>],
     settings: &DeviceSettings,
-) -> Result<Vec<BackupPackage>, String> {
+) -> Result<RestoreResult, String> {
     match fs::read_to_string(
         settings
             .backup
@@ -122,24 +130,26 @@ pub fn restore_backup(
                 serde_json::from_str(&data).expect("Unable to parse backup file");
 
             let mut commands = vec![];
+            let mut skipped_packages = 0;
             for u in phone_backup.users {
-                let index = match selected_device.user_list.iter().find(|x| x.id == u.id) {
+                let i_user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
                     Some(i) => i.index,
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
                 for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage = match packages[index]
+                    let package: CorePackage = if let Some(p) = packages[i_user]
                         .iter()
                         .find(|x| x.name == backup_package.name)
                     {
-                        Some(p) => p.into(),
-                        None => {
-                            return Err(format!(
-                                "{} not found for user {}",
-                                backup_package.name, u.id
-                            ));
-                        }
+                        p.into()
+                    } else {
+                        skipped_packages += 1;
+                        warn!(
+                            "{} not found for user {} - skipping package during restore",
+                            backup_package.name, u.id
+                        );
+                        continue;
                     };
                     let p_commands = apply_pkg_state_commands(
                         &package,
@@ -152,19 +162,29 @@ pub fn restore_backup(
                     );
                     if !p_commands.is_empty() {
                         commands.push(BackupPackage {
+                            i_user,
                             index: i,
                             commands: p_commands,
                         });
                     }
                 }
             }
+            if skipped_packages > 0 {
+                info!(
+                    "Restore completed with {skipped_packages} packages skipped (not found on device)"
+                );
+            }
             if !commands.is_empty() {
                 commands.push(BackupPackage {
+                    i_user: 0,
                     index: 0,
                     commands: vec![],
                 });
             }
-            Ok(commands)
+            Ok(RestoreResult {
+                packages: commands,
+                skipped_count: skipped_packages,
+            })
         }
         Err(e) => Err(e.to_string()),
     }

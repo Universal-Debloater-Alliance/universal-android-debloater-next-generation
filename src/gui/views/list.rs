@@ -26,6 +26,7 @@ pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
     pub removal: String,
+    pub before_cross_user_states: Vec<(u16, PackageState)>,
 }
 
 #[derive(Default, Debug, Clone)]
@@ -65,6 +66,7 @@ pub struct List {
     current_package_index: usize,
     is_adb_satisfied: bool,
     copy_confirmation: bool,
+    fallback_notifications: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -73,6 +75,8 @@ pub enum Message {
     LoadPhonePackages((PackageHashMap, UadListState)),
     RestoringDevice(Result<PackageInfo, AdbError>),
     ApplyFilters(Vec<Vec<PackageRow>>),
+    DismissFallbackNotifications,
+    VerifyAndFallbackFinished(VerifyAndFallbackResult),
     SearchInputChanged(String),
     ToggleAllSelected(bool),
     ListSelected(UadList),
@@ -81,7 +85,7 @@ pub enum Message {
     RemovalSelected(Removal),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    ChangePackageState(Result<PackageInfo, AdbError>),
+    VerifyAndFallback(Result<PackageInfo, AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -101,6 +105,15 @@ pub struct SummaryEntry {
     category: Removal,
     discard: u8,
     restore: u8,
+}
+
+#[derive(Debug, Clone)]
+pub struct VerifyAndFallbackResult {
+    pub i_user: usize,
+    pub index: usize,
+    pub new_state: PackageState,
+    pub notification: Option<String>,
+    pub error_modal: Option<String>,
 }
 
 impl From<Removal> for SummaryEntry {
@@ -130,6 +143,7 @@ impl List {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
             Message::ApplyFilters(packages) => self.on_apply_filters(packages),
+            Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
             Message::ToggleAllSelected(selected) => {
                 self.on_toggle_all_selected(selected, settings, selected_device, list_update_state)
             }
@@ -140,7 +154,12 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::ChangePackageState(res) => self.on_change_package_state(res, settings),
+            Message::VerifyAndFallback(res) => {
+                self.on_verify_and_fallback(res, settings, selected_device)
+            }
+            Message::VerifyAndFallbackFinished(result) => {
+                self.on_verify_and_fallback_finished(result)
+            }
             Message::ModalUserSelected(user) => {
                 self.on_modal_user_selected(user, settings, selected_device, list_update_state)
             }
@@ -155,6 +174,26 @@ impl List {
             Message::CopyError(err) => self.on_copy_error(err),
             Message::HideCopyConfirmation => self.on_hide_copy_confirmation(),
         }
+    }
+
+    // Handle verification completion on the UI thread after async work
+    fn on_verify_and_fallback_finished(
+        &mut self,
+        result: VerifyAndFallbackResult,
+    ) -> Task<Message> {
+        let package = &mut self.phone_packages[result.i_user][result.index];
+        if let Some(notification) = result.notification {
+            self.fallback_notifications.push(notification);
+        }
+        if let Some(err) = result.error_modal {
+            self.error_modal = Some(err);
+        }
+        package.state = result.new_state;
+        package.selected = false;
+        self.selected_packages
+            .retain(|&x| x.1 != result.index && x.0 != result.i_user);
+        Self::filter_package_lists(self);
+        Task::none()
     }
 
     /// Builds the main view for the app list interface
@@ -361,6 +400,37 @@ impl List {
                 .style(style::Container::BorderedFrame);
 
         let control_panel = self.control_panel(selected_device);
+
+        // Fallback notifications area
+        let notifications_area: Element<'_, Message, Theme, Renderer> =
+            if self.fallback_notifications.is_empty() {
+                Space::new(Length::Shrink, Length::Shrink).into()
+            } else {
+                let notification_texts: Vec<_> = self
+                    .fallback_notifications
+                    .iter()
+                    .map(|msg| text(msg).style(style::Text::Commentary).into())
+                    .collect();
+
+                container(
+                    column![
+                        text("Fallback Actions Performed:").style(style::Text::Default),
+                        column(notification_texts).spacing(4),
+                        row![
+                            Space::new(Length::Fill, Length::Shrink),
+                            button(text("Dismiss"))
+                                .on_press(Message::DismissFallbackNotifications)
+                                .style(style::Button::Primary)
+                                .padding([4, 10]),
+                        ]
+                    ]
+                    .spacing(6),
+                )
+                .padding(8)
+                .style(style::Container::BorderedFrame)
+                .into()
+            };
+
         let content = if selected_device.user_list.is_empty()
             || match self.selected_user {
                 Some(u) => !self.phone_packages[u.index].is_empty(),
@@ -373,6 +443,7 @@ impl List {
             } {
             column![
                 control_panel,
+                notifications_area,
                 packages_scrollable,
                 description_panel,
                 action_row,
@@ -380,6 +451,7 @@ impl List {
         } else {
             column![
                 control_panel,
+                notifications_area,
                 container(unavailable)
                     .height(Length::Fill)
                     .center_y(Length::Fill),
@@ -739,6 +811,7 @@ impl List {
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
+        self.fallback_notifications.clear();
         let mut commands = vec![];
         self.selected_packages.sort_unstable();
         self.selected_packages.dedup();
@@ -807,6 +880,7 @@ impl List {
         self.selected_removal = Some(Removal::Recommended);
         self.selected_list = Some(UadList::All);
         self.selected_user = Some(User::default());
+        self.fallback_notifications.clear();
         Self::filter_package_lists(self);
         self.loading_state = LoadingState::Ready;
         Task::none()
@@ -913,6 +987,7 @@ impl List {
                 Task::none()
             }
             RowMessage::ActionPressed => {
+                self.fallback_notifications.clear();
                 self.phone_packages[i_user][i_package].selected = true;
                 Task::batch(build_action_pkg_commands(
                     &self.phone_packages,
@@ -941,30 +1016,142 @@ impl List {
 
     fn on_user_selected(&mut self, user: User) -> Task<Message> {
         self.selected_user = Some(user);
+        self.fallback_notifications.clear();
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
         Self::filter_package_lists(self);
         Task::none()
     }
 
-    fn on_change_package_state(
+    #[allow(
+        clippy::too_many_lines,
+        reason = "Complex verification and fallback logic"
+    )]
+    fn on_verify_and_fallback(
         &mut self,
         res: Result<PackageInfo, AdbError>,
         settings: &Settings,
+        selected_device: &Phone,
     ) -> Task<Message> {
         match res {
             Ok(p) => {
-                let package = &mut self.phone_packages[p.i_user][p.index];
-                package.state = package.state.opposite(settings.device.disable_mode);
-                package.selected = false;
-                self.selected_packages
-                    .retain(|&x| x.1 != p.index && x.0 != p.i_user);
-                Self::filter_package_lists(self);
+                // Snapshot minimal info to move into background task
+                let i_user = p.i_user;
+                let index = p.index;
+                let pkg_name = self.phone_packages[i_user][index].name.clone();
+                let current_state = self.phone_packages[i_user][index].state;
+                let wanted_state = current_state.opposite(settings.device.disable_mode);
+                let before_cross_user_states = p.before_cross_user_states.clone();
+                let device = selected_device.clone();
+                let user_id = device.user_list[i_user].id;
+
+                // Offload verification + potential fallback to background
+                Task::perform(
+                    async move {
+                        // Blocking ADB calls happen here (off UI thread)
+                        let actual_state_opt = crate::core::sync::verify_package_state(
+                            &pkg_name,
+                            device.adb_id.as_str(),
+                            Some(user_id),
+                        );
+
+                        match actual_state_opt {
+                            Some(actual_state) if actual_state == wanted_state => {
+                                // Check cross-user behavior
+                                let error_modal = crate::core::sync::detect_cross_user_behavior(
+                                    &pkg_name,
+                                    device.adb_id.as_str(),
+                                    user_id,
+                                    wanted_state,
+                                    actual_state,
+                                    &device,
+                                    &before_cross_user_states,
+                                )
+                                .map(|notification| {
+                                    format!(
+                                        "Cross-User Behavior Detected:\n\n{notification}\n\n\
+                                        This is unusual behavior that may be specific to your device manufacturer (OEM). \
+                                        The package state has been successfully changed on the target user."
+                                    )
+                                });
+
+                                VerifyAndFallbackResult {
+                                    i_user,
+                                    index,
+                                    new_state: wanted_state,
+                                    notification: None,
+                                    error_modal,
+                                }
+                            }
+                            actual_state_opt => {
+                                // Package doesn't exist (None) or has wrong state - try fallback
+                                let actual_state =
+                                    actual_state_opt.unwrap_or(PackageState::Uninstalled);
+                                let fallback_result = crate::core::sync::attempt_fallback(
+                                    &crate::gui::widgets::package_row::PackageRow::new(
+                                        &pkg_name,
+                                        current_state,
+                                        "",
+                                        UadList::All,
+                                        Removal::All,
+                                        false,
+                                        false,
+                                    ),
+                                    wanted_state,
+                                    actual_state,
+                                    device.user_list[i_user],
+                                    &device,
+                                );
+
+                                let state_description = match actual_state_opt {
+                                    Some(PackageState::Uninstalled) => "remains uninstalled",
+                                    Some(PackageState::Disabled) => "was disabled",
+                                    Some(PackageState::Enabled) => "was enabled",
+                                    Some(PackageState::All) => {
+                                        "unexpected state (error determining state)"
+                                    }
+                                    None => "does not exist on device",
+                                };
+
+                                let (notification, new_state) = match fallback_result {
+                                    Ok(fallback_action) => (
+                                        Some(format!(
+                                            "Package '{pkg_name}' was {} but {} instead. Fallback: {fallback_action}",
+                                            match wanted_state {
+                                                PackageState::Uninstalled => "uninstalled",
+                                                PackageState::Disabled => "disabled",
+                                                PackageState::Enabled => "enabled",
+                                                PackageState::All => "modified",
+                                            },
+                                            state_description
+                                        )),
+                                        actual_state,
+                                    ),
+                                    Err(err) => (
+                                        Some(format!(
+                                            "Package '{pkg_name}' verification failed: {err}"
+                                        )),
+                                        current_state, // no change if fallback failed
+                                    ),
+                                };
+
+                                VerifyAndFallbackResult {
+                                    i_user,
+                                    index,
+                                    new_state,
+                                    notification,
+                                    error_modal: None,
+                                }
+                            }
+                        }
+                    },
+                    Message::VerifyAndFallbackFinished,
+                )
             }
             Err(AdbError::Generic(err)) => {
                 self.error_modal = Some(err);
+                Task::none()
             }
         }
-        Task::none()
     }
 
     fn on_modal_user_selected(
@@ -1047,6 +1234,12 @@ impl List {
     }
 }
 
+impl List {
+    fn on_dismiss_fallback_notifications(&mut self) -> Task<Message> {
+        self.fallback_notifications.clear();
+        Task::none()
+    }
+}
 fn error_view<'a>(
     error: &'a str,
     content: Column<'a, Message, Theme, Renderer>,
@@ -1143,7 +1336,11 @@ fn build_action_pkg_commands(
             && packages
                 .get(u.index)
                 .and_then(|user_pkgs| user_pkgs.get(selection.1))
-                .is_some_and(|row_pkg| row_pkg.selected || settings.multi_user_mode)
+                .is_some_and(|row_pkg| {
+                    // Only apply to users where package is explicitly selected
+                    // OR if multi_user_mode is enabled AND this is the initiating user
+                    row_pkg.selected || (settings.multi_user_mode && u.index == selection.0)
+                })
     }) {
         let u_pkg = &packages[u.index][selection.1];
         let wanted_state = if settings.multi_user_mode {
@@ -1153,24 +1350,28 @@ fn build_action_pkg_commands(
         };
 
         let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
+
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
                 index: selection.1,
                 removal: pkg.removal.to_string(),
+                // Will be filled asynchronously before running the adb action
+                before_cross_user_states: vec![],
             };
             // In the end there is only one package state change
             // even if we run multiple adb commands
             commands.push(Task::perform(
-                run_adb_action(
-                    // this is typically small,
-                    // so it's fine.
+                run_adb_action_with_before_states(
                     device.adb_id.clone(),
                     action,
                     p_info,
+                    u_pkg.name.clone(),
+                    u.id,
+                    device.clone(),
                 ),
                 if j == 0 {
-                    Message::ChangePackageState
+                    Message::VerifyAndFallback
                 } else {
                     |_| Message::Nothing
                 },
@@ -1178,6 +1379,25 @@ fn build_action_pkg_commands(
         }
     }
     commands
+}
+
+async fn run_adb_action_with_before_states(
+    device_serial: String,
+    action: String,
+    mut p_info: PackageInfo,
+    package_name: String,
+    target_user_id: u16,
+    phone: Phone,
+) -> Result<PackageInfo, AdbError> {
+    // Capture before-state in background to avoid blocking UI thread
+    let before_states = crate::core::sync::capture_cross_user_states(
+        &package_name,
+        &device_serial,
+        target_user_id,
+        &phone,
+    );
+    p_info.before_cross_user_states = before_states;
+    run_adb_action(device_serial, action, p_info).await
 }
 
 fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
