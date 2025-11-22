@@ -5156,6 +5156,7 @@
   "com.samsung.android.sm": {
     "list": "Oem",
     "description": "Smart Manager app\nProvides pretty useless optimizing features using Chinese company Qihoo database.\nAutomatically scans and optimizes data usage to preserve battery levels, manage storage and RAM\nhttps://www.privateinternetaccess.com/blog/android-community-worried-about-presence-of-chinese-spyware-by-qihoo-360-in-samsung-smartphones-and-tablets/\nhttps://forum.xda-developers.com/galaxy-note-9/help/samsung-services-dialling-home-to-china-t3894033\n",    "dependencies": [],
+    "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
