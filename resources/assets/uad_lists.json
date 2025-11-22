@@ -5446,7 +5446,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.wellbeing": {
     "list": "Oem",
@@ -5454,7 +5454,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.widgetapp.yahooedge.finance": {
     "list": "Oem",
@@ -5602,7 +5602,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.knox.analytics.uploader": {
     "list": "Oem",
@@ -16854,11 +16854,11 @@
   },
   "com.android.cameraextensions": {
     "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.",
+    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI. \nhttps://developer.android.com/media/camera/camera-extensions",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
@@ -26522,7 +26522,7 @@
   },
   "com.samsung.android.accessibility.talkback": {
     "description": "TalkBack\nSamsung talkback in accessibility.",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
