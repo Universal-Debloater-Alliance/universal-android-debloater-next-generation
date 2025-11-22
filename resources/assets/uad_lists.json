@@ -3221,7 +3221,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.huawei.ealth": {
+  "com.huawei.ihealth": {
     "list": "Oem",
     "description": "MotionService package, it's required for actions like shaking the phone to shut off the alarm, ecc.\n",
     "dependencies": [],
