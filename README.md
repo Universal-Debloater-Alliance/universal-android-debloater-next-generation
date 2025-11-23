@@ -23,13 +23,11 @@ Everything about UAD-ng (and related stuff) can be found on [the Wiki](https://g
 ## Contact
 **For real-time communication and support, consider joining our Discord guild:**
 
-<a href=https://discord.gg/CzwbMCPEZa>
-  <img src=./resources/images/icon_clyde_blurple_RGB.png alt="Icon" width="75">
-</a>
+[<img width=64em alt="Discord symbol" src=./resources/images/icon_clyde_blurple.svg>](https://discord.gg/CzwbMCPEZa)
 
-**If you prefer using Matrix (using a Matrix bridge to Discord):**
+**If you prefer using Matrix, we have a bridge to Discord:**
 
-[<img src="https://matrix.org/images/matrix-logo.svg">](https://matrix.to/#/#uad-ng:matrix.org)
+[![](https://matrix.org/images/matrix-logo.svg)](https://matrix.to/#/#uad-ng:matrix.org)
 
 ## Special thanks
 
