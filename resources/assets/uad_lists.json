@@ -5,7 +5,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.uwb.resources.overlay.common": {
     "list": "Aosp",
@@ -4145,7 +4145,7 @@
   },
   "com.aura.oobe.samsung.gl": {
     "list": "Carrier",
-    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx",
+    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company.\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4153,7 +4153,7 @@
   },
   "com.aura.oobe.samsung": {
     "list": "Carrier",
-    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx\nhttps://beta.pithus.org/report/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5\nhttps://www.virustotal.com/gui/file/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5",
+    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company.\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5446,7 +5446,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.wellbeing": {
     "list": "Oem",
@@ -5454,7 +5454,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.widgetapp.yahooedge.finance": {
     "list": "Oem",
@@ -5602,7 +5602,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.knox.analytics.uploader": {
     "list": "Oem",
@@ -7622,7 +7622,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.providers.partnerbookmarks": {
     "list": "Aosp",
@@ -9186,7 +9186,7 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
-    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). Uninstalling it will break emergency calls.",
+    "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). WARNING: Uninstalling it may break the entire phone app; emergency calls; SIM card detection, and the software update screen on Samsung.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9286,7 +9286,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.nearby.halfsheet": {
     "list": "Aosp",
@@ -9354,7 +9354,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.cellbroadcastservice": {
     "list": "Aosp",
@@ -9514,7 +9514,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.theme.icon.circle": {
     "list": "Aosp",
@@ -10298,7 +10298,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.qtil.aptxui": {
     "list": "Misc",
@@ -10580,7 +10580,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.cellbroadcastservice.overlay.miui": {
     "list": "Oem",
@@ -10588,7 +10588,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.cellbroadcastservice": {
     "list": "Aosp",
@@ -10646,7 +10646,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig": {
     "list": "Google",
@@ -10662,7 +10662,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.common": {
     "list": "Google",
@@ -10782,7 +10782,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.notch.overlay": {
     "list": "Oem",
@@ -10798,7 +10798,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.photopicker": {
     "list": "Aosp",
@@ -11894,7 +11894,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.tct.wfcwebiew": {
     "list": "Oem",
@@ -13938,7 +13938,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.zramwritebackoverlay": {
     "list": "Misc",
@@ -14002,7 +14002,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.filemanager": {
     "list": "Misc",
@@ -14042,7 +14042,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.security": {
     "list": "Misc",
@@ -14058,7 +14058,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mediatek.systemuiwmshellresoverlay": {
     "list": "Misc",
@@ -16026,7 +16026,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.miwallpaper.overlay.customize": {
     "list": "Oem",
@@ -16034,7 +16034,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.qr": {
     "list": "Oem",
@@ -16354,7 +16354,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.vsimcore": {
     "list": "Oem",
@@ -16402,7 +16402,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.wallpaper.overlay.customize": {
     "list": "Oem",
@@ -16410,7 +16410,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.yellowpage": {
     "list": "Oem",
@@ -16522,7 +16522,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.mi.webkit.core": {
     "list": "Oem",
@@ -16854,11 +16854,11 @@
   },
   "com.android.cameraextensions": {
     "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.",
+    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI. \nhttps://developer.android.com/media/camera/camera-extensions",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
@@ -16898,7 +16898,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.thememanager.module": {
     "list": "Oem",
@@ -17188,7 +17188,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.miwallpaper.telcel.overlay": {
     "list": "Oem",
@@ -17196,7 +17196,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.alwayson": {
     "list": "Oem",
@@ -17212,7 +17212,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.appupdater": {
     "list": "Oem",
@@ -17956,7 +17956,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.cellbroadcastservice.overlay": {
     "list": "Oem",
@@ -17964,7 +17964,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "asusims.overlay.common": {
     "list": "Oem",
@@ -17980,7 +17980,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "asusims.overlay.documentsui": {
     "list": "Oem",
@@ -17988,7 +17988,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.asus.teleserv.overlay.odm": {
     "list": "Oem",
@@ -18588,7 +18588,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.mostbeautiful": {
     "list": "Oem",
@@ -18596,7 +18596,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.phantom": {
     "list": "Oem",
@@ -18604,7 +18604,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.zui.safecenter.overlay.redstorm": {
     "description": "Overlay to theme icon Security app.",
@@ -26522,7 +26522,7 @@
   },
   "com.samsung.android.accessibility.talkback": {
     "description": "TalkBack\nSamsung talkback in accessibility.",
-    "removal": "Recommended",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26910,7 +26910,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.overlay.charging.anim.siphon_wireless": {
     "list": "Oem",
@@ -28825,7 +28825,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.gms.location.history": {
     "list": "Google",
@@ -29067,7 +29067,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.modules.permissioncontroller.forframework": {
     "list": "Aosp",
@@ -30137,7 +30137,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sonyericsson.warrantytime": {
     "list": "Oem",
@@ -30259,7 +30259,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.youtube": {
     "list": "Google",
@@ -31905,7 +31905,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.aura.oobe.kbdi": {
     "list": "Oem",
@@ -32865,7 +32865,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmssettingprovider": {
     "list": "Oem",
@@ -32873,7 +32873,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmssettings": {
     "list": "Oem",
@@ -32881,7 +32881,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmstelecomm": {
     "list": "Oem",
@@ -32889,7 +32889,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.gmstelephony": {
     "list": "Oem",
@@ -32897,7 +32897,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.systemui": {
     "list": "Aosp",
@@ -33521,7 +33521,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sec.android.settingsmaps": {
     "list": "Oem",
@@ -33745,7 +33745,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.ims.dm": {
     "list": "Oem",
@@ -34049,7 +34049,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.commonimsservice": {
     "list": "Oem",
@@ -34921,7 +34921,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.motorola.paramupdater": {
     "list": "Oem",
@@ -35329,7 +35329,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.oplus.engineercamera": {
     "list": "Oem",
@@ -35385,7 +35385,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.launcher": {
     "list": "Oem",
@@ -35577,7 +35577,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.grilservice": {
     "list": "Oem",
@@ -35825,7 +35825,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.emergency": {
     "list": "Oem",
@@ -35865,7 +35865,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.logmanager": {
     "list": "Oem",
@@ -35873,7 +35873,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.messaging": {
     "list": "Oem",
@@ -35897,7 +35897,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.quicksearchbox": {
     "list": "Oem",
@@ -35921,7 +35921,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.stk": {
     "list": "Oem",
@@ -36185,7 +36185,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.transsion.powercenter": {
     "list": "Oem",
@@ -36821,7 +36821,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsconfig.tier1": {
     "list": "Oem",
@@ -37053,7 +37053,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.alam.overlay.android.systemui": {
     "list": "Oem",
@@ -37061,7 +37061,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.qualcomm.atfwd2": {
     "list": "Misc",
@@ -37093,7 +37093,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.miui.securitycenter.securitycenter_phone_overlay.config.overlay": {
     "list": "Oem",
@@ -37101,7 +37101,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.touchservice": {
     "list": "Oem",
@@ -37173,7 +37173,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.magiear.handsfree.assistant": {
     "list": "Misc",
@@ -40117,7 +40117,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.overlay.wallpaperconfig": {
     "list": "Oem",
@@ -40125,7 +40125,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.settings.overlay.oversea": {
     "list": "Oem",
@@ -40133,7 +40133,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.gmsagoconfig": {
     "list": "Oem",
@@ -40141,7 +40141,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.hancom.office.editor": {
     "list": "Oem",
@@ -40165,7 +40165,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.nousguide.android.rbtv": {
     "list": "Misc",
@@ -40481,11 +40481,11 @@
   },
   "com.clock.pt1.keeptesting": {
     "list": "Oem",
-    "description": "KeepTesting2.9.42",
+    "description": "KeepTesting2.9.42\nWARNING: Each boot, the system randomly decides whether to perform checks or not. If a check is attempted while the app is missing, the device won't boot past the OEM's logo until restart. Teseted for Android 15, Blackview TAB 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.blackview.useguide": {
     "list": "Oem",
@@ -40549,6 +40549,38 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
+    "removal": "Advanced"
+  },
+  "com.microsoft.copilot": {
+    "list": "Misc",
+    "description": "Microsoft Copilot (https://play.google.com/store/apps/details?id=com.microsoft.copilot)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
     "removal": "Recommended"
+  },
+  "com.einnovation.temu": {
+    "list": "Misc",
+    "description": "Temu\nA CCP spyware shopping app that sells absurdly cheap, often counterfeit rip-offs to people with a hoarding disorder. It has been sued many times in the past. \nhttps://en.wikipedia.org/wiki/Temu#Criticism\nhttps://play.google.com/store/apps/details?id=com.einnovation.temu",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+ },
+ "com.samsung.android.A12.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Default Multiple Wallpaper Resource\nA 0 bytes overlay app for Samsung Galaxy A12, you can tell by its package name. Uninstalling it doesn't break the wallpaper slide show on the lock screen. Can be disabled via Settings. \nhttps://www.virustotal.com/gui/file/c5c5e173ccd3b515ec8684cc1c0d3d625ff57fe97a381b691596747225f2403d/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.wifi.sbs.resources": {
+    "list": "Oem",
+    "description": "WifiRROverlayAppSBS\nhttps://www.virustotal.com/gui/file/94140aa1e8e581bbdfbec9a31b983672d05cb1fda255e3155e3cb85cb5140bad/details",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
