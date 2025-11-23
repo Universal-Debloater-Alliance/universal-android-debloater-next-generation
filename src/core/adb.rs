@@ -44,8 +44,8 @@ use serde::{Deserialize, Serialize};
 use std::os::windows::process::CommandExt;
 
 use crate::core::utils::is_all_w_c;
-use std::process::Command;
 use std::path::PathBuf;
+use std::process::Command;
 
 pub fn to_trimmed_utf8(v: Vec<u8>) -> String {
     String::from_utf8(v)
@@ -71,7 +71,7 @@ fn is_version_triple(s: &str) -> bool {
     true
 }
 pub fn pull_apk(package_name: &str, apk_dir: &PathBuf) -> Result<PathBuf, String> {
-let local_path = apk_dir.join(format!("{}.apk", package_name));
+    let local_path = apk_dir.join(format!("{}.apk", package_name));
 
     let output = Command::new("adb")
         .args(&["shell", "pm", "path", package_name])
@@ -126,9 +126,6 @@ let local_path = apk_dir.join(format!("{}.apk", package_name));
         ))
     }
 }
-
-
-
 
 // Builder object for an Android Debug Bridge CLI command,
 // using the type-state and new-type patterns.

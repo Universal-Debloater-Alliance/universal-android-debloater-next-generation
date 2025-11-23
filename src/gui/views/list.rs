@@ -8,8 +8,8 @@ use crate::core::uad_lists::{
 use crate::core::utils::{EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, open_url};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
+use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use std::path::PathBuf;
-use crate::gui::widgets::package_row::{PackageRow, Message as RowMessage};
 
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
@@ -191,7 +191,7 @@ impl List {
                 Self::filter_package_lists(self);
                 self.loading_state = LoadingState::Ready;
                 // Command::none()
-				                // --- BEGIN minimal icon-load trigger ---
+                // --- BEGIN minimal icon-load trigger ---
                 let mut commands: Vec<Command<Message>> = Vec::new();
                 // only request icons for the currently selected user
                 let sel_user_index = self.selected_user.unwrap_or_default().index;
@@ -203,9 +203,7 @@ impl List {
                     }));
                 }
                 return Command::batch(commands);
-        }
-    
-
+            }
 
             Message::ToggleAllSelected(selected) => {
                 for i in self.filtered_packages.clone() {
@@ -252,9 +250,7 @@ impl List {
 
                 let package = &mut self.phone_packages[i_user][i_package];
 
-                
-				
-				match row_message {
+                match row_message {
                     RowMessage::ToggleSelection(toggle) => {
                         if package.removal == Removal::Unsafe && !settings.general.expert_mode {
                             package.selected = false;
@@ -312,22 +308,17 @@ impl List {
                         self.current_package_index = i_package;
                         Command::none()
                     }
-					RowMessage::IconLoaded(_, _) => return 
-					Command::none(),
-								  
-				RowMessage::LoadIcon(name) => {
-    let i_package = i_package; // copy `usize`
-    return self.phone_packages[i_user][i_package]
-        .update(&RowMessage::LoadIcon(name.clone()))
-        .map(move |msg| Message::List(i_package, msg));
-}
+                    RowMessage::IconLoaded(_, _) => return Command::none(),
 
-				
-				}
-				
+                    RowMessage::LoadIcon(name) => {
+                        let i_package = i_package; // copy `usize`
+                        return self.phone_packages[i_user][i_package]
+                            .update(&RowMessage::LoadIcon(name.clone()))
+                            .map(move |msg| Message::List(i_package, msg));
+                    }
+                }
             }
-			    
-			
+
             Message::ApplyActionOnSelection => {
                 self.selection_modal = true;
                 Command::none()
