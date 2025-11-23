@@ -27,7 +27,7 @@ Everything about UAD-ng (and related stuff) can be found on [the Wiki](https://g
 
 **If you prefer using Matrix, we have a bridge to Discord:**
 
-[![](https://matrix.org/images/matrix-logo.svg)](https://matrix.to/#/#uad-ng:matrix.org)
+[<img width=64em src=https://matrix.org/images/matrix-favicon.svg>](https://matrix.to/#/#uad-ng:matrix.org)
 
 ## Special thanks
 
