@@ -2,7 +2,6 @@ use crate::core::sync::Phone;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{PackageState, Removal, UadList};
 use regex::Regex;
-use std::borrow::Cow;
 use std::io::Read;
 use crate::gui::style;
 use crate::gui::views::settings::Settings;
@@ -69,158 +68,179 @@ impl PackageRow {
         }
     }
 
-    pub fn handle_package_icon(
-        package_name: &str,
-        apks_dir: &PathBuf,
-        icons_dir: &PathBuf,
-    ) -> Result<PathBuf, String> {
-        use crate::core::adb::pull_apk;
-        use std::fs::File;
-        use std::io::Read;
-        use zip::ZipArchive;
+pub fn handle_package_icon(
+    package_name: &str,
+    apks_dir: &PathBuf,
+    icons_dir: &PathBuf,
+) -> Result<PathBuf, String> {
+    use crate::core::adb::pull_apk;
+    use std::fs::File;
+    use std::io::Read;
+    use zip::ZipArchive;
+    use regex::Regex;
 
-        let local_apk_path = apks_dir.join(format!("{}.apk", package_name));
-        let icon_path = icons_dir.join(format!("{}.png", package_name));
+    let local_apk_path = apks_dir.join(format!("{}.apk", package_name));
+    let icon_path = icons_dir.join(format!("{}.png", package_name));
 
-        // If icon already exists, return it
-        if icon_path.exists() {
-            return Ok(icon_path);
-        }
-
-        println!("🔍 Icon not found for {}", package_name);
-
-        // Pull APK if missing
-        if !local_apk_path.exists() {
-            println!("📦 Pulling APK for {}", package_name);
-            pull_apk(package_name, apks_dir)?;
-        }
-
-        // Open APK
-        let file =
-            File::open(&local_apk_path).map_err(|e| format!("Failed to open APK: {:?}", e))?;
-        let mut archive = ZipArchive::new(file).map_err(|e| format!("Invalid APK zip: {:?}", e))?;
-
-        // Try to get image icons first
-// Try to get image icons first
-let mut launcher_png: Option<String> = None;
-let mut fallback_icon: Option<(String, u64)> = None;
-
-for i in 0..archive.len() {
-    let mut file = archive.by_index(i).unwrap();
-    let name = file.name().to_string();
-    let lname = name.to_lowercase();
-
-    // Consider more launcher-related names
-    let likely_launcher = lname.contains("ic_launcher")
-        || lname.contains("launcher")
-        || lname.contains("ic_launcher_foreground")
-        || lname.contains("ic_launcher_background");
-
-    // Consider PNG or WebP files
-    let is_image = name.ends_with(".png") || name.ends_with(".webp");
-
-    // Skip if not launcher-related
-    if !likely_launcher || !is_image {
-        continue;
+    // Return existing icon if present
+    if icon_path.exists() {
+        return Ok(icon_path);
     }
 
-    // Check drawable or mipmap folders
-    if name.starts_with("res/drawable-")
-        || name.starts_with("res/drawable/")
-        || name.starts_with("res/mipmap-")
-        || name.starts_with("res/mipmap/")
-    {
-        launcher_png = Some(name.clone());
-        break; // stop at first likely launcher
+    println!("🔍 Icon not found for {}", package_name);
+
+    // Pull APK if missing
+    if !local_apk_path.exists() {
+        println!("📦 Pulling APK for {}", package_name);
+        pull_apk(package_name, apks_dir)?;
     }
-    
-    // Track largest image for fallback
-    let size = file.size();
-    if name.starts_with("res/drawable-") || name.starts_with("res/mipmap-") {
-        if fallback_icon.is_none() || size > fallback_icon.as_ref().unwrap().1 {
-            fallback_icon = Some((name.clone(), size));
+
+    // Open APK
+    let file = File::open(&local_apk_path)
+        .map_err(|e| format!("Failed to open APK: {:?}", e))?;
+    let mut archive = ZipArchive::new(file)
+        .map_err(|e| format!("Invalid APK zip: {:?}", e))?;
+
+    // Step 1: Collect all candidate images in drawable/mipmap folders
+    let mut candidates: Vec<(String, u64)> = vec![];
+
+    for i in 0..archive.len() {
+        let mut file = archive.by_index(i).unwrap();
+        let name = file.name().to_string();
+
+        // Only images in drawable/mipmap folders
+        if !(name.starts_with("res/drawable")
+		|| name.starts_with("res/mipmap")
+		|| name.starts_with("res/mipmap-")
+		
+		) {
+            continue;
+        }
+
+        // Accept png, webp, jpg, jpeg
+        if !(name.ends_with(".png")
+			|| name.ends_with(".webp")
+			|| name.ends_with(".jpg")
+			|| name.ends_with(".jpeg")
+			) {
+				continue;
+			}
+
+        candidates.push((name.clone(), file.size()));
+    }
+
+    // Step 2: Prefer launcher-named icons
+    let mut launcher_candidates: Vec<(String, u64)> = candidates
+        .iter()
+        .filter(|(name, _)| {
+            let lname = name.to_lowercase();
+            lname.contains("ic_launcher")
+                || lname.contains("launcher")
+                || lname.contains("foreground")
+                //|| lname.contains("background")
+        })
+        .cloned()
+        .collect();
+
+    // Pick largest launcher candidate
+    launcher_candidates.sort_by(|a, b| b.1.cmp(&a.1));
+    if let Some((name, _)) = launcher_candidates.first() {
+        let mut file = archive.by_name(name)
+            .map_err(|e| format!("Failed to read icon: {:?}", e))?;
+        let mut out_file = File::create(&icon_path)
+            .map_err(|e| format!("Failed to create icon file: {:?}", e))?;
+        std::io::copy(&mut file, &mut out_file)
+            .map_err(|e| format!("Failed to write icon: {:?}", e))?;
+        println!("✅ Extracted launcher icon for {}", package_name);
+        return Ok(icon_path);
+    }
+
+    // Step 3: Adaptive XML icons
+    let mut adaptive_xml: Option<String> = None;
+    for i in 0..archive.len() {
+        let file = archive.by_index(i).unwrap();
+        let name = file.name().to_string();
+        let lname = name.to_lowercase();
+
+        if (name.starts_with("res/drawable") || name.starts_with("res/mipmap"))
+            && name.ends_with(".xml")
+            && (lname.contains("ic_launcher") || lname.contains("launcher"))
+        {
+            adaptive_xml = Some(name.clone());
+            break;
+        }
+    }
+
+    if let Some(xml_name) = adaptive_xml {
+        println!("Found adaptive icon XML: {}", xml_name);
+
+        let xml_contents = {
+    let mut xml_file = archive.by_name(&xml_name)
+        .map_err(|e| format!("Failed to read XML: {:?}", e))?;
+    let mut s = String::new();
+    xml_file.read_to_string(&mut s)
+        .map_err(|e| format!("Failed to read XML content: {:?}", e))?;
+    s // return from block
+};
+
+		
+        // Match drawable, src, foreground
+        let mut xml_candidates: Vec<String> = vec![];
+
+let re = Regex::new(r#"android:(?:drawable|src|foreground|background)="@(\w+)/([\w\d_]+)""#).unwrap();
+let densities = ["xxxhdpi", "xxhdpi", "xhdpi", "hdpi", "mdpi", "ldpi", ""];
+let extensions = ["png", "webp", "jpg", "jpeg"];
+
+for cap in re.captures_iter(&xml_contents) {
+    let folder = &cap[1];
+    let base = &cap[2];
+
+    for d in &densities {
+        for ext in &extensions {
+            let candidate = if d.is_empty() {
+                format!("res/{}/{}.{}", folder, base, ext)
+            } else {
+                format!("res/{}-{}/{}.{}", folder, d, base, ext)
+            };
+            // Just push name for now
+            xml_candidates.push(candidate);
         }
     }
 }
-
-// Use found launcher icon or fallback
-let icon_to_extract = launcher_png.or_else(|| fallback_icon.map(|x| x.0));
-
-if let Some(png_name) = icon_to_extract {
-    let mut png_file = archive
-        .by_name(&png_name)
-        .map_err(|e| format!("Failed to read icon: {:?}", e))?;
+let mut xml_candidates_with_size: Vec<(String, u64)> = vec![];
+for candidate in xml_candidates {
+    if let Ok(file) = archive.by_name(&candidate) {
+        xml_candidates_with_size.push((candidate.clone(), file.size()));
+    }
+}
+xml_candidates_with_size.sort_by(|a, b| b.1.cmp(&a.1));
+if let Some((name, _)) = xml_candidates_with_size.first() {
+    let mut file = archive.by_name(name)
+        .map_err(|e| format!("Failed to read XML candidate: {:?}", e))?;
     let mut out_file = File::create(&icon_path)
         .map_err(|e| format!("Failed to create icon file: {:?}", e))?;
-    std::io::copy(&mut png_file, &mut out_file)
+    std::io::copy(&mut file, &mut out_file)
         .map_err(|e| format!("Failed to write icon: {:?}", e))?;
-    println!("✅ Extracted icon for {}", package_name);
     return Ok(icon_path);
 }
 
-// If no image icon, try adaptive icon XML
-let mut launcher_xml: Option<String> = None;
-
-for i in 0..archive.len() {
-    let mut file = archive.by_index(i).unwrap();
-    let name = file.name().to_string();
-    let lname = name.to_lowercase();
-
-    if (name.starts_with("res/drawable") || name.starts_with("res/mipmap"))
-        && name.ends_with(".xml")
-        && (lname.contains("ic_launcher") || lname.contains("launcher"))
-    {
-        launcher_xml = Some(name.clone());
-        break;
     }
+
+    // Step 4: Fallback to largest image overall
+    candidates.sort_by(|a, b| b.1.cmp(&a.1));
+    if let Some((name, _)) = candidates.first() {
+        let mut file = archive.by_name(name)
+            .map_err(|e| format!("Failed to read fallback icon: {:?}", e))?;
+        let mut out_file = File::create(&icon_path)
+            .map_err(|e| format!("Failed to create icon file: {:?}", e))?;
+        std::io::copy(&mut file, &mut out_file)
+            .map_err(|e| format!("Failed to write icon: {:?}", e))?;
+        return Ok(icon_path);
+    }
+
+    // Step 5: No icon found
+    Ok(PathBuf::from("resources/Images/dummy.png"))
 }
-
-if let Some(xml_name) = launcher_xml {
-    println!("Found adaptive icon XML: {}", xml_name);
-
-    let xml_contents = {
-        let mut xml_contents = String::new();
-        let mut xml_file = archive
-            .by_name(&xml_name)
-            .map_err(|e| format!("XML missing: {:?}", e))?;
-        xml_file
-            .read_to_string(&mut xml_contents)
-            .map_err(|e| format!("Failed to read XML file: {:?}", e))?;
-        xml_contents
-    };
-
-    let re = regex::Regex::new(r#"android:drawable="@(\w+)/([\w\d_]+)""#).unwrap();
-
-    for cap in re.captures_iter(&xml_contents) {
-        let folder = &cap[1];
-        let base = &cap[2];
-
-        let search_paths = [
-            format!("res/{}-xxxhdpi/{}.png", folder, base),
-            format!("res/{}-xxhdpi/{}.png", folder, base),
-            format!("res/{}-xhdpi/{}.png", folder, base),
-            format!("res/{}-hdpi/{}.png", folder, base),
-            format!("res/{}-mdpi/{}.png", folder, base),
-            format!("res/{}-ldpi/{}.png", folder, base),
-            format!("res/{}/{}.png", folder, base),
-        ];
-
-        for candidate in search_paths {
-            if let Ok(mut png_file) = archive.by_name(&candidate) {
-                let mut out_file = File::create(&icon_path)
-                    .map_err(|e| format!("Failed to create icon file: {:?}", e))?;
-                std::io::copy(&mut png_file, &mut out_file)
-                    .map_err(|e| format!("Failed to write icon: {:?}", e))?;
-                return Ok(icon_path);
-            }
-        }
-    }
-}
-
-// No icon found, return placeholder
-Ok(PathBuf::from("resources/Images/dummy.png"))
-
-    }
 
     pub fn update(&mut self, message: &Message) -> Command<Message> {
         match message {
