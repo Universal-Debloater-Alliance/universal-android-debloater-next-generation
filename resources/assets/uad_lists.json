@@ -27717,7 +27717,7 @@
   },
   "com.xiaomi.finddevice": {
     "list": "Oem",
-    "description": "Find My Device feature (in the Settings)\nEnables you to locate your lost phone and erase your data remotely. \nYour phone needs to be connected to internet (Wifi/mobile data) for this feature to work. REMOVING THIS MIGHT BOOTLOOP YOUR DEVICE! This may depend on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Find My Device feature (in the Settings)\nAllows you to locate a lost phone and wipe it remotely, provided it has an active Wi-Fi/mobile data connection.\nBefore uninstalling, log out of your Mi Account. Removing this breaks factory reset, the Security Status page in Settings, and prevents Mi Account sign-in.\nConfirmed not to bootloop on POCO M5, but other MIUI versions/devices may still bootloop\nsee https://github.com/0x192/universal-android-debloater/issues/641",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
