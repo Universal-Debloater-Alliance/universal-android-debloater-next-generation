@@ -40385,7 +40385,7 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant\nApp used to transfer data from a phone to another.\nWARNING: Uninstalling it breaks the App info Settings page on Blackview Tab 60 WiFi.",
+    "description": "Moving Assistant\nApp used to transfer data from a phone to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40433,7 +40433,7 @@
   },
   "bnd.com": {
     "list": "Oem",
-    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Blackview Tab 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
+    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
