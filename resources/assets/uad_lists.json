@@ -40598,6 +40598,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-
+  },
+  "com.macropinch.swan": {
+    "list": "Misc",
+    "description": "Weather\nhttps://play.google.com/store/apps/details?id=com.macropinch.swan",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
