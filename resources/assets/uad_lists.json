@@ -40561,7 +40561,7 @@
   },
   "com.einnovation.temu": {
     "list": "Misc",
-    "description": "Temu\nA CCP spyware shopping app that sells absurdly cheap, often counterfeit rip-offs to people with a hoarding disorder. It has been sued many times in the past. \nhttps://en.wikipedia.org/wiki/Temu#Criticism\nhttps://play.google.com/store/apps/details?id=com.einnovation.temu",
+    "description": "Temu\nA Chinese shopping app that collects personal data, and encourages its users to buy low-quality products, e.g., counterfeit SD cards. \nhttps://en.wikipedia.org/wiki/Temu#Criticism\nhttps://play.google.com/store/apps/details?id=com.einnovation.temu",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
