@@ -40385,11 +40385,11 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant\nApp used to transfer data from a phone to another.",
+    "description": "Moving Assistant\nApp used to transfer data from a phone to another.\nWARNING: Uninstalling it breaks the App info Settings page on Blackview Tab 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.blackview.dokegamecenter": {
     "list": "Oem",
