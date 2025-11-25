@@ -7670,7 +7670,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.stk2": {
     "list": "Aosp",
