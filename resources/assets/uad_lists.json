@@ -40590,5 +40590,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.blackview.searchcenter": {
+    "list": "Oem",
+    "description": "Search Centre\nCan be disabled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+
   }
 }
