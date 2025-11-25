@@ -40550,22 +40550,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-  },
-  "com.microsoft.copilot": {
-    "list": "Misc",
-    "description": "Microsoft Copilot (https://play.google.com/store/apps/details?id=com.microsoft.copilot)",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.einnovation.temu": {
-    "list": "Misc",
-    "description": "Temu\nA Chinese shopping app that collects personal data, and encourages its users to buy low-quality products, e.g., counterfeit SD cards. \nhttps://en.wikipedia.org/wiki/Temu#Criticism\nhttps://play.google.com/store/apps/details?id=com.einnovation.temu",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
  },
  "com.samsung.android.A12.d01.wallpapermulti": {
     "list": "Oem",
