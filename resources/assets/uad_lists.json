@@ -40582,5 +40582,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.blackview.app.cloudfolder": {
+    "list": "Oem",
+    "description": "Rec. Apps\nThis adware provides a widget that allows you to install sponsored apps. Can be disabled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
