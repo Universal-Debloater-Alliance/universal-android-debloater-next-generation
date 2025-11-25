@@ -40385,7 +40385,7 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from a phone to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi.",
+    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
