@@ -1,3 +1,5 @@
 debug/
 target/
 *.log
+/resources/extracted_apks
+/resources/extracted_icons

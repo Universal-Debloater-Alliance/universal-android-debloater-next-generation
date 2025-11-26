@@ -24,7 +24,7 @@ pub fn nav_menu<'a>(
         text("\u{E900}")
             .font(ICONS)
             .width(22)
-            .align_x(alignment::Horizontal::Center),
+            .horizontal_alignment(alignment::Horizontal::Center),
     )
     .on_press(Message::RefreshButtonPressed);
 
@@ -66,7 +66,7 @@ pub fn nav_menu<'a>(
         text("\u{E994}")
             .font(ICONS)
             .width(22)
-            .align_x(alignment::Horizontal::Center),
+            .horizontal_alignment(alignment::Horizontal::Center),
     )
     .on_press(Message::SettingsPressed);
 
@@ -88,7 +88,7 @@ pub fn nav_menu<'a>(
             settings_btn,
         ]
         .width(Length::Fill)
-        .align_y(Alignment::Center)
+        .align_items(Alignment::Center)
         .spacing(10),
         None => row![
             reboot_btn,
@@ -102,7 +102,7 @@ pub fn nav_menu<'a>(
             settings_btn,
         ]
         .width(Length::Fill)
-        .align_y(Alignment::Center)
+        .align_items(Alignment::Center)
         .spacing(10),
     };
 
