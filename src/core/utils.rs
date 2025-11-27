@@ -144,6 +144,7 @@ pub fn setup_uad_dir(dir: &Path) -> PathBuf {
     dir
 }
 
+/// Open a directory or file with the system's default file manager.
 pub fn open_url(dir: PathBuf) {
     const OPENER: &str = match std::env::consts::OS.as_bytes() {
         b"windows" => "explorer",
@@ -154,10 +155,14 @@ pub fn open_url(dir: PathBuf) {
     match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
             if !o.status.success() {
-                // does Windows print UTF-16?
-                match String::from_utf8(o.stderr) {
-                    Ok(s) => error!("Can't open the following URL: {}", s.trim_end()),
-                    Err(_e) => error!("Can't open the following URL: <non-UTF8 output>"),
+                // Use lossy conversion for stderr - some systems (like Windows)
+                // may output non-UTF8 characters in error messages
+                let stderr = String::from_utf8_lossy(&o.stderr);
+                let stderr_trimmed = stderr.trim_end();
+                if stderr_trimmed.is_empty() {
+                    error!("Can't open URL: command failed with no error message");
+                } else {
+                    error!("Can't open the following URL: {stderr_trimmed}");
                 }
             }
         }

@@ -72,18 +72,72 @@ pub async fn run_adb_action<S: AsRef<str>>(
     match AdbCommand::new().shell(serial).raw(&action) {
         Ok(o) => {
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {o}")));
+                let friendly_msg = make_friendly_error_message(&o, &action);
+                return Err(AdbError::Generic(format!("[{label}] {friendly_msg}")));
             }
             info!("[{label}] {action} -> {o}");
             Ok(p)
         }
         Err(err) => {
             if !err.contains("[not installed for") {
-                return Err(AdbError::Generic(format!("[{label}] {action} -> {err}")));
+                let friendly_msg = make_friendly_error_message(&err, &action);
+                return Err(AdbError::Generic(format!("[{label}] {friendly_msg}")));
             }
             Err(AdbError::Generic(err))
         }
     }
+}
+
+/// Convert common OEM-specific ADB error messages into user-friendly explanations.
+fn make_friendly_error_message(error_output: &str, action: &str) -> String {
+    // Common Samsung errors
+    if error_output.contains("DELETE_FAILED_USER_RESTRICTED") {
+        return format!(
+            "Cannot uninstall: This package is restricted by the device manufacturer (Samsung Knox or similar).\n\
+            Error: {error_output}\n\
+            Tip: Try disabling the package instead, or check device settings for Knox/security restrictions."
+        );
+    }
+
+    if error_output.contains("NOT_INSTALLED_FOR_USER") {
+        return format!(
+            "Package is not installed for the current user.\n\
+            Error: {error_output}\n\
+            Tip: The package may be installed for a different user profile or work profile."
+        );
+    }
+
+    // Empty package name error
+    if error_output.contains("Shell cannot change component state for null") {
+        return format!(
+            "Invalid package: Empty package name detected.\n\
+            Error: {error_output}\n\
+            Tip: Please refresh the package list and try again."
+        );
+    }
+
+    // Generic permission errors
+    if error_output.contains("Permission denied")
+        || error_output.contains("INSTALL_FAILED_PERMISSION_MODEL_DOWNGRADE")
+    {
+        return format!(
+            "Permission denied: Insufficient privileges to perform this action.\n\
+            Error: {error_output}\n\
+            Tip: This may require root access or the package is protected by the system."
+        );
+    }
+
+    // Work profile / managed device errors
+    if error_output.contains("DELETE_FAILED_DEVICE_POLICY_MANAGER") {
+        return format!(
+            "Cannot modify: Package is managed by device policy (MDM/EMM).\n\
+            Error: {error_output}\n\
+            Tip: Contact your IT administrator if this is a work device."
+        );
+    }
+
+    // Generic failure with context
+    format!("{action} -> {error_output}")
 }
 
 /// If `None`, returns an empty String, not " --user 0"
@@ -221,6 +275,135 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
         })
 }
 
+/// Capture the current state of a package across all non-protected users.
+/// This is used to detect cross-user behavior by comparing before and after states.
+///
+/// Only includes users where the package exists (Some state). Users where the package
+/// doesn't exist (None) are not tracked.
+pub fn capture_cross_user_states(
+    package_name: &str,
+    device_serial: &str,
+    target_user_id: u16,
+    phone: &Phone,
+) -> Vec<(u16, PackageState)> {
+    phone
+        .user_list
+        .iter()
+        .filter(|u| !u.protected && u.id != target_user_id)
+        .filter_map(|u| {
+            verify_package_state(package_name, device_serial, Some(u.id)).map(|state| (u.id, state))
+        })
+        .collect()
+}
+
+/// Detect cross-user behavior and return appropriate notification message.
+/// This handles unexpected cross-user behavior:
+/// - Case A: Uninstall → Restore (package appears on other users)
+/// - Case B: Uninstall → Uninstall (package disappears from other users that previously had it)  
+/// - Case C: Restore → Restore (package appears on other users)
+pub fn detect_cross_user_behavior(
+    package_name: &str,
+    device_serial: &str,
+    target_user_id: u16,
+    wanted_state: PackageState,
+    actual_state: PackageState,
+    phone: &Phone,
+    before_states: &[(u16, PackageState)],
+) -> Option<String> {
+    // Only check if operation was successful on target user
+    if actual_state != wanted_state {
+        return None;
+    }
+
+    // Only check if we have multiple users
+    if phone.user_list.len() < 2 {
+        return None;
+    }
+
+    let after_states =
+        check_cross_user_package_existence(package_name, device_serial, target_user_id, phone);
+
+    match wanted_state {
+        PackageState::Uninstalled => {
+            if after_states.is_empty() {
+                // Case B: Uninstall → Uninstall (check if all users lost package)
+                let affected_users: Vec<_> = before_states
+                    .iter()
+                    .filter(|(uid, before_state)| {
+                        // Only flag if the package was installed/enabled/disabled before
+                        *before_state != PackageState::Uninstalled
+                            // And is NOT in after_states (doesn't exist in usable state anymore)
+                            && !after_states.iter().any(|(after_uid, _)| after_uid == uid)
+                    })
+                    .map(|(uid, _)| uid)
+                    .collect();
+
+                if affected_users.is_empty() {
+                    None
+                } else {
+                    let user_list = affected_users
+                        .iter()
+                        .map(|uid| format!("user {uid}"))
+                        .collect::<Vec<_>>()
+                        .join(", ");
+
+                    Some(format!(
+                        "Detected cross-user uninstall: package was also uninstalled from {user_list} after uninstalling from user {target_user_id}"
+                    ))
+                }
+            } else {
+                // Case A: Uninstall → Restore (package appears on other users)
+                let user_list = after_states
+                    .iter()
+                    .map(|(uid, state)| format!("user {uid} ({state:?})"))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+
+                Some(format!(
+                    "Detected cross-user restoration: package exists on {user_list} after uninstalling from user {target_user_id}"
+                ))
+            }
+        }
+        PackageState::Enabled | PackageState::Disabled => {
+            // Case C: Restore → Restore (package appears on other users)
+
+            // Check if a user didn't have the package before (not tracked or package didn't exist).
+            // Detects packages that appear on users where they didn't exist previously (OEM cross-user restoration).
+            let was_package_absent_before = |uid: &u16| {
+                before_states
+                    .iter()
+                    .find(|(before_uid, _)| before_uid == uid)
+                    .is_none_or(|(_, before_state)| *before_state == PackageState::Uninstalled)
+            };
+
+            let newly_appeared: Vec<_> = after_states
+                .iter()
+                .filter(|(uid, _after_state)| was_package_absent_before(uid))
+                .collect();
+
+            if newly_appeared.is_empty() {
+                None
+            } else {
+                let user_list = newly_appeared
+                    .iter()
+                    .map(|(uid, state)| format!("user {uid} ({state:?})"))
+                    .collect::<Vec<_>>()
+                    .join(", ");
+
+                Some(format!(
+                    "Detected cross-user restoration: package exists on {user_list} after {} from user {target_user_id}",
+                    if wanted_state == PackageState::Enabled {
+                        "enabling"
+                    } else {
+                        "disabling"
+                    }
+                ))
+            }
+        }
+        PackageState::All => None,
+    }
+}
+
 /// Minimum inclusive Android SDK version
 /// that supports multi-user mode.
 /// Lollipop 5.0
@@ -307,5 +490,188 @@ pub async fn initial_load() -> bool {
     match AdbCommand::new().devices() {
         Ok(_devices) => true,
         Err(_err) => false,
+    }
+}
+
+/// Verify the actual state of a package on the device
+pub fn verify_package_state(
+    package_name: &str,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> Option<PackageState> {
+    use crate::core::adb::{ACommand as AdbCommand, PmListPacksFlag};
+
+    // Check if package is enabled
+    if let Ok(enabled_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
+        && enabled_packages.contains(&package_name.to_string())
+    {
+        return Some(PackageState::Enabled);
+    }
+
+    // Check if package is disabled
+    if let Ok(disabled_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
+        && disabled_packages.contains(&package_name.to_string())
+    {
+        return Some(PackageState::Disabled);
+    }
+
+    // Check if package exists at all (including uninstalled)
+    if let Ok(all_packages) = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
+        && all_packages.contains(&package_name.to_string())
+    {
+        return Some(PackageState::Uninstalled);
+    }
+
+    // Package not found at all - it doesn't exist on this device/user
+    None
+}
+
+/// Check if a package exists on any other users besides the target user.
+/// This helps detect OEM-specific cross-user restoration behavior.
+///
+/// Only includes users where the package exists in a non-uninstalled state
+/// (i.e., Enabled or Disabled).
+pub fn check_cross_user_package_existence(
+    package_name: &str,
+    device_serial: &str,
+    target_user_id: u16,
+    phone: &Phone,
+) -> Vec<(u16, PackageState)> {
+    let mut other_user_states = Vec::new();
+
+    for user in &phone.user_list {
+        if user.id != target_user_id
+            && !user.protected
+            && let Some(state) = verify_package_state(package_name, device_serial, Some(user.id))
+            && state != PackageState::Uninstalled
+        {
+            other_user_states.push((user.id, state));
+        }
+    }
+
+    other_user_states
+}
+
+/// Attempt fallback action when package state verification fails
+pub fn attempt_fallback(
+    package: &crate::gui::widgets::package_row::PackageRow,
+    wanted_state: PackageState,
+    actual_state: PackageState,
+    user: User,
+    phone: &Phone,
+) -> Result<String, String> {
+    match (wanted_state, actual_state) {
+        // Case 1: Tried to uninstall but package was reinstalled -> disable it
+        (PackageState::Uninstalled, PackageState::Enabled) => {
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Enabled,
+            };
+            let commands =
+                apply_pkg_state_commands(&core_package, PackageState::Disabled, user, phone);
+
+            if commands.is_empty() {
+                Err("No disable command available for this Android version".to_string())
+            } else {
+                // Execute the disable command
+                let action = commands[0].clone();
+                match AdbCommand::new().shell(&phone.adb_id).raw(&action) {
+                    Ok(_) => Ok("disabled package instead of uninstalling".to_string()),
+                    Err(err) => Err(format!("Failed to disable package: {err}")),
+                }
+            }
+        }
+
+        // Case 2: Tried to disable but package re-enabled itself -> try uninstall
+        (PackageState::Disabled, PackageState::Enabled) => {
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Enabled,
+            };
+            let commands =
+                apply_pkg_state_commands(&core_package, PackageState::Uninstalled, user, phone);
+
+            if commands.is_empty() {
+                Err("No uninstall command available for this Android version".to_string())
+            } else {
+                // Execute the uninstall command
+                let action = commands[0].clone();
+                match AdbCommand::new().shell(&phone.adb_id).raw(&action) {
+                    Ok(_) => {
+                        // Verify the package was actually uninstalled
+                        match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+                            Some(PackageState::Uninstalled) | None => {
+                                Ok("uninstalled package instead of disabling".to_string())
+                            }
+                            _ => Err("Package still exists after uninstall attempt".to_string()),
+                        }
+                    }
+                    Err(err) => Err(format!("Failed to uninstall package: {err}")),
+                }
+            }
+        }
+
+        // Case 3: Tried to enable but package was disabled -> try uninstall then reinstall
+        (PackageState::Enabled, PackageState::Disabled) => {
+            // First try to uninstall
+            let core_package = CorePackage {
+                name: package.name.clone(),
+                state: PackageState::Disabled,
+            };
+            let uninstall_commands =
+                apply_pkg_state_commands(&core_package, PackageState::Uninstalled, user, phone);
+
+            if uninstall_commands.is_empty() {
+                Err("No uninstall command available for reinstall attempt".to_string())
+            } else {
+                let uninstall_action = uninstall_commands[0].clone();
+                match AdbCommand::new()
+                    .shell(&phone.adb_id)
+                    .raw(&uninstall_action)
+                {
+                    Ok(_) => {
+                        // Now try to reinstall/enable
+                        let core_package_uninstalled = CorePackage {
+                            name: package.name.clone(),
+                            state: PackageState::Uninstalled,
+                        };
+                        let enable_commands = apply_pkg_state_commands(
+                            &core_package_uninstalled,
+                            PackageState::Enabled,
+                            user,
+                            phone,
+                        );
+
+                        if enable_commands.is_empty() {
+                            Ok("uninstalled package but couldn't reinstall".to_string())
+                        } else {
+                            let enable_action = enable_commands[0].clone();
+                            match AdbCommand::new().shell(&phone.adb_id).raw(&enable_action) {
+                                Ok(_) => {
+                                    Ok("uninstalled and reinstalled package to enable it"
+                                        .to_string())
+                                }
+                                Err(err) => Err(format!("Failed to reinstall package: {err}")),
+                            }
+                        }
+                    }
+                    Err(err) => Err(format!("Failed to uninstall package for reinstall: {err}")),
+                }
+            }
+        }
+
+        // Other cases - no fallback available
+        _ => Err(format!(
+            "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
+        )),
     }
 }
