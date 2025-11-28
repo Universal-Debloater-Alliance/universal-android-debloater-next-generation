@@ -1,7 +1,111 @@
 {
-  "com.block.juggle": {
-    "list": "Misc",
-    "description": "Block Blast. A causal game pre-installed on Xiaomi Poco devices.",
+  "android.miui.overlay.telephony":
+    "list": "Oem",
+    "description": "Likely an overlay important for telephony services and com.android.providers.telephony specific for devices running HyperOS/MIUI, likely not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.aosp.overlay.telephony":
+    "list": "Aosp",
+    "description": "Likely an overlay important for telephony services and com.android.providers.telephony, likely not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.miui.misightservice": {
+    "list": "Oem",
+    "description": "Telemetry and diagnostics collector app that sends analytics to xiaomi servers and has almost no use for user. Something on the level of com.miui.msa or com.miui.daemon. Worth deleting. Constantly connects somewhere and sends/receives up to 100KB a day to/from an unknown source. This also means it often runs in background. It's labeled as Blur and has orange-white MI icon, but it just hides under it. No blur/ui/any other issues seen after around a month of use of HyperOS 2.0 with this removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.modules.healthfitness.forframework": {
+    "list": "Aosp",
+    "description": "Another part of health fitness system, useless for most users along with all other health fitness packages. Safe to delete, obviously.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xiaomi.cameramind": {
+    "list": "Oem",
+    "description": "The core of all AI features for Xiaomi's camera app only. Safe to delete if you don't need them or if you use another camera.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xiaomi.bluetooth.rro.device.config.overlay": {
+    "list": "Oem",
+    "description": "A device-specific overlay for com.xiaomi.bluetooth. Safe to remove if com.xiaomi.bluetooth is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.euicc": {
+    "list": "Oem",
+    "description": "The LPA app that is constantly running in background and consuming RAM and battery. The core of all eSIM services, runs and drains resources even if you have no eSIM. No issues appeared after removing it on HyperOS 2.0 and using it for over a month. Telephony and all settings stayed intact, worth deleting this if you don't use an eSIM.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.miui.cotaservice": {
+    "list": "Oem",
+    "description": "MIUI's COTA (Configuration Over-The-Air) service. Pretty much the same as com.google.configupdater but for miui services. But unlike google's config updater, it constantly connects to the web and sends/receives data from an unknown source. Might also cause obscure issues with telephony. Worth deleting if you've deleted all Xiaomi services like Xiaomi Cloud, GetApps, etc and have logged out of your Xiaomi account. Long story short all same as with com.google.configupdater. A user using HyperOS 2.0 deleted it and encountered no issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.telephony.overlay.miui": {
+    "list": "Oem",
+    "description": "Needed for com.android.providers.telephony on devices running HyperOS/MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.providers.settings.overlay": {
+    "list": "Aosp",
+    "description": "Needed for com.android.providers.settings",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.phone.cust.overlay.miui": {
+    "list": "Oem",
+    "description": "Needed for com.android.phone on devices running HyperOS/MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.networkstack.overlay.miui": {
+    "list": "Oem",
+    "description": "Needed for com.android.networkstack on devices running HyperOS/MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.carrierconfig.overlay.miui": {
+    "list": "Oem",
+    "description": "Needed for com.android.carrierconfig on devices running HyperOS/MIUI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.miui.miwallpaper.config.overlay": {
+    "list": "Oem",
+    "description": "Another overlay for com.miui,miwallpaper. Since all other overlays related to it are listed in recommended and marked as useless empty apps, this one is most likely the same.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
