@@ -10706,7 +10706,7 @@
   },
   "com.google.android.overlay.gmsconfig.photos": {
     "list": "Google",
-    "description": "WARNING: Uninstalling it makes it impossible to unlock Android 15, Blackview TAB 60 WiFi!",
+    "description": "WARNING: Uninstalling it makes it impossible to unlock Android 15, Blackview Tab 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10714,7 +10714,7 @@
   },
   "com.google.android.overlay.gmsconfig.searchlauncherqs": {
     "list": "Google",
-    "description": "WARNING: Uninstalling it breaks the Settings app for Android 15, Blackview TAB 60 WiFi!",
+    "description": "WARNING: Uninstalling it breaks the Settings app for Android 15, Blackview Tab 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10746,7 +10746,7 @@
   },
   "com.google.android.overlay.modules.documentsui": {
     "list": "Aosp",
-    "description": "WARNING: Uninstalling it breaks the Scheduled power on/off page of the Settings app for Android 15, Blackview TAB 60 WiFi!",
+    "description": "WARNING: Uninstalling it breaks the Scheduled power on/off page of the Settings app for Android 15, Blackview Tab 60 WiFi!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40385,7 +40385,7 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi.",
+    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40433,7 +40433,7 @@
   },
   "bnd.com": {
     "list": "Oem",
-    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview TAB 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
+    "description": "Hardware Check\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi. It  has an internet permission and can install other apps in the background, which means it's a backdoor! Please remove its permissions, block its internet access using NetGuard or check if uninstalling it breaks anything related to the Settings app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40481,7 +40481,7 @@
   },
   "com.clock.pt1.keeptesting": {
     "list": "Oem",
-    "description": "KeepTesting2.9.42\nWARNING: Each boot, the system randomly decides whether to perform checks or not. If a check is attempted while the app is missing, the device won't boot past the OEM's logo until restart. Teseted for Android 15, Blackview TAB 60 WiFi.",
+    "description": "KeepTesting2.9.42\nWARNING: Each boot, the system randomly decides whether to perform checks or not. If a check is attempted while the app is missing, the device won't boot past the OEM's logo until restart. Teseted for Android 15, Blackview Tab 60 WiFi.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40586,6 +40586,14 @@
   "com.macropinch.swan": {
     "list": "Misc",
     "description": "Weather\nhttps://play.google.com/store/apps/details?id=com.macropinch.swan",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.digitalturbine.android.apps.news.att": {
+    "list": "Carrier",
+    "description": "Essentials\nThis application results in fullscreen advertisements upon unlocking the device.\nhttps://play.google.com/store/apps/details?id=com.digitalturbine.android.apps.news.att&hl=en_US",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
