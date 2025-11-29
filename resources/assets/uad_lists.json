@@ -1,4 +1,20 @@
 {
+  "com.xiaomi.phone.overlay": {
+    "list": "Oem",
+    "description": "An overlay needed for com.xiaomi.phone. Worth removing it if you've removed com.xiaomi.phone",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.xiaomi.phone": {
+    "list": "Oem",
+    "description": "MIUI/HyperOS extension for telephony services called HyperPhone (at least on HyperOS), It's similar to com.xiaomi.bluetooth by it's purpose, and deleting it caused no data loss and no issues with telephony, calls, mobile data and etc on HyperOS 2.0.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.dti.telefonica": {
     "list": "Oem",
     "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica apps and is totally useless if you don't use this carrier. O2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's preinstalled on EU and Global ROMs because countries where this app are used use these ROMs. Worth deleting. Works together with com.xiaomi.entitlement.o2",
