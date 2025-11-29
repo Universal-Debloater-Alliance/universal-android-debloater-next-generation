@@ -1,5 +1,13 @@
 {
-  "android.miui.overlay.telephony":
+  "com.dti.telefonica": {
+    "list": "Oem",
+    "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica apps and is totally useless if you don't use this carrier. O2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's preinstalled on EU and Global ROMs because countries where this app are used use these ROMs. Worth deleting. Works together with com.xiaomi.entitlement.o2",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "android.miui.overlay.telephony": {
     "list": "Oem",
     "description": "Likely an overlay important for telephony services and com.android.providers.telephony specific for devices running HyperOS/MIUI, likely not safe to delete.",
     "dependencies": [],
@@ -7,7 +15,7 @@
     "labels": [],
     "removal": "Unsafe"
   },
-  "android.aosp.overlay.telephony":
+  "android.aosp.overlay.telephony": {
     "list": "Aosp",
     "description": "Likely an overlay important for telephony services and com.android.providers.telephony, likely not safe to delete.",
     "dependencies": [],
