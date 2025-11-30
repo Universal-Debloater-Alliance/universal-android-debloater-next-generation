@@ -1,4 +1,68 @@
 {
+  "com.google.android.wifi.resources.xiaomi": {
+    "list": "Aosp",
+    "description": "An overlay-xiaomi addition for com.android.wifi.resources, presumably xiaomi bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of some google addition for Wi-Fi services, so likely bloat.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.wifi.resources.overlay.common": {
+    "list": "Aosp",
+    "description": "An overlay-google addition for com.android.wifi.resoruces, presumably google bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of some google addition for Wi-Fi services, so likely bloat.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.miui.settings.rro.device.config.overlay": {
+    "list": "Oem",
+    "description": "Presumably a MIUI/HyperOS overlay com.android.settings providing device-specific configurations for system settings. Not something you would want to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.miui.permissioncontroller.overlay": {
+    "list": "Oem",
+    "description": "Presumably a MIUI/HyperOS overlay for com.gooogle.android.permissioncontroller. Not worth deleting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.qualcomm.qti.uceShimService": {
+    "list": "Misc",
+    "description": "The Qualcomm telephony support service that acts as a shim layer between IMS and qualcomm modem stack. Will break RCS, VoLTE, VoWiFi and some carrier preference customizations. Not worth deleting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.autoinstalls.config.Xiaomi.whyred": {
+    "list": "Oem",
+    "description": "App that configures preinstalled apps and initial preferences on Xiaomi Redmi Note 5 / Xiaomi Redmi Note 5 Pro (as their both's codename is whyred). Only needed on device setup, dormant and useless afterwards. Worth deleting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gallery.player": {
+    "list": "Oem",
+    "description": "Xiaomi Gallery app's media player as a separate package. Will break playing and presumably viewing media in Xiaomi's gallery app. Not seen on HyperOS but present on some old MIUI versions. Worth removing if com.miui.gallery is already removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "android.ui.overlay.ct": {
+    "list": "Aosp",
+    "description": "An overlay that customizes UI for the China Telecom operator (3rd largest operator in China). Safe to remove if you don't live in china or don't use/plan to use this carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.xiaomi.phone.overlay": {
     "list": "Oem",
     "description": "An overlay needed for com.xiaomi.phone. Worth removing it if you've removed com.xiaomi.phone",
