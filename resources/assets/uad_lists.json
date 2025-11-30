@@ -16,7 +16,7 @@
     "removal": "Expert"
   },
   "com.dti.telefonica": {
-    "list": "Oem",
+    "list": "Carrier",
     "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica apps and is totally useless if you don't use this carrier. O2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's preinstalled on EU and Global ROMs because countries where this app are used use these ROMs. Worth deleting. Works together with com.xiaomi.entitlement.o2",
     "dependencies": [],
     "neededBy": [],
