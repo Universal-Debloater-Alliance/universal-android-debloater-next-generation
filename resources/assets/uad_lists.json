@@ -33381,7 +33381,7 @@
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
-    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb Only supported on high-end devices, but the app itself is often preinstalled even if your phone doesn't have ant UWB hardware. You should check if your device has UWB hardware and support. If it doesn't, you can safely delete this and other packages related to it.",
+    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb Only supported on high-end devices, but the app itself is often preinstalled even if your phone doesn't have any UWB hardware. You should check if your device has UWB hardware and support. If it doesn't, you can safely delete this and other packages related to it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
