@@ -1,6 +1,6 @@
 {
   "com.google.android.wifi.resources.xiaomi": {
-    "list": "Aosp",
+    "list": "Oem",
     "description": "An overlay-xiaomi addition for com.android.wifi.resources, presumably xiaomi bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of some google addition for Wi-Fi services, so likely bloat.",
     "dependencies": [],
     "neededBy": [],
