@@ -10810,7 +10810,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Uninstalling/Disabling this app will Break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.",
+    "description": "Uninstalling/Disabling this app will break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) (not observed such behavior on HyperOS 2.0) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.\n At least on HyperOS 2.0, you need to remove it and reboot twice for it to fully vanish. It restores itself after first removal and reboot. At least on HyperOS 2.0, removing this makes settings crash when developer settings are clicked, making developer settings inaccessible. Even when calling them from another app, or calling usb debugging settings from another app, it all refuses to launch. It basically puts you into a trap if you've disabled usb debugging, as you'll no longer be able to turn it back on. After restoring it, a reboot is required for developer settings to become accessible, for hotspot to become usable and for the app itself to start working properly.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16230,7 +16230,7 @@
   },
   "com.miui.miwallpaper": {
     "list": "Oem",
-    "description": "Mi Wallpaper \nRemoving this might make it impossible to set a lock or home wallpaper, resulting in a black solid wallpaper.\nNote: it may also result in longer boot times (~15s) because the system try to call miwallpaper during boot",
+    "description": "Mi Wallpaper \nRemoving this might make it impossible to set a lock or home wallpaper, resulting in a black solid wallpaper.\nNote: it may also result in longer boot times (~15s) because the system try to call miwallpaper during boot .\n (At least) on HyperOS 2.0, The fingerprint outline disappears on lock screen after removing this. The fingerprints themselves work properly. Everything in the status bar is becoming black on lock screen after removing this, you can only see the battery color. Only on lock screen, elsewhere status bar is displayed properly. \n (At least) on HyperOS 2.0, you will have to remove this package 3-5 times. It constantly restores itself after reboot, and only after around 3-5 times removing it and rebooting it fully vanishes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
