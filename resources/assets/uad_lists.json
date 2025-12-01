@@ -1,4 +1,20 @@
 {
+  "com.google.android.overlay.setupwizard": {
+    "list": "Aosp",
+    "description": "An overlay for com.google.android.setupwizard",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.provision.overlay.miui": {
+    "list": "Oem",
+    "description": "An overlay for com.android.provision for Xiaomi devices. Since com.android.provision is in Unsafe, this should also be in Unsafe.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.miui.safetycenter.config.overlay": {
     "list": "Oem",
     "description": "An overlay for com.miui.safetycenter providing configurations and preferences. Safe to delete if com.miui.safetycenter is removed.",
