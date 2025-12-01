@@ -22392,8 +22392,8 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Swipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
-    "removal": "Recommended",
+    "description": "HeyTap Shelf. ColorOS 'At a Glance'. \nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets in ColorOS 16 \nSwipe down on the Home screen to enter Shelf. \nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
