@@ -33,7 +33,7 @@
   },
   "com.miui.settings.rro.device.systemui.overlay": {
     "list": "Oem",
-    "description": "A device-specific overlay for com.android.settings on Xiaomi devices customizing thw system UI. Likely not something that's safe to remove.",
+    "description": "A device-specific overlay for com.android.settings on Xiaomi devices customizing the system UI. Likely not something that's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -41,7 +41,7 @@
   },
   "com.mediatek.datachannel.service": {
     "list": "Misc",
-    "description": "Mediatek's DataChannel Service, manages data channels used by IMS for VoLTE, VoWiFi and RCS. Communication bridge between modem and android telephony framework. Will most likely break RCS, VoLTE and VoWiFi. Not worth deleting.",
+    "description": "Mediatek's DataChannel Service, manages data channels used by IMS for VoLTE, VoWiFi and RCS. \nThe communication bridge between modem and android telephony framework. Will most likely break RCS, VoLTE and VoWiFi. Not worth deleting.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -49,7 +49,7 @@
   },
   "com.google.android.wifi.resources.xiaomi": {
     "list": "Oem",
-    "description": "An overlay-xiaomi addition for com.android.wifi.resources, presumably xiaomi bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of some google addition for Wi-Fi services, so likely bloat.",
+    "description": "An overlay-xiaomi addition for com.android.wifi.resources, presumably xiaomi bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of a google addition for Wi-Fi services, so likely bloat. Safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -57,7 +57,7 @@
   },
   "com.google.android.wifi.resources.overlay.common": {
     "list": "Aosp",
-    "description": "An overlay-google addition for com.android.wifi.resoruces, presumably google bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of some google addition for Wi-Fi services, so likely bloat.",
+    "description": "An overlay-google addition for com.android.wifi.resoruces, presumably google bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of a google addition for Wi-Fi services, so likely bloat. Safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -65,7 +65,7 @@
   },
   "com.miui.settings.rro.device.config.overlay": {
     "list": "Oem",
-    "description": "Presumably a MIUI/HyperOS overlay com.android.settings providing device-specific configurations for system settings. Not something you would want to remove.",
+    "description": "Presumably a MIUI/HyperOS overlay com.android.settings providing device-specific configurations for system settings. \nLikely not something you would want to remove. Will likely cause issues.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -73,7 +73,7 @@
   },
   "com.miui.permissioncontroller.overlay": {
     "list": "Oem",
-    "description": "Presumably a MIUI/HyperOS overlay for com.gooogle.android.permissioncontroller. Not worth deleting.",
+    "description": "Presumably a MIUI/HyperOS overlay for com.gooogle.android.permissioncontroller. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -81,7 +81,7 @@
   },
   "com.qualcomm.qti.uceShimService": {
     "list": "Misc",
-    "description": "The Qualcomm telephony support service that acts as a shim layer between IMS and qualcomm modem stack. Will break RCS, VoLTE, VoWiFi and some carrier preference customizations. Not worth deleting.",
+    "description": "The Qualcomm telephony support service that acts as a shim layer between IMS and qualcomm modem stack. \nWill likely break RCS, VoLTE, VoWiFi and some carrier preference customizations. Not worth deleting.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -89,7 +89,7 @@
   },
   "android.autoinstalls.config.Xiaomi.whyred": {
     "list": "Oem",
-    "description": "App that configures preinstalled apps and initial preferences on Xiaomi Redmi Note 5 / Xiaomi Redmi Note 5 Pro (as their both's codename is whyred). Only needed on device setup, dormant and useless afterwards. Worth deleting.",
+    "description": "App that configures preinstalled apps and initial preferences on Xiaomi Redmi Note 5 / Xiaomi Redmi Note 5 Pro (as their both's codename is whyred). \nOnly needed on device setup, dormant and useless afterwards. It's restored automatically in case of a factory reset. Safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -97,7 +97,7 @@
   },
   "com.gallery.player": {
     "list": "Oem",
-    "description": "Xiaomi Gallery app's media player as a separate package. Will break playing and presumably viewing media in Xiaomi's gallery app. Not seen on HyperOS but present on some old MIUI versions. Worth removing if com.miui.gallery is already removed.",
+    "description": "Old MIUI Gallery app's media player, a separate package from com.miui.gallery. Will likely break playing and presumably viewing media in the MIUI Gallery app. \nNot seen on HyperOS but present on some old MIUI versions. Safe to remove if com.miui.gallery is already removed. \nIt's not been tested if it causes issues with playback outside of MIUI Gallery. If you encounter such issues, please edit this package and add them here. (on GitHub)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -105,7 +105,7 @@
   },
   "android.ui.overlay.ct": {
     "list": "Aosp",
-    "description": "An overlay that customizes UI for the China Telecom operator (3rd largest operator in China). Safe to remove if you don't live in china or don't use/plan to use this carrier.",
+    "description": "An overlay that customizes Android UI for the China Telecom operator (3rd largest operator in China). \nSafe to remove if you don't live in china or don't use/plan to use this carrier. Often present on ROMs and devices outside of China.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -113,7 +113,7 @@
   },
   "com.xiaomi.phone.overlay": {
     "list": "Oem",
-    "description": "An overlay needed for com.xiaomi.phone. Worth removing it if you've removed com.xiaomi.phone",
+    "description": "An overlay needed for com.xiaomi.phone. Safe to remove if com.xiaomi.phone has been removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -121,7 +121,7 @@
   },
   "com.xiaomi.phone": {
     "list": "Oem",
-    "description": "MIUI/HyperOS extension for telephony services called HyperPhone (at least on HyperOS), It's similar to com.xiaomi.bluetooth by it's purpose, and deleting it caused no data loss and no issues with telephony, calls, mobile data and etc on HyperOS 2.0.",
+    "description": "A MIUI/HyperOS extension for telephony services. Called HyperPhone (at least on HyperOS), I don't know how is it named in MIUI, if you know, please edit this package and add it's MIUI name here. (in GitHub) \nIt's similar to com.xiaomi.bluetooth by it's purpose, but here it's a Xiaomi extension for telephony services. Deleting it caused no data loss or issues with telephony, calls, mobile data, and other on HyperOS 2.0.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -129,7 +129,7 @@
   },
   "com.dti.telefonica": {
     "list": "Carrier",
-    "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica apps and is totally useless if you don't use this carrier. O2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's preinstalled on EU and Global ROMs because countries where this app are used use these ROMs. Worth deleting. Works together with com.xiaomi.entitlement.o2",
+    "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica carrier apps and services, and is totally useless if you don't use this carrier. \nO2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's often preinstalled on EU, Global and possibly other ROMs, as countries where this carrier is present use these ROMs. Safe to delete. \nPresumably works together with com.xiaomi.entitlement.o2. It's also a package safe to remove if you don't use the carriers mentioned earlier.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -137,7 +137,7 @@
   },
   "android.miui.overlay.telephony": {
     "list": "Oem",
-    "description": "Likely an overlay important for telephony services and com.android.providers.telephony specific for devices running HyperOS/MIUI, likely not safe to delete.",
+    "description": "Likely an important overlay for telephony services and com.android.providers.telephony, specific for devices running HyperOS/MIUI. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -145,7 +145,7 @@
   },
   "android.aosp.overlay.telephony": {
     "list": "Aosp",
-    "description": "Likely an overlay important for telephony services and com.android.providers.telephony, likely not safe to delete.",
+    "description": "Likely an important overlay for telephony services and com.android.providers.telephony. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -153,7 +153,7 @@
   },
   "com.miui.misightservice": {
     "list": "Oem",
-    "description": "Telemetry and diagnostics collector app that sends analytics to xiaomi servers and has almost no use for user. Something on the level of com.miui.msa or com.miui.daemon. Worth deleting. Constantly connects somewhere and sends/receives up to 100KB a day to/from an unknown source. This also means it often runs in background. It's labeled as Blur and has orange-white MI icon, but it just hides under it. No blur/ui/any other issues seen after around a month of use of HyperOS 2.0 with this removed.",
+    "description": "Telemetry and diagnostics collector app that sends analytics to Xiaomi servers and has almost no use for user. \nSomething on the level of com.miui.msa or com.miui.daemon. Worth deleting. \nConstantly connects somewhere and sends/receives up to 100KB of data per day to/from an unknown source. This also means it often runs in background. \nIt's labeled as Blur and has orange-white MI icon, but it just hides under it. No blur/ui/any other issues seen after around a month of use of HyperOS 2.0 with this removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -161,7 +161,7 @@
   },
   "com.google.android.overlay.modules.healthfitness.forframework": {
     "list": "Aosp",
-    "description": "Another part of health fitness system, useless for most users along with all other health fitness packages. Safe to delete, obviously.",
+    "description": "Another part of health fitness system, useless for most users along with all other health fitness packages. \nSafe to delete, obviously, unless if you use health fitness services.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -169,7 +169,7 @@
   },
   "com.xiaomi.cameramind": {
     "list": "Oem",
-    "description": "The core of all AI features for Xiaomi's camera app only. Safe to delete if you don't need them or if you use another camera.",
+    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features. \nSafe to delete if you don't need them or if you use another camera app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -185,7 +185,7 @@
   },
   "com.miui.euicc": {
     "list": "Oem",
-    "description": "The LPA app that is constantly running in background and consuming RAM and battery. The core of all eSIM services, runs and drains resources even if you have no eSIM. No issues appeared after removing it on HyperOS 2.0 and using it for over a month. Telephony and all settings stayed intact, worth deleting this if you don't use an eSIM.",
+    "description": "The LPA app that is constantly running in background, consuming RAM and battery. This app is the core of all the eSIM services on Xiaomi devices, runs and drains resources even if you have no eSIM. \nConstantly being found in running processes list. No issues appeared after removing it on HyperOS 2.0 and using it for over a month. \nTelephony and all settings stayed intact, worth deleting this if you don't use an eSIM.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -193,7 +193,7 @@
   },
   "com.miui.cotaservice": {
     "list": "Oem",
-    "description": "MIUI's COTA (Configuration Over-The-Air) service. Pretty much the same as com.google.configupdater but for miui services. But unlike google's config updater, it constantly connects to the web and sends/receives data from an unknown source. Might also cause obscure issues with telephony. Worth deleting if you've deleted all Xiaomi services like Xiaomi Cloud, GetApps, etc and have logged out of your Xiaomi account. Long story short all same as with com.google.configupdater. A user using HyperOS 2.0 deleted it and encountered no issues.",
+    "description": "MIUI's COTA (Configuration Over-The-Air) service. Pretty much the same as com.google.configupdater but for miui services. \nUnlike google's config updater, it constantly connects to the web and sends/receives data from an unknown source. Might cause obscure issues with telephony and Xiaomi services. \nSafe to delete if you've deleted all Xiaomi services like Xiaomi Cloud, GetApps, xmsf, etc... and !!! have logged out of your Xiaomi Account !!! Pretty much all is same as with com.google.configupdater. Deleting it on HyperOS 2.0 causes no issues.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -201,7 +201,7 @@
   },
   "com.android.providers.telephony.overlay.miui": {
     "list": "Oem",
-    "description": "Needed for com.android.providers.telephony on devices running HyperOS/MIUI.",
+    "description": "Required for com.android.providers.telephony on devices running HyperOS/MIUI. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -209,7 +209,7 @@
   },
   "com.android.providers.settings.overlay": {
     "list": "Aosp",
-    "description": "Needed for com.android.providers.settings",
+    "description": "Required for com.android.providers.settings. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -217,7 +217,7 @@
   },
   "com.android.phone.cust.overlay.miui": {
     "list": "Oem",
-    "description": "Needed for com.android.phone on devices running HyperOS/MIUI.",
+    "description": "An overlay customizing default behavior and preferences for com.android.phone on devices running HyperOS/MIUI. Safe to remove if com.android.phone is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -225,7 +225,7 @@
   },
   "com.android.networkstack.overlay.miui": {
     "list": "Oem",
-    "description": "Needed for com.android.networkstack on devices running HyperOS/MIUI.",
+    "description": "Required for com.android.networkstack on devices running HyperOS/MIUI. Not safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -233,7 +233,7 @@
   },
   "com.android.carrierconfig.overlay.miui": {
     "list": "Oem",
-    "description": "Needed for com.android.carrierconfig on devices running HyperOS/MIUI.",
+    "description": "Required for com.android.carrierconfig on devices running HyperOS/MIUI. Safe to remove if com.android.carrierconfig is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -241,7 +241,7 @@
   },
   "com.miui.miwallpaper.config.overlay": {
     "list": "Oem",
-    "description": "Another overlay for com.miui,miwallpaper. Since all other overlays related to it are listed in recommended and marked as useless empty apps, this one is most likely the same.",
+    "description": "An overlay for com.miui.miwallpaper providing default configurations and preferences. Safe to remove. \nAll other overlays of com.miui.miwallpaper are empty and useless, so this one is likely the same.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -321,7 +321,7 @@
   },
   "com.android.uwb.resources.overlay.common": {
     "list": "Aosp",
-    "description": "This is an overlay likely tied to com.android.uwb.resorces, and since it's in Expert, this overlay related to it should also be in Expert. Worth deleting if com.android.uwb.resources is deleted.",
+    "description": "An overlay for com.android.uwb.resources. Safe to remove if com.android.uwb.resources is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -329,7 +329,7 @@
   },
   "com.android.thememanager.customizethemeconfig.config.overlay": {
     "list": "Oem",
-    "description": "Likely an overlay tied to com.android.thememanager, and since thememanager is in Advanced, this overlay should also be in Advanced.",
+    "description": "An overlay for Xiaomi's com.android.thememanager providing theme config customization default preferences and configs. Safe to remove if com.android.thememanager is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -337,7 +337,7 @@
   },
   "com.android.overlay.circletosearch": {
     "list": "Aosp",
-    "description": "An overlay likely deeply tied with system ui, causes soft brick (all system apps crashing and inability to launch anything) on HyperOS 2.0.",
+    "description": "An overlay likely deeply tied with system ui, because it causes a soft brick (all system apps suddenly crashing and inability to launch any app or process after that) on HyperOS 2.0. \nWill most likely also bootloop your device. Totally NOT safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
