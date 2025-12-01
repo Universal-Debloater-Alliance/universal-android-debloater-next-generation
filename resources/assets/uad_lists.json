@@ -97,7 +97,7 @@
   },
   "com.gallery.player": {
     "list": "Oem",
-    "description": "Old MIUI Gallery app's media player, a separate package from com.miui.gallery. Will likely break playing and presumably viewing media in the MIUI Gallery app. \nNot seen on HyperOS but present on some old MIUI versions. Safe to remove if com.miui.gallery is already removed. \nIt's not been tested if it causes issues with playback outside of MIUI Gallery. If you encounter such issues, please edit this package and add them here. (on GitHub)",
+    "description": "Old MIUI Gallery app's media player, a separate package from com.miui.gallery. Will likely break playing and presumably viewing media in the MIUI Gallery app. \nNot seen on HyperOS but present on some old MIUI versions. Safe to remove if com.miui.gallery is already removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
