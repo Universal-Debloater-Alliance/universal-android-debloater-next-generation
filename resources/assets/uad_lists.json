@@ -10922,7 +10922,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Uninstalling/Disabling this app will break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) (not observed such behavior on HyperOS 2.0) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.\n At least on HyperOS 2.0, you need to remove it and reboot twice for it to fully vanish. It restores itself after first removal and reboot. At least on HyperOS 2.0, removing this makes settings crash when developer settings are clicked, making developer settings inaccessible. Even when calling them from another app, or calling usb debugging settings from another app, it all refuses to launch. It basically puts you into a trap if you've disabled usb debugging, as you'll no longer be able to turn it back on. After restoring it, a reboot is required for developer settings to become accessible, for hotspot to become usable and for the app itself to start working properly.",
+    "description": "Uninstalling/Disabling this app will break Hotspot and Bluetooth/USB Tethering.\nOn some devices, when you enable hotspot or Bluetooth/USB Tethering it will show the boot animation (not bootloop) (not on HyperOS 2.0) And will bring you back to your device\nIt's safe to uninstall it if you aren't going to use Hotspot or Bluetooth/USB Tethering.\n On HyperOS 2.0, you'll need to remove it twice and reboot each time for it to fully vanish. It restores itself after first removal and reboot. \nOn HyperOS 2.0, after removing this package fully, it makes the whole settings app crash when clicking the Developer Settings button, making the Developer Settings inaccessible. \nEven when calling Developer Settings from another app, or calling usb debugging settings from another app, it all still refuses to launch, just crashes. \nIt basically puts you into a trap if you've disabled USB Debugging, as you'll no longer be able to turn USB Debugging back on, and so won't be able to restore this nor other removed packages. Access to ADB will be permanently lost. \nAfter restoring it, a reboot is required for the developer settings and hotspot to become accessible. Similar behavior to as described here might be also observed on other devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10934,7 +10934,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.google.android.ondevicepersonalization.services": {
     "list": "Aosp",
@@ -11622,7 +11622,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.providers.contacts": {
     "list": "Oem",
@@ -16342,7 +16342,7 @@
   },
   "com.miui.miwallpaper": {
     "list": "Oem",
-    "description": "Mi Wallpaper \nRemoving this might make it impossible to set a lock or home wallpaper, resulting in a black solid wallpaper.\nNote: it may also result in longer boot times (~15s) because the system try to call miwallpaper during boot .\n (At least) on HyperOS 2.0, The fingerprint outline disappears on lock screen after removing this. The fingerprints themselves work properly. Everything in the status bar is becoming black on lock screen after removing this, you can only see the battery color. Only on lock screen, elsewhere status bar is displayed properly. \n (At least) on HyperOS 2.0, you will have to remove this package 3-5 times. It constantly restores itself after reboot, and only after around 3-5 times removing it and rebooting it fully vanishes.",
+    "description": "Mi Wallpaper app, causes a lot of UI damage when removed, but not bootloop. \nRemoving this makes it impossible to set a lock or home screen wallpaper, resulting in a black solid wallpaper everywhere.\nNote: it may also result in longer boot times (~+10s) because the system tries to call Mi Wallpaper during boot. \nOn HyperOS 2.0, The fingerprint outline disappears on lock screen after removing this. The fingerprint recognicion itself works properly. \nEverything in the status bar is becoming colored black on the lock screen after removing this, and you can only see the battery color. Elsewhere the status bar is colored properly. \nOn HyperOS 2.0, you will have to remove this package and reboot 3-5 times. It constantly restores itself after each reboot until around 3rd-5th attempt. It vanishes fully only around 3-5 attempts. \nOn HyperOS 2.0, the default color for system icons is also being reset to brown after removing this package. Similar behavior to as described here might also be observed on other devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28085,7 +28085,7 @@
   },
   "com.xiaomi.finddevice": {
     "list": "Oem",
-    "description": "Find My Device feature (in the Settings)\nAllows you to locate a lost phone and wipe it remotely, provided it has an active Wi-Fi/mobile data connection.\nBefore uninstalling, log out of your Mi Account. Removing this breaks factory reset, the Security Status page in Settings, and prevents Mi Account sign-in.\nConfirmed not to bootloop on HyperOS 1.0 and HyperOS 2.0, but other MIUI versions/devices may still bootloop\nsee https://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Find My Device feature (in the Settings)\nAllows you to locate a lost phone and wipe it remotely, provided it has an active Wi-Fi/mobile data connection.\nBefore uninstalling, !!! log out of your Mi Account !!! Removing this breaks factory reset from UI, the Security Status page in Settings, and prevents Mi Account sign-in.\nConfirmed not to bootloop on HyperOS 1.0 and HyperOS 2.0, but other MIUI versions/devices may still bootloop\nsee https://github.com/0x192/universal-android-debloater/issues/641 \nSends and receives around 1,5MB-2MB of data per day to/from an unknown source on HyperOS 2.0, even with Data Saver on and on mobile data. The UI blocks you from denying any kind of mobile data access. \nConsider replacing it with Google's find device. It's much more optimized, has offline location tracking feature and is already preinstalled even on the devices with Xiaomi's Find Device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33197,7 +33197,7 @@
   },
   "com.android.bluetooth.overlay": {
     "list": "Oem",
-    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices. Worth deleting if com.android.bluetooth is removed.",
+    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices. Safe to remove if com.android.bluetooth is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33217,7 +33217,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.networkstack.tethering.overlay": {
     "list": "Aosp",
@@ -33225,7 +33225,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.overlay.gmscontactprovider": {
     "list": "Oem",
@@ -33493,7 +33493,7 @@
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
-    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb Only supported on high-end devices, but the app itself is often preinstalled even if your phone doesn't have any UWB hardware. You should check if your device has UWB hardware and support. If it doesn't, you can safely delete this and other packages related to it.",
+    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb \nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions. \nCheck if your device has UWB hardware. Safe to remove if it doesn't. Don't forget to remove its overlays and dependencies.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34005,7 +34005,7 @@
   },
   "com.qualcomm.qti.tetherservice": {
     "list": "Oem",
-    "description": "Needed for tethering, some chinese phones uses qualcomm names apps instead of normal",
+    "description": "Needed for tethering, some chinese phones use qualcomm names apps instead of normal",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34637,7 +34637,7 @@
   },
   "com.android.rkpdapp": {
     "list": "Aosp",
-    "description": "Remote Provisioner. Provisions cryptographic keys remotely from google servers instead of generating them only on-device. It's likely to break security apps, as bank apps, payment services, authentication, as they won't work without cryptographic keys. Play Integrity may also fail.",
+    "description": "The Remote Provisioner app. Provisions cryptographic keys remotely from google servers instead of generating them only on-device. \nIt's likely to break security apps and services, such as bank apps, payment services, authentication, and other security-requiring operations if removed, as they won't work without cryptographic keys. \nPlay Integrity is also likely fail.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39237,7 +39237,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.google.android.healthconnect.controller": {
     "list": "Google",
@@ -39245,7 +39245,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.google.android.wifi.dialog": {
     "list": "Google",
@@ -39973,7 +39973,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.google.android.overlay.trafficlightfaceoverlay": {
     "list": "Oem",
