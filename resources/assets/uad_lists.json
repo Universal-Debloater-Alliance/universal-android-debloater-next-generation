@@ -1,4 +1,28 @@
 {
+  "com.miui.safetycenter.config.overlay": {
+    "list": "Oem",
+    "description": "An overlay for com.miui.safetycenter providing configurations and preferences. Safe to delete if com.miui.safetycenter is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.safetycenter.res.overlay": {
+    "list": "Oem",
+    "description": "An overlay for com.miui.safetycenter providing resources and preferences. Safe to delete if com.miui.safetycenter is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.settings.rro.device.systemui.overlay": {
+    "list": "Oem",
+    "description": "A device-specific overlay for com.android.settings on Xiaomi devices customizing thw system UI. Likely not something that's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.mediatek.datachannel.service": {
     "list": "Misc",
     "description": "Mediatek's DataChannel Service, manages data channels used by IMS for VoLTE, VoWiFi and RCS. Communication bridge between modem and android telephony framework. Will most likely break RCS, VoLTE and VoWiFi. Not worth deleting.",
