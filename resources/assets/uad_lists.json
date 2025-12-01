@@ -1,7 +1,7 @@
 {
   "com.google.android.overlay.setupwizard": {
     "list": "Aosp",
-    "description": "An overlay for com.google.android.setupwizard",
+    "description": "An overlay for com.google.android.setupwizard. Safe to remove if com.google.android.setupwizard has been removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
