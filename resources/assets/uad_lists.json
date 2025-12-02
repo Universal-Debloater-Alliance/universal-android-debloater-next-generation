@@ -40597,7 +40597,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.ipsec.vpnclient": {
     "list": "Oem",
@@ -40693,7 +40693,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.lge.sizechangable.musicwidget.widget": {
     "list": "Oem",
