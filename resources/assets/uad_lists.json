@@ -40550,5 +40550,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+ "com.dot.app.sancharsaathi": {
+    "list": "Carrier",
+    "description": "Spyware billed as citizen-centric safety tool that is required by Goverment of India be pre-installed.\nhttps://www.reuters.com/sustainability/boards-policy-regulation/what-is-indias-politically-contentious-sanchar-saathi-cyber-safety-app-2025-12-02",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
+
 }
