@@ -1,5 +1,6 @@
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
+use crate::adb::AdbBackend;
 use crate::sync::User;
 use crate::utils::DisplayablePath;
 use log::error;
@@ -22,6 +23,9 @@ pub struct GeneralSettings {
     pub theme: String,
     pub expert_mode: bool,
     pub backup_folder: PathBuf,
+    /// ADB backend to use: Builtin (no external dependencies) or System (uses installed adb)
+    #[serde(default)]
+    pub adb_backend: AdbBackend,
 }
 
 #[derive(Default, Debug, Clone)]
@@ -49,6 +53,7 @@ impl Default for GeneralSettings {
             theme: DEFAULT_THEME.to_string(),
             expert_mode: false,
             backup_folder: CACHE_DIR.join("backups"),
+            adb_backend: AdbBackend::default(),
         }
     }
 }
@@ -173,6 +178,7 @@ multi_user_mode = false
             theme: "Light".to_string(),
             expert_mode: true,
             backup_folder: dir.path().join("backups"),
+            adb_backend: AdbBackend::System,
         };
         config.save_device_settings_to_path(device, general, &path);
 
@@ -184,6 +190,7 @@ multi_user_mode = false
         assert_eq!(saved.general.theme, "Light");
         assert!(saved.general.expert_mode);
         assert_eq!(saved.general.backup_folder, dir.path().join("backups"));
+        assert_eq!(saved.general.adb_backend, AdbBackend::System);
     }
 
     #[test]

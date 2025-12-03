@@ -130,6 +130,17 @@ impl From<Removal> for SummaryEntry {
 }
 
 impl List {
+    #[inline]
+    fn current_user_index(&self) -> usize {
+        self.selected_user.unwrap_or_default().index
+    }
+
+    #[inline]
+    fn refilter(&mut self) -> Task<Message> {
+        Self::filter_package_lists(self);
+        Task::none()
+    }
+
     pub fn update(
         &mut self,
         settings: &mut Settings,
@@ -216,7 +227,7 @@ impl List {
                     waiting_view("Finding connected devices...", None, style::Text::Default)
                 } else {
                     waiting_view(
-                        "ADB is not installed on your system, install ADB and relaunch application.",
+                        "No device connection detected. Connect a device with USB debugging enabled and authorized, then relaunch.",
                         Some(button("Read on how to get started.")
                     .on_press(Message::GoToUrl(PathBuf::from(
                         "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started",
@@ -329,12 +340,13 @@ impl List {
         settings: &Settings,
         selected_device: &Phone,
     ) -> Element<'_, Message, Theme, Renderer> {
+        let i_user = self.current_user_index();
         let packages = self
             .filtered_packages
             .iter()
             .fold(column![].spacing(6), |col, &i| {
                 col.push(
-                    self.phone_packages[self.selected_user.unwrap_or_default().index][i]
+                    self.phone_packages[i_user][i]
                         .view(settings, selected_device)
                         .map(move |msg| Message::List(i, msg)),
                 )
@@ -748,8 +760,7 @@ impl List {
             .selected_removal
             .expect("removal recommendation must be selected");
 
-        self.filtered_packages = self.phone_packages
-            [self.selected_user.expect("User must be selected").index]
+        self.filtered_packages = self.phone_packages[self.current_user_index()]
             .iter()
             // we must filter the indices associated with pack-rows,
             // that's why `enumerate` is before `filter`.
@@ -838,7 +849,7 @@ impl List {
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
+        let i_user = self.current_user_index();
         if let Ok(p) = output {
             self.loading_state =
                 LoadingState::RestoringDevice(self.phone_packages[i_user][p.index].name.clone());
@@ -882,7 +893,7 @@ impl List {
     }
 
     fn on_apply_filters(&mut self, packages: Vec<Vec<PackageRow>>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
+        let i_user = self.current_user_index();
         self.phone_packages = packages;
         self.filtered_packages = (0..self.phone_packages[i_user].len()).collect();
         self.selected_removal = Some(Removal::Recommended);
@@ -902,7 +913,7 @@ impl List {
         selected_device: &mut Phone,
         list_update_state: &mut UadListState,
     ) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
+        let i_user = self.current_user_index();
         for i in self.filtered_packages.clone() {
             if self.phone_packages[i_user][i].selected != selected {
                 #[expect(unused_must_use, reason = "side-effect")]
@@ -920,26 +931,22 @@ impl List {
 
     fn on_search_input_changed(&mut self, letter: String) -> Task<Message> {
         self.input_value = letter;
-        Self::filter_package_lists(self);
-        Task::none()
+        self.refilter()
     }
 
     fn on_list_selected(&mut self, list: UadList) -> Task<Message> {
         self.selected_list = Some(list);
-        Self::filter_package_lists(self);
-        Task::none()
+        self.refilter()
     }
 
     fn on_package_state_selected(&mut self, package_state: PackageState) -> Task<Message> {
         self.selected_package_state = Some(package_state);
-        Self::filter_package_lists(self);
-        Task::none()
+        self.refilter()
     }
 
     fn on_removal_selected(&mut self, removal: Removal) -> Task<Message> {
         self.selected_removal = Some(removal);
-        Self::filter_package_lists(self);
-        Task::none()
+        self.refilter()
     }
 
     fn on_list_row(
@@ -949,7 +956,7 @@ impl List {
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
+        let i_user = self.current_user_index();
         #[expect(unused_must_use, reason = "side-effect")]
         {
             self.phone_packages[i_user][i_package]
@@ -1027,8 +1034,7 @@ impl List {
         self.selected_user = Some(user);
         self.fallback_notifications.clear();
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
-        Self::filter_package_lists(self);
-        Task::none()
+        self.refilter()
     }
 
     #[allow(
