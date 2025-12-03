@@ -83,21 +83,27 @@ impl UadGui {
         reason = "required by iced's Application trait interface"
     )]
     fn title(&self) -> String {
-        self.selected_device.as_ref().map_or_else(
-            || FULL_NAME.to_string(),
-            |device| format!("{FULL_NAME} - {}", device.model),
-        )
+        if self.selected_device.is_some() {
+            format!("{FULL_NAME} - device connected")
+        } else {
+            FULL_NAME.to_string()
+        }
     }
 
     fn new() -> (Self, Task<Message>) {
+        let app = Self::default();
+        let backend = app.settings_view.general.adb_backend;
         (
-            Self::default(),
+            app,
             Task::batch([
                 // Used in crate::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
-                Task::perform(async { initial_load() }, Message::ADBSatisfied),
-                Task::perform(async { get_devices_list() }, Message::LoadDevices),
+                Task::perform(async move { initial_load(backend) }, Message::ADBSatisfied),
+                Task::perform(
+                    async move { get_devices_list(backend) },
+                    Message::LoadDevices,
+                ),
                 Task::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
@@ -196,16 +202,21 @@ impl UadGui {
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
+                let backend = self.settings_view.general.adb_backend;
                 #[expect(unused_must_use, reason = "side-effect")]
                 {
                     self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
                         self.adb_satisfied,
                     )));
                 }
-                Task::perform(async { get_devices_list() }, Message::LoadDevices)
+                Task::perform(
+                    async move { get_devices_list(backend) },
+                    Message::LoadDevices,
+                )
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
+                let backend = self.settings_view.general.adb_backend;
                 let serial = match &self.selected_device {
                     Some(d) => d.adb_id.clone(),
                     _ => String::default(),
@@ -213,7 +224,7 @@ impl UadGui {
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Task::perform(
-                    async { adb::ACommand::new().shell(serial).reboot() },
+                    async move { adb::ACommand::with_backend(backend).shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
             }

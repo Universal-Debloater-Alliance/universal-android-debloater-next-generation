@@ -15,6 +15,7 @@ use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
+    adb::{ACommand, AdbBackend},
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
@@ -35,15 +36,23 @@ pub struct Settings {
     pub device: DeviceSettings,
     is_loading: bool,
     modal: Option<PopUpModal>,
+    /// Cached ADB version string for display
+    adb_version: String,
 }
 
 impl Default for Settings {
     fn default() -> Self {
+        let general = Config::load_configuration_file().general;
+        // Fetch initial ADB version
+        let adb_version = ACommand::with_backend(general.adb_backend)
+            .version()
+            .unwrap_or_else(|e| format!("Error: {e}"));
         Self {
-            general: Config::load_configuration_file().general,
+            general,
             device: DeviceSettings::default(),
             is_loading: false,
             modal: None,
+            adb_version,
         }
     }
 }
@@ -55,6 +64,8 @@ pub enum Message {
     DisableMode(bool),
     MultiUserMode(bool),
     ApplyTheme(Theme),
+    ApplyAdbBackend(AdbBackend),
+    AdbVersionFetched(Result<String, String>),
     UrlPressed(PathBuf),
     BackupSelected(DisplayablePath),
     BackupDevice,
@@ -83,6 +94,8 @@ impl Settings {
             Message::DisableMode(toggled) => self.handle_disable_mode(phone, toggled),
             Message::MultiUserMode(toggled) => self.handle_multi_user_mode(phone, toggled),
             Message::ApplyTheme(theme) => self.handle_apply_theme(phone, theme),
+            Message::ApplyAdbBackend(backend) => self.handle_apply_adb_backend(backend),
+            Message::AdbVersionFetched(result) => self.handle_adb_version_fetched(result),
             Message::UrlPressed(url) => Self::handle_url_pressed(url),
             Message::LoadDeviceSettings => self.handle_load_device_settings(phone),
             Message::BackupSelected(d_path) => self.handle_backup_selected(d_path),
@@ -135,6 +148,28 @@ impl Settings {
         debug!("Config change: {self:?}");
         let mut config = Config::load_configuration_file();
         config.save_device_settings(self.device.clone(), self.general.clone());
+        Task::none()
+    }
+
+    fn handle_apply_adb_backend(&mut self, backend: AdbBackend) -> Task<Message> {
+        self.general.adb_backend = backend;
+        self.adb_version = "Fetching...".to_string();
+        debug!("Config change: {self:?}");
+        let mut config = Config::load_configuration_file();
+        config.save_device_settings(self.device.clone(), self.general.clone());
+        info!("ADB backend changed to: {backend}");
+        // Fetch version asynchronously
+        Task::perform(
+            async move { ACommand::with_backend(backend).version() },
+            Message::AdbVersionFetched,
+        )
+    }
+
+    fn handle_adb_version_fetched(&mut self, result: Result<String, String>) -> Task<Message> {
+        self.adb_version = match result {
+            Ok(version) => version,
+            Err(e) => format!("Error: {e}"),
+        };
         Task::none()
     }
 
@@ -360,6 +395,8 @@ impl Settings {
             self.theme_container(),
             text("General").size(26),
             self.general_container(),
+            text("ADB").size(26),
+            self.adb_container(),
             text("Current device").size(26),
             Self::no_device_container(),
             text("Backup / Restore").size(26),
@@ -380,6 +417,8 @@ impl Settings {
             self.theme_container(),
             text("General").size(26),
             self.general_container(),
+            text("ADB").size(26),
+            self.adb_container(),
             text("Current device").size(26),
             Self::warning_container(phone),
             self.device_specific_container(phone),
@@ -457,6 +496,49 @@ impl Settings {
         .height(Length::Shrink)
         .style(style::Container::Frame)
         .into()
+    }
+
+    fn adb_container(&self) -> Element<'_, Message, Theme, Renderer> {
+        let backend_label = text("Backend:").size(16);
+        let radio_btn_backend =
+            AdbBackend::ALL
+                .iter()
+                .fold(row![].spacing(10), |row_content, option| {
+                    row_content.push(
+                        radio(
+                            format!("{option}"),
+                            *option,
+                            Some(self.general.adb_backend),
+                            Message::ApplyAdbBackend,
+                        )
+                        .size(20),
+                    )
+                });
+
+        let backend_row = row![backend_label, radio_btn_backend]
+            .spacing(10)
+            .align_y(Alignment::Center);
+
+        let backend_descr = text(
+            "Builtin: Uses embedded ADB (no external dependencies). System: Uses your installed adb binary.",
+        )
+        .style(style::Text::Commentary);
+
+        let version_row = row![
+            text("Version: ").size(14),
+            text(&self.adb_version)
+                .size(14)
+                .style(style::Text::Commentary),
+        ]
+        .spacing(5)
+        .align_y(Alignment::Center);
+
+        container(column![backend_row, backend_descr, version_row,].spacing(10))
+            .padding(10)
+            .width(Length::Fill)
+            .height(Length::Shrink)
+            .style(style::Container::Frame)
+            .into()
     }
 
     fn warning_container(phone: &Phone) -> Element<'static, Message, Theme, Renderer> {
