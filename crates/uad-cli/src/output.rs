@@ -3,16 +3,22 @@
 #[macro_export]
 macro_rules! println_or_exit {
     () => {
-        let _ = writeln!(std::io::stdout());
+        if writeln!(std::io::stdout()).is_err() {
+            std::process::exit(0);
+        }
     };
     ($($arg:tt)*) => {
-        let _ = writeln!(std::io::stdout(), $($arg)*);
+        if writeln!(std::io::stdout(), $($arg)*).is_err() {
+            std::process::exit(0);
+        }
     };
 }
 
 #[macro_export]
 macro_rules! print_or_exit {
     ($($arg:tt)*) => {
-        let _ = write!(std::io::stdout(), $($arg)*);
+        if write!(std::io::stdout(), $($arg)*).is_err() {
+            std::process::exit(0);
+        }
     };
 }
