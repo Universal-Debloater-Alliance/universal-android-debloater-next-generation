@@ -8,10 +8,9 @@ use crate::core::theme::{OS_COLOR_SCHEME, Theme};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
 use crate::core::utils::{NAME, string_to_theme};
-
+use iced::Font;
 use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
-use iced::Font;
 use iced::window::icon;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
