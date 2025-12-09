@@ -40669,6 +40669,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.taboola.mip": {
+    "list": "Misc",
+    "description": "Intrusive background module (Taboola) that keeps pushing a lock-screen stories feed — spam-ads and irrelevant articles (often from foreign/hostile sources). \nRuns in background, uses data, nags user until it is enabled. No system function — safe to remove. \nhttps://techissuestoday.com/motorola-lock-screen-ads-articles/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.android.frameworks.telresources": {
     "list": "Misc",
     "description": "Completely empty package. Safe to remove.",
@@ -40837,5 +40845,4 @@
     "labels": [],
     "removal": "Expert"
   }
-
 }
