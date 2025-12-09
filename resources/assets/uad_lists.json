@@ -4409,7 +4409,7 @@
   },
   "com.samsung.android.app.omcagent": {
     "list": "Oem",
-    "description": "Open Market Customization Agent (AKA 'Recommended Apps')\nInstalls more Samsung \"Recommended Apps\" after device setup.",
+    "description": "Open Market Customization Agent (AKA 'Recommended Apps')\nInstalls more Samsung \"Recommended Apps\" after device setup. Similar to com.samsung.android.mapsagent",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15310,7 +15310,7 @@
   },
   "de.axelspringer.yana.zeropage": {
     "list": "Misc",
-    "description": "Upday news for Samsung (https://play.google.com/store/apps/details?id=de.axelspringer.yana)\n",
+    "description": "Upday news for Samsung (https://play.google.com/store/apps/details?id=de.axelspringer.yana)\n Eats your phone's resources and runs in the background. You can use other news providers that have more privacy than this, or your own browser with ad-blocking on.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -26441,7 +26441,7 @@
     "labels": []
   },
   "com.samsung.android.mapsagent": {
-    "description": "Samsung App Recommendations\na lot of spying code. I guess it's an app from first-boot setup.",
+    "description": "Provides the \"recommendation\" service. It auto-installs recommended apps from Samsung & partners after a factory reset or first boot. Also recommends you apps when you access an app folder. \n Similar to com.samsung.android.app.omcagent",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -37913,7 +37913,7 @@
   },
   "com.samsung.android.rampart": {
     "list": "Oem",
-    "description": "Auto Blocker\nUses for blocking unknown apps install, commands.",
+    "description": "Auto Blocker\nUses for blocking unknown apps install, commands. As of Oneui 6.1.1+, it is no longer tied to App Protection unless you use maximum restrictions. A powerful tool that can keep your device secure, but also be an annoyance if you sideload apps from F-Droid or other sources.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -40624,6 +40624,14 @@
   "com.blackview.app.cloudfolder": {
     "list": "Oem",
     "description": "Rec. Apps\nThis adware provides a widget that allows you to install sponsored apps like Temu. Can be disabled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.aiwallpapers": {
+    "list": "Google",
+    "description": "Provides the ability to create wallpapers by using AI and several presets. \nNot sure how this can be useful to the average user + collects device info.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
