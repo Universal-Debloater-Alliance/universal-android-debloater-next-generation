@@ -11616,6 +11616,22 @@
     "labels": [],
     "removal": "Expert"
   },
+  "com.tcl.guard": {
+    "list": "Oem",
+    "description": "TGuard. Runs in the background on boot.\nHas these services: \"Online Support\" (related to `com.tcl.usercare`?), \"IO Limit\", \"Health\" (device health?) stuff, battery and low-storage diagnostics. On model T509A, it links to `libTclRootCheck.so` (native shared dynamic library), very sus.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.ttvs": {
+    "list": "Oem",
+    "description": "TCSCore. Runs in the background all the time. Uses some Google tracking APIs. May request permission `org.microg.gms.STATUS_BROADCAST`, probably for detecting \"illegitimate\" Play Services installations.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.tcl.faceunlock": {
     "list": "Oem",
     "description": "Standard FaceUnlock functionality?\nUnlock your device by simply looking at the display.\nFace unlock is bad for security and privacy:\nhttps://www.ubergizmo.com/2017/03/galaxy-s8-facial-unlock-photograph/\nhttps://www.kaspersky.com/blog/face-unlock-insecurity/21618/\nhttps://www.freecodecamp.org/news/why-you-should-never-unlock-your-phone-with-your-face-79c07772a28/",
@@ -11778,19 +11794,11 @@
   },
   "com.tct.gdpr": {
     "list": "Oem",
-    "description": "",
+    "description": "Whenever TCL updates their Privacy Policy, this app shows a notification prompting the user to read it. May include the \"User Experience Improvement Program\"",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
-  },
-  "com.tct.onetouchbooster.a_overlay": {
-    "list": "Oem",
-    "description": "",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.tct.privacymode": {
     "list": "Oem",
@@ -11879,6 +11887,14 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.tct.contentcenter": {
+    "list": "Oem",
+    "description": "A panel that opens from the launcher (similar to \"samsung Free\"). Has news, weather forecasts, and a game center (similar to \"Game Booster\"). Has lots of trackers from facebook, bytedance, anythink, google, and other 3rd-parties",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.tct.weather": {
     "list": "Oem",
@@ -23814,7 +23830,15 @@
   "com.focaltech.fingerprint": {
     "description": "Another fingerprint sensor test tool but Chinese.",
     "removal": "Recommended",
-    "list": "Oem",
+    "list": "Misc",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.focaltech.fpsensormmitest": {
+    "description": "Related to `com.focaltech.fingerprint`. Seems like a debugging activity triggered by dialing an MMI code",
+    "removal": "Recommended",
+    "list": "Misc",
     "dependencies": [],
     "neededBy": [],
     "labels": []
@@ -23870,6 +23894,14 @@
   "com.tcl.android.launcher": {
     "description": "Smart Launcher\nStock Launcher app.",
     "removal": "Expert",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tcl.android.launcher.hotapp": {
+    "description": "Hot Apps. Unrelated to Recent Apps (launcher and/or app-switcher).\nSeemingly empty, but requests network+internet access. The manifest references `com.bumptech.glide.integration.okhttp3.OkHttpGlideModule`",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23940,8 +23972,32 @@
     "labels": []
   },
   "com.tct.iris": {
-    "description": "NXTVISION\nIt's for reading mode and Display Enhancement.",
-    "removal": "Recommended",
+    "description": "TCL NXTVISION \"Display Enhancements\". GPU-accelerated post-processing (\"shaders\") for images, videos, and games. Only good for pretty pictures, and (maybe) accessibility (clearer view). This is the back-end, see `com.tct.nxtvision_ui*` for the settings.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tct.iris.overlay_product": {
+    "description": "Related to TCL NXTVISION",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tct.nxtvision_ui": {
+    "description": "TCL NXTVISION (code-name `iris`) Settings front-end",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.tct.nxtvision_ui.overlay_product": {
+    "description": "TCL NXTVISION (code-name `iris`) Settings front-end overlay",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -24003,8 +24059,16 @@
     "neededBy": [],
     "labels": []
   },
+  "com.tct.onetouchbooster.a_overlay": {
+    "list": "Oem",
+    "description": "Likely related to Smart Manager",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.tct.onetouchbooster": {
-    "description": "Power saving.",
+    "description": "Smart Manager. For \"Optimization\" of: battery (energy), memory (RAM), and storage. Removing it might break power-save mode",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -24093,14 +24157,6 @@
     "description": "Gallery\nStock Gallery app",
     "removal": "Advanced",
     "suggestions": "gallery",
-    "list": "Oem",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": []
-  },
-  "com.tct.gpdr": {
-    "description": "GPDR\nUser Experience Improvement Program.",
-    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -39647,7 +39703,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-    
   },
   "com.inkbook.awesomereader":
   {
@@ -39657,7 +39712,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-    
   },
   "com.inkbook.exoereader":
   {
