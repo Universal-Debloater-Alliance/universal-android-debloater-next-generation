@@ -40605,13 +40605,181 @@
     "labels": [],
     "removal": "Recommended"
   },
- "com.dot.app.sancharsaathi": {
+  "com.dot.app.sancharsaathi": {
     "list": "Carrier",
     "description": "Spyware billed as citizen-centric safety tool that is required by Goverment of India be pre-installed.\nhttps://www.reuters.com/sustainability/boards-policy-regulation/what-is-indias-politically-contentious-sanchar-saathi-cyber-safety-app-2025-12-02",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.android.frameworks.telresources": {
+    "list": "Misc",
+    "description": "Completely empty package. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.crucialsoft.asm": {
+    "list": "Oem",
+    "description": "Doesn't seem to do anything, but has permissions to read and write storage. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.crucialsoft.fido.client": {
+    "list": "Oem",
+    "description": "Does absolutely nothing. Despite the package name saying 'Fido', it is unrelated to Fido, it is an LG package. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.crucialtec.uaf": {
+    "list": "Oem",
+    "description": "Claims to be related to the fingerprint sensor and has fingerprint permissions. Fingerprint sensor still works fine with it removed, however.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.evernote.promohelper": {
+    "list": "Misc",
+    "description": "Companion for the Evernote app, seems to drain battery.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ipsec.service": {
+    "list": "Oem",
+    "description": "Has internet access and does nothing. Possibly for an IPSec service and dependency of the LG VPN? Not really sure.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.ipsec.vpnclient": {
+    "list": "Oem",
+    "description": "LG VPN. Doesn't seem to affect VPN functionality, and LG doesn't run a VPN, afaik.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge": {
+    "list": "Oem",
+    "description": "Main LG system framework. Do not remove, will bootloop your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.lge.autosimlockservice": {
+    "list": "Oem",
+    "description": "Has reboot permissions and can check when SIM state is changed. Possibly used for carrier locking devices? No issues when removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.cota.blm.sf340_enabler": {
+    "list": "Oem",
+    "description": "I can't find any purpose for this app. Titled 'LG Conference Call Update', 'sf340' is part of the codename for the LG Stylo 3 Plus (full codename is sf340n), likely related to some discontinued LG service designed specifically for the Stylo 3 Plus.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.drive.activator": {
+    "list": "Oem",
+    "description": "This app used to give you a free 100GB Google Drive storage for 5 years after buying an LG phone, however, Google no longer does this offer, and the app just gives an error now.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.gba.android": {
+    "list": "Oem",
+    "description": "Needed for proper VoLTE functionality on LG devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.lge.hiddenmenu": {
+    "list": "Oem",
+    "description": "Hidden testing menu on LG devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.hiddenpersomenu": {
+    "list": "Oem",
+    "description": "Used to unlock LG phones remotely, from carriers like Sprint.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.lge.inputdevices": {
+    "list": "Oem",
+    "description": "Completely empty package. Safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.ipprovider": {
+    "list": "Oem",
+    "description": "Completely empty package. Safe to remove",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.ipservice": {
+    "list": "Oem",
+    "description": "Needed for Wi-Fi calling on LG T-Mobile devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.lge.shutdownmonitor": {
+    "list": "Oem",
+    "description": "Shows the shut down animation when powering off or rebooting LG devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.lge.sizechangable.musicwidget.widget": {
+    "list": "Oem",
+    "description": "LG Music widget. There are much better music apps available.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.themesquare": {
+    "list": "Oem",
+    "description": "Change the theme on LG UX.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.lge.wificall": {
+    "list": "Oem",
+    "description": "Needed for Wi-Fi Calling on LG devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 
 }
