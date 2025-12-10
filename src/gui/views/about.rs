@@ -155,7 +155,7 @@ impl About {
         let row = row![website_btn, wiki_btn, issue_btn, log_btn,].spacing(20);
 
         let content = column![
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             descr_container,
             update_container,
             row,

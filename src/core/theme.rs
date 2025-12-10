@@ -1,4 +1,5 @@
 use dark_light;
+use iced::theme::{self, Mode, Palette, Style};
 use iced::{Color, color};
 use std::sync::LazyLock;
 
@@ -147,5 +148,62 @@ impl std::fmt::Display for Theme {
                 Self::Auto => "Auto (follow system theme)",
             }
         )
+    }
+}
+
+impl theme::Base for Theme {
+    fn default(preference: Mode) -> Self {
+        match preference {
+            Mode::Light => Self::Light,
+            Mode::Dark => Self::Dark,
+            Mode::None => match *OS_COLOR_SCHEME {
+                dark_light::Mode::Light => Self::Light,
+                dark_light::Mode::Dark | dark_light::Mode::Unspecified => Self::Dark,
+            },
+        }
+    }
+
+    fn mode(&self) -> Mode {
+        let resolved = match self {
+            Self::Auto => match *OS_COLOR_SCHEME {
+                dark_light::Mode::Light => Self::Light,
+                dark_light::Mode::Dark | dark_light::Mode::Unspecified => Self::Dark,
+            },
+            other => *other,
+        };
+
+        match resolved {
+            Self::Light => Mode::Light,
+            _ => Mode::Dark,
+        }
+    }
+
+    fn base(&self) -> Style {
+        let p = Self::palette(*self);
+        Style {
+            background_color: p.base.background,
+            text_color: p.bright.surface,
+        }
+    }
+
+    fn palette(&self) -> Option<Palette> {
+        let p = Self::palette(*self);
+        Some(Palette {
+            background: p.base.background,
+            text: p.bright.surface,
+            primary: p.normal.primary,
+            success: p.bright.secondary,
+            warning: p.normal.surface,
+            danger: p.normal.error,
+        })
+    }
+
+    fn name(&self) -> &str {
+        match self {
+            Self::Dark => "Dark",
+            Self::Light => "Light",
+            Self::Lupin => "Lupin",
+            Self::Auto => "Auto",
+        }
     }
 }

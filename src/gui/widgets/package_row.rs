@@ -95,7 +95,7 @@ impl PackageRow {
             || self.state != PackageState::Enabled
             || settings.general.expert_mode
         {
-            selection_checkbox = checkbox("", self.selected)
+            selection_checkbox = checkbox(self.selected)
                 .on_toggle(Message::ToggleSelection)
                 .size(20)
                 .style(style::CheckBox::PackageEnabled);
@@ -107,7 +107,7 @@ impl PackageRow {
             )
             .on_press(Message::ActionPressed);
         } else {
-            selection_checkbox = checkbox("", self.selected)
+            selection_checkbox = checkbox(self.selected)
                 .on_toggle(Message::ToggleSelection)
                 .size(20)
                 .style(style::CheckBox::PackageDisabled);
@@ -136,7 +136,7 @@ impl PackageRow {
             })
             .width(Length::Fill)
             .on_press(Message::PackagePressed),
-            Space::with_width(15)
+            Space::new().width(Length::Fixed(15.0))
         ]
         .align_y(Alignment::Center)
         .into()
