@@ -16,8 +16,8 @@ use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use crate::gui::widgets::text;
 use iced::widget::scrollable::{Direction, Scrollbar};
 use iced::widget::{
-    Column, Space, button, checkbox, column, container, horizontal_space, pick_list, radio, row,
-    scrollable, text_editor, text_input, tooltip, vertical_rule,
+    Column, Space, button, checkbox, column, container, pick_list, radio, row, rule, scrollable,
+    text_editor, text_input, tooltip,
 };
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
@@ -252,7 +252,7 @@ impl List {
             .on_input(Message::SearchInputChanged)
             .padding([5, 10]);
 
-        let select_all_checkbox = checkbox("", self.all_selected)
+        let select_all_checkbox = checkbox(self.all_selected)
             .on_toggle(Message::ToggleAllSelected)
             .size(20)
             .style(style::CheckBox::SettingsEnabled)
@@ -377,7 +377,7 @@ impl List {
 
         let action_row = row![
             export_selection,
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             review_selection
         ]
         .width(Length::Fill)
@@ -404,7 +404,7 @@ impl List {
         // Fallback notifications area
         let notifications_area: Element<'_, Message, Theme, Renderer> =
             if self.fallback_notifications.is_empty() {
-                Space::new(Length::Shrink, Length::Shrink).into()
+                Space::new().into()
             } else {
                 let notification_texts: Vec<_> = self
                     .fallback_notifications
@@ -417,7 +417,7 @@ impl List {
                         text("Fallback Actions Performed:").style(style::Text::Default),
                         column(notification_texts).spacing(4),
                         row![
-                            Space::new(Length::Fill, Length::Shrink),
+                            Space::new().width(Length::Fill).height(Length::Shrink),
                             button(text("Dismiss"))
                                 .on_press(Message::DismissFallbackNotifications)
                                 .style(style::Button::Primary)
@@ -489,11 +489,11 @@ impl List {
             let file_row = row![text(EXPORT_FILE_NAME).style(style::Text::Commentary)].padding(20);
 
             let modal_btn_row = row![
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
                 button(text("Close").width(Length::Shrink))
                     .width(Length::Shrink)
                     .on_press(Message::ModalHide),
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
             ];
 
             let ctn = container(column![title, text_box, file_row, modal_btn_row])
@@ -591,7 +591,7 @@ impl List {
 
         let modal_btn_row = row![
             button(text("Cancel")).on_press(Message::ModalHide),
-            horizontal_space(),
+            Space::new().width(Length::Fill),
             button(text("Apply")).on_press(Message::ModalValidate),
         ]
         .padding(iced::Padding {
@@ -1406,25 +1406,25 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
             text(recap.category.to_string())
                 .size(19)
                 .width(Length::FillPortion(1)),
-            vertical_rule(5),
+            rule::vertical(5),
             row![
                 if settings.device.disable_mode {
                     text("Disable").style(style::Text::Danger)
                 } else {
                     text("Uninstall").style(style::Text::Danger)
                 },
-                horizontal_space(),
+                Space::new().width(Length::Fill),
                 text(recap.discard.to_string()).style(style::Text::Danger)
             ]
             .width(Length::FillPortion(1)),
-            vertical_rule(5),
+            rule::vertical(5),
             row![
                 if settings.device.disable_mode {
                     text("Enable").style(style::Text::Ok)
                 } else {
                     text("Restore").style(style::Text::Ok)
                 },
-                horizontal_space(),
+                Space::new().width(Length::Fill),
                 text(recap.restore.to_string()).style(style::Text::Ok)
             ]
             .width(Length::FillPortion(1))

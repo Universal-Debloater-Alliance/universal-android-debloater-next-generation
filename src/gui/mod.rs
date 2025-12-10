@@ -9,9 +9,9 @@ use crate::core::uad_lists::UadListState;
 use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
 use crate::core::utils::{NAME, string_to_theme};
 
-use iced::advanced::graphics::image::image_rs::ImageFormat;
 use iced::font;
 use iced::window::icon;
+use image::ImageFormat;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
 use views::settings::{Message as SettingsMessage, Settings as SettingsView};
@@ -382,27 +382,23 @@ impl UadGui {
             }
         };
 
-        iced::application(
-            "Universal Android Debloater Next Generation",
-            UadGui::update,
-            UadGui::view,
-        )
-        .theme(UadGui::theme)
-        .settings(Settings {
-            id: Some(String::from(NAME)),
-            default_text_size: iced::Pixels(16.0),
-            ..Settings::default()
-        })
-        .window(Window {
-            size: iced::Size {
-                width: 950.0,
-                height: 700.0,
-            },
-            resizable: true,
-            decorations: true,
-            icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
-            ..iced::window::Settings::default()
-        })
-        .run_with(UadGui::new)
+        iced::application(UadGui::new, UadGui::update, UadGui::view)
+            .theme(UadGui::theme)
+            .settings(Settings {
+                id: Some(String::from(NAME)),
+                default_text_size: iced::Pixels(16.0),
+                ..Settings::default()
+            })
+            .window(Window {
+                size: iced::Size {
+                    width: 950.0,
+                    height: 700.0,
+                },
+                resizable: true,
+                decorations: true,
+                icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
+                ..iced::window::Settings::default()
+            })
+            .run()
     }
 }

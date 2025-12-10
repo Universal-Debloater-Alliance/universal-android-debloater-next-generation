@@ -4,22 +4,12 @@
     clippy::wildcard_imports,
     reason = "Iced style modules use PascalCase and &Theme; wildcard for local convenience"
 )]
-use crate::core::theme::Theme;
+use crate::core::theme::{ColorPalette, Theme};
 use iced::widget::{
     button, checkbox, container, overlay, pick_list, radio, scrollable, text, text_editor,
     text_input,
 };
-use iced::{Background, Border, Color, Shadow, application};
-
-impl application::DefaultStyle for Theme {
-    fn default_style(&self) -> application::Appearance {
-        let p = self.palette();
-        application::Appearance {
-            background_color: p.base.background,
-            text_color: p.bright.surface,
-        }
-    }
-}
+use iced::{Background, Border, Color, Shadow};
 
 // Implement theming catalogs for our custom `Theme` so generic widgets
 // like `Button<'_, Message, Theme, Renderer>` compile under iced 0.13.
@@ -161,7 +151,7 @@ impl text_input::Catalog for Theme {
 
             match s {
                 text_input::Status::Active => active,
-                text_input::Status::Focused | text_input::Status::Hovered => focused,
+                text_input::Status::Focused { .. } | text_input::Status::Hovered => focused,
                 text_input::Status::Disabled => disabled,
             }
         })
@@ -228,6 +218,7 @@ impl overlay::menu::Catalog for Theme {
                 },
                 selected_text_color: p.bright.surface,
                 selected_background: p.normal.primary.into(),
+                shadow: Shadow::default(),
             }
         })
     }
@@ -283,7 +274,6 @@ impl text_editor::Catalog for Theme {
                     width: 0.0,
                     radius: 0.0.into(),
                 },
-                icon: p.bright.surface,
                 placeholder: p.normal.surface,
                 value: p.bright.surface,
                 selection: Color {
@@ -312,9 +302,9 @@ impl iced::widget::rule::Catalog for Theme {
             let p = t.palette();
             iced::widget::rule::Style {
                 color: p.bright.surface,
-                width: 2,
                 radius: 2.0.into(),
                 fill_mode: iced::widget::rule::FillMode::Full,
+                snap: true,
             }
         })
     }
@@ -346,6 +336,7 @@ pub mod Container {
                 radius: 5.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -360,6 +351,7 @@ pub mod Container {
                 radius: 5.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -375,6 +367,7 @@ pub mod Container {
                 radius: 8.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -389,6 +382,7 @@ pub mod Container {
                 radius: 5.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 }
@@ -410,6 +404,7 @@ pub mod Button {
                 radius: 2.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -478,6 +473,7 @@ pub mod Button {
                     radius: 5.0.into(),
                 },
                 shadow: Shadow::default(),
+                snap: true,
             },
             _ => button::Style {
                 background: Some(Background::Color(p.base.foreground)),
@@ -488,6 +484,7 @@ pub mod Button {
                     radius: 5.0.into(),
                 },
                 shadow: Shadow::default(),
+                snap: true,
             },
         }
     }
@@ -506,6 +503,7 @@ pub mod Button {
                 radius: 5.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -520,6 +518,7 @@ pub mod Button {
                 radius: 5.0.into(),
             },
             shadow: Shadow::default(),
+            snap: true,
         }
     }
 
@@ -538,6 +537,7 @@ pub mod Button {
                     radius: 2.0.into(),
                 },
                 shadow: Shadow::default(),
+                snap: true,
             },
             button::Status::Hovered => button::Style {
                 background: Some(Background::Color(Color { a: 0.25, ..main })),
@@ -548,6 +548,7 @@ pub mod Button {
                     radius: 2.0.into(),
                 },
                 shadow: Shadow::default(),
+                snap: true,
             },
             button::Status::Disabled => button::Style {
                 background: Some(Background::Color(Color { a: 0.05, ..main })),
@@ -558,6 +559,7 @@ pub mod Button {
                     radius: 2.0.into(),
                 },
                 shadow: Shadow::default(),
+                snap: true,
             },
         }
     }
@@ -576,7 +578,7 @@ pub mod Scrollable {
                 radius: 5.0.into(),
             },
             scroller: scrollable::Scroller {
-                color: scroller_color,
+                background: Background::Color(scroller_color),
                 border: Border {
                     color: Color::TRANSPARENT,
                     width: 1.0,
@@ -587,6 +589,22 @@ pub mod Scrollable {
         (rail, rail)
     }
 
+    fn autoscroll(p: ColorPalette) -> scrollable::AutoScroll {
+        scrollable::AutoScroll {
+            background: Background::Color(Color {
+                a: 0.05,
+                ..p.base.background
+            }),
+            border: Border {
+                color: Color::TRANSPARENT,
+                width: 0.0,
+                radius: 5.0.into(),
+            },
+            shadow: Shadow::default(),
+            icon: p.bright.surface,
+        }
+    }
+
     pub fn Description(theme: &Theme, _status: scrollable::Status) -> scrollable::Style {
         let p = theme.palette();
         let (v, h) = rails(p.normal.surface);
@@ -595,6 +613,7 @@ pub mod Scrollable {
             vertical_rail: v,
             horizontal_rail: h,
             gap: Some(Background::Color(Color::TRANSPARENT)),
+            auto_scroll: autoscroll(p),
         }
     }
 
@@ -606,6 +625,7 @@ pub mod Scrollable {
             vertical_rail: v,
             horizontal_rail: h,
             gap: Some(Background::Color(Color::TRANSPARENT)),
+            auto_scroll: autoscroll(p),
         }
     }
 }
