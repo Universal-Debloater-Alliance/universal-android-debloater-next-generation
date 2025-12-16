@@ -151,7 +151,7 @@ impl Opposite for PackageState {
 #[derive(Default, Debug, Deserialize, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Removal {
     #[default]
-    Recommended,
+    Safe,
     Advanced,
     Expert,
     Unsafe,
@@ -162,14 +162,14 @@ pub enum Removal {
 impl Removal {
     pub const ALL: [Self; 6] = [
         Self::All,
-        Self::Recommended,
+        Self::Safe,
         Self::Advanced,
         Self::Expert,
         Self::Unsafe,
         Self::Unlisted,
     ];
     pub const CATEGORIES: [Self; 5] = [
-        Self::Recommended,
+        Self::Safe,
         Self::Advanced,
         Self::Expert,
         Self::Unsafe,
@@ -179,7 +179,7 @@ impl Removal {
     pub const fn as_str(self) -> &'static str {
         match self {
             Self::All => "All removals",
-            Self::Recommended => "Recommended",
+            Self::Safe => "Safe",
             Self::Advanced => "Advanced",
             Self::Expert => "Expert",
             Self::Unsafe => "Unsafe",
