@@ -211,6 +211,15 @@ impl ACommand {
             }
         }
     }
+
+    pub fn pull_package (
+        mut self,
+        apk_path: &str,
+    ) -> Result<String, String> {
+        let cmd = &mut self.0;
+        cmd.args(["pull", apk_path]);
+        self.run()
+    } 
 }
 
 /// Builder object for a command that runs on the device's default `sh` implementation.
@@ -418,6 +427,30 @@ impl PmCommand {
                 }
             })
             .collect())
+    }
+    //grab apk path subcommand for adb
+    // probably would be advisable to return something of the sort Result<String, Err>
+    // but I'm not too knowleadgable on what error to use so pls fix
+    pub fn grab_package_path(
+        mut self,
+        apk_name: &str,
+        user_id: Option<u16>,
+    ) -> Result<String, String> {
+        let cmd = &mut self.0.0.0;
+        cmd.arg("path");
+        
+        if let Some(u) = user_id {
+            cmd.arg("--user");
+            cmd.arg(u.to_string());
+        }
+        cmd.arg(apk_name);
+        self.0.0.run().map(|output| {
+            output.trim()
+                  .strip_prefix("package:")
+                  .unwrap_or(&output)
+                  .trim()
+                  .to_string()
+        })
     }
 }
 

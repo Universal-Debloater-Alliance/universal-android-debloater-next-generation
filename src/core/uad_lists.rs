@@ -26,6 +26,8 @@ pub struct Package {
     needed_by: Vec<String>,
     labels: Vec<String>,
     pub removal: Removal,
+    #[serde(default)] //allows the list to remain existing despite the field certificate not existing, funky.
+    pub certificate: String,
 }
 
 #[derive(Default, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Hash)]
