@@ -247,9 +247,9 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.miui.miwallpaper.config.overlay": {
-    "list": "Oem",
-    "description": "An overlay for com.miui.miwallpaper providing default configurations and preferences. Safe to remove. \nAll other overlays of com.miui.miwallpaper are empty and useless, so this one is likely the same.",
+  "com.block.juggle": {
+    "list": "Misc",
+    "description": "Block Blast. A causal game pre-installed on Xiaomi Poco devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -558,14 +558,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
-  },
-  "com.sonyericsson.android.camera": {
-    "list": "Oem",
-    "description": "Sony's default camera app",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
     "list": "Oem",
@@ -39558,14 +39550,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.mediatek.security": {
-    "list": "Oem",
-    "description": "MediaTek system security service for device integrity and permission management.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
   },
   "com.android.nfc.overlay.common": {
     "list": "Oem",
