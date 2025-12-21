@@ -31247,7 +31247,7 @@
   },
   "miui.systemui.plugin": {
     "list": "Oem",
-    "description": "System UI Plug-in. When using HyperOS, removing this package breaks the iOS-style quick settings and Android will use the AOSP-version of the volume bar & reboot screen (AKA the option to power off/reboot your device). If your device is using MIUI, only the volume bar will change.",
+    "description": "System UI Plug-in. When using HyperOS, removing this package breaks the iOS-style quick settings and Android will use the AOSP-version of the volume bar & reboot screen (AKA the option to power off/reboot your device). If your device is using MIUI, only the volume bar will change.\nWARNING: On Redmi Note 11 (Android 13, MIUI 14), it broke the entire status bar making it unable to draw the notification panel including the quick action menu.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
