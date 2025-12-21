@@ -1,4 +1,20 @@
 {
+  "com.google.android.wifi.resources.overlay.pineapple": {
+    "list": "Misc",
+    "description": "An overlay for com.android.wifi.resources for devices using the “pineapple” Wi‑Fi HAL (Google’s internal codename for a Wi‑Fi module configuration). Not safe to remove, especially on Android 13+.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.wifi.resources.overlay.target.sm8635": {
+    "list": "Misc",
+    "description": "An overlay for com.android.wifi.resources for devices with the Snapdragon 7s Gen 2 CPU (codename SM8635). Not safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.dti.blu": {
     "list": "Oem",
     "description": "This package is preinstalled on devices made by cellphone manufacturer BLU, installs unwanted games and other non-essential stuff. Its name 'Mobile Services' makes it scary to remove, but I highly recommend removing it. No damage foukd after removal (did so in at least two different models of Blu phones).",
