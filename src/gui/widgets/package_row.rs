@@ -4,7 +4,7 @@ use crate::core::uad_lists::{PackageState, Removal, UadList};
 use crate::gui::style;
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::text;
-
+use crate::core::certificates::CertificateState;
 use iced::widget::{Space, button, checkbox, row};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
@@ -17,6 +17,7 @@ pub struct PackageRow {
     pub removal: Removal,
     pub selected: bool,
     pub current: bool,
+    pub certificate: CertificateState,
 }
 
 #[derive(Clone, Debug)]
@@ -35,6 +36,7 @@ impl PackageRow {
         removal: Removal,
         selected: bool,
         current: bool,
+        certificate: CertificateState,
     ) -> Self {
         Self {
             name: name.to_string(),
@@ -44,6 +46,7 @@ impl PackageRow {
             removal,
             selected,
             current,
+            certificate,
         }
     }
 

@@ -5,6 +5,7 @@ use crate::core::{
     sync::User,
     theme::Theme,
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
+    certificates::{CertificateState,get_certificate},
 };
 use crate::gui::widgets::package_row::PackageRow;
 use chrono::{DateTime, offset::Utc};
@@ -88,7 +89,6 @@ pub fn fetch_packages(
         .unwrap_or_default()
         .into_iter()
         .collect();
-
     let mut description;
     let mut uad_list;
     let mut state;
@@ -101,13 +101,23 @@ pub fn fetch_packages(
         description = "[No description]: CONTRIBUTION WELCOMED";
         uad_list = UadList::Unlisted;
         removal = Removal::Unlisted;
-
+        let mut certificate_state = CertificateState::UnknownCertState;
+        //feel free to optimize this line
+        let certificate = get_certificate(p_name,user_id, device_serial);
         if let Some(package) = uad_lists.get(p_name) {
             if !package.description.is_empty() {
                 description = &package.description;
             }
             uad_list = package.list;
             removal = package.removal;
+            if !package.certificate.is_empty() {
+                if certificate == package.certificate {
+                    certificate_state = CertificateState::UnmodifiedCertState;
+                }
+                else {
+                    certificate_state = CertificateState::ModifiedCertState;
+                }
+            }
         }
 
         if enabled_sys_packs.contains(p_name) {
@@ -117,7 +127,7 @@ pub fn fetch_packages(
         }
 
         let package_row =
-            PackageRow::new(p_name, state, description, uad_list, removal, false, false);
+            PackageRow::new(p_name, state, description, uad_list, removal, false, false, certificate_state);
         user_package.push(package_row);
     }
     user_package.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));

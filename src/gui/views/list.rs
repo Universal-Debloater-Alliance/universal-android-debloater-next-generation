@@ -5,6 +5,7 @@ use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
+use crate::core::certificates::{CertificateState,match_certificate};
 use crate::core::utils::{EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, open_url};
 use crate::gui::style;
 use crate::gui::widgets::navigation_menu::ICONS;
@@ -998,7 +999,10 @@ impl List {
             }
             RowMessage::PackagePressed => {
                 self.description = package.clone().description;
-                self.description_content = text_editor::Content::with_text(&package.description);
+                //necessary push_str, maybe it would be advisable to build the text in rows if we decide to add more information, the with_text is limited in the sense
+                // that it only accepts one input &str, this causes some complications when adding the certificate type.
+                self.description.push_str(&match_certificate(package.certificate.clone()));
+                self.description_content = text_editor::Content::with_text(&self.description);
                 package.current = true;
                 if self.current_package_index != i_package {
                     self.phone_packages[i_user][self.current_package_index].current = false;
@@ -1095,6 +1099,7 @@ impl List {
                                         Removal::All,
                                         false,
                                         false,
+                                        CertificateState::UnknownCertState,
                                     ),
                                     wanted_state,
                                     actual_state,
