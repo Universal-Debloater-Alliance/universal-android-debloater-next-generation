@@ -7,6 +7,94 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.block.juggle": {
+    "list": "Misc",
+    "description": "Block Blast. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.block.puzzle.game.hippo.mi": {
+    "list": "Misc",
+    "description": "Block Puzzle Guardian. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sukhavati.gotoplaying.bubble.BubbleShooter.mint": {
+    "list": "Misc",
+    "description": "Bubble Shooter And Friends. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.logame.eliminateintruder3d": {
+    "list": "Misc",
+    "description": "Dust Settle. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.jewelsblast.ivygames.Adventure.free": {
+    "list": "Misc",
+    "description": "Jewels Blast. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ordinaryjoy.woodblast": {
+    "list": "Misc",
+    "description": "Wood Blast. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mintgames.wordtrip": {
+    "list": "Misc",
+    "description": "Word Scenery Crossword. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nf.snake": {
+    "list": "Misc",
+    "description": "Snake Zoneio. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mintgames.triplecrush.tile.fun": {
+    "list": "Misc",
+    "description": "Tile Fun. A causal game pre-installed on Xiaomi Poco devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.miui.miwallpaper.config.overlay": {
+    "list": "Oem",
+    "description": "Another overlay for com.miui.miwallpaper. Since all other overlays related to it are listed in recommended and marked as useless empty apps, this one is most likely the same.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.uwb.resources.overlay.common": {
+    "list": "Aosp",
+    "description": "Overlay for UWB (Ultra-Wideband) resources. Used for device-to-device ranging and location features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.google.android.overlay.setupwizard": {
     "list": "Aosp",
     "description": "An overlay for com.google.android.setupwizard. Safe to remove if com.google.android.setupwizard has been removed.",
@@ -246,94 +334,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
-  },
-  "com.block.juggle": {
-    "list": "Misc",
-    "description": "Block Blast. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.block.puzzle.game.hippo.mi": {
-    "list": "Misc",
-    "description": "Block Puzzle Guardian. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.sukhavati.gotoplaying.bubble.BubbleShooter.mint": {
-    "list": "Misc",
-    "description": "Bubble Shooter And Friends. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.logame.eliminateintruder3d": {
-    "list": "Misc",
-    "description": "Dust Settle. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.jewelsblast.ivygames.Adventure.free": {
-    "list": "Misc",
-    "description": "Jewels Blast. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.ordinaryjoy.woodblast": {
-    "list": "Misc",
-    "description": "Wood Blast. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.mintgames.wordtrip": {
-    "list": "Misc",
-    "description": "Word Scenery Crossword. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.nf.snake": {
-    "list": "Misc",
-    "description": "Snake Zoneio. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.mintgames.triplecrush.tile.fun": {
-    "list": "Misc",
-    "description": "Tile Fun. A causal game pre-installed on Xiaomi Poco devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.miui.miwallpaper.config.overlay": {
-    "list": "Oem",
-    "description": "Another overlay for com.miui.miwallpaper. Since all other overlays related to it are listed in recommended and marked as useless empty apps, this one is most likely the same.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "com.android.uwb.resources.overlay.common": {
-    "list": "Aosp",
-    "description": "An overlay for com.android.uwb.resources. Safe to remove if com.android.uwb.resources is removed.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
   },
   "com.android.thememanager.customizethemeconfig.config.overlay": {
     "list": "Oem",
