@@ -1,4 +1,12 @@
 {
+  "com.jiiov.fingerprint_factorytest": {
+    "list": "Misc",
+    "description": "A factory test app for Jiiov fingerprint scanners (Jiiov fingerprint scanners are mostly used on devices such as Xiaomi, Redmi, POCO, etc..). Mostly not needed for daily phone use, might be needed in service centers during repair or when you'll want to test your fingerprint scanner. Not sure how to even access it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.google.android.wifi.resources.overlay.pineapple": {
     "list": "Misc",
     "description": "An overlay for com.android.wifi.resources for devices using the “pineapple” Wi‑Fi HAL (Google’s internal codename for a Wi‑Fi module configuration). Not safe to remove, especially on Android 13+.",
