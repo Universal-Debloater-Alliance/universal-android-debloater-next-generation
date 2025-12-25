@@ -1,7 +1,7 @@
 use iced::advanced::widget::{self, Tree, Widget};
 use iced::advanced::{Clipboard, Layout, Shell, layout, overlay, renderer};
 use iced::mouse::{self, Cursor};
-use iced::{Alignment, Color, Element, Event, Length, Point, Rectangle, Size, advanced, event};
+use iced::{Alignment, Color, Element, Event, Length, Point, Rectangle, Size, Vector, advanced};
 
 /// A widget that centers a modal element over some base element
 pub struct Modal<'a, Message, Theme, Renderer> {
@@ -52,28 +52,28 @@ where
     }
 
     fn layout(
-        &self,
+        &mut self,
         tree: &mut Tree,
         renderer: &Renderer,
         limits: &layout::Limits,
     ) -> layout::Node {
         self.base
-            .as_widget()
+            .as_widget_mut()
             .layout(&mut tree.children[0], renderer, limits)
     }
 
-    fn on_event(
+    fn update(
         &mut self,
         state: &mut Tree,
-        event: Event,
+        event: &Event,
         layout: Layout<'_>,
         cursor_position: Cursor,
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
         viewport: &Rectangle,
-    ) -> event::Status {
-        self.base.as_widget_mut().on_event(
+    ) {
+        self.base.as_widget_mut().update(
             &mut state.children[0],
             event,
             layout,
@@ -82,7 +82,7 @@ where
             clipboard,
             shell,
             viewport,
-        )
+        );
     }
 
     fn draw(
@@ -109,9 +109,10 @@ where
     fn overlay<'b>(
         &'b mut self,
         state: &'b mut Tree,
-        layout: Layout<'_>,
+        layout: Layout<'b>,
         _renderer: &Renderer,
-        _translation: iced::Vector,
+        viewport: &Rectangle,
+        _translation: Vector,
     ) -> Option<overlay::Element<'b, Message, Theme, Renderer>> {
         Some(overlay::Element::new(Box::new(Overlay {
             position: layout.position(),
@@ -119,6 +120,7 @@ where
             tree: &mut state.children[1],
             size: layout.bounds().size(),
             on_blur: self.on_blur.clone(),
+            viewport: *viewport,
         })))
     }
 
@@ -140,14 +142,14 @@ where
     }
 
     fn operate(
-        &self,
+        &mut self,
         state: &mut Tree,
         layout: Layout<'_>,
         renderer: &Renderer,
         operation: &mut dyn widget::Operation,
     ) {
         self.base
-            .as_widget()
+            .as_widget_mut()
             .operate(&mut state.children[0], layout, renderer, operation);
     }
 }
@@ -158,6 +160,7 @@ struct Overlay<'a, 'b, Message, Theme, Renderer> {
     tree: &'b mut Tree,
     size: Size,
     on_blur: Option<Message>,
+    viewport: Rectangle,
 }
 
 impl<Message, Theme, Renderer> overlay::Overlay<Message, Theme, Renderer>
@@ -173,22 +176,22 @@ where
 
         let child = self
             .content
-            .as_widget()
+            .as_widget_mut()
             .layout(self.tree, renderer, &limits)
             .align(Alignment::Center, Alignment::Center, limits.max());
 
         layout::Node::with_children(self.size, vec![child]).move_to(self.position)
     }
 
-    fn on_event(
+    fn update(
         &mut self,
-        event: Event,
+        event: &Event,
         layout: Layout<'_>,
         cursor: Cursor,
         renderer: &Renderer,
         clipboard: &mut dyn Clipboard,
         shell: &mut Shell<'_, Message>,
-    ) -> event::Status {
+    ) {
         if let Some(message) = self.on_blur.as_ref()
             && matches!(
                 event,
@@ -203,11 +206,11 @@ where
                 .bounds();
             if !content_bounds.contains(cursor_position) {
                 shell.publish(message.clone());
-                return event::Status::Captured;
+                return;
             }
         }
 
-        self.content.as_widget_mut().on_event(
+        self.content.as_widget_mut().update(
             self.tree,
             event,
             layout.children().next().unwrap(),
@@ -215,8 +218,8 @@ where
             renderer,
             clipboard,
             shell,
-            &layout.bounds(),
-        )
+            &self.viewport,
+        );
     }
 
     fn draw(
@@ -255,7 +258,7 @@ where
         renderer: &Renderer,
         operation: &mut dyn widget::Operation,
     ) {
-        self.content.as_widget().operate(
+        self.content.as_widget_mut().operate(
             self.tree,
             layout.children().next().unwrap(),
             renderer,
@@ -267,14 +270,13 @@ where
         &self,
         layout: Layout<'_>,
         cursor: Cursor,
-        viewport: &Rectangle,
         renderer: &Renderer,
     ) -> mouse::Interaction {
         self.content.as_widget().mouse_interaction(
             self.tree,
             layout.children().next().unwrap(),
             cursor,
-            viewport,
+            &self.viewport,
             renderer,
         )
     }

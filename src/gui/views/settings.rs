@@ -390,13 +390,11 @@ impl Settings {
     }
 
     fn general_container(&self) -> Element<'_, Message, Theme, Renderer> {
-        let expert_mode_checkbox = checkbox(
-            "Allow to uninstall packages marked as \"unsafe\" (I KNOW WHAT I AM DOING)",
-            self.general.expert_mode,
-        )
-        .on_toggle(Message::ExpertMode)
-        .size(20)
-        .style(style::CheckBox::SettingsEnabled);
+        let expert_mode_checkbox = checkbox(self.general.expert_mode)
+            .label("Allow to uninstall packages marked as \"unsafe\" (I KNOW WHAT I AM DOING)")
+            .on_toggle(Message::ExpertMode)
+            .size(20)
+            .style(style::CheckBox::SettingsEnabled);
 
         let expert_mode_descr =
             text("Most unsafe packages are known to bootloop the device if removed.")
@@ -413,7 +411,7 @@ impl Settings {
         let choose_backup_row = row![
             choose_backup_btn,
             "Choose backup folder",
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             "Current folder: ",
             text(self.general.backup_folder.to_string_lossy())
         ]
@@ -442,7 +440,7 @@ impl Settings {
                 text("The following settings only affect the currently selected device:")
                     .style(style::Text::Danger),
                 text(phone.model.clone()),
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
                 text(phone.adb_id.clone()).style(style::Text::Commentary)
             ]
             .spacing(7),
@@ -469,13 +467,11 @@ impl Settings {
             .style(style::Text::Danger)
         ];
 
-        let multi_user_mode_checkbox = checkbox(
-            "Affect all the users of the device (not only the selected user)",
-            self.device.multi_user_mode,
-        )
-        .on_toggle(Message::MultiUserMode)
-        .size(20)
-        .style(style::CheckBox::SettingsEnabled);
+        let multi_user_mode_checkbox = checkbox(self.device.multi_user_mode)
+            .label("Affect all the users of the device (not only the selected user)")
+            .on_toggle(Message::MultiUserMode)
+            .size(20)
+            .style(style::CheckBox::SettingsEnabled);
 
         let disable_checkbox_style = if phone.android_sdk >= 23 {
             style::CheckBox::SettingsEnabled
@@ -495,24 +491,22 @@ impl Settings {
             .height(22)
             .style(style::Button::Unavailable);
 
-        let disable_mode_checkbox = checkbox(
-            "Clear and disable packages instead of uninstalling them",
-            self.device.disable_mode,
-        )
-        .on_toggle(Message::DisableMode)
-        .size(20)
-        .style(disable_checkbox_style);
+        let disable_mode_checkbox = checkbox(self.device.disable_mode)
+            .label("Clear and disable packages instead of uninstalling them")
+            .on_toggle(Message::DisableMode)
+            .size(20)
+            .style(disable_checkbox_style);
 
         let disable_setting_row = if phone.android_sdk >= 23 {
             row![
                 disable_mode_checkbox,
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
             ]
             .width(Length::Fill)
         } else {
             row![
                 disable_mode_checkbox,
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
                 unavailable_btn,
             ]
             .width(Length::Fill)
@@ -580,7 +574,7 @@ impl Settings {
         let backup_row = row![
             backup_btn,
             "Backup the current state of the phone",
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             locate_backup_btn,
         ]
         .spacing(10)
@@ -592,7 +586,7 @@ impl Settings {
             row![
                 restore_btn(true),
                 "Restore the state of the device",
-                Space::new(Length::Fill, Length::Shrink),
+                Space::new().width(Length::Fill).height(Length::Shrink),
                 text(self.device.backup.backup_state.clone()).style(style::Text::Danger),
                 backup_pick_list,
             ]
@@ -603,7 +597,7 @@ impl Settings {
         let export_row = row![
             export_btn,
             "Export uninstalled packages with their description",
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             text(format!(
                 "Selected: user {}",
                 apps_view.selected_user.unwrap_or_default().id
@@ -651,11 +645,11 @@ impl Settings {
                 .padding(20);
 
         let modal_btn_row = row![
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
             button(text("Close").width(Length::Shrink))
                 .width(Length::Shrink)
                 .on_press(Message::ModalHide),
-            Space::new(Length::Fill, Length::Shrink),
+            Space::new().width(Length::Fill).height(Length::Shrink),
         ];
 
         let ctn = container(column![title, text_box, file_row, modal_btn_row])
