@@ -16,7 +16,7 @@ If you've performed massive edits via automation, you must specify what automati
 sed -i 's/a/b/' resources/assets/uad_lists.json
 ```
 
-You should 📋copy-paste that cmd to the pull-request description. This rule applies even if you use "proper" cmds such as `jq`, which safely edit structured data. And it also applies to AI, *especially* LLMs.
+You should copy-paste that cmd to the pull-request description. This rule applies even if you use "proper" cmds such as `jq`, which safely edit structured data. And it also applies to AI, *especially* LLMs.
 
 This is required so that we can review your big patch without reading it. This improves [transparency](https://en.wikipedia.org/wiki/Transparency_(behavior)), which makes you more trust-worthy! Bonus points if you can provide a sequence of cmds that proves your patch contains exactly what you said it does. For the simple `sed` case, something like:
 
