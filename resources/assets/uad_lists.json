@@ -1,7 +1,87 @@
 {
+  "org.lineageos.recorder": {
+    "list": "Oem",
+    "description": "LineageOS Voice Recorder App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.lineageos.aperture": {
+    "list": "Oem",
+    "description": "LineageOS Camera App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no camera app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.etar": {
+    "list": "Oem",
+    "description": "LineageOS Calendar App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no calendar app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.glimpse": {
+    "list": "Oem",
+    "description": "LineageOS Gallery App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no gallery app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.twelve": {
+    "list": "Oem",
+    "description": "LineageOS Music App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.lineageos.camelot": {
+    "list": "Oem",
+    "description": "LineageOS PDF Viewer App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "co.aospa.dolby.xiaomi": {
+    "list": "Oem",
+    "description": "AOSPA's Dolby Atmos App on custom ROMs for Xiaomi phones. Providers support for Dolby Atmos on devices with Xiaomi hardware running custom ROMs. \nRemoving it just removes the Dolby Atmos feature and its app. Safe to remove if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "io.chaldeaprjkt.gamespace": {
+    "list": "Oem",
+    "description": "The Game Space App, often found in custom ROMs. If you don't need it or don't play games, it's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.omnirom.omnistyle": {
+    "list": "Oem",
+    "description": "OmniRom customization app. It lets you change the header image on the quick settings panel and the wallpaper for custom ROMs. It's included in custom ROMs mostly for the quick settings header images as the wallpaper activity is not normally accessible.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "tokyo.witaqua.updater": {
+    "list": "Oem",
+    "description": "LineageOS Updater rebranded for the WitAqua custom ROM. \nNot safe to remove; could break Updater UI on devices with WitAqua ROMs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.sar.main": {
     "list": "Misc",
-    "description": "A critically important package for all android devices;\n The SAR controller service (Specific Absorption Rate). This is a system that controls how much radio-frequency energy the device is allowed to emit. It regulates Wi-Fi/Bluetooth/Modem power limits, proximity-based power reduction (e.g. when phone is near your body).\nRemoving this package basically makes your device much more radioactive. Device will lose control over adjusting radio-frequency energy, and it will uncontrollably emit too big or too small amounts of it, resulting in constant signal drops and a potential danger to your health, because if the phone emits radio-frequency energy near you uncontrollably, without lowering it in proximity to you, it's a health (cancer) risk.\n When the radio-frequency energy that phone is emitting will be uncontrollable, the phone is basically becoming radioactive. This is also illegal in many countries: many countries and regions require phones to pass SAR certification to be legally sold. Removing this package is basically violating the law."
+    "description": "A critically important package for all android devices;\n The SAR controller service (Specific Absorption Rate). This is a system that controls how much radio-frequency energy the device is allowed to emit. It regulates Wi-Fi/Bluetooth/Modem power limits, proximity-based power reduction (e.g. when phone is near your body).\nRemoving this package basically makes your device much more radioactive. Device will lose control over adjusting radio-frequency energy, and it will uncontrollably emit too big or too small amounts of it, resulting in constant signal drops and a potential danger to your health, because if the phone emits radio-frequency energy near you uncontrollably, without lowering it in proximity to you, it's a health (cancer) risk.\n When the radio-frequency energy that phone is emitting will be uncontrollable, the phone is basically becoming radioactive. This is also illegal in many countries: many countries and regions require phones to pass SAR certification to be legally sold. Removing this package is basically violating the law in many countries and regions."
     "dependencies": [],
     "neededBy": [],
     "labels": [],
