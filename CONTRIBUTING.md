@@ -36,6 +36,8 @@ Should be enough.
 
 You should be careful with mass-editing anyways. Even if the verification is successful, the effects [might not be what you expect](https://en.wikipedia.org/wiki/Scunthorpe_problem).
 
+Since AI is non-deterministic, the version number is optional, but it's helpful to know how "intelligent" it is. AI edits are non-reproducible, so "verification scripts" are useless.
+
 ### Branching strategy
 
 As for our branching strategy, we're using [Trunk-Based Development](https://trunkbaseddevelopment.com/#one-line-summary).
