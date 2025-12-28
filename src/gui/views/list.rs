@@ -281,20 +281,21 @@ impl List {
         .width(85);
 
         let list_picklist =
-            pick_list(UadList::ALL, self.selected_list, Message::ListSelected).width(92);
+            pick_list(UadList::ALL, self.selected_list, Message::ListSelected).width(96);
+
         let package_state_picklist = pick_list(
             PackageState::ALL,
             self.selected_package_state,
             Message::PackageStateSelected,
         )
-        .width(115);
+        .width(120);
 
         let removal_picklist = pick_list(
             Removal::ALL,
             self.selected_removal,
             Message::RemovalSelected,
         )
-        .width(140);
+        .width(150);
 
         row![
             col_sel_all,
