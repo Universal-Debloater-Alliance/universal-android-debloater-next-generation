@@ -280,12 +280,8 @@ impl List {
         )
         .width(85);
 
-        let list_picklist = pick_list(
-            UadList::ALL,
-            self.selected_list,
-            Message::ListSelected
-        )
-        .width(96);
+        let list_picklist =
+            pick_list(UadList::ALL, self.selected_list, Message::ListSelected).width(96);
 
         let package_state_picklist = pick_list(
             PackageState::ALL,
