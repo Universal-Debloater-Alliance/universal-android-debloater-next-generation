@@ -25791,8 +25791,8 @@
     "labels": []
   },
   "com.android.bbk.lockscreen3": {
-    "description": "Lock\nNeeded for lockscreen?",
-    "removal": "Expert",
+    "description": "Lock Screen shortcut for lock phone, no needed and bloated. still can use double tap to sleep or direct push power button for lock phone.",
+    "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -37065,11 +37065,11 @@
   },
   "com.vivo.game": {
     "list": "Oem",
-    "description": "Game Space. Not sure if its useful for gaming.",
+    "description": "Game Shop for Vivo/iQoo devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.vivo.globalanimation.resources": {
     "list": "Oem",
