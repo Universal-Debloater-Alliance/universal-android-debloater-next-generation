@@ -3311,7 +3311,7 @@
   },
   "com.huawei.imedia.sws": {
     "list": "Oem",
-    "description": "Huawei Histen\nAudio 3D effects found in the settings. Safe to remove if you don't use these settings.",
+    "description": "Huawei Histen\nAudio 3D effects found in the settings. Safe to remove if you don't use these settings.\nCauses an audio glitch after the first reboot following the uninstallation or disabling of this package.\nWhen you start or resume playing any audio content in any media application, the sound volume initially sets to maximum for half a second, then normalizes.\nAffects only external audio devices with any connection type.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
