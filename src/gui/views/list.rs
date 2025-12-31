@@ -1,6 +1,6 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
-use crate::core::sync::{AdbError, CorePackage, Phone, User, apply_pkg_state_commands, run_adb_action};
+use crate::core::sync::{AdbError,Phone, User, apply_pkg_state_commands, run_adb_action};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -1191,7 +1191,7 @@ impl List {
                                     // fallback task
                                     return Task::perform(
                                         async move {
-                                            let temp_pkg = CorePackage {
+                                            let temp_pkg = crate::core::sync::CorePackage {
                                                 name: pkg_name.clone(),
                                                 state: PackageState::Disabled,
                                             };
@@ -1215,7 +1215,7 @@ impl List {
                                             }
 
                                             // reinstall/enable
-                                            let temp_pkg_uninstalled = CorePackage {
+                                            let temp_pkg_uninstalled = crate::core::sync::CorePackage {
                                                 name: pkg_name.clone(),
                                                 state: PackageState::Uninstalled,
                                             };
@@ -1243,6 +1243,7 @@ impl List {
                                                 &device.adb_id,
                                                 Some(user.id),
                                             )
+                                                
                                             .unwrap_or(PackageState::Uninstalled);
 
                                             VerifyAndFallbackResult {
