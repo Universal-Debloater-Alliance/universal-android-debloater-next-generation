@@ -1,6 +1,6 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
-use crate::core::sync::{AdbError, Phone, User, apply_pkg_state_commands, run_adb_action};
+use crate::core::sync::{AdbError, CorePackage, Phone, User, apply_pkg_state_commands, run_adb_action};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -1027,6 +1027,10 @@ impl List {
         clippy::too_many_lines,
         reason = "Complex verification and fallback logic"
     )]
+    //this functions matches the adb command to two types, when it is a soft issue and when it is a hard issue
+    // soft issue: utilizes core::sync::attempt_fallback in the case the state that wanted to be changed wasn't in fact changed
+    // hard issue: does basically nothing in most cases FIXME, besides handling enabling packages.
+    // also this really should be refactored, these are gigantic code blocks
     fn on_verify_and_fallback(
         &mut self,
         res: Result<PackageInfo, AdbError>,
@@ -1148,13 +1152,124 @@ impl List {
                     Message::VerifyAndFallbackFinished,
                 )
             }
+
+            //this is an example of how errors should be done, this is hard to implement however.
+            // Err(AdbError::SecurityException(err)) => {
+                
+            // }
+            //FIXME: this has to be changed as soon as possible, generic errors are bad practice
+            // keep in mind most solutions to hard errors like this are going to be hacky
+            // and weird.
             Err(AdbError::Generic(err)) => {
+            // this is such a hacky solution
+                if err.contains("Shell cannot change component state") {
+                    // look for the "pm enable --user " to get the command
+                    if let Some(start_index) = err.find("pm enable --user ") {
+                        // slice the string starting from the end of the prefix
+                        let remainder = &err[start_index + "pm enable --user ".len()..];
+                        // split by whitespace to get the arguments: [ID, PACKAGE, ...]
+                        let parts: Vec<&str> = remainder.split_whitespace().collect();
+
+                        if parts.len() >= 2 {
+                            let user_id_str = parts[0];
+                            let pkg_name_str = parts[1];
+
+                            let found_user = selected_device.user_list.iter().enumerate()
+                                .find(|(_, u)| u.id.to_string() == user_id_str);
+
+
+                            if let Some((i_user, user_ref)) = found_user {
+                                // find the package index
+                                let found_pkg = self.phone_packages[i_user].iter().enumerate()
+                                    .find(|(_, p)| p.name == pkg_name_str);
+
+                                if let Some((index, _)) = found_pkg {
+                                    let user = user_ref.clone();
+                                    let device = selected_device.clone();
+                                    let pkg_name = pkg_name_str.to_string();
+
+                                    // fallback task
+                                    return Task::perform(
+                                        async move {
+                                            let temp_pkg = CorePackage {
+                                                name: pkg_name.clone(),
+                                                state: PackageState::Disabled,
+                                            };
+
+                                            // get uninstall command
+                                            let uninstall_cmds = crate::core::sync::apply_pkg_state_commands(
+                                                &temp_pkg,
+                                                PackageState::Uninstalled,
+                                                user.clone(),
+                                                &device,
+                                            );
+
+ 
+                                            if let Some(cmd) = uninstall_cmds.first() {
+                                                let dummy_info = PackageInfo::default();
+                                                let _ = crate::core::sync::run_adb_action(
+                                                    device.adb_id.clone(),
+                                                    cmd.clone(),
+                                                    dummy_info,
+                                                ).await;
+                                            }
+
+                                            // reinstall/enable
+                                            let temp_pkg_uninstalled = CorePackage {
+                                                name: pkg_name.clone(),
+                                                state: PackageState::Uninstalled,
+                                            };
+
+                                            let enable_cmds = crate::core::sync::apply_pkg_state_commands(
+                                                &temp_pkg_uninstalled,
+                                                PackageState::Enabled,
+                                                user.clone(),
+                                                &device,
+                                            );
+
+                                            // lets enable the new package
+                                            if let Some(cmd) = enable_cmds.first() {
+                                                let dummy_info = PackageInfo::default();
+                                                let _ = crate::core::sync::run_adb_action(
+                                                    device.adb_id.clone(),
+                                                    cmd.clone(),
+                                                    dummy_info,
+                                                ).await;
+                                            }
+
+                                            //verifies the final state for thread confirmation
+                                            let actual_state = crate::core::sync::verify_package_state(
+                                                &pkg_name,
+                                                &device.adb_id,
+                                                Some(user.id),
+                                            )
+                                            .unwrap_or(PackageState::Uninstalled);
+
+                                            VerifyAndFallbackResult {
+                                                i_user,
+                                                index,
+                                                new_state: actual_state,
+                                                notification: Some(format!("Attempted recovery for {}", pkg_name)),
+                                                error_modal: None,
+                                            }
+                                        },
+                                        Message::VerifyAndFallbackFinished,
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+    
+                // Fallthrough: default error handling if parsing failed or unrelated error
                 self.error_modal = Some(err);
                 Task::none()
+
             }
         }
-    }
-
+}
+            
+   
     fn on_modal_user_selected(
         &mut self,
         user: User,
