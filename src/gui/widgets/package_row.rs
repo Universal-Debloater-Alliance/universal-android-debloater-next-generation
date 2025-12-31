@@ -4,6 +4,8 @@ use crate::core::uad_lists::{PackageState, Removal, UadList};
 use crate::gui::style;
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::text;
+use iced::widget::tooltip;
+use iced::widget::tooltip::Position;
 
 use iced::widget::{Space, button, checkbox, row};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
