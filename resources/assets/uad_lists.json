@@ -1,12 +1,12 @@
 { 
   "do.not.remove.the.following._.it.is.a.placeholder._.paste.it.for.new.packages": {},
-  " ": {
-    "list": " ",
-    "description": " ",
+  "⠀": {
+    "list": "⠀",
+    "description": "⠀",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": " "
+    "removal": "⠀"
   },
   "org.lineageos.recorder": {
     "list": "Oem",
