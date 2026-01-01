@@ -1188,7 +1188,7 @@ impl List {
                                     .find(|(_, p)| p.name == pkg_name_str);
 
                                 if let Some((index, _)) = found_pkg {
-                                    let user = user_ref.clone();
+                                    let user = *user_ref;
                                     let device = selected_device.clone();
                                     let pkg_name = pkg_name_str.to_string();
 
@@ -1205,7 +1205,7 @@ impl List {
                                                 crate::core::sync::apply_pkg_state_commands(
                                                     &temp_pkg,
                                                     PackageState::Uninstalled,
-                                                    user.clone(),
+                                                    user,
                                                     &device,
                                                 );
 
@@ -1230,7 +1230,7 @@ impl List {
                                                 crate::core::sync::apply_pkg_state_commands(
                                                     &temp_pkg_uninstalled,
                                                     PackageState::Enabled,
-                                                    user.clone(),
+                                                    user,
                                                     &device,
                                                 );
 
@@ -1258,8 +1258,7 @@ impl List {
                                                 index,
                                                 new_state: actual_state,
                                                 notification: Some(format!(
-                                                    "Attempted recovery for {}",
-                                                    pkg_name
+                                                    "Attempted recovery for {pkg_name}"
                                                 )),
                                                 error_modal: None,
                                             }
