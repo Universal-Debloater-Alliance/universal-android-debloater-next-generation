@@ -1,6 +1,12 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
+<<<<<<< HEAD
 use crate::core::sync::{AdbError,Phone, User, apply_pkg_state_commands, run_adb_action};
+=======
+use crate::core::sync::{
+    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, run_adb_action,
+};
+>>>>>>> cdc3ad8 (fixed formatting issues)
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -1155,13 +1161,13 @@ impl List {
 
             //this is an example of how errors should be done, this is hard to implement however.
             // Err(AdbError::SecurityException(err)) => {
-                
+
             // }
             //FIXME: this has to be changed as soon as possible, generic errors are bad practice
             // keep in mind most solutions to hard errors like this are going to be hacky
             // and weird.
             Err(AdbError::Generic(err)) => {
-            // this is such a hacky solution
+                // this is such a hacky solution
                 if err.contains("Shell cannot change component state") {
                     // look for the "pm enable --user " to get the command
                     if let Some(start_index) = err.find("pm enable --user ") {
@@ -1174,13 +1180,17 @@ impl List {
                             let user_id_str = parts[0];
                             let pkg_name_str = parts[1];
 
-                            let found_user = selected_device.user_list.iter().enumerate()
+                            let found_user = selected_device
+                                .user_list
+                                .iter()
+                                .enumerate()
                                 .find(|(_, u)| u.id.to_string() == user_id_str);
-
 
                             if let Some((i_user, user_ref)) = found_user {
                                 // find the package index
-                                let found_pkg = self.phone_packages[i_user].iter().enumerate()
+                                let found_pkg = self.phone_packages[i_user]
+                                    .iter()
+                                    .enumerate()
                                     .find(|(_, p)| p.name == pkg_name_str);
 
                                 if let Some((index, _)) = found_pkg {
@@ -1197,21 +1207,22 @@ impl List {
                                             };
 
                                             // get uninstall command
-                                            let uninstall_cmds = crate::core::sync::apply_pkg_state_commands(
-                                                &temp_pkg,
-                                                PackageState::Uninstalled,
-                                                user.clone(),
-                                                &device,
-                                            );
+                                            let uninstall_cmds =
+                                                crate::core::sync::apply_pkg_state_commands(
+                                                    &temp_pkg,
+                                                    PackageState::Uninstalled,
+                                                    user.clone(),
+                                                    &device,
+                                                );
 
- 
                                             if let Some(cmd) = uninstall_cmds.first() {
                                                 let dummy_info = PackageInfo::default();
                                                 let _ = crate::core::sync::run_adb_action(
                                                     device.adb_id.clone(),
                                                     cmd.clone(),
                                                     dummy_info,
-                                                ).await;
+                                                )
+                                                .await;
                                             }
 
                                             // reinstall/enable
@@ -1220,12 +1231,13 @@ impl List {
                                                 state: PackageState::Uninstalled,
                                             };
 
-                                            let enable_cmds = crate::core::sync::apply_pkg_state_commands(
-                                                &temp_pkg_uninstalled,
-                                                PackageState::Enabled,
-                                                user.clone(),
-                                                &device,
-                                            );
+                                            let enable_cmds =
+                                                crate::core::sync::apply_pkg_state_commands(
+                                                    &temp_pkg_uninstalled,
+                                                    PackageState::Enabled,
+                                                    user.clone(),
+                                                    &device,
+                                                );
 
                                             // lets enable the new package
                                             if let Some(cmd) = enable_cmds.first() {
@@ -1234,10 +1246,12 @@ impl List {
                                                     device.adb_id.clone(),
                                                     cmd.clone(),
                                                     dummy_info,
-                                                ).await;
+                                                )
+                                                .await;
                                             }
 
                                             //verifies the final state for thread confirmation
+<<<<<<< HEAD
                                             let actual_state = crate::core::sync::verify_package_state(
                                                 &pkg_name,
                                                 &device.adb_id,
@@ -1245,12 +1259,24 @@ impl List {
                                             )
                                                 
                                             .unwrap_or(PackageState::Uninstalled);
+=======
+                                            let actual_state =
+                                                crate::core::sync::verify_package_state(
+                                                    &pkg_name,
+                                                    &device.adb_id,
+                                                    Some(user.id),
+                                                )
+                                                .unwrap_or(PackageState::Uninstalled);
+>>>>>>> cdc3ad8 (fixed formatting issues)
 
                                             VerifyAndFallbackResult {
                                                 i_user,
                                                 index,
                                                 new_state: actual_state,
-                                                notification: Some(format!("Attempted recovery for {}", pkg_name)),
+                                                notification: Some(format!(
+                                                    "Attempted recovery for {}",
+                                                    pkg_name
+                                                )),
                                                 error_modal: None,
                                             }
                                         },
@@ -1261,16 +1287,14 @@ impl List {
                         }
                     }
                 }
-    
+
                 // Fallthrough: default error handling if parsing failed or unrelated error
                 self.error_modal = Some(err);
                 Task::none()
-
             }
         }
-}
-            
-   
+    }
+
     fn on_modal_user_selected(
         &mut self,
         user: User,
