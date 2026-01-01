@@ -1,4 +1,15 @@
-{
+{ 
+  "DO NOT REMOVE THE FOLLOWING. IT'S A PLACEHOLDER. COPY IT WHEN ADDING NEW PACKAGES.": {
+    
+  },
+  " ": {
+    "list": " ",
+    "description": " ",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": " "
+  },
   "org.lineageos.recorder": {
     "list": "Oem",
     "description": "LineageOS Voice Recorder App. \nSafe to remove if you don't need it or have replaced it with another app.",
