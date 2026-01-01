@@ -1,12 +1,6 @@
 use crate::core::config::DeviceSettings;
 use crate::core::helpers::button_primary;
-<<<<<<< HEAD
-use crate::core::sync::{AdbError,Phone, User, apply_pkg_state_commands, run_adb_action};
-=======
-use crate::core::sync::{
-    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, run_adb_action,
-};
->>>>>>> cdc3ad8 (fixed formatting issues)
+use crate::core::sync::{AdbError, Phone, User, apply_pkg_state_commands, run_adb_action};
 use crate::core::theme::Theme;
 use crate::core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
@@ -1226,10 +1220,11 @@ impl List {
                                             }
 
                                             // reinstall/enable
-                                            let temp_pkg_uninstalled = crate::core::sync::CorePackage {
-                                                name: pkg_name.clone(),
-                                                state: PackageState::Uninstalled,
-                                            };
+                                            let temp_pkg_uninstalled =
+                                                crate::core::sync::CorePackage {
+                                                    name: pkg_name.clone(),
+                                                    state: PackageState::Uninstalled,
+                                                };
 
                                             let enable_cmds =
                                                 crate::core::sync::apply_pkg_state_commands(
@@ -1251,15 +1246,6 @@ impl List {
                                             }
 
                                             //verifies the final state for thread confirmation
-<<<<<<< HEAD
-                                            let actual_state = crate::core::sync::verify_package_state(
-                                                &pkg_name,
-                                                &device.adb_id,
-                                                Some(user.id),
-                                            )
-                                                
-                                            .unwrap_or(PackageState::Uninstalled);
-=======
                                             let actual_state =
                                                 crate::core::sync::verify_package_state(
                                                     &pkg_name,
@@ -1267,8 +1253,6 @@ impl List {
                                                     Some(user.id),
                                                 )
                                                 .unwrap_or(PackageState::Uninstalled);
->>>>>>> cdc3ad8 (fixed formatting issues)
-
                                             VerifyAndFallbackResult {
                                                 i_user,
                                                 index,
