@@ -7,8 +7,6 @@ pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingS
 use crate::gui::{Message, style, widgets::text};
 use iced::widget::{Space, button, container, pick_list, row, tooltip};
 use iced::{Alignment, Element, Font, Length, Renderer, alignment, font};
-use iced::{Subscription, event, keyboard};
-
 /// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
 pub const ICONS: Font = Font {
     family: font::Family::Name("icomoon"),
