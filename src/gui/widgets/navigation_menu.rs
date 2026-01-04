@@ -70,8 +70,25 @@ pub fn nav_menu<'a>(
     };
 
     let apps_btn = button_primary("Apps").on_press(Message::AppsPress);
+	
+	let apps_btn = tooltip(
+        apps_btn,
+        "(Ctrl+Shift+A)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
+	
 
     let about_btn = button_primary("About").on_press(Message::AboutPressed);
+	
+	let about_btn = tooltip(
+        about_btn,
+        "(Ctrl+Shift+I)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
 
     let settings_btn = button_primary(
         text("\u{E994}")
@@ -80,6 +97,15 @@ pub fn nav_menu<'a>(
             .align_x(alignment::Horizontal::Center),
     )
     .on_press(Message::SettingsPressed);
+
+let settings_btn = tooltip(
+        settings_btn,
+        "(Ctrl+Shift+S)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
+
 
     let device_list_text = match apps_view.loading_state {
         ListLoadingState::FindingPhones => text("Finding connected devices..."),
