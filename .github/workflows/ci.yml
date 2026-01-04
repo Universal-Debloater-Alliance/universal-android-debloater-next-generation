@@ -1,43 +1,81 @@
 name: Continuous Integration
-
 on:
   push:
     paths:
-      - Cargo.toml
       - Cargo.lock
+      - Cargo.toml
+      - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
   pull_request:
     paths:
-      - Cargo.toml
       - Cargo.lock
+      - Cargo.toml
+      - resources/assets/*.ttf
+      - resources/assets/uad_lists.json
       - src/**
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-22.04
+  lint:
+    name: lint
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, windows-2022, macOS-14]
+        lint: [check, test, clippy, fmt]
+        exclude: # https://github.com/community/community/discussions/7835
+          - os: windows-2022
+            lint: clippy
+          - os: windows-2022
+            lint: fmt
+          - os: macOS-14
+            lint: clippy
+          - os: macOS-14
+            lint: fmt
+        include:
+          - lint: check
+            args: " --all-features"
+            env-flag: "-D warnings"
+          - lint: test
+            args: ""
+          - lint: clippy
+            args: " --all-features -- -D clippy::all -W clippy::style"
+          - lint: fmt
+            args: " -- --check"
     steps:
       - uses: actions/checkout@v4
-
-      # Set up Rust stable toolchain explicitly
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-          components: rustfmt, clippy
-
-      # Cache Cargo registry and build artifacts
       - uses: actions/cache@v4
         with:
           path: |
-            ~/.cargo/registry
-            ~/.cargo/git
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-${{ matrix.lint }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.OS }}-${{ matrix.lint }}-
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy,rustfmt
+      - shell: bash
+        run: RUSTFLAGS='${{ matrix.env-flag }}' cargo ${{ matrix.lint }}${{ matrix.args }}
 
-      # Build the project
-      - name: Build
-        run: cargo build --all-features
-
-      # Run tests
+  coverage:
+    name: coverage
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Download grcov
+        run: |
+          mkdir -p "${HOME}/.local/bin"
+          curl -sL https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf - -C "${HOME}/.local/bin"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install LLVM-profdata
+        run: rustup component add llvm-tools-preview
       - name: Run tests
-        run: cargo test --all-features --verbose
+        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test
+      - name: make coverage directory
+        run: mkdir ./target/coverage
+      - name: Run GRCOV
+        run: grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o ./target/coverage/tests.lcov
