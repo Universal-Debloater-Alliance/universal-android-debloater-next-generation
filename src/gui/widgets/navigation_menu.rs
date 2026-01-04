@@ -29,22 +29,23 @@ pub fn nav_menu<'a>(
     )
     .on_press(Message::RefreshButtonPressed);
 
-    let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps (Ctrl+Shift+5)", tooltip::Position::Bottom)
-        .style(style::Container::Tooltip)
-        .gap(4);
+    let apps_refresh_tooltip = tooltip(
+        apps_refresh_btn,
+        "Refresh apps (Ctrl+Shift+5)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
 
-let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
+    let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
 
-let reboot_btn = tooltip(
-    reboot_btn,
-    "Reboot device (Ctrl+Shift+R)",
-    tooltip::Position::Bottom,
-)
-.style(style::Container::Tooltip)
-.gap(4);
-
-
-
+    let reboot_btn = tooltip(
+        reboot_btn,
+        "Reboot device (Ctrl+Shift+R)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
 
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
         match self_update_state.status {

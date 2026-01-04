@@ -94,36 +94,26 @@ impl UadGui {
         )
     }
 
- fn subscription(&self) -> Subscription<Message> {
-        event::listen_with(|event, _status, _env| {
-            match event {
-                iced::Event::Keyboard(
-                    keyboard::Event::KeyPressed {
-                        key,
-                        modifiers,
-                        ..
-                    }
-                ) => {
-                    if modifiers.control()
-                        && modifiers.shift()
-                        && key == keyboard::Key::Character("r".into())
-                    {
-                        Some(Message::RebootButtonPressed)
-                    } else if modifiers.control() && modifiers.shift()
-						&& key == keyboard::Key::Character("5".into())
-					{
-						Some(Message::RefreshButtonPressed)
-					}
-					
-					else {
-                        None
-                    }
+    fn subscription(&self) -> Subscription<Message> {
+        event::listen_with(|event, _status, _env| match event {
+            iced::Event::Keyboard(keyboard::Event::KeyPressed { key, modifiers, .. }) => {
+                if modifiers.control()
+                    && modifiers.shift()
+                    && key == keyboard::Key::Character("r".into())
+                {
+                    Some(Message::RebootButtonPressed)
+                } else if modifiers.control()
+                    && modifiers.shift()
+                    && key == keyboard::Key::Character("5".into())
+                {
+                    Some(Message::RefreshButtonPressed)
+                } else {
+                    None
                 }
-                _ => None,
             }
+            _ => None,
         })
     }
-
 
     #[allow(
         clippy::too_many_lines,
@@ -417,7 +407,7 @@ impl UadGui {
 
         iced::application(UadGui::new, UadGui::update, UadGui::view)
             .theme(UadGui::theme)
-			.subscription(UadGui::subscription)
+            .subscription(UadGui::subscription)
             .settings(Settings {
                 id: Some(String::from(NAME)),
                 default_text_size: iced::Pixels(16.0),
