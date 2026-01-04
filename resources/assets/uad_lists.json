@@ -1,11 +1,11 @@
 {
-  "⠀": {
-    "list": "⠀",
-    "description": "⠀",
+  " ": {
+    "list": " ",
+    "description": " ",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "⠀"
+    "removal": " "
   },
   "org.lineageos.recorder": {
     "list": "Oem",
