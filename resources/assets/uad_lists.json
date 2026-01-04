@@ -1,11 +1,11 @@
 {
-  "-": {
-    "list": "-",
-    "description": "-",
+  "com.example": {
+    "list": "Aosp",
+    "description": "I'm testing if the syntax issue is in the package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "-"
+    "removal": "Advanced"
   },
   "org.lineageos.recorder": {
     "list": "Oem",
