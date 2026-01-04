@@ -112,20 +112,17 @@ impl UadGui {
                     && key == keyboard::Key::Character("a".into())
                 {
                     Some(Message::AppsPress)
-                }
-					else if modifiers.control()
+                } else if modifiers.control()
                     && modifiers.shift()
                     && key == keyboard::Key::Character("i".into())
                 {
                     Some(Message::AboutPressed)
-                }
-					else if modifiers.control()
+                } else if modifiers.control()
                     && modifiers.shift()
                     && key == keyboard::Key::Character("s".into())
                 {
                     Some(Message::SettingsPressed)
-                }
-				else {
+                } else {
                     None
                 }
             }
