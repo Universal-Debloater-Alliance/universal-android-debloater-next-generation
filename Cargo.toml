@@ -1,7 +1,7 @@
 [package]
 name = "uad-ng"
 description = "A cross-platform GUI debloater for android devices"
-version = "1.1.2"
+version = "1.2.0"
 authors = ["Universal-Debloater-Alliance"]
 license = "GPL-3.0"
 homepage = "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation"
