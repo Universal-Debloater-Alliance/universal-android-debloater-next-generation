@@ -21,16 +21,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, windows-2022, macOS-14]
+        os: [ubuntu-22.04, windows-2022, macOS-latest]
         lint: [check, test, clippy, fmt]
         exclude: # https://github.com/community/community/discussions/7835
           - os: windows-2022
             lint: clippy
           - os: windows-2022
             lint: fmt
-          - os: macOS-14
+          - os: macOS-latest
             lint: clippy
-          - os: macOS-14
+          - os: macOS-latest
             lint: fmt
         include:
           - lint: check
