@@ -18,7 +18,7 @@ jobs:
           - build_target: linux
             os: ubuntu-22.04
           - build_target: macos
-            os: macos-latest
+            os: macos-15
           - build_target: macos-intel
             os: macos-15-intel
           - build_target: windows
