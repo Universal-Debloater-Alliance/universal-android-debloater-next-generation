@@ -18,9 +18,9 @@ jobs:
           - build_target: linux
             os: ubuntu-22.04
           - build_target: macos
-            os: macos-14
+            os: macos-15
           - build_target: macos-intel
-            os: macos-13
+            os: macos-15-intel
           - build_target: windows
             os: windows-2022
           - update_feature: self-update
