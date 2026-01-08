@@ -63,3 +63,30 @@ If you want to [back-port](https://en.wikipedia.org/wiki/Backporting) (GitHub's 
 ### Commit messages
 
 As for commits, we prefer using [Conventional Commit Messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13). When working in any of the branches listed above (if there's an existing issue for it), close it using a [closing keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword). For more information regarding Conventional Commit Messages, see <https://www.conventionalcommits.org/en/v1.0.0/> as well.
+
+### Issue labels
+
+When creating issues, they are automatically labeled based on the [issue template](.github/ISSUE_TEMPLATE/) you choose. These labels help categorize work and generate release notes.
+
+| Label | Purpose | Issue template |
+| ----- | ------- | -------------- |
+| `bug` | Software bugs in UAD-ng | Bug Report |
+| `enhancement` | New feature requests | Feature Request |
+| `package::addition` | Adding new packages to the debloat list | Add new package(s) |
+| `package::breakage` | Issues caused by debloating | Debloat issue report |
+| `package::documentation` | Updating package descriptions or recommendations | Update apps description or recommendation |
+| `documentation` | Improvements to docs/wiki | UAD-ng documentation |
+| `ci` | CI/CD related issues | CI/CD |
+| `refactor` | Code refactoring | — (maintainer-assigned) |
+| `dependencies` | Dependency updates | — (maintainer-assigned) |
+
+Labels are also used to automatically generate categorized [release notes](.github/release.yml). Each label maps to a changelog section:
+
+| Label(s) | Changelog category |
+| -------- | ------------------ |
+| `enhancement` | Features |
+| `bug` | Fixed |
+| `refactor` | Refactors |
+| `package::addition`, `package::breakage`, `package::documentation` | Packages/apps |
+| `ci`, `dependencies` | Development |
+| `documentation` | Documentation |
