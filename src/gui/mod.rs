@@ -105,15 +105,9 @@ impl UadGui {
                         keyboard::Key::Character(c) if c == "5" => {
                             Some(Message::RefreshButtonPressed)
                         }
-                        keyboard::Key::Character(c) if c == "a" => {
-                            Some(Message::AppsPress)
-                        }
-                        keyboard::Key::Character(c) if c == "i" => {
-                            Some(Message::AboutPressed)
-                        }
-                        keyboard::Key::Character(c) if c == "s" => {
-                            Some(Message::SettingsPressed)
-                        }
+                        keyboard::Key::Character(c) if c == "a" => Some(Message::AppsPress),
+                        keyboard::Key::Character(c) if c == "i" => Some(Message::AboutPressed),
+                        keyboard::Key::Character(c) if c == "s" => Some(Message::SettingsPressed),
                         _ => None,
                     }
                 } else {
