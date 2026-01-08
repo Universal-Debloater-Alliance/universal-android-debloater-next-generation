@@ -97,31 +97,25 @@ impl UadGui {
     fn subscription(&self) -> Subscription<Message> {
         event::listen_with(|event, _status, _env| match event {
             iced::Event::Keyboard(keyboard::Event::KeyPressed { key, modifiers, .. }) => {
-                if modifiers.control()
-                    && modifiers.shift()
-                    && key == keyboard::Key::Character("r".into())
-                {
-                    Some(Message::RebootButtonPressed)
-                } else if modifiers.control()
-                    && modifiers.shift()
-                    && key == keyboard::Key::Character("5".into())
-                {
-                    Some(Message::RefreshButtonPressed)
-                } else if modifiers.control()
-                    && modifiers.shift()
-                    && key == keyboard::Key::Character("a".into())
-                {
-                    Some(Message::AppsPress)
-                } else if modifiers.control()
-                    && modifiers.shift()
-                    && key == keyboard::Key::Character("i".into())
-                {
-                    Some(Message::AboutPressed)
-                } else if modifiers.control()
-                    && modifiers.shift()
-                    && key == keyboard::Key::Character("s".into())
-                {
-                    Some(Message::SettingsPressed)
+                if modifiers.control() && modifiers.shift() {
+                    match key {
+                        keyboard::Key::Character(c) if c == "r" => {
+                            Some(Message::RebootButtonPressed)
+                        }
+                        keyboard::Key::Character(c) if c == "5" => {
+                            Some(Message::RefreshButtonPressed)
+                        }
+                        keyboard::Key::Character(c) if c == "a" => {
+                            Some(Message::AppsPress)
+                        }
+                        keyboard::Key::Character(c) if c == "i" => {
+                            Some(Message::AboutPressed)
+                        }
+                        keyboard::Key::Character(c) if c == "s" => {
+                            Some(Message::SettingsPressed)
+                        }
+                        _ => None,
+                    }
                 } else {
                     None
                 }
