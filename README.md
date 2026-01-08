@@ -20,7 +20,12 @@ Everything about UAD-ng (and related stuff) can be found on [the Wiki](https://g
 - Weird things OEMs do
 - [Suggested apps for analyzing APKs](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute#useful-apps)
 
+## Privacy
+
+UAD-ng does not collect or transmit any user data. The only external connections are `GET` requests to GitHub for fetching the [package list](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/blob/main/resources/assets/uad_lists.json) ([src/core/uad_lists.rs#L210](src/core/uad_lists.rs#L210)) and checking for updates ([src/core/update.rs#L178](src/core/update.rs#L178)).
+
 ## Contact
+
 **For real-time communication and support, consider joining our Discord guild:**
 
 [<img width=64em alt="Discord symbol" src=./resources/images/icon_clyde_blurple.svg>](https://discord.gg/CzwbMCPEZa)
