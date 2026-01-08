@@ -27,3 +27,6 @@ jobs:
         with:
           files: uad-ng-*/*
           generate_release_notes: true
+          body: |
+            > [!NOTE]
+            > 📦 **Package list updates don't require a new app version**—UAD-ng automatically fetches the latest package definitions on launch (requires internet connection).
