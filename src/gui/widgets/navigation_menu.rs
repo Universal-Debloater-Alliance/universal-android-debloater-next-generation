@@ -7,7 +7,6 @@ pub use crate::gui::views::list::{List as AppsView, LoadingState as ListLoadingS
 use crate::gui::{Message, style, widgets::text};
 use iced::widget::{Space, button, container, pick_list, row, tooltip};
 use iced::{Alignment, Element, Font, Length, Renderer, alignment, font};
-
 /// resources/assets/icons.ttf, loaded in [`crate::gui::UadGui`]
 pub const ICONS: Font = Font {
     family: font::Family::Name("icomoon"),
@@ -28,11 +27,23 @@ pub fn nav_menu<'a>(
     )
     .on_press(Message::RefreshButtonPressed);
 
-    let apps_refresh_tooltip = tooltip(apps_refresh_btn, "Refresh apps", tooltip::Position::Bottom)
-        .style(style::Container::Tooltip)
-        .gap(4);
+    let apps_refresh_tooltip = tooltip(
+        apps_refresh_btn,
+        "Refresh apps (Ctrl+Shift+5)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
 
     let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
+
+    let reboot_btn = tooltip(
+        reboot_btn,
+        "Reboot device (Ctrl+Shift+R)",
+        tooltip::Position::Bottom,
+    )
+    .style(style::Container::Tooltip)
+    .gap(4);
 
     let uad_version_text = if let Some(r) = &self_update_state.latest_release {
         match self_update_state.status {
@@ -60,7 +71,15 @@ pub fn nav_menu<'a>(
 
     let apps_btn = button_primary("Apps").on_press(Message::AppsPress);
 
+    let apps_btn = tooltip(apps_btn, "(Ctrl+Shift+A)", tooltip::Position::Bottom)
+        .style(style::Container::Tooltip)
+        .gap(4);
+
     let about_btn = button_primary("About").on_press(Message::AboutPressed);
+
+    let about_btn = tooltip(about_btn, "(Ctrl+Shift+I)", tooltip::Position::Bottom)
+        .style(style::Container::Tooltip)
+        .gap(4);
 
     let settings_btn = button_primary(
         text("\u{E994}")
@@ -69,6 +88,10 @@ pub fn nav_menu<'a>(
             .align_x(alignment::Horizontal::Center),
     )
     .on_press(Message::SettingsPressed);
+
+    let settings_btn = tooltip(settings_btn, "(Ctrl+Shift+S)", tooltip::Position::Bottom)
+        .style(style::Container::Tooltip)
+        .gap(4);
 
     let device_list_text = match apps_view.loading_state {
         ListLoadingState::FindingPhones => text("Finding connected devices..."),
