@@ -7,7 +7,7 @@ use crate::core::sync::{Phone, get_devices_list, initial_load};
 use crate::core::theme::{OS_COLOR_SCHEME, Theme};
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
-use crate::core::utils::{NAME, string_to_theme};
+use crate::core::utils::{FULL_NAME, NAME, string_to_theme};
 
 use iced::font;
 use iced::window::icon;
@@ -75,6 +75,10 @@ pub enum Message {
 }
 
 impl UadGui {
+    fn title(&self) -> String {
+        FULL_NAME.to_string()
+    }
+
     fn new() -> (Self, Task<Message>) {
         (
             Self::default(),
@@ -383,6 +387,7 @@ impl UadGui {
         };
 
         iced::application(UadGui::new, UadGui::update, UadGui::view)
+            .title(UadGui::title)
             .theme(UadGui::theme)
             .settings(Settings {
                 id: Some(String::from(NAME)),

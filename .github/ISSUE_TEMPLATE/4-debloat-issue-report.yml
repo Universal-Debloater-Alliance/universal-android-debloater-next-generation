@@ -3,6 +3,13 @@ description: Your phone has unexpected issues after debloating
 title: "pkg(scope): "
 labels: ["package::breakage"]
 body:
+- type: markdown
+  attributes:
+    value: |
+      ## Consider submitting a Pull Request
+
+      If you know which package caused the issue and how the documentation should be updated, **consider submitting a Pull Request yourself**—it helps us process changes much faster! See our [guide on how to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute) for instructions.
+
 - type: textarea
   id: what-happened
   attributes:
@@ -31,6 +38,7 @@ body:
     label: Acknowledgements
     description: Your bug report will be closed if you don't follow the checklist below.
     options:
+      - label: I'm willing to submit a Pull Request to fix the package documentation.
       - label: This issue is not a duplicate of an existing one.
         required: true
       - label: I have chosen an appropriate title.
