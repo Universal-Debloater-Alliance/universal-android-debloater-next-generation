@@ -3,7 +3,7 @@ use crate::core::adb;
 use crate::core::helpers::button_primary;
 use crate::core::theme::Theme;
 use crate::core::uad_lists::LIST_FNAME;
-use crate::core::utils::{NAME, last_modified_date, open_url};
+use crate::core::utils::{FULL_NAME, NAME, last_modified_date, open_url};
 use crate::gui::{UpdateState, style, widgets::text};
 use iced::widget::{Space, column, container, row};
 use iced::{Alignment, Element, Length, Renderer};
@@ -39,7 +39,7 @@ impl About {
     )]
     pub fn view(&self, update_state: &UpdateState) -> Element<'_, Message, Theme, Renderer> {
         let about_text = text(format!(
-            "Universal Android Debloater Next Generation ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
+            "{FULL_NAME} ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
         ));
 
         let descr_container = container(about_text)

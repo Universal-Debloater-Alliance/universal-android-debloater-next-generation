@@ -17,6 +17,8 @@ use std::{
 
 /// Canonical shortened name of the application
 pub const NAME: &str = "UAD-ng";
+/// Full name of the application
+pub const FULL_NAME: &str = "Universal Android Debloater Next Generation";
 pub const EXPORT_FILE_NAME: &str = "selection_export.txt";
 
 /// Returns `true` if `c` matches the regex `\w`
