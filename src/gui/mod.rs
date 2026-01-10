@@ -100,22 +100,19 @@ impl UadGui {
 
     fn subscription(&self) -> Subscription<Message> {
         event::listen_with(|event, _status, _env| match event {
-            iced::Event::Keyboard(keyboard::Event::KeyPressed { key, modifiers, .. }) => {
-                if modifiers.control() && modifiers.shift() {
-                    match key {
-                        keyboard::Key::Character(c) if c == "r" => {
-                            Some(Message::RebootButtonPressed)
-                        }
-                        keyboard::Key::Character(c) if c == "5" => {
-                            Some(Message::RefreshButtonPressed)
-                        }
-                        keyboard::Key::Character(c) if c == "a" => Some(Message::AppsPress),
-                        keyboard::Key::Character(c) if c == "i" => Some(Message::AboutPressed),
-                        keyboard::Key::Character(c) if c == "s" => Some(Message::SettingsPressed),
+            iced::Event::Keyboard(keyboard::Event::KeyPressed { key, modifiers, .. })
+                if modifiers.control() && modifiers.shift() =>
+            {
+                match key {
+                    keyboard::Key::Character(c) => match c.as_str() {
+                        "r" => Some(Message::RebootButtonPressed),
+                        "5" => Some(Message::RefreshButtonPressed),
+                        "a" => Some(Message::AppsPress),
+                        "i" => Some(Message::AboutPressed),
+                        "s" => Some(Message::SettingsPressed),
                         _ => None,
-                    }
-                } else {
-                    None
+                    },
+                    _ => None,
                 }
             }
             _ => None,
