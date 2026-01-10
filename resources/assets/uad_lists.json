@@ -26649,7 +26649,7 @@
     "labels": []
   },
   "com.samsung.android.accessibility.talkback": {
-    "description": "TalkBack\nSamsung talkback in accessibility.",
+    "description": "Samsung TalkBack in accessibility.\nhttps://galaxystore.samsung.com/prepost/000005296612?appId=com.samsung.android.accessibility.talkback",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
