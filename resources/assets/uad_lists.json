@@ -1,4 +1,148 @@
 {
+  "org.lineageos.recorder": {
+    "list": "Oem",
+    "description": "LineageOS Voice Recorder App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.lineageos.aperture": {
+    "list": "Oem",
+    "description": "LineageOS Camera App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no camera app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.etar": {
+    "list": "Oem",
+    "description": "LineageOS Calendar App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no calendar app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.glimpse": {
+    "list": "Oem",
+    "description": "LineageOS Gallery App. \nSafe to remove if you've replaced it with another app. \nOtherwise there will be no gallery app on your device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.lineageos.twelve": {
+    "list": "Oem",
+    "description": "LineageOS Music App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.lineageos.camelot": {
+    "list": "Oem",
+    "description": "LineageOS PDF Viewer App. \nSafe to remove if you don't need it or have replaced it with another app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "co.aospa.dolby.xiaomi": {
+    "list": "Oem",
+    "description": "AOSPA's Dolby Atmos App on custom ROMs for Xiaomi phones. Providers support for Dolby Atmos on devices with Xiaomi hardware running custom ROMs. \nRemoving it just removes the Dolby Atmos feature and its app. Safe to remove if you don't need it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "io.chaldeaprjkt.gamespace": {
+    "list": "Oem",
+    "description": "The Game Space App, often found in custom ROMs. If you don't need it or don't play games, it's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "org.omnirom.omnistyle": {
+    "list": "Oem",
+    "description": "OmniRom customization app. It lets you change the header image on the quick settings panel and the wallpaper for custom ROMs. It's included in custom ROMs mostly for the quick settings header images as the wallpaper activity is not normally accessible.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "tokyo.witaqua.updater": {
+    "list": "Oem",
+    "description": "LineageOS Updater rebranded for the WitAqua custom ROM. \nNot safe to remove; could break Updater UI on devices with WitAqua ROMs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sar.main": {
+    "list": "Misc",
+    "description": "SarReduce Service \n The purpose is obscure, it could perhaps be SAR as Specific Absorption Rate, but i don't know. May be reducing it in certain scenarios. \n Wi-Fi, Bluetooth, and other connections' power adjustment might depend on this service. Found on a Lenovo tablet.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "androidzte": {
+    "list": "Oem",
+    "description": "A framework package that powers all the system UI on ZTE, Nubia, Axon & Blade devices. Totally not safe to remove, it's as important as 'android'",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.wifi.resources.overlay": {
+    "list": "Aosp",
+    "description": "Google bloat. A google overlay for com.android.wifi.resources, which is useless if gms is removed, as it only provides gms customizations for Wi-Fi, not android system customizations.\n There's no such package as com.google.android.wifi.resources, and there are multiple packages with such names, that cause no damage when removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.partnerbrowsercustomizations": {
+    "list": "Aosp",
+    "description": "Provides browser customizations from partners (for chrome only). Total bloatware, especialy useless if you use another browser than Chrome.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.jiiov.fingerprint_factorytest": {
+    "list": "Misc",
+    "description": "A factory test app for Jiiov fingerprint scanners (Jiiov fingerprint scanners are mostly used on devices such as Xiaomi, Redmi, POCO, etc..). Mostly not needed for daily phone use, might be needed in service centers during repair or when you'll want to test your fingerprint scanner. Not sure how to even access it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.wifi.resources.overlay.pineapple": {
+    "list": "Misc",
+    "description": "An overlay for com.android.wifi.resources for devices using the “pineapple” Wi‑Fi HAL (Google’s internal codename for a Wi‑Fi module configuration). Not safe to remove, especially on Android 13+.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.wifi.resources.overlay.target.sm8635": {
+    "list": "Misc",
+    "description": "An overlay for com.android.wifi.resources for devices with the Snapdragon 7s Gen 2 CPU (codename SM8635). Not safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.dti.blu": {
+    "list": "Oem",
+    "description": "This package is preinstalled on devices made by cellphone manufacturer BLU, installs unwanted games and other non-essential stuff. Its name 'Mobile Services' makes it scary to remove, but I highly recommend removing it. No damage foukd after removal (did so in at least two different models of Blu phones).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.block.juggle": {
     "list": "Misc",
     "description": "Block Blast. A causal game pre-installed on Xiaomi Poco devices.",
@@ -81,15 +225,255 @@
   },
   "com.android.uwb.resources.overlay.common": {
     "list": "Aosp",
-    "description": "This is an overlay likely tied to com.android.uwb.resorces, and since it's in Unsafe, this overlay related to it should also be in Unsafe.",
+    "description": "Overlay for UWB (Ultra-Wideband) resources. Used for device-to-device ranging and location features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.overlay.setupwizard": {
+    "list": "Aosp",
+    "description": "An overlay for com.google.android.setupwizard. Safe to remove if com.google.android.setupwizard has been removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.provision.overlay.miui": {
+    "list": "Oem",
+    "description": "An overlay for com.android.provision for Xiaomi devices. Since com.android.provision is in Unsafe, this should also be in Unsafe.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.miui.safetycenter.config.overlay": {
+    "list": "Oem",
+    "description": "An overlay for com.miui.safetycenter providing configurations and preferences. Safe to delete if com.miui.safetycenter is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.safetycenter.res.overlay": {
+    "list": "Oem",
+    "description": "An overlay for com.miui.safetycenter providing resources and preferences. Safe to delete if com.miui.safetycenter is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.settings.rro.device.systemui.overlay": {
+    "list": "Oem",
+    "description": "A device-specific overlay for com.android.settings on Xiaomi devices customizing the system UI. Likely not something that's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.mediatek.datachannel.service": {
+    "list": "Misc",
+    "description": "Mediatek's DataChannel Service, manages data channels used by IMS for VoLTE, VoWiFi and RCS. \nThe communication bridge between modem and android telephony framework. Will most likely break RCS, VoLTE and VoWiFi. Not worth deleting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.wifi.resources.xiaomi": {
+    "list": "Oem",
+    "description": "An overlay-xiaomi addition for com.android.wifi.resources, presumably xiaomi bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of a google addition for Wi-Fi services, so likely bloat. Safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.wifi.resources.overlay.common": {
+    "list": "Aosp",
+    "description": "An overlay-google addition for com.android.wifi.resoruces, presumably google bloat. No issues with Wi-Fi found after removal. \nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of a google addition for Wi-Fi services, so likely bloat. Safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.miui.settings.rro.device.config.overlay": {
+    "list": "Oem",
+    "description": "Presumably a MIUI/HyperOS overlay com.android.settings providing device-specific configurations for system settings. \nLikely not something you would want to remove. Will likely cause issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.miui.permissioncontroller.overlay": {
+    "list": "Oem",
+    "description": "Presumably a MIUI/HyperOS overlay for com.gooogle.android.permissioncontroller. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.qualcomm.qti.uceShimService": {
+    "list": "Misc",
+    "description": "The Qualcomm telephony support service that acts as a shim layer between IMS and qualcomm modem stack. \nWill likely break RCS, VoLTE, VoWiFi and some carrier preference customizations. Not worth deleting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "android.autoinstalls.config.Xiaomi.whyred": {
+    "list": "Oem",
+    "description": "App that configures preinstalled apps and initial preferences on Xiaomi Redmi Note 5 / Xiaomi Redmi Note 5 Pro (as their both's codename is whyred). \nOnly needed on device setup, dormant and useless afterwards. It's restored automatically in case of a factory reset. Safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gallery.player": {
+    "list": "Oem",
+    "description": "Old MIUI Gallery app's media player, a separate package from com.miui.gallery. Will likely break playing and presumably viewing media in the MIUI Gallery app. \nNot seen on HyperOS but present on some old MIUI versions. Safe to remove if com.miui.gallery is already removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "android.ui.overlay.ct": {
+    "list": "Aosp",
+    "description": "An overlay that customizes Android UI for the China Telecom operator (3rd largest operator in China). \nSafe to remove if you don't live in china or don't use/plan to use this carrier. Often present on ROMs and devices outside of China.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.xiaomi.phone.overlay": {
+    "list": "Oem",
+    "description": "An overlay needed for com.xiaomi.phone. Safe to remove if com.xiaomi.phone has been removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.xiaomi.phone": {
+    "list": "Oem",
+    "description": "A MIUI/HyperOS extension for telephony services. Called HyperPhone (at least on HyperOS), I don't know how is it named in MIUI, if you know, please edit this package and add it's MIUI name here. (in GitHub) \nIt's similar to com.xiaomi.bluetooth by it's purpose, but here it's a Xiaomi extension for telephony services. Deleting it caused no data loss or issues with telephony, calls, mobile data, and other on HyperOS 2.0.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.dti.telefonica": {
+    "list": "Carrier",
+    "description": "O2 & Telefonica carrier bloat. Runs in background, updates, maintains and installs Telefonica carrier apps and services, and is totally useless if you don't use this carrier. \nO2 and Telefonica are only available in Latin America, Brazil, Spain, Germany and UK, but it's often preinstalled on EU, Global and possibly other ROMs, as countries where this carrier is present use these ROMs. Safe to delete. \nPresumably works together with com.xiaomi.entitlement.o2. It's also a package safe to remove if you don't use the carriers mentioned earlier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "android.miui.overlay.telephony": {
+    "list": "Oem",
+    "description": "Likely an important overlay for telephony services and com.android.providers.telephony, specific for devices running HyperOS/MIUI. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "android.aosp.overlay.telephony": {
+    "list": "Aosp",
+    "description": "Likely an important overlay for telephony services and com.android.providers.telephony. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.miui.misightservice": {
+    "list": "Oem",
+    "description": "Telemetry and diagnostics collector app that sends analytics to Xiaomi servers and has almost no use for user. \nSomething on the level of com.miui.msa or com.miui.daemon. Worth deleting. \nConstantly connects somewhere and sends/receives up to 100KB of data per day to/from an unknown source. This also means it often runs in background. \nIt's labeled as Blur and has orange-white MI icon, but it just hides under it. No blur/ui/any other issues seen after around a month of use of HyperOS 2.0 with this removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.overlay.modules.healthfitness.forframework": {
+    "list": "Aosp",
+    "description": "Another part of health fitness system, useless for most users along with all other health fitness packages. \nSafe to delete, obviously, unless if you use health fitness services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xiaomi.cameramind": {
+    "list": "Oem",
+    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features. \nSafe to delete if you don't need them or if you use another camera app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xiaomi.bluetooth.rro.device.config.overlay": {
+    "list": "Oem",
+    "description": "A device-specific overlay for com.xiaomi.bluetooth. Safe to remove if com.xiaomi.bluetooth is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.miui.euicc": {
+    "list": "Oem",
+    "description": "The LPA app that is constantly running in background, consuming RAM and battery. This app is the core of all the eSIM services on Xiaomi devices, runs and drains resources even if you have no eSIM. \nConstantly being found in running processes list. No issues appeared after removing it on HyperOS 2.0 and using it for over a month. \nTelephony and all settings stayed intact, worth deleting this if you don't use an eSIM.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.miui.cotaservice": {
+    "list": "Oem",
+    "description": "MIUI's COTA (Configuration Over-The-Air) service. Pretty much the same as com.google.configupdater but for miui services. \nUnlike google's config updater, it constantly connects to the web and sends/receives data from an unknown source. Might cause obscure issues with telephony and Xiaomi services. \nSafe to delete if you've deleted all Xiaomi services like Xiaomi Cloud, GetApps, xmsf, etc... and !!! have logged out of your Xiaomi Account !!! Pretty much all is same as with com.google.configupdater. Deleting it on HyperOS 2.0 causes no issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.telephony.overlay.miui": {
+    "list": "Oem",
+    "description": "Required for com.android.providers.telephony on devices running HyperOS/MIUI. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.providers.settings.overlay": {
+    "list": "Aosp",
+    "description": "Required for com.android.providers.settings. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.phone.cust.overlay.miui": {
+    "list": "Oem",
+    "description": "An overlay customizing default behavior and preferences for com.android.phone on devices running HyperOS/MIUI. Safe to remove if com.android.phone is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.networkstack.overlay.miui": {
+    "list": "Oem",
+    "description": "Required for com.android.networkstack on devices running HyperOS/MIUI. Not safe to delete.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.carrierconfig.overlay.miui": {
+    "list": "Oem",
+    "description": "Required for com.android.carrierconfig on devices running HyperOS/MIUI. Safe to remove if com.android.carrierconfig is removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.android.thememanager.customizethemeconfig.config.overlay": {
     "list": "Oem",
-    "description": "Likely an overlay tied to com.android.thememanager, and since thememanager is in Advanced, this overlay should also be in Advanced.",
+    "description": "An overlay for Xiaomi's com.android.thememanager providing theme config customization default preferences and configs. Safe to remove if com.android.thememanager is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -97,7 +481,7 @@
   },
   "com.android.overlay.circletosearch": {
     "list": "Aosp",
-    "description": "An overlay likely deeply tied with system ui, causes soft brick (all system apps crashing and inability to launch anything) on HyperOS 2.0.",
+    "description": "An overlay likely deeply tied with system ui, because it causes a soft brick (all system apps suddenly crashing and inability to launch any app or process after that) on HyperOS 2.0. \nWill most likely also bootloop your device. Totally NOT safe to delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -310,14 +694,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Unsafe"
-  },
-  "com.sonyericsson.android.camera": {
-    "list": "Oem",
-    "description": "Sony's default camera app",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Expert"
   },
   "com.sonyericsson.android.camera.product.res.overlay.enable.information.entry": {
     "list": "Oem",
@@ -10682,7 +11058,7 @@
   },
   "com.google.android.networkstack.tethering": {
     "list": "Aosp",
-    "description": "Uninstalling/Disabling this app will Break the Hotspot and Bluetooth/USB Tethering.\nWhen you enable hotspot or Bluetooth/USB Tethering it will show the bootanimation (not bootloop) And will bring you back to your device\nIt's safe to Uninstall if you are not going to use hotspot and Bluetooth/USB Tethering.",
+    "description": "Uninstalling/Disabling this app will break Hotspot and Bluetooth/USB Tethering.\nOn some devices, when you enable hotspot or Bluetooth/USB Tethering it will show the boot animation (not bootloop) (not on HyperOS 2.0) And will bring you back to your device\nIt's safe to uninstall it if you aren't going to use Hotspot or Bluetooth/USB Tethering.\n On HyperOS 2.0, you'll need to remove it twice and reboot each time for it to fully vanish. It restores itself after first removal and reboot. \nOn HyperOS 2.0, after removing this package fully, it makes the whole settings app crash when clicking the Developer Settings button, making the Developer Settings inaccessible. \nEven when calling Developer Settings from another app, or calling usb debugging settings from another app, it all still refuses to launch, just crashes. \nIt basically puts you into a trap if you've disabled USB Debugging, as you'll no longer be able to turn USB Debugging back on, and so won't be able to restore this nor other removed packages. Access to ADB will be permanently lost. \nAfter restoring it, a reboot is required for the developer settings and hotspot to become accessible. Similar behavior to as described here might be also observed on other devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10694,7 +11070,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.google.android.ondevicepersonalization.services": {
     "list": "Aosp",
@@ -11382,7 +11758,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.samsung.android.providers.contacts": {
     "list": "Oem",
@@ -16102,7 +16478,7 @@
   },
   "com.miui.miwallpaper": {
     "list": "Oem",
-    "description": "Mi Wallpaper \nRemoving this might make it impossible to set a lock or home wallpaper, resulting in a black solid wallpaper.\nNote: it may also result in longer boot times (~15s) because the system try to call miwallpaper during boot",
+    "description": "Mi Wallpaper app, causes a lot of UI damage when removed, but not bootloop. \nRemoving this makes it impossible to set a lock or home screen wallpaper, resulting in a black solid wallpaper everywhere.\nNote: it may also result in longer boot times (~+10s) because the system tries to call Mi Wallpaper during boot. \nOn HyperOS 2.0, The fingerprint outline disappears on lock screen after removing this. The fingerprint recognicion itself works properly. \nEverything in the status bar is becoming colored black on the lock screen after removing this, and you can only see the battery color. Elsewhere the status bar is colored properly. \nOn HyperOS 2.0, you will have to remove this package and reboot 3-5 times. It constantly restores itself after each reboot until around 3rd-5th attempt. It vanishes fully only around 3-5 attempts. \nOn HyperOS 2.0, the default color for system icons is also being reset to brown after removing this package. Similar behavior to as described here might also be observed on other devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16526,7 +16902,7 @@
   },
   "com.mi.android.globalminusscreen": {
     "list": "Oem",
-    "description": "Default App Vault package\nSends notifications and can't be uninstalled through the Apps tab. Can be downloaded back from Play Store if needed.",
+    "description": "Default App Vault package\nSends notifications and can't be uninstalled through the Apps tab. Can be downloaded back from Play Store if needed. \nThe screen on the left on the first page of the launcher; mostly useless, especially when you use a third party launcher. Displays tonns of ads and clutter and constantly works in background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17088,7 +17464,7 @@
   },
   "com.mi.globalminusscreen": {
     "list": "Oem",
-    "description": "Xiaomi App Vault\nhttps://play.google.com/store/apps/details?id=com.mi.android.globalminusscreen&gl=US",
+    "description": "Xiaomi App Vault\nhttps://play.google.com/store/apps/details?id=com.mi.android.globalminusscreen&gl=US \nThe screen on the left on the first page of the launcher; mostly useless, especially when you use a third party launcher. Displays tonns of ads and clutter and constantly works in background.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17200,7 +17576,7 @@
   },
   "com.miui.guardprovider": {
     "list": "Oem",
-    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.\nOn HyperOS this module is responsible for showing the 'Install via USB' prompt when installing apps via ADB (enabled through developer options, requires Mi account the first time).",
+    "description": "Guard Provider security app\nThe app includes 3 different antivirus brands built in that the user can choose (Avast, AVL and Tencent). \nThis app notably performs a virus scan of any apps you want to install. \nA serious vulnerability was found in 2019\nWorth reading : https://research.checkpoint.com/2019/vulnerability-in-xiaomi-pre-installed-security-app/\nYou may want to remove this app from a privacy stance.\nhttps://beta.pithus.org/report/797a7e405bc8e767deebbbcab3e06a19b05156de44292c918b582dff3078d7b8\nIMPORTANT NOTE: Removing this package will very likely break any app installation/update.\nBefore removing, disable security things in MIUI security app.\nOn HyperOS this module is responsible for showing the 'Install via USB' prompt when installing apps via ADB (enabled through developer options, requires Mi account the first time).\n On MIUI 12, it broke app installation from APKs, and made app installation from Google Play be 2-5 minutes long. Apps were uninstallable properly though.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -22152,8 +22528,8 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Swipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
-    "removal": "Recommended",
+    "description": "HeyTap Shelf. ColorOS 'At a Glance'. \nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets in ColorOS 16 \nSwipe down on the Home screen to enter Shelf. \nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26569,7 +26945,7 @@
     "labels": []
   },
   "com.samsung.gpuwatchapp": {
-    "description": "GPUWatch\nIn this app, I only found GPU dumping mode, dev mode, game debugging. Useless.",
+    "description": "This app has GPU Dumping mode, developer mode, game debugging. This package also provides the feature to watch and log system performance. Useful if you need/want to monitor system performance. Otherwise it offers no benefit. Safe to remove in any case.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -27845,11 +28221,11 @@
   },
   "com.xiaomi.finddevice": {
     "list": "Oem",
-    "description": "Find My Device feature (in the Settings)\nAllows you to locate a lost phone and wipe it remotely, provided it has an active Wi-Fi/mobile data connection.\nBefore uninstalling, log out of your Mi Account. Removing this breaks factory reset, the Security Status page in Settings, and prevents Mi Account sign-in.\nConfirmed not to bootloop on POCO M5, but other MIUI versions/devices may still bootloop\nsee https://github.com/0x192/universal-android-debloater/issues/641",
+    "description": "Find My Device feature (in the Settings)\nAllows you to locate a lost phone and wipe it remotely, provided it has an active Wi-Fi/mobile data connection.\nBefore uninstalling, !!! log out of your Mi Account !!! Removing this breaks factory reset from UI, the Security Status page in Settings, and prevents Mi Account sign-in.\nConfirmed not to bootloop on HyperOS 1.0 and HyperOS 2.0, but other MIUI versions/devices may still bootloop\nsee https://github.com/0x192/universal-android-debloater/issues/641 \nSends and receives around 1,5MB-2MB of data per day to/from an unknown source on HyperOS 2.0, even with Data Saver on and on mobile data. The UI blocks you from denying any kind of mobile data access. \nConsider replacing it with Google's find device. It's much more optimized, has offline location tracking feature and is already preinstalled even on the devices with Xiaomi's Find Device.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.miui.securitycenter": {
     "list": "Oem",
@@ -32957,11 +33333,11 @@
   },
   "com.android.bluetooth.overlay": {
     "list": "Oem",
-    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices.",
+    "description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices. Safe to remove if com.android.bluetooth is removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.networkstack.inprocess.overlay": {
     "list": "Aosp",
@@ -32977,7 +33353,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.networkstack.tethering.overlay": {
     "list": "Aosp",
@@ -32985,7 +33361,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.overlay.gmscontactprovider": {
     "list": "Oem",
@@ -33253,11 +33629,11 @@
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
-    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices,\nAllowing for accurate location measurements with an accuracy of 10 cm.\nhttps://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb",
+    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb \nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions. \nCheck if your device has UWB hardware. Safe to remove if it doesn't. Don't forget to remove its overlays and dependencies.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.mediatek.gbaservice": {
     "list": "Misc",
@@ -33765,7 +34141,7 @@
   },
   "com.qualcomm.qti.tetherservice": {
     "list": "Oem",
-    "description": "Needed for tethering, some chinese phones uses qualcomm names apps instead of normal",
+    "description": "Needed for tethering, some chinese phones use qualcomm names apps instead of normal",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34397,11 +34773,11 @@
   },
   "com.android.rkpdapp": {
     "list": "Aosp",
-    "description": "RemoteProvisioner. Have random stuff: security, notifications, accessibility, test modes, data usage, metrics, logs.\nIntroduced in android 14(it's the same app like `com.android.remoteprovisioner` Introduced in android 13).\nAgain this app is not available for users.\nAnd looks very useless.",
+    "description": "The Remote Provisioner app. Provisions cryptographic keys remotely from google servers instead of generating them only on-device. \nIt's likely to break security apps and services, such as bank apps, payment services, authentication, and other security-requiring operations if removed, as they won't work without cryptographic keys. \nPlay Integrity is also likely fail.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.google.android.apps.googlecamera.fishfood": {
     "list": "Aosp",
@@ -38997,7 +39373,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.google.android.healthconnect.controller": {
     "list": "Google",
@@ -39005,7 +39381,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.google.android.wifi.dialog": {
     "list": "Google",
@@ -39310,14 +39686,6 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
-  },
-  "com.mediatek.security": {
-    "list": "Oem",
-    "description": "MediaTek system security service for device integrity and permission management.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Unsafe"
   },
   "com.android.nfc.overlay.common": {
     "list": "Oem",
@@ -39733,7 +40101,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.google.android.overlay.trafficlightfaceoverlay": {
     "list": "Oem",
