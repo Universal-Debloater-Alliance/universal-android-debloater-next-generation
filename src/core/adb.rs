@@ -270,8 +270,9 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
 pub struct PackageId(Box<str>);
 impl PackageId {
-    /// Creates a package-ID if it's valid according to
-    /// <https://developer.android.com/build/configure-app-module#set-application-id>
+    /// Creates a package-ID if it's valid according to:
+    /// - <https://developer.android.com/guide/topics/manifest/manifest-element.html#package>
+    /// - <https://developer.android.com/build/configure-app-module#set-application-id>
     pub fn new(p_id: Box<str>) -> Option<Self> {
         let mut components = p_id.split('.');
         for _ in 0..2 {
