@@ -12,8 +12,9 @@ This can also improve security by reducing the [attack surface](https://en.wikip
 
 ## Documentation
 
-Everything about UAD-ng (and related stuff) can be found on [the Wiki](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki), such as:
+Everything about UAD-ng (and related stuff) can be found on the Wiki, such as:
 
+- [Getting started](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started)
 - Features of this app
 - [Usage guide](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Usage)
 - Suggested Android app replacements
