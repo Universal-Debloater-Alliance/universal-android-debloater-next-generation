@@ -8496,7 +8496,7 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nUninstalling it will not bootloop most devices.",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nUninstalling it may unlikely cause a bootloop, although, you probably shouldn't uninstall it unless you deleted Google Play Services, and don't have a GPS sensor.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
