@@ -40119,7 +40119,7 @@
   },
   "com.spreadtrum.csvt": {
     "list": "Oem",
-    "description": "Spyware disguised as a cell broadcast receiver.",
+    "description": "Spyware disguised as a cell broadcast receiver.\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
