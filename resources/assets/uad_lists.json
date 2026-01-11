@@ -6046,13 +6046,13 @@
   },
   "com.sec.android.app.samsungapps": {
     "list": "Oem",
-    "description": "Samsung Galaxy Store\nSamsung app store.\nRequired for Samsung Pay feature to work.\n\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store\n",
+    "description": "Samsung Galaxy Store\nSamsung's app store, required for the Samsung Pay feature to work.\nYou probably don't want this app, it's just a worse version of the Play Store with a few proprietary exclusives from Samsung.\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store",
     "dependencies": [],
     "neededBy": [
       "com.samsung.android.spay"
     ],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.sec.android.app.safetyassurance": {
     "list": "Oem",
@@ -8496,11 +8496,11 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nIt might cause a bootloop",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nUninstalling it will not bootloop most devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.mms.service": {
     "list": "Aosp",
@@ -40119,11 +40119,11 @@
   },
   "com.spreadtrum.csvt": {
     "list": "Oem",
-    "description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
+    "description": "Spyware disguised as a cell broadcast receiver.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Recommended"
   },
   "com.unisoc.keyboxchecker": {
     "list": "Oem",
