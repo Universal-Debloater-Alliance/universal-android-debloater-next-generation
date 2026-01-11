@@ -16942,11 +16942,11 @@
   },
   "com.android.cameraextensions": {
     "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.\nhttps://developer.android.com/media/camera/camera-extensions",
+    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI amd One UI.\nhttps://developer.android.com/media/camera/camera-extensions",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommmended"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
