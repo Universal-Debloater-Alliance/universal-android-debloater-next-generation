@@ -81,7 +81,7 @@
   },
   "com.sar.main": {
     "list": "Misc",
-    "description": "SarReduce Service \n The purpose is obscure, it could perhaps be SAR as Specific Absorption Rate, but i don't know. May be reducing it in certain scenarios. \n Wi-Fi, Bluetooth, and other connections' power adjustment might depend on this service. Found on a Lenovo tablet.",
+    "description": "(CAN'T BE SURE ABOUT THE PURPOSE OF THE PACKAGE. NO CONFIRMED DATA ON WHAT IS THIS PACKAGE'S PURPOSE HAS BEEN FOUND.)\n SarReduce Service\n The purpose is obscure, it could perhaps be SAR as Specific Absorption Rate, but i don't know. May be reducing it in certain scenarios. \n Wi-Fi, Bluetooth, and other connections' power adjustment might depend on this service. Found on a Lenovo tablet.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -89,7 +89,7 @@
   },
   "androidzte": {
     "list": "Oem",
-    "description": "A framework package that powers all the system UI on ZTE, Nubia, Axon & Blade devices. Totally not safe to remove, it's as important as 'android'",
+    "description": "Basing on APK inspection, this is a framework package that powers all the system UI on ZTE, Nubia, Axon & Blade devices. Totally not safe to remove, it's as important as 'android'",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -97,11 +97,11 @@
   },
   "com.google.android.wifi.resources.overlay": {
     "list": "Aosp",
-    "description": "Google bloat. A google overlay for com.android.wifi.resources, which is useless if gms is removed, as it only provides gms customizations for Wi-Fi, not android system customizations.\n There's no such package as com.google.android.wifi.resources, and there are multiple packages with such names, that cause no damage when removed.",
+    "description": "A google mainline module overlay for com.android.wifi.resources, which might be useless if gms is removed, as it only provides gms customizations for Wi-Fi, not android system customizations.\n Only safe to remove if you have removed gms.\n There's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources. And there are multiple packages with such names, that cause no damage when removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.providers.partnerbrowsercustomizations": {
     "list": "Aosp",
