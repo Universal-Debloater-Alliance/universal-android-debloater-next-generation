@@ -6046,7 +6046,7 @@
   },
   "com.sec.android.app.samsungapps": {
     "list": "Oem",
-    "description": "Samsung Galaxy Store\nSamsung's app store, required for the Samsung Pay feature to work.\nYou probably don't want this app, it's just a worse version of the Play Store with a few proprietary exclusives from Samsung. Uninstalling it will not cause a bootloop, so its priority shouldn't be any higher than Advance. \nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store",
+    "description": "Samsung Galaxy Store\nSamsung's app store, required for the Samsung Pay feature to work.\nYou probably don't want this app, it's just a worse version of the Play Store with a few proprietary exclusives from Samsung. Uninstalling it will not cause a bootloop, so its priority shouldn't be any higher than Advanced.\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store",
     "dependencies": [],
     "neededBy": [
       "com.samsung.android.spay"
