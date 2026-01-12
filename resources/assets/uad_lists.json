@@ -6046,13 +6046,13 @@
   },
   "com.sec.android.app.samsungapps": {
     "list": "Oem",
-    "description": "Samsung Galaxy Store\nSamsung app store.\nRequired for Samsung Pay feature to work.\n\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store\n",
+    "description": "Samsung Galaxy Store\nSamsung's app store, required for the Samsung Pay feature to work.\nYou probably don't want this app, it's just a worse version of the Play Store with a few proprietary exclusives from Samsung. Uninstalling it will not cause a bootloop, so its priority shouldn't be any higher than Advanced.\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store",
     "dependencies": [],
     "neededBy": [
       "com.samsung.android.spay"
     ],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.sec.android.app.safetyassurance": {
     "list": "Oem",
@@ -8496,11 +8496,11 @@
   },
   "com.android.location.fused": {
     "list": "Aosp",
-    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nIt might cause a bootloop",
+    "description": "Manages underlying location technologies, such as GPS and Wi-Fi.\nUninstalling it may unlikely cause a bootloop, although, you probably shouldn't uninstall it unless you deleted Google Play Services, and don't have a GPS sensor.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Unsafe"
+    "removal": "Expert"
   },
   "com.android.mms.service": {
     "list": "Aosp",
@@ -16942,7 +16942,7 @@
   },
   "com.android.cameraextensions": {
     "list": "Oem",
-    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI.\nhttps://developer.android.com/media/camera/camera-extensions",
+    "description": "CameraExtensionsProxy.\nCamera-related third-party apps can call Android camera extensions such as Portrait, Night Mode, and HDR, which doesn't seem to work significantly on MIUI/HyperOS and Samsung/One UI.\nhttps://developer.android.com/media/camera/camera-extensions",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
