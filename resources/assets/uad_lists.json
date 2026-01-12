@@ -16946,7 +16946,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.fileexplorer": {
     "list": "Oem",
