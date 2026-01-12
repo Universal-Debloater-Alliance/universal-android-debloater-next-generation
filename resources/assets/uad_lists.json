@@ -17120,7 +17120,7 @@
   },
   "com.miui.misound": {
     "list": "Oem",
-    "description": "Earphones (it's the name of the app)\nProvides the sounds section in Settings and is needed for the equalizing\nSome people removed this package but I personaly don't think it's worth it. This package isn't really an issue\n(no dangerous permissions and does not run in the background all the time)\nYou can still remove it. You'll be just fine if you really don't need it.\n",
+    "description": "Earphones (it's the name of the app)\nProvides the sounds section in Settings and is needed for the equalizing and the per app mixer feature\nSome people removed this package but I personaly don't think it's worth it. This package isn't really an issue\n(no dangerous permissions and does not run in the background all the time)\nYou can still remove it. You'll be just fine if you really don't need it.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
