@@ -40119,11 +40119,11 @@
   },
   "com.spreadtrum.csvt": {
     "list": "Oem",
-    "description": "Spyware disguised as a cell broadcast receiver.\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
+    "description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.virustotal.com/gui/file/3a9afc2a1b611b51d29eb07bb79494bde7c7926feed5c573c55afde360428765",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.unisoc.keyboxchecker": {
     "list": "Oem",
