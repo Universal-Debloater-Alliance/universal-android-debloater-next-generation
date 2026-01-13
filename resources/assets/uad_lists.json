@@ -40119,7 +40119,7 @@
   },
   "com.spreadtrum.csvt": {
     "list": "Oem",
-    "description": "potentially riskware(sends information to another infamously hacked apk com.redstone.ota.ui).\n However it seems to work for handling 3G mobile data(and all broadcasts over 3G)\n It should not be removed if your provider/government works over 3G, any emergency message might fail.\n it is also a SOC, so removing ought to be careful."
+    "description": "potentially riskware, (sends information to another infamously hacked apk com.redstone.ota.ui).\n However it seems to work for handling 3G mobile data(and all broadcasts over 3G)\n It should not be removed if your provider/government works over 3G, any emergency message might fail.\n it is also a SOC, so removing ought to be careful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
