@@ -40101,7 +40101,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.overlay.trafficlightfaceoverlay": {
     "list": "Oem",
