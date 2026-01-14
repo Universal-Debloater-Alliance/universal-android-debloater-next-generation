@@ -39373,7 +39373,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.healthconnect.controller": {
     "list": "Google",
