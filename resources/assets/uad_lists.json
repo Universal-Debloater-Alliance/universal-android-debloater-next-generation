@@ -13204,11 +13204,11 @@
   },
   "com.coloros.widget.smallweather": {
     "list": "Oem",
-    "description": "",
+    "description": "it is classified as a Safe app to remove. It is a widget that displays clock and weather, weather warnings, the clock, 15-day forecasts, etc.\n does not work with the at a Glance google widget",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.coremobility.app.vnotes": {
     "list": "Oem",
