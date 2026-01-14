@@ -39381,7 +39381,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.wifi.dialog": {
     "list": "Google",
