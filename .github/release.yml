@@ -9,11 +9,6 @@ changelog:
     - title: Refactors
       labels:
         - refactor
-    - title: Packages/apps
-      labels:
-        - package::documentation
-        - package::addition
-        - package::breakage
     - title: Development
       labels:
         - ci
@@ -21,3 +16,8 @@ changelog:
     - title: Documentation
       labels:
         - documentation
+    - title: Packages/apps
+      labels:
+        - package::documentation
+        - package::addition
+        - package::breakage
