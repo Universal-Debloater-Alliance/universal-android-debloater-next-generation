@@ -13204,7 +13204,7 @@
   },
   "com.coloros.widget.smallweather": {
     "list": "Oem",
-    "description": "It is classified as a Safe app to remove. It is a widget that displays clock and weather, weather warnings, the clock, 15-day forecasts, etc.\n Does not work with the at a Glance Google widget",
+    "description": "It is classified as a Safe app to remove. It is a widget that displays clock and weather, weather warnings, the clock, 15-day forecasts, etc.\nDoes not work with the at a Glance Google widget",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
