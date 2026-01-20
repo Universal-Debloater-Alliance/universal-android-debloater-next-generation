@@ -70,7 +70,6 @@ format_push_string = "warn"
 large_include_file = "warn"
 shadow_unrelated = "warn"
 struct_field_names = "allow" # annoying
-module_name_repetitions = "allow" # annoying
 
 disallowed_types = "deny"
 disallowed_methods = "deny"
