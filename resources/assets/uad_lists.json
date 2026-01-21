@@ -41284,5 +41284,61 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.phasebeamorange": {
+    "list": "Aosp",
+    "description": "\"Sun Beam\" live wallpaper. Just Phase Beam but orange.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.gcs": {
+    "list": "Google",
+    "description": "Internet services for Pixel and Nexus devices, including Wi-Fi/Mobile data switching, enabling a Google VPN on public networks, and Call Casting for Chromebooks. https://play.google.com/store/apps/details?id=com.google.android.apps.gcs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.apps.genie.geniewidget": {
+    "list": "Google",
+    "description": "News and weather widget. App was discontinued in 2018 and no longer works, therefore there is no point to have it anymore.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.gm.exchange": {
+    "list": "Google",
+    "description": "Microsoft Exchange ActiveSync support for Gmail. Now part of the Gmail (com.google.android.gm) app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.SprintHiddenMenu": {
+    "list": "Carrier",
+    "description": "Hidden diagnostic menu for Sprint LG devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lge.update": {
+    "list": "Oem",
+    "description": "LG Update Center for updating your LG device. LG's OTA server shut down on June 30, 2025, so this app now has no purpose.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.redbend.vdmc": {
+    "list": "Oem",
+    "description": "Required for OTA on older LG and HTC devices. While neither of these companies make phones anymore, uninstalling this package results in \"vDM Client has stopped unexpectly\" and \"com.process.android.acore has stopped\", so best to leave this installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
