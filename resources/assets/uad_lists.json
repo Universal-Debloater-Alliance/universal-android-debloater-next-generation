@@ -35763,6 +35763,30 @@
     "labels": [],
     "removal": "Advanced"
   },
+    "com.oplus.aicall": {
+    "list": "Oem",
+    "description": "Provides AI summaries in the ODialer app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.oplus.aimemory": {
+    "list": "Oem",
+    "description": "Saves and summarizes content using AI",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+    "com.oplus.aiwriter": {
+    "list": "Oem",
+    "description": "Pop-up for AI text generation, often appears in places that are not text input fields",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.oplus.apprecover": {
     "list": "Oem",
     "description": "Recover system apps",
