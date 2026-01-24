@@ -23458,8 +23458,8 @@
     "labels": []
   },
   "com.oplus.audio.effectcenter": {
-    "description": "AudioEffectCenter\nDolby support for Chinese apps and some Google. It's so bloated.",
-    "removal": "Recommended",
+    "description": "Sound effects and EQ settings, Dolby support for Chinese apps and some Google. Remove if you aren't planning to use sound effects or EQ.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
