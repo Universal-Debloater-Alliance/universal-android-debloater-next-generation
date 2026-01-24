@@ -27907,6 +27907,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oppo.usercenter": {
+    "description": "Just bloatware for account details and marketing of OPPO. Cannot log into OPPO/HeyTap account after disabling. Safe to disable if OPPO account is not used.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.coloros.findmyphone": {
     "description": "Find phone\nFind phone, logout from oppo account before",
     "removal": "Recommended",
