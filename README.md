@@ -36,6 +36,12 @@ UAD-ng does not collect or transmit any user data. The only external connections
 
 [<img width=64em src=https://matrix.org/images/matrix-favicon.svg>](https://matrix.to/#/#uad-ng:matrix.org)
 
+## Friends
+
+Several projects integrate with or depend on UAD-ng's data and tools:
+
+- **[Canta](https://github.com/samolego/Canta)** — A mobile Android debloater that uses Shizuku for rootless privilege escalation. It integrates with UAD-ng's Universal Debloat List to provide safe package recommendations without requiring a PC.
+
 ## Special thanks
 
 - [@0x192](https://github.com/0x192) who created the original UAD project.
