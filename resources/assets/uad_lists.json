@@ -41340,5 +41340,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.fivemobile.myaccount": {
+    "list": "Carrier",
+    "description": "App for managing your Rogers account.\nRogers violates section F.1 of Canada's Wireless Code, they refuse to unlock devices sold before December 1, 2017, even if it doesn't affect you, don't support practices like this! Switch to another carrier (such as Telus) if possible.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nhl.gcl.canada": {
+    "list": "Carrier",
+    "description": "Rogers NHL app. Just opens a 404 page in the web browser. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.rogers.npd.appzone": {
+    "list": "Carrier",
+    "description": "An app store just for Rogers bloat. Why the hell would you want this?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
