@@ -9266,7 +9266,7 @@
   },
   "com.oneplus.soundrecorder": {
     "list": "Oem",
-    "description": "Recorder\nOnePlus sound recording app.\nRequires turning on\"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
+    "description": "Recorder\nOnePlus sound recording app. Requires turning on\"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -22528,7 +22528,7 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets in ColorOS 16\nSwipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
+    "description": "Shelf. ColorOS/OnePlus 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets (these are different from the 'normal' widgets in any launcher) in ColorOS 16/OxygenOS 16\nSwipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -22593,7 +22593,7 @@
     "labels": []
   },
   "com.coloros.accessibilityassistant": {
-    "description": "Another thing for smart assistant",
+    "description": "AI VoiceScribe.\nIt's used to convert speech to text in real-time for accessibility purposes. Can be safely deleted if you don't use AI services.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23018,8 +23018,8 @@
     "labels": []
   },
   "com.coloros.weather.service": {
-    "description": "Name indicates it's for the weather, but removing this causes the screen to flash and the phone will eventually become unresponsive.\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585",
-    "removal": "Unsafe",
+    "description": "Name indicates it's for the weather, but removing this causes the screen to flash and the phone will eventually become unresponsive.\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585. Disabling instead does not seem to cause this problem, see \nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585#issuecomment-3796739025",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23074,7 +23074,7 @@
     "labels": []
   },
   "com.oplus.postmanservice": {
-    "description": "Calibration, scan QR code test",
+    "description": "Diagnostics\nFor calibration of hardware",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -31754,7 +31754,7 @@
   },
   "com.coloros.compass2": {
     "list": "Oem",
-    "description": "ColorOS default compass app\nKeep in mind that by using this app you give your location to the weather Oppo servers.\nPithus analysis: https://beta.pithus.org/report/9a965f5587fa6ee21c526612f3d72c50ef3cc53679b741260298387c44f5a3dc",
+    "description": "ColorOS and OxygenOS 16's default compass app\nKeep in mind that by using this app you give your location to the weather Oppo/OnePlus servers.\nPithus analysis: https://beta.pithus.org/report/9a965f5587fa6ee21c526612f3d72c50ef3cc53679b741260298387c44f5a3dc",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31820,7 +31820,7 @@
   },
   "com.coloros.video": {
     "list": "Oem",
-    "description": "Video Player\nDefault Oppo video player with too much permissions (21) for a video player!\nNote: using inbuilt screen recorder you won't be able to open the recorded video from the notification view.\n\nPithus analysis: https://beta.pithus.org/report/4ceb96c23ad0e26ee8eceab293d251f8b1bddaf4a901741ee467e0bb867db6e9",
+    "description": "Video Player\nDefault Oppo and OnePlus video player with too much permissions (21) for a video player!\nNote: using inbuilt screen recorder you won't be able to open the recorded video from the notification view.\n\nPithus analysis: https://beta.pithus.org/report/4ceb96c23ad0e26ee8eceab293d251f8b1bddaf4a901741ee467e0bb867db6e9",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31828,7 +31828,7 @@
   },
   "com.heytap.browser": {
     "list": "Oem",
-    "description": "Oppo Browser\nRebranded HeyTap browser for Oppo. Full of ads and spams you in notifications. You should never use this browser\nHeyTap's terrible privacy policy: https://brand.heytap.com/eu/privacy.html",
+    "description": "Oppo Browser\nRebranded HeyTap browser for Oppo and OnePlus devices. Full of ads and spams you in notifications. You should never use this browser\nHeyTap's terrible privacy policy: https://brand.heytap.com/eu/privacy.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35781,7 +35781,7 @@
   },
   "com.oplus.aimemory": {
     "list": "Oem",
-    "description": "Saves and summarizes content using AI",
+    "description": "Mind Space (also called 'Breeno Memory')\nSaves and summarizes content using AI. Runs on the background, even though when you're not using it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35789,7 +35789,7 @@
   },
     "com.oplus.aiwriter": {
     "list": "Oem",
-    "description": "Pop-up for AI text generation, often appears in places that are not text input fields",
+    "description": "AI Writer\nPop-up for AI text generation, often appears in places that are not text input fields.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
