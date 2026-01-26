@@ -27225,7 +27225,7 @@
     "labels": []
   },
   "com.oplus.romupdate": {
-    "description": "Update Service\nIf you wanna remove it to keep ram, it's a bad idea. Better remove com.oplus.ota too if you don't plan to update system.",
+    "description": "Update Service\nResponsible for installing updates.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -35701,7 +35701,7 @@
   },
   "com.oplus.cota": {
     "list": "Oem",
-    "description": "Carrier software updater?\nLooks like software updater for carrier phones.",
+    "description": "Configuration Update Over The Air\nNeeded for OTA updates. Likely needed to download and install system updates, device configuration, and carrier/enterprise customizations on OnePlus devices. It ensures your device stays up-to-date and compliant with carrier or company requirements, and interacts with the user only when necessary (e.g., update dialogs, legal statements).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
