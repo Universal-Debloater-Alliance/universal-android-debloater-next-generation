@@ -37245,7 +37245,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.kmsjp": {
     "list": "Carrier",
@@ -37649,11 +37649,11 @@
   },
   "com.iflytek.inputmethod.miui": {
     "list": "Oem",
-    "description": "Chinese Keyboard to Miui China, replace Keyboard before remove.",
+    "description": "Chinese Keyboard to Miui China",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.ugd": {
     "list": "Oem",
@@ -39209,11 +39209,11 @@
   },
   "com.onyx.latinime": {
     "list": "Oem",
-    "description": "The Onyx Keyboard. Removing it will leave withe google STT keyboard.",
+    "description": "The Onyx Keyboard. The Google STT keyboard might be available to replace it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.onyx.mail": {
     "list": "Oem",
@@ -39241,7 +39241,7 @@
   },
   "com.preff.kb.xm": {
     "list": "Oem",
-    "description": "'Emoji & Font Keyboard' on Xiaomi.\nXiaomi won't let me uninstall it. If it's same for you, consider disabling it instead.\nMake sure to install an alternate keyboard app before doing so.",
+    "description": "'Emoji & Font Keyboard' on Xiaomi",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
