@@ -41364,5 +41364,501 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.communitake.remotecontrolservice": {
+    "list": "Carrier",
+    "description": "Remote management app installed by Bell on some devices. Has access to almost every permission so probably best to remove this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.epson.mobilephone.samsungprintservice": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.fixmo.isa": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.fmm.dm": {
+    "list": "Oem",
+    "description": "Samsung's Find My Mobile service for tracking your phone if you lost it. Unsure of the difference(s) between this and com.fmm.ds. Can lead to logcat spam in some cases.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.fmm.ds": {
+    "list": "Oem",
+    "description": "Samsung's Find My Mobile service for tracking your phone if you lost it. Unsure of the difference(s) between this and com.fmm.dm, however this one doesn't logcat spam unlike com.fmm.dm.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hp.android.printservice": {
+    "list": "Misc",
+    "description": "Print to your HP printer using your Android phone. Most reviews on Google Play say it doesn't work very well. https://play.google.com/store/apps/details?id=com.hp.android.printservice",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.infraware.polarisviewer5": {
+    "list": "Oem",
+    "description": "A dumbed down version of Polaris Office Editor 5 (which is a Microsoft Office like app).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lifevibes.trimapp": {
+    "list": "Oem",
+    "description": "Video trimmer used by the default Samsung Gallery app on some older Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.LocalFota": {
+    "list": "Oem",
+    "description": "Required to install OTA updates on older Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.qualcomm.interfacepermissions": {
+    "list": "Misc",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.headlines": {
+    "list": "Oem",
+    "description": "Flipboard app for Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.app.shareaccessibilitysettings": {
+    "list": "Oem",
+    "description": "Seems to be like a package for saving your accessibility settings, likely to transfer them to another phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.intelligenceservice": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.proxy.calendar": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.proxy.contacts": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.proxy.memo": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.proxy.sbrowser": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.proxy.snote3": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.scloud.quota": {
+    "list": "Oem",
+    "description": "Literally all this app does is tell you when you're out of storage on your Samsung Cloud. Why this isn't part of the main Samsung Cloud app? I have no idea.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.app.video": {
+    "list": "Oem",
+    "description": "Can't figure out what this package does, but no adverse effects to removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.everglades.video": {
+    "list": "Oem",
+    "description": "Part of the TouchWiz video player.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.pickuptutorial": {
+    "list": "Oem",
+    "description": "A guide to some gestures on Samsung devices, however it doesn't seem to be accessable anywhere. Maybe intended for demo units?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.allshare.service.controlshare": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.allshare.service.fileshare": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.allshare.service.mediashare": {
+    "list": "Oem",
+    "description": "Share media to your other Samsung devices with Allshare. Allshare is discontinued and no longer present on modern Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.FileShareClient": {
+    "list": "Oem",
+    "description": "Receive files from Samsung devices with Allshare. Allshare is discontinued and no longer present on modern Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.FileShareServer": {
+    "list": "Oem",
+    "description": "Send files to Samsung devices with Allshare. Allshare is discontinued and no longer present on modern Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.filtermanager": {
+    "list": "Oem",
+    "description": "Manage camera filters on your Samsung device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.interactivekeyguardtutorial": {
+    "list": "Oem",
+    "description": "A guide on how to unlock your phones screen, however it doesn't seem to be present anywhere on the phone. Maybe intended for demo units?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.mediasync": {
+    "list": "Oem",
+    "description": "Share music for group play.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.mobileprint": {
+    "list": "Oem",
+    "description": "Samsung print service for supported printers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.mv.player": {
+    "list": "Oem",
+    "description": "Share videos to other devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.rakein": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.sbrowsertry": {
+    "list": "Oem",
+    "description": "Samsung Internet browser, there are much better browsers available and Samsung Internet has a really sketchy privacy policy.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.app.SmartClipService": {
+    "list": "Oem",
+    "description": "Default image editor on older Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.videoplayer": {
+    "list": "Oem",
+    "description": "TouchWiz video player.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.wluc": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.cloudagent": {
+    "list": "Oem",
+    "description": "Part of Dropbox integration on TouchWiz",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.cloudagent.dropboxoobe": {
+    "list": "Oem",
+    "description": "Get a free 50GB Dropbox account with your Samsung device! Would be useful, but Dropbox ended this offer about 10 years ago.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.directshare": {
+    "list": "Oem",
+    "description": "Part of Samsung's SBeam service. SBeam has known security vulnerabilities (https://labs.withsecure.com/advisories/samsung-s5-arbitary-file-retrieval-during-sbeam-transfer), so you should really uninstall this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.easysettings": {
+    "list": "Oem",
+    "description": "Settings app if you're using the Easy Mode feature on Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.fotaclient": {
+    "list": "Oem",
+    "description": "OTA for legacy Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.fwupgrade": {
+    "list": "Oem",
+    "description": "Updates AllShare components. Since Samsung AllShare is discontinued, this is now useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.Kies": {
+    "list": "Oem",
+    "description": "Required for connecting your device to Samsung Kies, Samsung's long discontinued iTunes competitor. Everything that can be done with Kies can be done with ADB or Heimdall, so there isn't really a point to keeping this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.mmapp": {
+    "list": "Oem",
+    "description": "Required for Samsung's proprietary music app to work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.nearby.mediaserver": {
+    "list": "Oem",
+    "description": "Samsung nearby share, part of AllShare. Discontinued.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.SamsungDrmProvider": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless. Content with DRM still works without this package.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.service.bezel": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.service.cm": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.voltesettings": {
+    "list": "Oem",
+    "description": "Needed for VoLTE to function properly, which is a feature a lot of carriers now require.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.sec.android.wfds.printplugin": {
+    "list": "Oem",
+    "description": "Needed for Wi-Fi direct printing on Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.widget.samsungapps": {
+    "list": "Oem",
+    "description": "Widget for Galaxy Apps, showing app suggestions on your home screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.widgetapp.activeapplicationwidget": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.dsm.phone": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.dsm.system": {
+    "list": "Oem",
+    "description": "Part of Samsung's Find my Mobile service, appears this app is so you can ring your phone if you lost it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.knox.seandroid": {
+    "list": "Oem",
+    "description": "Samsung Knox security features. Can't be disabled or uninstalled without root.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.pcw.device": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.providers.settingsearch": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.setdefaultlauncher": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless. You can still change launchers without this package.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.siso.app.generic": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.siso.app.genericprintservice": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.telenav.app.android.bell": {
+    "list": "Carrier",
+    "description": "Bell Navigator app. It works, but there are much better Maps apps available. https://play.google.com/store/apps/details?id=com.telenav.app.android.bell",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
