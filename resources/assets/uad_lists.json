@@ -13628,38 +13628,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.nttdocomo.android.applicationmanager": {
-    "list": "Carrier",
-    "description": "Docomo Application Manager",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.nttdocomo.android.store": {
-    "list": "Carrier",
-    "description": "Docomo App Market",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.nttdocomo.android.dhome": {
-    "list": "Carrier",
-    "description": "Docomo Launcher",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Advanced"
-  },
-  "com.nttdocomo.android.initialization": {
-    "list": "Carrier",
-    "description": "Docomo Initialization app",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
   "com.oppo.fingerprints.fingerprintsensortest": {
     "list": "Oem",
     "description": "Fingerprint sensort test\n",
@@ -33485,19 +33453,19 @@
   },
   "com.felicanetworks.mfc": {
     "list": "Oem",
-    "description": "[Mobile FeliCa Client](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is an essential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services. Uninstalling this does not remove the data saved in FeliCa.",
+    "description": "Mobile FeliCa Client (https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)\nEssential app for using FeliCa.\nUninstalling this may occur errors to install this in apps which uses FeliCa. You can uninstall this if you don't use FeliCa-related services.\nNOTE: Uninstalling this does not remove the data saved in FeliCa.",
     "dependencies": [],
     "neededBy": ["com.felicanetworks.mfw.a.boot", "com.felicanetworks.mfm.main"],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.felicanetworks.mfm.main": {
     "list": "Oem",
-    "description": "[Osaifu-Keitai App](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) is a digital wallet app for Osaifu-Keitai brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the Osaifu-Keitai brand, such as iD and Mobile Suica.\nFor details, please [check the app description](https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on Play Store.",
+    "description": "Osaifu-Keitai App (https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)\nA digital wallet app for Osaifu-Keitai brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the Osaifu-Keitai brand, such as iD and Mobile Suica.\nFor details, please check the app description (https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on Play Store.",
     "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.felicanetworks.mfs": {
     "list": "Oem",
@@ -33509,19 +33477,246 @@
   },
   "com.felicanetworks.mfw.a.boot": {
     "list": "Oem",
-    "description": "[Osaifu-Keitai Web Plugin](https://play.google.com/store/apps/details?id=com.felicanetworks.mfw.a.boot) is used by websites on your browser to get payment information and process payments with FeliCa. Safe to remove if you don't use Osaifu-Keitai online.",
+    "description": "Osaifu-Keitai Web Plugin (https://play.google.com/store/apps/details?id=com.felicanetworks.mfw.a.boot)\nUsed by websites on your browser to get payment information and process payments with FeliCa.\nSafe to remove if you don't use Osaifu-Keitai online.",
     "dependencies": ["com.felicanetworks.mfc"],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.sec.nfc.felicalocktest": {
-    "list": "Carrier",
+    "list": "Oem",
     "description": "Testing FeliCa carrier remote lock. Common to Softbank, au, and docomo.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.nttdocomo.android.anmane2": {
+    "list": "Carrier",
+    "description": "Likely a placeholder for docomo's corporate MDM service. Empty package and disabled by default on consumer devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.anshinsecurity": {
+    "list": "Carrier",
+    "description": "Anshin-security (https://www.docomo.ne.jp/service/anshin_security/)\ndocomo's security suite providing virus scanning, spam call/email prevention and so on.\nSafe to remove, but you may want to check https://mydocomo.docomo.ne.jp for subscriptions. Frequently bundled with device insurance service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.apnsw": {
+    "list": "Carrier",
+    "description": "APN switching control\nResource-only stub. Safe to remove.\nMay potentially cause tethering issues on legacy (pre-2016) models due to docomo's APN-switching requirements?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.applicationmanager": {
+    "list": "Carrier",
+    "description": "docomo Application Manager\nManages installation and updates of docomo-specific app.\nSafe to remove if you don't use any docomo service.\nNOTE: After reinstall, reboot needed to launch in some cases.",
+    "dependencies": [],
+    "neededBy": [
+      "com.nttdocomo.android.homezozo",
+      "com.nttdocomo.android.dhome"
+    ],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.databackup": {
+    "list": "Carrier",
+    "description": "Backup feature for application of docomo's service, mainly provides schedule/memo's cloud sync function.",
+    "dependencies": [],
+    "neededBy": ["com.nttdocomo.android.schedulememo"],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.devicehelp": {
+    "list": "Carrier",
+    "description": "Recommended usage tips\nIntrusive. Provide \"helpful hints\" based on user activity, but behaving like adware by showing frequent pop-ups.\nRequires high-level permissions such as Accessibility and \"Draw over other apps\" (overlay) to monitor user actions.\nIt's not enabled by default, but uninstalling recommended for a cleaner, more private experience.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.dmenu2": {
+    "list": "Carrier",
+    "description": "d-menu\nWeb page shortcut and notification receiver.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.docomoset": {
+    "list": "Carrier",
+    "description": "docomo service/cloud Settings\nAdds a \"docomo service/cloud\" entry to the system Settings app. Simple navigation screen providing entry points to docomo-specific app settings, such as d-account and docomo application manager.\nEssential for launching d-account settings.\nSafe to remove if you don't use any docomo service.",
+    "dependencies": [],
+    "neededBy": ["com.nttdocomo.android.idmanager"],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.homezozo": {
+    "list": "Carrier",
+    "description": "docomo LIVE UX\ndocomo's default home screen (launcher).\nSafe to remove ONLY IF another launcher is installed. Certain devices such as dtab may not have any other home screen apps preinstalled.\ndocomo application manager (com.nttdocomo.android.applicationmanager) must be installed to use this.",
+    "dependencies": ["com.nttdocomo.android.applicationmanager"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.dhome": {
+    "list": "Carrier",
+    "description": "Legacy docomo LIVE UX\ndocomo's default home screen (launcher).\nSafe to remove ONLY IF another launcher is installed. Certain devices such as dtab may not have any other home screen apps preinstalled.\ndocomo application manager (com.nttdocomo.android.applicationmanager) must be installed to use this.",
+    "dependencies": ["com.nttdocomo.android.applicationmanager"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.idmanager": {
+    "list": "Carrier",
+    "description": "d ACCOUNT Settings\nAccount Settings for d-account, includes an authentication component for other docomo apps.\nSafe to remove if you don't use any docomo services, but ensure you check your login method as you may need this app for two-step authentication when logging in from other devices.",
+    "dependencies": ["com.nttdocomo.android.docomoset"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.initialization": {
+    "list": "Carrier",
+    "description": "DOCOMO initialization\nOOBE (Initial setup) component for docomo devices. Safe to remove.\nTips: Apps deleted here will be restored when you factory reset the device!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nttdocomo.android.mascot": {
+    "list": "Carrier",
+    "description": "my daiz (https://www.docomo.ne.jp/service/mydaiz/)\ndocomo's information (e.g. weather, news) app. Also displays a mascot (looks like tofu) on docomo LIVE UX. Requires lots of permissions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.msg": {
+    "list": "Carrier",
+    "description": "+Message\nA messaging app using a carrier-customized RCS implementation by Softbank, au, and docomo. It adds LINE-like features to the standard SMS/RCS.\nSafe to remove, but recommended to have an alternative SMS app for OTPs.\nGoogle Messages is a simpler and more standard alternative.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.mymagazine": {
+    "list": "Carrier",
+    "description": "SmartNews for docomo\nNews app. Special version of SmartNews for docomo user.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.networkservice": {
+    "list": "Carrier",
+    "description": "Office Link Settings\nProvides \"Office Link\" service (docomo's enterprise internal line service). Typically accessed through the settings menu of the OEM Phone app.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.pf.dcmippushaggregator": {
+    "list": "Carrier",
+    "description": "A background platform service that manages docomo's proprietary IP push notification system.\nSafe to remove if you don't need to receive docomo's service notifications.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.remotelock": {
+    "list": "Carrier",
+    "description": "Omakase-lock (https://www.docomo.ne.jp/service/lock/)\nRemote device lock service. Allows docomo customer support to lock your device upon request.\nSafe to remove. Google's \"Find Hub\" are better-integrated alternatives including NFC (=FeliCa) remote lock.\nNOTE: To uninstall this, open settings > App permission > Special app access > Device admin apps and disable this app (May vary depending on your device).\nFor FeliCa remote lock, a separate package (com.nttdocomo.android.felicaremotelock) is used.",
+    "dependencies": ["com.nttdocomo.android.felicaremotelock"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.schedulememo": {
+    "list": "Carrier",
+    "description": "Schedule & Memo\n2 different apps in one package; docomo's schedule and memo apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.store": {
+    "list": "Carrier",
+    "description": "d-Point Market\nWeb page shortcut and notification receiver.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.wipe": {
+    "list": "Carrier",
+    "description": "Remote Wipe (https://www.docomo.ne.jp/service/initialization/)\nAllows docomo customer support to wipe your device upon request. This does NOT clear data inside the FeliCa chip.\nSafe to remove. Google's \"Find Hub\" or oem provided services are better-integrated alternatives.\nNOTE: To uninstall this, open settings > App permission > Special app access > Device admin apps and disable this app (May vary depending on your device).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.nttdocomo.anshinmode": {
+    "list": "Carrier",
+    "description": "Anshin-Filter for docomo (https://www.docomo.ne.jp/service/anshin_filter/0)\nCarrier-provided parental controls. Terrible.\nCauses excessive battery drain on both parent and child devices due to heavy background polling, and a ton of other issues.\nIf you care about your child's better well-being, digital experience and parent-child relationships, consider using alternative services such as Google Family link.\nStrongly recommended to uninstall.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.nttdocomo.carriermail": {
+    "list": "Carrier",
+    "description": "docomo mail\nCarrier mail app. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.nttdocomo.lcsapp": {
+    "list": "Carrier",
+    "description": "docomo location information\nProvides \"Keitai-Osagashi Service\" (Mobile Phone Finder Service) and \"imadoco search\" (parental tracking) by docomo.\ncom.nttdocomo.android.docomoset is needed to launch settings screen.\nSafe to remove, but you may want to check https://mydocomo.docomo.ne.jp for subscriptions and \"imadoco search\" Opt-Out at https://spf.spmode.ne.jp/location/posinfo_sp (spf.spmode.ne.jp is only accessible via mobile network).\nGoogle's \"Find Hub\" and \"Family Link\" are free and better alternatives integrated with Android.",
+    "dependencies": ["com.nttdocomo.android.docomoset"],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.nttdocomo.saigaiban": {
+    "list": "Carrier",
+    "description": "Disaster kit (https://www.docomo.ne.jp/info/disaster/disaster_kit/)\nA dedicated app for docomo's safety registration service used during major emergencies. It allows users to post and search for safety status.\nNOTE: This is not related to the core functionality of Area Mail (early warning). For checking Area Mail history, you can find it in system settings.\nSafe to remove; use web171.jp, Disaster Message Dial (171) or LINE's safety status feature instead for about safety status.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nttdocomo.android.felicaremotelock": {
+    "list": "Oem",
+    "description": "This is used to lock the Osaifu-Keitai (FeliCa), works with Omakase-lock (com.nttdocomo.android.remotelock).\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sec.android.overlay.dcmconfig": {
+    "list": "Oem",
+    "description": "Static overlay that sets \"config_systemContacts\" to \"docomo phonebook\" (customized com.android.contacts).\nNOTE: Safe to remove, reboot needed after uninstalling.\n\"docomo phonebook\" itself is safe to remove whether this overlay is installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.overlay.dcmconfig.sms": {
+    "list": "Oem",
+    "description": "Static overlay that sets \"config_defaultSms\" to \"+Message\" (com.nttdocomo.android.msg).\nNOTE: Safe to remove, reboot needed after uninstalling.\n\"+Message\" itself is safe to remove whether this overlay is installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   },
   "com.samsung.android.nfc.resources.japan": {
     "list": "Oem",
@@ -33870,14 +34065,6 @@
   "com.sec.android.app.felicatest": {
     "list": "Oem",
     "description": "FeliCa Test, hidden debugs, logs HAL_Nfc",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.nttdocomo.android.felicaremotelock": {
-    "list": "Oem",
-    "description": "FeliCa Remote security things, not needed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34381,7 +34568,15 @@
   },
   "jp.co.omronsoft.mushroom.CommonPhrase": {
     "list": "Oem",
-    "description": "Japanese Phrases app",
+    "description": "Provides a feature called \"Mushroom\" that is a phrase table shared between Japanese keyboards.\nJapanese keyboards still work without this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "jp.co.omronsoft.mushroom.commonphrase": {
+    "list": "Oem",
+    "description": "Provides a feature called \"Mushroom\" that is a phrase table shared between Japanese keyboards.\nJapanese keyboards still work without this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
