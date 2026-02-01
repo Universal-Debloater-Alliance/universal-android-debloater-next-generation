@@ -33588,7 +33588,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Recommended"
   },
   "com.nttdocomo.android.mascot": {
     "list": "Carrier",
