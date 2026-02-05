@@ -15,6 +15,9 @@
 - [ ] Manual testing performed
 - [ ] Tested on the following environment(s):
   - OS:
+    - Desktop Environment:
+    - Window System/Manager:
+  - ADB version:
   - Rust version:
 
 ## Checklist
