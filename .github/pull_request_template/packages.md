@@ -13,7 +13,7 @@
 
 ## Acknowledgements
 
-- [ ] I have read the [CONTRIBUTING guidelines](../../CONTRIBUTING.md)
+- [ ] I have read the [CONTRIBUTING guidelines](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/blob/main/CONTRIBUTING.md)
 - [ ] I have followed the package addition guidelines
 - [ ] I have reviewed the [Removal Definitions](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Debloat-Lists#removal-definitions) in the wiki
 - [ ] All package information is accurate and tested

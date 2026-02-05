@@ -10,7 +10,7 @@
 
 ## Checklist
 
-- [ ] I have read the [CONTRIBUTING guidelines](../../CONTRIBUTING.md)
+- [ ] I have read the [CONTRIBUTING guidelines](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/blob/main/CONTRIBUTING.md)
 - [ ] My changes are clear and easy to understand
 - [ ] I have checked for grammar and spelling errors
 - [ ] I have verified all links are correct

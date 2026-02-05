@@ -22,7 +22,7 @@
 
 ## Checklist
 
-- [ ] I have read the [CONTRIBUTING guidelines](../../CONTRIBUTING.md)
+- [ ] I have read the [CONTRIBUTING guidelines](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/blob/main/CONTRIBUTING.md)
 - [ ] My code follows the project's code style
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
