@@ -16,7 +16,7 @@ body:
 
       **List**: `Google`|`Misc`|`OEM` (manufacturer) |`AOSP`|`Pending`|`Carrier` (ISP).
 
-      **Removal**: See the [Removal Definitions](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Debloat-Lists#removal-definitions) on the wiki for details. **Please ensure you follow these definitions when proposing changes.**
+      **Removal**: `Recommended`|`Advanced`|`Expert`|`Unsafe`. See the [Removal Definitions](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Debloat-Lists#removal-definitions) on the wiki for details. **Please ensure you follow these definitions when proposing changes.**
 
 - type: textarea
   id: package-listing
@@ -30,6 +30,15 @@ body:
       - Description: 
   validations:
     required: true
+
+- type: checkboxes
+  id: removal-definitions
+  attributes:
+    label: Removal Definitions
+    description: Please ensure you follow the removal definitions when proposing changes.
+    options:
+      - label: I've read the [Removal Definitions](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Debloat-Lists#removal-definitions)
+        required: true
 
 - type: checkboxes
   id: acknowledgements
