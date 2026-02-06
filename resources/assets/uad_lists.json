@@ -31295,7 +31295,7 @@
   },
   "com.transsnet.store": {
     "list": "Oem",
-    "description": "Palm Store. App store with unsecure apps and probably malware. Has ads trackers and lot of intrusives permissions. Shows intrusive ads and popups.\nPithus analysis: https://beta.pithus.org/report/35d762b27c9e16703adf1731b74bef2c53a753b6a7475c425bced53b553758e5",
+    "description": "Palm Store. App store with unsecure apps and probably malware. Has ads trackers and lot of intrusives permissions. Shows intrusive ads and popups.\nRequired for one-time removal of \"Hot Apps\" folder in XOS Launcher (via long press and \"Properties\").\nPithus analysis: https://beta.pithus.org/report/35d762b27c9e16703adf1731b74bef2c53a753b6a7475c425bced53b553758e5",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
