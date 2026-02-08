@@ -42055,5 +42055,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.apple.atve.androidtv.appletv": {
+    "list": "Oem",
+    "description": "Apple TV\nFactory-installed Apple TV app. Reverts to factory-version when unistalled by normal means.\n(Shipped with Philips Android TVs, but may be present on other devices as well.)\nhttps://play.google.com/store/apps/details?id=com.apple.atve.androidtv.appletv",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
