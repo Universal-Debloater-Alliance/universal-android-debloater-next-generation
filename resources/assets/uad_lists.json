@@ -42071,5 +42071,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.android.networkstack.tethering.inprocess": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.a20.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Seems like a completely useless empty package, but the default lock screen wallpaper slideshow stops working if you uninstall this. Wallpapers can still be set fine, so it's still pretty useless.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.timezone.data_R": {
+    "list": "Oem",
+    "description": "Completely empty package. Useless. No issues with the clock after uninstalling",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
