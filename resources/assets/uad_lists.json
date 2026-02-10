@@ -35795,6 +35795,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+    "com.oplus.aipaint": {
+    "list": "Oem",
+    "description": "AI Paint\nUnsure what it's used for but probably has to do with editing images.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.oplus.apprecover": {
     "list": "Oem",
     "description": "Recover system apps",
