@@ -5928,6 +5928,14 @@
     "labels": [],
     "removal": "Recommended"
   },
+  "com.samsung.android.widgetapp.yahooedge.news": {
+    "list": "Oem",
+    "description": "Special edge panel widget for Yahoo News\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.samsung.android.widget.pictureframe": {
     "list": "Oem",
     "description": "Samsung gallery widget, shows your selected photos as widget",
@@ -13950,7 +13958,7 @@
   },
   "com.microsoft.office.powerpoint": {
     "list": "Misc",
-    "description": "",
+    "description": "PowerPoint\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
