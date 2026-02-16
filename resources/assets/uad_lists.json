@@ -9282,7 +9282,7 @@
   },
   "com.oneplus.soundrecorder": {
     "list": "Oem",
-    "description": "Recorder\nOnePlus sound recording app.\nRequires turning on\"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
+    "description": "Recorder\nOnePlus sound recording app. Requires turning on\"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -22512,7 +22512,7 @@
     "labels": []
   },
   "com.coloros.assistantscreen": {
-    "description": "HeyTap Shelf. ColorOS 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets in ColorOS 16\nSwipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
+    "description": "Shelf. ColorOS/OnePlus 'At a Glance'.\nShelf provides a variety of widgets that let you access important information or services from apps with ease. Removing will also be unable to access third-party widgets (these are different from the 'normal' widgets in any launcher) in ColorOS 16/OxygenOS 16\nSwipe down on the Home screen to enter Shelf.\nhttps://play.google.com/store/apps/details?id=com.coloros.assistantscreen",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -22577,7 +22577,7 @@
     "labels": []
   },
   "com.coloros.accessibilityassistant": {
-    "description": "Another thing for smart assistant",
+    "description": "AI VoiceScribe.\nIt's used to convert speech to text in real-time for accessibility purposes. Can be safely deleted if you don't use AI services.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23002,8 +23002,8 @@
     "labels": []
   },
   "com.coloros.weather.service": {
-    "description": "Name indicates it's for the weather, but removing this causes the screen to flash and the phone will eventually become unresponsive.\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585",
-    "removal": "Unsafe",
+    "description": "Name indicates it's for the weather, but removing this causes the screen to flash and the phone will eventually become unresponsive.\nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585. Disabling instead does not seem to cause this problem, see \nhttps://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues/585#issuecomment-3796739025",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -23058,7 +23058,7 @@
     "labels": []
   },
   "com.oplus.postmanservice": {
-    "description": "Calibration, scan QR code test",
+    "description": "Diagnostics\nFor calibration of hardware",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23442,8 +23442,8 @@
     "labels": []
   },
   "com.oplus.audio.effectcenter": {
-    "description": "AudioEffectCenter\nDolby support for Chinese apps and some Google. It's so bloated.",
-    "removal": "Recommended",
+    "description": "Sound effects and EQ settings, Dolby support for Chinese apps and some Google. Remove if you aren't planning to use sound effects or EQ.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -27209,7 +27209,7 @@
     "labels": []
   },
   "com.oplus.romupdate": {
-    "description": "Update Service\nIf you wanna remove it to keep ram, it's a bad idea. Better remove com.oplus.ota too if you don't plan to update system.",
+    "description": "Update Service\nResponsible for installing updates.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -27545,8 +27545,8 @@
     "labels": []
   },
   "com.oplus.linker": {
-    "description": "OPSynergy\nUsed for the Synergy app to link your phone to your PC (It doesn't work well beyond controlling your phone from your PC).",
-    "removal": "Recommended",
+    "description": "OPSynergy\nUsed for the Synergy app to link your phone to your PC (it doesn't work well beyond controlling your phone from your PC). This app is a dependency of screencast. Disabling will cause the screencast app to break.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -27891,6 +27891,14 @@
     "neededBy": [],
     "labels": []
   },
+  "com.oppo.usercenter": {
+    "description": "Just bloatware for account details and marketing of OPPO. Cannot log into OPPO/HeyTap account after disabling. Safe to disable if OPPO account is not used.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.coloros.findmyphone": {
     "description": "Find phone\nFind phone, logout from oppo account before",
     "removal": "Recommended",
@@ -28012,7 +28020,7 @@
     "labels": []
   },
   "com.oplus.trafficmonitor": {
-    "description": "OnePlus Data usage\nOneplus traffic monitor (monthly data usage, etc). If removed, the 'Data Usage' option under 'Mobile network' will not work. Also App Info screen's 'Data usage' option will disappear",
+    "description": "OnePlus Data usage / OnePlus traffic monitor (monthly data usage, etc). If removed, the 'Data Usage' option under 'Mobile network' will not work. Also App Info screen's 'Data usage' option will disappear. Required to restrict an app from accessing the network via settings > app info.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -31487,13 +31495,13 @@
   },
   "com.oplus.cosa": {
     "list": "Oem",
-    "description": "APP Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\n\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\nCannot be uninstalled but it can be disabled. Note: removing this package prevents the OnePlus Game Center to detect games.\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.",
+    "description": "APP Enhancement Services\nIf enabled, connects to OPPO servers (icosa-service-eu.allawnos.com) every time a new app is installed. Seems to be mostly focused on gaming performance optimisation according to the settings description:\n'[...] a service that optimises phone performance for specific apps and game scenarios. [...] frame rates, battery usage, touch sensitivity, network connection, vibration and gameplay assistance features.'\nCan be disabled via hidden setting (Settings -> Search 'App Enhancement Services' -> App Enhancement Services).\nNote: removing this package prevents the OnePlus Game Center to detect games.\nCannot be uninstalled but it can be disabled. Note: removing this package prevents the OnePlus Game Center to detect games.\nPithus analysis: https://beta.pithus.org/report/f55e935357865f4647e59c98afb5a3a46aba22a48844d80d2819d122781e3fde.\nAnother note: the process is necessary for the GameEventServiceService which ensures that apps recognized as games have a fixed refresh rate, not an adaptive refresh rate; without it, refresh rates may be reduced from 120hz to 60hz. When there is not much going on on screen, there can even be drops in the refresh rate to 30hz and 1hz. There is no option to turn off adaptive refresh rate, so one is reliant on this OS service to undo its own damage. Without this, there also seems to be no way to display 120fps cloud gaming at 120hz (tested with Moonlight/Artemsi), as the OS does not exempt the streaming app from the adaptive refresh rate rule.",
     "dependencies": [],
     "neededBy": [
       "com.oneplus.gamespace"
     ],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.oplus.blur": {
     "list": "Oem",
@@ -31730,7 +31738,7 @@
   },
   "com.coloros.compass2": {
     "list": "Oem",
-    "description": "ColorOS default compass app\nKeep in mind that by using this app you give your location to the weather Oppo servers.\nPithus analysis: https://beta.pithus.org/report/9a965f5587fa6ee21c526612f3d72c50ef3cc53679b741260298387c44f5a3dc",
+    "description": "ColorOS and OxygenOS 16's default compass app\nKeep in mind that by using this app you give your location to the weather Oppo/OnePlus servers.\nPithus analysis: https://beta.pithus.org/report/9a965f5587fa6ee21c526612f3d72c50ef3cc53679b741260298387c44f5a3dc",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31796,7 +31804,7 @@
   },
   "com.coloros.video": {
     "list": "Oem",
-    "description": "Video Player\nDefault Oppo video player with too much permissions (21) for a video player!\nNote: using inbuilt screen recorder you won't be able to open the recorded video from the notification view.\n\nPithus analysis: https://beta.pithus.org/report/4ceb96c23ad0e26ee8eceab293d251f8b1bddaf4a901741ee467e0bb867db6e9",
+    "description": "Video Player\nDefault Oppo and OnePlus video player with too much permissions (21) for a video player!\nNote: using inbuilt screen recorder you won't be able to open the recorded video from the notification view.\n\nPithus analysis: https://beta.pithus.org/report/4ceb96c23ad0e26ee8eceab293d251f8b1bddaf4a901741ee467e0bb867db6e9",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31804,7 +31812,7 @@
   },
   "com.heytap.browser": {
     "list": "Oem",
-    "description": "Oppo Browser\nRebranded HeyTap browser for Oppo. Full of ads and spams you in notifications. You should never use this browser\nHeyTap's terrible privacy policy: https://brand.heytap.com/eu/privacy.html",
+    "description": "Oppo Browser\nRebranded HeyTap browser for Oppo and OnePlus devices. Full of ads and spams you in notifications. You should never use this browser\nHeyTap's terrible privacy policy: https://brand.heytap.com/eu/privacy.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35904,7 +35912,7 @@
   },
   "com.oplus.cota": {
     "list": "Oem",
-    "description": "Carrier software updater?\nLooks like software updater for carrier phones.",
+    "description": "Configuration Update Over The Air\nNeeded for OTA updates. Likely needed to download and install system updates, device configuration, and carrier/enterprise customizations on OnePlus devices. It ensures your device stays up-to-date and compliant with carrier or company requirements, and interacts with the user only when necessary (e.g., update dialogs, legal statements).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -35973,6 +35981,38 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+    "com.oplus.aicall": {
+    "list": "Oem",
+    "description": "Provides AI summaries in the ODialer app",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.oplus.aimemory": {
+    "list": "Oem",
+    "description": "Mind Space (also called 'Breeno Memory')\nSaves and summarizes content using AI. Runs on the background, even though when you're not using it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+    "com.oplus.aiwriter": {
+    "list": "Oem",
+    "description": "AI Writer\nPop-up for AI text generation, often appears in places that are not text input fields.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.oplus.aipaint": {
+    "list": "Oem",
+    "description": "AI Paint\nUnsure what it's used for but probably has to do with editing images.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   },
   "com.oplus.apprecover": {
     "list": "Oem",
