@@ -7602,7 +7602,7 @@
   },
   "com.samsung.android.honeyboard": {
     "list": "Oem",
-    "description": "Samsung keyboard\nWARNING: do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.",
+    "description": "Samsung keyboard\nWARNING: do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.\nWARNING: Removing this packages breaks the edge panel clipboard.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
