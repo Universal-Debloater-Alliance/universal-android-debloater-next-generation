@@ -1,4 +1,4 @@
-# Description
+## Description
 
 <!-- Please describe the package changes you're adding or updating. -->
 <!-- Link to related issues using keywords (e.g. Fixes <issue_number>) -->
