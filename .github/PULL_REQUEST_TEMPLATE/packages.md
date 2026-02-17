@@ -7,7 +7,8 @@
 ## Testing
 
 - [ ] I have tested these packages on a real device or emulator
-- [ ] Package names are correct and verified
+- [ ] Package names follow correct naming conventions (e.g., `com.example.app`)
+- [ ] Package names have been verified against device/ADB output
 - [ ] Descriptions are accurate and helpful
 - [ ] No duplicate packages added
 
