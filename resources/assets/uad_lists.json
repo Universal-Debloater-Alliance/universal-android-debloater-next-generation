@@ -34870,6 +34870,14 @@
     "labels": [],
     "removal": "Expert"
   },
+    "com.sec.android.app.tfunlock": {
+    "list": "Carrier",
+    "description": "The unlocking interface and process when unlocking a Tracfone-based phone. Probably needed for unlocking your carrier status. probably needed if you want to unlock your phone from a Tracfone service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
   "com.sec.android.app.tourviewer": {
     "list": "Oem",
     "description": "3d tour image, Virtual tour, Viewer used to view photos taken with the Galaxy S5 camera's Virtual Tour Shot mode.",
