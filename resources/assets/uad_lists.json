@@ -5715,7 +5715,7 @@
   },
   "com.samsung.android.smartmirroring": {
     "list": "Oem",
-    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV (https://www.samsung.com/us/apps/smart-view-2/)\nDependency for com.samsung.android.video",
+    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV (https://www.samsung.com/us/apps/smart-view-2/)\nDependency for com.samsung.android.video\nUninstalling this breaks edge panels feature; edge panel won't work and will also crash OneUI Home when trying to switch edge panels on from settings > display.\nThe edge panels package (com.samsung.android.app.cocktailbarservice and com.samsung.android.app.appsedge) doesn't exist on my phone so maybe on newer devices Samsung moved that functionality to this package instead. Tested on Galaxy S25 FE Android 16",
     "dependencies": [],
     "neededBy": [
       "com.samsung.android.video"
