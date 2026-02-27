@@ -4529,7 +4529,7 @@
   },
   "com.motorola.systemserver": {
     "list": "Oem",
-    "description": "Moto Service Experience, debugging app.",
+    "description": "Moto Service Experience, debugging app.\nKeep this package for consistent Moto Fast Flashlight Gesture Functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
