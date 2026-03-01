@@ -25096,8 +25096,8 @@
     "labels": []
   },
   "tech.palm.id": {
-    "description": "TECNO ID\nit's for account? A lot bloated.\nInstead Uninstall better Disable app because Uninstalling cause Settings app crash",
-    "removal": "Recommended",
+    "description": "TECNO ID app.\nDisabling/Uninstalling causes Settings app to crash.",
+    "removal": "Unsafe",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -38948,11 +38948,11 @@
   },
   "com.transsion.aisettings": {
     "list": "Oem",
-    "description": "Adds a shortcut on the Settings app that lets you manage your Folax AI (com.transsion.aivoiceassistant) settings. If you have already removed that package, it just displays a blank page.\nThis can also be safely removed without issues.",
+    "description": "Adds a shortcut on Settings app to manage your Folax AI (com.transsion.aivoiceassistant) settings. \nCauses Settings app to crash on some Tecno/Infinix devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.miui.phone.carriers.overlay": {
     "description": "Preferred network type to Vodafone 5G/4G/3G/2G auto.\nIt's unused.",
