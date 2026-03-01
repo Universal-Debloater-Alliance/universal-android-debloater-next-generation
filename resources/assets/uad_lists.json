@@ -26761,7 +26761,7 @@
     "labels": []
   },
   "com.android.inputsettings.overlay.miui": {
-    "description": "Keyboard demo found. It's something to miinput unused Chinese!",
+    "description": "Keyboard demo found. It's something to miinput unused Chinese! On HyperOS 3, it's a dependency of Camera Ring",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
