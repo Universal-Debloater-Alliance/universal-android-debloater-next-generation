@@ -5643,7 +5643,7 @@
   },
   "com.samsung.android.scpm": {
     "list": "Oem",
-    "description": "Samsung Cloud Platform Manager\nRelated to Samsung Cloud. Safe to remove if you don't use it.",
+    "description": "Samsung Cloud Platform Manager\nRelated to Samsung Cloud.\nNOTE: Uninstalling it causes the \"Sound Quality and Effects\" app (com.sec.android.app.soundalive) to crash regularly, resulting in a crash dialog that might become annoying. (However, the sound seems to work fine. Disabling scpm does not seem to cause errors.)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7248,7 +7248,7 @@
   },
   "com.sec.android.app.soundalive": {
     "list": "Oem",
-    "description": "Responsible for Dolby Atmos and other equalizer stuff (accessible from the Settings app).\nNeeded by Adapt Sound (com.sec.hearingadjust) which is a pretty useful feature.",
+    "description": "Responsible for Dolby Atmos and other equalizer stuff (accessible from the Settings app).\nNeeded by Adapt Sound (com.sec.hearingadjust) which is a pretty useful feature.\nNOTE: If the app crashes regularly, even when you don't use Dolby or other features, check to see if you have \"com.samsung.android.scpm\" installed. If not, try installing it. (Disabling scpm seems to be okay)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
