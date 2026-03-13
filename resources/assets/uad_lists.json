@@ -42151,5 +42151,125 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.hihonor.android.launcher": {
+    "list": "Oem",
+    "description": "Stock Honor launcher.\nWARNING: Will break app switcher and gestural navigation bar.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.calendar": {
+    "list": "Oem",
+    "description": "Stock calendar app on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.photos": {
+    "list": "Oem",
+    "description": "Stock Honor photos on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.lens": {
+    "list": "Oem",
+    "description": "App kinda like Google Lens, used for scanning QR Codes and more.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.appmarket": {
+    "list": "Oem",
+    "description": "HONOR's App store.\nSafe to remove.\nNOTE: Installed apps via this store will no longer auto-update after removal.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.phoneservice": {
+    "list": "Oem",
+    "description": "My Honor.\nhttps://play.google.com/store/apps/details?id=com.hihonor.phoneservice&hl=fr",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.notepad": {
+    "list": "Oem",
+    "description": "Stock notepad on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.filemanager": {
+    "list": "Oem",
+    "description": "Stock file manager on Honor devices.\nIt is not the system one so it's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.calculator": {
+    "list": "Oem",
+    "description": "Stock calculator on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.contacts": {
+    "list": "Oem",
+    "description": "Stock contacts app on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.videoeditor": {
+    "list": "Oem",
+    "description": "Stock video editor on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.magazine": {
+    "list": "Oem",
+    "description": "Magic Pictorial/Magazine unlock.\nSafe to remove if you're not using it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.thememanager": {
+    "list": "Oem",
+    "description": "Theme manager.\nDisabling it will prevent you from changing themes.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.search": {
+    "list": "Oem",
+    "description": "HONOR Search.\nhttps://www.honor.com/sa-en/support/content/en-us15829481/\nSafe to remove if you're not using it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.collectcenter": {
+    "list": "Oem",
+    "description": "HONOR Favourites space.\nSafe to remove if you're not using it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
