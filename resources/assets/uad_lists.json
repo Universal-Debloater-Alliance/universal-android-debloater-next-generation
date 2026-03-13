@@ -42271,5 +42271,45 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.hihonor.soundrecorder": {
+    "list": "Oem",
+    "description": "Stock audio recorder on Honor devices.\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.bluetooth": {
+    "list": "Oem",
+    "description": "Contact import via blueooth on Honor devices, probably safe to remove if you don't plan using this function.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.ouc": {
+    "list": "Oem",
+    "description": "OTA Updates for Honor devices. Probably unsafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.mmitest": {
+    "list": "Oem",
+    "description": "Hardware testing app for Honor devices ? Probably safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.fmradio": {
+    "list": "Oem",
+    "description": "Stock FM Radio app for Honor devices. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
