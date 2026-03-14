@@ -42352,7 +42352,7 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.hihonor.android.dsdscardmanager": {
+  "com.hihonor.dsdscardmanager": {
     "list": "Oem",
     "description": "Dual card management\nIt's sim card management in Honor settings.\nAfter removing, sim card management in settings will not work.",
     "dependencies": [],
@@ -42504,7 +42504,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.hihonor.KoBackup": {
+  "com.hihonor.koBackup": {
     "list": "Oem",
     "description": "As of writing this, Honor phones cannot be rooted.\nThis Backup application is probably able to backup more than any other 3rd party backup app.\n",
     "dependencies": [],
@@ -42753,5 +42753,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.hihonor.deskclock": {
+    "list": "Oem",
+    "description": "Honor Clock App.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.systemmanager": {
+    "list": "Oem",
+    "description": "System Manager\nHonor's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more than a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.airlink": {
+    "list": "Oem",
+    "description": "Air link service, it's probably needed for Wireless Projection.\nNo activities, only more debugging stuff, location things, logs",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
