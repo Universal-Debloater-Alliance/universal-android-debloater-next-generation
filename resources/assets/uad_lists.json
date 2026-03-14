@@ -42777,5 +42777,37 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "androidhnext": {
+    "list": "Oem",
+    "description": "EMUI Graphical User Interface:\nhttps://fixyourandroid.com/about/androidhwext\nThe framework responsible for the themes (even the standard one) of EMUI to launch. Also, it's the core for the Themes app. REMOVING IT CAUSES A BOOTLOOP!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hihonor.trustcircle": {
+    "list": "Oem",
+    "description": "Device authentication service\nThe app's usage is unknown, but it can be removed if apps such as com.hihonor.id, com.hihonor.appmarket are also removed. This is what I found while exploring the APK: Huawei Mobile Services?, managing installation and updates of AppGallery.\nHuawei HWID account may be inaccessible without this app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.id": {
+    "list": "Oem",
+    "description": "Honor Mobile Services\nHonor’s alternative to Google Play Services. Needed to access advanced Honor features.\nA Honor ID is required to access services, like Themes. This may break an app like InPost Mobile, see:\nhttps://github.com/0x192/universal-android-debloater/issues/477\nSee more about Honor Mobile Services: https://www.xda-developers.com/huawei-hms-core-android-alternative-google-play-services-gms/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.printservice": {
+    "list": "Oem",
+    "description": "Print service",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
