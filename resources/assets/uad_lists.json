@@ -42154,7 +42154,7 @@
   },
   "com.hihonor.android.launcher": {
     "list": "Oem",
-    "description": "Stock Honor launcher.\nWARNING: Will break app switcher and gestural navigation bar.",
+    "description": "Honor launcher app.\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER !\nYou will need this package for the recent apps feature to work, and will completely break the gestural navigation bar.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42162,7 +42162,7 @@
   },
   "com.hihonor.calendar": {
     "list": "Oem",
-    "description": "Stock calendar app on Honor devices.\nSafe to remove.",
+    "description": "Honor's calendar app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42170,7 +42170,7 @@
   },
   "com.hihonor.photos": {
     "list": "Oem",
-    "description": "Stock Honor photos on Honor devices.\nSafe to remove.",
+    "description": "Honor's photos app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42202,7 +42202,7 @@
   },
   "com.hihonor.notepad": {
     "list": "Oem",
-    "description": "Stock notepad on Honor devices.\nSafe to remove.",
+    "description": "Honor's notepad app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42210,7 +42210,7 @@
   },
   "com.hihonor.filemanager": {
     "list": "Oem",
-    "description": "Stock file manager on Honor devices.\nIt is not the system one so it's safe to remove.",
+    "description": "Honor's file manager.\nIt is not the system one so it's safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42218,7 +42218,7 @@
   },
   "com.hihonor.calculator": {
     "list": "Oem",
-    "description": "Stock calculator on Honor devices.\nSafe to remove.",
+    "description": "Honor's calculator app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42226,7 +42226,7 @@
   },
   "com.hihonor.contacts": {
     "list": "Oem",
-    "description": "Stock contacts app on Honor devices.\nSafe to remove.",
+    "description": "Honor's contacts app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42234,7 +42234,7 @@
   },
   "com.hihonor.videoeditor": {
     "list": "Oem",
-    "description": "Stock video editor on Honor devices.\nSafe to remove.",
+    "description": "Honor's video editing app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42250,7 +42250,7 @@
   },
   "com.hihonor.android.thememanager": {
     "list": "Oem",
-    "description": "Theme manager.\nDisabling it will prevent you from changing themes.",
+    "description": "Honor's Theme manager.\nDisabling it will prevent you from changing themes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42274,7 +42274,7 @@
   },
   "com.hihonor.soundrecorder": {
     "list": "Oem",
-    "description": "Stock audio recorder on Honor devices.\nSafe to remove.",
+    "description": "Honor's audio recording app.\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42298,7 +42298,7 @@
   },
   "com.hihonor.mmitest": {
     "list": "Oem",
-    "description": "Hardware testing app for Honor devices ? Probably safe to remove.",
+    "description": "MMITest\nHidden hardware tests. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -42306,7 +42306,449 @@
   },
   "com.hihonor.android.fmradio": {
     "list": "Oem",
-    "description": "Stock FM Radio app for Honor devices. Safe to remove.",
+    "description": "Honor's stock radio player. Remove if FM isn't relevant for you.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.keychain": {
+    "list": "Oem",
+    "description": "Face recognition and fingerprint authentication. Probably a bad idea to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hihonor.compass": {
+    "list": "Oem",
+    "description": "Honor's compass app. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.imedia.sws": {
+    "list": "Oem",
+    "description": "Audio 3D effects found in the settings. Safe to remove if you don't use these settings.\nCauses an audio glitch after the first reboot following the uninstallation or disabling of this package.\nWhen you start or resume playing any audio content in any media application, the sound volume initially sets to maximum for half a second, then normalizes.\nAffects only external audio devices with any connection type.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.hnasm": {
+    "list": "Oem",
+    "description": "FIDO UAF Authenticator-Specific Module.\nSee 'com.hihonor.fido.uafclient' for FIDO explaination.\nThe UAF Authenticator-Specific Module (ASM) is a software interface on top of UAF authenticators which gives a standardized way for FIDO UAF clients to detect and access the functionality of UAF authenticators and hides internal communication complexity from FIDO UAF Client.\nhttps://fidoalliance.org/specs/fido-uaf-v1.0-ps-20141208/fido-uaf-asm-api-v1.0-ps-20141208.html",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.fido.uafclient": {
+    "list": "Oem",
+    "description": "UAF client for FIDO.\nFido is a set of open technical specifications for mechanisms of authenticating users to online services that do not depend on passwords.\nhttps://fidoalliance.org/specs/u2f-specs-1.0-bt-nfc-id-amendment/fido-glossary.html\nhttps://fidoalliance.org/specs/fido-v2.0-rd-20170927/fido-overview-v2.0-rd-20170927.html\nThe UAF protocol is designed to enable online services to offer passwordless and multi-factor security by allowing users to register their device to the online service and using a local authentication mechanism such as iris or fingerprint recognition.\nhttps://developers.google.com/identity/fido/android/native-apps\nSafe to remove if you don't use password-less authentication to access online services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.android.dsdscardmanager": {
+    "list": "Oem",
+    "description": "Dual card management\nIt's sim card management in Honor settings.\nAfter removing, sim card management in settings will not work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hihonor.gameassistant": {
+    "list": "Oem",
+    "description": "Honor Game Suite (HiGame).\nMobile game app store.\nhttps://club.hihonor.com/in/topic/16341/detail.htm\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.game.kitserver": {
+    "list": "Oem",
+    "description": "Probably safe to remove if you don't play games.\nHas window show, keybind set and more things.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.powergenie": {
+    "list": "Oem",
+    "description": "Task killer app in EMUI 9+ (Android 9+).\nTask killer apps tend to do more harm than help as they clear cached RAM for no good reason, removing the battery and time savings involved in caching. In addition to the obvious issues with background functionality like notifications.\nFrom issue#104.\nSystem will start lagging a little bit (you will notice it while scrolling and on some animations, for example scrolling installed apps), battery consumption will become slightly higher and battery stats will disappear soon. At the same time, logcat will be full of errors like: PowerKit: PG Server is not found. calling pid xxxx.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.hiviewtunnel": {
+    "list": "Oem",
+    "description": "This displays details/attributes of pictures in the gallery (ISO, exposure time, etc.).\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.hiview": {
+    "list": "Oem",
+    "description": "hiview\nRemoving this doesn't remove access to the picture attributes, so what does it actually do?\nIt's the same as (com.hihonor.hiviewtunnel), which is useless.\nIt has 19 permissions, Crash App Dialog, logs. So do not trust these apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.assetsync": {
+    "list": "Oem",
+    "description": "HnAssetSync\nNeeded for HiCloud, Cloud syncing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.assetsyncservice": {
+    "list": "Oem",
+    "description": "It's for 'com.hihonor.securityserver' for start this service app.\nNeeded for HiCloud sync security.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.securityserver": {
+    "list": "Oem",
+    "description": "HnSecurityServer\nNot needed app without code and useless assets to spying apps.\nNeeded for face unlock, black screen will be shown if you remove this package (?). Doesn't apply to all devices",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.iaware": {
+    "list": "Oem",
+    "description": "App Prioritizer. Prioritizes apps to avoid slowdown\nUp to you but there is apparently no noticeable difference when deleted?\nSystem will start lagging a little bit (you will notice it while scrolling and on some animations, for example scrolling installed apps), battery consumption will become slightly higher and battery stats will disappear soon. At the same time, logcat will be full of errors like: PowerKit: PG Server is not found. calling pid xxxx.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.autoinstallapkfrommcc": {
+    "list": "Oem",
+    "description": "Auto Install apk from mcc\nAuto Install apk from mcc? it's only information and logs.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.omacp": {
+    "list": "Oem",
+    "description": "Provisioning message\nUsed for provisioning APN settings to devices via SMS. I think you shouldnt touch it if you want sms messages.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.motionservice": {
+    "list": "Oem",
+    "description": "Gesture Service\nNot very useful gestures available in settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.hndockbar": {
+    "list": "Oem",
+    "description": "Honor Multi-Window dock\nProbably fine to remove if you're not using Honor Multi-Window features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.pcassistant": {
+    "list": "Oem",
+    "description": "HiSuite service. Used by HiSuite PC software.\nHiSuite enables you to backup your data and restore them from/to your phone.\nhttps://consumer.huawei.com/en/support/hisuite/\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.wifieapsimplmn": {
+    "list": "Oem",
+    "description": "PredefinedEapSim\nNeeded for WiFi to work properly? WiFi may not work (?)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.android.mirrorshare": {
+    "list": "Oem",
+    "description": "MirrorShare feature (Miracast rebranded by Honor)\nUsed to mirror screen of you smartphone on a TV.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.projectmenu": {
+    "list": "Oem",
+    "description": "ProjectMenu\nHidden settings not available for users. ProjectMenu interface: phone *#*#2846579#*#*\nhttps://www.99mediasector.com/open-project-menu-huawei-device-huawei-code/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.remotepassword": {
+    "list": "Oem",
+    "description": "RemotePassword\nremotepassword: errors, invalid, null, errors generally\nalso subscribe info, device info. Better remove that.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.KoBackup": {
+    "list": "Oem",
+    "description": "As of writing this, Honor phones cannot be rooted.\nThis Backup application is probably able to backup more than any other 3rd party backup app.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.iconnect": {
+    "list": "Oem",
+    "description": "iConnect\nHidden menu 'install PCAssistant' when connected to PC? I have never seen it. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.linktowindowsservice": {
+    "list": "Oem",
+    "description": "Windows Phone Link Service. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.systemserver": {
+    "list": "Oem",
+    "description": "Honor System Services\nIt depends on (com.hihonor.systemmanager).\nNeeded for navigation with a fingerprint reader that is on a Huawei Mate 10, but fingerprint unlock will still work if you remove it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.android.internal.app": {
+    "list": "Oem",
+    "description": "Component of Honor sharing\nMay break the sharing function in several applications (in particular, apps will crash).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.synergy": {
+    "list": "Oem",
+    "description": "Honor Cloud & Network Synergy.\nSeems to be related to B2B (Business To Business) cloud stuff.\nhttps://www.huawei.com/en/press-events/news/2016/10/Cloud-Network-Synergy-Whitepaper\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.contacts.sync": {
+    "list": "Oem",
+    "description": "Huawei Contacts sync\nMy guess (can't have the apk on hand) is this enables you to synchronise your contacts with your Huawei account.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.deviceauth": {
+    "list": "Oem",
+    "description": "TrustedDeviceAuth\nI guess it's for authentication keys",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.android.FloatTasks": {
+    "list": "Oem",
+    "description": "Floating/Navigation dock (also called NaviDot).\nhttps://consumer.huawei.com/en/support/how-to/detail-troubleshooting/en-us00310067/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.wfdft": {
+    "list": "Oem",
+    "description": "Wi-Fi Direct feature.\nNote: Wifi direct enables devices to establish a direct Wi-Fi connection (without a router) over which the two can send and receive files.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.browserhomepage": {
+    "list": "Oem",
+    "description": "Honor Browser component.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.searchservice": {
+    "list": "Oem",
+    "description": "Fusion Search Service\nNeeded for searching? \nalso found trackers components that connects to Honor servers unnecessarily.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.assistant": {
+    "list": "Oem",
+    "description": "AI Suggestions\nDidn't find any issues when removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.hnstartupguide": {
+    "list": "Oem",
+    "description": "A one-time setup app that is no longer needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.camera": {
+    "list": "Oem",
+    "description": "Safe to remove, but not recommended, as other camera apps are not much better than this one.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.HnMultiScreenShot": {
+    "list": "Oem",
+    "description": "Scrolling screenshot feature\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.smartshot": {
+    "list": "Oem",
+    "description": "Smart screenshots\nNeeded for screenshots.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.screenrecorder": {
+    "list": "Oem",
+    "description": "Stock screen recorder\nUseful only in pre-Android Pie for having system audio recording without root.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.permissioncontroller.overlay": {
+    "list": "Oem",
+    "description": "Found help app permissions - only link to Google site in code, overlay to permission things like buttons, dialogs, etc.\nBut it's not needed?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.ddmp": {
+    "list": "Oem",
+    "description": "DDMP\nHas a lot frameworks.\nUninstalling breaks calling app even if you disable.\nIt does not cause bootloop but removing is highly not recommended.\nNot only breaks the dialer app, but causes lag in whole system too.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hihonor.detectrepair": {
+    "list": "Oem",
+    "description": "Honor Smart diagnosis (discontinued?)\nUseless features and run in background.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.hnaps": {
+    "list": "Oem",
+    "description": "HnAps\nManages Intelligent Resolution and changing screen resolution in settings.\nIntelligent Resolution will be not available and changing screen resolution in settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hihonor.behaviorauth": {
+    "list": "Oem",
+    "description": "BehaviorAuth\nIt seems to be related to verifying the authenticity of user behavior and enhancing password security. User can disable it so it's safe to remove.\nhttps://www.android-hilfe.de/forum/huawei-p30-p30-pro-p30-lite.3510/was-ist-die-behaviorauth-app-fuer-das-p30.1008750.html",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.chr": {
+    "list": "Oem",
+    "description": "HnChrService\nHonor Call History Record.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.coauthservice": {
+    "list": "Oem",
+    "description": "HnCoAuthService\nApplock, lockscreen password, face recognition things, fingerprint, not sure if it's worth removing it.\nNeeded for manual apk installation.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.hihonor.nearby": {
+    "list": "Oem",
+    "description": "HnNearby\nNeeded for Honor Share features. (com.hihonor.android.instantshare)\nHonor Share features may not work after remove.\nNeeded to show a preview of recently opened apps in task manager. I agree, makes no sense, but that's what it is.",
+    "dependencies": [
+      "com.hihonor.android.instantshare"
+    ],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.hihonor.hnpanpayservice": {
+    "list": "Oem",
+    "description": "Payment related service. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.securitypluginbase": {
+    "list": "Oem",
+    "description": "HnSecurityPluginBase\nAntivirus Service supports bad antiviruses, HnLog, not needed",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.hnupgradeguide": {
+    "list": "Oem",
+    "description": "hnupgradeguide\nit's guide menu at first start Honor App Market.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.android.instantshare": {
+    "list": "Oem",
+    "description": "Honor Share features.\nFile transfer tool between Honor mobiles, using Bluetooth connection and WiFi Direct technology.\n",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.numberidentity": {
+    "list": "Oem",
+    "description": "Designed to block unwanted calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
