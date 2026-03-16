@@ -42764,11 +42764,11 @@
   },
   "com.hihonor.systemmanager": {
     "list": "Oem",
-    "description": "System Manager\nHonor's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\nSafe to remove unless you need any anti-virus (while there are better ones to be found). NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more than a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.",
+    "description": "System Manager\nHonor's stock phone cleaner. Consumes a lot of battery power for useless 'security' checks.\n NOTE: breaks the functionality of closing and cleaning background apps.\nThis is more than a phone cleaner, you will lose a lot of settings like battery and notifications management if you remove this.\n WARNING: apparently needed for managing app permissions, not safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.hihonor.airlink": {
     "list": "Oem",
@@ -42821,6 +42821,22 @@
   "com.hihonor.aipluginengine": {
     "list": "Oem",
     "description": "Assistant Basic Services\nSeems to be a dependency of Honor Lens. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hihonor.systemappsupdater": {
+    "list": "Oem",
+    "description": "System apps update\nUnless you want to manually update system apps, do not remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "om.hihonor.awareness": {
+    "list": "Oem",
+    "description": "Dependency of YOYO Assistant and Honor AI ? Didn't notice anything when removed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
