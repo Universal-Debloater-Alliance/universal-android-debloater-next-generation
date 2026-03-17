@@ -42834,7 +42834,7 @@
     "labels": [],
     "removal": "Expert"
   },
-  "om.hihonor.awareness": {
+  "com.hihonor.awareness": {
     "list": "Oem",
     "description": "Dependency of YOYO Assistant and Honor AI ? Didn't notice anything when removed.",
     "dependencies": [],
