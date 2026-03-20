@@ -42151,5 +42151,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
+  },
+  "in.gov.uidai.pehchaan": {
+    "list": "Oem",
+    "description": "National ID app based on a unique 12 digit number and biometrics information. Privately mandated by Government of India to be pre-installed on devices.\nSource: https://www.reuters.com/world/china/indias-proposal-preload-national-id-app-aadhaar-phones-faced-pushback-2026-03-19/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
 }
+}  
