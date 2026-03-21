@@ -42146,7 +42146,7 @@
   },
   "com.samsung.android.timezone.data_R": {
     "list": "Oem",
-    "description": "Causes bootloop on Samsung Galaxy A50 (SM-A505FN). Rescue Party triggered, package manager service fails to start. Device becomes unbootable. Do NOT remove on older Samsung devices.",
+    "description": "Causes bootloop on any Samsung Galaxy A50. Rescue Party triggered, package manager service fails to start. Device becomes unbootable. Do NOT remove on older Samsung devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
