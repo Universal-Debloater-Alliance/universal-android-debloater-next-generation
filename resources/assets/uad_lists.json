@@ -42146,10 +42146,10 @@
   },
   "com.samsung.android.timezone.data_R": {
     "list": "Oem",
-    "description": "Completely empty package. Useless. No issues with the clock after uninstalling",
+    "description": "Causes bootloop on Samsung Galaxy A50 (SM-A505FN). Rescue Party triggered, package manager service fails to start. Device becomes unbootable. Do NOT remove on older Samsung devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   }
 }
