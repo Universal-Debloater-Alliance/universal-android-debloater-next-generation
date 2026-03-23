@@ -42151,5 +42151,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.aura.oobe.solutions": {
+    "list": "Oem",
+    "description": "Aura AppServices\nBloatware installation app included on Nothing and CMF devices since Nothing OS 4.0.\nAccused of being spyware. Removal causes no issues.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
