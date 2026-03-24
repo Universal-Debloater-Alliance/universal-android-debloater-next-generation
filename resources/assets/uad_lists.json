@@ -37500,11 +37500,11 @@
   },
   "jp.co.omronsoft.iwnnime.ml": {
     "list": "Carrier",
-    "description": "iWnn IME\nJapanese keyboard pre-installed on some Huawei phone's.",
+    "description": "iWnn IME\nJapanese keyboard pre-installed on some Huawei and Kyocera phones. Some phones cannot be unlocked without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.kmsjp": {
     "list": "Carrier",
