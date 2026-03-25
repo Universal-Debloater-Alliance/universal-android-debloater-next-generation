@@ -11,6 +11,11 @@ use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
 use crate::println_or_exit;
 
+enum ReplAction {
+    Continue,
+    Exit,
+}
+
 /// Start interactive REPL mode
 pub fn repl_mode(
     device: Option<String>,
@@ -41,13 +46,12 @@ pub fn repl_mode(
         let readline = rl.readline("uad> ");
         match readline {
             Ok(line) => {
-                if let Err(e) =
-                    handle_repl_line(&line, &mut rl, &target_device, user, user_id, &uad_lists)
-                {
-                    if e.to_string() == "exit" {
-                        break;
+                match handle_repl_line(&line, &mut rl, &target_device, user, user_id, &uad_lists) {
+                    Ok(ReplAction::Continue) => {}
+                    Ok(ReplAction::Exit) => break,
+                    Err(e) => {
+                        eprintln!("Error: {}", e);
                     }
-                    eprintln!("Error: {}", e);
                 }
             }
             Err(ReadlineError::Interrupted) => {
@@ -84,30 +88,30 @@ fn handle_repl_line(
     user: User,
     user_id: Option<u16>,
     uad_lists: &HashMap<String, Package>,
-) -> Result<(), Box<dyn std::error::Error>> {
+) -> Result<ReplAction, Box<dyn std::error::Error>> {
     let line = line.trim();
     if line.is_empty() {
-        return Ok(());
+        return Ok(ReplAction::Continue);
     }
 
     let _ = rl.add_history_entry(line);
 
     let parts: Vec<&str> = line.split_whitespace().collect();
     if parts.is_empty() {
-        return Ok(());
+        return Ok(ReplAction::Continue);
     }
 
     match parts[0] {
         "help" => print_repl_help(),
         "exit" | "quit" => {
             println!("Goodbye!");
-            return Err("exit".into());
+            return Ok(ReplAction::Exit);
         }
         "list" | "ls" => {
             handle_list_command(&parts[1..], device, user_id, uad_lists)?;
         }
         "info" => {
-            handle_info_command(&parts[1..], device, uad_lists)?;
+            handle_info_command(&parts[1..], device, user.id, uad_lists)?;
         }
         "uninstall" | "rm" => {
             handle_state_change_command(
@@ -156,7 +160,7 @@ fn handle_repl_line(
         }
     }
 
-    Ok(())
+    Ok(ReplAction::Continue)
 }
 
 /// Parse REPL arguments into filters
@@ -249,6 +253,7 @@ fn handle_list_command(
 fn handle_info_command(
     args: &[&str],
     device: &Phone,
+    user_id: u16,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if args.is_empty() {
@@ -267,8 +272,8 @@ fn handle_info_command(
         println!("  Not found in UAD lists (unlisted package)");
     }
 
-    let state =
-        get_package_state(&device.adb_id, package, None).ok_or("Package not found on device")?;
+    let state = get_package_state(&device.adb_id, package, Some(user_id))
+        .ok_or("Package not found on device")?;
     println!("  State:       {}", state);
 
     Ok(())
