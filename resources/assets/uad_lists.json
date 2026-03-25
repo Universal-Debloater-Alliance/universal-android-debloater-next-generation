@@ -42151,5 +42151,93 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.sec.android.usermanual": {
+    "list": "Oem",
+    "description": "Opens the device’s built‑in user manual PDF",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.a50.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Provides the wallpapers used by the lockscreen multi-pack feature",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.SMT.lang_es_mx_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Spanish (Mexico).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_pt_br_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Portuguese (Brazil).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_en_us_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in English (United States).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.internal.overlay.config.default_contextual_search": {
+    "list": "Oem",
+    "description": "The code only assigns (com.google.android.googlequicksearchbox) as the default contextual search package via (config_defaultContextualSearchPackageName).\nI suppose that if (com.google.android.googlequicksearchbox) is removed, this feature stops working.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.drmboost": {
+    "list": "Oem",
+    "description": "Boosts CPU performance during secure DRM (Digital Rights Management) playback by monitoring codec activity and applying a DVFS (Dynamic Voltage and Frequency Scaling) hint (1400).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.nfc.resources.default": {
+    "list": "Oem",
+    "description": "Provides default NFC configuration resources (booleans and polling delays). Contains no executable code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.privateaccesstokens": {
+    "list": "Oem",
+    "description": "Provides a system module used by Samsung Internet for an automatic verification feature on compatible websites to skip CAPTCHAs.\nOn my device the option never appeared. Removing it does not affect normal system functionality.\nIt relies on a few privileged permissions such as READ_PRIVILEGED_PHONE_STATE , SAMSUNG_KEYSTORE_PERMISSION , ACCESS_KEYGUARD_SECURE_STORAGE , and INTERNET/ACCESS_NETWORK_STATE.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.android.privateaccesstokens",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.accessory.budsunitemgr": {
+    "list": "Oem",
+    "description": "Provides the system component that manages Galaxy Buds features and configuration. It handles firmware updates, noise control modes (ANC / Ambient sound), touch controls, and all device‑specific settings.\nOn my device, uninstalling it removed the ability to update the Buds or use any of the features mentioned above.\nAccording to the Galaxy Store description, it also requires the Galaxy Wearable package (com.samsung.android.app.watchmanagerstub) to function.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.accessory.budsunitemgr\nhttps://play.google.com/store/apps/details?id=com.samsung.accessory.budsunitemgr",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.mygalaxy.service": {
+    "list": "Oem",
+    "description": "Module likely used by the MyGalaxy app (https://play.google.com/store/apps/details?id=com.mygalaxy).\nOnly works on India CSC INS/INU. On all other regions it disables itself automatically.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
