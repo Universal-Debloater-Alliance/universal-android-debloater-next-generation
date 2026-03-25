@@ -126,6 +126,10 @@ enum Commands {
         /// Device serial number (optional, uses first device if not specified)
         #[arg(short, long)]
         device: Option<String>,
+
+        /// User ID (defaults to 0)
+        #[arg(short, long)]
+        user: Option<u16>,
     },
 
     /// Update UAD package lists from remote repository
@@ -214,8 +218,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "Disabling",
             )?;
         }
-        Commands::Info { package, device } => {
-            commands::show_package_info(&package, device)?;
+        Commands::Info {
+            package,
+            device,
+            user,
+        } => {
+            commands::show_package_info(&package, device, user)?;
         }
         Commands::Update => {
             commands::update_lists()?;

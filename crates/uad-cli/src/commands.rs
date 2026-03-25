@@ -16,7 +16,7 @@ use crate::{Cli, print_or_exit, println_or_exit};
 
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
-    println!("Scanning for connected devices...");
+    println_or_exit!("Scanning for connected devices...");
     let devices = get_devices_list();
 
     if devices.is_empty() {
@@ -24,20 +24,20 @@ pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
         return Err("No devices found".into());
     }
 
-    println!("\nFound {} device(s):\n", devices.len());
+    println_or_exit!("\nFound {} device(s):\n", devices.len());
     for device in &devices {
-        println!("  Model:       {}", device.model);
-        println!("  Serial:      {}", device.adb_id);
-        println!("  Android SDK: {}", device.android_sdk);
+        println_or_exit!("  Model:       {}", device.model);
+        println_or_exit!("  Serial:      {}", device.adb_id);
+        println_or_exit!("  Android SDK: {}", device.android_sdk);
 
         if !device.user_list.is_empty() {
-            println!("  Users:       {} user(s)", device.user_list.len());
+            println_or_exit!("  Users:       {} user(s)", device.user_list.len());
             for user in &device.user_list {
                 let protected = if user.protected { " (protected)" } else { "" };
-                println!("               - User ID: {}{}", user.id, protected);
+                println_or_exit!("               - User ID: {}{}", user.id, protected);
             }
         }
-        println!();
+        println_or_exit!();
     }
 
     Ok(())
@@ -372,8 +372,17 @@ pub fn execute_with_fallback(
     }
 
     // Verify package state and attempt fallback if needed
-    let actual_state =
-        get_package_state(&device.adb_id, package, Some(user.id)).unwrap_or(PackageState::Enabled);
+    let actual_state = match get_package_state(&device.adb_id, package, Some(user.id)) {
+        Some(state) => state,
+        None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
+        None => {
+            return Err(format!(
+                "Package '{package}' was not found on device for user {}",
+                user.id
+            )
+            .into());
+        }
+    };
 
     if actual_state != target_state {
         println!(
@@ -413,6 +422,7 @@ pub fn execute_with_fallback(
 pub fn show_package_info(
     package: &str,
     device: Option<String>,
+    user_id: Option<u16>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     println!("Package: {}\n", package);
 
@@ -430,9 +440,11 @@ pub fn show_package_info(
 
     if let Some(device_id) = device {
         let target_device = get_target_device(Some(device_id))?;
+        let user = get_user(&target_device, user_id)?;
         println!("Device: {} ({})", target_device.model, target_device.adb_id);
+        println!("User:   {}", user.id);
 
-        let state = get_package_state(&target_device.adb_id, package, None)
+        let state = get_package_state(&target_device.adb_id, package, Some(user.id))
             .ok_or("Package not found on device")?;
         println!("  State: {}", state);
     }
