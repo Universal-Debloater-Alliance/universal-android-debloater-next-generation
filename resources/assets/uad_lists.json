@@ -585,7 +585,7 @@
   },
   "com.android.phone.product.res.overlay.no_imei_emergency_call": {
     "list": "Oem",
-    "description": "Unsure but I would just leave it as you need to stay safe. Find out more by running: adb shell cmd overlay list, to see other packages",
+    "description": "RRO that detects whether the device has an IMEI, and displays a notification saying Emergency Calls Only if no IMEI is detected. Untested, but probably do not delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -601,7 +601,7 @@
   },
   "com.android.providers.icccust": {
     "list": "Oem",
-    "description": "Looks to be linked to SIM management. I would advise keeping it",
+    "description": "Manages data stored on the SIM card when inserted. Also allows authorized apps to access said data from the SIM card. Probably safe to delete if there is no SIM card, but there seems to be no tracking and / or data collection from this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -673,7 +673,7 @@
   },
   "com.noknok.android.mfac.service": {
     "list": "Oem",
-    "description": "Part of the FIDO authentication for fingerprint",
+    "description": "Part of the FIDO authentication for fingerprint. Don't delete, as it is used by banking and network operator apps to validate a user by their buometrics. Tracking and / or data collection my Nok Nok is unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -753,7 +753,7 @@
   },
   "com.sonyericsson.crashmonitor": {
     "list": "Oem",
-    "description": "Sony's crash monitor",
+    "description": "Sony's crash monitor that generates log data on crashes. Do not delete, but it may share data to Sony with crash and stability statistics.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -777,11 +777,11 @@
   },
   "com.sonyericsson.devicemonitor": {
     "list": "Oem",
-    "description": "Safe to remove if you don't use PC to manage device",
+    "description": "Probably don't remove this, as it collects diagnostic data about your phone. It is unknown whether this data is shared with Sony, or is used by your device locally. May cause some statistics to break, such as battery, memory, etc.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.sonyericsson.fmradio": {
     "list": "Oem",
@@ -797,7 +797,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.sonyericsson.home.product.res.overlay": {
     "list": "Oem",
@@ -817,7 +817,7 @@
   },
   "com.sonyericsson.lockscreen.uxpnxt": {
     "list": "Oem",
-    "description": "Sony lockscreen settings",
+    "description": "Sony lockscreen display and it's settings. DO NOT delete unless you have some kind of open-source lockscreen reimplementation.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -921,7 +921,7 @@
   },
   "com.sonyericsson.suquashi.soundpicker": {
     "list": "Oem",
-    "description": "Ringtone/notification/alarm time picker",
+    "description": "Ringtone/notification/alarm time picker. Don't remove due to integration with the system.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1249,7 +1249,7 @@
   },
   "com.sonymobile.assist.persistent": {
     "list": "Oem",
-    "description": "Related to Xperia Assist (see just above) but I don't know its purpose.\n",
+    "description": "Related to Xperia Assist, and it monitors overall device health to recommend help articles. May also do diagnostic tests on hardware such as the cameras or microphone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1257,7 +1257,7 @@
   },
   "com.sonymobile.cameracommon.wearablebridge": {
     "list": "Oem",
-    "description": "Camera Wearable bridge\nLets you take pictures with your phone by using Sony SmartWatch.\n",
+    "description": "Camera Wearable Bridge\nLets you take pictures with your phone by using Sony SmartWatch.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1305,7 +1305,7 @@
   },
   "com.sonymobile.email": {
     "list": "Oem",
-    "description": "Sony Email app",
+    "description": "Sony Email app. Don't delete unless you have a replacement.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1537,7 +1537,7 @@
   },
   "com.sonymobile.themes.xperialoops2": {
     "list": "Oem",
-    "description": "Sony themes",
+    "description": "Sony themes, mainly the looping live wallpapers. May break the handler, but unsure.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1609,7 +1609,7 @@
   },
   "com.sonymobile.android.contacts": {
     "list": "Oem",
-    "description": "Sony contacts\n",
+    "description": "Sony contacts\nMake sure a replacement is available and ready to install. Previous contacts may be deleted if not transferred.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1841,7 +1841,7 @@
   },
   "com.xiaomi.aiasst.service": {
     "list": "Oem",
-    "description": "AI Call Assistant. Useless Call settings.",
+    "description": "AI Call Assistant. Useless Call settings. If it is server-based AI, then it will track data that passes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2193,7 +2193,7 @@
   },
   "com.longcheertel.AutoTest": {
     "list": "Oem",
-    "description": "Autotest\nHidden hardware tests.",
+    "description": "Autotest\nHidden hardware tests. May send data to the company.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2201,7 +2201,7 @@
   },
   "com.longcheertel.cit": {
     "list": "Oem",
-    "description": "Cit test\nHidden hardware tests.",
+    "description": "Cit test\nHidden hardware tests. May send data to the company.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2209,7 +2209,7 @@
   },
   "com.longcheertel.midtest": {
     "list": "Oem",
-    "description": "Assemble test\nHidden hardware tests.",
+    "description": "Assemble test\nHidden hardware tests. May send data to the company.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2225,7 +2225,7 @@
   },
   "com.longcheertel.sarauth": {
     "list": "Oem",
-    "description": "Autotest\nHidden hardware tests.",
+    "description": "Autotest\nHidden hardware tests. May send data to the company.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2345,7 +2345,7 @@
   },
   "com.verizon.vzwavs": {
     "list": "Carrier",
-    "description": "Has a scary list of permissions. Does seems to break anything if removed\n",
+    "description": "Has a scary list of permissions. Does not seems to break anything if removed\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2385,7 +2385,7 @@
   },
   "com.vzw.hss.myverizon": {
     "list": "Carrier",
-    "description": "MyVerizon app",
+    "description": "MyVerizon app. Possibly dependent on password and / or biometric apps if set up.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2401,7 +2401,7 @@
   },
   "com.vzw.qualitydatalog": {
     "list": "Carrier",
-    "description": "Logging stuff\n",
+    "description": "Logs cellular data statistics such as signal strength, and maybe GPS location to send to Verizon Wireless. Does track data.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2433,7 +2433,7 @@
   },
   "com.motorola.vzw.cloudsetup": {
     "list": "Carrier",
-    "description": "Cloud setup\n",
+    "description": "Cloud setup\nNeeded if you use Verizon Cloud on your device, or plan to.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2449,11 +2449,11 @@
   },
   "com.motorola.vzw.loader": {
     "list": "Carrier",
-    "description": "????\nDoesn't seem to break anything once removed.",
+    "description": "Assists Motorola phones to connect to Verizon bands with proper configs, such as VoLTE, LTE, 5G, or 5GUW. May be needed to ensure stability on the Verizon network.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.motorola.omadm.vzw": {
     "list": "Carrier",
@@ -2465,7 +2465,7 @@
   },
   "com.motorola.vzw.provider": {
     "list": "Carrier",
-    "description": "????\nDoesn't seem to break anything once removed.",
+    "description": "Stores data from the Verizon network. May not break the system, but it may affect the usability of the Verizon network.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3033,7 +3033,7 @@
   },
   "com.orange.update.OrangeUpdateApplication": {
     "list": "Carrier",
-    "description": "Obviously related to update...\n",
+    "description": "Obviously related to update...\nMost likely the GUI for updating Orange.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3225,7 +3225,7 @@
   },
   "com.huawei.android.instantonline": {
     "list": "Oem",
-    "description": "no noticeable consequences\n",
+    "description": "Part of the Huawei framework for launching apps without fully installing them. Not really needed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3475,7 +3475,7 @@
   },
   "com.huawei.hiaction": {
     "list": "Oem",
-    "description": "no noticeable consequences",
+    "description": "Provides actions for HiAI. Does share data and is recommended and safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3483,7 +3483,7 @@
   },
   "com.huawei.hiai": {
     "list": "Oem",
-    "description": "no noticeable consequences\n",
+    "description": "The base HiAI framework, which is needed for Huawei's AI tools. Does share data and is recommended and safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4281,7 +4281,7 @@
   },
   "com.motorola.hiddenmenuapp": {
     "list": "Oem",
-    "description": "Added in Android 10. Safe to remove.\n",
+    "description": "Added in Android 10. Safe to remove.\nControls the hidden menu in Motorola phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4505,7 +4505,7 @@
   },
   "com.motorola.nfc": {
     "list": "Oem",
-    "description": "Support for NFC protocol.\n",
+    "description": "Support for NFC protocol.\nNeeded if you use NFC-based functions, such as contactless pay from your phone.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5419,7 +5419,7 @@
   },
   "com.samsung.android.mdagent": {
     "list": "Oem",
-    "description": "MdAgent",
+    "description": "MdAgent\nUsed by IT management to control what devices can do in an enterprise setting. Isn't needed for phones not given to you by your employer.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6046,7 +6046,7 @@
   },
   "com.samsung.helphub": {
     "list": "Oem",
-    "description": "Not sure if this package still exist.\nProvide help\n",
+    "description": "Not sure if this package still exist.\nUsed by the Samsung Members app to provide assistance with device issues.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6944,7 +6944,7 @@
   },
   "com.sec.knox.bridge": {
     "list": "Oem",
-    "description": "Debug Bridge ?\n",
+    "description": "Manages Knox containers such as Secure Folder, and some corporate device features.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7112,7 +7112,7 @@
   },
   "com.monotype.android.font.samsungone": {
     "list": "Oem",
-    "description": "Samsung One font\n",
+    "description": "Samsung One font\nMay be needed for that font if it is chosen to be the default font. Will probably crash the font selector if chosen when uninstalled.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7546,7 +7546,7 @@
   },
   "com.sec.android.emergencylauncher": {
     "list": "Oem",
-    "description": "Samsung Launcher when in emergency(low battery) mode.",
+    "description": "Samsung Launcher when in emergency (low battery) mode.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8190,7 +8190,7 @@
   },
   "com.example.android.notepad": {
     "list": "Aosp",
-    "description": "(Bad) notepad app.",
+    "description": "(Bad) notepad app. Should remove if you have a replacement app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8230,7 +8230,7 @@
   },
   "com.android.bio.face.service": {
     "list": "Aosp",
-    "description": "Handles facial regognition.\n",
+    "description": "Handles facial regognition.\nNeeded if you have Face Recognition set up, or may be used for face detection to not turn the screen off (optional setting).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9666,7 +9666,7 @@
   },
   "com.mediatek.thermalmanager": {
     "list": "Misc",
-    "description": "Hidden testing or logging app.",
+    "description": "Hidden testing or logging app. Used by devices with MediaTek chipsets to manage the thermal temperature.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10494,7 +10494,7 @@
   },
   "com.oneplus.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": "Manages most to all of the overlays on a OnePlus device. Probably needed for system and custom overlays.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10534,7 +10534,7 @@
   },
   "com.oneplus.sdcardservice": {
     "list": "Oem",
-    "description": "Needed for sdcard?",
+    "description": "Service for managing SD card data on OnePlus devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10798,7 +10798,7 @@
   },
   "com.qualcomm.qti.smcinvokepkgmgr": {
     "list": "Misc",
-    "description": "This app have nothing.",
+    "description": "Nothing is done with this app. Has no effect at all.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11498,7 +11498,7 @@
   },
   "com.verizon.cloudsetupwizard": {
     "list": "Carrier",
-    "description": "",
+    "description": "Basically Verizon Bloatware\nSetup wizard for Verizon Cloud services. Obviously tracks data.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11506,7 +11506,7 @@
   },
   "com.jrd.verizonuriintentservice": {
     "list": "Carrier",
-    "description": "",
+    "description": "Processes Verizon-based intent services. Intent services are basically the ability to perform simple actions, such as opening an app, from a URI.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11514,7 +11514,7 @@
   },
   "com.tcl.vzwintents": {
     "list": "Carrier",
-    "description": "",
+    "description": "Another intents manager (see above)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11522,15 +11522,15 @@
   },
   "com.tct.vzwwifioffload": {
     "list": "Carrier",
-    "description": "",
+    "description": "VERY NEEDED\nAutomatically switches your phone from the cell network to a trusted Wifi network, and vice versa.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.vzw.easvalidation": {
     "list": "Carrier",
-    "description": "",
+    "description": "Enterprise ActiveSync (EAS)\nValidates whether you phone is well-protected by a PIN or biometrics.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11538,7 +11538,7 @@
   },
   "com.ts.setupwizard.overlay.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": "Modifies the initial setup wizard's look and feel without changing code.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11546,7 +11546,7 @@
   },
   "com.jrdcom.Elabel.overlay": {
     "list": "Oem",
-    "description": "",
+    "description": "Needed for displaying critical info such as the FCC ID, regulatory information, and regulatory logos.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11562,7 +11562,7 @@
   },
   "com.hiya.axolotl.tcl": {
     "list": "Oem",
-    "description": "",
+    "description": "Function unknown, but bloatware. Possibly needed for TCL phones to identify spam callers via the Hiya database.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11570,7 +11570,7 @@
   },
   "com.jrdcom.filemanager": {
     "list": "Oem",
-    "description": "",
+    "description": "Simple a file manager, most likely for TCL.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11578,7 +11578,7 @@
   },
   "com.jrdcom.filemanager.a_overlay": {
     "list": "Oem",
-    "description": "",
+    "description": "Overlay for the file manager (see above)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11586,7 +11586,7 @@
   },
   "com.vendor.frameworkresoverlay": {
     "list": "Oem",
-    "description": "",
+    "description": "OEM customizations of the Android framework. Probably do not delete.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11658,7 +11658,7 @@
   },
   "com.samsung.gamedriver.sm8250": {
     "list": "Oem",
-    "description": "",
+    "description": "A driver probably for gaming software, such as Samsung's game enhancer, used to improve performance when playing a game.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11666,7 +11666,7 @@
   },
   "com.samsung.huxplatform": {
     "list": "Oem",
-    "description": "",
+    "description": "Unknown function, but a part of the Samsung UX framework.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12018,7 +12018,7 @@
   },
   "com.tcl.android.wallpaper.livepicker": {
     "list": "Oem",
-    "description": "",
+    "description": "TCL live wallpaper picker. Needed for handling live wallpapers.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12034,7 +12034,7 @@
   },
   "com.tcl.camera": {
     "list": "Oem",
-    "description": "",
+    "description": "Camera app for TCL phones.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12050,11 +12050,11 @@
   },
   "com.tcl.compass": {
     "list": "Oem",
-    "description": "",
+    "description": "TCL Compass application, not needed, but does have correct drivers for the built-in compass.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Advanced"
   },
   "com.tcl.compass.a_overlay": {
     "list": "Oem",
@@ -12146,7 +12146,7 @@
   },
   "com.tcl.screenrecorder": {
     "list": "Oem",
-    "description": "",
+    "description": "TCL screen recorder. Obviously handles the built-in screen recording.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12170,7 +12170,7 @@
   },
   "com.tcl.sos": {
     "list": "Oem",
-    "description": "",
+    "description": "The SOS function handler. Keep this no matter what, just for emergency purposes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13604,7 +13604,7 @@
   },
   "com.coremobility.app.vnotes": {
     "list": "Oem",
-    "description": "Voicemail App?",
+    "description": "Either used for voicemails or voice notes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15558,7 +15558,7 @@
   },
   "com.tracker.t": {
     "list": "Misc",
-    "description": "WTF is this ?? Given its name I think you can take the risk to delete it.\n",
+    "description": "Tracks user data, system data, and analytical data. Delete this.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
