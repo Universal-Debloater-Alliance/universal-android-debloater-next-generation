@@ -8097,8 +8097,8 @@
     "removal": "Recommended"
   },
   "com.android.runintest.ddrtest": {
-    "list": "Aosp",
-    "description": "DDR Test\nRAM Stress tester\nCan be run from the bootloader\nNOTE: I'm not sure it's really from AOSP (seen in TCL Plex phone)\n",
+    "list": "Oem",
+    "description": "DDR Test\nRAM Stress tester\nCan be run from the bootloader\n(seen in TCL Plex phone)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8106,11 +8106,11 @@
   },
   "com.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. This will also revert back the\"Security & privacy\" look to the old style.\nYou can use a libre spam-blocking and DNS-blocking solution instead of this.\nhttps://safety.google",
+    "description": "Google/AOSP Safety Center resources.\n. Uninstalling this will change the configuration to revert back the\"Security & privacy\" look to the old style.\nDoes not contain code, just the configuration for code that lives in another package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.sdksandbox": {
     "list": "Aosp",
@@ -8282,7 +8282,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.captiveportallogin": {
     "list": "Aosp",
@@ -8748,7 +8748,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.contactkeys": {
     "list": "Google",
@@ -23426,8 +23426,8 @@
     "labels": []
   },
   "com.svox.pico": {
-    "description": "Pico TTS\nHidden sample voice data. Useless.",
-    "removal": "Recommended",
+    "description": "Pico TTS\nOpen source TTS engine shipped on old Android devices and some custom ROMs\nUninstalling this without installing a TTS engine will break TTS, it also doesn't access the internet so there's not much to gain",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -32255,11 +32255,11 @@
   },
   "com.android.fmradio": {
     "list": "Aosp",
-    "description": "FM Radio\n Plug in Head phones & listen to the Radio!\n",
+    "description": "FM Radio\n Plug in Head phones & listen to the Radio!\nUninstalling will break FM Radio until reinstalled, and no other FM apps can be downloaded from app stores",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.haoba.btsmart": {
     "list": "Misc",
@@ -34980,7 +34980,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.healthconnect.controller": {
     "list": "Aosp",
@@ -34988,15 +34988,15 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.virtualmachine.res": {
     "list": "Aosp",
-    "description": "unknown app with no code that only has permissions to Use, Manage, Debug: Virtual Machine.\nIntroduced in Android 14.",
+    "description": "Empty app with no code that declares permissions to Use, Manage, Debug: Virtual Machine for use by other apps. Deleting this app may cause potential security issues because another app could redefine the permissions with lower restriction level. Nothing to gain by removing.\nIntroduced in Android 14.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.rkpdapp": {
     "list": "Aosp",
@@ -35012,7 +35012,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.accessibility.accessibilitymenu": {
     "list": "Aosp",
@@ -38048,7 +38048,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.oobhelper": {
     "list": "Oem",
@@ -42146,7 +42146,95 @@
   },
   "com.samsung.android.timezone.data_R": {
     "list": "Oem",
-    "description": "Completely empty package. Useless. No issues with the clock after uninstalling",
+    "description": "Causes bootloop on any Samsung Galaxy A50 when removed. \n Rescue Party will be triggered, package manager service will fail to start. \n Device becomes unbootable. Do NOT remove on older Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sec.android.usermanual": {
+    "list": "Oem",
+    "description": "Opens the device’s built‑in user manual PDF",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.a50.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Provides the wallpapers used by the lockscreen multi-pack feature",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.SMT.lang_es_mx_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Spanish (Mexico).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_pt_br_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Portuguese (Brazil).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_en_us_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in English (United States).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.internal.overlay.config.default_contextual_search": {
+    "list": "Oem",
+    "description": "The code only assigns (com.google.android.googlequicksearchbox) as the default contextual search package via (config_defaultContextualSearchPackageName).\nI suppose that if (com.google.android.googlequicksearchbox) is removed, this feature stops working.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.drmboost": {
+    "list": "Oem",
+    "description": "Boosts CPU performance during secure DRM (Digital Rights Management) playback by monitoring codec activity and applying a DVFS (Dynamic Voltage and Frequency Scaling) hint (1400).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.nfc.resources.default": {
+    "list": "Oem",
+    "description": "Provides default NFC configuration resources (booleans and polling delays). Contains no executable code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.privateaccesstokens": {
+    "list": "Oem",
+    "description": "Provides a system module used by Samsung Internet for an automatic verification feature on compatible websites to skip CAPTCHAs.\nOn my device the option never appeared. Removing it does not affect normal system functionality.\nIt relies on a few privileged permissions such as READ_PRIVILEGED_PHONE_STATE , SAMSUNG_KEYSTORE_PERMISSION , ACCESS_KEYGUARD_SECURE_STORAGE , and INTERNET/ACCESS_NETWORK_STATE.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.android.privateaccesstokens",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.accessory.budsunitemgr": {
+    "list": "Oem",
+    "description": "Provides the system component that manages Galaxy Buds features and configuration. It handles firmware updates, noise control modes (ANC / Ambient sound), touch controls, and all device‑specific settings.\nOn my device, uninstalling it removed the ability to update the Buds or use any of the features mentioned above.\nAccording to the Galaxy Store description, it also requires the Galaxy Wearable package (com.samsung.android.app.watchmanagerstub) to function.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.accessory.budsunitemgr\nhttps://play.google.com/store/apps/details?id=com.samsung.accessory.budsunitemgr",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.mygalaxy.service": {
+    "list": "Oem",
+    "description": "Module likely used by the MyGalaxy app (https://play.google.com/store/apps/details?id=com.mygalaxy).\nOnly works on India CSC INS/INU. On all other regions it disables itself automatically.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
