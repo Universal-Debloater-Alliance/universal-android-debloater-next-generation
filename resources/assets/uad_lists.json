@@ -42382,7 +42382,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.hihonor.hiviewtunnel": {
     "list": "Oem",
@@ -42582,7 +42582,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.hihonor.browserhomepage": {
     "list": "Oem",
@@ -42630,7 +42630,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.hihonor.smartshot": {
     "list": "Oem",
