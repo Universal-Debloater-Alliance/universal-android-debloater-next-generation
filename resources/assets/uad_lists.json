@@ -6198,7 +6198,7 @@
   },
   "com.samsung.storyservice": {
     "list": "Oem",
-    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\n",
+    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\nDisabling breaks edge panels on my s9+ with OneUI 8.0/Android 16\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
