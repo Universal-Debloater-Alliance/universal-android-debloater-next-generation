@@ -4353,11 +4353,11 @@
   },
   "com.motorola.setup": {
     "list": "Oem",
-    "description": "Related to Motorola Account setup (only during first boot ?)\nSafe to remove according to xda users.\n",
+    "description": "Related to Motorola Account setup (only during first boot ?)\nWARNING: Removing this package breaks Google Play System Updates. Appears to be tied to Google's Play Store update mechanism on Motorola devices\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.motorola.slpc_sys": {
     "list": "Oem",
@@ -28781,11 +28781,11 @@
   },
   "com.google.android.apps.wallpaper": {
     "list": "Google",
-    "description": "Google Wallpapers (https://play.google.com/store/apps/details?id=com.google.android.apps.wallpaper)\n",
+    "description": "Google Wallpapers (https://play.google.com/store/apps/details?id=com.google.android.apps.wallpaper)\nRemoves the wallpaper section in the settings app when removed, but keeps current wallpapers.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.apps.wellbeing": {
     "list": "Google",
@@ -28893,7 +28893,7 @@
   },
   "com.google.android.googlequicksearchbox": {
     "list": "Google",
-    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Google Lens.",
+    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Circle to Search functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28917,11 +28917,11 @@
   },
   "com.google.android.markup": {
     "list": "Google",
-    "description": "Google Markup app made for modifying pictures, shipped by default on every Pie+ device.\n",
+    "description": "Google Markup app made for modifying pictures, shipped by default on every Pie+ device.\nRemoves the button to quickly edit screenshots once taken.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.marvin.talkback": {
     "list": "Google",
@@ -28973,11 +28973,11 @@
   },
   "com.google.android.projection.gearhead": {
     "list": "Google",
-    "description": "Android Auto (https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead)",
+    "description": "Android Auto (https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead)\nNo direct replacement appears to exist.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.pixel.setupwizard": {
     "list": "Google",
@@ -33085,7 +33085,7 @@
   },
   "com.google.android.apps.safetyhub": {
     "list": "Google",
-    "description": "Personal Safety (https://play.google.com/store/apps/details?id=com.google.android.apps.safetyhub)\nPersonal Safety is a Pixel app that helps you prepare and react in an emergency by quickly calling emergency services (e.g if your phone detects that you've been in a car crash, it can call for help automatically)\n\nThis app has obviously a lot of dangerous permissions due to its operation.\n\nPithus analysis: https://beta.pithus.org/report/e207f7d0f59d9df268154b90fc10cd861d0483465e30bbac8f68a7b12340c67f",
+    "description": "Personal Safety (https://play.google.com/store/apps/details?id=com.google.android.apps.safetyhub)\nPersonal Safety is a Pixel app that helps you prepare and react in an emergency by quickly calling emergency services (e.g if your phone detects that you've been in a car crash, it can call for help automatically)\nMost features require a Google account to work unfortunately...\n\nThis app has obviously a lot of dangerous permissions due to its operation.\n\nPithus analysis: https://beta.pithus.org/report/e207f7d0f59d9df268154b90fc10cd861d0483465e30bbac8f68a7b12340c67f",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33848,11 +33848,11 @@
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
-    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb\nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions.\nCheck if your device has UWB hardware. Safe to remove if it doesn't. Don't forget to remove its overlays and dependencies.",
+    "description": "Uninstalling will cause bootloop on certain devices. Seems to be not affected by whether the hardware supports UWB or not.\nUltra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb\nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.mediatek.gbaservice": {
     "list": "Misc",
