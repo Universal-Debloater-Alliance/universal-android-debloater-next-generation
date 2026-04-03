@@ -6202,7 +6202,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.svoice.sync": {
     "list": "Oem",
