@@ -25346,8 +25346,8 @@
     "labels": []
   },
   "com.transsion.zahooc": {
-    "description": "Za-Hooc\nit's for secure card and Theft Alert.",
-    "removal": "Recommended",
+    "description": "This package is actually the 'Privacy' section in the Settings app. All the features inside, such as Blank Data, App Lock, App Twin, etc., belong to this package.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -31463,11 +31463,11 @@
   },
   "com.transsion.batterylab": {
     "list": "Oem",
-    "description": "Supposed to improve battery life but logs especially lots of usage info and bind it to your unique android advertiser id...The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper. According to a user, no battery impact after months of usage after uninstalling it.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
+    "description": "This package is actually the 'Battery & Power Saving' section in the Settings app, where you can: view battery information (such as health, usage, etc.), enable/disable Power Saving and Ultra Power Saving modes, adjust charging speed, set charging percentage limits, and more.\nTherefore, uninstalling or freezing this package may result in the loss of many useful options. Please make sure you really want to 'unleash' the full power of your battery before proceeding with uninstalling or freezing this package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.transsion.stasticalsales": {
     "list": "Oem",
