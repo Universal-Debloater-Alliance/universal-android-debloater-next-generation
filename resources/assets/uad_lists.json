@@ -29205,7 +29205,7 @@
   },
   "com.google.android.apps.nexuslauncher": {
     "list": "Google",
-    "description": "Pixel Launcher (https://play.google.com/store/apps/details?id=com.google.android.apps.nexuslauncher)\nUsed to be called Nexus Launcher(back when Google's phones were called Nexus, not Pixel).\nA launcher is basically your homescreen.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nREMOVING CAUSES GESTURES/THREE BUTTON NAVIGATION TO DISAPPEAR ENTIRELY!\n",
+    "description": "Pixel Launcher (https://play.google.com/store/apps/details?id=com.google.android.apps.nexuslauncher)\nUsed to be called Nexus Launcher(back when Google's phones were called Nexus, not Pixel).\nA launcher is basically your homescreen.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nREMOVING CAUSES GESTURES/THREE BUTTON NAVIGATION TO DISAPPEAR ENTIRELY!\nhttps://vikrant.is-a.dev/Android-Launcher-Comparison-Table/ has a comprehensive comparison of many alternative launchers\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
