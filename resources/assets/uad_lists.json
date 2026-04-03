@@ -4353,11 +4353,11 @@
   },
   "com.motorola.setup": {
     "list": "Oem",
-    "description": "Related to Motorola Account setup (only during first boot ?)\nSafe to remove according to xda users.\n",
+    "description": "Related to Motorola Account setup (only during first boot ?)\nWARNING: Removing this package breaks Google Play System Updates. Appears to be tied to Google's Play Store update mechanism on Motorola devices\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.motorola.slpc_sys": {
     "list": "Oem",
@@ -25346,8 +25346,8 @@
     "labels": []
   },
   "com.transsion.zahooc": {
-    "description": "Za-Hooc\nit's for secure card and Theft Alert.",
-    "removal": "Recommended",
+    "description": "This package is actually the 'Privacy' section in the Settings app. All the features inside, such as Blank Data, App Lock, App Twin, etc., belong to this package.",
+    "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -28781,11 +28781,11 @@
   },
   "com.google.android.apps.wallpaper": {
     "list": "Google",
-    "description": "Google Wallpapers (https://play.google.com/store/apps/details?id=com.google.android.apps.wallpaper)\n",
+    "description": "Google Wallpapers (https://play.google.com/store/apps/details?id=com.google.android.apps.wallpaper)\nRemoves the wallpaper section in the settings app when removed, but keeps current wallpapers.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.apps.wellbeing": {
     "list": "Google",
@@ -28893,7 +28893,7 @@
   },
   "com.google.android.googlequicksearchbox": {
     "list": "Google",
-    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Google Lens.",
+    "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Circle to Search functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28917,11 +28917,11 @@
   },
   "com.google.android.markup": {
     "list": "Google",
-    "description": "Google Markup app made for modifying pictures, shipped by default on every Pie+ device.\n",
+    "description": "Google Markup app made for modifying pictures, shipped by default on every Pie+ device.\nRemoves the button to quickly edit screenshots once taken.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.marvin.talkback": {
     "list": "Google",
@@ -28973,11 +28973,11 @@
   },
   "com.google.android.projection.gearhead": {
     "list": "Google",
-    "description": "Android Auto (https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead)",
+    "description": "Android Auto (https://play.google.com/store/apps/details?id=com.google.android.projection.gearhead)\nNo direct replacement appears to exist.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.pixel.setupwizard": {
     "list": "Google",
@@ -28989,11 +28989,11 @@
   },
   "com.google.android.soundpicker": {
     "list": "Google",
-    "description": "Google Sounds. Removable if you already have another media select service.\n",
+    "description": "Google Sounds. Provides notification, alarm, and ringtone sounds, will be set to default sounds (and cannot be changed) if removed, unless you already have another media select service.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.street": {
     "list": "Google",
@@ -29205,7 +29205,7 @@
   },
   "com.google.android.apps.nexuslauncher": {
     "list": "Google",
-    "description": "Pixel Launcher (https://play.google.com/store/apps/details?id=com.google.android.apps.nexuslauncher)\nUsed to be called Nexus Launcher(back when Google's phones were called Nexus, not Pixel).\nA launcher is basically your homescreen.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER! Nova Launcher is usually the go-to custom launcher.",
+    "description": "Pixel Launcher (https://play.google.com/store/apps/details?id=com.google.android.apps.nexuslauncher)\nUsed to be called Nexus Launcher(back when Google's phones were called Nexus, not Pixel).\nA launcher is basically your homescreen.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nREMOVING CAUSES GESTURES/THREE BUTTON NAVIGATION TO DISAPPEAR ENTIRELY!\nhttps://vikrant.is-a.dev/Android-Launcher-Comparison-Table/ has a comprehensive comparison of many alternative launchers\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29429,11 +29429,11 @@
   },
   "com.google.audio.hearing.visualization.accessibility.scribe": {
     "list": "Google",
-    "description": "Live Transcribe & Sound Notifications (https://play.google.com/store/apps/details?id=com.google.audio.hearing.visualization.accessibility.scribe)\nProvides push notifications for critical sounds around you. This feature can be helpful for people with hearing loss.\nhttps://blog.google/products/android/new-sound-notifications-on-android/\nWorks offline\n",
+    "description": "Live Transcribe & Sound Notifications (https://play.google.com/store/apps/details?id=com.google.audio.hearing.visualization.accessibility.scribe)\nProvides push notifications for critical sounds around you. This feature can be helpful for people with hearing loss.\nhttps://blog.google/products/android/new-sound-notifications-on-android/\nWorks offline\nProvides text-to-speech for most apps, find a replacement before uninstalling\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.vending": {
     "list": "Google",
@@ -31463,11 +31463,11 @@
   },
   "com.transsion.batterylab": {
     "list": "Oem",
-    "description": "Supposed to improve battery life but logs especially lots of usage info and bind it to your unique android advertiser id...The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper. According to a user, no battery impact after months of usage after uninstalling it.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
+    "description": "This package is actually the 'Battery & Power Saving' section in the Settings app, where you can: view battery information (such as health, usage, etc.), enable/disable Power Saving and Ultra Power Saving modes, adjust charging speed, set charging percentage limits, and more.\nTherefore, uninstalling or freezing this package may result in the loss of many useful options. Please make sure you really want to 'unleash' the full power of your battery before proceeding with uninstalling or freezing this package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.transsion.stasticalsales": {
     "list": "Oem",
@@ -33085,7 +33085,7 @@
   },
   "com.google.android.apps.safetyhub": {
     "list": "Google",
-    "description": "Personal Safety (https://play.google.com/store/apps/details?id=com.google.android.apps.safetyhub)\nPersonal Safety is a Pixel app that helps you prepare and react in an emergency by quickly calling emergency services (e.g if your phone detects that you've been in a car crash, it can call for help automatically)\n\nThis app has obviously a lot of dangerous permissions due to its operation.\n\nPithus analysis: https://beta.pithus.org/report/e207f7d0f59d9df268154b90fc10cd861d0483465e30bbac8f68a7b12340c67f",
+    "description": "Personal Safety (https://play.google.com/store/apps/details?id=com.google.android.apps.safetyhub)\nPersonal Safety is a Pixel app that helps you prepare and react in an emergency by quickly calling emergency services (e.g if your phone detects that you've been in a car crash, it can call for help automatically)\nMost features require a Google account to work unfortunately...\n\nThis app has obviously a lot of dangerous permissions due to its operation.\n\nPithus analysis: https://beta.pithus.org/report/e207f7d0f59d9df268154b90fc10cd861d0483465e30bbac8f68a7b12340c67f",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33848,11 +33848,11 @@
   },
   "com.android.uwb.resources": {
     "list": "Aosp",
-    "description": "Ultra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb\nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions.\nCheck if your device has UWB hardware. Safe to remove if it doesn't. Don't forget to remove its overlays and dependencies.",
+    "description": "Uninstalling will cause bootloop on certain devices. Seems to be not affected by whether the hardware supports UWB or not.\nUltra-wideband (UWB) communication feature.\nUWB is a radio technology that enables precise ranging between devices, allowing accurate location measurements with an accuracy of 10 cm.\nSee https://developer.android.com/develop/connectivity/uwb\nhttps://source.android.com/docs/core/connect/uwb\nOnly supported on a currently narrow amount of devices, primarily high-end devices. But the app itself is often preinstalled even if your phone doesn't have any UWB hardware, especially on newer Android versions.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Expert"
+    "removal": "Unsafe"
   },
   "com.mediatek.gbaservice": {
     "list": "Misc",
@@ -36400,11 +36400,11 @@
   },
   "com.google.android.apps.camera.services": {
     "list": "Oem",
-    "description": "Pixel Camera Services\nExperimental stuff, Camera Calibration.",
+    "description": "Pixel Camera Services\nExperimental stuff, Camera Calibration. Will break any third-party camera app if removed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.qns": {
     "list": "Oem",
@@ -40458,7 +40458,7 @@
   },
   "com.google.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings. /nUses location, nearby devices, notifications permissions by default.",
+    "description": "Setting Services. Adds the main search bar for the settings app (the one at the top on the default page).\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
