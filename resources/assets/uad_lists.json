@@ -28989,11 +28989,11 @@
   },
   "com.google.android.soundpicker": {
     "list": "Google",
-    "description": "Google Sounds. Removable if you already have another media select service.\n",
+    "description": "Google Sounds. Provides notification, alarm, and ringtone sounds, will be set to default sounds (and cannot be changed) if removed, unless you already have another media select service.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.street": {
     "list": "Google",
@@ -40458,7 +40458,7 @@
   },
   "com.google.android.settings.intelligence": {
     "list": "Aosp",
-    "description": "Settings Services/nAdds the main search bar for the settings app (the one at the top on the default page). When uninstalled, search bar will be invisible. May have other purposes regarding settings. /nUses location, nearby devices, notifications permissions by default.",
+    "description": "Setting Services. Adds the main search bar for the settings app (the one at the top on the default page).\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
