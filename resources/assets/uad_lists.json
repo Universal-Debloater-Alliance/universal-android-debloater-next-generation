@@ -36400,11 +36400,11 @@
   },
   "com.google.android.apps.camera.services": {
     "list": "Oem",
-    "description": "Pixel Camera Services\nExperimental stuff, Camera Calibration.",
+    "description": "Pixel Camera Services\nExperimental stuff, Camera Calibration. Will break any third-party camera app if removed",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.android.qns": {
     "list": "Oem",
