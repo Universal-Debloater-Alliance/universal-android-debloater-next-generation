@@ -10926,7 +10926,7 @@
   },
   "android.auto_generated_rro_product__": {
     "list": "Aosp",
-    "description": "Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708\nRemoving causes bootloop on Nokia C32\n",
+    "description": "RRO = Runtime Resources Overlay. Used by OEMs to customize look and feel of certain applications.\nhttps://source.android.com/devices/architecture/rros\nhttps://code.tutsplus.com/tutorials/quick-tip-theme-android-with-the-runtime-resource-overlay-framework--cms-29708\nRemoving causes bootloop on Nokia C32\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
