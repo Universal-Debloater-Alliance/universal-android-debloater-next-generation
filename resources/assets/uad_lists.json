@@ -32404,7 +32404,7 @@
     "removal": "Advanced"
   },
   "com.aura.oobe.kddi": {
-    "list": "carrier",
+    "list": "Carrier",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some au carrier phones\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
@@ -32412,7 +32412,7 @@
     "removal": "Recommended"
   },
   "com.aura.oobe.ntt": {
-    "list": "carrier",
+    "list": "Carrier",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some docomo carrier phones\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
@@ -32420,7 +32420,7 @@
     "removal": "Recommended"
   },
   "com.aura.oobe.softbank": {
-    "list": "carrier",
+    "list": "Carrier",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some SoftBank carrier phones\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
@@ -32428,7 +32428,7 @@
     "removal": "Recommended"
   },
   "com.aura.oobe.rakuten": {
-    "list": "carrier",
+    "list": "Carrier",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Rakuten Mobile carrier phones\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
