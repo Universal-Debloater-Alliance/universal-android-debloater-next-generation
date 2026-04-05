@@ -7,7 +7,7 @@
     "labels": [],
     "removal": "Recommended"
   },
-      "com.cyanogenmod.filemanager": {
+    "com.cyanogenmod.filemanager": {
     "list": "Oem",
     "description": "Cyanogenmod file manager, safe to remove if you use another one.",
     "dependencies": [],
