@@ -7,6 +7,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+    "com.cyanogenmod.filemanager": {
+    "list": "Oem",
+    "description": "Cyanogenmod file manager, safe to remove if you use another one.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+    "android.ext.shared": {
+    "list": "Aosp",
+    "description": "Android Shared Library, removing may cause a bootloop.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "org.lineageos.recorder": {
     "list": "Oem",
     "description": "LineageOS Voice Recorder App.\nSafe to remove if you don't need it or have replaced it with another app.",
@@ -6198,11 +6214,11 @@
   },
   "com.samsung.storyservice": {
     "list": "Oem",
-    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\n",
+    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\nDisabling breaks edge panels on my s9+ with OneUI 8.0/Android 16\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.svoice.sync": {
     "list": "Oem",
