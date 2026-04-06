@@ -124,13 +124,10 @@ impl PackageRow {
             button(
                 row![
                     selection_checkbox,
-                    //
                     text_input("", &self.name)
                         .on_input(|_| Message::Noop)
                         .padding(0)
-                        .size(14)
-                        .width(Length::FillPortion(8)),
-                    //
+                        .size(16),
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
