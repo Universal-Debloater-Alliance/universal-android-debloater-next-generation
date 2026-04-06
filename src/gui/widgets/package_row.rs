@@ -129,7 +129,7 @@ impl PackageRow {
                         .padding(0)
                         .size(16),
                     action_btn.style(button_style)
-                ]
+                ]//
                 .spacing(8)
                 .align_y(Alignment::Center)
             )

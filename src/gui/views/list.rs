@@ -975,7 +975,7 @@ impl List {
                     }
                     if !toggle {
                         self.selected_packages.retain(|&x| x.1 != i_package);
-                    }
+                    }//
                 } else {
                     package.selected = toggle;
                     if toggle {
