@@ -342,8 +342,8 @@ impl List {
             .height(Length::FillPortion(6))
             .style(style::Scrollable::Packages);
 
-        let description_scroll = scrollable(text(&self.description_content).selectable(true))
-            .style(style::Scrollable::Description);
+        let description_scroll =
+            scrollable(text(self.description_content.text())).style(style::Scrollable::Description);
         let description_panel = container(description_scroll)
             .padding(6)
             .height(Length::FillPortion(2))
