@@ -130,7 +130,6 @@ impl PackageRow {
                         .padding(0)
                         .size(14)
                         .width(Length::FillPortion(8)),
-                    //
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
