@@ -1571,4 +1571,3 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
     .style(style::Container::Frame)
     .into()
 }
-
