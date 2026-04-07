@@ -124,7 +124,7 @@ impl PackageRow {
             button(
                 row![
                     selection_checkbox,
-					// Allows the packagename text to be copyable
+                    // Allows the packagename text to be copyable
                     text_input("", &self.name)
                         .on_input(|_| Message::Noop)
                         .padding(0)
