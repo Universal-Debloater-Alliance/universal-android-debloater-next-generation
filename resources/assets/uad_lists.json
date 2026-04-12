@@ -32419,9 +32419,73 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.aura.oobe.kbdi": {
+  "com.aura.oobe.kddi": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some au carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.ntt": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some docomo carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.softbank": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some SoftBank carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.rakuten": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Rakuten Mobile carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.solutions": {
     "list": "Oem",
-    "description": "Appcloud\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Xiaomi phones\nSafe to remove.",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Nothing & CMF Phone\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.lenovo": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Lenovo\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },  
+  "com.aura.oobe.ml": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.motorola": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.dti.motorola": {
+    "list": "Oem",
+    "description": "Digital Turbine\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
