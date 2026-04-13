@@ -4,7 +4,7 @@ use crate::core::uad_lists::{PackageState, Removal, UadList};
 use crate::gui::style;
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::text;
-
+use iced::widget::text_input;
 use iced::widget::{Space, button, checkbox, row};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
@@ -24,6 +24,7 @@ pub enum Message {
     PackagePressed,
     ActionPressed,
     ToggleSelection(bool),
+    Noop,
 }
 
 impl PackageRow {
@@ -123,7 +124,12 @@ impl PackageRow {
             button(
                 row![
                     selection_checkbox,
-                    text(&self.name).width(Length::FillPortion(8)),
+                    // Allows the package name text to be copyable
+                    text_input("", &self.name)
+                        .on_input(|_| Message::Noop)
+                        .padding(0)
+                        .size(14)
+                        .width(Length::FillPortion(8)),
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
