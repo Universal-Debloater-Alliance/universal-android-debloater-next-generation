@@ -42327,5 +42327,37 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.hwresourceshare.storage": {
+    "list": "Oem",
+    "description": "Allows the storage on your phone, tablet, computer, and TV to connect so you can view and use files from one device on another without cables or downloads.\nThe service always runs in the background, and removing it has not caused any problems.\nhttps://r1.community.samsung.com/t5/tips-how-to/the-new-storage-share-feature/ba-p/36247598\nhttps://www.samsung.com/us/support/answer/ANS10004607/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.wallpaper.live": {
+    "list": "Oem",
+    "description": "Samsung official app for dynamic and live wallpapers with generative AI capabilities.\nBecause it provides a wallpaper service, it runs in the background and starts automatically when the phone boots.\nIf you remove it while using a wallpaper created by it, that wallpaper will be removed as well.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.nfc": {
+    "list": "Oem",
+    "description": "It’s the main NFC module on Samsung devices.\nIt handles contactless payments, card emulation for Samsung Pay, NFC tag reading and writing, and features like Wireless Power Sharing, and it also manages certain S Pen functions that rely on NFC.\nI assume NFC breaks when disabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.largetcpbuffer.resources": {
+    "list": "Oem",
+    "description": "It only provides configuration data with no executable code and adjusts Wi‑Fi TCP buffer sizes to optimized values\nDepending entirely on com.android.wifi.resources\nIn theory it shouldn’t negatively affect Wi‑Fi if deleted, but this hasn’t been tested. It isn’t required for basic Wi‑Fi functionality; it mainly improves performance on fast networks, so removing it may make Wi‑Fi slightly slower.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  }
 }
-}  
