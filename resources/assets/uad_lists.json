@@ -427,7 +427,9 @@
     "list": "Oem",
     "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features.\nSafe to delete if you use another camera app, otherwise, removal may cause background connection issues.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": [
+      "com.android.camera"
+    ],
     "labels": [],
     "removal": "Advanced"
   },
