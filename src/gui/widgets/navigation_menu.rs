@@ -13,6 +13,7 @@ pub const ICONS: Font = Font {
     ..Font::DEFAULT
 };
 
+#[allow(clippy::too_many_lines)]
 pub fn nav_menu<'a>(
     device_list: &'a [Phone],
     selected_device: Option<Phone>,
