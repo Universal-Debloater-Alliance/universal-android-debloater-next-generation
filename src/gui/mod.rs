@@ -4,13 +4,17 @@ pub mod widgets;
 
 use crate::core::adb;
 use crate::core::sync::{Phone, get_devices_list, initial_load};
-use crate::core::theme::{OS_COLOR_SCHEME, Theme};
+#[cfg(feature = "img")]
+use crate::core::theme::OS_COLOR_SCHEME;
+use crate::core::theme::Theme;
 use crate::core::uad_lists::UadListState;
 use crate::core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
 use crate::core::utils::{FULL_NAME, NAME, string_to_theme};
 
 use iced::font;
+#[cfg(feature = "img")]
 use iced::window::icon;
+#[cfg(feature = "img")]
 use image::ImageFormat;
 use views::about::{About as AboutView, Message as AboutMessage};
 use views::list::{List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage};
@@ -399,6 +403,7 @@ impl UadGui {
 
 impl UadGui {
     pub fn start() -> iced::Result {
+        #[cfg(feature = "img")]
         let logo: &[u8] = match *OS_COLOR_SCHEME {
             // remember to keep `Unspecified` in sync with `src/core/theme`
             dark_light::Mode::Dark | dark_light::Mode::Unspecified => {
@@ -425,6 +430,7 @@ impl UadGui {
                 },
                 resizable: true,
                 decorations: true,
+                #[cfg(feature = "img")]
                 icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
                 ..iced::window::Settings::default()
             })
