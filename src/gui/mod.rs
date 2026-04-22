@@ -81,6 +81,7 @@ pub enum Message {
 }
 
 impl UadGui {
+    #[allow(clippy::unused_self)]
     fn title(&self) -> String {
         FULL_NAME.to_string()
     }
@@ -102,23 +103,21 @@ impl UadGui {
         )
     }
 
+    #[allow(clippy::unused_self)]
     fn subscription(&self) -> Subscription<Message> {
         event::listen_with(|event, _status, _env| match event {
-            iced::Event::Keyboard(keyboard::Event::KeyPressed { key, modifiers, .. })
-                if modifiers.control() && modifiers.shift() =>
-            {
-                match key {
-                    keyboard::Key::Character(c) => match c.as_str() {
-                        "r" => Some(Message::RebootButtonPressed),
-                        "5" => Some(Message::RefreshButtonPressed),
-                        "a" => Some(Message::AppsPress),
-                        "i" => Some(Message::AboutPressed),
-                        "s" => Some(Message::SettingsPressed),
-                        _ => None,
-                    },
-                    _ => None,
-                }
-            }
+            iced::Event::Keyboard(keyboard::Event::KeyPressed {
+                key: keyboard::Key::Character(c),
+                modifiers,
+                ..
+            }) if modifiers.control() && modifiers.shift() => match c.as_str() {
+                "r" => Some(Message::RebootButtonPressed),
+                "5" => Some(Message::RefreshButtonPressed),
+                "a" => Some(Message::AppsPress),
+                "i" => Some(Message::AboutPressed),
+                "s" => Some(Message::SettingsPressed),
+                _ => None,
+            },
             _ => None,
         })
     }
