@@ -425,11 +425,13 @@
   },
   "com.xiaomi.cameramind": {
     "list": "Oem",
-    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features.\nSafe to delete if you don't need them or if you use another camera app.",
+    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features.\nSafe to delete if you use another camera app, otherwise, removal may cause background connection issues.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": [
+      "com.android.camera"
+    ],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.bluetooth.rro.device.config.overlay": {
     "list": "Oem",
