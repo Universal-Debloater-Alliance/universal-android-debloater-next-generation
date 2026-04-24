@@ -31481,7 +31481,7 @@
   },
   "com.transsion.batterylab": {
     "list": "Oem",
-    "description": "Supposed to improve battery life but logs especially lots of usage info and bind it to your unique android advertiser id...The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper. According to a user, no battery impact after months of usage after uninstalling it.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
+    "description": "Supposed to improve battery life but instead it does the opposite. It completely destroys your phone's ability to enter 'deep sleep'. This essentially means rapid battery drain, and your phone will heat up. 7-8% screen-off battery use when using it, vs 0.7-1% usage without it. It also logs lots of usage info and binds it to your unique android advertiser id. The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
