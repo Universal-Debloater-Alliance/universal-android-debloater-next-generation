@@ -3,7 +3,6 @@
 use crate::{
     adb::{ACommand as AdbCommand, PmListPacksFlag},
     sync::{CorePackage, User},
-    theme::Theme,
     uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
 use chrono::{DateTime, offset::Utc};
@@ -128,20 +127,8 @@ pub fn fetch_packages(
         };
         user_package.push(package);
     }
-    user_package.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+    user_package.sort_by_key(|package| package.name.to_lowercase());
     user_package
-}
-
-#[must_use]
-pub fn string_to_theme(theme: &str) -> Theme {
-    match theme {
-        "Dark" => Theme::Dark,
-        "Light" => Theme::Light,
-        "Lupin" => Theme::Lupin,
-        // Auto uses `Display`, so it doesn't have a canonical repr
-        t if t.starts_with("Auto") => Theme::Auto,
-        _ => Theme::default(),
-    }
 }
 
 #[must_use]
