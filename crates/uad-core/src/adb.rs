@@ -229,7 +229,6 @@ impl Default for ACommand {
 pub struct ShellCommand(ACommand);
 impl ShellCommand {
     /// `pm` command builder
-    #[must_use]
     pub fn pm(mut self) -> PmCommand {
         self.0.0.arg("pm");
         PmCommand(self)
@@ -335,6 +334,7 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 /// Builder object for an Android Package Manager command.
 /// <https://developer.android.com/tools/adb#pm>
 #[derive(Debug)]
+#[must_use]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
     /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.

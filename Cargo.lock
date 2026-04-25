@@ -4558,10 +4558,8 @@ version = "1.2.0"
 dependencies = [
  "chrono",
  "csv",
- "dark-light",
  "dirs",
  "flate2",
- "iced",
  "log",
  "retry",
  "serde",

@@ -1,12 +1,14 @@
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
+use crate::sync::User;
 use crate::utils::DisplayablePath;
-use crate::{sync::User, theme::Theme};
 use log::error;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
 use std::sync::LazyLock;
+
+const DEFAULT_THEME: &str = "Auto (follow system theme)";
 
 #[derive(Default, Debug, Serialize, Deserialize, Clone)]
 pub struct Config {
@@ -44,7 +46,7 @@ pub struct DeviceSettings {
 impl Default for GeneralSettings {
     fn default() -> Self {
         Self {
-            theme: Theme::default().to_string(),
+            theme: DEFAULT_THEME.to_string(),
             expert_mode: false,
             backup_folder: CACHE_DIR.join("backups"),
         }
@@ -114,7 +116,7 @@ mod tests {
         let config = Config::load_configuration_file();
         // non-deterministic
         //assert_eq!(config.devices.len(), 0);
-        assert_eq!(config.general.theme, Theme::default().to_string());
+        assert_eq!(config.general.theme, DEFAULT_THEME);
         assert!(!config.general.expert_mode);
         assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
     }
@@ -136,7 +138,7 @@ mod tests {
     fn test_default_config() {
         let config = Config::default();
         assert_eq!(config.devices.len(), 0);
-        assert_eq!(config.general.theme, Theme::default().to_string());
+        assert_eq!(config.general.theme, DEFAULT_THEME);
         assert!(!config.general.expert_mode);
         assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
     }
