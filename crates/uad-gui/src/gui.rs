@@ -1,7 +1,7 @@
-use crate::theme::string_to_theme;
 #[cfg(feature = "img")]
 use crate::theme::OS_COLOR_SCHEME;
 use crate::theme::Theme;
+use crate::theme::string_to_theme;
 use crate::views::about::{About as AboutView, Message as AboutMessage};
 use crate::views::list::{
     List as AppsView, LoadingState as ListLoadingState, Message as AppsMessage,
@@ -9,13 +9,13 @@ use crate::views::list::{
 use crate::views::settings::{Message as SettingsMessage, Settings as SettingsView};
 use crate::widgets::navigation_menu::nav_menu;
 use iced::font;
+use iced::widget::column;
 #[cfg(feature = "img")]
 use iced::window::icon;
-#[cfg(feature = "img")]
-use image::ImageFormat;
-use iced::widget::column;
 use iced::{Alignment, Element, Length, Settings, Task, window::Settings as Window};
 use iced::{Subscription, event, keyboard};
+#[cfg(feature = "img")]
+use image::ImageFormat;
 use log::{debug, error, info};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
@@ -434,7 +434,7 @@ impl UadGui {
     pub fn start() -> iced::Result {
         #[cfg(feature = "img")]
         let logo: &[u8] = match *OS_COLOR_SCHEME {
-            // remember to keep `Unspecified` in sync with `src/core/theme`
+            // remember to keep `Unspecified` in sync with `src/theme`
             dark_light::Mode::Dark | dark_light::Mode::Unspecified => {
                 include_bytes!("../../../resources/assets/logo-dark.png")
             }

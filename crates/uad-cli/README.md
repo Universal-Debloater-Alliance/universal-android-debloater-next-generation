@@ -191,7 +191,7 @@ uad completions powershell > uad.ps1
 
 ## Examples
 
-### Remove all Facebook packages
+### Remove Facebook packages
 
 ```bash
 uad list --search facebook

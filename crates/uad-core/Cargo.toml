@@ -12,7 +12,6 @@ edition.workspace = true
 
 [features]
 default = []
-gui = ["dep:iced", "dep:dark-light"]
 self-update = ["dep:flate2", "dep:tar"]
 
 [dependencies]
@@ -25,8 +24,6 @@ dirs.workspace = true
 ureq.workspace = true
 retry.workspace = true
 csv.workspace = true
-iced = { workspace = true, optional = true }
-dark-light = { workspace = true, optional = true }
 flate2 = { workspace = true, optional = true }
 tar = { workspace = true, optional = true }
 
@@ -47,7 +44,6 @@ format_push_string = "warn"
 large_include_file = "warn"
 shadow_unrelated = "warn"
 struct_field_names = "allow" # annoying
-module_name_repetitions = "allow" # annoying
 
 disallowed_types = "deny"
 disallowed_methods = "deny"
