@@ -42,7 +42,7 @@ jobs:
           restore-keys: ${{ runner.OS }}-release-
         if: matrix.os == 'ubuntu-22.04'
       - name: Building
-        run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }}
+        run: cargo build --release --no-default-features --features wgpu,${{ matrix.update_feature }},img
       - name: Renaming binaries [Windows]
         if: matrix.os == 'windows-2022'
         run: mv target/release/uad-ng.exe uad-ng-${{ matrix.build_target }}.exe
