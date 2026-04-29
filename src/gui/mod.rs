@@ -81,7 +81,7 @@ pub enum Message {
 }
 
 impl UadGui {
-    #[allow(clippy::unused_self)]
+    #[allow(clippy::unused_self, reason = "required by iced's Application trait interface")]
     fn title(&self) -> String {
         FULL_NAME.to_string()
     }
@@ -103,7 +103,7 @@ impl UadGui {
         )
     }
 
-    #[allow(clippy::unused_self)]
+    #[allow(clippy::unused_self, reason = "required by iced's Application trait interface")]
     fn subscription(&self) -> Subscription<Message> {
         event::listen_with(|event, _status, _env| match event {
             iced::Event::Keyboard(keyboard::Event::KeyPressed {
