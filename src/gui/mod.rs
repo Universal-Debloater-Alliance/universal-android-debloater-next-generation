@@ -421,6 +421,8 @@ impl UadGui {
             .settings(Settings {
                 id: Some(String::from(NAME)),
                 default_text_size: iced::Pixels(16.0),
+                #[cfg(target_os = "linux")]
+                default_font: iced::Font { family: iced::font::Family::Name("Adwaita Sans"), ..Default::default() },
                 ..Settings::default()
             })
             .window(Window {
