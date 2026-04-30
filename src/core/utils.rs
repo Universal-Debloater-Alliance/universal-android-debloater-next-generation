@@ -122,7 +122,7 @@ pub fn fetch_packages(
             PackageRow::new(p_name, state, description, uad_list, removal, false, false);
         user_package.push(package_row);
     }
-    user_package.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
+    user_package.sort_by_key(|a| a.name.to_lowercase());
     user_package
 }
 
