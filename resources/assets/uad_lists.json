@@ -8962,7 +8962,7 @@
   },
   "com.android.providers.contacts": {
     "list": "Aosp",
-    "description": "Contacts Storage\nProvider for contact data.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html\nBreaks contact functionality if disabled. Not recommended to disable if you plan to use your device as a phone.",
+    "description": "Contacts Storage\nProvider for contact data.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html\nBreaks contact functionality if disabled. Not recommended to disable if you plan to use your device as a phone.\nOn POCO Pad M1, disabling this will cause Bluetooth to malfunction, turning on and off continuously.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
