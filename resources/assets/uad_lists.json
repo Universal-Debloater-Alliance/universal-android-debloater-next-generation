@@ -20418,8 +20418,8 @@
     "labels": []
   },
   "com.motorola.securevault": {
-    "description": "Secure Folder\nUnnecessary tools to keep device secure.\nhttps://play.google.com/store/apps/details?id=com.motorola.securevault",
-    "removal": "Recommended",
+    "description": "Secure Folder\nNormally unnecessary tools to keep device secure, however, removal may cause background issues - it should be safe to disable instead.\nhttps://play.google.com/store/apps/details?id=com.motorola.securevault",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
