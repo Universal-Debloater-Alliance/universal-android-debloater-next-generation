@@ -12,10 +12,11 @@ categories = ["gui"]
 edition = "2024"
 
 [features]
-default = ["wgpu", "self-update"]
+default = ["wgpu", "self-update", "img"]
 wgpu = [] # Iced/wgpu is default
 self-update = ["flate2", "tar"]
 no-self-update = []
+img = ["image", "iced/image"]
 
 [dependencies]
 dark-light = "2"
@@ -31,8 +32,8 @@ toml = "^0"
 dirs = "^6"
 ureq = { version = "3", features = ["json"] }
 retry = "^2.0.0"
-iced = { version = "=0.14.0", features = ["advanced", "image"] }
-image = "0.25"
+iced = { version = "=0.14.0", features = ["advanced"] }
+image = { version = "0.25", optional = true }
 rfd = "^0.17.1"
 csv = "^1.3"
 

@@ -7,6 +7,22 @@
     "labels": [],
     "removal": "Recommended"
   },
+    "com.cyanogenmod.filemanager": {
+    "list": "Oem",
+    "description": "Cyanogenmod file manager, safe to remove if you use another one.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+    "android.ext.shared": {
+    "list": "Aosp",
+    "description": "Android Shared Library, removing may cause a bootloop.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "org.lineageos.recorder": {
     "list": "Oem",
     "description": "LineageOS Voice Recorder App.\nSafe to remove if you don't need it or have replaced it with another app.",
@@ -409,11 +425,13 @@
   },
   "com.xiaomi.cameramind": {
     "list": "Oem",
-    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features.\nSafe to delete if you don't need them or if you use another camera app.",
+    "description": "The core of all AI features for Xiaomi's camera app. Won't impact other camera apps' AI features.\nSafe to delete if you use another camera app, otherwise, removal may cause background connection issues.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": [
+      "com.android.camera"
+    ],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.bluetooth.rro.device.config.overlay": {
     "list": "Oem",
@@ -4529,7 +4547,7 @@
   },
   "com.motorola.systemserver": {
     "list": "Oem",
-    "description": "Moto Service Experience, debugging app.",
+    "description": "Moto Service Experience, debugging app.\nKeep this package for consistent Moto Fast Flashlight Gesture Functionality.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5643,11 +5661,11 @@
   },
   "com.samsung.android.scpm": {
     "list": "Oem",
-    "description": "Samsung Cloud Platform Manager\nRelated to Samsung Cloud. Safe to remove if you don't use it.",
+    "description": "Samsung Cloud Platform Manager\nRelated to Samsung Cloud.\nNOTE: Uninstalling or disabling this app causes the \"Sound Quality and Effects\" app (com.sec.android.app.soundalive) to crash regularly, resulting in a crash dialog that might become annoying. (However, the sound seems to work fine)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.sconnect": {
     "list": "Oem",
@@ -5715,7 +5733,7 @@
   },
   "com.samsung.android.smartmirroring": {
     "list": "Oem",
-    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV (https://www.samsung.com/us/apps/smart-view-2/)\nDependency for com.samsung.android.video",
+    "description": "Samsung Smart View\nEnable you to mirror screen your phone to a TV (https://www.samsung.com/us/apps/smart-view-2/)\nDependency for com.samsung.android.video\nUninstalling this breaks edge panels feature; edge panel won't work and will also crash OneUI Home when trying to switch edge panels on from settings > display.\nThe edge panels package (com.samsung.android.app.cocktailbarservice and com.samsung.android.app.appsedge) doesn't exist on my phone so maybe on newer devices Samsung moved that functionality to this package instead. Tested on Galaxy S25 FE Android 16",
     "dependencies": [],
     "neededBy": [
       "com.samsung.android.video"
@@ -6198,11 +6216,11 @@
   },
   "com.samsung.storyservice": {
     "list": "Oem",
-    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\n",
+    "description": "Samsung StoryService\nCreate stories in the Gallery from your pictures and videos.\nhttps://www.samsung.com/uk/support/mobile-devices/what-is-video-collage-and-how-do-i-use-it/\nUse of content recognition (so may be related)\nDisabling breaks edge panels on my s9+ with OneUI 8.0/Android 16\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.svoice.sync": {
     "list": "Oem",
@@ -7248,7 +7266,7 @@
   },
   "com.sec.android.app.soundalive": {
     "list": "Oem",
-    "description": "Responsible for Dolby Atmos and other equalizer stuff (accessible from the Settings app).\nNeeded by Adapt Sound (com.sec.hearingadjust) which is a pretty useful feature.",
+    "description": "Responsible for Dolby Atmos and other equalizer stuff (accessible from the Settings app).\nNeeded by Adapt Sound (com.sec.hearingadjust) which is a pretty useful feature.\nNOTE: If the app crashes regularly, even when you don't use Dolby or other features, check to see if you have \"com.samsung.android.scpm\" installed & enabled. If not, try installing/enabling it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8097,8 +8115,8 @@
     "removal": "Recommended"
   },
   "com.android.runintest.ddrtest": {
-    "list": "Aosp",
-    "description": "DDR Test\nRAM Stress tester\nCan be run from the bootloader\nNOTE: I'm not sure it's really from AOSP (seen in TCL Plex phone)\n",
+    "list": "Oem",
+    "description": "DDR Test\nRAM Stress tester\nCan be run from the bootloader\n(seen in TCL Plex phone)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8106,11 +8124,11 @@
   },
   "com.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google Safety Center.\nProbably affects malware detection in new app installs, Gmail, and Chrome. This will also revert back the\"Security & privacy\" look to the old style.\nYou can use a libre spam-blocking and DNS-blocking solution instead of this.\nhttps://safety.google",
+    "description": "Google/AOSP Safety Center resources.\n. Uninstalling this will change the configuration to revert back the\"Security & privacy\" look to the old style.\nDoes not contain code, just the configuration for code that lives in another package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.sdksandbox": {
     "list": "Aosp",
@@ -8282,7 +8300,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.captiveportallogin": {
     "list": "Aosp",
@@ -8748,7 +8766,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.google.android.contactkeys": {
     "list": "Google",
@@ -23426,8 +23444,8 @@
     "labels": []
   },
   "com.svox.pico": {
-    "description": "Pico TTS\nHidden sample voice data. Useless.",
-    "removal": "Recommended",
+    "description": "Pico TTS\nOpen source TTS engine shipped on old Android devices and some custom ROMs\nUninstalling this without installing a TTS engine will break TTS, it also doesn't access the internet so there's not much to gain",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -26761,7 +26779,7 @@
     "labels": []
   },
   "com.android.inputsettings.overlay.miui": {
-    "description": "Keyboard demo found. It's something to miinput unused Chinese!",
+    "description": "Keyboard demo found. It's something to miinput unused Chinese! On HyperOS 3, it's a dependency of Camera Ring",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -31463,7 +31481,7 @@
   },
   "com.transsion.batterylab": {
     "list": "Oem",
-    "description": "Supposed to improve battery life but logs especially lots of usage info and bind it to your unique android advertiser id...The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper. According to a user, no battery impact after months of usage after uninstalling it.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
+    "description": "Supposed to improve battery life but instead it does the opposite. It completely destroys your phone's ability to enter 'deep sleep'. This essentially means rapid battery drain, and your phone will heat up. 7-8% screen-off battery use when using it, vs 0.7-1% usage without it. It also logs lots of usage info and binds it to your unique android advertiser id. The app tries to send data to a server. The POST request URL and content is obfuscated and I don't have the time to dig deeper.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32255,11 +32273,11 @@
   },
   "com.android.fmradio": {
     "list": "Aosp",
-    "description": "FM Radio\n Plug in Head phones & listen to the Radio!\n",
+    "description": "FM Radio\n Plug in Head phones & listen to the Radio!\nUninstalling will break FM Radio until reinstalled, and no other FM apps can be downloaded from app stores",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.haoba.btsmart": {
     "list": "Misc",
@@ -32403,9 +32421,73 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.aura.oobe.kbdi": {
+  "com.aura.oobe.kddi": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some au carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.ntt": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some docomo carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.softbank": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some SoftBank carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.rakuten": {
+    "list": "Carrier",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Rakuten Mobile carrier phones\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.solutions": {
     "list": "Oem",
-    "description": "Appcloud\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Xiaomi phones\nSafe to remove.",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Nothing & CMF Phone\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.lenovo": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Lenovo\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },  
+  "com.aura.oobe.ml": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aura.oobe.motorola": {
+    "list": "Oem",
+    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.dti.motorola": {
+    "list": "Oem",
+    "description": "Digital Turbine\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34980,7 +35062,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.healthconnect.controller": {
     "list": "Aosp",
@@ -34988,15 +35070,15 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.virtualmachine.res": {
     "list": "Aosp",
-    "description": "unknown app with no code that only has permissions to Use, Manage, Debug: Virtual Machine.\nIntroduced in Android 14.",
+    "description": "Empty app with no code that declares permissions to Use, Manage, Debug: Virtual Machine for use by other apps. Deleting this app may cause potential security issues because another app could redefine the permissions with lower restriction level. Nothing to gain by removing.\nIntroduced in Android 14.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Expert"
   },
   "com.android.rkpdapp": {
     "list": "Aosp",
@@ -35012,7 +35094,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.android.systemui.accessibility.accessibilitymenu": {
     "list": "Aosp",
@@ -37500,11 +37582,11 @@
   },
   "jp.co.omronsoft.iwnnime.ml": {
     "list": "Carrier",
-    "description": "iWnn IME\nJapanese keyboard pre-installed on some Huawei phone's.",
+    "description": "iWnn IME\nJapanese keyboard pre-installed on some Huawei and Kyocera phones. Some phones cannot be unlocked without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.kmsjp": {
     "list": "Carrier",
@@ -38048,7 +38130,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.xiaomi.oobhelper": {
     "list": "Oem",
@@ -42146,10 +42228,138 @@
   },
   "com.samsung.android.timezone.data_R": {
     "list": "Oem",
-    "description": "Completely empty package. Useless. No issues with the clock after uninstalling",
+    "description": "Causes bootloop on any Samsung Galaxy A50 when removed. \n Rescue Party will be triggered, package manager service will fail to start. \n Device becomes unbootable. Do NOT remove on older Samsung devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.sec.android.usermanual": {
+    "list": "Oem",
+    "description": "Opens the device’s built‑in user manual PDF",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.a50.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Provides the wallpapers used by the lockscreen multi-pack feature",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.SMT.lang_es_mx_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Spanish (Mexico).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_pt_br_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in Portuguese (Brazil).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.SMT.lang_en_us_f00": {
+    "list": "Oem",
+    "description": "Voice pack for Samsung TTS in English (United States).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.internal.overlay.config.default_contextual_search": {
+    "list": "Oem",
+    "description": "The code only assigns (com.google.android.googlequicksearchbox) as the default contextual search package via (config_defaultContextualSearchPackageName).\nI suppose that if (com.google.android.googlequicksearchbox) is removed, this feature stops working.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.drmboost": {
+    "list": "Oem",
+    "description": "Boosts CPU performance during secure DRM (Digital Rights Management) playback by monitoring codec activity and applying a DVFS (Dynamic Voltage and Frequency Scaling) hint (1400).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.nfc.resources.default": {
+    "list": "Oem",
+    "description": "Provides default NFC configuration resources (booleans and polling delays). Contains no executable code.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.privateaccesstokens": {
+    "list": "Oem",
+    "description": "Provides a system module used by Samsung Internet for an automatic verification feature on compatible websites to skip CAPTCHAs.\nOn my device the option never appeared. Removing it does not affect normal system functionality.\nIt relies on a few privileged permissions such as READ_PRIVILEGED_PHONE_STATE , SAMSUNG_KEYSTORE_PERMISSION , ACCESS_KEYGUARD_SECURE_STORAGE , and INTERNET/ACCESS_NETWORK_STATE.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.android.privateaccesstokens",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.accessory.budsunitemgr": {
+    "list": "Oem",
+    "description": "Provides the system component that manages Galaxy Buds features and configuration. It handles firmware updates, noise control modes (ANC / Ambient sound), touch controls, and all device‑specific settings.\nOn my device, uninstalling it removed the ability to update the Buds or use any of the features mentioned above.\nAccording to the Galaxy Store description, it also requires the Galaxy Wearable package (com.samsung.android.app.watchmanagerstub) to function.\nhttps://apps.samsung.com/appquery/appDetail.as?appId=com.samsung.accessory.budsunitemgr\nhttps://play.google.com/store/apps/details?id=com.samsung.accessory.budsunitemgr",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.mygalaxy.service": {
+    "list": "Oem",
+    "description": "Module likely used by the MyGalaxy app (https://play.google.com/store/apps/details?id=com.mygalaxy).\nOnly works on India CSC INS/INU. On all other regions it disables itself automatically.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "in.gov.uidai.pehchaan": {
+    "list": "Oem",
+    "description": "National ID app based on a unique 12 digit number and biometrics information. Privately mandated by Government of India to be pre-installed on devices.\nSource: https://www.reuters.com/world/china/indias-proposal-preload-national-id-app-aadhaar-phones-faced-pushback-2026-03-19/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.hwresourceshare.storage": {
+    "list": "Oem",
+    "description": "Allows the storage on your phone, tablet, computer, and TV to connect so you can view and use files from one device on another without cables or downloads.\nThe service always runs in the background, and removing it has not caused any problems.\nhttps://r1.community.samsung.com/t5/tips-how-to/the-new-storage-share-feature/ba-p/36247598\nhttps://www.samsung.com/us/support/answer/ANS10004607/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.wallpaper.live": {
+    "list": "Oem",
+    "description": "Samsung official app for dynamic and live wallpapers with generative AI capabilities.\nBecause it provides a wallpaper service, it runs in the background and starts automatically when the phone boots.\nIf you remove it while using a wallpaper created by it, that wallpaper will be removed as well.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.nfc": {
+    "list": "Oem",
+    "description": "It’s the main NFC module on Samsung devices.\nIt handles contactless payments, card emulation for Samsung Pay, NFC tag reading and writing, and features like Wireless Power Sharing, and it also manages certain S Pen functions that rely on NFC.\nI assume NFC breaks when disabled.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.samsung.android.wifi.largetcpbuffer.resources": {
+    "list": "Oem",
+    "description": "It only provides configuration data with no executable code and adjusts Wi‑Fi TCP buffer sizes to optimized values\nDepending entirely on com.android.wifi.resources\nIn theory it shouldn’t negatively affect Wi‑Fi if deleted, but this hasn’t been tested. It isn’t required for basic Wi‑Fi functionality; it mainly improves performance on fast networks, so removing it may make Wi‑Fi slightly slower.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
