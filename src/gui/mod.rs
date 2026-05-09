@@ -426,6 +426,8 @@ impl UadGui {
             .settings(Settings {
                 id: Some(String::from(NAME)),
                 default_text_size: iced::Pixels(16.0),
+                // HACK: avoid glyph clipping on some systems. Details:
+                // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/1337
                 #[cfg(target_os = "linux")]
                 default_font: iced::Font {
                     family: iced::font::Family::Name("Adwaita Sans"),
