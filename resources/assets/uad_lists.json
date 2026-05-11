@@ -313,7 +313,7 @@
   },
   "com.google.android.wifi.resources.overlay.common": {
     "list": "Aosp",
-    "description": "An overlay-google addition for com.android.wifi.resoruces, presumably google bloat. No issues with Wi-Fi found after removal.\nThere's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources, so it's likely a part of a google addition for Wi-Fi services, so likely bloat. Safe to delete.",
+    "description": "An overlay-google addition for `com.android.wifi.resources`, presumably Google bloat.\nA user reported some issues with Hotspot",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
