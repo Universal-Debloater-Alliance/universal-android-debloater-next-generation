@@ -43054,7 +43054,7 @@
   },
   "com.android.onetimeinitializer": {
     "list": "Aosp",
-    "description": "Needed for first time setup. Due to how UAD works, the package will be restored on factory reset, so it's safe to remove. No purpose to keep it after setup.",
+    "description": "Needed for first time setup. Due to how UAD works, the package will be restored on factory reset, so it's safe to disable. No purpose to keep it after setup. Better to disable; not uninstall",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
