@@ -43051,5 +43051,45 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.android.onetimeinitializer": {
+    "list": "Aosp",
+    "description": "Needed for first time setup. Due to how UAD works, the package will be restored on factory reset, so it's safe to disable. No purpose to keep it after setup. Better to disable; not uninstall",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.insulet.myblue.pdm": {
+    "list": "Oem",
+    "description": "App to control OmniPod insulin pumps. Preinstalled on the OmniPod DASH and OmniPod 5 PDMs. If you're seeing this package you're probably on a modded PDM, so you almost certainly know what this is and it's absolutely unsafe to remove if you're actively using OmniPod.\nhttps://play.google.com/store/apps/details?id=com.insulet.myblue.pdm",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.insulet.myblue.pdmsystem": {
+    "list": "Oem",
+    "description": "Additional package needed to control pods on the OmniPod DASH PDM. Doesn't seem to be present on OmniPod 5. See com.insulet.myblue.pdm\n tl;dr: needed to control your insulin pump, absolutely do not remove this.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.nbbsw.compatiblemark": {
+    "list": "Oem",
+    "description": "Not exactly sure what this is. Trying to launch mainActivity, you get a Chinese error message, but you can see a java error saying it's trying to connect to s2.sv.wxjyun.cn, which is a non-existent URL. No issues when removing this so it's safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.simalliance.openmobileapi.eseterminal": {
+    "list": "Aosp",
+    "description": "Needed for NFC payments (e.g. Google Wallet) on older Android versions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
