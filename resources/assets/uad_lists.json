@@ -43091,5 +43091,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.bell.ptt": {
+    "list": "Carrier",
+    "description": "Bell Push to Talk app. Apparently the 'most advanced carrier-grade Push-to-talk coomunicates technology available today.' (doubt). Realistically, no one is using this, safe to remove.\n https://play.google.com/store/apps/details?id=com.bell.ptt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.A21.d01.wallpapermulti": {
+    "list": "Oem",
+    "description": "Dynamic lock screen wallpaper feature for the Samsung Galaxy A21. Why is this device specific? I have no idea!",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.sec.android.app.camera.sticker": {
+    "list": "Oem",
+    "description": "Samsung DECO PIC. Add things such as live stickers, AR masks, frames, and GIFs to your photos and videos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
