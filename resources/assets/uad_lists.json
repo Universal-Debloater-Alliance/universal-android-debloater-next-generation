@@ -43115,5 +43115,221 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
+  },
+  "com.android.multiuser": {
+    "list": "Aosp",
+    "description": "Framework package responsible for managing user profiles, useful if you have a guest profile or multiple profiles on your phone.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.ons.auto_generated_rro_vendor__": {
+    "list": "Oem",
+    "description": "Overlay needed for managing cell networks on Pixels.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.identitychecksettingsoverlay": {
+    "list": "Oem",
+    "description": "Part of Google's theft protection, but I can't find out what exactly this package does.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.settings.overlay.gb7n6": {
+    "list": "Oem",
+    "description": "Device specific settings for the Google Pixel 6. Settings crashes with this removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.settings.overlay.oriole": {
+    "list": "Oem",
+    "description": "Device specific settings for the Google Pixel 6. Settings crashes with this removed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.android.systemui.clocks.metro": {
+    "list": "Aosp",
+    "description": "Metro clock style, introduced in Android 14.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.ai.icons": {
+    "list": "Oem",
+    "description": "Create AI generated icons for your apps on Pixels. Do we really need AI generated icons?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.emojiwallpaper": {
+    "list": "Oem",
+    "description": "Google Emoji Workshop Wallpaper. Used to create wallpapers with your favourite emojis.\n https://play.google.com/store/apps/details?id=com.google.android.apps.emojiwallpaper",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.magicportrait": {
+    "list": "Oem",
+    "description": "Pixel Magic Portrait feature. It isolates subjects from photos and places them into frames on your wallpaper.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.pixel.customizationbundle": {
+    "list": "Oem",
+    "description": "Pixel Theme Packs. It's basically just a glorified wallpapers app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.pixel.dcservice": {
+    "list": "Oem",
+    "description": "Used for cross-device features between your Android phone and a Chromebook, things like quick share and instant hotspot.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.pixel.nowplaying": {
+    "list": "Oem",
+    "description": "Used to see what music is playin around you, and see music you've discovered in a place. According to Google Play, it does not work very well.\n https://play.google.com/store/apps/details?id=com.google.android.apps.pixel.nowplaying",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.pixel.relationships": {
+    "list": "Oem",
+    "description": "Pixel VIPs feature. Widget for your closest contacts, showing recent communications, birthdays, real time locations, etc.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.apps.scone.overlays": {
+    "list": "Oem",
+    "description": "Part of com.google.android.apps.scone, which switches between LTE and 5G on demand to save battery. Tends to just set the phone to 5G or 4G and not do anything else.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.nfc": {
+    "list": "Aosp",
+    "description": "Needed for NFC to work properly.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.nfc.overlay": {
+    "list": "Aosp",
+    "description": "Needed for NFC to work properly.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.nfc.overlay.common": {
+    "list": "Aosp",
+    "description": "Needed for NFC to work properly. Why in the world are these not all one package?",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.overlay.DeviceAsWebcam": {
+    "list": "Oem",
+    "description": "Using smartphone as webcam. Dependency for Private space on Pixel devices.\nhttps://source.android.com/docs/security/features/private-space",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.overlay.glanceablehubconfig": {
+    "list": "Oem",
+    "description": "Glanceable Hub, lock screen widgets on Android 15 and later.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.overlay.glanceablehubsettings": {
+    "list": "Oem",
+    "description": "Glanceable Hub, lock screen widgets on Android 15 and later.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.overlay.permissioncontroller.safetycenter": {
+    "list": "Oem",
+    "description": "Required for Android's permission controller. Not safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.pcs": {
+    "list": "Oem",
+    "description": "Pixel Core Services. Not exactly sure what it does, but I didn't have any issues removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.pixel.setupwizard.overlay.expressive": {
+    "list": "Oem",
+    "description": "Material 3 Expressive theme for the setup wizard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.systemui.overlay.glanceablehubconfig": {
+    "list": "Oem",
+    "description": "Glanceable Hub, lock screen widgets on Android 15 and later.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.verifier": {
+    "list": "Oem",
+    "description": "Google's developer verification, being added in September 2026. Removing this may allow you to install third party apps when Google introduces the verification. Best to remove. See https://keepandroidopen.org/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.android.verifier.overlay": {
+    "list": "Oem",
+    "description": "Google's developer verification, being added in September 2026. Removing this may allow you to install third party apps when Google introduces the verification. Best to remove. See https://keepandroidopen.org/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.google.assistant.hubui": {
+    "list": "Oem",
+    "description": "Google Dreams. It's a screensaver when a Pixel phone is on a Pixel Stand or the Pixel Tablet when docked.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
 }
