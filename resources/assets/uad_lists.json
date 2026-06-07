@@ -8434,7 +8434,7 @@
   },
   "com.android.inputmethod.latin": {
     "list": "Aosp",
-    "description": "The AOSP keyboard app\nMame sure you have another installed before you disable.",
+    "description": "The AOSP keyboard app\nMake sure you have another installed before you disable.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
