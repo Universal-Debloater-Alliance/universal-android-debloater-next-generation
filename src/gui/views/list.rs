@@ -7,11 +7,12 @@ use crate::core::uad_lists::{
 };
 use crate::core::utils::{EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, open_url};
 use crate::gui::style;
-use crate::gui::widgets::navigation_menu::ICONS;
-use std::path::PathBuf;
-
 use crate::gui::views::settings::Settings;
 use crate::gui::widgets::modal::Modal;
+use crate::gui::widgets::navigation_menu::ICONS;
+use crate::gui::widgets::package_row::Message as PackageRowMessage;
+use std::path::PathBuf;
+
 use crate::gui::widgets::package_row::{Message as RowMessage, PackageRow};
 use crate::gui::widgets::text;
 use iced::widget::scrollable::{Direction, Scrollbar};
@@ -952,6 +953,7 @@ impl List {
         let package = &mut self.phone_packages[i_user][i_package];
 
         match *row_message {
+            PackageRowMessage::Noop => Task::none(),
             RowMessage::ToggleSelection(toggle) => {
                 if package.removal == Removal::Unsafe && !settings.general.expert_mode {
                     package.selected = false;
