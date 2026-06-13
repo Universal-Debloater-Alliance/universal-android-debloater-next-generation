@@ -43115,5 +43115,181 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.ea.worms": {
+    "list": "Carrier",
+    "description": "Worms. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.glu.android.gunbros_iap_telefonica": {
+    "list": "Carrier",
+    "description": "Gun Brothers. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "test.emocion": {
+    "list": "Carrier",
+    "description": "emocion. A browser preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "flipboard.app": {
+    "list": "Carrier",
+    "description": "Flipboard. A program preloaded on select devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "imagenio.movil.tv": {
+    "list": "Carrier",
+    "description": "Imagenio. A app preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.segundalinea.android": {
+    "list": "Carrier",
+    "description": "Segunda Linea. A app preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gameloft.android.telefonica.GloftSRTB": {
+    "list": "Carrier",
+    "description": "Shark Dash. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.realarcade.DOJ.TELEFONICA": {
+    "list": "Carrier",
+    "description": "Doodle Jump Plus. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.movistar.recomienda": {
+    "list": "Carrier",
+    "description": "Movistar Recomienda. An Application preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.movistar.android.mimovistar.es": {
+    "list": "Carrier",
+    "description": "Mi Movistar 2. A app preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.dhr.spotify.launcher": {
+    "list": "Carrier",
+    "description": "Spotify. A app preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.glu.android.gunbros_iap_telefonica": {
+    "list": "Carrier",
+    "description": "Gun Brothers. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.tuenti.messenger": {
+    "list": "Carrier",
+    "description": "Tuenti. A application preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "uk.co.o2.android.o2space": {
+    "list": "Carrier",
+    "description": "O2 Appspace. A Application preloaded on O2 devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.herocraft.game.yumsters.telefonica": {
+    "list": "Carrier",
+    "description": "Yumsters. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.herocraft.game.wonderwood": {
+    "list": "Carrier",
+    "description": "Wonder Wood. A game preloaded on Movistar devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.audible.application": {
+    "list": "Carrier",
+    "description": "Audible. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "uk.amazon.mShop": {
+    "list": "Carrier",
+    "description": "Mshop. A application preloaded on O2 UK.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.jvnewco.yaapmoney": {
+    "list": "Carrier",
+    "description": "Yaap Money. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.gameloft.android.GloftPDMF": {
+    "list": "Carrier",
+    "description": "Dragon Mania. A game preloaded on Movistar.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.ebay.mobile": {
+    "list": "Carrier",
+    "description": "eBay. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.gameloft.android.GloftSMIF": {
+    "list": "Carrier",
+    "description": "Spiderman. A game preloaded on Movistar.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
