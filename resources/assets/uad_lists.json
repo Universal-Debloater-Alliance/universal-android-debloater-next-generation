@@ -43220,9 +43220,9 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.google.android.videos": {
+  "uk.co.o2.android.o2space": {
     "list": "Carrier",
-    "description": "Gun Brothers. A videogame preloaded on Telefonica devices.",
+    "description": "O2 Appspace. A Application preloaded on O2 devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43231,6 +43231,62 @@
   "com.herocraft.game.yumsters.telefonica": {
     "list": "Carrier",
     "description": "Yumsters. A videogame preloaded on Telefonica devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.herocraft.game.wonderwood": {
+    "list": "Carrier",
+    "description": "Wonder Wood. A game preloaded on Movistar devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.audible.application": {
+    "list": "Carrier",
+    "description": "Audible. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "uk.amazon.mShop": {
+    "list": "Carrier",
+    "description": "Mshop. A application preloaded on O2 UK.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.jvnewco.yaapmoney": {
+    "list": "Carrier",
+    "description": "Yaap Money. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.gameloft.android.GloftPDMF": {
+    "list": "Carrier",
+    "description": "Dragon Mania. A game preloaded on Movistar.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.ebay.mobile": {
+    "list": "Carrier",
+    "description": "eBay. A application preloaded on various carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "com.gameloft.android.GloftSMIF": {
+    "list": "Carrier",
+    "description": "Spiderman. A game preloaded on Movistar.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
