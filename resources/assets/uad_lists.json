@@ -4371,11 +4371,11 @@
   },
   "com.motorola.setup": {
     "list": "Oem",
-    "description": "Related to Motorola Account setup (only during first boot ?)\nWARNING: Removing this package breaks Google Play System Updates. Appears to be tied to Google's Play Store update mechanism on Motorola devices\n",
+    "description": "Related to Motorola Account setup (only during first boot?) DO NOT REMOVE unless you don't care about security patches. Freezing this package completely halts Google Play System Updates (Project Mainline), preventing the device from receiving security fixes.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Advanced"
+    "removal": "Expert"
   },
   "com.motorola.slpc_sys": {
     "list": "Oem",
