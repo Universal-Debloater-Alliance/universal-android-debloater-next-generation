@@ -11660,7 +11660,7 @@
   },
   "com.sec.android.smartfpsadjuster": {
     "list": "Oem",
-    "description": "SmartFPSAdjuster\nAdjusts FPS automatically in Samsung phones? Safe to delete.\nhttps://docs.samsungknox.com/CCMode/G985F_Q.pdf",
+    "description": "SmartFPSAdjuster\nResponsible for thermal camera adjustment and dynamic FPS control based on device temperature and hardware conditions\nLogging this data to feed an optimization algorithm using Q‑learning.\nSafe to delete.\nhttps://docs.samsungknox.com/CCMode/G985F_Q.pdf",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43115,5 +43115,21 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.messageguardsync": {
+    "list": "Oem",
+    "description": "Handles synchronizing and updating Samsung Message Guard policies.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.samsung.android.mcf.autohotspot": {
+    "list": "Oem",
+    "description": "I believe this is not the Auto Hotspot feature itself, but a system module that manages the internal logic behind it.\nIts role is to coordinate automatic hotspot connections and handle the user‑facing network experience.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
   }
 }
