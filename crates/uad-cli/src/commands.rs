@@ -10,7 +10,7 @@ use uad_core::sync::{
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 use uad_core::utils::{matches_search, truncate_description};
 
-use crate::device::{get_target_device, get_user};
+use crate::device::{NO_DEVICES_FOUND, get_target_device, get_user};
 use crate::filters::{ListFilter, RemovalFilter, StateFilter};
 use crate::{Cli, print_or_exit, println_or_exit};
 
@@ -20,8 +20,7 @@ pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
     let devices = get_devices_list();
 
     if devices.is_empty() {
-        eprintln!("No devices found. Make sure ADB is installed and devices are connected.");
-        return Err("No devices found".into());
+        return Err(NO_DEVICES_FOUND.into());
     }
 
     println_or_exit!("\nFound {} device(s):\n", devices.len());
@@ -250,7 +249,6 @@ pub fn change_package_state(
     action_name: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if packages.is_empty() {
-        eprintln!("Error: No packages specified");
         return Err("No packages specified".into());
     }
 
@@ -365,8 +363,7 @@ pub fn execute_with_fallback(
         match run_adb_shell_action(&device.adb_id, cmd.as_str()) {
             Ok(_) => println!("{}✓ {}", indent, cmd),
             Err(e) => {
-                eprintln!("{}✗ Failed: {:?}", indent, e);
-                return Err(format!("Failed to execute: {}", cmd).into());
+                return Err(format!("{indent}✗ Failed to execute `{cmd}`: {e:?}").into());
             }
         }
     }
@@ -461,10 +458,7 @@ pub fn update_lists() -> Result<(), Box<dyn std::error::Error>> {
             println!("✓ Successfully updated package lists");
             Ok(())
         }
-        Err(_lists) => {
-            eprintln!("✗ Failed to update lists from remote, using cached version");
-            Err("Failed to update lists".into())
-        }
+        Err(_lists) => Err("Failed to update lists from remote, using cached version".into()),
     }
 }
 
