@@ -519,10 +519,11 @@ impl Settings {
             .spacing(10)
             .align_y(Alignment::Center);
 
-        let backend_descr = text(
-            "Builtin: Uses embedded ADB (no external dependencies). System: Uses your installed adb binary.",
-        )
-        .style(style::Text::Commentary);
+        #[cfg(feature = "builtin-adb")]
+        let backend_description = "System: Uses your installed adb binary. Builtin: Uses embedded ADB (no external dependencies).";
+        #[cfg(not(feature = "builtin-adb"))]
+        let backend_description = "System: Uses your installed adb binary.";
+        let backend_descr = text(backend_description).style(style::Text::Commentary);
 
         let version_row = row![
             text("Version: ").size(14),

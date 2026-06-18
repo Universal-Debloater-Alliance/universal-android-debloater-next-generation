@@ -11,11 +11,12 @@ categories = ["command-line-utilities"]
 edition.workspace = true
 
 [features]
-default = []
+default = ["builtin-adb"]
+builtin-adb = ["dep:adb_client"]
 self-update = ["dep:flate2", "dep:tar"]
 
 [dependencies]
-adb_client.workspace = true
+adb_client = { workspace = true, optional = true }
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true

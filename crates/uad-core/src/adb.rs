@@ -4,7 +4,7 @@
 //!
 //! Following the design philosophy of most of Rust `std`,
 //! `*Command` are intended to be "thin wrappers" (low-overhead abstractions)
-//! around `adb_client` or the system ADB CLI,
+//! around the optional `adb_client` backend or the system ADB CLI,
 //! which implies:
 //! - no "magic"
 //! - no custom commands
@@ -46,9 +46,11 @@
 //! For comprehensive info about ADB,
 //! [see this](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/)
 
+#[cfg(feature = "builtin-adb")]
 use adb_client::{ADBDeviceExt, server::ADBServer};
 use serde::{Deserialize, Serialize};
 use std::fmt::Write as _;
+#[cfg(feature = "builtin-adb")]
 use std::io::Cursor;
 use std::rc::Rc;
 
@@ -73,6 +75,7 @@ pub fn to_trimmed_utf8(v: &[u8]) -> String {
 pub enum AdbBackend {
     /// Built-in ADB implementation via `adb_client` crate.
     /// The application can communicate with devices without needing `adb` installed.
+    #[cfg(feature = "builtin-adb")]
     Builtin,
     /// Uses the system-installed `adb` binary.
     /// This is the default to preserve existing behavior.
@@ -84,12 +87,18 @@ pub enum AdbBackend {
 
 impl AdbBackend {
     /// Returns all available backend variants for UI enumeration
+    #[cfg(feature = "builtin-adb")]
     pub const ALL: [Self; 2] = [Self::Builtin, Self::System];
+
+    /// Returns all available backend variants for UI enumeration
+    #[cfg(not(feature = "builtin-adb"))]
+    pub const ALL: [Self; 1] = [Self::System];
 }
 
 impl std::fmt::Display for AdbBackend {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            #[cfg(feature = "builtin-adb")]
             Self::Builtin => write!(f, "Builtin"),
             Self::System => write!(f, "System (adb)"),
         }
@@ -189,6 +198,7 @@ impl ACommand {
     /// - "device"
     pub fn devices(self) -> Result<Vec<(String, String)>, String> {
         match self.0.backend {
+            #[cfg(feature = "builtin-adb")]
             AdbBackend::Builtin => Self::devices_builtin(),
             AdbBackend::System => Self::devices_system(),
         }
@@ -212,6 +222,7 @@ impl ACommand {
     /// ```
     pub fn version(self) -> Result<String, String> {
         match self.0.backend {
+            #[cfg(feature = "builtin-adb")]
             AdbBackend::Builtin => Self::version_builtin(),
             AdbBackend::System => Self::version_system(),
         }
@@ -220,6 +231,7 @@ impl ACommand {
     // ========== Builtin backend implementation (adb_client) ==========
 
     /// Get ADB server version using the builtin `adb_client`
+    #[cfg(feature = "builtin-adb")]
     fn version_builtin() -> Result<String, String> {
         let mut server = ADBServer::default();
         match server.version() {
@@ -232,6 +244,7 @@ impl ACommand {
     }
 
     /// List devices using the builtin `adb_client`
+    #[cfg(feature = "builtin-adb")]
     fn devices_builtin() -> Result<Vec<(String, String)>, String> {
         let mut server = ADBServer::default();
         server
@@ -249,6 +262,7 @@ impl ACommand {
     }
 
     /// Execute a shell command via `adb_client` (builtin backend)
+    #[cfg(feature = "builtin-adb")]
     fn run_shell_command_builtin(&self, shell_command: &str) -> Result<String, String> {
         let mut server = ADBServer::default();
 
@@ -368,6 +382,7 @@ impl ACommand {
     /// Execute a shell command using the configured backend
     fn run_shell_command(&self, shell_command: &str) -> Result<String, String> {
         match self.0.backend {
+            #[cfg(feature = "builtin-adb")]
             AdbBackend::Builtin => self.run_shell_command_builtin(shell_command),
             AdbBackend::System => self.run_shell_command_system(shell_command),
         }
@@ -610,6 +625,7 @@ mod tests {
 
     #[test]
     fn backend_display() {
+        #[cfg(feature = "builtin-adb")]
         assert_eq!(AdbBackend::Builtin.to_string(), "Builtin");
         assert_eq!(AdbBackend::System.to_string(), "System (adb)");
     }

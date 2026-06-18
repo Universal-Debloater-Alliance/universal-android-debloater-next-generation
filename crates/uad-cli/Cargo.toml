@@ -14,8 +14,12 @@ edition.workspace = true
 name = "uad"
 path = "src/main.rs"
 
+[features]
+default = ["builtin-adb"]
+builtin-adb = ["uad-core/builtin-adb"]
+
 [dependencies]
-uad-core = { path = "../uad-core" }
+uad-core = { path = "../uad-core", default-features = false }
 clap.workspace = true
 clap_complete = "4.4"
 tokio.workspace = true
