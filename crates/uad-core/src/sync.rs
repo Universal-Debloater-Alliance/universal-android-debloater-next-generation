@@ -206,6 +206,22 @@ pub fn apply_pkg_state_commands(
 /// which act on a common `package` and `user`.
 #[must_use]
 pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
+    // Defense-in-depth: `package` is interpolated verbatim into a device-shell
+    // action, so refuse any name carrying a character that can't appear in a valid
+    // Android application-ID (`[A-Za-z0-9_.]`). Every current caller already
+    // reconciles the name against the live device package list before reaching
+    // here, so this rejects nothing legitimate — it just keeps the no-injection
+    // guarantee local to the sink instead of relying on each caller to sanitise.
+    // Fail closed: emit no command for a malformed name rather than an injectable
+    // device-shell string.
+    if package.is_empty()
+        || !package
+            .bytes()
+            .all(|b| b.is_ascii_alphanumeric() || b == b'.' || b == b'_')
+    {
+        error!("request_builder: refusing package name with invalid characters: {package:?}");
+        return Vec::new();
+    }
     let maybe_user_flag = user_flag(user);
     commands
         .iter()
