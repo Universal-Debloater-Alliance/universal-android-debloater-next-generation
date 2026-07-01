@@ -268,9 +268,9 @@ pub fn truncate_description(desc: &str, max_len: usize) -> String {
 
 /// Check if package matches search term (checks name and description).
 ///
-/// Matching is smart-case: case-insensitive when the search term is all
-/// lowercase, case-sensitive as soon as the term contains any uppercase
-/// character.
+/// Matching is smart-case: case-insensitive when the search term contains no
+/// uppercase characters, case-sensitive as soon as the term contains any
+/// uppercase character.
 #[must_use]
 pub fn matches_search(pkg_name: &str, search_term: &str, pkg_description: Option<&str>) -> bool {
     if smart_case_contains(pkg_name, search_term) {
