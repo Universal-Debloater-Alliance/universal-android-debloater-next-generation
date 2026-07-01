@@ -38,7 +38,7 @@
 //! For comprehensive info about ADB,
 //! [see this](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/master/docs/)
 
-use serde::{Deserialize, Serialize};
+use std::rc::Rc;
 
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
@@ -275,14 +275,17 @@ pub const fn is_pkg_component(s: &[u8]) -> bool {
 
 /// String with the invariant of being a valid package-name.
 /// See [`PackageId::new`] for validation details.
-#[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq, Hash)]
-pub struct PackageId(Box<str>);
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct PackageId(Rc<str>);
 impl PackageId {
-    /// Creates a package-ID if it's valid according to:
+    /// Creates a package-ID if it's `"android"` or valid according to:
     /// - <https://developer.android.com/guide/topics/manifest/manifest-element.html#package>
     /// - <https://developer.android.com/build/configure-app-module#set-application-id>
     #[must_use]
-    pub fn new(p_id: Box<str>) -> Option<Self> {
+    pub fn new(p_id: &str) -> Option<Self> {
+        if p_id == "android" {
+            return Some(Self(p_id.into()));
+        }
         let mut components = p_id.split('.');
         for _ in 0..2 {
             if !components
@@ -293,7 +296,7 @@ impl PackageId {
             }
         }
         if components.all(|comp| is_pkg_component(comp.as_bytes())) {
-            Some(Self(p_id))
+            Some(Self(p_id.into()))
         } else {
             None
         }
@@ -337,11 +340,11 @@ pub const PM_CLEAR_PACK: &str = "pm clear";
 #[must_use]
 pub struct PmCommand(ShellCommand);
 impl PmCommand {
-    /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped.
+    /// `list packages -s` sub-command, [`PACK_PREFIX`] stripped from each element.
     ///
     /// `Ok` variant:
-    /// - isn't guaranteed to contain valid pack-IDs,
-    ///   as "android" can be printed but it's invalid
+    /// - isn't 100% guaranteed to contain valid pack-IDs
+    ///   but you can assume it does (except in `unsafe {}` blocks)
     /// - isn't sorted
     /// - duplicates never _seem_ to happen, but don't assume uniqueness
     pub fn list_packages_sys(
@@ -366,7 +369,7 @@ impl PmCommand {
                 .map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    debug_assert!(PackageId::new(p.into()).is_some() || p == "android");
+                    debug_assert!(PackageId::new(p).is_some());
                     String::from(p)
                 })
                 .collect()
@@ -473,7 +476,7 @@ mod tests {
             "the.🎂.is.a.lie",
             "EXCLAMATION!!!!",
         ] {
-            assert_eq!(PackageId::new(p_id.into()), None);
+            assert_eq!(PackageId::new(p_id), None);
         }
     }
 
@@ -490,7 +493,7 @@ mod tests {
             "com.github.w1nst0n",
             "this_.String_.is_.not_.real_",
         ] {
-            assert_ne!(PackageId::new(p_id.into()), None);
+            assert_ne!(PackageId::new(p_id), None);
         }
     }
 }
