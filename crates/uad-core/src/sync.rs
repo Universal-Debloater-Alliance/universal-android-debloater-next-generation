@@ -1,5 +1,5 @@
 use crate::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK},
+    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, PackageId},
     uad_lists::PackageState,
 };
 use log::{error, info};
@@ -207,19 +207,14 @@ pub fn apply_pkg_state_commands(
 #[must_use]
 pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> Vec<String> {
     // Defense-in-depth: `package` is interpolated verbatim into a device-shell
-    // action, so refuse any name carrying a character that can't appear in a valid
-    // Android application-ID (`[A-Za-z0-9_.]`). Every current caller already
+    // action, so refuse any invalid name/ID. Every current caller already
     // reconciles the name against the live device package list before reaching
     // here, so this rejects nothing legitimate — it just keeps the no-injection
     // guarantee local to the sink instead of relying on each caller to sanitise.
     // Fail closed: emit no command for a malformed name rather than an injectable
     // device-shell string.
-    if package.is_empty()
-        || !package
-            .bytes()
-            .all(|b| b.is_ascii_alphanumeric() || b == b'.' || b == b'_')
-    {
-        error!("request_builder: refusing package name with invalid characters: {package:?}");
+    if PackageId::new(package).is_some() {
+        error!("request_builder: refusing invalid package name: {package:?}");
         return Vec::new();
     }
     let maybe_user_flag = user_flag(user);
@@ -300,7 +295,7 @@ pub fn capture_cross_user_states(
 /// Detect cross-user behavior and return appropriate notification message.
 /// This handles unexpected cross-user behavior:
 /// - Case A: Uninstall → Restore (package appears on other users)
-/// - Case B: Uninstall → Uninstall (package disappears from other users that previously had it)  
+/// - Case B: Uninstall → Uninstall (package disappears from other users that previously had it)
 /// - Case C: Restore → Restore (package appears on other users)
 #[must_use]
 pub fn detect_cross_user_behavior(
