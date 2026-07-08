@@ -213,7 +213,7 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
     // guarantee local to the sink instead of relying on each caller to sanitise.
     // Fail closed: emit no command for a malformed name rather than an injectable
     // device-shell string.
-    if PackageId::new(package).is_some() {
+    if PackageId::new(package).is_none() {
         error!("request_builder: refusing invalid package name: {package:?}");
         return Vec::new();
     }
