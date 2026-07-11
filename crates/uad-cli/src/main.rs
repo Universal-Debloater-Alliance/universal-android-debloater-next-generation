@@ -9,6 +9,7 @@
 
 use clap::{Parser, Subcommand};
 use clap_complete::Shell;
+use std::process::ExitCode;
 use uad_core::uad_lists::PackageState;
 
 mod commands;
@@ -156,7 +157,17 @@ enum Commands {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn main() -> ExitCode {
+    match run() {
+        Ok(()) => ExitCode::SUCCESS,
+        Err(err) => {
+            eprintln!("Error: {err}");
+            ExitCode::FAILURE
+        }
+    }
+}
+
+fn run() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
     match cli.command {
