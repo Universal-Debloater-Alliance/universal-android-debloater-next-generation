@@ -3,10 +3,8 @@ use crate::theme::Theme;
 use crate::{gui::UpdateState, style, widgets::text};
 use iced::widget::{Space, column, container, row};
 use iced::{Alignment, Element, Length, Renderer};
-use log::error;
 use std::path::PathBuf;
 use uad_core::CACHE_DIR;
-use uad_core::adb;
 use uad_core::uad_lists::LIST_FNAME;
 use uad_core::utils::{FULL_NAME, NAME, last_modified_date, open_url};
 
@@ -95,38 +93,10 @@ impl About {
             .spacing(10)
             .width(550);
 
-        /*
-        There's no need to fetch this info every time the view is updated,
-        we could cache it in a `static` `LazyLock`.
-
-        But what if the system updates ADB while the app is running?
-        the numbers will be out of sync!
-
-        However, the server will still be the "old" version
-        until it's killed
-        */
-        let adb_version_text = text(match adb::ACommand::new().version() {
-            Ok(s) => s
-                .lines()
-                .nth(0)
-                .unwrap_or_else(|| unreachable!())
-                // This allocation is good.
-                // If it was a ref, the app would hold the entire string
-                // instead of the relevant slice.
-                .to_string(),
-            Err(e) => {
-                error!("{e}");
-                "Couldn't fetch ADB version. Is it installed?".into()
-                // satisfy `match` by inferring the type of the `Ok` arm
-            }
-        })
-        .width(250);
-        let adb_version_row = row![adb_version_text].align_y(Alignment::Center).width(550);
-
         #[cfg(feature = "self-update")]
-        let update_column = column![uad_list_row, self_update_row, adb_version_row];
+        let update_column = column![uad_list_row, self_update_row];
         #[cfg(not(feature = "self-update"))]
-        let update_column = column![uad_list_row, adb_version_row];
+        let update_column = column![uad_list_row];
 
         let update_column = update_column.align_x(Alignment::Center).spacing(10);
 

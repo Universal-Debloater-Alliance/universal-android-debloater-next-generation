@@ -1,5 +1,5 @@
 use crate::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, PackageId},
+    adb::{ACommand as AdbCommand, AdbBackend, PM_CLEAR_PACK, PackageId},
     uad_lists::PackageState,
 };
 use log::{error, info};
@@ -61,13 +61,25 @@ pub enum AdbError {
 /// This replaces the deprecated `adb_shell_command`.
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
+/// Uses the default ADB backend.
 pub fn run_adb_shell_action<S: AsRef<str>>(
     device_serial: S,
     action: &str,
 ) -> Result<String, AdbError> {
+    run_adb_shell_action_with_backend(device_serial, action, AdbBackend::default())
+}
+
+/// Run an arbitrary shell action via the typed ADB wrapper with a specific backend.
+///
+/// If `serial` is empty, it lets ADB choose the default device.
+pub fn run_adb_shell_action_with_backend<S: AsRef<str>>(
+    device_serial: S,
+    action: &str,
+    backend: AdbBackend,
+) -> Result<String, AdbError> {
     let serial = device_serial.as_ref();
 
-    match AdbCommand::new().shell(serial).raw(action) {
+    match AdbCommand::with_backend(backend).shell(serial).raw(action) {
         Ok(o) => {
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
                 let friendly_msg = make_friendly_error_message(&o, action);
@@ -213,7 +225,7 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
     // guarantee local to the sink instead of relying on each caller to sanitise.
     // Fail closed: emit no command for a malformed name rather than an injectable
     // device-shell string.
-    if PackageId::new(package).is_some() {
+    if PackageId::new(package).is_none() {
         error!("request_builder: refusing invalid package name: {package:?}");
         return Vec::new();
     }
@@ -224,23 +236,48 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
         .collect()
 }
 
+#[must_use]
+fn sanitize_device_prop(raw: &str) -> String {
+    raw.chars()
+        .filter(|c| !c.is_control())
+        .collect::<String>()
+        .trim()
+        .to_string()
+}
+
+#[must_use]
+fn parse_sdk_version(raw: &str) -> Option<u8> {
+    let sanitized = sanitize_device_prop(raw);
+    let digits: String = sanitized
+        .chars()
+        .skip_while(|c| !c.is_ascii_digit())
+        .take_while(char::is_ascii_digit)
+        .collect();
+
+    if digits.is_empty() {
+        None
+    } else {
+        digits.parse().ok()
+    }
+}
+
 /// Get the model by querying the `ro.product.model` property.
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 #[must_use]
 pub fn get_device_model(serial: &str) -> String {
-    AdbCommand::new()
-        .shell(serial)
-        .getprop("ro.product.model")
-        .unwrap_or_else(|err| {
+    match AdbCommand::new().shell(serial).getprop("ro.product.model") {
+        Ok(model) => sanitize_device_prop(&model),
+        Err(err) => {
             eprintln!("ERROR: {err}");
             error!("{err}");
             if err.contains("adb: no devices/emulators found") {
                 "no devices/emulators found".to_string()
             } else {
-                err
+                sanitize_device_prop(&err)
             }
-        })
+        }
+    }
 }
 
 /// Get the brand by querying the `ro.product.brand` property.
@@ -251,8 +288,7 @@ pub fn get_device_brand(serial: &str) -> String {
     AdbCommand::new()
         .shell(serial)
         .getprop("ro.product.brand")
-        // `trim` is just-in-case
-        .map(|s| s.trim().to_string())
+        .map(|s| sanitize_device_prop(&s))
         .unwrap_or_default()
 }
 
@@ -266,7 +302,14 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
         .shell(device_serial)
         .getprop("ro.build.version.sdk")
         .map_or(0, |sdk| {
-            sdk.parse().expect("SDK version numeral must be valid")
+            if let Some(v) = parse_sdk_version(&sdk) {
+                v
+            } else {
+                error!(
+                    "Invalid SDK version {sdk:?} for device '{device_serial}'. Falling back to 0"
+                );
+                0
+            }
         })
 }
 
@@ -452,31 +495,39 @@ pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
         .unwrap_or_default()
 }
 
-/// This matches serials (`getprop ro.serialno`)
-/// that are authorized by the user.
+/// Get list of connected devices using a specific ADB backend.
 #[must_use]
-pub fn get_devices_list() -> Vec<Phone> {
+pub fn get_devices_list(backend: AdbBackend) -> Vec<Phone> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 10 }),
-        || match AdbCommand::new().devices() {
+        || match AdbCommand::with_backend(backend).devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Phone> = vec![];
                 if devices.iter().all(|(_, stat)| stat != "device") {
                     return OperationResult::Retry(vec![]);
                 }
-                for device in devices {
-                    let serial = &device.0;
+                for (serial, status) in devices {
+                    if status != "device" {
+                        continue;
+                    }
                     device_list.push(Phone {
-                        model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
-                        android_sdk: get_android_sdk(serial),
-                        user_list: list_users_idx_prot(serial),
-                        adb_id: serial.clone(),
+                        model: format!(
+                            "{} {}",
+                            get_device_brand(&serial),
+                            get_device_model(&serial)
+                        ),
+                        android_sdk: get_android_sdk(&serial),
+                        user_list: list_users_idx_prot(&serial),
+                        adb_id: serial,
                     });
+                }
+                if device_list.is_empty() {
+                    return OperationResult::Retry(vec![]);
                 }
                 OperationResult::Ok(device_list)
             }
             Err(err) => {
-                error!("get_devices_list() -> {err}");
+                error!("get_devices_list(backend) -> {err}");
                 let test: Vec<Phone> = vec![];
                 OperationResult::Retry(test)
             }
@@ -486,8 +537,8 @@ pub fn get_devices_list() -> Vec<Phone> {
 }
 
 #[must_use]
-pub fn initial_load() -> bool {
-    match AdbCommand::new().devices() {
+pub fn initial_load(backend: AdbBackend) -> bool {
+    match AdbCommand::with_backend(backend).devices() {
         Ok(_devices) => true,
         Err(_err) => false,
     }
