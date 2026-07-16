@@ -44,7 +44,7 @@ use std::rc::Rc;
 use std::os::windows::process::CommandExt;
 
 use crate::utils::is_all_w_c;
-use log::{error, info};
+use log::{error, info, warn};
 
 /// Convert ADB output bytes to a trimmed UTF-8 string.
 /// Uses lossy conversion to prevent panics on non-UTF8 output from certain OEMs.
@@ -366,11 +366,15 @@ impl PmCommand {
         self.0.0.run().map(|pack_ls| {
             pack_ls
                 .lines()
-                .map(|p_ln| {
+                .filter_map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    debug_assert!(PackageId::new(p).is_some());
-                    String::from(p)
+                    if PackageId::new(p).is_some() {
+                        Some(String::from(p))
+                    } else {
+                        warn!("skipping nonstandard package name: {p:?}");
+                        None
+                    }
                 })
                 .collect()
         })
