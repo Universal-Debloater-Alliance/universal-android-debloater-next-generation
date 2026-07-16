@@ -43134,7 +43134,7 @@
   },
   "com.blackview.systemmanager": {
     "list": "Oem",
-    "description": "'System Manager'\nA pre-installed 'task killer', which ironically slows down the system. It also has internet and install apps permisions by default, making it a potential backdoor.\nAlthough 'systemmanager' might sound scary, disabling it will significantly reduce scroll stuttering. Try disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "description": "'System Manager'\nA pre-installed 'task killer', which ironically slows down the system. It also has internet and install apps permisions by default, making it a potential backdoor.\nAlthough 'systemmanager' might sound important, disabling it will significantly reduce scroll stuttering. Try disabling instead of uninstalling in case that breaks the App info Settings page.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
