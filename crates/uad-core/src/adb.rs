@@ -372,7 +372,7 @@ impl PmCommand {
                     if PackageId::new(p).is_some() {
                         Some(String::from(p))
                     } else {
-                        warn!("list_packages_sys: skipping nonstandard package name: {p:?}");
+                        warn!("skipping nonstandard package name: {p:?}");
                         None
                     }
                 })
