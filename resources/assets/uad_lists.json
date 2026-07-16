@@ -43139,5 +43139,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.blackview.apkupgrade": {
+    "list": "Oem",
+    "description": "System Message\nSends unwanted promotional notifications.\nhttps://www.reddit.com/r/blackview/comments/1mo441x/get_rid_of_system_notification_that_contains_ads/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
