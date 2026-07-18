@@ -43171,5 +43171,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Advanced"
+  },
+  "com.softwinner.dragonatt": {
+    "list": "Oem",
+    "description": "DragonAtt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
