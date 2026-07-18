@@ -43142,11 +43142,11 @@
   },
   "com.blackview.apkupgrade": {
     "list": "Oem",
-    "description": "System Message\nAdware, sends unwanted promotional notifications.\nhttps://www.reddit.com/r/blackview/comments/1mo441x/get_rid_of_system_notification_that_contains_ads/",
+    "description": "System Message\nAdware, sends unwanted promotional notifications.\nTry disabling instead of uninstalling in case that breaks the App info Settings page.\nhttps://www.reddit.com/r/blackview/comments/1mo441x/get_rid_of_system_notification_that_contains_ads/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.huawei.localBackup": {
     "list": "Oem",
@@ -43163,5 +43163,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.blackview.helper": {
+    "list": "Oem",
+    "description": "DKHelper\nTry disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
