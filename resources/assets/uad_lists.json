@@ -43147,5 +43147,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.huawei.localBackup": {
+    "list": "Oem",
+    "description": "Backup\nA hidden app, which has storage, location, contacts, sms, call logs and calendar permissions. Can be uninstalled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
