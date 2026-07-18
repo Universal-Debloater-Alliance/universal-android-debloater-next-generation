@@ -43150,7 +43150,15 @@
   },
   "com.huawei.localBackup": {
     "list": "Oem",
-    "description": "Backup\nA hidden app, which has storage, location, contacts, sms, call logs and calendar permissions. Can be uninstalled via Settings.",
+    "description": "Backup\nA hidden app, which has storage, location, contacts, SMS, call logs and calendar permissions. Can be uninstalled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.aml": {
+    "list": "Oem",
+    "description": "Huawei AML\nA hidden app, which has phone, location and SMS permissions.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
