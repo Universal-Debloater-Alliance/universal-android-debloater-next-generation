@@ -41220,7 +41220,7 @@
   },
   "com.blackview.filetrans": {
     "list": "Oem",
-    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi.",
+    "description": "Moving Assistant/Data Migration Assistant\nApp used to transfer data from one device to another.\nWARNING: Uninstalling it breaks the App info Settings page on Android 15, Blackview Tab 60 WiFi.\nTry disabling instead of uninstalling in case that happens.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43131,5 +43131,53 @@
     "neededBy": [],
     "labels": [],
     "removal": "Expert"
+  },
+  "com.blackview.systemmanager": {
+    "list": "Oem",
+    "description": "'System Manager'\nA pre-installed 'task killer', which ironically slows down the system. It also has internet and install apps permisions by default, making it a potential backdoor.\nAlthough 'systemmanager' might sound important, disabling it will significantly reduce scroll stuttering. Try disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.blackview.apkupgrade": {
+    "list": "Oem",
+    "description": "System Message\nAdware, sends unwanted promotional notifications.\nTry disabling instead of uninstalling in case that breaks the App info Settings page.\nhttps://www.reddit.com/r/blackview/comments/1mo441x/get_rid_of_system_notification_that_contains_ads/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.huawei.localBackup": {
+    "list": "Oem",
+    "description": "Backup\nA hidden app, which has storage, location, contacts, SMS, call logs and calendar permissions. Can be uninstalled via Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.huawei.aml": {
+    "list": "Oem",
+    "description": "Huawei AML\nA hidden app, which has phone, location and SMS permissions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.blackview.helper": {
+    "list": "Oem",
+    "description": "DKHelper\nTry disabling instead of uninstalling in case that breaks the App info Settings page.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.softwinner.dragonatt": {
+    "list": "Oem",
+    "description": "DragonAtt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
