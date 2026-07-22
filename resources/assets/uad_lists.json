@@ -39740,6 +39740,30 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.motorola.sarcontrol": {
+    "list": "Oem",
+    "description": "This package is used to control radio frequency and specific absorption rate in this device NOT SAFE TO REMOVE",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.motorola.account": {
+    "list": "Oem",
+    "description": "this is a unecessary package and generally safe to remove it is related to motorola account services",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.smartfeed": {
+    "list": "Oem",
+    "description": "this is a unecessary package and generally safe to remove it is related to newsfeed in the app launcher only available in android 16 Hello UI",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "com.motorola.android.coresettingsext.overlay.avatrn": {
     "list": "Oem",
     "description": "This package is part of Motorola's custom overlay for system settings, specifically tailored for the Motorola Edge 2024 (codename 'avatrn').",
