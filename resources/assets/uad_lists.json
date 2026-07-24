@@ -23,6 +23,14 @@
     "labels": [],
     "removal": "Unsafe"
   },
+  "com.google.android.wearable.pixel.aspen": {
+    "list": "Oem",
+    "description": "Fitbit's Connected Fitness feature for the Pixel Watch. Can be safely removed if you don't need/use it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
   "org.lineageos.recorder": {
     "list": "Oem",
     "description": "LineageOS Voice Recorder App.\nSafe to remove if you don't need it or have replaced it with another app.",
