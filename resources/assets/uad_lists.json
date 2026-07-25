@@ -367,6 +367,14 @@
     "labels": [],
     "removal": "Advanced"
   },
+  "com.xiaomi.aiservice": {
+    "list": "Oem",
+    "description": "Xiaomi on-device AI inference engine (HyperOS/MIUI). Runs many ML models (OCR, translation, etc.) in isolated per-model processes. \nEmbeds Xiaomi's OneTrack SDK, which collects OAID, android_id, device fingerprint, region, network type, and per-event usage data, then uploads it encrypted to tracking.*.miui.com. \nAlso embeds XCrash for crash reporting. Downloads AI model updates silently via Android DownloadManager (probably has to do with AI Core). \nRemoving probably breaks HyperOS AI features (I haven't tested) but does not affect core phone, SMS, or data functions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
   "com.xiaomi.phone.overlay": {
     "list": "Oem",
     "description": "An overlay needed for com.xiaomi.phone. Safe to remove if com.xiaomi.phone has been removed.",
