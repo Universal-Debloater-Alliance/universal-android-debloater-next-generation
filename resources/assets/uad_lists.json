@@ -29,7 +29,7 @@
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "org.lineageos.recorder": {
     "list": "Oem",
