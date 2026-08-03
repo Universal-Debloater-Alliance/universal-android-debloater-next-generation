@@ -43195,5 +43195,54 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
+  },
+      },
+    "com.samsung.android.simagent": {
+      "list": "Samsung",
+      "description": "Handles SIM card state changes, carrier entitlement services, and cross-device continuity (MCFDS). Safe to remove if not using Samsung ecosystem sync.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Advanced"
+    },
+    "com.google.android.verifier": {
+      "list": "Google",
+      "description": "Google Play Protect verification service (Package Verifier). Scans sideloaded APKs for malware and verifies app signatures during installation. Removing it disables background app verification and APK security checks, but will not cause a bootloop.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Expert"
+    },
+    "com.android.virtualdevicemanager.auto_generated_characteristics_rro": {
+      "list": "Unsafe",
+      "description": "Runtime Resource Overlay (RRO) package created for Virtual Device Manager. Defines device-specific characteristics and configuration overlays for virtual displays, screen streaming, and cross-device features (such as Android Auto or PC handoff). Contains no executable code (hasCode=false). Removing it may cause bootloops or break screen mirroring and virtual display functionality.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Unsafe"
+    },
+    "com.android.virtualdevicemanager": {
+      "list": "Aosp",
+      "description": "Manages the Android Virtual Device Framework (VDF). Required for streaming apps/screens to PCs or Chromebooks, virtual secondary displays, and remote access features.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Advanced"
+    },
+    "com.samsung.android.vexfwk.service": {
+      "list": "Advanced",
+      "description": "Core execution framework (VexFwk) for Samsung Galaxy AI services. Handles background processes for Live Translate, Generative Photo Editing, AI Text Summarization, Tone Adjustment, and Smart Replies. Safe to remove if you don't use Galaxy AI features; otherwise breaks system-wide AI text/image processing and advanced camera document scanning.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Conditional"
+    },
+    "com.google.android.overlay.modules.mediaprovider": {
+      "list": "Google",
+      "description": "Static Runtime Resource Overlay (RRO) for Google MediaProvider. Contains no executable code (hasCode=false). Provides static system configurations for Android's MediaProvider module and native Photo Picker UI. Removing or disabling this overlay is not recommended as it may break gallery file access, media permission dialogs, or system file picker functionality across apps.",
+      "dependencies": [],
+      "neededBy": [],
+      "labels": [],
+      "removal": "Unsafe"
+    }
 }
