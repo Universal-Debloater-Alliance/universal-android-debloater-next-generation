@@ -42228,11 +42228,11 @@
   },
   "com.android.networkstack.tethering.inprocess": {
     "list": "Oem",
-    "description": "Completely empty package. Useless.",
+    "description": "Causes a lockscreen loop on some Xiaomi devices. Provides TetherableWifiRegexs, the lack of which crashes systemui and miui.home.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Unsafe"
   },
   "com.samsung.android.a20.d01.wallpapermulti": {
     "list": "Oem",
