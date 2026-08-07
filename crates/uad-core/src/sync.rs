@@ -180,16 +180,19 @@ pub fn apply_pkg_state_commands(
             _ => vec![],
         },
         PackageState::Disabled => match package.state {
-            PackageState::Uninstalled | PackageState::Enabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK],
-                _ => vec![],
-            },
+            PackageState::Uninstalled | PackageState::Enabled => {
+                if supports_disabling(phone) {
+                    vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK]
+                } else {
+                    vec![]
+                }
+            }
             _ => vec![],
         },
         PackageState::Uninstalled => match package.state {
             PackageState::Enabled | PackageState::Disabled => match phone.android_sdk {
-                sdk if sdk >= 23 => vec!["pm uninstall"], // > Android Marshmallow (6.0)
-                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Android Lollipop (5.x)
+                sdk if sdk >= 23 => vec!["pm uninstall"], // > Marshmallow (6.0)
+                21 | 22 => vec!["pm hide", PM_CLEAR_PACK], // Lollipop (5.x)
                 _ => vec!["pm block", PM_CLEAR_PACK], // Disable mode is unavailable on older devices because the specific ADB commands need root
             },
             _ => vec![],
@@ -401,10 +404,11 @@ pub fn detect_cross_user_behavior(
     }
 }
 
-/// Minimum inclusive Android SDK version
-/// that supports multi-user mode.
-/// Lollipop 5.0
-pub const MULTI_USER_SDK: u8 = 21;
+#[must_use]
+pub const fn supports_disabling(dev: &Phone) -> bool {
+    // >= Marshmallow (6.0)
+    dev.android_sdk >= 23
+}
 
 /// Check if it might support multi-user mode,
 /// by simply comparing SDK version.
@@ -415,7 +419,8 @@ pub const MULTI_USER_SDK: u8 = 21;
 /// - <https://developer.android.com/reference/android/os/UserManager#supportsMultipleUsers()>
 #[must_use]
 pub const fn supports_multi_user(dev: &Phone) -> bool {
-    dev.android_sdk >= MULTI_USER_SDK
+    // >= Lollipop (5.0)
+    dev.android_sdk >= 21
 }
 
 /// Check if a `user_id` is protected on a device by trying

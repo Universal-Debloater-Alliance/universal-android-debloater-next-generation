@@ -19,7 +19,7 @@ use uad_core::{
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
-        supports_multi_user,
+        supports_disabling, supports_multi_user,
     },
     utils::{DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_url},
 };
@@ -113,7 +113,7 @@ impl Settings {
     }
 
     fn handle_disable_mode(&mut self, phone: &Phone, toggled: bool) -> Task<Message> {
-        if phone.android_sdk >= 23 {
+        if supports_disabling(phone) {
             self.device.disable_mode = toggled;
             debug!("Config change: {self:?}");
             let mut config = Config::load_configuration_file();
@@ -170,8 +170,9 @@ impl Settings {
             None => {
                 self.device = DeviceSettings {
                     device_id: phone.adb_id.clone(),
+                    // see FAQ, and GH-issue #1426
+                    disable_mode: supports_disabling(phone),
                     multi_user_mode: supports_multi_user(phone),
-                    disable_mode: false,
                     backup,
                 };
             }
@@ -498,14 +499,14 @@ impl Settings {
             .size(20)
             .style(style::CheckBox::SettingsEnabled);
 
-        let disable_checkbox_style = if phone.android_sdk >= 23 {
+        let disable_checkbox_style = if supports_disabling(phone) {
             style::CheckBox::SettingsEnabled
         } else {
             style::CheckBox::SettingsDisabled
         };
 
         let disable_mode_descr =
-            text("In some cases, it can be better to disable a package instead of uninstalling it")
+            text("In many cases, it's better to disable a package instead of uninstalling it")
                 .style(style::Text::Commentary);
 
         let unavailable_btn = button(text("Unavailable").size(14))
@@ -522,7 +523,7 @@ impl Settings {
             .size(20)
             .style(disable_checkbox_style);
 
-        let disable_setting_row = if phone.android_sdk >= 23 {
+        let disable_setting_row = if supports_disabling(phone) {
             row![
                 disable_mode_checkbox,
                 Space::new().width(Length::Fill).height(Length::Shrink),
