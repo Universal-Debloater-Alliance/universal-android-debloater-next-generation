@@ -37,7 +37,7 @@ pub struct BackupSettings {
 pub struct DeviceSettings {
     /// Unique serial identifier
     pub device_id: String,
-    pub disable_mode: bool,
+    pub disable_mode: bool, // should be `enum RemovalMode`
     pub multi_user_mode: bool,
     #[serde(skip)]
     pub backup: BackupSettings,
