@@ -1,5 +1,5 @@
 use crate::{
-    adb::{ACommand as AdbCommand, AdbBackend, PM_CLEAR_PACK, PackageId},
+    adb::{ACommand as AdbCommand, AdbBackend, AdbDeviceStatus, PM_CLEAR_PACK, PackageId},
     uad_lists::PackageState,
 };
 use log::{error, info};
@@ -37,6 +37,96 @@ impl std::fmt::Display for Phone {
     }
 }
 
+/// Why device discovery found no ready devices.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum DeviceDiscoveryIssue {
+    Busy,
+    Unauthorized,
+    NoPermissions,
+    Offline,
+    Backend(String),
+}
+
+impl DeviceDiscoveryIssue {
+    #[must_use]
+    pub const fn is_terminal_for(&self, backend: AdbBackend) -> bool {
+        if matches!(self, Self::Busy | Self::NoPermissions) {
+            return true;
+        }
+        #[cfg(feature = "builtin-adb")]
+        return matches!((self, backend), (Self::Backend(_), AdbBackend::Builtin));
+        #[cfg(not(feature = "builtin-adb"))]
+        {
+            let _ = backend;
+            false
+        }
+    }
+}
+
+impl std::fmt::Display for DeviceDiscoveryIssue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::Busy => write!(
+                f,
+                "The system ADB server is using the USB device. Stop it and retry."
+            ),
+            Self::Unauthorized => write!(
+                f,
+                "USB debugging authorization is pending. Accept the prompt on the device."
+            ),
+            Self::NoPermissions => write!(
+                f,
+                "USB access was denied. Check the host's USB permissions or udev rules."
+            ),
+            Self::Offline => write!(f, "The device is offline. Reconnect it and retry."),
+            Self::Backend(err) => write!(f, "ADB device discovery failed: {err}"),
+        }
+    }
+}
+
+/// Ready devices plus the reason no device was ready.
+#[derive(Debug, Clone, Default, PartialEq, Eq)]
+pub struct DeviceDiscovery {
+    pub devices: Vec<Phone>,
+    pub issue: Option<DeviceDiscoveryIssue>,
+}
+
+/// Classify statuses returned by `adb devices`.
+#[must_use]
+pub fn classify_device_issue(
+    devices: &[(String, AdbDeviceStatus)],
+) -> Option<DeviceDiscoveryIssue> {
+    let mut statuses = devices.iter().map(|(_, status)| status);
+    if statuses
+        .clone()
+        .any(|status| matches!(status, AdbDeviceStatus::Busy))
+    {
+        Some(DeviceDiscoveryIssue::Busy)
+    } else if statuses
+        .clone()
+        .any(|status| matches!(status, AdbDeviceStatus::Unauthorized))
+    {
+        Some(DeviceDiscoveryIssue::Unauthorized)
+    } else if statuses
+        .clone()
+        .any(|status| matches!(status, AdbDeviceStatus::NoPermissions))
+    {
+        Some(DeviceDiscoveryIssue::NoPermissions)
+    } else if statuses
+        .clone()
+        .any(|status| matches!(status, AdbDeviceStatus::Offline))
+    {
+        Some(DeviceDiscoveryIssue::Offline)
+    } else {
+        statuses
+            .find_map(|status| match status {
+                AdbDeviceStatus::BackendError(error) => Some(error.clone()),
+                _ => None,
+            })
+            .map(DeviceDiscoveryIssue::Backend)
+    }
+}
+
 /// `UserInfo` but relevant to UAD
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct User {
@@ -61,25 +151,14 @@ pub enum AdbError {
 /// This replaces the deprecated `adb_shell_command`.
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
-/// Uses the default ADB backend.
+/// Uses the process-wide selected ADB backend.
 pub fn run_adb_shell_action<S: AsRef<str>>(
     device_serial: S,
     action: &str,
 ) -> Result<String, AdbError> {
-    run_adb_shell_action_with_backend(device_serial, action, AdbBackend::default())
-}
-
-/// Run an arbitrary shell action via the typed ADB wrapper with a specific backend.
-///
-/// If `serial` is empty, it lets ADB choose the default device.
-pub fn run_adb_shell_action_with_backend<S: AsRef<str>>(
-    device_serial: S,
-    action: &str,
-    backend: AdbBackend,
-) -> Result<String, AdbError> {
     let serial = device_serial.as_ref();
 
-    match AdbCommand::with_backend(backend).shell(serial).raw(action) {
+    match AdbCommand::new().shell(serial).raw(action) {
         Ok(o) => {
             if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
                 let friendly_msg = make_friendly_error_message(&o, action);
@@ -500,19 +579,18 @@ pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
         .unwrap_or_default()
 }
 
-/// Get list of connected devices using a specific ADB backend.
+/// Discover connected devices using the selected ADB backend.
 #[must_use]
-pub fn get_devices_list(backend: AdbBackend) -> Vec<Phone> {
+pub fn discover_devices() -> DeviceDiscovery {
+    let backend = AdbBackend::current();
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 10 }),
-        || match AdbCommand::with_backend(backend).devices() {
+        || match AdbCommand::new().devices() {
             Ok(devices) => {
+                let issue = classify_device_issue(&devices);
                 let mut device_list: Vec<Phone> = vec![];
-                if devices.iter().all(|(_, stat)| stat != "device") {
-                    return OperationResult::Retry(vec![]);
-                }
                 for (serial, status) in devices {
-                    if status != "device" {
+                    if status != AdbDeviceStatus::Device {
                         continue;
                     }
                     device_list.push(Phone {
@@ -526,26 +604,56 @@ pub fn get_devices_list(backend: AdbBackend) -> Vec<Phone> {
                         adb_id: serial,
                     });
                 }
-                if device_list.is_empty() {
-                    return OperationResult::Retry(vec![]);
+
+                if !device_list.is_empty() {
+                    return OperationResult::Ok(DeviceDiscovery {
+                        devices: device_list,
+                        issue: None,
+                    });
                 }
-                OperationResult::Ok(device_list)
+
+                let discovery = DeviceDiscovery {
+                    devices: vec![],
+                    issue,
+                };
+                if discovery
+                    .issue
+                    .as_ref()
+                    .is_some_and(|current_issue| current_issue.is_terminal_for(backend))
+                {
+                    OperationResult::Ok(discovery)
+                } else {
+                    OperationResult::Retry(discovery)
+                }
             }
             Err(err) => {
-                error!("get_devices_list(backend) -> {err}");
-                let test: Vec<Phone> = vec![];
-                OperationResult::Retry(test)
+                error!("get_devices_list() -> {err}");
+                OperationResult::Retry(DeviceDiscovery {
+                    devices: vec![],
+                    issue: Some(DeviceDiscoveryIssue::Backend(err)),
+                })
             }
         },
     )
-    .unwrap_or_default()
+    .unwrap_or_else(|last_attempt| last_attempt.error)
+}
+
+/// Get ready connected devices using the selected ADB backend.
+#[must_use]
+pub fn get_devices_list() -> Vec<Phone> {
+    discover_devices().devices
 }
 
 #[must_use]
-pub fn initial_load(backend: AdbBackend) -> bool {
-    match AdbCommand::with_backend(backend).devices() {
-        Ok(_devices) => true,
-        Err(_err) => false,
+pub fn initial_load() -> bool {
+    match AdbCommand::new().devices() {
+        // A successful query means the selected backend is available. Device
+        // presence and authorization are handled by get_devices_list().
+        Ok(_) => true,
+        Err(err) => {
+            error!("initial_load() -> {err}");
+            false
+        }
     }
 }
 
@@ -710,5 +818,61 @@ pub fn attempt_fallback(
         _ => Err(format!(
             "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn statuses(values: &[AdbDeviceStatus]) -> Vec<(String, AdbDeviceStatus)> {
+        values
+            .iter()
+            .enumerate()
+            .map(|(index, status)| (format!("device-{index}"), status.clone()))
+            .collect()
+    }
+
+    #[test]
+    fn discovery_issue_classification_is_specific_and_prioritized() {
+        assert_eq!(
+            classify_device_issue(&statuses(&[
+                AdbDeviceStatus::Offline,
+                AdbDeviceStatus::Busy,
+                AdbDeviceStatus::Unauthorized,
+            ])),
+            Some(DeviceDiscoveryIssue::Busy)
+        );
+        assert_eq!(
+            classify_device_issue(&statuses(&[AdbDeviceStatus::NoPermissions])),
+            Some(DeviceDiscoveryIssue::NoPermissions)
+        );
+        assert_eq!(
+            classify_device_issue(&statuses(&[AdbDeviceStatus::BackendError(
+                "invalid key".to_string(),
+            )])),
+            Some(DeviceDiscoveryIssue::Backend("invalid key".to_string()))
+        );
+        assert_eq!(
+            classify_device_issue(&statuses(&[AdbDeviceStatus::Device])),
+            None
+        );
+    }
+
+    #[test]
+    fn terminal_discovery_issues_are_backend_aware() {
+        assert!(DeviceDiscoveryIssue::Busy.is_terminal_for(AdbBackend::System));
+        assert!(DeviceDiscoveryIssue::NoPermissions.is_terminal_for(AdbBackend::System));
+        assert!(!DeviceDiscoveryIssue::Unauthorized.is_terminal_for(AdbBackend::System));
+        assert!(!DeviceDiscoveryIssue::Offline.is_terminal_for(AdbBackend::System));
+        #[cfg(feature = "builtin-adb")]
+        {
+            assert!(!DeviceDiscoveryIssue::Unauthorized.is_terminal_for(AdbBackend::Builtin));
+            assert!(!DeviceDiscoveryIssue::Offline.is_terminal_for(AdbBackend::Builtin));
+            assert!(
+                DeviceDiscoveryIssue::Backend("invalid key".to_string())
+                    .is_terminal_for(AdbBackend::Builtin)
+            );
+        }
     }
 }

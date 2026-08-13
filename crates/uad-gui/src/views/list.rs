@@ -4,8 +4,11 @@ use crate::theme::Theme;
 use crate::widgets::navigation_menu::ICONS;
 use log::{error, info, warn};
 use std::path::PathBuf;
+use uad_core::adb::AdbBackend;
 use uad_core::config::DeviceSettings;
-use uad_core::sync::{AdbError, CorePackage, Phone, User, apply_pkg_state_commands};
+use uad_core::sync::{
+    AdbError, CorePackage, DeviceDiscoveryIssue, Phone, User, apply_pkg_state_commands,
+};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
@@ -68,6 +71,7 @@ pub struct List {
     export_modal: bool,
     current_package_index: usize,
     is_adb_satisfied: bool,
+    pub discovery_issue: Option<DeviceDiscoveryIssue>,
     copy_confirmation: bool,
     fallback_notifications: Vec<String>,
 }
@@ -102,6 +106,7 @@ pub enum Message {
     DescriptionEdit(text_editor::Action),
     CopyError(String),
     HideCopyConfirmation,
+    OpenAdbSettings,
 }
 
 pub struct SummaryEntry {
@@ -199,7 +204,7 @@ impl List {
             Message::GoToUrl(url) => Self::on_go_to_url(url),
             Message::ExportSelection => self.on_export_selection(),
             Message::SelectionExported(res) => self.on_selection_exported(res),
-            Message::Nothing => Task::none(),
+            Message::Nothing | Message::OpenAdbSettings => Task::none(),
             Message::DescriptionEdit(action) => self.on_description_edit(action),
             Message::CopyError(err) => self.on_copy_error(err),
             Message::HideCopyConfirmation => self.on_hide_copy_confirmation(),
@@ -240,10 +245,36 @@ impl List {
             ),
             LoadingState::FindingPhones => {
                 if self.is_adb_satisfied {
-                    waiting_view("Finding connected devices...", None, style::Text::Default)
+                    if let Some(issue) = &self.discovery_issue {
+                        let action = if matches!(issue, DeviceDiscoveryIssue::Busy) {
+                            Some(button("Open ADB settings").on_press(Message::OpenAdbSettings))
+                        } else {
+                            None
+                        };
+                        return waiting_view(&issue.to_string(), action, style::Text::Danger);
+                    }
+                    let waiting_message = match AdbBackend::current() {
+                        #[cfg(feature = "builtin-adb")]
+                        AdbBackend::Builtin => {
+                            "Waiting for a USB device and USB debugging authorization..."
+                        }
+                        AdbBackend::System => "Finding connected devices...",
+                    };
+                    waiting_view(waiting_message, None, style::Text::Default)
                 } else {
+                    let connection_help = match AdbBackend::current() {
+                        #[cfg(feature = "builtin-adb")]
+                        AdbBackend::Builtin => {
+                            "Builtin ADB could not initialize USB access. Check USB permissions \
+                             and reconnect the device."
+                        }
+                        AdbBackend::System => {
+                            "ADB is not installed or could not be started. Install Android \
+                             platform-tools and relaunch the application."
+                        }
+                    };
                     waiting_view(
-                        "No device connection detected. Connect a device with USB debugging enabled and authorized, then relaunch.",
+                        connection_help,
                         Some(button("Read on how to get started.")
                     .on_press(Message::GoToUrl(PathBuf::from(
                         "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started",

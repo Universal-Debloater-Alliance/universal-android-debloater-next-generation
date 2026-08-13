@@ -11,7 +11,8 @@
 use clap::{Parser, Subcommand, ValueEnum};
 use clap_complete::Shell;
 use std::process::ExitCode;
-use uad_core::adb::AdbBackend;
+use uad_core::adb::{ACommand, AdbBackend, AdbDeviceStatus};
+use uad_core::sync::{DeviceDiscoveryIssue, classify_device_issue};
 use uad_core::uad_lists::PackageState;
 
 mod commands;
@@ -25,7 +26,7 @@ use filters::{ListFilter, RemovalFilter, StateFilter};
 /// CLI-compatible ADB backend selection
 #[derive(Debug, Clone, Copy, PartialEq, Eq, ValueEnum)]
 pub enum AdbBackendArg {
-    /// Built-in ADB implementation (no external dependencies)
+    /// Embedded ADB over USB
     #[cfg(feature = "builtin-adb")]
     Builtin,
     /// Use system-installed adb binary
@@ -48,7 +49,7 @@ impl From<AdbBackendArg> for AdbBackend {
 #[command(version)]
 #[command(propagate_version = true)]
 pub struct Cli {
-    /// ADB backend to use: system (default, uses adb binary) or builtin if enabled
+    /// ADB backend to use
     #[arg(
         short = 'B',
         long = "backend",
@@ -57,6 +58,10 @@ pub struct Cli {
         default_value = "system"
     )]
     backend: AdbBackendArg,
+
+    /// Stop the system ADB server before using the Builtin backend
+    #[arg(long, global = true)]
+    kill_adb_server: bool,
 
     #[command(subcommand)]
     command: Commands,
@@ -204,11 +209,11 @@ async fn main() -> ExitCode {
 
 fn run() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
-    let backend: AdbBackend = cli.backend.into();
+    configure_adb(&cli)?;
 
     match cli.command {
         Commands::Devices => {
-            commands::list_devices(backend)?;
+            commands::list_devices()?;
         }
         Commands::List {
             device,
@@ -218,7 +223,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             search,
             user,
         } => {
-            commands::list_packages(backend, device, state, removal, list, search, user)?;
+            commands::list_packages(device, state, removal, list, search, user)?;
         }
         Commands::Uninstall {
             packages,
@@ -227,7 +232,6 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             dry_run,
         } => {
             commands::change_package_state(
-                backend,
                 &packages,
                 device,
                 user,
@@ -243,7 +247,6 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             dry_run,
         } => {
             commands::change_package_state(
-                backend,
                 &packages,
                 device,
                 user,
@@ -259,7 +262,6 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             dry_run,
         } => {
             commands::change_package_state(
-                backend,
                 &packages,
                 device,
                 user,
@@ -273,21 +275,141 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             device,
             user,
         } => {
-            commands::show_package_info(backend, &package, device, user)?;
+            commands::show_package_info(&package, device, user)?;
         }
         Commands::Update => {
             commands::update_lists()?;
         }
         Commands::Adb => {
-            commands::show_adb_info(backend)?;
+            commands::show_adb_info()?;
         }
         Commands::Completions { shell } => {
             commands::generate_completions(shell);
         }
         Commands::Repl { device, user } => {
-            repl::repl_mode(backend, device, user)?;
+            repl::repl_mode(device, user)?;
         }
     }
 
     Ok(())
+}
+
+fn configure_adb(cli: &Cli) -> Result<(), Box<dyn std::error::Error>> {
+    let backend: AdbBackend = cli.backend.into();
+    #[cfg(feature = "builtin-adb")]
+    let using_builtin = backend == AdbBackend::Builtin;
+    #[cfg(not(feature = "builtin-adb"))]
+    let using_builtin = false;
+
+    if cli.kill_adb_server && !using_builtin {
+        return Err("--kill-adb-server requires --backend builtin".into());
+    }
+    if cli.kill_adb_server {
+        ACommand::kill_system_server()
+            .map_err(|err| format!("Failed to stop the system ADB server: {err}"))?;
+    }
+
+    backend.set_current();
+
+    if using_builtin && !cli.kill_adb_server && command_uses_device(&cli.command) {
+        let devices = ACommand::new().devices()?;
+        match builtin_preflight_issue(&devices) {
+            Some(DeviceDiscoveryIssue::Busy) => {
+                return Err(
+                    "The system ADB server is using the USB device. Stop it with `adb kill-server` \
+                     or rerun with `--kill-adb-server`."
+                        .into(),
+                );
+            }
+            Some(issue @ DeviceDiscoveryIssue::NoPermissions) => {
+                return Err(issue.to_string().into());
+            }
+            _ => {}
+        }
+    }
+
+    Ok(())
+}
+
+fn builtin_preflight_issue(devices: &[(String, AdbDeviceStatus)]) -> Option<DeviceDiscoveryIssue> {
+    if devices
+        .iter()
+        .any(|(_, status)| status == &AdbDeviceStatus::Device)
+    {
+        return None;
+    }
+
+    classify_device_issue(devices).filter(|issue| {
+        matches!(
+            issue,
+            DeviceDiscoveryIssue::Busy | DeviceDiscoveryIssue::NoPermissions
+        )
+    })
+}
+
+fn command_uses_device(command: &Commands) -> bool {
+    match command {
+        Commands::Devices
+        | Commands::List { .. }
+        | Commands::Uninstall { .. }
+        | Commands::Enable { .. }
+        | Commands::Disable { .. }
+        | Commands::Repl { .. } => true,
+        Commands::Info { device, .. } => device.is_some(),
+        Commands::Update | Commands::Adb | Commands::Completions { .. } => false,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[cfg(feature = "builtin-adb")]
+    #[test]
+    fn builtin_server_shutdown_is_explicitly_opted_in() {
+        let cli = Cli::try_parse_from([
+            "uad",
+            "--backend",
+            "builtin",
+            "--kill-adb-server",
+            "devices",
+        ])
+        .expect("valid Builtin CLI arguments");
+
+        assert_eq!(cli.backend, AdbBackendArg::Builtin);
+        assert!(cli.kill_adb_server);
+        assert!(command_uses_device(&cli.command));
+    }
+
+    #[test]
+    fn non_device_commands_skip_usb_preflight() {
+        assert!(!command_uses_device(&Commands::Update));
+        assert!(!command_uses_device(&Commands::Adb));
+    }
+
+    #[test]
+    fn builtin_preflight_allows_any_ready_device() {
+        let devices = vec![
+            ("ready".to_string(), AdbDeviceStatus::Device),
+            ("busy".to_string(), AdbDeviceStatus::Busy),
+        ];
+
+        assert_eq!(builtin_preflight_issue(&devices), None);
+    }
+
+    #[test]
+    fn builtin_preflight_reports_blocking_issues_without_a_ready_device() {
+        assert_eq!(
+            builtin_preflight_issue(&[("busy".to_string(), AdbDeviceStatus::Busy)]),
+            Some(DeviceDiscoveryIssue::Busy)
+        );
+        assert_eq!(
+            builtin_preflight_issue(&[("denied".to_string(), AdbDeviceStatus::NoPermissions,)]),
+            Some(DeviceDiscoveryIssue::NoPermissions)
+        );
+        assert_eq!(
+            builtin_preflight_issue(&[("pending".to_string(), AdbDeviceStatus::Unauthorized,)]),
+            None
+        );
+    }
 }

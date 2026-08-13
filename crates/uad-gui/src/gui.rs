@@ -16,11 +16,13 @@ use iced::{Alignment, Element, Length, Settings, Task, window::Settings as Windo
 use iced::{Subscription, event, keyboard};
 #[cfg(feature = "img")]
 use image::ImageFormat;
-use log::{debug, error, info};
+#[cfg(feature = "self-update")]
+use log::debug;
+use log::{error, info};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 use uad_core::adb;
-use uad_core::sync::{Phone, get_devices_list, initial_load};
+use uad_core::sync::{DeviceDiscovery, Phone, discover_devices, initial_load};
 use uad_core::uad_lists::UadListState;
 use uad_core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
 use uad_core::utils::{FULL_NAME, NAME};
@@ -68,7 +70,7 @@ pub enum Message {
     SettingsAction(SettingsMessage),
     RefreshButtonPressed,
     RebootButtonPressed,
-    LoadDevices(Vec<Phone>),
+    LoadDevices(DeviceDiscovery),
     #[cfg(feature = "self-update")]
     _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
@@ -93,17 +95,14 @@ impl UadGui {
     fn new() -> (Self, Task<Message>) {
         let app = Self::default();
         let backend = app.settings_view.general.adb_backend;
+        backend.set_current();
         (
             app,
             Task::batch([
                 // Used in crate::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
-                Task::perform(async move { initial_load(backend) }, Message::ADBSatisfied),
-                Task::perform(
-                    async move { get_devices_list(backend) },
-                    Message::LoadDevices,
-                ),
+                Task::perform(async move { initial_load() }, Message::ADBSatisfied),
                 Task::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
@@ -164,7 +163,12 @@ impl UadGui {
     )]
     fn update(&mut self, msg: Message) -> Task<Message> {
         match msg {
-            Message::LoadDevices(devices_list) => {
+            Message::LoadDevices(discovery) => {
+                let DeviceDiscovery {
+                    devices: devices_list,
+                    issue,
+                } = discovery;
+                self.apps_view.discovery_issue = issue;
                 self.selected_device = match &self.selected_device {
                     Some(s_device) => {
                         // Try to reload last selected phone
@@ -176,6 +180,11 @@ impl UadGui {
                     None => devices_list.first().cloned(),
                 };
                 self.devices_list = devices_list;
+
+                if self.devices_list.is_empty() {
+                    self.apps_view.loading_state = ListLoadingState::FindingPhones;
+                    return Task::none();
+                }
 
                 #[expect(unused_must_use, reason = "side-effect")]
                 {
@@ -202,21 +211,16 @@ impl UadGui {
             }
             Message::RefreshButtonPressed => {
                 self.apps_view = AppsView::default();
-                let backend = self.settings_view.general.adb_backend;
                 #[expect(unused_must_use, reason = "side-effect")]
                 {
                     self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
                         self.adb_satisfied,
                     )));
                 }
-                Task::perform(
-                    async move { get_devices_list(backend) },
-                    Message::LoadDevices,
-                )
+                Task::perform(async move { discover_devices() }, Message::LoadDevices)
             }
             Message::RebootButtonPressed => {
                 self.apps_view = AppsView::default();
-                let backend = self.settings_view.general.adb_backend;
                 let serial = match &self.selected_device {
                     Some(d) => d.adb_id.clone(),
                     _ => String::default(),
@@ -224,9 +228,13 @@ impl UadGui {
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Task::perform(
-                    async move { adb::ACommand::with_backend(backend).shell(serial).reboot() },
+                    async move { adb::ACommand::new().shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
+            }
+            Message::AppsAction(AppsMessage::OpenAdbSettings) => {
+                self.view = View::Settings;
+                Task::none()
             }
             Message::AppsAction(msg) => self
                 .apps_view
@@ -271,6 +279,15 @@ impl UadGui {
                                 }
                             }
                         }
+                    }
+                    SettingsMessage::AdbBackendApplied(backend) => {
+                        backend.set_current();
+                        self.apps_view = AppsView::default();
+                        self.selected_device = None;
+                        self.devices_list.clear();
+                        self.adb_satisfied = false;
+
+                        return Task::perform(async move { initial_load() }, Message::ADBSatisfied);
                     }
                     _ => (),
                 }
@@ -398,9 +415,17 @@ impl UadGui {
             }
             Message::ADBSatisfied(result) => {
                 self.adb_satisfied = result;
-                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
+                let update_view = self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
                     self.adb_satisfied,
-                )))
+                )));
+                if result {
+                    Task::batch([
+                        update_view,
+                        Task::perform(async move { discover_devices() }, Message::LoadDevices),
+                    ])
+                } else {
+                    update_view
+                }
             }
             Message::Nothing => Task::none(),
         }

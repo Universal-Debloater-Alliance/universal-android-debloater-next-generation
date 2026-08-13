@@ -6,7 +6,9 @@ use uad_core::adb::{ACommand, AdbBackend};
 use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, get_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
-use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
+use crate::commands::{
+    PackageListContext, display_package_list, execute_with_fallback, resolve_pm_flag,
+};
 use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
 use crate::println_or_exit;
@@ -18,15 +20,15 @@ enum ReplAction {
 
 /// Start interactive REPL mode
 pub fn repl_mode(
-    backend: AdbBackend,
     device: Option<String>,
     user_id: Option<u16>,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let backend = AdbBackend::current();
     println!("Universal Android Debloater - Interactive Mode");
     println!("Using {} ADB backend", backend);
     println!("Type 'help' for available commands, 'exit' or 'quit' to leave\n");
 
-    let target_device = get_target_device(backend, device)?;
+    let target_device = get_target_device(device)?;
     let user = get_user(&target_device, user_id)?;
 
     println!(
@@ -48,15 +50,7 @@ pub fn repl_mode(
         let readline = rl.readline("uad> ");
         match readline {
             Ok(line) => {
-                match handle_repl_line(
-                    &line,
-                    &mut rl,
-                    &target_device,
-                    user,
-                    user_id,
-                    &uad_lists,
-                    backend,
-                ) {
+                match handle_repl_line(&line, &mut rl, &target_device, user, user_id, &uad_lists) {
                     Ok(ReplAction::Continue) => {}
                     Ok(ReplAction::Exit) => break,
                     Err(e) => {
@@ -98,7 +92,6 @@ fn handle_repl_line(
     user: User,
     user_id: Option<u16>,
     uad_lists: &HashMap<String, Package>,
-    backend: AdbBackend,
 ) -> Result<ReplAction, Box<dyn std::error::Error>> {
     let line = line.trim();
     if line.is_empty() {
@@ -119,7 +112,7 @@ fn handle_repl_line(
             return Ok(ReplAction::Exit);
         }
         "list" | "ls" => {
-            handle_list_command(&parts[1..], device, user_id, uad_lists, backend)?;
+            handle_list_command(&parts[1..], device, user_id, uad_lists)?;
         }
         "info" => {
             handle_info_command(&parts[1..], device, user.id, uad_lists)?;
@@ -132,7 +125,6 @@ fn handle_repl_line(
                 PackageState::Uninstalled,
                 "Uninstalling",
                 uad_lists,
-                backend,
             )?;
         }
         "enable" | "restore" => {
@@ -143,7 +135,6 @@ fn handle_repl_line(
                 PackageState::Enabled,
                 "Enabling",
                 uad_lists,
-                backend,
             )?;
         }
         "disable" => {
@@ -154,13 +145,16 @@ fn handle_repl_line(
                 PackageState::Disabled,
                 "Disabling",
                 uad_lists,
-                backend,
             )?;
         }
         "device" => {
             println!(
                 "Device: {} ({}), Android SDK: {}, User: {}, Backend: {}",
-                device.model, device.adb_id, device.android_sdk, user.id, backend
+                device.model,
+                device.adb_id,
+                device.android_sdk,
+                user.id,
+                AdbBackend::current()
             );
         }
         "clear" => {
@@ -230,12 +224,11 @@ fn handle_list_command(
     device: &Phone,
     user_id: Option<u16>,
     uad_lists: &HashMap<String, Package>,
-    backend: AdbBackend,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let parsed = ReplListArgs::parse(args)?;
 
-    let pm_flag = parsed.state_filter.and_then(StateFilter::to_pm_flag);
-    let system_packages = ACommand::with_backend(backend)
+    let pm_flag = resolve_pm_flag(parsed.state_filter);
+    let system_packages = ACommand::new()
         .shell(&device.adb_id)
         .pm()
         .list_packages_sys(pm_flag, user_id)?;
@@ -253,7 +246,6 @@ fn handle_list_command(
         &device.adb_id,
         user_id,
         &context,
-        backend,
     )?;
 
     if displayed_count == 0 {
@@ -303,7 +295,6 @@ fn handle_state_change_command(
     target_state: PackageState,
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
-    backend: AdbBackend,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if args.is_empty() {
         eprintln!(
@@ -314,15 +305,7 @@ fn handle_state_change_command(
     }
 
     for pkg_name in args {
-        process_package_change(
-            pkg_name,
-            device,
-            user,
-            target_state,
-            action_name,
-            uad_lists,
-            backend,
-        )?;
+        process_package_change(pkg_name, device, user, target_state, action_name, uad_lists)?;
     }
 
     Ok(())
@@ -336,7 +319,6 @@ fn process_package_change(
     target_state: PackageState,
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
-    backend: AdbBackend,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let current_state = get_package_state(&device.adb_id, pkg_name, Some(user.id))
         .ok_or("Package not found on device")?;
@@ -372,7 +354,6 @@ fn process_package_change(
         user,
         device,
         &commands,
-        backend,
         "  ",
     )
 }
