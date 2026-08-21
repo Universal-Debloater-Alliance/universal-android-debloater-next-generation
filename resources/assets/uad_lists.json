@@ -38758,11 +38758,13 @@
   },
   "com.samsung.oda.service": {
     "list": "Oem",
-    "description": "SamsungOdaService\nRequires google play services.\nAnother spying app collects sim info and other things.",
+    "description": "SamsungOdaService\nDisabling causes SIM Manager to instantly crash on dual sim setup.Requires google play services.\nAnother spying app collects sim info and other things.",
     "dependencies": [],
-    "neededBy": [],
+    "neededBy": [
+        "com.samsung.android.app.telephonyui"
+    ],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.samsung.android.smartprovider": {
     "list": "Oem",
