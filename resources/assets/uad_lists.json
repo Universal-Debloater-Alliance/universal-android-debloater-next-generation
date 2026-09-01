@@ -24904,7 +24904,7 @@
     "labels": []
   },
   "com.transsion.agingfunction": {
-    "description": "Another test mode, aging setting. secret code 2828, 2829, 2830. Vulnerable; may perform factory reset without any Android system permissions. See CVE-2025-10576.",
+    "description": "Another test mode, aging setting. secret code 2828, 2829, 2830. Vulnerable; may perform factory reset without any Android system permissions. See CVE-2024-10576.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
