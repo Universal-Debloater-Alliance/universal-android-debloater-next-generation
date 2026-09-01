@@ -24904,7 +24904,7 @@
     "labels": []
   },
   "com.transsion.agingfunction": {
-    "description": "Another test mode, aging setting. secret code 2828, 2829, 2830",
+    "description": "Another test mode, aging setting. secret code 2828, 2829, 2830. Vulnerable; may perform factory reset without any Android system permissions. See CVE-2025-10576.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -24919,9 +24919,65 @@
     "neededBy": [],
     "labels": []
   },
+  "com.transsion.audiosmartconnect": {
+    "description": "Affected by CVE-2025-9056. Doesn't seem to relate to earbuds. Note: tested disabled only.",
+    "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.dynamicbar": {
+    "description": "Transsion's Dynamic Island.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.inearmonitor": {
+    "description": "In-ear monitor feature.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.iotcard": {
+    "description": "Scans smart devices to be controlled from your phone. Disabling this will hide said option from Quick Settings. Note: tested disabled only.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.irremote": {
+    "description": "IR Remote app based on Welife.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
   "com.transsion.kolun.aiservice": {
     "description": "it's for testing things and debugging.",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.livewallpaper.custompictorial": {
+    "description": "Custom wallpapers use this live wallpaper service. Needed to edit lock- and home screen.",
+    "removal": "Advanced",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.resolver": {
+    "description": "Replacement to Android Share dialog (com.android.intentresolver), but with e.g. removal of image metadata. Note: tested disabled only.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -25130,7 +25186,7 @@
     "labels": []
   },
   "tech.palm.id": {
-    "description": "TECNO ID\nit's for account? A lot bloated.\nInstead Uninstall better Disable app because Uninstalling cause Settings app crash",
+    "description": "TECNO/Infinix ID\nA lot bloated.\nMay be protected.\nInstead of uninstall better disable app because uninstalling cause Settings app crash.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -25366,6 +25422,14 @@
   "com.transsion.iotservice": {
     "description": "WelinkService\nPC Connect unneccessary things",
     "removal": "Recommended",
+    "list": "Oem",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": []
+  },
+  "com.transsion.tranradionet": {
+    "description": "Synergy Nexus. Default caller ID & spam app.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
@@ -29479,7 +29543,7 @@
   },
   "com.google.android.inputmethod.latin": {
     "list": "Google",
-    "description": "Gboard – the Google Keyboard (https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin)\nSometimes the only keyboard app on a phone; Make sure you have another installed before you disable.",
+    "description": "Gboard – the Google Keyboard (https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin)\nSometimes the only keyboard app on a phone; Make sure you have another installed before you disable. On some phones, disabling may lock you out after restart due to hard dependancy.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43193,6 +43257,14 @@
   "com.softwinner.dragonatt": {
     "list": "Oem",
     "description": "DragonAtt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  }
+  "cn.wps.moffice.lite.abroad.transsion": {
+    "list": "Oem",
+    "description": "WPS Office-based File Viewer for Transsion.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
