@@ -4,7 +4,7 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PmListPacksFlag};
 use uad_core::sync::{
-    CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, get_package_state,
+    CorePackage, Phone, User, apply_pkg_state_commands, discover_devices, get_package_state,
     run_adb_shell_action,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
@@ -17,10 +17,14 @@ use crate::{Cli, print_or_exit, println_or_exit};
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
     println_or_exit!("Scanning for connected devices...");
-    let devices = get_devices_list();
+    let discovery = discover_devices();
+    let devices = discovery.devices;
 
     if devices.is_empty() {
-        return Err(NO_DEVICES_FOUND.into());
+        return Err(discovery
+            .issue
+            .map_or_else(|| NO_DEVICES_FOUND.to_string(), |issue| issue.to_string())
+            .into());
     }
 
     println_or_exit!("\nFound {} device(s):\n", devices.len());
@@ -104,6 +108,15 @@ pub struct DisplayConfig {
     pub show_removal: bool,
 }
 
+pub(crate) fn resolve_pm_flag(state_filter: Option<StateFilter>) -> Option<PmListPacksFlag> {
+    match state_filter {
+        Some(StateFilter::Enabled | StateFilter::Disabled) => {
+            state_filter.and_then(StateFilter::to_pm_flag)
+        }
+        _ => Some(PmListPacksFlag::IncludeUninstalled),
+    }
+}
+
 /// List packages on a device with filtering
 pub fn list_packages(
     device: Option<String>,
@@ -129,7 +142,7 @@ pub fn list_packages(
         search,
     };
 
-    let pm_flag = state_filter.and_then(StateFilter::to_pm_flag);
+    let pm_flag = resolve_pm_flag(state_filter);
     let system_packages = ACommand::new()
         .shell(&target_device.adb_id)
         .pm()
@@ -467,4 +480,38 @@ pub fn generate_completions(shell: Shell) {
     let mut cmd = Cli::command();
     let name = cmd.get_name().to_string();
     generate(shell, &mut cmd, name, &mut std::io::stdout());
+}
+
+/// Show ADB backend and version information
+pub fn show_adb_info() -> Result<(), Box<dyn std::error::Error>> {
+    let backend = uad_core::adb::AdbBackend::current();
+    println!("ADB Backend: {}\n", backend);
+
+    match ACommand::new().version() {
+        Ok(version) => {
+            println!("{version}");
+            Ok(())
+        }
+        Err(e) => {
+            eprintln!("Failed to get ADB version: {e}");
+            Err(e.into())
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn default_and_uninstalled_lists_include_removed_packages() {
+        assert_eq!(
+            resolve_pm_flag(None),
+            Some(PmListPacksFlag::IncludeUninstalled)
+        );
+        assert_eq!(
+            resolve_pm_flag(Some(StateFilter::Uninstalled)),
+            Some(PmListPacksFlag::IncludeUninstalled)
+        );
+    }
 }

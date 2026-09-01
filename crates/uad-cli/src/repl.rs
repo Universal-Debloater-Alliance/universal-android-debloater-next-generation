@@ -2,11 +2,13 @@ use rustyline::DefaultEditor;
 use rustyline::error::ReadlineError;
 use std::collections::HashMap;
 use std::io::Write;
-use uad_core::adb::ACommand;
+use uad_core::adb::{ACommand, AdbBackend};
 use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, get_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
-use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
+use crate::commands::{
+    PackageListContext, display_package_list, execute_with_fallback, resolve_pm_flag,
+};
 use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
 use crate::println_or_exit;
@@ -21,7 +23,9 @@ pub fn repl_mode(
     device: Option<String>,
     user_id: Option<u16>,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let backend = AdbBackend::current();
     println!("Universal Android Debloater - Interactive Mode");
+    println!("Using {} ADB backend", backend);
     println!("Type 'help' for available commands, 'exit' or 'quit' to leave\n");
 
     let target_device = get_target_device(device)?;
@@ -145,8 +149,12 @@ fn handle_repl_line(
         }
         "device" => {
             println!(
-                "Device: {} ({}), Android SDK: {}, User: {}",
-                device.model, device.adb_id, device.android_sdk, user.id
+                "Device: {} ({}), Android SDK: {}, User: {}, Backend: {}",
+                device.model,
+                device.adb_id,
+                device.android_sdk,
+                user.id,
+                AdbBackend::current()
             );
         }
         "clear" => {
@@ -219,7 +227,7 @@ fn handle_list_command(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let parsed = ReplListArgs::parse(args)?;
 
-    let pm_flag = parsed.state_filter.and_then(StateFilter::to_pm_flag);
+    let pm_flag = resolve_pm_flag(parsed.state_filter);
     let system_packages = ACommand::new()
         .shell(&device.adb_id)
         .pm()
