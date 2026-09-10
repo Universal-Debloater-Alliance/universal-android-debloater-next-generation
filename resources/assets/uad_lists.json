@@ -43197,5 +43197,12 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
-  }
+  },
+"com.google.android.apps.bard": {
+    "list": "Google",
+    "description": "Google Gemini, works completely fine without it.\nLess forced AI slop, hooray!",
+    "dependencies": null,
+    "neededBy": null,
+    "labels": null,
+    "removal": "Recommended"
 }
