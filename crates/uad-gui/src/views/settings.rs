@@ -15,6 +15,7 @@ use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
+    adb::{ACommand, AdbBackend},
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
     sync::{
@@ -27,6 +28,9 @@ use uad_core::{
 #[derive(Debug, Clone)]
 pub enum PopUpModal {
     ExportUninstalled,
+    ConfirmAdbServerStop,
+    StoppingAdbServer,
+    AdbBackendError,
 }
 
 #[derive(Debug, Clone)]
@@ -35,15 +39,28 @@ pub struct Settings {
     pub device: DeviceSettings,
     is_loading: bool,
     modal: Option<PopUpModal>,
+    /// Cached ADB version string for display
+    adb_version: String,
+    pending_adb_backend: Option<AdbBackend>,
+    adb_backend_error: Option<String>,
 }
 
 impl Default for Settings {
     fn default() -> Self {
+        let general = Config::load_configuration_file().general;
+        general.adb_backend.set_current();
+        // Fetch initial ADB version
+        let adb_version = ACommand::new()
+            .version()
+            .unwrap_or_else(|e| format!("Error: {e}"));
         Self {
-            general: Config::load_configuration_file().general,
+            general,
             device: DeviceSettings::default(),
             is_loading: false,
             modal: None,
+            adb_version,
+            pending_adb_backend: None,
+            adb_backend_error: None,
         }
     }
 }
@@ -55,6 +72,13 @@ pub enum Message {
     DisableMode(bool),
     MultiUserMode(bool),
     ApplyTheme(Theme),
+    ApplyAdbBackend(AdbBackend),
+    #[cfg(feature = "builtin-adb")]
+    RetryBuiltinAdb,
+    ConfirmAdbBackendSwitch,
+    AdbServerStopped(Result<String, String>),
+    AdbBackendApplied(AdbBackend),
+    AdbVersionFetched(Result<String, String>),
     UrlPressed(PathBuf),
     BackupSelected(DisplayablePath),
     BackupDevice,
@@ -83,6 +107,12 @@ impl Settings {
             Message::DisableMode(toggled) => self.handle_disable_mode(phone, toggled),
             Message::MultiUserMode(toggled) => self.handle_multi_user_mode(phone, toggled),
             Message::ApplyTheme(theme) => self.handle_apply_theme(phone, theme),
+            Message::ApplyAdbBackend(backend) => self.handle_apply_adb_backend(backend),
+            #[cfg(feature = "builtin-adb")]
+            Message::RetryBuiltinAdb => self.handle_retry_builtin_adb(),
+            Message::ConfirmAdbBackendSwitch => self.handle_confirm_adb_backend_switch(),
+            Message::AdbServerStopped(result) => self.handle_adb_server_stopped(result),
+            Message::AdbVersionFetched(result) => self.handle_adb_version_fetched(result),
             Message::UrlPressed(url) => Self::handle_url_pressed(url),
             Message::LoadDeviceSettings => self.handle_load_device_settings(phone),
             Message::BackupSelected(d_path) => self.handle_backup_selected(d_path),
@@ -91,7 +121,7 @@ impl Settings {
             Message::RestoreDevice => {
                 self.handle_restore_device(phone, packages, nb_running_async_adb_commands)
             }
-            Message::RestoringDevice(_) => Task::none(),
+            Message::RestoringDevice(_) | Message::AdbBackendApplied(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
             Message::ExportPackages => Self::handle_export_packages(selected_user, packages),
@@ -101,6 +131,8 @@ impl Settings {
 
     fn handle_modal_hide(&mut self) -> Task<Message> {
         self.modal = None;
+        self.pending_adb_backend = None;
+        self.adb_backend_error = None;
         Task::none()
     }
 
@@ -135,6 +167,85 @@ impl Settings {
         debug!("Config change: {self:?}");
         let mut config = Config::load_configuration_file();
         config.save_device_settings(self.device.clone(), self.general.clone());
+        Task::none()
+    }
+
+    fn handle_apply_adb_backend(&mut self, backend: AdbBackend) -> Task<Message> {
+        if backend == self.general.adb_backend {
+            return Task::none();
+        }
+
+        #[cfg(feature = "builtin-adb")]
+        if backend == AdbBackend::Builtin {
+            self.pending_adb_backend = Some(backend);
+            self.adb_backend_error = None;
+            self.modal = Some(PopUpModal::ConfirmAdbServerStop);
+            return Task::none();
+        }
+
+        self.commit_adb_backend(backend)
+    }
+
+    #[cfg(feature = "builtin-adb")]
+    fn handle_retry_builtin_adb(&mut self) -> Task<Message> {
+        self.pending_adb_backend = Some(AdbBackend::Builtin);
+        self.adb_backend_error = None;
+        self.modal = Some(PopUpModal::ConfirmAdbServerStop);
+        Task::none()
+    }
+
+    fn handle_confirm_adb_backend_switch(&mut self) -> Task<Message> {
+        self.modal = Some(PopUpModal::StoppingAdbServer);
+        Task::perform(
+            async { ACommand::kill_system_server() },
+            Message::AdbServerStopped,
+        )
+    }
+
+    fn handle_adb_server_stopped(&mut self, result: Result<String, String>) -> Task<Message> {
+        match result {
+            Ok(_) => {
+                let Some(backend) = self.pending_adb_backend.take() else {
+                    self.modal = None;
+                    return Task::none();
+                };
+                self.modal = None;
+                self.commit_adb_backend(backend)
+            }
+            Err(err) => {
+                self.pending_adb_backend = None;
+                self.adb_backend_error = Some(format!(
+                    "Could not stop the system ADB server: {err}\n\
+                     Builtin ADB was not enabled."
+                ));
+                self.modal = Some(PopUpModal::AdbBackendError);
+                Task::none()
+            }
+        }
+    }
+
+    fn commit_adb_backend(&mut self, backend: AdbBackend) -> Task<Message> {
+        self.general.adb_backend = backend;
+        backend.set_current();
+        self.adb_version = "Fetching...".to_string();
+        debug!("Config change: {self:?}");
+        let mut config = Config::load_configuration_file();
+        config.save_device_settings(self.device.clone(), self.general.clone());
+        info!("ADB backend changed to: {backend}");
+        Task::batch([
+            Task::perform(
+                async move { ACommand::new().version() },
+                Message::AdbVersionFetched,
+            ),
+            Task::done(Message::AdbBackendApplied(backend)),
+        ])
+    }
+
+    fn handle_adb_version_fetched(&mut self, result: Result<String, String>) -> Task<Message> {
+        self.adb_version = match result {
+            Ok(version) => version,
+            Err(e) => format!("Error: {e}"),
+        };
         Task::none()
     }
 
@@ -344,8 +455,18 @@ impl Settings {
             self.build_device_content(phone, apps_view)
         };
 
-        if let Some(PopUpModal::ExportUninstalled) = self.modal {
-            return Self::render_export_modal(content);
+        match self.modal.as_ref() {
+            Some(PopUpModal::ExportUninstalled) => return Self::render_export_modal(content),
+            Some(PopUpModal::ConfirmAdbServerStop) => {
+                return Self::render_adb_server_confirmation_modal(content);
+            }
+            Some(PopUpModal::StoppingAdbServer) => {
+                return Self::render_adb_server_stopping_modal(content);
+            }
+            Some(PopUpModal::AdbBackendError) => {
+                return self.render_adb_backend_error_modal(content);
+            }
+            None => {}
         }
 
         container(scrollable(content))
@@ -361,6 +482,8 @@ impl Settings {
             self.theme_container(),
             text("General").size(26),
             self.general_container(),
+            text("ADB").size(26),
+            self.adb_container(),
             text("Current device").size(26),
             Self::no_device_container(),
             text("Backup / Restore").size(26),
@@ -381,6 +504,8 @@ impl Settings {
             self.theme_container(),
             text("General").size(26),
             self.general_container(),
+            text("ADB").size(26),
+            self.adb_container(),
             text("Current device").size(26),
             Self::warning_container(phone),
             self.device_specific_container(phone),
@@ -458,6 +583,62 @@ impl Settings {
         .height(Length::Shrink)
         .style(style::Container::Frame)
         .into()
+    }
+
+    fn adb_container(&self) -> Element<'_, Message, Theme, Renderer> {
+        let backend_label = text("Backend:").size(16);
+        let radio_btn_backend =
+            AdbBackend::ALL
+                .iter()
+                .fold(row![].spacing(10), |row_content, option| {
+                    row_content.push(
+                        radio(
+                            format!("{option}"),
+                            *option,
+                            Some(self.general.adb_backend),
+                            Message::ApplyAdbBackend,
+                        )
+                        .size(20),
+                    )
+                });
+
+        let backend_row = row![backend_label, radio_btn_backend]
+            .spacing(10)
+            .align_y(Alignment::Center);
+
+        #[cfg(feature = "builtin-adb")]
+        let backend_description =
+            "System: Uses your installed adb binary. Builtin: Embedded ADB over USB.";
+        #[cfg(not(feature = "builtin-adb"))]
+        let backend_description = "System: Uses your installed adb binary.";
+        let backend_descr = text(backend_description).style(style::Text::Commentary);
+
+        let version_row = row![
+            text("Version: ").size(14),
+            text(&self.adb_version)
+                .size(14)
+                .style(style::Text::Commentary),
+        ]
+        .spacing(5)
+        .align_y(Alignment::Center);
+
+        let content = column![backend_row, backend_descr, version_row].spacing(10);
+        #[cfg(feature = "builtin-adb")]
+        let content = if self.general.adb_backend == AdbBackend::Builtin {
+            content.push(
+                button_primary(text("Stop system ADB and retry"))
+                    .on_press(Message::RetryBuiltinAdb),
+            )
+        } else {
+            content
+        };
+
+        container(content)
+            .padding(10)
+            .width(Length::Fill)
+            .height(Length::Shrink)
+            .style(style::Container::Frame)
+            .into()
     }
 
     fn warning_container(phone: &Phone) -> Element<'static, Message, Theme, Renderer> {
@@ -688,6 +869,88 @@ impl Settings {
             container(content).padding(10).into();
 
         Modal::new(padded_content, ctn)
+            .on_blur(Message::ModalHide)
+            .into()
+    }
+
+    fn render_adb_server_confirmation_modal(
+        content: Element<'_, Message, Theme, Renderer>,
+    ) -> Element<'_, Message, Theme, Renderer> {
+        let title = container(
+            row![text("Stop the system ADB server?").size(24)].align_y(Alignment::Center),
+        )
+        .width(Length::Fill)
+        .style(style::Container::Frame)
+        .padding([10, 0])
+        .center_x(Length::Shrink);
+
+        let explanation = text(
+            "Builtin ADB needs exclusive access to the USB device. The system ADB server may \
+             currently hold that access. Stop it and retry with Builtin ADB?",
+        )
+        .width(Length::Fill);
+
+        let actions = row![
+            button(text("Cancel")).on_press(Message::ModalHide),
+            Space::new().width(Length::Fill),
+            button_primary(text("Stop server and retry"))
+                .on_press(Message::ConfirmAdbBackendSwitch),
+        ]
+        .spacing(10);
+
+        let modal = container(column![title, explanation, actions].spacing(20))
+            .width(520)
+            .padding(20)
+            .style(style::Container::Frame);
+
+        Modal::new(content, modal)
+            .on_blur(Message::ModalHide)
+            .into()
+    }
+
+    fn render_adb_server_stopping_modal(
+        content: Element<'_, Message, Theme, Renderer>,
+    ) -> Element<'_, Message, Theme, Renderer> {
+        let modal = container(
+            column![
+                text("Stopping the system ADB server").size(24),
+                text("Please wait before reconnecting with Builtin ADB."),
+            ]
+            .spacing(20),
+        )
+        .width(520)
+        .padding(20)
+        .style(style::Container::Frame);
+
+        Modal::new(content, modal).into()
+    }
+
+    fn render_adb_backend_error_modal<'a>(
+        &'a self,
+        content: Element<'a, Message, Theme, Renderer>,
+    ) -> Element<'a, Message, Theme, Renderer> {
+        let message = self
+            .adb_backend_error
+            .as_deref()
+            .unwrap_or("Could not switch ADB backends.");
+        let actions = row![
+            Space::new().width(Length::Fill),
+            button(text("Close")).on_press(Message::ModalHide),
+            Space::new().width(Length::Fill),
+        ];
+        let modal = container(
+            column![
+                text("ADB backend switch failed").size(24),
+                text(message),
+                actions,
+            ]
+            .spacing(20),
+        )
+        .width(520)
+        .padding(20)
+        .style(style::Container::Frame);
+
+        Modal::new(content, modal)
             .on_blur(Message::ModalHide)
             .into()
     }
