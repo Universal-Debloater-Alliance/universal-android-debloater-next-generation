@@ -4419,11 +4419,11 @@
   },
   "com.motorola.actions": {
     "list": "Oem",
-    "description": "Moto Actions (https://play.google.com/store/apps/details?id=com.motorola.actions)\nAllows you to perform specific gestures to perform certain tasks. Frontend to change settings provided by\"com.motorola.moto\".\n",
+    "description": "Moto Actions (https://play.google.com/store/apps/details?id=com.motorola.actions)\nAllows you to perform specific gestures to perform certain tasks. Frontend to change settings provided by \"com.motorola.moto\".\n\nRemoving this breaks gesture controls, such as the shake/chop-chop gesture to turn the flashlight on/off.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
-    "removal": "Recommended"
+    "removal": "Advanced"
   },
   "com.motorola.carriersettingsext": {
     "list": "Oem",
