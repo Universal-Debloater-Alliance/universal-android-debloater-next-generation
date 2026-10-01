@@ -43140,14 +43140,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "flipboard.app": {
-    "list": "Carrier",
-    "description": "Flipboard. A program preloaded on select devices.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
   "imagenio.movil.tv": {
     "list": "Carrier",
     "description": "Imagenio. A app preloaded on Telefonica devices.",
@@ -43244,14 +43236,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.audible.application": {
-    "list": "Carrier",
-    "description": "Audible. A application preloaded on various carriers.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
     "uk.amazon.mShop": {
     "list": "Carrier",
     "description": "Mshop. A application preloaded on O2 UK.",
@@ -43276,13 +43260,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-    "com.ebay.mobile": {
-    "list": "Carrier",
-    "description": "eBay. A application preloaded on various carriers.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
   },
     "com.gameloft.android.GloftSMIF": {
     "list": "Carrier",
