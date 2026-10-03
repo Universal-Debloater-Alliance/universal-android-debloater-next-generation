@@ -266,22 +266,34 @@ pub fn truncate_description(desc: &str, max_len: usize) -> String {
     }
 }
 
-/// Check if package matches search term (checks name and description)
+/// Check if package matches search term (checks name and description).
+///
+/// Matching is smart-case: case-insensitive when the search term contains no
+/// uppercase characters, case-sensitive as soon as the term contains any
+/// uppercase character.
 #[must_use]
 pub fn matches_search(pkg_name: &str, search_term: &str, pkg_description: Option<&str>) -> bool {
-    let search_lower = search_term.to_lowercase();
-
-    if pkg_name.to_lowercase().contains(&search_lower) {
+    if smart_case_contains(pkg_name, search_term) {
         return true;
     }
 
     if let Some(description) = pkg_description {
-        if description.to_lowercase().contains(&search_lower) {
+        if smart_case_contains(description, search_term) {
             return true;
         }
     }
 
     false
+}
+
+/// Substring match with smart-case semantics: case-insensitive unless the
+/// query contains an uppercase character, in which case it is case-sensitive.
+fn smart_case_contains(haystack: &str, query: &str) -> bool {
+    if query.chars().all(|c| !c.is_uppercase()) {
+        haystack.to_lowercase().contains(&query.to_lowercase())
+    } else {
+        haystack.contains(query)
+    }
 }
 
 #[cfg(test)]
@@ -295,5 +307,48 @@ mod tests {
             generate_backup_name(chrono::Utc.timestamp_millis_opt(0).unwrap()),
             "uninstalled_packages_19700101.csv".to_string()
         );
+    }
+
+    #[test]
+    fn smart_case_matches_case_insensitively_without_uppercase() {
+        assert!(smart_case_contains("Maps", "maps"));
+        assert!(smart_case_contains("GoogleMaps", "maps"));
+    }
+
+    #[test]
+    fn smart_case_matches_case_sensitively_with_uppercase() {
+        assert!(smart_case_contains("Maps", "Maps"));
+        assert!(!smart_case_contains("maps", "Maps"));
+    }
+
+    #[test]
+    fn smart_case_keeps_mixed_case_queries_case_sensitive() {
+        assert!(smart_case_contains("com.example.McFds.service", "McFds"));
+        assert!(!smart_case_contains("com.example.mcfds.service", "McFds"));
+    }
+
+    #[test]
+    fn smart_case_empty_query_matches() {
+        assert!(smart_case_contains("Maps", ""));
+    }
+
+    #[test]
+    fn matches_search_checks_name_and_description_smart_case() {
+        // Lowercase query matches name and description case-insensitively.
+        assert!(matches_search(
+            "GoogleMaps",
+            "maps",
+            Some("Navigation service")
+        ));
+        assert!(matches_search(
+            "com.example.app",
+            "navigation",
+            Some("Google Maps navigation service")
+        ));
+        // Uppercase in the query makes matching case-sensitive.
+        assert!(matches_search("GoogleMaps", "Maps", None));
+        assert!(!matches_search("googlemaps", "Maps", None));
+        // No match in either field.
+        assert!(!matches_search("GoogleMaps", "xyz", Some("Navigation")));
     }
 }
