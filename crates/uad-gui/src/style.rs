@@ -276,10 +276,7 @@ impl text_editor::Catalog for Theme {
                 },
                 placeholder: p.normal.surface,
                 value: p.bright.surface,
-                selection: Color {
-                    a: 0.3,
-                    ..p.normal.primary
-                },
+                selection: p.normal.primary.scale_alpha(0.5),
             }
         })
     }
@@ -290,6 +287,24 @@ impl text_editor::Catalog for Theme {
         status: text_editor::Status,
     ) -> text_editor::Style {
         (class)(self, status)
+    }
+}
+
+impl iced_selection::text::Catalog for Theme {
+    type Class<'a> = iced_selection::text::StyleFn<'a, Theme>;
+
+    fn default<'a>() -> Self::Class<'a> {
+        Box::new(|t: &Theme| {
+            let p = t.palette();
+            iced_selection::text::Style {
+                color: None,
+                selection: p.normal.primary.scale_alpha(0.5),
+            }
+        })
+    }
+
+    fn style(&self, class: &Self::Class<'_>) -> iced_selection::text::Style {
+        (class)(self)
     }
 }
 

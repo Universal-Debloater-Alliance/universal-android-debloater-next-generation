@@ -24,6 +24,7 @@ img = ["image", "iced/image"]
 [dependencies]
 uad-core = { path = "../uad-core", features = ["self-update"] }
 iced.workspace = true
+iced_selection.workspace = true
 image = { workspace = true, optional = true }
 rfd.workspace = true
 dark-light.workspace = true
