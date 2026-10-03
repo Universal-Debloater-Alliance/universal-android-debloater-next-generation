@@ -1,14 +1,18 @@
-use uad_core::sync::{Phone, User, get_devices_list};
+use uad_core::sync::{Phone, User, discover_devices};
 
 pub const NO_DEVICES_FOUND: &str =
     "No devices found. Make sure ADB is installed and devices are connected.";
 
 /// Get target device, either by serial or first available
 pub fn get_target_device(device: Option<String>) -> Result<Phone, Box<dyn std::error::Error>> {
-    let devices = get_devices_list();
+    let discovery = discover_devices();
+    let devices = discovery.devices;
 
     if devices.is_empty() {
-        return Err(NO_DEVICES_FOUND.into());
+        return Err(discovery
+            .issue
+            .map_or_else(|| NO_DEVICES_FOUND.to_string(), |issue| issue.to_string())
+            .into());
     }
 
     let target_device = if let Some(device_id) = device {
