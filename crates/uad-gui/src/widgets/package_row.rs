@@ -125,8 +125,11 @@ impl PackageRow {
             button(
                 row![
                     selection_checkbox,
-                    iced_selection::text(&self.name),
-                    space().width(Length::FillPortion(8)),
+                    row![
+                        iced_selection::text(&self.name),
+                        space().width(Length::Fill)
+                    ]
+                    .width(Length::FillPortion(8)),
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
