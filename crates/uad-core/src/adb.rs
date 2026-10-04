@@ -369,7 +369,6 @@ impl PmCommand {
                 .filter_map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let mut p = &p_ln[PACK_PREFIX.len()..];
-					/// On Windows, the returned package list output has a trailing return character.
 					#[cfg(target_os = "windows")]
 					{
 						p = p.trim_end(); 
