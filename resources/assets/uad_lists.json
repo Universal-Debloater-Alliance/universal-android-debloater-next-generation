@@ -43269,5 +43269,125 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.gameloft.android.GloftLCEF": {
+    "list": "Oem",
+    "description": "Little Big City",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gameloft.android.GloftWZMR": {
+    "list": "Oem",
+    "description": "Wonder Zoo",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gameloft.android.GloftWZMR": {
+    "list": "Oem",
+    "description": "Wonder Zoo",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.eamobile.sims3_carrier": {
+    "list": "Carrier",
+    "description": "Sims 3",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.popcap.pvz_carrier": {
+    "list": "Carrier",
+    "description": "Plants vs Zombies",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "deezer.android.app": {
+    "list": "Carrier",
+    "description": "Deezer\nOnline music streaming platform.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.bitdefender.security.orange": {
+    "list": "Carrier",
+    "description": "Orange Antivirus (powered by Bitdefender)",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.dailymotion.dailymotion": {
+    "list": "Carrier",
+    "description": "Dailymotion\nOnline video sharing platform.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.orange.cloud.android": {
+    "list": "Carrier",
+    "description": "Orange Cloud\nPreloaded on devices sold by Orange.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.orange.contultauorange": {
+    "list": "Carrier",
+    "description": "Contul meu Orange\nOrange account client preloaded on devices sold by Orange Roamania.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.orange.world": {
+    "list": "Carrier",
+    "description": "Orange World\nShortcut to orangeworld.com preloaded on devices sold by Orange.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.orange.travel.orange": {
+    "list": "Carrier",
+    "description": "Orange Travel\nPreloaded on devices sold by Orange.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ro.orange.fotbal": {
+    "list": "Carrier",
+    "description": "Orange Fotbal\nPreloaded on devices sold by Orange Romania.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ro.orange.orangefilm": {
+    "list": "Carrier",
+    "description": "Orange Film\nPreloaded on devices sold by Orange Romania.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ro.orange.tvlive": {
+    "list": "Carrier",
+    "description": "OrangeTV Go\nPreloaded on devices sold by Orange Romania.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
