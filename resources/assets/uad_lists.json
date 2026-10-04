@@ -43286,14 +43286,6 @@
     "labels": [],
     "removal": "Recommended"
   },
-  "com.gameloft.android.GloftWZMR": {
-    "list": "Oem",
-    "description": "Wonder Zoo",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
   "com.eamobile.sims3_carrier": {
     "list": "Carrier",
     "description": "Sims 3",
