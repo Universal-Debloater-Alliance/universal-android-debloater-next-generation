@@ -332,6 +332,23 @@ impl ToString for PmListPacksFlag {
 
 const PACK_PREFIX: &str = "package:";
 
+fn parse_package_list(pack_ls: &str) -> Vec<String> {
+    pack_ls
+        .lines()
+        .filter_map(|p_ln| {
+            debug_assert!(p_ln.starts_with(PACK_PREFIX));
+            // `.lines()` handles CRLF; older ADB output may contain extra `\r`s.
+            let p = p_ln[PACK_PREFIX.len()..].trim_end_matches('\r');
+            if PackageId::new(p).is_some() {
+                Some(String::from(p))
+            } else {
+                warn!("skipping nonstandard package name: {p:?}");
+                None
+            }
+        })
+        .collect()
+}
+
 pub const PM_CLEAR_PACK: &str = "pm clear";
 
 /// Builder object for an Android Package Manager command.
@@ -363,21 +380,7 @@ impl PmCommand {
             cmd.arg(u.to_string());
         }
 
-        self.0.0.run().map(|pack_ls| {
-            pack_ls
-                .lines()
-                .filter_map(|p_ln| {
-                    debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    let p = &p_ln[PACK_PREFIX.len()..];
-                    if PackageId::new(p).is_some() {
-                        Some(String::from(p))
-                    } else {
-                        warn!("skipping nonstandard package name: {p:?}");
-                        None
-                    }
-                })
-                .collect()
-        })
+        self.0.0.run().map(|pack_ls| parse_package_list(&pack_ls))
     }
 
     /// `list users` sub-command, deserialized/parsed.
@@ -465,6 +468,48 @@ impl UserInfo {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn package_list_lf_and_crlf() {
+        for newline in ["\n", "\r\n"] {
+            let output =
+                format!("package:android{newline}package:com.android.MtpApplication{newline}");
+            assert_eq!(
+                parse_package_list(&output),
+                ["android", "com.android.MtpApplication"]
+            );
+        }
+    }
+
+    #[test]
+    fn package_list_extra_carriage_returns() {
+        let output = "package:android\r\r\npackage:com.android.MtpApplication\r\r\n";
+        assert_eq!(
+            parse_package_list(&to_trimmed_utf8(output.as_bytes())),
+            ["android", "com.android.MtpApplication"]
+        );
+    }
+
+    #[test]
+    fn package_list_without_final_newline() {
+        for output in ["package:com.example", "package:com.example\r"] {
+            assert_eq!(parse_package_list(output), ["com.example"]);
+        }
+        assert!(parse_package_list("").is_empty());
+    }
+
+    #[test]
+    fn package_list_rejects_invalid_ids() {
+        let output = concat!(
+            "package:com..example\n",
+            "package:com.example withspace\n",
+            "package:com.example \n",
+            "package:com.example\t\n",
+            "package:com.example\u{a0}\n",
+            "package:com.example\n",
+        );
+        assert_eq!(parse_package_list(output), ["com.example"]);
+    }
 
     #[test]
     fn invalid_pack_ids() {
