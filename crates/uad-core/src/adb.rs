@@ -368,7 +368,12 @@ impl PmCommand {
                 .lines()
                 .filter_map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
-                    let p = &p_ln[PACK_PREFIX.len()..];
+                    let mut p = &p_ln[PACK_PREFIX.len()..];
+					/// On Windows, the returned package list output has a trailing return character.
+					#[cfg(target_os = "windows")]
+					{
+						p = p.trim_end(); 
+					}
                     if PackageId::new(p).is_some() {
                         Some(String::from(p))
                     } else {
