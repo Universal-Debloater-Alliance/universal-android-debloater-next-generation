@@ -5011,7 +5011,7 @@
   },
   "com.samsung.android.app.spage": {
     "list": "Oem",
-    "description": "Samsung Free (previously known as 'Bixby Home') is a vertically scrolling list of information that Bixby can interact with for example weather, fitness activity and buttons\nfor controlling their smart home gadgets.\nhttps://galaxystore.samsung.com/prepost/000005445489?appId=com.samsung.android.app.spage",
+    "description": "Samsung Free (previously known as 'Bixby Home') is a vertically scrolling list of information that Bixby can interact with for example weather, fitness activity and buttons\nfor controlling their smart home gadgets.\nRelated to \"Briefing\"?\nhttps://galaxystore.samsung.com/prepost/000005445489?appId=com.samsung.android.app.spage",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5139,7 +5139,7 @@
   },
   "com.samsung.android.app.sharelive": {
     "list": "Oem",
-    "description": "Samsung Quick Share (from the Galaxy Store)\nBreaks Quick Share if you remove it.",
+    "description": "Samsung Quick Share (from the Galaxy Store)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5884,7 +5884,7 @@
   },
   "com.samsung.android.visionarapps": {
     "list": "Oem",
-    "description": "\"AR apps\"\nNot really sure what this is, but the icon is Bixby as an eye so I assume it's for accessing AR stuff through Bixby.\n",
+    "description": "\"AR apps\"/\"Makeup, Home Decor, and Sunglass Shack\". Icon is like Bixby. Seems related to AR Zone",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15792,7 +15792,7 @@
   },
   "flipboard.boxer.app": {
     "list": "Misc",
-    "description": "Briefing app (https://play.google.com/store/apps/details?id=flipboard.boxer.app)\n",
+    "description": "Briefing app (https://play.google.com/store/apps/details?id=flipboard.boxer.app)\nSame icon as Samsung Free",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
