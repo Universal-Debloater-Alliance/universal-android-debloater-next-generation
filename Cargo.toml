@@ -1,7 +1,7 @@
 [workspace]
 members = [
     "crates/uad-core",
-    "crates/uad-gui", 
+    "crates/uad-gui",
     "crates/uad-cli"
 ]
 resolver = "2"

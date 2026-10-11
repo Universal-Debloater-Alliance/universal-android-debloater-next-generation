@@ -102,10 +102,7 @@ impl text_input::Catalog for Theme {
                     width: 0.0,
                     radius: 5.0.into(),
                 },
-                icon: Color {
-                    a: 0.5,
-                    ..p.normal.primary
-                },
+                icon: p.normal.primary.scale_alpha(0.5),
                 placeholder: p.normal.surface,
                 value: p.bright.primary,
                 selection: p.normal.primary,
@@ -114,17 +111,11 @@ impl text_input::Catalog for Theme {
             let focused = text_input::Style {
                 background: Background::Color(p.base.foreground),
                 border: Border {
-                    color: Color {
-                        a: 0.5,
-                        ..p.normal.primary
-                    },
+                    color: p.normal.primary.scale_alpha(0.5),
                     width: 1.0,
                     radius: 2.0.into(),
                 },
-                icon: Color {
-                    a: 0.5,
-                    ..p.normal.primary
-                },
+                icon: p.normal.primary.scale_alpha(0.5),
                 placeholder: p.normal.surface,
                 value: p.bright.primary,
                 selection: p.normal.primary,
@@ -133,17 +124,11 @@ impl text_input::Catalog for Theme {
             let disabled = text_input::Style {
                 background: Background::Color(p.base.background),
                 border: Border {
-                    color: Color {
-                        a: 0.5,
-                        ..p.base.foreground
-                    },
+                    color: p.base.foreground.scale_alpha(0.5),
                     width: 1.0,
                     radius: 2.0.into(),
                 },
-                icon: Color {
-                    a: 0.5,
-                    ..p.base.foreground
-                },
+                icon: p.base.foreground.scale_alpha(0.5),
                 placeholder: p.normal.surface,
                 value: p.bright.primary,
                 selection: p.normal.primary,
@@ -174,10 +159,7 @@ impl pick_list::Catalog for Theme {
             let p = t.palette();
             let border_color = match s {
                 pick_list::Status::Hovered => p.normal.primary,
-                _ => Color {
-                    a: 0.5,
-                    ..p.normal.primary
-                },
+                _ => p.normal.primary.scale_alpha(0.5),
             };
             pick_list::Style {
                 text_color: p.bright.surface,
@@ -440,10 +422,7 @@ pub mod Button {
             style.background = Some(Background::Color(p.base.foreground));
         }
         if matches!(status, button::Status::Disabled) {
-            style.background = Some(Background::Color(Color {
-                a: 0.05,
-                ..p.normal.primary
-            }));
+            style.background = Some(Background::Color(p.normal.primary.scale_alpha(0.05)));
             style.text_color = p.bright.primary;
         }
         style
@@ -473,10 +452,7 @@ pub mod Button {
         let p = theme.palette();
         match status {
             button::Status::Hovered => button::Style {
-                background: Some(Background::Color(Color {
-                    a: 0.25,
-                    ..p.normal.primary
-                })),
+                background: Some(Background::Color(p.normal.primary.scale_alpha(0.25))),
                 text_color: p.bright.surface,
                 border: Border {
                     color: p.base.background,
@@ -504,10 +480,7 @@ pub mod Button {
     pub fn SelectedPackage(theme: &Theme, _status: button::Status) -> button::Style {
         let p = theme.palette();
         button::Style {
-            background: Some(Background::Color(Color {
-                a: 0.25,
-                ..p.normal.primary
-            })),
+            background: Some(Background::Color(p.normal.primary.scale_alpha(0.25))),
             text_color: p.bright.primary,
             border: Border {
                 color: p.normal.primary,
@@ -604,10 +577,7 @@ pub mod Scrollable {
 
     fn autoscroll(p: ColorPalette) -> scrollable::AutoScroll {
         scrollable::AutoScroll {
-            background: Background::Color(Color {
-                a: 0.05,
-                ..p.base.background
-            }),
+            background: Background::Color(p.base.background.scale_alpha(0.05)),
             border: Border {
                 color: Color::TRANSPARENT,
                 width: 0.0,
@@ -667,10 +637,7 @@ pub mod CheckBox {
     pub fn PackageDisabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
         let p = theme.palette();
         checkbox::Style {
-            background: Background::Color(Color {
-                a: 0.55,
-                ..p.base.background
-            }),
+            background: Background::Color(p.base.background.scale_alpha(0.55)),
             icon_color: p.bright.primary,
             border: Border {
                 color: p.normal.primary,
