@@ -1067,7 +1067,7 @@
   },
   "com.sonyericsson.android.omacp": {
     "list": "Oem",
-    "description": "omacp = OMA Client Provisioning. It is a protocol specified by the Open Mobile Alliance (OMA).\nIt is used by carrier to send\"configuration SMS\" which can setup network settings (such as APN).\nIn my case, it was automatic and I never needed configuration messages. I'm pretty sure that in France this package is useless.\nMaybe it's useful if carriers change their APN... but you still can change it manually, it's not difficult.\nThese special\"configuration SMS\" can be abused :\nhttps://www.zdnet.fr/actualites/les-smartphones-samsung-huawei-lg-et-sony-vulnerables-a-des-attaques-par-provisioning-39890045.htm\nhttps://www.csoonline.com/article/3435729/sms-based-provisioning-messages-enable-advanced-phishing-on-android-phones.html\n",
+    "description": "omacp = OMA Client Provisioning. It is a protocol specified by the Open Mobile Alliance (OMA).\nIt is used by carrier to send \"configuration SMS\" which can setup network settings (such as APN).\nIn my case, it was automatic and I never needed configuration messages. I'm pretty sure that in France this package is useless.\nMaybe it's useful if carriers change their APN... but you still can change it manually, it's not difficult.\nThese special \"configuration SMS\" can be abused :\nhttps://www.zdnet.fr/actualites/les-smartphones-samsung-huawei-lg-et-sony-vulnerables-a-des-attaques-par-provisioning-39890045.htm\nhttps://www.csoonline.com/article/3435729/sms-based-provisioning-messages-enable-advanced-phishing-on-android-phones.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1083,7 +1083,7 @@
   },
   "com.sonyericsson.idd.agent": {
     "list": "Oem",
-    "description": "Anonymous Usage Stats\nUsed to send\"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nIt remains unclear exactly how this information is anonymized.",
+    "description": "Anonymous Usage Stats\nUsed to send \"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nIt remains unclear exactly how this information is anonymized.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1243,7 +1243,7 @@
   },
   "com.sonymobile.anondata": {
     "list": "Oem",
-    "description": "Anonymous Usage Stats (yes just as com.sonyericsson.idd.agent but it's for other phones)\nUsed to send\"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nIt remains unclear exactly how this information is anonymized.",
+    "description": "Anonymous Usage Stats (yes just as com.sonyericsson.idd.agent but it's for other phones)\nUsed to send \"anonymous\" information about how you use your Sony Smartphone to Sony servers.\nIt remains unclear exactly how this information is anonymized.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -1459,7 +1459,7 @@
   },
   "com.sonymobile.mtp.extension.fotaupdate": {
     "list": "Oem",
-    "description": "fota update service\nFOTA = Firmware Over-The-Air\nFOTA allows manufacturers to remotely install new software updates, features and services.\nGiven there is\"mtp.extension\" in the package name, I think it lets you update your phone via your PC.\nWhat's weird is that it should be called SEUS then (https://www.mobilefun.co.uk/blog/2008/06/software-updates-sony-ericsson/)",
+    "description": "fota update service\nFOTA = Firmware Over-The-Air\nFOTA allows manufacturers to remotely install new software updates, features and services.\nGiven there is \"mtp.extension\" in the package name, I think it lets you update your phone via your PC.\nWhat's weird is that it should be called SEUS then (https://www.mobilefun.co.uk/blog/2008/06/software-updates-sony-ericsson/)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2507,7 +2507,7 @@
   },
   "com.motorola.visualvoicemail": {
     "list": "Carrier",
-    "description": "Verizon Visual Voicemail (https://play.google.com/store/apps/details?id=com.motorola.visualvoicemail)\nOn non-Verizon phones it has a generic\"Voicemail\" name and icon, and doesn't seem to active.\n",
+    "description": "Verizon Visual Voicemail (https://play.google.com/store/apps/details?id=com.motorola.visualvoicemail)\nOn non-Verizon phones it has a generic \"Voicemail\" name and icon, and doesn't seem to active.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2523,7 +2523,7 @@
   },
   "com.asurion.home.sprint.vpl": {
     "list": "Carrier",
-    "description": "Tech Expert (for VPL devices/employees) ?\nNow\"Sprint Complete\" (see below).\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "Tech Expert (for VPL devices/employees) ?\nNow \"Sprint Complete\" (see below).\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2659,7 +2659,7 @@
   },
   "com.sprint.ms.cnap": {
     "list": "Carrier",
-    "description": "Caller ID\ncnap = Caller Name Presentation (https://en.wikipedia.org/wiki/Calling_Name_Presentation)\nLets you change the name that is displayed on caller ID when making a call.\nStrange is it the same thing than\"com.sprint.ecid\" ?\n",
+    "description": "Caller ID\ncnap = Caller Name Presentation (https://en.wikipedia.org/wiki/Calling_Name_Presentation)\nLets you change the name that is displayed on caller ID when making a call.\nStrange is it the same thing than \"com.sprint.ecid\" ?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2675,7 +2675,7 @@
   },
   "com.sprint.safefound.vpl": {
     "list": "Carrier",
-    "description": "Safe & Found (https://play.google.com/store/apps/details?id=com.sprint.safefound)\nMobile safety and security application that helps protect and locate your\"loved ones\".\nYou have the ability to track and manage smartphones, tablets and Tracker all in one app.\nhttps://www.sprint.com/en/support/solutions/services/safe-and-found.html\n",
+    "description": "Safe & Found (https://play.google.com/store/apps/details?id=com.sprint.safefound)\nMobile safety and security application that helps protect and locate your \"loved ones\".\nYou have the ability to track and manage smartphones, tablets and Tracker all in one app.\nhttps://www.sprint.com/en/support/solutions/services/safe-and-found.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2747,7 +2747,7 @@
   },
   "com.asurion.android.protech.att": {
     "list": "Carrier",
-    "description": "AT&T ProTech (https://play.google.com/store/apps/details?id=com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support\"expert\".\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
+    "description": "AT&T ProTech (https://play.google.com/store/apps/details?id=com.asurion.android.protech.att)\nHelp and support app. Lets you call or chat with a live U.S.-based AT&T ProTech support \"expert\".\nNote : This app is developed by Asurion, a US company whose business is to sell insurances.\nAll US carriers use Asurion for the phone insurances.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -2867,7 +2867,7 @@
   },
   "com.dti.att": {
     "list": "Carrier",
-    "description": "AT&T App Select\nI guess it lets you choose AT&T apps to install.\nIt has a LOT of permissions : https://knowledge.protektoid.com/apps/com.dti.att/7a36d4f5f00bae044566221400719c75ea2f4f33bc2578a7f8210f36d718a8d6\nSomeone knows what\"dti\" is/means ?\n",
+    "description": "AT&T App Select\nI guess it lets you choose AT&T apps to install.\nIt has a LOT of permissions : https://knowledge.protektoid.com/apps/com.dti.att/7a36d4f5f00bae044566221400719c75ea2f4f33bc2578a7f8210f36d718a8d6\nSomeone knows what \"dti\" is/means ?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3525,7 +3525,7 @@
   },
   "com.huawei.hiassistantoversea": {
     "list": "Oem",
-    "description": "HiVoice. Huawei's voice assistant to replace\"Hey Google\"\n",
+    "description": "HiVoice. Huawei's voice assistant to replace \"Hey Google\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -3787,7 +3787,7 @@
   },
   "com.huawei.mirrorlink": {
     "list": "Oem",
-    "description": "Huawei Mirror app.\nMirror like\"Glass\"\n\nHuawei mirrorlink implementation\nUsed to connect your phone to a car (with https://mirrorlink.com/ support) in order to provide audio streaming, GPS navigation...\n",
+    "description": "Huawei Mirror app.\nMirror like \"Glass\"\n\nHuawei mirrorlink implementation\nUsed to connect your phone to a car (with https://mirrorlink.com/ support) in order to provide audio streaming, GPS navigation...\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4091,7 +4091,7 @@
   },
   "com.lenovo.lsf.user": {
     "list": "Oem",
-    "description": "Lenovo ID adds an option in Settings>Accounts where you can login to a Lenovo ID account.\nFeatures include\"exclusive features directly from Lenovo and our partners\" and\"syncing users information across devices\"\nlsf = Lenovo Service Framework\n",
+    "description": "Lenovo ID adds an option in Settings>Accounts where you can login to a Lenovo ID account.\nFeatures include \"exclusive features directly from Lenovo and our partners\" and \"syncing users information across devices\"\nlsf = Lenovo Service Framework\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4107,7 +4107,7 @@
   },
   "com.motorola.android.fmradio": {
     "list": "Oem",
-    "description": "FMRadioService\nRequired by\"com.motorola.fmplayer\"\n",
+    "description": "FMRadioService\nRequired by \"com.motorola.fmplayer\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4131,7 +4131,7 @@
   },
   "com.motorola.android.providers.chromehomepage": {
     "list": "Oem",
-    "description": "Seems to provide the\"Home\"-button functionality in Chrome.\nhttps://forum.xda-developers.com/android/apps-games/app-chrome-homepage-t3695804",
+    "description": "Seems to provide the \"Home\"-button functionality in Chrome.\nhttps://forum.xda-developers.com/android/apps-games/app-chrome-homepage-t3695804",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4139,7 +4139,7 @@
   },
   "com.motorola.android.provisioning": {
     "list": "Oem",
-    "description": "OMA Client Provisioning\nIt is a protocol specified by the Open Mobile Alliance (OMA).\nIt is used by carrier to send\"configuration SMS\" which can setup network settings (such as APN).\nIn my case, it was automatic and I never needed configuration messages. I'm pretty sure that in France this package is useless.\nMaybe it's useful if carriers change their APN... but you still can change it manually, it's not difficult.\n#\nNote : These special\"confirguration SMS\" can be abused :\nhttps://www.zdnet.fr/actualites/les-smartphones-samsung-huawei-lg-et-sony-vulnerables-a-des-attaques-par-provisioning-39890045.htm\nhttps://www.csoonline.com/article/3435729/sms-based-provisioning-messages-enable-advanced-phishing-on-android-phones.html\n",
+    "description": "OMA Client Provisioning\nIt is a protocol specified by the Open Mobile Alliance (OMA).\nIt is used by carrier to send \"configuration SMS\" which can setup network settings (such as APN).\nIn my case, it was automatic and I never needed configuration messages. I'm pretty sure that in France this package is useless.\nMaybe it's useful if carriers change their APN... but you still can change it manually, it's not difficult.\n#\nNote : These special \"confirguration SMS\" can be abused :\nhttps://www.zdnet.fr/actualites/les-smartphones-samsung-huawei-lg-et-sony-vulnerables-a-des-attaques-par-provisioning-39890045.htm\nhttps://www.csoonline.com/article/3435729/sms-based-provisioning-messages-enable-advanced-phishing-on-android-phones.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4323,7 +4323,7 @@
   },
   "com.motorola.moto": {
     "list": "Oem",
-    "description": "Moto (https://play.google.com/store/apps/details?id=com.motorola.moto)\nApp providing Moto Actions, Moto Display, and other feature families that let you customize the way you interact with your device.\nMoto Actions is another app (https://play.google.com/store/apps/details?id=com.motorola.actions). Gestures set with\"Moto\" prior will continue to work provided\"Moto Actions\" remains installed.\n",
+    "description": "Moto (https://play.google.com/store/apps/details?id=com.motorola.moto)\nApp providing Moto Actions, Moto Display, and other feature families that let you customize the way you interact with your device.\nMoto Actions is another app (https://play.google.com/store/apps/details?id=com.motorola.actions). Gestures set with \"Moto\" prior will continue to work provided \"Moto Actions\" remains installed.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4331,7 +4331,7 @@
   },
   "com.motorola.motocare": {
     "list": "Oem",
-    "description": "Moto Care was renamed in\"Moto Help\" and then in\"Device Help\"\nProvide support features.\nhttps://mobile.softpedia.com/blog/Moto-Care-App-Gets-Updated-Now-Called-Motorola-Help-432827.shtml\nHowever you can both have com.motorola.genie (Device Help) and this package so it's strange.\n",
+    "description": "Moto Care was renamed in \"Moto Help\" and then in \"Device Help\"\nProvide support features.\nhttps://mobile.softpedia.com/blog/Moto-Care-App-Gets-Updated-Now-Called-Motorola-Help-432827.shtml\nHowever you can both have com.motorola.genie (Device Help) and this package so it's strange.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4515,7 +4515,7 @@
   },
   "com.motorola.launcher.secondarydisplay": {
     "list": "Oem",
-    "description": "Appears to enable support for a secondary display with Moto's launcher.\nTrying to remove this packages returns\"Failure: package is non-disable\".",
+    "description": "Appears to enable support for a secondary display with Moto's launcher.\nTrying to remove this packages returns \"Failure: package is non-disable\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4635,7 +4635,7 @@
   },
   "com.aura.oobe.samsung.gl": {
     "list": "Carrier",
-    "description": "AppCloud\nIt offers the\"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx",
+    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4643,7 +4643,7 @@
   },
   "com.aura.oobe.samsung": {
     "list": "Carrier",
-    "description": "AppCloud\nIt offers the\"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx\nhttps://beta.pithus.org/report/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5\nhttps://www.virustotal.com/gui/file/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5",
+    "description": "AppCloud\nIt offers the \"Aura Out-Of-the-Box Experience\" (OOBE)\nIt is some kind of post-install recommended apps setup from the carrier. Asks for your age and gender and then recommends you to install popular apps.\nDeveloped by IronSource, an Israeli advertising company (now owned by the American company Unity).\nhttps://en.wikipedia.org/wiki/IronSource\nhttps://aura.ironsrc.com/tools/drive-app-downloads/\nhttps://arxiv.org/pdf/2010.10088.pdf\nHas way too many permissions.\nSee https://github.com/0x192/universal-android-debloater/issues/278\nhttps://docs.samsungknox.com/admin/knox-platform-for-enterprise/knox-service-plugin/kbas/kba-954-unable-to-access-home-screen/\nhttps://smex.org/invasive-israeli-software-is-harvesting-data-from-samsung-users-in-wana/\nhttps://investors.unity.com/news/news-details/2022/Unity-Announces-Merger-Agreement-with-ironSource/default.aspx\nhttps://beta.pithus.org/report/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5\nhttps://www.virustotal.com/gui/file/9f8ff7db0924711be9a8a238beafecde84f42f3f249dfd9acfbe6cab390994b5",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4659,7 +4659,7 @@
   },
   "com.enhance.gameservice": {
     "list": "Oem",
-    "description": "Legacy game Optimizing Service (was replaced by com.samsung.android.game.gos)\nIs supposed to\"improve\" game performance.\n",
+    "description": "Legacy game Optimizing Service (was replaced by com.samsung.android.game.gos)\nIs supposed to \"improve\" game performance.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4683,7 +4683,7 @@
   },
   "com.knox.vpn.proxyhandler": {
     "list": "Oem",
-    "description": "Samsung Knox allows business and personal content to\"securely\" coexist on the same handset.\nThis package handles proxies alongside KNOX.",
+    "description": "Samsung Knox allows business and personal content to \"securely\" coexist on the same handset.\nThis package handles proxies alongside KNOX.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -4899,7 +4899,7 @@
   },
   "com.samsung.android.app.omcagent": {
     "list": "Oem",
-    "description": "Open Market Customization Agent (AKA 'Recommended Apps')\nInstalls more Samsung\"Recommended Apps\" after device setup. Similar to com.samsung.android.mapsagent",
+    "description": "Open Market Customization Agent (AKA 'Recommended Apps')\nInstalls more Samsung \"Recommended Apps\" after device setup. Similar to com.samsung.android.mapsagent",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5195,7 +5195,7 @@
   },
   "com.samsung.android.coreapps": {
     "list": "Oem",
-    "description": "Samsung Enhanced features\nFiles and profiles sharing feature. It may be called\"Enhanced messaging\".\nUsing this service lets Samsung to automatically collect your phone number, contact list and messages\nhttps://forums.androidcentral.com/samsung-galaxy-s6-edge/523172-enhanced-features.html\nhttps://www.samsung.com/za/support/mobile-devices/what-is-enhanced-messaging/\n",
+    "description": "Samsung Enhanced features\nFiles and profiles sharing feature. It may be called \"Enhanced messaging\".\nUsing this service lets Samsung to automatically collect your phone number, contact list and messages\nhttps://forums.androidcentral.com/samsung-galaxy-s6-edge/523172-enhanced-features.html\nhttps://www.samsung.com/za/support/mobile-devices/what-is-enhanced-messaging/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5253,7 +5253,7 @@
   },
   "com.samsung.android.easysetup": {
     "list": "Oem",
-    "description": "Samsung Nearby device scanning\nRequires\"com.samsung.android.beaconmanager\" to be useful.",
+    "description": "Samsung Nearby device scanning\nRequires \"com.samsung.android.beaconmanager\" to be useful.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5309,7 +5309,7 @@
   },
   "com.samsung.android.game.gos": {
     "list": "Oem",
-    "description": "Samsung Game Optimizing Service\nIs supposed to\"improve\" game performance.\nHas a\"Game Intent Service\" that runs occasionally. If uninstalling fails, try disabling. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
+    "description": "Samsung Game Optimizing Service\nIs supposed to \"improve\" game performance.\nHas a \"Game Intent Service\" that runs occasionally. If uninstalling fails, try disabling. More info:\nhttps://pcgamer.com/samsungs-game-optimization-service-might-be-throttling-the-performance-of-over-10000-apps",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5381,7 +5381,7 @@
   },
   "com.samsung.android.kidsinstaller": {
     "list": "Oem",
-    "description": "Samsung Kids Home (https://www.samsung.com/global/galaxy/apps/samsung-kids-home/)\nLets you shape a\"safe environment\" for your child.\nNOTE : You shouldn't give your phone to a child. That bad !\nhttps://ifstudies.org/blog/a-smartphone-will-change-your-child-in-ways-you-might-not-expect-or-want\n",
+    "description": "Samsung Kids Home (https://www.samsung.com/global/galaxy/apps/samsung-kids-home/)\nLets you shape a \"safe environment\" for your child.\nNOTE : You shouldn't give your phone to a child. That bad !\nhttps://ifstudies.org/blog/a-smartphone-will-change-your-child-in-ways-you-might-not-expect-or-want\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5405,7 +5405,7 @@
   },
   "com.samsung.android.knox.containerdesktop": {
     "list": "Oem",
-    "description": "Knox Container Desktop\nProvides UI for the work(space) container?\nSee\"com.samsung.android.knox.containeragent\"\n",
+    "description": "Knox Container Desktop\nProvides UI for the work(space) container?\nSee \"com.samsung.android.knox.containeragent\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5469,7 +5469,7 @@
   },
   "com.samsung.android.mdx.kit": {
     "list": "Oem",
-    "description": "Quick Share Connectivity / MDE Service Framework\nMDX = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with\"com.samsung.android.mobileservice\" and\"com.osp.app.signin\"\n",
+    "description": "Quick Share Connectivity / MDE Service Framework\nMDX = Multi Devices Experience (https://www.samsung.com/levant/multi-device-experience/)\nFramework for IoT stuff.\nAsks for a LOT of dangerous permissions\nInteracts with \"com.samsung.android.mobileservice\" and \"com.osp.app.signin\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5493,7 +5493,7 @@
   },
   "com.samsung.android.net.wifi.wifiguider": {
     "list": "Oem",
-    "description": "Wi-Fi Tips\nShows a question-mark button next to Wi-Fi networks that failed to connect for any reason, providing info to fix the specific issue. It also has a dedicated Settings activity that lists all possible help-tips, accessible via the\"More tips\" button when reading a tip.\nUpon reinstalling a notification pops up saying\"Analyzing Wi-Fi\" for a few seconds, no idea what it's doing. WARNING: removing makes it impossible to connect to a Wi-Fi network without a detected internet connection!",
+    "description": "Wi-Fi Tips\nShows a question-mark button next to Wi-Fi networks that failed to connect for any reason, providing info to fix the specific issue. It also has a dedicated Settings activity that lists all possible help-tips, accessible via the \"More tips\" button when reading a tip.\nUpon reinstalling a notification pops up saying \"Analyzing Wi-Fi\" for a few seconds, no idea what it's doing. WARNING: removing makes it impossible to connect to a Wi-Fi network without a detected internet connection!",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5541,7 +5541,7 @@
   },
   "com.samsung.android.rubin.app": {
     "list": "Oem",
-    "description": "Customization Service\nCollects a massive amount of data (https://www.samsung.com/us/account/customization-service/)\nBasically everything you do on your phone.\nFor\"a better user experience\"\nUsed to display customized advertisements about products and services that may be of interest to you\n",
+    "description": "Customization Service\nCollects a massive amount of data (https://www.samsung.com/us/account/customization-service/)\nBasically everything you do on your phone.\nFor \"a better user experience\"\nUsed to display customized advertisements about products and services that may be of interest to you\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5621,7 +5621,7 @@
   },
   "com.samsung.android.smartface": {
     "list": "Oem",
-    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to\"Keep screen on while viewing\" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
+    "description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to \"Keep screen on while viewing\" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5852,7 +5852,7 @@
   },
   "com.samsung.android.themestore": {
     "list": "Oem",
-    "description": "Galaxy Themes.\nForces you to login to a Samsung Account if you want to download ANY content (icons, wallpapers, themes...). If you already downloaded something, you can apply it\"freely\".\nNot needed for Wallpaper API, so any app (Samsung or not) can set Home & Lock wallpapers. However, on some devices, this app is required to view/apply built-in wallpapers (in that case, it requires `themecenter` service)\n\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/",
+    "description": "Galaxy Themes.\nForces you to login to a Samsung Account if you want to download ANY content (icons, wallpapers, themes...). If you already downloaded something, you can apply it \"freely\".\nNot needed for Wallpaper API, so any app (Samsung or not) can set Home & Lock wallpapers. However, on some devices, this app is required to view/apply built-in wallpapers (in that case, it requires `themecenter` service)\n\nhttps://www.samsung.com/global/galaxy/apps/galaxy-themes/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5892,7 +5892,7 @@
   },
   "com.samsung.android.visioncloudagent": {
     "list": "Oem",
-    "description": "VisionCloudAgent\nCloud Agent is a service which automatically upload on the cloud the photos you take on your phone. It connects to your\"Samsung account\".\nIt is related to Dropbox.\nGiven the Vision in the package name there is a link with Bixby.\n",
+    "description": "VisionCloudAgent\nCloud Agent is a service which automatically upload on the cloud the photos you take on your phone. It connects to your \"Samsung account\".\nIt is related to Dropbox.\nGiven the Vision in the package name there is a link with Bixby.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5908,7 +5908,7 @@
   },
   "com.samsung.android.voc": {
     "list": "Oem",
-    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.android.voc)\nThe other version is\"com.samsung.oh\".",
+    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.android.voc)\nThe other version is \"com.samsung.oh\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -5924,7 +5924,7 @@
   },
   "com.samsung.android.weather": {
     "list": "Oem",
-    "description": "Unified Daemon app. Named\"Weather\" on some Samsung Galaxy devices.\nProvides support for a number of different apps on your device. These include the Weather, Yahoo Finance and Yahoo News apps amongst others. The data is used by apps such as the Alarm, Calendar app and the Camera (including the\"Scan QR code\" Quick-Panel tile). If the display-name is\"Weather\", it doubles as the Samsung Weather app, which provides weather widgets.",
+    "description": "Unified Daemon app. Named \"Weather\" on some Samsung Galaxy devices.\nProvides support for a number of different apps on your device. These include the Weather, Yahoo Finance and Yahoo News apps amongst others. The data is used by apps such as the Alarm, Calendar app and the Camera (including the \"Scan QR code\" Quick-Panel tile). If the display-name is \"Weather\", it doubles as the Samsung Weather app, which provides weather widgets.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6004,7 +6004,7 @@
   },
   "com.samsung.desktopsystemui": {
     "list": "Oem",
-    "description": "Samsung DeX UI\nExtends your smartphone into a\"desktop computing experience\".\nhttps://developer.samsung.com/samsung-dex/how-it-works\n",
+    "description": "Samsung DeX UI\nExtends your smartphone into a \"desktop computing experience\".\nhttps://developer.samsung.com/samsung-dex/how-it-works\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6168,7 +6168,7 @@
   },
   "com.samsung.logwriter": {
     "list": "Oem",
-    "description": "LogWriter\nWrites data in a logs SQL database.\nRuns at boot and is triggered when an download from an Iron Source (Iron Source is an Israeli advertising company)\napp is completed (probably\"com.aura.oobe.samsung\")\n",
+    "description": "LogWriter\nWrites data in a logs SQL database.\nRuns at boot and is triggered when an download from an Iron Source (Iron Source is an Israeli advertising company)\napp is completed (probably \"com.aura.oobe.samsung\")\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6200,7 +6200,7 @@
   },
   "com.samsung.oh": {
     "list": "Oem",
-    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.oh)\nSamsung community. It's a kind of social media app for Samsung users.\nhttps://www.samsung.com/global/galaxy/apps/samsung-members/\nOOOPS ! https://bgr.com/2019/10/31/samsung-members-dong-pic-oops/\nThe other version is\"com.samsung.android.voc\".\n",
+    "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.oh)\nSamsung community. It's a kind of social media app for Samsung users.\nhttps://www.samsung.com/global/galaxy/apps/samsung-members/\nOOOPS ! https://bgr.com/2019/10/31/samsung-members-dong-pic-oops/\nThe other version is \"com.samsung.android.voc\".\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6368,7 +6368,7 @@
   },
   "com.sec.android.app.desktoplauncher": {
     "list": "Oem",
-    "description": "Samsung DeX Home (launcher)\nDex enables users to extend their device into a desktop-like experience by connecting a keyboard, mouse, and monitor.\n\"DeX\" is a contraction of\"Desktop eXperience\".\nhttps://en.wikipedia.org/wiki/Samsung_DeX\n",
+    "description": "Samsung DeX Home (launcher)\nDex enables users to extend their device into a desktop-like experience by connecting a keyboard, mouse, and monitor.\n \"DeX\" is a contraction of \"Desktop eXperience\".\nhttps://en.wikipedia.org/wiki/Samsung_DeX\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6408,7 +6408,7 @@
   },
   "com.sec.android.app.gamehub": {
     "list": "Oem",
-    "description": "Samsung Game Hub\nWas replaced by\"com.samsung.android.game.gamehome\"\nhttps://www.techradar.com/news/phone-and-communications/mobile-phones/the-samsung-game-hub-explained-1143450\n",
+    "description": "Samsung Game Hub\nWas replaced by \"com.samsung.android.game.gamehome\"\nhttps://www.techradar.com/news/phone-and-communications/mobile-phones/the-samsung-game-hub-explained-1143450\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6554,7 +6554,7 @@
   },
   "com.sec.android.app.setupwizard": {
     "list": "Oem",
-    "description": "Samsung Setupwizard\nThe Welcome screen which guides you through the basics of setting up your device when you boot it for the first time (or after a factory reset). On some Verizon-carried devices, it can show an annoying\"SIM card not from Verizon Wireless\" notification, for each boot, and it can't be blocked unless you disable the app\n",
+    "description": "Samsung Setupwizard\nThe Welcome screen which guides you through the basics of setting up your device when you boot it for the first time (or after a factory reset). On some Verizon-carried devices, it can show an annoying \"SIM card not from Verizon Wireless\" notification, for each boot, and it can't be blocked unless you disable the app\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6562,7 +6562,7 @@
   },
   "com.sec.android.app.suwscriptplayer": {
     "list": "Oem",
-    "description": "SuwScriptPlayer\nSeems to be another test app which test some\"scripts\"\n",
+    "description": "SuwScriptPlayer\nSeems to be another test app which test some \"scripts\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6602,7 +6602,7 @@
   },
   "com.sec.android.app.wlantest": {
     "list": "Oem",
-    "description": "wlan test\nHidden test app responding to the #232339*# and *#232338*# secret codes\nFYI : wlan = wireless LAN (https://en.wikipedia.org/wiki/Wireless_LAN)\nNOTE: Disabling this test will rise the exclamation mark on the WI-Fi icon and will show the message\"Unable to connect to the host\" in Settings -> Connections -> More connections settings - Private DNS - provider hostname.\nThe connection seems to work despite those esthetic errors.",
+    "description": "wlan test\nHidden test app responding to the #232339*# and *#232338*# secret codes\nFYI : wlan = wireless LAN (https://en.wikipedia.org/wiki/Wireless_LAN)\nNOTE: Disabling this test will rise the exclamation mark on the WI-Fi icon and will show the message \"Unable to connect to the host\" in Settings -> Connections -> More connections settings - Private DNS - provider hostname.\nThe connection seems to work despite those esthetic errors.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6642,7 +6642,7 @@
   },
   "com.sec.android.desktopmode.uiservice": {
     "list": "Oem",
-    "description": "Samsung DeX\nExtends your smartphone into a\"desktop computing experience\".\nConcretely this lets you access all your mobile apps and content from a computer.\nOnly works on Windows/MacOS. You will need to install the Samsung DeX app on your computer.\nhttps://en.wikipedia.org/wiki/Samsung_DeX\nhttps://www.samsung.com/global/galaxy/apps/samsung-dex/\n",
+    "description": "Samsung DeX\nExtends your smartphone into a \"desktop computing experience\".\nConcretely this lets you access all your mobile apps and content from a computer.\nOnly works on Windows/MacOS. You will need to install the Samsung DeX app on your computer.\nhttps://en.wikipedia.org/wiki/Samsung_DeX\nhttps://www.samsung.com/global/galaxy/apps/samsung-dex/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6650,7 +6650,7 @@
   },
   "com.sec.android.app.dexonpc": {
     "list": "Oem",
-    "description": "Samsung DeX\nExtends your smartphone into a\"desktop computing experience\".\nConcretely this lets you access all your mobile apps and content from a computer.\nOnly works on Windows/MacOS. You will need to install the Samsung DeX app on your computer.\nhttps://en.wikipedia.org/wiki/Samsung_DeX\nhttps://www.samsung.com/global/galaxy/apps/samsung-dex/\n",
+    "description": "Samsung DeX\nExtends your smartphone into a \"desktop computing experience\".\nConcretely this lets you access all your mobile apps and content from a computer.\nOnly works on Windows/MacOS. You will need to install the Samsung DeX app on your computer.\nhttps://en.wikipedia.org/wiki/Samsung_DeX\nhttps://www.samsung.com/global/galaxy/apps/samsung-dex/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6666,7 +6666,7 @@
   },
   "com.sec.android.easyMover.Agent": {
     "list": "Oem",
-    "description": "Smart Switch Agent\nNeeded to use Smart Switch. See\"com.sec.android.easyMover\".",
+    "description": "Smart Switch Agent\nNeeded to use Smart Switch. See \"com.sec.android.easyMover\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6802,7 +6802,7 @@
   },
   "com.sec.android.widgetapp.easymodecontactswidget": {
     "list": "Oem",
-    "description": "Favourite Contacts widget\nLets you add favorite contacts to home screen\nhttps://www.samsung.com/au/getstarted/advanced/create-favourite-contacts-on-your-home-screen/\nIs it only usable when enabling the\"simple use\" senior mode?\n",
+    "description": "Favourite Contacts widget\nLets you add favorite contacts to home screen\nhttps://www.samsung.com/au/getstarted/advanced/create-favourite-contacts-on-your-home-screen/\nIs it only usable when enabling the \"simple use\" senior mode?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -6826,7 +6826,7 @@
   },
   "com.sec.app.RilErrorNotifier": {
     "list": "Oem",
-    "description": "RilNotifier\nDebug app for the RIL\nSee\"com.sec.android.RilServiceModeApp\"\n",
+    "description": "RilNotifier\nDebug app for the RIL\nSee \"com.sec.android.RilServiceModeApp\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7170,7 +7170,7 @@
   },
   "com.wssnps": {
     "list": "Oem",
-    "description": "Samsung Backup and restore Manager (on Samsung Galaxy S7)\nWas replaced by\"com.sec.android.easyMover\" (Samsung Smart Switch Mover)\n",
+    "description": "Samsung Backup and restore Manager (on Samsung Galaxy S7)\nWas replaced by \"com.sec.android.easyMover\" (Samsung Smart Switch Mover)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7194,7 +7194,7 @@
   },
   "com.policydm": {
     "list": "Oem",
-    "description": "Samsung security policy update (https://play.google.com/store/apps/details?id=com.policydm)\nUpdatable policy files designed to increase android security and detect malicious behaviour.\nHas nothing to do with OTA updates or Android Security patches.\nCan be removed without issue (https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/15)\nSee\"com.samsung.android.spdclient\" for more information.\n",
+    "description": "Samsung security policy update (https://play.google.com/store/apps/details?id=com.policydm)\nUpdatable policy files designed to increase android security and detect malicious behaviour.\nHas nothing to do with OTA updates or Android Security patches.\nCan be removed without issue (https://gitlab.com/W1nst0n/universal-android-debloater/-/issues/15)\nSee \"com.samsung.android.spdclient\" for more information.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7676,7 +7676,7 @@
   },
   "com.sec.android.sdhms": {
     "list": "Oem",
-    "description": "Samsung Device Health Manager Service\nBattery estimation service for Samsung Care/Device maintenance (com.samsung.android.lool)\nThere is some weird stuff in the java code. I don't understand why there is a need to parse torrent files for instance\nor why there is a string\"googleapis.com/drive\"\nhttps://developers.google.com/drive/api/v3/reference\n",
+    "description": "Samsung Device Health Manager Service\nBattery estimation service for Samsung Care/Device maintenance (com.samsung.android.lool)\nThere is some weird stuff in the java code. I don't understand why there is a need to parse torrent files for instance\nor why there is a string \"googleapis.com/drive\"\nhttps://developers.google.com/drive/api/v3/reference\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -7836,7 +7836,7 @@
   },
   "com.samsung.android.incallui": {
     "list": "Oem",
-    "description": "UI when\"being called/in call\". It's basically the screen that shows you who is calling, lets you answer and hang up, switch to speaker, etc\n",
+    "description": "UI when \"being called/in call\". It's basically the screen that shows you who is calling, lets you answer and hang up, switch to speaker, etc\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8140,7 +8140,7 @@
   },
   "com.android.safetycenter.resources": {
     "list": "Aosp",
-    "description": "Google/AOSP Safety Center resources.\n. Uninstalling this will change the configuration to revert back the\"Security & privacy\" look to the old style.\nDoes not contain code, just the configuration for code that lives in another package.",
+    "description": "Google/AOSP Safety Center resources.\n. Uninstalling this will change the configuration to revert back the \"Security & privacy\" look to the old style.\nDoes not contain code, just the configuration for code that lives in another package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8172,7 +8172,7 @@
   },
   "com.android.stk2": {
     "list": "Aosp",
-    "description": "SIM toolkit\nSpecial package for dual-sim devices?\nEnables carriers to initiate\"value-added services\". Basically, some operators provide SIM-cards with applications installed on them.\nhttps://en.wikipedia.org/wiki/SIM_Application_Toolkit#cite_note-CellularZA-1\nHas been abused:\n- SimJacker: https://thehackernews.com/2019/09/simjacker-mobile-hacking.html\n- WIBattack: https://www.zdnet.com/article/new-sim-card-attack-disclosed-similar-to-simjacker/\nWARNING: do mind that disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management\nNOTE: removing this package removes the launcher icon. `com.android.stk2` relies on `com.android.stk` and vice-versa.",
+    "description": "SIM toolkit\nSpecial package for dual-sim devices?\nEnables carriers to initiate \"value-added services\". Basically, some operators provide SIM-cards with applications installed on them.\nhttps://en.wikipedia.org/wiki/SIM_Application_Toolkit#cite_note-CellularZA-1\nHas been abused:\n- SimJacker: https://thehackernews.com/2019/09/simjacker-mobile-hacking.html\n- WIBattack: https://www.zdnet.com/article/new-sim-card-attack-disclosed-similar-to-simjacker/\nWARNING: do mind that disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management\nNOTE: removing this package removes the launcher icon. `com.android.stk2` relies on `com.android.stk` and vice-versa.",
     "dependencies": [],
     "neededBy": [],
     "labels": [
@@ -8182,7 +8182,7 @@
   },
   "com.android.stk": {
     "list": "Aosp",
-    "description": "SIM toolkit\nEnables carriers to initiate\"value-added services\". Basically, some operators provide SIM-cards with applications installed on them.\nhttps://en.wikipedia.org/wiki/SIM_Application_Toolkit#cite_note-CellularZA-1\nHas been abused:\n- SimJacker: https://thehackernews.com/2019/09/simjacker-mobile-hacking.html\n- WIBattack: https://www.zdnet.com/article/new-sim-card-attack-disclosed-similar-to-simjacker/\nWARNING: do mind that disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management\nNOTE: removing this package removes the launcher icon. `com.android.stk` relies on `com.android.stk2` and vice-versa.",
+    "description": "SIM toolkit\nEnables carriers to initiate \"value-added services\". Basically, some operators provide SIM-cards with applications installed on them.\nhttps://en.wikipedia.org/wiki/SIM_Application_Toolkit#cite_note-CellularZA-1\nHas been abused:\n- SimJacker: https://thehackernews.com/2019/09/simjacker-mobile-hacking.html\n- WIBattack: https://www.zdnet.com/article/new-sim-card-attack-disclosed-similar-to-simjacker/\nWARNING: do mind that disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management\nNOTE: removing this package removes the launcher icon. `com.android.stk` relies on `com.android.stk2` and vice-versa.",
     "dependencies": [],
     "neededBy": [],
     "labels": [
@@ -8442,7 +8442,7 @@
   },
   "com.android.inputdevices": {
     "list": "Aosp",
-    "description": "Only contains a receiver named\"Android keyboard\", possibly for an external keyboard.\nLocates available keyboard layouts. Apps can offer additional keyboard layouts to the user by declaring a suitable broadcast receiver in their manifest.\nWARNING: If you are using the default Samsung keyboard, then deleting this package on some phones may cause the keyboard to completely stop working. You may get locked out of your phone if the only method to authenticate yourself is using password.",
+    "description": "Only contains a receiver named \"Android keyboard\", possibly for an external keyboard.\nLocates available keyboard layouts. Apps can offer additional keyboard layouts to the user by declaring a suitable broadcast receiver in their manifest.\nWARNING: If you are using the default Samsung keyboard, then deleting this package on some phones may cause the keyboard to completely stop working. You may get locked out of your phone if the only method to authenticate yourself is using password.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8842,7 +8842,7 @@
   },
   "com.android.wallpaperbackup": {
     "list": "Aosp",
-    "description": "Wallpaper Backup\nBacks up and restores wallpaper and metadata related to it.\nThis agent has its own package because it does full backup as opposed to SystemBackupAgent which does key/value backup.\nThis class stages wallpaper files for backup by copying them into its own directory because of the following reasons:\nNon-system users don't have permission to read the directory that the system stores the wallpaper files in\nBackupAgent enforces that backed up files must live inside the package's getFilesDir()\nThere are 3 files to back up:\nThe\"wallpaper info\"  file which contains metadata like the crop applied to the wallpaper or the live wallpaper component name.\nThe\"system\" wallpaper file.\nAn optional\"lock\" wallpaper, which is shown on the lockscreen instead of the system wallpaper if set.\nOn restore, the metadata file is parsed and WallpaperManager APIs are used to set the wallpaper.\nNote that if there's a live wallpaper, the live wallpaper package name will be part of the metadata file and the wallpaper will be applied when the package it's installed.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/WallpaperBackup/src/com/android/wallpaperbackup/WallpaperBackupAgent.java",
+    "description": "Wallpaper Backup\nBacks up and restores wallpaper and metadata related to it.\nThis agent has its own package because it does full backup as opposed to SystemBackupAgent which does key/value backup.\nThis class stages wallpaper files for backup by copying them into its own directory because of the following reasons:\nNon-system users don't have permission to read the directory that the system stores the wallpaper files in\nBackupAgent enforces that backed up files must live inside the package's getFilesDir()\nThere are 3 files to back up:\nThe \"wallpaper info\"  file which contains metadata like the crop applied to the wallpaper or the live wallpaper component name.\nThe \"system\" wallpaper file.\nAn optional \"lock\" wallpaper, which is shown on the lockscreen instead of the system wallpaper if set.\nOn restore, the metadata file is parsed and WallpaperManager APIs are used to set the wallpaper.\nNote that if there's a live wallpaper, the live wallpaper package name will be part of the metadata file and the wallpaper will be applied when the package it's installed.\nhttps://android.googlesource.com/platform/frameworks/base/+/master/packages/WallpaperBackup/src/com/android/wallpaperbackup/WallpaperBackupAgent.java",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8882,7 +8882,7 @@
   },
   "com.android.documentsui.a_overlay": {
     "list": "Aosp",
-    "description": "Some overlay for for\"Files\"?",
+    "description": "Some overlay for for \"Files\"?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9226,7 +9226,7 @@
   },
   "com.oneplus.engmode": {
     "list": "Oem",
-    "description": "Some kind of Engineer mode? I've no clue.\nContains a bunch of activities with\"info\" in their names.\nContains an\"OpFloatViewService\", but I've never seen it run.",
+    "description": "Some kind of Engineer mode? I've no clue.\nContains a bunch of activities with \"info\" in their names.\nContains an \"OpFloatViewService\", but I've never seen it run.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9316,7 +9316,7 @@
   },
   "com.oneplus.soundrecorder": {
     "list": "Oem",
-    "description": "Recorder\nOnePlus sound recording app. Requires turning on\"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
+    "description": "Recorder\nOnePlus sound recording app. Requires turning on \"Allow modifying system settings\" to use for some reason? Probably tied to recording phone-calls.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9364,7 +9364,7 @@
   },
   "com.oneplus.orm": {
     "list": "Oem",
-    "description": "Seems to be Oneplus' Memory Management System according to a press-kit/-release they made for Android 11 (multiple sites wrote\"ORM Memory Management System\" word-for-word).\nRuns in the background as part of the system. Runs even if disabled? Doesn't use any RAM when disabled tho, vs ~50MB when enabled.\nSeems safe to disable, haven't noticed any negative effects in weeks of use, but I assume it breaks the\"RAM Boost\" feature (which is pointless anyway IMO).\nApk file name: OPOmm, mm = Memory Management?\nHas 2 permissions: KILL_BACKGROUND_PROCESSES and SET_TIME_ZONE.\nContains 2 services: OPManagerService and BackgroundCollectorService.",
+    "description": "Seems to be Oneplus' Memory Management System according to a press-kit/-release they made for Android 11 (multiple sites wrote \"ORM Memory Management System\" word-for-word).\nRuns in the background as part of the system. Runs even if disabled? Doesn't use any RAM when disabled tho, vs ~50MB when enabled.\nSeems safe to disable, haven't noticed any negative effects in weeks of use, but I assume it breaks the \"RAM Boost\" feature (which is pointless anyway IMO).\nApk file name: OPOmm, mm = Memory Management?\nHas 2 permissions: KILL_BACKGROUND_PROCESSES and SET_TIME_ZONE.\nContains 2 services: OPManagerService and BackgroundCollectorService.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9396,7 +9396,7 @@
   },
   "net.oneplus.push": {
     "list": "Oem",
-    "description": "Push\nOnePlus push notifications.\nOnly used by OnePlus' pre-installed apps. Pushes\"surveys and other junk\" according to a user.\nhttps://forums.oneplus.com/threads/psa-non-root-root-stop-oneplus-push-notifications.580058/\nOnePlus can remotely send push notifications:\nhttps://www.androidpolice.com/2019/07/01/oneplus-accidentally-pushed-a-cryptic-notification-to-all-7-pro-users/",
+    "description": "Push\nOnePlus push notifications.\nOnly used by OnePlus' pre-installed apps. Pushes \"surveys and other junk\" according to a user.\nhttps://forums.oneplus.com/threads/psa-non-root-root-stop-oneplus-push-notifications.580058/\nOnePlus can remotely send push notifications:\nhttps://www.androidpolice.com/2019/07/01/oneplus-accidentally-pushed-a-cryptic-notification-to-all-7-pro-users/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9404,7 +9404,7 @@
   },
   "net.oneplus.wallpaperresources": {
     "list": "Oem",
-    "description": "Resources for some live wall papers? Not sure.\nOnly contains a\"WallpaperResourceProvider\", no services, activities or receivers.",
+    "description": "Resources for some live wall papers? Not sure.\nOnly contains a \"WallpaperResourceProvider\", no services, activities or receivers.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9460,7 +9460,7 @@
   },
   "cn.oneplus.oemtcma": {
     "list": "Oem",
-    "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the\"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
+    "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the \"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -9468,7 +9468,7 @@
   },
   "cn.oneplus.oem_tcma": {
     "list": "Oem",
-    "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the\"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
+    "description": "TCMA = Tiered Contention Multiple Access\nRuns on boot.\nA form of CSMA/CA, a cellular traffic management protocol. TCMA schedules transmission of different types of traffic based on urgency.\nChina-only? (the \"cn\" in cn.oneplus is China's country code)\nhttps://en.wikipedia.org/wiki/Carrier-sense_multiple_access_with_collision_avoidance\nhttps://patents.google.com/patent/US20020163933A1",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10536,7 +10536,7 @@
   },
   "com.oneplus.screenrecord": {
     "list": "Oem",
-    "description": "Screen Recorder\nThe Android 11 screen recorder with some Oneplus modifications.\nRuns the\"SystemUITileService\" when you have it as one of the quicksettings tiles, but doesn't seem to run in the background outside of that.\nDoesn't have an app icon, but you can create a shortcut to it with the Activity Launcher app (to avoid the background service).\nhttps://f-droid.org/en/packages/de.szalkowski.activitylauncher/",
+    "description": "Screen Recorder\nThe Android 11 screen recorder with some Oneplus modifications.\nRuns the \"SystemUITileService\" when you have it as one of the quicksettings tiles, but doesn't seem to run in the background outside of that.\nDoesn't have an app icon, but you can create a shortcut to it with the Activity Launcher app (to avoid the background service).\nhttps://f-droid.org/en/packages/de.szalkowski.activitylauncher/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10576,7 +10576,7 @@
   },
   "com.oneplus.security": {
     "list": "Oem",
-    "description": "Dashboard\nRuns\"WidgetViewService\" and\"SecureService\" in the background.\nManages widget data access? Noticed no apparent ill effects on disable in Android 9.",
+    "description": "Dashboard\nRuns \"WidgetViewService\" and \"SecureService\" in the background.\nManages widget data access? Noticed no apparent ill effects on disable in Android 9.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10600,7 +10600,7 @@
   },
   "com.oneplus.ses": {
     "list": "Oem",
-    "description": "OPSes\nApk file name: OPSesAuthentication.\nContains a\"SesService\", but I've never seen it run.\nRelated to Amazon SES?(Simple Email Service) https://aws.amazon.com/ses/",
+    "description": "OPSes\nApk file name: OPSesAuthentication.\nContains a \"SesService\", but I've never seen it run.\nRelated to Amazon SES?(Simple Email Service) https://aws.amazon.com/ses/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10856,7 +10856,7 @@
   },
   "com.roaming.android.gsimbase": {
     "list": "Misc",
-    "description": "gsim = Global SIM? (SIM = Subscriber Identity Module, as in SIM-card)\nConsidering the\"roaming\" context that's my best guess.",
+    "description": "gsim = Global SIM? (SIM = Subscriber Identity Module, as in SIM-card)\nConsidering the \"roaming\" context that's my best guess.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -10864,7 +10864,7 @@
   },
   "com.roaming.android.gsimcontentprovider": {
     "list": "Misc",
-    "description": "gsim = Global SIM? (SIM = Subscriber Identity Module, as in SIM-card)\nConsidering the\"roaming\" context that's my best guess.",
+    "description": "gsim = Global SIM? (SIM = Subscriber Identity Module, as in SIM-card)\nConsidering the \"roaming\" context that's my best guess.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11008,7 +11008,7 @@
   },
   "com.android.theme.icon_pack.rounded.themepicker": {
     "list": "Aosp",
-    "description": "Obviously related to the\"rounded\" icon pack but the full package is strange. A themepicker class only for a specific icon package?\nSafe to remove if you don't use them, but there's no point in doing so.",
+    "description": "Obviously related to the \"rounded\" icon pack but the full package is strange. A themepicker class only for a specific icon package?\nSafe to remove if you don't use them, but there's no point in doing so.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11048,7 +11048,7 @@
   },
   "com.google.android.as": {
     "list": "Google",
-    "description": "Android System Intelligence (previously Device Personalization Services) (https://play.google.com/store/apps/details?id=com.google.android.as)\nRuns in the background.\n\"Enables intelligent features across Android\", like: Live Caption, Screen Attention, Improved Copy-Paste, App Predictions in the launcher, Notification Smart Actions, Smart Text Selection and Linkifying text in apps.\nAlso known as device learning, e.g. enhanced keyboard auto suggestions, keeps the screen on when looking at it (with help of the camera), smart replies.\nhttps://milaq.net/android-bloatware",
+    "description": "Android System Intelligence (previously Device Personalization Services) (https://play.google.com/store/apps/details?id=com.google.android.as)\nRuns in the background.\n \"Enables intelligent features across Android\", like: Live Caption, Screen Attention, Improved Copy-Paste, App Predictions in the launcher, Notification Smart Actions, Smart Text Selection and Linkifying text in apps.\nAlso known as device learning, e.g. enhanced keyboard auto suggestions, keeps the screen on when looking at it (with help of the camera), smart replies.\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11308,7 +11308,7 @@
   },
   "com.google.android.providers.media.module": {
     "list": "Aosp",
-    "description": "Media Storage\nIn Android 11+ this provides file access to apps without\"Manage All Files\" permission. In previous versions it's just an index of all audio-visual (no text) files in the user's file-system (`/sdcard/`, `/storage/emulated/0/`, etc...). This allows music-players and photo-galleries to list files quickly, without caching their own indices.\nSafe to disable, but NOT recommended; breaks file browsers and other forms of file access.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
+    "description": "Media Storage\nIn Android 11+ this provides file access to apps without \"Manage All Files\" permission. In previous versions it's just an index of all audio-visual (no text) files in the user's file-system (`/sdcard/`, `/storage/emulated/0/`, etc...). This allows music-players and photo-galleries to list files quickly, without caching their own indices.\nSafe to disable, but NOT recommended; breaks file browsers and other forms of file access.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11364,7 +11364,7 @@
   },
   "com.qualcomm.qti.cne": {
     "list": "Misc",
-    "description": "CneApp (Connectivity Engine)\nRuns in the background as part of the System.\nEnables seamless hand-off between mobile data and Wi-Fi networks. Can also dynamically measure network performance to prioritize using the best one (I think that's part of\"Intelligently select the best Wi-Fi\" in settings).\nProbably worth keeping on; I noticed connection reliability getting worse when I disabled it.\nhttps://www.qualcomm.com/news/onq/2013/07/02/qualcomms-cne-bringing-smarts-3g4g-wi-fi-seamless-interworking\nhttps://programmersought.com/article/35091829299/",
+    "description": "CneApp (Connectivity Engine)\nRuns in the background as part of the System.\nEnables seamless hand-off between mobile data and Wi-Fi networks. Can also dynamically measure network performance to prioritize using the best one (I think that's part of \"Intelligently select the best Wi-Fi\" in settings).\nProbably worth keeping on; I noticed connection reliability getting worse when I disabled it.\nhttps://www.qualcomm.com/news/onq/2013/07/02/qualcomms-cne-bringing-smarts-3g4g-wi-fi-seamless-interworking\nhttps://programmersought.com/article/35091829299/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11452,7 +11452,7 @@
   },
   "com.qualcomm.qti.services.systemhelper": {
     "list": "Misc",
-    "description": "System Helper Service\nRuns\"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service. On a RedMi Note 13 running HyperOS 2.6.0, no application is running after uninstalling this package.",
+    "description": "System Helper Service\nRuns \"SysHelperService\" in the background as part of the system.\nPermissions: DEVICE_POWER, READ_PHONE_STATE, READ_PRIVILEGED_PHONE_STATE, RECEIVE_BOOT_COMPLETED, WRITE_SETTINGS, WAKE_LOCK and ACCESS_SURFACE_FLINGER.\nAndroid simple network firewall utility service. On a RedMi Note 13 running HyperOS 2.6.0, no application is running after uninstalling this package.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11492,7 +11492,7 @@
   },
   "com.qualcomm.qti.smq": {
     "list": "Misc",
-    "description": "QTR (Qualcomm Technology Reporting)\nRuns on boot.\nSeems like a telemetry package, supposedly sending hardware & software type, configuration and performance data.\nContains a\"QtiFeedbackActivity\" called\"Hardware Feedback\". When that hidden activity is launched through Activity Launcher you get a screen showing just a checkbox and this text:\n\"Collecting hardware and software type, configuration, and performance data helps Qualcomm improve next generation device battery life, security, and performance. Untick to disable.\"\nUnticking isn't remembered; it's ticked again next time you enter. There's also a\"Learn More\" link that leads to: http://reporting.qti.qualcomm.com/learnmore_en.html which doesn't load for me.",
+    "description": "QTR (Qualcomm Technology Reporting)\nRuns on boot.\nSeems like a telemetry package, supposedly sending hardware & software type, configuration and performance data.\nContains a \"QtiFeedbackActivity\" called \"Hardware Feedback\". When that hidden activity is launched through Activity Launcher you get a screen showing just a checkbox and this text:\n \"Collecting hardware and software type, configuration, and performance data helps Qualcomm improve next generation device battery life, security, and performance. Untick to disable.\"\nUnticking isn't remembered; it's ticked again next time you enter. There's also a \"Learn More\" link that leads to: http://reporting.qti.qualcomm.com/learnmore_en.html which doesn't load for me.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -11500,7 +11500,7 @@
   },
   "com.qualcomm.qti.workloadclassifier": {
     "list": "Misc",
-    "description": "Runs\"WLCService\" in the background.\nI assume this has to do with CPU scheduling. Probably important for efficiency, if not basic operation.\nIn code I found: it's for performance and security? it categorize apps maybe for optimization.\nit's named workloadclassifier so it should do that. reads the list of installed applications, storage space.\nit's still unknown.",
+    "description": "Runs \"WLCService\" in the background.\nI assume this has to do with CPU scheduling. Probably important for efficiency, if not basic operation.\nIn code I found: it's for performance and security? it categorize apps maybe for optimization.\nit's named workloadclassifier so it should do that. reads the list of installed applications, storage space.\nit's still unknown.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12124,7 +12124,7 @@
   },
   "com.tcl.ttvs": {
     "list": "Oem",
-    "description": "TCSCore. Runs in the background all the time. Uses some Google tracking APIs. May request permission `org.microg.gms.STATUS_BROADCAST`, probably for detecting\"illegitimate\" Play Services installations.",
+    "description": "TCSCore. Runs in the background all the time. Uses some Google tracking APIs. May request permission `org.microg.gms.STATUS_BROADCAST`, probably for detecting \"illegitimate\" Play Services installations.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12292,7 +12292,7 @@
   },
   "com.tct.gdpr": {
     "list": "Oem",
-    "description": "Whenever TCL updates their Privacy Policy, this app shows a notification prompting the user to read it. May include the\"User Experience Improvement Program\"",
+    "description": "Whenever TCL updates their Privacy Policy, this app shows a notification prompting the user to read it. May include the \"User Experience Improvement Program\"",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12388,7 +12388,7 @@
   },
   "com.tct.contentcenter": {
     "list": "Oem",
-    "description": "A panel that opens from the launcher (similar to\"samsung Free\"). Has news, weather forecasts, and a game center (similar to\"Game Booster\"). Has lots of trackers from facebook, bytedance, anythink, google, and other 3rd-parties",
+    "description": "A panel that opens from the launcher (similar to \"samsung Free\"). Has news, weather forecasts, and a game center (similar to \"Game Booster\"). Has lots of trackers from facebook, bytedance, anythink, google, and other 3rd-parties",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12532,7 +12532,7 @@
   },
   "com.lge.gcuv": {
     "list": "Oem",
-    "description": "GCUV\nNot 100% sure but @siraltus from XDA thinks it refers to\"Gauce Components\" which seems to be the LG's version of CSC\n(carrier sales code - automatic carrier-specific customization).\nIt gets run on first boot after factory reset, sets up the ROM features based on which carrier and country code is specified\nin the build.prop, and then gets frozen so it doesn't reconfigure things on subsequent boots.\nIt's basically the only person to mention\"Gauce components\" on the web (other than restricted LG webpages when using Google dorks).\nhttps://forum.xda-developers.com/tmobile-lg-v10/development/rom-lg-v10-h901-10c-debranded-debloated-t3277305/page12/page12\n",
+    "description": "GCUV\nNot 100% sure but @siraltus from XDA thinks it refers to \"Gauce Components\" which seems to be the LG's version of CSC\n(carrier sales code - automatic carrier-specific customization).\nIt gets run on first boot after factory reset, sets up the ROM features based on which carrier and country code is specified\nin the build.prop, and then gets frozen so it doesn't reconfigure things on subsequent boots.\nIt's basically the only person to mention \"Gauce components\" on the web (other than restricted LG webpages when using Google dorks).\nhttps://forum.xda-developers.com/tmobile-lg-v10/development/rom-lg-v10-h901-10c-debranded-debloated-t3277305/page12/page12\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -12668,7 +12668,7 @@
   },
   "com.lge.lgdmsclient": {
     "list": "Oem",
-    "description": "Actual\"Software Update\" App client\nI think you won't receive updates without this.\n",
+    "description": "Actual \"Software Update\" App client\nI think you won't receive updates without this.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13044,7 +13044,7 @@
   },
   "com.lge.homeselector": {
     "list": "Oem",
-    "description": "LG Home selector\nThis is the settings menu for the home launcher (present in the settings app as\"Home launcher\")\nIf you remove this app, the Home screen settings menu is gone from settings app. (not needed if you use external launcher)\n    You can still switch between installed launchers, the package name is a bit misleading.\n",
+    "description": "LG Home selector\nThis is the settings menu for the home launcher (present in the settings app as \"Home launcher\")\nIf you remove this app, the Home screen settings menu is gone from settings app. (not needed if you use external launcher)\n    You can still switch between installed launchers, the package name is a bit misleading.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13052,7 +13052,7 @@
   },
   "com.lge.launcher2": {
     "list": "Oem",
-    "description": "LG Home (v2)\nStock launcher\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\nNOTE : Yeah there is another package described as\"launcher\". Normally, you only have one of them on your phone.\n",
+    "description": "LG Home (v2)\nStock launcher\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\nNOTE : Yeah there is another package described as \"launcher\". Normally, you only have one of them on your phone.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13060,7 +13060,7 @@
   },
   "com.lge.launcher3": {
     "list": "Oem",
-    "description": "LG Home (v3)\nStock launcher\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\nNOTE : Yeah there is 3 packages described as\"launcher\". Normally, you only have one of them on your phone.\n",
+    "description": "LG Home (v3)\nStock launcher\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\nNOTE : Yeah there is 3 packages described as \"launcher\". Normally, you only have one of them on your phone.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13076,7 +13076,7 @@
   },
   "com.lge.floatingbar": {
     "list": "Oem",
-    "description": "LG Floating bar\nLets you put shortcuts to apps or features, as well as quick access to contacts and music player controls on a\"floating bar\" on the Home screen.\nhttps://www.neowin.net/news/lg-v30-closer-look-floating-bar/\n",
+    "description": "LG Floating bar\nLets you put shortcuts to apps or features, as well as quick access to contacts and music player controls on a \"floating bar\" on the Home screen.\nhttps://www.neowin.net/news/lg-v30-closer-look-floating-bar/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13324,7 +13324,7 @@
   },
   "com.evenwell.permissiondetection.overlay.base.s600ww": {
     "list": "Oem",
-    "description": "A theme overlay for some\"permissiondetection\" package?",
+    "description": "A theme overlay for some \"permissiondetection\" package?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -13688,7 +13688,7 @@
   },
   "com.oppo.logkitservice": {
     "list": "Oem",
-    "description": "Probably same as\"com.oem.oemlogkit\", which is a shady logging package on Oneplus devices.",
+    "description": "Probably same as \"com.oem.oemlogkit\", which is a shady logging package on Oneplus devices.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14128,7 +14128,7 @@
   },
   "com.qti.snapdragon.qdcm_ff": {
     "list": "Misc",
-    "description": "Qualcomm Display Color Management tool\nAttempts to\"make colors look vibrant and true to life\". No idea if it actually does something useful or if it's only some garbage dynamic color tuning (they tend to destroy colors).\nContains a service, but I've never seen it run on my Oneplus 9. Could be tied to color\"improvement\" settings in Settings->Display (all of which are off for me).",
+    "description": "Qualcomm Display Color Management tool\nAttempts to \"make colors look vibrant and true to life\". No idea if it actually does something useful or if it's only some garbage dynamic color tuning (they tend to destroy colors).\nContains a service, but I've never seen it run on my Oneplus 9. Could be tied to color \"improvement\" settings in Settings->Display (all of which are off for me).",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14792,7 +14792,7 @@
   },
   "com.quicinc.cne.CNEService": {
     "list": "Misc",
-    "description": "Qualcomm Connectivity Engine\nEnables seamless hand-off between mobile data and Wi-Fi networks. Can also dynamically measure network performance to prioritize using the best one (I think that's part of\"Intelligently select the best Wi-Fi\" in settings).\nProbably worth keeping on; I noticed connection reliability getting worse when I disabled it.\nhttps://www.qualcomm.com/news/onq/2013/07/02/qualcomms-cne-bringing-smarts-3g4g-wi-fi-seamless-interworking\nhttps://programmersought.com/article/35091829299/",
+    "description": "Qualcomm Connectivity Engine\nEnables seamless hand-off between mobile data and Wi-Fi networks. Can also dynamically measure network performance to prioritize using the best one (I think that's part of \"Intelligently select the best Wi-Fi\" in settings).\nProbably worth keeping on; I noticed connection reliability getting worse when I disabled it.\nhttps://www.qualcomm.com/news/onq/2013/07/02/qualcomms-cne-bringing-smarts-3g4g-wi-fi-seamless-interworking\nhttps://programmersought.com/article/35091829299/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14856,7 +14856,7 @@
   },
   "com.qualcomm.qti.uim": {
     "list": "Misc",
-    "description": "Runs\"RemoteSimLockService\" in the background.\nThis might be the only remote SIM lock service, just called UIM because R-UIM(Removeable-UserIdentityModule) is a variant of SIM commonly used in Asia.",
+    "description": "Runs \"RemoteSimLockService\" in the background.\nThis might be the only remote SIM lock service, just called UIM because R-UIM(Removeable-UserIdentityModule) is a variant of SIM commonly used in Asia.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -14864,7 +14864,7 @@
   },
   "com.qualcomm.qti.uimGbaApp": {
     "list": "Misc",
-    "description": "Contains a\"GbaService\", Related to uim card (R-UIM is a type of SIM card mainly used in Asia)",
+    "description": "Contains a \"GbaService\", Related to uim card (R-UIM is a type of SIM card mainly used in Asia)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15200,7 +15200,7 @@
   },
   "com.ironsource.appcloud.oobe.huawei": {
     "list": "Misc",
-    "description": "Essentials apps\nApp which promotes some other apps (and encourages you to install them)\nDeveloped by IronSource, a\"next-generation advertising company\"\nhttps://aura.ironsrc.com/ (app) | https://company.ironsrc.com/ (company)\nWhen you try to read their privacy policy you arrive to an outstanding blank PDF file!\n(http://www.ironsrc.com/wp-content/uploads/2019/03/ironSource-Privacy-Policy.pdf)\n",
+    "description": "Essentials apps\nApp which promotes some other apps (and encourages you to install them)\nDeveloped by IronSource, a \"next-generation advertising company\"\nhttps://aura.ironsrc.com/ (app) | https://company.ironsrc.com/ (company)\nWhen you try to read their privacy policy you arrive to an outstanding blank PDF file!\n(http://www.ironsrc.com/wp-content/uploads/2019/03/ironSource-Privacy-Policy.pdf)\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15392,7 +15392,7 @@
   },
   "com.playphone.gamestore": {
     "list": "Misc",
-    "description": "Playphone Gamestore (https://www.playphone.com/)\n\"Helps\" you discover the\"best\" Android games and connects you to a global gaming community. Sounds Amazing !\n",
+    "description": "Playphone Gamestore (https://www.playphone.com/)\n \"Helps\" you discover the \"best\" Android games and connects you to a global gaming community. Sounds Amazing !\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -15984,7 +15984,7 @@
   },
   "com.dsi.ant.sample.acquirechannels": {
     "list": "Misc",
-    "description": "I don't know why there is\"sample\" in the name. Is this package really useful to find ANT channels ?\n",
+    "description": "I don't know why there is \"sample\" in the name. Is this package really useful to find ANT channels ?\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16016,7 +16016,7 @@
   },
   "com.gd.mobicore.pa": {
     "list": "Misc",
-    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and\"normal\" devs can't use it for their apps.\nSee\"com.trustonic.tuiservice\".",
+    "description": "Mobicore is now Trustonic\nTrustonic is a small OS running on the CPU providing a TEE, an isolated environment that runs in parallel with the operating system, guaranteeing code and data loaded inside to be protected.\nSounds great, but it's closed source and \"normal\" devs can't use it for their apps.\nSee \"com.trustonic.tuiservice\".",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16032,7 +16032,7 @@
   },
   "com.trustonic.tuiservice": {
     "list": "Misc",
-    "description": "tuiService (Trusted User Interface) is a security layer by Trustonic.\nAllows a\"Trusted App\" to interact directly with the user, completely isolated from the device OS.\nIt's closed source and normal devs can't use it for their apps.\nhttps://stackoverflow.com/questions/16909576/how-to-make-use-of-arm-trust-zone-in-android-application\nMainly used by OEM apps like Samsung Pay and for DRM.\nGoogle implemented their own TUI in Android Pie: https://android-developers.googleblog.com/search/label/Trusted%20User%20Interface\nhttps://www.trustonic.com/news/blog/benefits-trusted-user-interface/\nhttps://en.wikipedia.org/wiki/Trusted_execution_environment\nDisabling will break\"Trusted Apps\".\nhttps://en.wikipedia.org/wiki/ARM_architecture#Security_extensions\nhttps://googleprojectzero.blogspot.com/2017/07/trust-issues-exploiting-trustzone-tees.html\nhttps://www.synacktiv.com/posts/exploit/kinibi-tee-trusted-application-exploitation.html\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nGood ressources:\nhttps://medium.com/@nimronagy/arm-trustzone-on-android-975bfe7497d2\nhttps://www.gsd.inesc-id.pt/~nsantos/papers/pinto_acsur19.pdf\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nhttps://medium.com/taszksec/unbox-your-phone-part-i-331bbf44c30c",
+    "description": "tuiService (Trusted User Interface) is a security layer by Trustonic.\nAllows a \"Trusted App\" to interact directly with the user, completely isolated from the device OS.\nIt's closed source and normal devs can't use it for their apps.\nhttps://stackoverflow.com/questions/16909576/how-to-make-use-of-arm-trust-zone-in-android-application\nMainly used by OEM apps like Samsung Pay and for DRM.\nGoogle implemented their own TUI in Android Pie: https://android-developers.googleblog.com/search/label/Trusted%20User%20Interface\nhttps://www.trustonic.com/news/blog/benefits-trusted-user-interface/\nhttps://en.wikipedia.org/wiki/Trusted_execution_environment\nDisabling will break \"Trusted Apps\".\nhttps://en.wikipedia.org/wiki/ARM_architecture#Security_extensions\nhttps://googleprojectzero.blogspot.com/2017/07/trust-issues-exploiting-trustzone-tees.html\nhttps://www.synacktiv.com/posts/exploit/kinibi-tee-trusted-application-exploitation.html\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nGood ressources:\nhttps://medium.com/@nimronagy/arm-trustzone-on-android-975bfe7497d2\nhttps://www.gsd.inesc-id.pt/~nsantos/papers/pinto_acsur19.pdf\nhttps://blog.quarkslab.com/introduction-to-trusted-execution-environment-arms-trustzone.html\nhttps://medium.com/taszksec/unbox-your-phone-part-i-331bbf44c30c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16312,7 +16312,7 @@
   },
   "com.duokan.phone.remotecontroller.peel.plugin": {
     "list": "Oem",
-    "description": "Peel Mi Remote (https://play.google.com/store/apps/details?id=com.duokan.phone.remotecontroller.peel.plugin)\nPeel Mi Remote is a TV guide extension for Xiaomi Mi Remote by\"Peel Smart Remote\".\n",
+    "description": "Peel Mi Remote (https://play.google.com/store/apps/details?id=com.duokan.phone.remotecontroller.peel.plugin)\nPeel Mi Remote is a TV guide extension for Xiaomi Mi Remote by \"Peel Smart Remote\".\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16344,7 +16344,7 @@
   },
   "com.huaqin.diaglogger": {
     "list": "Oem",
-    "description": "Secret logging menu only accessible by dialing using a\"secret code\" (*#*#CODE#*#*)\nYou can use any of these code :\"995995\",\"996996\",\"9434\",\"334334\",\"5959\",\"477477\"\nUsed to log Bluetooth traffic and send them to com.miui.bugreport\nWrite logs to\"/sdcard/diag_logs/\" |\"/sdcard/wlan_logs/\" |\"/sdcard/MIUI/debug_log/common/\"\n#\nFYI Huaqin is a Chinese mobile phone research and development company.\n",
+    "description": "Secret logging menu only accessible by dialing using a \"secret code\" (*#*#CODE#*#*)\nYou can use any of these code :\"995995\",\"996996\",\"9434\",\"334334\",\"5959\",\"477477\"\nUsed to log Bluetooth traffic and send them to com.miui.bugreport\nWrite logs to\"/sdcard/diag_logs/\" |\"/sdcard/wlan_logs/\" |\"/sdcard/MIUI/debug_log/common/\"\n#\nFYI Huaqin is a Chinese mobile phone research and development company.\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16616,7 +16616,7 @@
   },
   "com.miui.cleaner": {
     "list": "Oem",
-    "description": "Mi Cleaner\nShady Xiaomi cleaner app developed by Cheetah mobile which has previously been caught in ad fraud and user data theft with this app in 2018 (previously called com.miui.cleanmaster and banned from the PlayStore). This\"new\" app is still full of trackers\nhttps://www.gadgets360.com/apps/news/banned-security-app-clean-master-by-cheetah-mobile-collected-user-private-data-report-2189633\n\nPithus analysis: https://beta.pithus.org/report/f7f7ee425a8dc928db75105bd8f52e9b02f11dec3b398aac9fef1d42809d8ec1",
+    "description": "Mi Cleaner\nShady Xiaomi cleaner app developed by Cheetah mobile which has previously been caught in ad fraud and user data theft with this app in 2018 (previously called com.miui.cleanmaster and banned from the PlayStore). This \"new\" app is still full of trackers\nhttps://www.gadgets360.com/apps/news/banned-security-app-clean-master-by-cheetah-mobile-collected-user-private-data-report-2189633\n\nPithus analysis: https://beta.pithus.org/report/f7f7ee425a8dc928db75105bd8f52e9b02f11dec3b398aac9fef1d42809d8ec1",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16912,7 +16912,7 @@
   },
   "com.mi.android.globalpersonalassistant": {
     "list": "Oem",
-    "description": "MI Vault aka the\"assistant\" you open swiping left from MI Home\n",
+    "description": "MI Vault aka the \"assistant\" you open swiping left from MI Home\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -16992,7 +16992,7 @@
   },
   "com.mi.liveassistant": {
     "list": "Oem",
-    "description": "Mi Live Assistant\nI don't really know what it is. Maybe an old name for\"com.mi.android.globalpersonalassistant\"\n",
+    "description": "Mi Live Assistant\nI don't really know what it is. Maybe an old name for \"com.mi.android.globalpersonalassistant\"\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17168,7 +17168,7 @@
   },
   "com.xiaomi.micloud.sdk": {
     "list": "Oem",
-    "description": "Mi Cloud sdk\nsdk = Software development kit\nSeems to be a dependency for\"com.miui.gallery\" (MIUI auto reboots android after remove this package)",
+    "description": "Mi Cloud sdk\nsdk = Software development kit\nSeems to be a dependency for \"com.miui.gallery\" (MIUI auto reboots android after remove this package)",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17288,7 +17288,7 @@
   },
   "com.miui.wmsvc": {
     "list": "Oem",
-    "description": "WMService\nRuns at boot and has access to internet + GPS\nI quickly looked at the decompiled code and saw some unsanitized SQL inputs, which is BAD! (vulnerable to SQL injection)\nTries to get your android unique Google advertising ID from Google Play Services.\nFeeds and launches the spying/analytics app\"com.miui.hybrid\".\nDoesn't seem to do anything important, only tracking.\nWARNING:  It does not seem to affect any functionality or cause bootloop.",
+    "description": "WMService\nRuns at boot and has access to internet + GPS\nI quickly looked at the decompiled code and saw some unsanitized SQL inputs, which is BAD! (vulnerable to SQL injection)\nTries to get your android unique Google advertising ID from Google Play Services.\nFeeds and launches the spying/analytics app \"com.miui.hybrid\".\nDoesn't seem to do anything important, only tracking.\nWARNING:  It does not seem to affect any functionality or cause bootloop.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17416,7 +17416,7 @@
   },
   "com.miui.aod": {
     "list": "Oem",
-    "description": "Always-on display and Lock screen editor\nSafe to remove if you don't use\"Always-on display\" and\"Lock screen editor\" features in settings.\nRequired for the fingerprint scanner if you want without double-tapping or pressing the power button.",
+    "description": "Always-on display and Lock screen editor\nSafe to remove if you don't use \"Always-on display\" and \"Lock screen editor\" features in settings.\nRequired for the fingerprint scanner if you want without double-tapping or pressing the power button.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17538,7 +17538,7 @@
   },
   "com.miui.zman": {
     "list": "Oem",
-    "description": "Mi Secure sharing\nProvides an option in the settings of the Xiaomi Gallery to automatically remove location and metadata from images\nyou want to share. This do not remove metadata of the picture in the gallery but only the shared copy.\nThere's also a\"Secure sharing\" watermark that shows up when you share photos on WeChat without metadata.\nThe question is does this really remove all EXIF tags? Can someone test?\nThis is a useful app anyway but do not forget that all your photos/vidoes taken with the Xiaomi camera are still geo-tagged\n(+ all others exif tags) by default.\nWhat you can do is at least revoke the GPS permission to the camera.\nFOSS alternative to this app :\nhttps://f-droid.org/fr/packages/com.jarsilio.android.scrambledeggsif/\nhttps://f-droid.org/fr/packages/de.kaffeemitkoffein.imagepipe/\n",
+    "description": "Mi Secure sharing\nProvides an option in the settings of the Xiaomi Gallery to automatically remove location and metadata from images\nyou want to share. This do not remove metadata of the picture in the gallery but only the shared copy.\nThere's also a \"Secure sharing\" watermark that shows up when you share photos on WeChat without metadata.\nThe question is does this really remove all EXIF tags? Can someone test?\nThis is a useful app anyway but do not forget that all your photos/vidoes taken with the Xiaomi camera are still geo-tagged\n(+ all others exif tags) by default.\nWhat you can do is at least revoke the GPS permission to the camera.\nFOSS alternative to this app :\nhttps://f-droid.org/fr/packages/com.jarsilio.android.scrambledeggsif/\nhttps://f-droid.org/fr/packages/de.kaffeemitkoffein.imagepipe/\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -17554,7 +17554,7 @@
   },
   "com.xiaomi.bluetooth": {
     "list": "Oem",
-    "description": "MIUI Bluetooth Extension. Doesn't seem to affect bluetooth functionality. Can introduce a ~1s delay when switching audio playback apps; uninstalling fixes this issue. Tested on Poco M4 Pro 5G HyperOS 1.0.1.0. Note: If you deleted (com.xiaomi.xmsf) this package will likely send\"Bluetooth extension stopped working\" errors, uninstalling it removes them.",
+    "description": "MIUI Bluetooth Extension. Doesn't seem to affect bluetooth functionality. Can introduce a ~1s delay when switching audio playback apps; uninstalling fixes this issue. Tested on Poco M4 Pro 5G HyperOS 1.0.1.0. Note: If you deleted (com.xiaomi.xmsf) this package will likely send \"Bluetooth extension stopped working\" errors, uninstalling it removes them.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -20706,7 +20706,7 @@
     "labels": []
   },
   "com.motorola.setup.auto_generated_rro_vendor__": {
-    "description": "I found it's\"no sim anim\". It's another component of Motorola first-boot setup.",
+    "description": "I found it's \"no sim anim\". It's another component of Motorola first-boot setup.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -23388,7 +23388,7 @@
     "labels": []
   },
   "com.coloros.recents": {
-    "description": "Recent apps. Provides navigation to alternate between multiple apps. Removal will result in no\"Recent App\" list and re-enablement will cause a soft reload.",
+    "description": "Recent apps. Provides navigation to alternate between multiple apps. Removal will result in no \"Recent App\" list and re-enablement will cause a soft reload.",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -24438,7 +24438,7 @@
     "labels": []
   },
   "com.tct.iris": {
-    "description": "TCL NXTVISION\"Display Enhancements\". GPU-accelerated post-processing (\"shaders\") for images, videos, and games. Only good for pretty pictures, and (maybe) accessibility (clearer view). This is the back-end, see `com.tct.nxtvision_ui*` for the settings.",
+    "description": "TCL NXTVISION \"Display Enhancements\". GPU-accelerated post-processing (\"shaders\") for images, videos, and games. Only good for pretty pictures, and (maybe) accessibility (clearer view). This is the back-end, see `com.tct.nxtvision_ui*` for the settings.",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -24534,7 +24534,7 @@
     "removal": "Expert"
   },
   "com.tct.onetouchbooster": {
-    "description": "Smart Manager. For\"Optimization\" of: battery (energy), memory (RAM), and storage. Removing it might break power-save mode",
+    "description": "Smart Manager. For \"Optimization\" of: battery (energy), memory (RAM), and storage. Removing it might break power-save mode",
     "removal": "Expert",
     "list": "Oem",
     "dependencies": [],
@@ -26835,7 +26835,7 @@
     "labels": []
   },
   "com.miui.phone.carriers.customized.overlay": {
-    "description": "Something about WiFi calling\"vowifi\",\"volte\",\"notification on keyguard\"\nIt's unused.",
+    "description": "Something about WiFi calling \"vowifi\",\"volte\",\"notification on keyguard\"\nIt's unused.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26843,7 +26843,7 @@
     "labels": []
   },
   "com.miui.miinput": {
-    "description": "Removing this package breaks\"Gesture shortcuts\" under\"Additional settings\".",
+    "description": "Removing this package breaks \"Gesture shortcuts\" under \"Additional settings\".",
     "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
@@ -26851,7 +26851,7 @@
     "labels": []
   },
   "com.lbe.security.miui.customizedregion.overlay": {
-    "description": "Something about WiFi calling\"vowifi\",\"volte\",\"notification on keyguard\"\nIt's unused.",
+    "description": "Something about WiFi calling \"vowifi\",\"volte\",\"notification on keyguard\"\nIt's unused.",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -26971,7 +26971,7 @@
     "labels": []
   },
   "com.samsung.android.mapsagent": {
-    "description": "Provides the\"recommendation\" service. It auto-installs recommended apps from Samsung & partners after a factory reset or first boot. Also recommends you apps when you access an app folder.\n Similar to com.samsung.android.app.omcagent",
+    "description": "Provides the \"recommendation\" service. It auto-installs recommended apps from Samsung & partners after a factory reset or first boot. Also recommends you apps when you access an app folder.\n Similar to com.samsung.android.app.omcagent",
     "removal": "Recommended",
     "list": "Oem",
     "dependencies": [],
@@ -28319,7 +28319,7 @@
   },
   "com.miui.securitycenter": {
     "list": "Oem",
-    "description": "MIUI Security app\nProvides\"protection and optimization tools\"\nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 13 and above is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
+    "description": "MIUI Security app\nProvides \"protection and optimization tools\"\nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 13 and above is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28327,7 +28327,7 @@
   },
   "com.miui.securitycore": {
     "list": "Oem",
-    "description": "Core features of the\"com.miui.securitycenter\"\nProvides Enterprise Mode, Dual App, Second Space, Fingerprint Add, Gesture Settings\nREMOVING THIS MAY BOOTLOOP YOUR DEVICE! Depends on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn MIUI 13 and above it doesn't bootloop and performance appears similar, but this app shows annoying notifications when running new apps.",
+    "description": "Core features of the \"com.miui.securitycenter\"\nProvides Enterprise Mode, Dual App, Second Space, Fingerprint Add, Gesture Settings\nREMOVING THIS MAY BOOTLOOP YOUR DEVICE! Depends on your MIUI version and device, see\nhttps://github.com/0x192/universal-android-debloater/issues/641\nOn MIUI 13 and above it doesn't bootloop and performance appears similar, but this app shows annoying notifications when running new apps.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -28983,7 +28983,7 @@
   },
   "com.google.android.gallery3d": {
     "list": "Aosp",
-    "description": "Built-in Gallery app.\nThe ID could be\"recycled\" by OEMs for their own gallery implementations.",
+    "description": "Built-in Gallery app.\nThe ID could be \"recycled\" by OEMs for their own gallery implementations.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29079,7 +29079,7 @@
   },
   "com.google.android.pixel.setupwizard": {
     "list": "Google",
-    "description": "It's the basic configuration setup guides you through the basics of setting up Google features on your device.\nThe second package is only present on Pixel phones.\nBreaks the Google Play System update page found on\"Security & privacy\", for whatever reason...",
+    "description": "It's the basic configuration setup guides you through the basics of setting up Google features on your device.\nThe second package is only present on Pixel phones.\nBreaks the Google Play System update page found on \"Security & privacy\", for whatever reason...",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29327,7 +29327,7 @@
   },
   "com.google.android.apps.work.oobconfig": {
     "list": "Google",
-    "description": "Device Setup\nSets up device to be managed by EMM (Enterprise Mobility Management), which\"allows organizations to securely enable employee use of mobile devices\".\nMight also be what does the actual management on your device, if you set it up as a work device.\nOnly seems to run on boot(not in the background after boot) if you haven't set up your device as a work device.\nI tried to disable it through UAD-ng, but nothing happens? Seems immune to disabling?\nhttps://bayton.org/2020/11/google-announce-big-changes-to-zero-touch/\nhttps://bayton.org/docs/enterprise-mobility/android/what-is-android-zero-touch-enrolment/\nContains 4 services: GcmJobService, GservicesChangedObserverService, AppMeasurementService and FirebaseInstanceIdService.\nGCM(Google Cloud Messaging) was the backend for Android's push messaging system 2012-2019, after which it was replaced by FCM(Firebase Cloud Messaging). I assume the GCM/Firebase connection is for Push notification functionality.\nThe MANAGE_CARRIER_OEM_UNLOCK_STATE permission hints at doing something with carrier locks?\nNeeds Google Play Services to function?",
+    "description": "Device Setup\nSets up device to be managed by EMM (Enterprise Mobility Management), which \"allows organizations to securely enable employee use of mobile devices\".\nMight also be what does the actual management on your device, if you set it up as a work device.\nOnly seems to run on boot(not in the background after boot) if you haven't set up your device as a work device.\nI tried to disable it through UAD-ng, but nothing happens? Seems immune to disabling?\nhttps://bayton.org/2020/11/google-announce-big-changes-to-zero-touch/\nhttps://bayton.org/docs/enterprise-mobility/android/what-is-android-zero-touch-enrolment/\nContains 4 services: GcmJobService, GservicesChangedObserverService, AppMeasurementService and FirebaseInstanceIdService.\nGCM(Google Cloud Messaging) was the backend for Android's push messaging system 2012-2019, after which it was replaced by FCM(Firebase Cloud Messaging). I assume the GCM/Firebase connection is for Push notification functionality.\nThe MANAGE_CARRIER_OEM_UNLOCK_STATE permission hints at doing something with carrier locks?\nNeeds Google Play Services to function?",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29407,7 +29407,7 @@
   },
   "com.google.android.gms": {
     "list": "Google",
-    "description": "Google Play Services\nGMS = Google Mobile Services.\nIt is a layer that sits on top of the OS and provides a lot of proprietary Google APIs, giving apps access to various Google Services, such as:\"fused\"-location (internet and GPS chip), QR Code scanner, 2FA, G-Drive storage, Firebase API, Cloud Messaging, etc...\nIf you remove it, all the apps relying on it will either:\n- detect the lack of Play-Services and refuse to run\n- detect the lack of Play-Services but allow you to run (improperly) by dismissing an annoying popup\nRemoving Google Play Services can boot-loop some devices, so be careful.\nDisabling this package will improve battery life significantly, as it always runs in the background.\nIMPORTANT: You need to uncheck\"Find My Device\" from the\"Device admin apps\" settings panel to be able to disable this package.\nSearch\"admin\" in the Settings-app search bar, or go to the Security category.",
+    "description": "Google Play Services\nGMS = Google Mobile Services.\nIt is a layer that sits on top of the OS and provides a lot of proprietary Google APIs, giving apps access to various Google Services, such as:\"fused\"-location (internet and GPS chip), QR Code scanner, 2FA, G-Drive storage, Firebase API, Cloud Messaging, etc...\nIf you remove it, all the apps relying on it will either:\n- detect the lack of Play-Services and refuse to run\n- detect the lack of Play-Services but allow you to run (improperly) by dismissing an annoying popup\nRemoving Google Play Services can boot-loop some devices, so be careful.\nDisabling this package will improve battery life significantly, as it always runs in the background.\nIMPORTANT: You need to uncheck \"Find My Device\" from the \"Device admin apps\" settings panel to be able to disable this package.\nSearch \"admin\" in the Settings-app search bar, or go to the Security category.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29739,7 +29739,7 @@
   },
   "com.mobolize.sprint.securewifi": {
     "list": "Carrier",
-    "description": "Secure Wifi (https://play.google.com/store/apps/details?id=com.mobolize.sprint.securewifi)\nSprint VPN app provided by Mobolize. You need to pay for using it.\nYou'd better use a reliable third-party VPN if you really need to use one.\nThis one runs in background all time and every time it sees a\"unsecured network\" it will popup to encourage you to pay for this VPN.\nBest ressources I know for choosing a VPN:\nhttps://www.privacytools.io/providers/vpn/",
+    "description": "Secure Wifi (https://play.google.com/store/apps/details?id=com.mobolize.sprint.securewifi)\nSprint VPN app provided by Mobolize. You need to pay for using it.\nYou'd better use a reliable third-party VPN if you really need to use one.\nThis one runs in background all time and every time it sees a \"unsecured network\" it will popup to encourage you to pay for this VPN.\nBest ressources I know for choosing a VPN:\nhttps://www.privacytools.io/providers/vpn/",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -29755,7 +29755,7 @@
   },
   "com.sprint.safefound": {
     "list": "Carrier",
-    "description": "Safe & Found (https://play.google.com/store/apps/details?id=com.sprint.safefound)\nMobile safety and security application that helps protect and locate your\"loved ones\".\nYou have the ability to track and manage smartphones, tablets and Tracker all in one app.\nhttps://www.sprint.com/en/support/solutions/services/safe-and-found.html\n",
+    "description": "Safe & Found (https://play.google.com/store/apps/details?id=com.sprint.safefound)\nMobile safety and security application that helps protect and locate your \"loved ones\".\nYou have the ability to track and manage smartphones, tablets and Tracker all in one app.\nhttps://www.sprint.com/en/support/solutions/services/safe-and-found.html\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30637,7 +30637,7 @@
   },
   "com.huawei.mirror": {
     "list": "Oem",
-    "description": "Huawei Mirror app.\nMirror like\"Glass\"",
+    "description": "Huawei Mirror app.\nMirror like \"Glass\"",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -30719,7 +30719,7 @@
   },
   "com.motorola.comcastext": {
     "list": "Oem",
-    "description": "See above. Provides special (useless) features from Comcast? App title is\"Activation\". Safe to remove (tested only on non-Comcast phone).\n",
+    "description": "See above. Provides special (useless) features from Comcast? App title is \"Activation\". Safe to remove (tested only on non-Comcast phone).\n",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31041,7 +31041,7 @@
   },
   "com.android.email.partnerprovider": {
     "list": "Aosp",
-    "description": "Lets Google partners (OEM in most of the case) to customize the default email settings.\nThe manufacturer often changes the default signature displayed at the end of each of your mail (e.g\"Sent from my Nokia phone\")",
+    "description": "Lets Google partners (OEM in most of the case) to customize the default email settings.\nThe manufacturer often changes the default signature displayed at the end of each of your mail (e.g \"Sent from my Nokia phone\")",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31305,7 +31305,7 @@
   },
   "com.dolby.daxservice": {
     "list": "Misc",
-    "description": "Dolby\nRuns in the background as part of the system. Runs even if disabled.\n\"Optimizes system audio performance\" or something like that. This is likely the backend audio service, possibly applying settings from com.oneplus.sound.tuner (\"Dolby Atmos\") to the audio processing.",
+    "description": "Dolby\nRuns in the background as part of the system. Runs even if disabled.\n \"Optimizes system audio performance\" or something like that. This is likely the backend audio service, possibly applying settings from com.oneplus.sound.tuner (\"Dolby Atmos\") to the audio processing.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31537,7 +31537,7 @@
   },
   "com.transsion.smartpanel": {
     "list": "Oem",
-    "description": "Smart Panel (Settings -> Smart Assistant)\nProvides\"easy\" access to your most used apps + features like gamemode and videoAssistant. Collects data and talks with the outside\n\nPithus analysis: https://beta.pithus.org/report/40d4b527fc650a9029e596d14aff7d640a6289e7aa50f471b142391b55eefe4a",
+    "description": "Smart Panel (Settings -> Smart Assistant)\nProvides \"easy\" access to your most used apps + features like gamemode and videoAssistant. Collects data and talks with the outside\n\nPithus analysis: https://beta.pithus.org/report/40d4b527fc650a9029e596d14aff7d640a6289e7aa50f471b142391b55eefe4a",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -31545,7 +31545,7 @@
   },
   "com.transsion.hamal": {
     "list": "Oem",
-    "description": "It seems to be an\"aftersales user experience logging app\". Really shady app with questionable code (judgeWhiteUser() function. See https://github.com/0x192/universal-android-debloater/pull/112).\n\nStart at boot and can access phone number and IMEI (READ_PHONE_STATE).\n\nPithus analysis: https://beta.pithus.org/report/35fd79ebbe51808196605146a62aaef13bc654477d917078a3ae5d3f06ba8836",
+    "description": "It seems to be an \"aftersales user experience logging app\". Really shady app with questionable code (judgeWhiteUser() function. See https://github.com/0x192/universal-android-debloater/pull/112).\n\nStart at boot and can access phone number and IMEI (READ_PHONE_STATE).\n\nPithus analysis: https://beta.pithus.org/report/35fd79ebbe51808196605146a62aaef13bc654477d917078a3ae5d3f06ba8836",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32086,7 +32086,7 @@
   },
   "com.glance.internet": {
     "list": "Misc",
-    "description": "Displays unsolicited\"trending\" stories on Lockscreen",
+    "description": "Displays unsolicited \"trending\" stories on Lockscreen",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -32663,7 +32663,7 @@
   },
   "com.vivo.voicewakeup": {
     "list": "Oem",
-    "description": "Voice wake-up. Has a lot of permissions (REQUEST_INSTALL_PACKAGES, READ_EXTERNAL_STORAGE, RECORD_AUDIO...). Kind of a\"smart assistant\" ? It is constantly listening waiting for a trigger word [MORE INFO NEEDED]",
+    "description": "Voice wake-up. Has a lot of permissions (REQUEST_INSTALL_PACKAGES, READ_EXTERNAL_STORAGE, RECORD_AUDIO...). Kind of a \"smart assistant\" ? It is constantly listening waiting for a trigger word [MORE INFO NEEDED]",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33559,7 +33559,7 @@
   },
   "com.android.overlay.systemui": {
     "list": "Aosp",
-    "description": "On some phones, it is an overlay to app\"com.google.android.apps.safetyhub\".\nCheck out this app code and think about it.",
+    "description": "On some phones, it is an overlay to app \"com.google.android.apps.safetyhub\".\nCheck out this app code and think about it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33890,7 +33890,7 @@
   },
   "com.sec.android.overlay.dcmconfig": {
     "list": "Oem",
-    "description": "Static overlay that sets \"config_systemContacts\" to \"docomo phonebook\" (customized com.android.contacts).\nNOTE: Safe to remove, reboot needed after uninstalling.\n\"docomo phonebook\" itself is safe to remove whether this overlay is installed.",
+    "description": "Static overlay that sets \"config_systemContacts\" to \"docomo phonebook\" (customized com.android.contacts).\nNOTE: Safe to remove, reboot needed after uninstalling.\n \"docomo phonebook\" itself is safe to remove whether this overlay is installed.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -34378,7 +34378,7 @@
   },
   "com.samsung.android.visualars": {
     "list": "Oem",
-    "description": "Smart Touch Call.\nIt allows the user to\"Get voice and Screen interactive service when you call a customer service\".\nBloated with Google API stuff",
+    "description": "Smart Touch Call.\nIt allows the user to \"Get voice and Screen interactive service when you call a customer service\".\nBloated with Google API stuff",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -39336,7 +39336,7 @@
   },
   "com.android.settings.resoverlay": {
     "list": "Oem",
-    "description": "Found in the code\"Declaration of Conformity\" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
+    "description": "Found in the code \"Declaration of Conformity\" on the TECNO phone, is probably unused, as it cannot be found in the Settings or anywhere else.\nIt can be safely removed, the Settings still work without this app.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
