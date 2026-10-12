@@ -15,14 +15,15 @@ name = "uad-ng"
 path = "src/main.rs"
 
 [features]
-default = ["wgpu", "self-update", "img"]
-wgpu = [] # Iced/wgpu is default
-self-update = ["flate2", "tar"]
+default = ["wgpu", "self-update", "img", "builtin-adb"]
+builtin-adb = ["uad-core/builtin-adb"]
+self-update = ["flate2", "tar", "uad-core/self-update"]
 no-self-update = []
+wgpu = [] # Iced/wgpu is default
 img = ["image", "iced/image"]
 
 [dependencies]
-uad-core = { path = "../uad-core", features = ["self-update"] }
+uad-core = { path = "../uad-core", default-features = false }
 iced.workspace = true
 image = { workspace = true, optional = true }
 rfd.workspace = true
