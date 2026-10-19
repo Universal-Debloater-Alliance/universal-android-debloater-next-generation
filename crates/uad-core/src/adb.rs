@@ -369,11 +369,27 @@ impl PmCommand {
                 .filter_map(|p_ln| {
                     debug_assert!(p_ln.starts_with(PACK_PREFIX));
                     let p = &p_ln[PACK_PREFIX.len()..];
-                    if PackageId::new(p).is_some() {
-                        Some(String::from(p))
-                    } else {
-                        warn!("skipping nonstandard package name: {p:?}");
-                        None
+
+                    // Horrible way, but this should do
+                    #[cfg(target_os = "windows")]
+                    {
+                        let p_trimmed = p.trim_end();
+                        if PackageId::new(p_trimmed).is_some() {
+                            Some(String::from(p_trimmed))
+                        } else {
+                            warn!("skipping nonstandard package name: {p_trimmed:?}");
+                            None
+                        }
+                    }
+
+                    #[cfg(not(target_os = "windows"))]
+                    {
+                        if PackageId::new(p).is_some() {
+                            Some(String::from(p))
+                        } else {
+                            warn!("skipping nonstandard package name: {p:?}");
+                            None
+                        }
                     }
                 })
                 .collect()
