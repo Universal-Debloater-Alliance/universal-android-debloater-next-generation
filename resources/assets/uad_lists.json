@@ -31561,7 +31561,7 @@
   },
   "com.transsion.batterylab": {
     "list": "Oem",
-    "description": "Will either kill your battery life or is the \"Battery & Power Saving\" section in the Settings app with many useful battery features, depending on device. \n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
+    "description": "Will either kill your battery life or is the \"Battery & Power Saving\" section in the Settings app with many useful battery features, depending on device.\n\nRequired for one-time toggle of vendor's battery saver features, which are running in parallel with Android built-in controls. Therefore, \"Unrestricted\" battery mode for apps may be not enough to make them stay running in background. Check out \"Battery & Power Saving\" (in Settings) -> \"Battery saver\" -> \"Other Power Saving Settings\" to toggle \"Power Saving Management For Apps\" and \"Adaptive Battery\" which affect apps functioning.\n\nPithus analysis: https://beta.pithus.org/report/7ef2b186a74102828346f23b094ab2aaaad2c57806c7c18e7a23a494f3cc982c",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
