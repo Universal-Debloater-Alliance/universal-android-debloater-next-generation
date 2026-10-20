@@ -43269,5 +43269,237 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.ecloud.eairplay": {
+    "list": "Oem",
+    "description": "EShare AirPlay receiver (cast from Apple devices). Runs in background from boot.\nTested disabled, no side effects besides losing AirPlay receive.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ecloud.emedia": {
+    "list": "Oem",
+    "description": "EShare media receiver service (DLNA/media casting). Runs in background from boot.\nTested disabled, no side effects besides losing media casting.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ecloud.eshare.server": {
+    "list": "Oem",
+    "description": "EShare screen mirroring server (iMirror). Runs in background from boot.\nTested disabled, no side effects besides losing EShare mirroring.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hisilicon.miracast": {
+    "list": "Oem",
+    "description": "HiSilicon Miracast receiver (screen mirroring from Android/Windows).\nTested disabled, no side effects besides losing Miracast.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hisilicon.android.music": {
+    "list": "Oem",
+    "description": "HiSilicon music player for local/USB files.\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hisilicon.android.videoplayer": {
+    "list": "Oem",
+    "description": "HiSilicon video player for local/USB files.\nTested disabled, no side effects besides losing USB video playback.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hisilicon.higallery": {
+    "list": "Oem",
+    "description": "HiSilicon photo gallery for local/USB files.\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.hisilicon.explorer": {
+    "list": "Oem",
+    "description": "HiSilicon file explorer.\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kystar.projector.explorer": {
+    "list": "Oem",
+    "description": "Kystar projector file browser (USB/local media).\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "net.kystar.btspeaker": {
+    "list": "Oem",
+    "description": "Bluetooth speaker mode (use the projector as a speaker for a phone).\nTested disabled, no side effects besides losing that mode.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kystar.dream": {
+    "list": "Oem",
+    "description": "Screensaver (DreamService, /system/app/DreamPictures).\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kystar.middleware.track": {
+    "list": "Oem",
+    "description": "Telemetry. Ships enabled as an accessibility service (TopAppTrackingService) that records the foreground app.\nFlagged persistent: the firmware starts it even when disabled, so uninstall it for the user instead.\nTested removed, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.sdt.factorytest": {
+    "list": "Oem",
+    "description": "Factory test service. Starts on boot (BOOT_COMPLETED receiver).\nFlagged persistent: the firmware starts it even when disabled, so uninstall it for the user instead.\nTested removed, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kystar.projector.test.facteory": {
+    "list": "Oem",
+    "description": "Factory test app (the misspelling is in the original package name).\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "zeasn.open.technical.tv.store": {
+    "list": "Oem",
+    "description": "Zeasn app store (\"Tienda de aplicaciones\"). Google Play is also preinstalled on this device.\nTested disabled, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kystar.wifiap": {
+    "list": "Oem",
+    "description": "Wi-Fi hotspot feature.\nTested disabled, no side effects besides losing the hotspot.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.zeasn.launcher": {
+    "list": "Oem",
+    "description": "Stock launcher (Zeasn), shows an ad/recommendation row.\nInstall and set another launcher as Home BEFORE removing it, or the Home button does nothing.\nTested disabled with Projectivy Launcher as replacement, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.zeasn.deviceportal.asdprovider.kystar_hisi352": {
+    "list": "Oem",
+    "description": "Zeasn device portal / content provider used by the stock launcher. Starts on boot.\nFlagged persistent: the firmware starts it even when disabled, so uninstall it for the user instead.\nTested removed together with com.zeasn.launcher, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.kystar.projector.zeasn.setupwizard": {
+    "list": "Oem",
+    "description": "First-run setup wizard.\nOnly remove after the initial setup is complete.\nTested disabled after setup, no side effects.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.kystar.projector.focus": {
+    "list": "Oem",
+    "description": "Autofocus (and likely auto keystone).\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.kystar.focus.movecheck": {
+    "list": "Oem",
+    "description": "Motion detection that triggers autofocus/keystone after the projector is moved. Runs in background from boot.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.kystar.bleconnect": {
+    "list": "Oem",
+    "description": "Bluetooth LE pairing for the remote control.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.kystar.projector.zeasn.settings": {
+    "list": "Oem",
+    "description": "Projector settings (picture, keystone, focus). Appears as an app launcher entry.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.ksd.framework": {
+    "list": "Oem",
+    "description": "Vendor framework service (KSD), persistent, paired with vendor.ksd.hardware.ksdserver HAL.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hisilicon.tv.service": {
+    "list": "Oem",
+    "description": "HiSilicon TV middleware service (picture/source pipeline). Persistent.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hisilicon.tvui": {
+    "list": "Oem",
+    "description": "HiSilicon TV UI component.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hisilicon.tvsetting": {
+    "list": "Oem",
+    "description": "HiSilicon TV/picture settings.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hisilicon.tv.menu": {
+    "list": "Oem",
+    "description": "HiSilicon TV menu (picture/source quick settings).\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.hisilicon.rmservice": {
+    "list": "Oem",
+    "description": "HiSilicon resource manager service. Persistent.\nRole inferred from name and manifest; not removed during testing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
   }
 }
