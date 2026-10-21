@@ -43269,5 +43269,1186 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "android.tts": {
+    "list": "Aosp",
+    "description": "Legacy text-to-speech engine package.\nRemoving it breaks TTS output (TalkBack, readout features).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "blur.res": {
+    "list": "Oem",
+    "description": "MOTOBLUR shared resources package.\nResource-only APK shared by the Blur framework and Blur apps; removal may cause crashes or bootloops.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "ca.bell.android.BellRpvr": {
+    "list": "Carrier",
+    "description": "Bell Mobility Visual Voicemail (likely). \nhttps://play.google.com/store/apps/details?id=ca.bell.android.BellRpvr",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "ca.bell.wt.android.searchwidget": {
+    "list": "Carrier",
+    "description": "Bell Mobility search widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.adobe.flashplayer": {
+    "list": "Misc",
+    "description": "Adobe Flash Player plugin for the stock browser.\nFlash is discontinued and unsupported. \nhttps://play.google.com/store/apps/details?id=com.adobe.flashplayer",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.aloqa.me.client_modules.android_sl": {
+    "list": "Misc",
+    "description": "Aloqa location-aware recommendations client (preloaded third-party service).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.batteryreport": {
+    "list": "Oem",
+    "description": "Battery report.\nRemoval breaks the battery usage report screen.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.providers.subscribedfeeds": {
+    "list": "Aosp",
+    "description": "Subscribed Feeds provider (deprecated legacy sync feeds API).\nMay break feed-based sync for some accounts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.server.vpn": {
+    "list": "Aosp",
+    "description": "Legacy VPN service/settings (PPTP/L2TP/IPsec).\nRemoval breaks the built-in VPN settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.setupwizard": {
+    "list": "Aosp",
+    "description": "Setup Wizard.\nRemoval skips the first-boot/factory-reset setup flow.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.term": {
+    "list": "Aosp",
+    "description": "Terminal Emulator.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.vending.updater": {
+    "list": "Google",
+    "description": "Google Play (Market) updater.\nRemoval prevents Market from updating itself.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.arcsoft.videoeditorlite": {
+    "list": "Oem",
+    "description": "ArcSoft Video Editor Lite.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.bellmo.selfserve": {
+    "list": "Carrier",
+    "description": "Bell Mobility self-serve (account/usage) app. \nhttps://play.google.com/store/apps/details?id=com.bellmo.selfserve",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.citrix.Receiver": {
+    "list": "Misc",
+    "description": "Citrix Receiver (remote desktop/app client). \nhttps://play.google.com/store/apps/details?id=com.citrix.Receiver",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.enstream": {
+    "list": "Carrier",
+    "description": "Enstream (Canadian carrier joint-venture service, preloaded).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gameloft.microwidget": {
+    "list": "Misc",
+    "description": "Gameloft promotional widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.kobobooks.android": {
+    "list": "Misc",
+    "description": "Kobo eReader app. \nhttps://play.google.com/store/apps/details?id=com.kobobooks.android",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.mot.hstcmd.ui": {
+    "list": "Oem",
+    "description": "Motorola HST command UI (hardware/service test tool).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.Camera": {
+    "list": "Oem",
+    "description": "Motorola Camera.\nThe default camera; removal leaves the device without a camera app unless replaced.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.Dlna": {
+    "list": "Oem",
+    "description": "Motorola DLNA app (media streaming to DLNA devices).",
+    "dependencies": [
+      "com.motorola.android.dlnasystemservice"
+    ],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.PerformanceManager": {
+    "list": "Oem",
+    "description": "Motorola performance manager.\nMay affect performance/power profile handling.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.Upgrader": {
+    "list": "Oem",
+    "description": "Motorola software upgrader.\nRemoval breaks OTA/firmware upgrade prompts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.AudioEffectSettings": {
+    "list": "Oem",
+    "description": "Audio effects settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.PhotoEditor": {
+    "list": "Oem",
+    "description": "Motorola Photo Editor.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.datamanager": {
+    "list": "Oem",
+    "description": "Motorola data manager.\nHandles data/account management for Motorola services; may break Blur account features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.dlnasystemservice": {
+    "list": "Oem",
+    "description": "DLNA system service.",
+    "dependencies": [],
+    "neededBy": [
+      "com.motorola.Dlna"
+    ],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.dm.service": {
+    "list": "Oem",
+    "description": "Device Management (OMA-DM) service used by carriers.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.encryption.settings": {
+    "list": "Oem",
+    "description": "Device/storage encryption settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.extdispservice": {
+    "list": "Oem",
+    "description": "External display service (HDMI output).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.locationproxy.dm": {
+    "list": "Oem",
+    "description": "Location proxy for device management.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.mirrorservice": {
+    "list": "Oem",
+    "description": "HDMI mirror service.\nRemoval breaks screen mirroring over HDMI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.mobad.service": {
+    "list": "Oem",
+    "description": "Mobile advertising service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.motophoneportal.androidui": {
+    "list": "Oem",
+    "description": "MotoPhone Portal (remote phone management from a PC).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.mtlr": {
+    "list": "Oem",
+    "description": "Mobile-terminated location request handler (network-initiated location, e.g. SUPL/emergency).\nMay affect emergency location features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.omadownload": {
+    "list": "Oem",
+    "description": "OMA download handler (carrier/WAP content downloads).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.omadrm": {
+    "list": "Oem",
+    "description": "OMA DRM service.\nBreaks DRM-protected content (some ringtones/MMS media).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.portal": {
+    "list": "Oem",
+    "description": "Motorola portal app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.recovery": {
+    "list": "Oem",
+    "description": "Motorola recovery helper app.\nMay affect update/recovery flows.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.sdm.plugin.lawmo": {
+    "list": "Oem",
+    "description": "LAWMO (Lock And Wipe Management Object) plugin for OMA-DM remote lock/wipe.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.simcontactadapter": {
+    "list": "Oem",
+    "description": "SIM contacts adapter.\nBreaks SIM contacts import/display.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.atcmd": {
+    "list": "Oem",
+    "description": "AT command handler.\nMay break AT-command access from PC tools.",
+    "dependencies": [],
+    "neededBy": [
+      "com.motorola.atcmd.plugin"
+    ],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.atcmd.plugin": {
+    "list": "Oem",
+    "description": "AT command plugin.",
+    "dependencies": [
+      "com.motorola.atcmd"
+    ],
+    "neededBy": [
+      "com.motorola.atcmd.plugin.qc"
+    ],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.atcmd.plugin.qc": {
+    "list": "Oem",
+    "description": "AT command plugin (Qualcomm).",
+    "dependencies": [
+      "com.motorola.atcmd.plugin"
+    ],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.batterymanager": {
+    "list": "Oem",
+    "description": "Motorola battery manager (power profiles/battery saver).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.bluetooth": {
+    "list": "Oem",
+    "description": "Motorola Bluetooth components.\nMay break Bluetooth profiles/features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.adminfeed": {
+    "list": "Oem",
+    "description": "Blur admin feed (Motorola service announcements).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.alarmclock": {
+    "list": "Oem",
+    "description": "Blur Alarm Clock.\nReplaceable with any clock app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.blurchooser": {
+    "list": "Oem",
+    "description": "Blur chooser (account/service selection dialog).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.calendar.sync.activesync": {
+    "list": "Oem",
+    "description": "Exchange ActiveSync calendar sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.contacts.data": {
+    "list": "Oem",
+    "description": "Blur contacts data.\nMay break contacts sync/data for Blur accounts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.contacts.sync": {
+    "list": "Oem",
+    "description": "Blur contacts sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.contacts.sync.activesync": {
+    "list": "Oem",
+    "description": "Exchange ActiveSync contacts sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.contacts.sync.yahoo": {
+    "list": "Oem",
+    "description": "Yahoo contacts sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.conversations": {
+    "list": "Oem",
+    "description": "Blur Conversations (messaging threads UI).\nMay break the messaging experience.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.datacollector.service": {
+    "list": "Oem",
+    "description": "Blur data collector service (telemetry).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.datamanager.app": {
+    "list": "Oem",
+    "description": "Blur data manager.\nCore Blur framework component; may break Blur apps/accounts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.email": {
+    "list": "Oem",
+    "description": "Blur Email client.\nReplaceable with any email app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.friendfeed": {
+    "list": "Oem",
+    "description": "FriendFeed integration (service shut down).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.helpcenter": {
+    "list": "Oem",
+    "description": "Motorola Help Center.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.home": {
+    "list": "Oem",
+    "description": "MOTOBLUR Home launcher.\nDefault homescreen; install an alternative launcher first.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.home.clock": {
+    "list": "Oem",
+    "description": "Blur Home clock widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.home.message": {
+    "list": "Oem",
+    "description": "Blur Home message widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.home.status": {
+    "list": "Oem",
+    "description": "Blur Home status widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.messaging": {
+    "list": "Oem",
+    "description": "Blur messaging.\nMay break SMS/MMS functionality.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.messaging.universal": {
+    "list": "Oem",
+    "description": "Blur universal messaging (unified inbox).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.msexchangesvc": {
+    "list": "Oem",
+    "description": "Microsoft Exchange service.\nBreaks Exchange sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.news": {
+    "list": "Oem",
+    "description": "Blur News widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.policymgr.provider": {
+    "list": "Oem",
+    "description": "Policy manager provider (Exchange device policies).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.policymgr.service": {
+    "list": "Oem",
+    "description": "Policy manager service (Exchange device policies).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.provider.activesync": {
+    "list": "Oem",
+    "description": "Exchange ActiveSync account provider.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.provider.datacollector": {
+    "list": "Oem",
+    "description": "Blur data collector provider (telemetry).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.email": {
+    "list": "Oem",
+    "description": "Blur email account provider.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.provider.facebook": {
+    "list": "Oem",
+    "description": "Facebook account/sync provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.fixedemail": {
+    "list": "Oem",
+    "description": "Blur fixed email account provider (preconfigured email accounts).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.provider.flickr": {
+    "list": "Oem",
+    "description": "Flickr account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.lastfm": {
+    "list": "Oem",
+    "description": "Last.fm account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.linkedin": {
+    "list": "Oem",
+    "description": "LinkedIn account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.myspace": {
+    "list": "Oem",
+    "description": "MySpace account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.orkut": {
+    "list": "Oem",
+    "description": "Orkut account provider (service shut down).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.photobucket": {
+    "list": "Oem",
+    "description": "Photobucket account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.picasa": {
+    "list": "Oem",
+    "description": "Picasa account provider (service shut down).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.skyrock": {
+    "list": "Oem",
+    "description": "Skyrock account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.suggestions": {
+    "list": "Oem",
+    "description": "Blur suggestions provider.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.twitter": {
+    "list": "Oem",
+    "description": "Twitter account provider (legacy API).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.yahoo": {
+    "list": "Oem",
+    "description": "Yahoo account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.provider.youtube": {
+    "list": "Oem",
+    "description": "YouTube account provider (legacy).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.providers.contacts": {
+    "list": "Oem",
+    "description": "Blur contacts provider.\nMay break contacts storage/sync tied to Blur.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.blur.richtext": {
+    "list": "Oem",
+    "description": "Blur rich text component used by messaging apps.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.service.blur.xmpp.fakeblur": {
+    "list": "Oem",
+    "description": "Blur XMPP push service stub.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.service.email": {
+    "list": "Oem",
+    "description": "Blur email service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.service.search": {
+    "list": "Oem",
+    "description": "Blur search service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.service.snmessaging.engine": {
+    "list": "Oem",
+    "description": "Social network messaging engine.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.service.storagemon": {
+    "list": "Oem",
+    "description": "Storage monitor.\nMay stop low-storage warnings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.setup": {
+    "list": "Oem",
+    "description": "Blur setup (account setup flow).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.setupprovider": {
+    "list": "Oem",
+    "description": "Blur setup provider.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.setupsettings": {
+    "list": "Oem",
+    "description": "Blur setup settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.simmanager": {
+    "list": "Oem",
+    "description": "SIM manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.socialmessaging": {
+    "list": "Oem",
+    "description": "Blur social messaging.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.socialshare": {
+    "list": "Oem",
+    "description": "Blur social share.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.suggestions.rulechecker.core": {
+    "list": "Oem",
+    "description": "Blur suggestions rule checker.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.suggestions.scheduler": {
+    "list": "Oem",
+    "description": "Blur suggestions scheduler.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.tasks": {
+    "list": "Oem",
+    "description": "Blur Tasks.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blur.updater": {
+    "list": "Oem",
+    "description": "Blur updater.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.blur.weather": {
+    "list": "Oem",
+    "description": "Blur Weather widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.blurgallery": {
+    "list": "Oem",
+    "description": "Motorola Gallery.\nReplaceable with any gallery app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.bookmarkswidget": {
+    "list": "Oem",
+    "description": "Bookmarks widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.certificatemanager": {
+    "list": "Oem",
+    "description": "Certificate manager.\nMay break certificate installation and secure connections.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.certificateprovider": {
+    "list": "Oem",
+    "description": "Certificate provider.\nMay break certificate-dependent features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.chargeonlymode": {
+    "list": "Oem",
+    "description": "Charge-only USB mode.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.cmp": {
+    "list": "Oem",
+    "description": "Purpose unclear (possibly a Motorola content/media provider).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.contacts.preloaded": {
+    "list": "Oem",
+    "description": "Preloaded contacts (carrier/service numbers).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.datacollection": {
+    "list": "Oem",
+    "description": "Motorola data collection (telemetry).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.devicestatistics": {
+    "list": "Oem",
+    "description": "Motorola device statistics (usage telemetry).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.dialer": {
+    "list": "Oem",
+    "description": "Motorola Dialer.\nIncluding in-call UI; removal can break placing/answering calls.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.dlauncher": {
+    "list": "Oem",
+    "description": "Motorola launcher (DLauncher).\nInstall an alternative launcher first.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.dock.service": {
+    "list": "Oem",
+    "description": "Dock service (dock detection and behavior).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.filemanager": {
+    "list": "Oem",
+    "description": "Motorola File Manager.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.globalunplug": {
+    "list": "Oem",
+    "description": "Global unplug handler (charger unplug events).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.hiddenmenu": {
+    "list": "Oem",
+    "description": "Motorola hidden/service menu.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.inpocket": {
+    "list": "Oem",
+    "description": "In-pocket detection.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.kpilogger": {
+    "list": "Oem",
+    "description": "KPI logger (telemetry).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.locationsensor": {
+    "list": "Oem",
+    "description": "Location sensor service.\nMay affect location-aware features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.mediashare": {
+    "list": "Oem",
+    "description": "Media share (DLNA sharing).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.mediasync": {
+    "list": "Oem",
+    "description": "Media sync.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.modemcutback": {
+    "list": "Oem",
+    "description": "Modem power cutback.\nLikely tied to RF power limits (SAR compliance); do not remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.motorola.multiconfig": {
+    "list": "Oem",
+    "description": "Multi-config (carrier-specific configuration switching).\nMay break carrier settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.phoneaddons": {
+    "list": "Oem",
+    "description": "Motorola phone add-ons.\nExtends telephony behavior; may break call features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.quicksms": {
+    "list": "Oem",
+    "description": "Quick SMS (quick reply).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.readout": {
+    "list": "Oem",
+    "description": "Readout (reads messages aloud).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.smartcardock": {
+    "list": "Oem",
+    "description": "Smart car dock app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.smartdock": {
+    "list": "Oem",
+    "description": "Smart dock app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.spellingcheckservice": {
+    "list": "Oem",
+    "description": "Spell-checking service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.stickynote": {
+    "list": "Oem",
+    "description": "Sticky Note widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.togglewidgets": {
+    "list": "Oem",
+    "description": "Toggle (power control) widgets.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.usb": {
+    "list": "Oem",
+    "description": "USB mode handling.\nMay break USB connection prompts and modes.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.videoplayer": {
+    "list": "Oem",
+    "description": "Motorola Video Player.\nReplaceable with any video player.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.wallpaper.forest": {
+    "list": "Oem",
+    "description": "Forest live wallpaper.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.wappushsi": {
+    "list": "Oem",
+    "description": "WAP Push Service Indication handler.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.widgetapp.worldclock": {
+    "list": "Oem",
+    "description": "World Clock widget.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.zoom": {
+    "list": "Oem",
+    "description": "Motorola Zoom (purpose unclear, possibly a magnification feature).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.nuance.android.vsuite.vsuiteapp": {
+    "list": "Misc",
+    "description": "Nuance Voice Suite (voice features).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.qo.android.moto": {
+    "list": "Misc",
+    "description": "Quickoffice for Motorola (document viewer/editor).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.safenet.vpnclient": {
+    "list": "Misc",
+    "description": "SafeNet VPN client.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.softwareimaging.motoprint.mobile": {
+    "list": "Oem",
+    "description": "Moto Print (printing app). \nhttps://play.google.com/store/apps/details?id=com.softwareimaging.motoprint.mobile",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.swype.android.inputmethod": {
+    "list": "Misc",
+    "description": "Swype keyboard.\nDefault keyboard; keep another IME available before removal.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
+
 }
