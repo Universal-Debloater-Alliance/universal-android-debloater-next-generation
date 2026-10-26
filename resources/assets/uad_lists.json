@@ -43269,5 +43269,13 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.oplus.phonemanager": {
+    "list": "Oem",
+    "description": "Supposedly optimizes your device but runs in the background and hogs resources checking for malware in installed applications. Safe to remove.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
