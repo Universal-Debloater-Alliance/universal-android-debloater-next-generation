@@ -6,7 +6,7 @@ use log::warn;
 use uad_core::sync::{CorePackage, Phone};
 use uad_core::uad_lists::{PackageState, Removal, UadList};
 
-use iced::widget::{Space, button, checkbox, row};
+use iced::widget::{Space, button, checkbox, row, space};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
 #[derive(Clone, Debug)]
@@ -125,7 +125,11 @@ impl PackageRow {
             button(
                 row![
                     selection_checkbox,
-                    text(&self.name).width(Length::FillPortion(8)),
+                    row![
+                        iced_selection::text(&self.name),
+                        space().width(Length::Fill)
+                    ]
+                    .width(Length::FillPortion(8)),
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
