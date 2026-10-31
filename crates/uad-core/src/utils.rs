@@ -273,27 +273,18 @@ pub fn truncate_description(desc: &str, max_len: usize) -> String {
 /// uppercase character.
 #[must_use]
 pub fn matches_search(pkg_name: &str, search_term: &str, pkg_description: Option<&str>) -> bool {
-    if smart_case_contains(pkg_name, search_term) {
-        return true;
-    }
+    // Lowercased once here, since this runs for every package on each keystroke.
+    let lowered_term = search_term
+        .chars()
+        .all(|c| !c.is_uppercase())
+        .then(|| search_term.to_lowercase());
 
-    if let Some(description) = pkg_description {
-        if smart_case_contains(description, search_term) {
-            return true;
-        }
-    }
+    let matches = |text: &str| match &lowered_term {
+        Some(term) => text.to_lowercase().contains(term.as_str()),
+        None => text.contains(search_term),
+    };
 
-    false
-}
-
-/// Substring match with smart-case semantics: case-insensitive unless the
-/// query contains an uppercase character, in which case it is case-sensitive.
-fn smart_case_contains(haystack: &str, query: &str) -> bool {
-    if query.chars().all(|c| !c.is_uppercase()) {
-        haystack.to_lowercase().contains(&query.to_lowercase())
-    } else {
-        haystack.contains(query)
-    }
+    matches(pkg_name) || pkg_description.is_some_and(matches)
 }
 
 #[cfg(test)]
@@ -311,25 +302,25 @@ mod tests {
 
     #[test]
     fn smart_case_matches_case_insensitively_without_uppercase() {
-        assert!(smart_case_contains("Maps", "maps"));
-        assert!(smart_case_contains("GoogleMaps", "maps"));
+        assert!(matches_search("Maps", "maps", None));
+        assert!(matches_search("GoogleMaps", "maps", None));
     }
 
     #[test]
     fn smart_case_matches_case_sensitively_with_uppercase() {
-        assert!(smart_case_contains("Maps", "Maps"));
-        assert!(!smart_case_contains("maps", "Maps"));
+        assert!(matches_search("Maps", "Maps", None));
+        assert!(!matches_search("maps", "Maps", None));
     }
 
     #[test]
     fn smart_case_keeps_mixed_case_queries_case_sensitive() {
-        assert!(smart_case_contains("com.example.McFds.service", "McFds"));
-        assert!(!smart_case_contains("com.example.mcfds.service", "McFds"));
+        assert!(matches_search("com.example.McFds.service", "McFds", None));
+        assert!(!matches_search("com.example.mcfds.service", "McFds", None));
     }
 
     #[test]
     fn smart_case_empty_query_matches() {
-        assert!(smart_case_contains("Maps", ""));
+        assert!(matches_search("Maps", "", None));
     }
 
     #[test]
