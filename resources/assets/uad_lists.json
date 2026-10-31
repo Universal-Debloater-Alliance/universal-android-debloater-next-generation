@@ -43277,5 +43277,85 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.oplus.leftscreen": {
+    "description": "HiAssistant\nLeftmost screen of the system launcher replacing Google's Discover feed. Displays Yandex search bar, weather, news and of course ads.\nThere's no setting to choose a feed for the left screen or to get rid of it (for Android 13 at least).\nUninstalling brings Google feed back. Disabling removes the left screen altogether, same as uninstalling it along with Google app. All options are safe to do, so choose accordingly.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Advanced"
+  },
+  "android.frameworkres.overlay.defaultmms": {
+    "description": "DefaultMmsOverlayConfig\nHas no code inside, only has a single string referring to com.android.mms as 'config_defaultSms'. The default SMS app menu remained functional after removing. Outside of it being a RRO (Resource Runtime Overlay) there're zero mentions of it online.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Aosp",
+    "removal": "Advanced"
+  },
+  "com.android.carrierconfig.oplus.overlay": {
+    "description": "Required for com.android.carrierconfig on ColorOS-based devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Advanced"
+  },
+  "com.android.carrierconfig.overlay": {
+    "description": "Needed for (com.android.carrierconfig).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Aosp",
+    "removal": "Advanced"
+  },
+  "com.android.systemui.overlay.fingerprint.anim.xw": {
+    "description": "Fingerprint animation from a lot of PNG files",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Recommended"
+  },
+  "com.google.android.signature": {
+    "description": "Signatures\nAllows users to draw, type, or photograph their signatures and store multiple iterations in a central vault for use by apps supporting it. Useful for signing PDFs or other documents.\nRemoving may break some apps in the future. Supports Android 12 or newer.\nhttps://www.androidauthority.com/google-android-signature-app-3682305/",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Google",
+    "removal": "Expert"
+  },
+  "com.oplus.commercial": {
+    "description": "CommercialMidGround\nCentral service to send and display ads to users of '92 Lock Screen', 'Wallpaper Carousel' and 'Glance Search'.\nRuns in background if any of mentioned apps are used.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Recommended"
+  },
+  "com.oplus.framework.rro.realme": {
+    "description": "A runtime resource overlay (RRO) is a package that changes the resource values of a target package at runtime. For example, an app installed on the system image might change its behavior based upon the value of a resource. Rather than hardcoding the resource value at build time, an RRO installed on a different partition can change the values of the app's resources at runtime.\nRROs can be enabled or disabled. You can programmatically set the enable/disable state to toggle an RRO's ability to change resource values. RROs are disabled by default (however, static RROs are enabled by default).\nhttps://source.android.com/docs/core/runtime/rros",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Expert"
+  },
+  "com.oplus.multimedia.dirac": {
+    "description": "OplusDiracService\nReal Sound Technology setting, basically chooses preset equalizers depending on the currently playing content for Dirac audio, a speaker tuning solution used in various devices.\nRemoving will make the setting disappear.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Advanced"
+  },
+  "oplus": {
+    "description": "Same as 'android' package but specific to ColorOS devices, has similarly ominous package naming.\nSame icon and name, placed in /system-ext/framework similarly to /system/framework of 'android', same purpose of being framework-res, etc.\nHighly advise against removing it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "list": "Oem",
+    "removal": "Unsafe"
   }
 }
