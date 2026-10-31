@@ -268,23 +268,26 @@ pub fn truncate_description(desc: &str, max_len: usize) -> String {
 
 /// Check if package matches search term (checks name and description).
 ///
-/// Matching is smart-case: case-insensitive when the search term contains no
-/// uppercase characters, case-sensitive as soon as the term contains any
-/// uppercase character.
+/// Package names always match case-insensitively. Descriptions are smart-case:
+/// case-insensitive when the search term contains no uppercase characters,
+/// case-sensitive as soon as the term contains any uppercase character.
 #[must_use]
 pub fn matches_search(pkg_name: &str, search_term: &str, pkg_description: Option<&str>) -> bool {
     // Lowercased once here, since this runs for every package on each keystroke.
-    let lowered_term = search_term
-        .chars()
-        .all(|c| !c.is_uppercase())
-        .then(|| search_term.to_lowercase());
+    let lowered_term = search_term.to_lowercase();
 
-    let matches = |text: &str| match &lowered_term {
-        Some(term) => text.to_lowercase().contains(term.as_str()),
-        None => text.contains(search_term),
-    };
+    if pkg_name.to_lowercase().contains(&lowered_term) {
+        return true;
+    }
 
-    matches(pkg_name) || pkg_description.is_some_and(matches)
+    let case_sensitive = search_term.chars().any(char::is_uppercase);
+    pkg_description.is_some_and(|description| {
+        if case_sensitive {
+            description.contains(search_term)
+        } else {
+            description.to_lowercase().contains(&lowered_term)
+        }
+    })
 }
 
 #[cfg(test)]
@@ -301,45 +304,41 @@ mod tests {
     }
 
     #[test]
-    fn smart_case_matches_case_insensitively_without_uppercase() {
+    fn names_match_case_insensitively_without_uppercase() {
         assert!(matches_search("Maps", "maps", None));
         assert!(matches_search("GoogleMaps", "maps", None));
     }
 
     #[test]
-    fn smart_case_matches_case_sensitively_with_uppercase() {
+    fn names_match_case_insensitively_with_uppercase() {
         assert!(matches_search("Maps", "Maps", None));
-        assert!(!matches_search("maps", "Maps", None));
+        assert!(matches_search("maps", "Maps", None));
+        assert!(matches_search("com.google.android.gms", "Google", None));
+        assert!(matches_search("com.example.mcfds.service", "McFds", None));
     }
 
     #[test]
-    fn smart_case_keeps_mixed_case_queries_case_sensitive() {
-        assert!(matches_search("com.example.McFds.service", "McFds", None));
-        assert!(!matches_search("com.example.mcfds.service", "McFds", None));
-    }
-
-    #[test]
-    fn smart_case_empty_query_matches() {
+    fn empty_query_matches() {
         assert!(matches_search("Maps", "", None));
     }
 
     #[test]
-    fn matches_search_checks_name_and_description_smart_case() {
-        // Lowercase query matches name and description case-insensitively.
-        assert!(matches_search(
-            "GoogleMaps",
-            "maps",
-            Some("Navigation service")
-        ));
-        assert!(matches_search(
+    fn descriptions_match_smart_case() {
+        let description = Some("Google Maps navigation service");
+        // No uppercase in the query: case-insensitive.
+        assert!(matches_search("com.example.app", "navigation", description));
+        assert!(matches_search("com.example.app", "google", description));
+        // Uppercase in the query: case-sensitive.
+        assert!(matches_search("com.example.app", "Maps", description));
+        assert!(!matches_search(
             "com.example.app",
-            "navigation",
-            Some("Google Maps navigation service")
+            "Navigation",
+            description
         ));
-        // Uppercase in the query makes matching case-sensitive.
-        assert!(matches_search("GoogleMaps", "Maps", None));
-        assert!(!matches_search("googlemaps", "Maps", None));
-        // No match in either field.
+    }
+
+    #[test]
+    fn no_match_in_name_or_description() {
         assert!(!matches_search("GoogleMaps", "xyz", Some("Navigation")));
     }
 }
