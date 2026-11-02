@@ -28,9 +28,9 @@ jobs:
           - update_feature: no-self-update
             update_name: "-noselfupdate"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
@@ -64,7 +64,7 @@ jobs:
           sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }} | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}-checksum
           sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz-checksum
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
           path: uad-ng-*
@@ -84,9 +84,9 @@ jobs:
           - build_target: windows
             os: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
@@ -120,7 +120,7 @@ jobs:
           sha256sum uad-cli-${{ matrix.build_target }} | tee uad-cli-${{ matrix.build_target }}-checksum
           sha256sum uad-cli-${{ matrix.build_target }}.tar.gz | tee uad-cli-${{ matrix.build_target }}.tar.gz-checksum
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: uad-cli-${{ matrix.build_target }}
           path: uad-cli-*

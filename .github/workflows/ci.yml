@@ -45,8 +45,8 @@ jobs:
           - lint: fmt
             args: " --all -- --check"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
@@ -75,7 +75,7 @@ jobs:
     name: coverage
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: Download grcov
         run: |
@@ -94,7 +94,7 @@ jobs:
           # grcov can succeed with an empty report if LLVM tools are missing.
           grep -q '^SF:crates/' ./target/coverage/tests.lcov
       - name: Upload coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-lcov
           path: target/coverage/tests.lcov
