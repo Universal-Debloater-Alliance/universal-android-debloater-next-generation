@@ -4,16 +4,18 @@ on:
     paths:
       - Cargo.lock
       - Cargo.toml
-      - resources/assets/*.ttf
-      - resources/assets/uad_lists.json
-      - src/**
+      - crates/**
+      - resources/assets/**
+      - .cargo/**
+      - .github/workflows/**
   pull_request:
     paths:
       - Cargo.lock
       - Cargo.toml
-      - resources/assets/*.ttf
-      - resources/assets/uad_lists.json
-      - src/**
+      - crates/**
+      - resources/assets/**
+      - .cargo/**
+      - .github/workflows/**
 
 jobs:
   lint:
@@ -34,14 +36,14 @@ jobs:
             lint: fmt
         include:
           - lint: check
-            args: " --all-features"
+            args: " --workspace --all-targets --all-features"
             env-flag: "-D warnings"
           - lint: test
-            args: ""
+            args: " --workspace --all-features"
           - lint: clippy
-            args: " --all-features -- -D clippy::all -W clippy::style"
+            args: " --workspace --all-targets --all-features -- -D clippy::all -W clippy::style"
           - lint: fmt
-            args: " -- --check"
+            args: " --all -- --check"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -59,6 +61,15 @@ jobs:
           components: clippy,rustfmt
       - shell: bash
         run: RUSTFLAGS='${{ matrix.env-flag }}' cargo ${{ matrix.lint }}${{ matrix.args }}
+      - name: Check standalone crate configurations
+        if: matrix.lint == 'check'
+        shell: bash
+        env:
+          RUSTFLAGS: -D warnings
+        run: |
+          cargo check --all-targets -p uad-core
+          cargo check --all-targets -p uad-cli
+          cargo check --all-targets -p uad-gui --no-default-features --features wgpu,no-self-update,img
 
   coverage:
     name: coverage
@@ -74,7 +85,7 @@ jobs:
       - name: Install LLVM-profdata
         run: rustup component add llvm-tools-preview
       - name: Run tests
-        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test
+        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test --workspace --all-features
       - name: make coverage directory
         run: mkdir ./target/coverage
       - name: Run GRCOV
