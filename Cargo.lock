@@ -4580,7 +4580,7 @@ dependencies = [
 
 [[package]]
 name = "uad-cli"
-version = "1.3.0"
+version = "1.3.1"
 dependencies = [
  "chrono",
  "clap",
@@ -4600,7 +4600,7 @@ dependencies = [
 
 [[package]]
 name = "uad-core"
-version = "1.3.0"
+version = "1.3.1"
 dependencies = [
  "chrono",
  "csv",
@@ -4618,7 +4618,7 @@ dependencies = [
 
 [[package]]
 name = "uad-gui"
-version = "1.3.0"
+version = "1.3.1"
 dependencies = [
  "chrono",
  "dark-light",
