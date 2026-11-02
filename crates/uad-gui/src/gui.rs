@@ -16,7 +16,9 @@ use iced::{Alignment, Element, Length, Settings, Task, window::Settings as Windo
 use iced::{Subscription, event, keyboard};
 #[cfg(feature = "img")]
 use image::ImageFormat;
-use log::{debug, error, info};
+#[cfg(feature = "self-update")]
+use log::debug;
+use log::{error, info};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 use uad_core::adb;
