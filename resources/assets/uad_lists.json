@@ -43277,5 +43277,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+    "com.android.permissioncontroller": {
+    "list": "Aosp",
+    "description": "Allows the user to choose what permissions an app can have. After removing it, it cant't be able to open app settings, and causes a bootloop when restarting. Don't remove it please.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.google.android.apps.cameralite": {
+    "list": "Google",
+    "description": "Camera Go. Probably safe to remove as long as you have another camera app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+    "org.lineageos.backgrounds": {
+    "list": "Oem",
+    "description": "LineageOS backgrounds. Safe to remove as long as you have another wallpaper set or have a non-LineageOS default one.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
   }
 }
