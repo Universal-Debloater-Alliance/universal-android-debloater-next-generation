@@ -36,12 +36,12 @@ jobs:
             lint: fmt
         include:
           - lint: check
-            args: " --workspace --all-targets --all-features"
+            args: " --workspace --all-targets --all-features --locked"
             env-flag: "-D warnings"
           - lint: test
-            args: " --workspace --all-features"
+            args: " --workspace --all-features --locked"
           - lint: clippy
-            args: " --workspace --all-targets --all-features -- -D clippy::all -W clippy::style"
+            args: " --workspace --all-targets --all-features --locked -- -D clippy::all -W clippy::style"
           - lint: fmt
             args: " --all -- --check"
     steps:
@@ -67,9 +67,9 @@ jobs:
         env:
           RUSTFLAGS: -D warnings
         run: |
-          cargo check --all-targets -p uad-core
-          cargo check --all-targets -p uad-cli
-          cargo check --all-targets -p uad-gui --no-default-features --features wgpu,no-self-update,img
+          cargo check --all-targets --locked -p uad-core
+          cargo check --all-targets --locked -p uad-cli
+          cargo check --all-targets --locked -p uad-gui --no-default-features --features wgpu,no-self-update,img
 
   coverage:
     name: coverage
@@ -85,7 +85,7 @@ jobs:
       - name: Install LLVM-profdata
         run: rustup component add llvm-tools-preview
       - name: Run tests
-        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test --workspace --all-features
+        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test --workspace --all-features --locked
       - name: make coverage directory
         run: mkdir ./target/coverage
       - name: Run GRCOV
