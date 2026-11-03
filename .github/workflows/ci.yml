@@ -4,16 +4,18 @@ on:
     paths:
       - Cargo.lock
       - Cargo.toml
-      - resources/assets/*.ttf
-      - resources/assets/uad_lists.json
-      - src/**
+      - crates/**
+      - resources/assets/**
+      - .cargo/**
+      - .github/workflows/**
   pull_request:
     paths:
       - Cargo.lock
       - Cargo.toml
-      - resources/assets/*.ttf
-      - resources/assets/uad_lists.json
-      - src/**
+      - crates/**
+      - resources/assets/**
+      - .cargo/**
+      - .github/workflows/**
 
 jobs:
   lint:
@@ -34,17 +36,17 @@ jobs:
             lint: fmt
         include:
           - lint: check
-            args: " --all-features"
+            args: " --workspace --all-targets --all-features --locked"
             env-flag: "-D warnings"
           - lint: test
-            args: ""
+            args: " --workspace --all-features --locked"
           - lint: clippy
-            args: " --all-features -- -D clippy::all -W clippy::style"
+            args: " --workspace --all-targets --all-features --locked -- -D clippy::all -W clippy::style"
           - lint: fmt
-            args: " -- --check"
+            args: " --all -- --check"
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v7
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.cargo/bin/
@@ -59,23 +61,41 @@ jobs:
           components: clippy,rustfmt
       - shell: bash
         run: RUSTFLAGS='${{ matrix.env-flag }}' cargo ${{ matrix.lint }}${{ matrix.args }}
+      - name: Check standalone crate configurations
+        if: matrix.lint == 'check'
+        shell: bash
+        env:
+          RUSTFLAGS: -D warnings
+        run: |
+          cargo check --all-targets --locked -p uad-core
+          cargo check --all-targets --locked -p uad-cli
+          cargo check --all-targets --locked -p uad-gui --no-default-features --features wgpu,no-self-update,img
 
   coverage:
     name: coverage
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
       - name: Download grcov
         run: |
           mkdir -p "${HOME}/.local/bin"
-          curl -sL https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf - -C "${HOME}/.local/bin"
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          curl -fsSL https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf - -C "${HOME}/.local/bin"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install LLVM-profdata
         run: rustup component add llvm-tools-preview
       - name: Run tests
-        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test
+        run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test --workspace --all-features --locked
       - name: make coverage directory
-        run: mkdir ./target/coverage
+        run: mkdir -p ./target/coverage
       - name: Run GRCOV
-        run: grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o ./target/coverage/tests.lcov
+        run: |
+          grcov . --binary-path ./target/debug/ -s . -t lcov --branch --ignore-not-existing --ignore '../*' --ignore "/*" -o ./target/coverage/tests.lcov
+          # grcov can succeed with an empty report if LLVM tools are missing.
+          grep -q '^SF:crates/' ./target/coverage/tests.lcov
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage-lcov
+          path: target/coverage/tests.lcov
+          if-no-files-found: error
