@@ -30799,7 +30799,7 @@
   },
   "com.google.android.apps.bard": {
     "list": "Google",
-    "description": "Google Gemini, works completely fine without it.\nLess forced AI slop, hooray!",
+    "description": "Google Gemini, works completely fine without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
