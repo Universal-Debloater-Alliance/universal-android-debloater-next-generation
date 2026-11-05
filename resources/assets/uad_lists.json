@@ -30799,7 +30799,7 @@
   },
   "com.google.android.apps.bard": {
     "list": "Google",
-    "description": "Google Gemini, safe to remove",
+    "description": "Google Gemini, safe to remove. Works completely fine without it.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
