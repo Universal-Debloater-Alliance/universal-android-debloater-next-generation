@@ -43413,5 +43413,845 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.glance.lockscreenM": {
+    "list": "Oem",
+    "description": "Glance Spaces (Motorola build, /product/priv-app/GlanceSpacesMotorola).\nServes sponsored content and \"smart\" cards on the lock screen (SurfaceArtActivity / SpaceActivity).\nSafe to disable: lock screen clock, notifications and quick settings keep working. No effect on boot.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.inmobi.weather": {
+    "list": "Oem",
+    "description": "Stub shipped in /product/app/inmobiStub that installs the InMobi weather app.\nRequests ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION and RECEIVE_BOOT_COMPLETED.\nSafe to disable if you already have a weather app, or use none at all.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ertanto.kompas.official": {
+    "list": "Oem",
+    "description": "Kompas.com news app (Indonesian news portal), preinstalled in /product/app/KompasdotcomMarvel.\nRegional bloat: safe to disable, no system dependency.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.indus.appstore": {
+    "list": "Oem",
+    "description": "Indus Appstore, a third-party app store bundled by Motorola (/product/priv-app/IndusAppStore, versionName 25.12.03.0_MOTOROLA).\nPrivileged product app that offers its own app catalogue and updates.\nSafe to disable if you use Google Play Store or another store.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.zte.iptvclient.android.idmnc": {
+    "list": "Carrier",
+    "description": "Vision+ IPTV client (Telkomsel, Indonesia) preinstalled by Motorola as /product/app/VisionPlusMarvel.\nStreaming app bundled for the carrier, not needed for the device to work.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "id.mjs.etalaseapp": {
+    "list": "Oem",
+    "description": "Etalase, an Indonesian app catalogue/store preinstalled by Motorola as /product/app/EtalaseAppsMarvel.\nFlutter app that ships Firebase Messaging and scheduled-notification receivers.\nSafe to disable, the device does not depend on it.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.smartmode": {
+    "list": "Oem",
+    "description": "Moto Smart Mode (/product/priv-app/MotoSmartMode): a HomePageActivity UI plus a UWB scanning engine (com.motorola.motuwbengine.scanner receivers) used by Motorola's smart-accessory features.\nShips disabled by default on some channels (RETBR).\nOnly disable if you do not use Motorola UWB/smart companion features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.cqawizard": {
+    "list": "Oem",
+    "description": "Motorola CQA Wizard (/system_ext/priv-app/CqaWizard), a privileged diagnostic/quality wizard with a single MainActivity and no background services.\nUsed for device quality checks and support flows; not needed for normal use.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.virtualization.terminal": {
+    "list": "Aosp",
+    "description": "Linux Terminal app shipped inside the com.android.virt APEX (/apex/com.android.virt/priv-app/VmTerminalApp).\nPart of the Android Virtualization Framework (AVF); useful only to developers running the Linux terminal / VMs feature.\nSafe to disable for regular users, it is not part of the boot path.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.dialer.overlay.imei": {
+    "list": "Oem",
+    "description": "Overlay for com.android.dialer shipped in /product/overlay/DialerOverlayImei.apk.\nProvides an IMEI-related resource/config for the dialer. Ships disabled by default on RETBR.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.applabeltwolines": {
+    "list": "Oem",
+    "description": "Overlay for com.motorola.launcher3 that renders app labels on two lines. Purely cosmetic.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.android.launcher.overlay.koodo": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.motorola.launcher3 used on Koodo (Canada). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.telus": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.motorola.launcher3 used on Telus (Canada). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.vfeu": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.motorola.launcher3 used on Vodafone (Europe). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.launcher.overlay.vivo": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.motorola.launcher3 used on Vivo (Brazil). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.server.telecom.overlay.jp": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.android.server.telecom used on Japanese carriers. Ships disabled outside Japan.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.server.telecomui.overlay.jp": {
+    "list": "Oem",
+    "description": "Carrier overlay for the Telecom UI used on Japanese carriers. Ships disabled outside Japan.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.amxcl": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (América Móvil Chile).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.amxco": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (América Móvil Colombia).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.amxla": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (América Móvil Latin America).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.amxmx": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (América Móvil Mexico).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.amxpe": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (América Móvil Peru).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.oraeu": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (Orange Europe).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.retin": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (India retail).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.launcherconfig.overlay.retru": {
+    "list": "Oem",
+    "description": "Regional launcher configuration overlay for com.motorola.launcherconfig (Russia retail).\nShips disabled outside that region.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.setup.overlay.dlcdisclaimer": {
+    "list": "Oem",
+    "description": "Useless component of (com.motorola.setup): supplies the disclaimer text shown by the Motorola setup wizard.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.systemui.overlay.dcm": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.android.systemui used on NTT docomo (Japan). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.systemui.overlay.jp": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.android.systemui used on Japanese carriers. Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.systemui.overlay.softbank": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.android.systemui used on SoftBank (Japan). Ships disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.oem.euiccpartnerapp.overlay.att": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on AT&T.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.br": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on Brazilian carriers.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.cc": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on the 'cc' channel build.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.comcast": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on Comcast.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.na": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on North America.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.tmo": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on T-Mobile.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.oem.euiccpartnerapp.overlay.vzw": {
+    "list": "Oem",
+    "description": "Carrier overlay for com.oem.euiccpartnerapp (eSIM/eUICC partner app) used on Verizon.\nShips disabled outside that carrier.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.appsearch.aiseal.config": {
+    "list": "Aosp",
+    "description": "Configuration package for AppSearch's \"AI seal\" (aiseal) feature (/system/app/AppSearchAiSealConfig, version 17).\nDeclares no activities or services; it only feeds configuration to com.android.appsearch.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.contactspicker": {
+    "list": "Aosp",
+    "description": "AOSP ContactsPicker (/system/priv-app/ContactsPicker, version 17): the system UI used when an app asks you to pick a contact.\nDisabling breaks picking contacts from any app (it holds MANAGE_CONTACTS_PICKER_SESSION / READ_CONTACTS).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.eyedropper": {
+    "list": "Aosp",
+    "description": "AOSP EyeDropper (/system/priv-app/EyeDropper, version 17): colour picker used by the screenshot markup editor.\nHolds INJECT_EVENTS and READ_FRAME_BUFFER. Not needed unless you use that tool.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.nfc.overlay.marvel": {
+    "list": "Oem",
+    "description": "Runtime resource overlay for com.android.nfc, specific to the marvel family (Edge 70 Fusion).\nAdjusts NFC resources/strings for this device.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.phone.overlay.noHAC": {
+    "list": "Oem",
+    "description": "Runtime resource overlay for the telephony app (/product/overlay/Telephony-rro-noHAC.apk) that turns off Hearing Aid Compatibility resources on this build.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.privatespace": {
+    "list": "Aosp",
+    "description": "Private Space (/system/priv-app/PrivateSpace, version 17): creates a hidden user profile to run apps separately.\nNo effect on boot; disabling removes the feature from Settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.theme.font.SpaceGrotesk": {
+    "list": "Aosp",
+    "description": "Font overlay that adds the Space Grotesk typeface to the system font selector.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.theme.font.WorkSans": {
+    "list": "Aosp",
+    "description": "Font overlay that adds the Work Sans typeface to the system font selector.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.webapp.service": {
+    "list": "Aosp",
+    "description": "Web App service shipped in the com.android.webapp APEX (version 17), used to run installed web apps/PWAs.\nHolds INSTALL_PACKAGES, SYSTEM_ALERT_WINDOW and QUERY_ALL_PACKAGES. Not part of the boot path.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.android.wifi.resources.overlay.WifiVodafoneOverlay": {
+    "list": "Oem",
+    "description": "Wi-Fi resource overlay for Vodafone carrier builds (/product/overlay/WifiVodafoneOverlay.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.overlay.gmsconfig.contextualsearch": {
+    "list": "Google",
+    "description": "GMS configuration overlay for contextual search (/product/overlay/GmsConfigOverlayContextualSearch.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.overlay.gmsconfig.gpps": {
+    "list": "Google",
+    "description": "GMS configuration overlay for Google Play Protect Services (/product/overlay/GmsConfigOverlayGooglePlayProtectServices.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.overlay.settings.safetycenter": {
+    "list": "Google",
+    "description": "GMS settings overlay for the Settings Safety Center (/product/overlay/GmsSettingsOverlaySafetyCenter.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.signature": {
+    "list": "Aosp",
+    "description": "Signature app inside the com.android.mediaprovider APEX (version 17).\nProvides SignaturePickerActivity and a settings screen to create/store a personal signature for documents.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.telecomresources": {
+    "list": "Aosp",
+    "description": "Telecom resources package inside the com.android.telephonycore APEX (version 17).\nSupplies strings/resources to the Telecom stack; has no user-facing UI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.telecomui": {
+    "list": "Aosp",
+    "description": "Google Telecom UI inside the com.android.telephonycore APEX (version 17).\nScreens for blocked numbers, respond-via-SMS and call-account preferences; holds CALL_PHONE/MODIFY_PHONE_STATE.\nDisabling it breaks the call settings screens.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.google.android.verifier.overlay": {
+    "list": "Google",
+    "description": "GMS config overlay for the ad verifier (/product/overlay/GmsConfigOverlayADVerifier.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.lenovo.qira": {
+    "list": "Oem",
+    "description": "Qira (Lenovo's Quantum AI assistant, /product/priv-app/Qira, QT-04.00.242).\n41 components including wake-word/voice enrolment, OAuth redirect, notification listener and voice-interaction service.\nAsks for CAMERA, CALL_PHONE and location.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lenovo.qiracore": {
+    "list": "Oem",
+    "description": "Quantum Core (/product/priv-app/QuantumCore, 1.4.25), the background service that backs Qira.\nRuns foreground services, records audio and registers RECEIVE_BOOT_COMPLETED.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.account": {
+    "list": "Oem",
+    "description": "Moto Account / Lenovo ID sign-in (/product/priv-app/MotoAccount, v8.00.0042).\nProvides the Lenovo ID auth screens and a Wear OS data service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.actioncore": {
+    "list": "Oem",
+    "description": "Action Core (/system_ext/priv-app/ActionCore, 3.02.1281): engine behind Moto gestures and drag-and-drop (DragDropSettingsActivity, DragDropPreviewActivity, accessibility service).\nDisabling it breaks those gestures.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.aicore": {
+    "list": "Oem",
+    "description": "Moto AI Core (/product/priv-app/AiCore, 11.1.174.0): on-device AI features with 52 components (CDN settings, on-device model management).\nRequests background location and data-sync foreground services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.coresettingsext.overlay.marvel": {
+    "list": "Oem",
+    "description": "Device-specific overlay for Moto core settings on the marvel family (/product/overlay/MotoCoreSettingsExtMarvelOverlay.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.launcher.overlay.amx": {
+    "list": "Oem",
+    "description": "América Móvil (Claro/Telcel) carrier overlay for the Motorola launcher.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.appclone": {
+    "list": "Oem",
+    "description": "Framework-resource overlay that enables the app-cloning feature (/product/overlay/MotoFrameworkResAppcloneOverlay.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.overlay.dualsim": {
+    "list": "Oem",
+    "description": "Framework-resource overlay that enables dual-SIM resources (/product/overlay/MotoFrameworkResOverlayDualSim.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.overlay.hw_dualsim": {
+    "list": "Oem",
+    "description": "Hardware dual-SIM framework overlay (/vendor/overlay/MotoFrameworkResOverlayHWDualSim.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.overlay.payjoy": {
+    "list": "Oem",
+    "description": "Framework overlay for PayJoy (/product/overlay/MotoFrameworkResOverlayPayjoy.apk), used by the device-financing lock.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.android.overlay.vendor.common": {
+    "list": "Oem",
+    "description": "Common vendor framework-resource overlay (/vendor/overlay/MotoFrameworkResOverlayVendorCommon.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.server.telecom.overlay.common": {
+    "list": "Oem",
+    "description": "Common overlay for com.android.server.telecom (/product/overlay/MotoTelecommOverlayCommon.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.server.telecomui.overlay.common": {
+    "list": "Oem",
+    "description": "Common overlay for the Telecom UI (/product/overlay/MotoTelecommOverlayUiCommon.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.android.settings.overlay.appclone": {
+    "list": "Oem",
+    "description": "Settings overlay that adds the app-cloning entry to Moto Settings (/product/overlay/MotoSettingsAppCloneOverlay.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.camera.ai.colortone": {
+    "list": "Oem",
+    "description": "Moto Color Tone (/product/priv-app/MotColorTone, 1.0.47): AI colour-tone presets for the camera (CustomizeActivity, image read permissions).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.camera5": {
+    "list": "Oem",
+    "description": "Motorola Camera (Moto Camera 5, /product/priv-app/MotCamera5, 10.0.57.91) with 72 components, including the document scanner/editor.\nOnly disable if you install another camera app first.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.hce": {
+    "list": "Oem",
+    "description": "Moto HCE service (/system/priv-app/MotHceService): host card emulation helper used for contactless/NFC provisioning.\nHas a BootReceiver and a bound service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.iotservice": {
+    "list": "Oem",
+    "description": "Moto IoT service (/product/priv-app/MotoIotService): companion-device/IoT integration over Bluetooth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.journal": {
+    "list": "Oem",
+    "description": "Moto Journal (/product/priv-app/MotoJournal, 36.00.60.19.0): notes app with text, drawing and voice notes (62 components).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.launcher3.auto_generated_rro_product__": {
+    "list": "Oem",
+    "description": "Auto-generated product RRO for Launcher3 QuickStep on marvel_g (/product/overlay/Launcher3QuickStep__marvel_g__auto_generated_rro_product.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.migrateassist": {
+    "list": "Oem",
+    "description": "Moto Migrate Assist (/system_ext/priv-app/MotoMigrateAssist): device-migration helper with voice-memo receiver and MANAGE_EXTERNAL_STORAGE.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.motosecurecore": {
+    "list": "Oem",
+    "description": "Moto Secure Core (/system_ext/priv-app/MotoSecureCore): AppLocker / app-protection engine (MANAGE_USERS, biometry, activity-task access).\nDisabling removes the Moto Secure features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.motorola.playautoinstallext": {
+    "list": "Oem",
+    "description": "Play Auto Install extension (/product/app/PlayAutoInstallExt): installs the carrier/OEM promotional apps on first boot and listens for package/carrier-config broadcasts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.proxy_server": {
+    "list": "Oem",
+    "description": "Moto Proxy Server (/system/priv-app/MotoProxyServer, version 17): privileged helper holding INJECT_EVENTS with no exported components.\nPurpose is not documented by Motorola; treat as an internal helper.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.settings.mep.overlay": {
+    "list": "Oem",
+    "description": "Settings overlay \"MEP\" (/product/overlay/SettingsMEPOverlay.apk) applied to the Motorola Settings app.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.motorola.setup.overlay.gemini": {
+    "list": "Oem",
+    "description": "Overlay for the Motorola setup wizard that adds the Gemini opt-in flow (/product/overlay/MotoSetupWizardExtOverlayGemini.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.setup.overlay.marvel.silhouettefifa": {
+    "list": "Oem",
+    "description": "Device-specific setup-wizard overlay with the FIFA silhouette artwork for marvel (/product/overlay/SetupWizardExtOverlayMarvelFifa.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.setup.overlay.optinphone": {
+    "list": "Oem",
+    "description": "Setup-wizard overlay that carries the phone opt-in screen (/product/overlay/MotoSetupWizardExtOverlayOptinPhone.apk).",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.smartfeed": {
+    "list": "Oem",
+    "description": "Moto Smart Feed (/product/priv-app/SmartFeed, 3.01.0033): content feed on the home/lock screen.\nRequests ad-ID/attribution permissions and location; ships Firebase auth.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.stylus": {
+    "list": "Oem",
+    "description": "Moto Stylus (/product/priv-app/MotoStylus, 37.00.00.04.1): stylus note/drawing apps (DrawNoteActivity, JournalNoteActivity, 86 components).\nOnly relevant if you use a stylus.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.motorola.touchshare": {
+    "list": "Oem",
+    "description": "Moto Quick Drop / touch-share stub (/product/priv-app/QuickDropStub): Wi-Fi Direct file sharing between devices.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "vendor.qti.data.ntnsatapp": {
+    "list": "Misc",
+    "description": "Qualcomm NTN data app (/system_ext/app/NtnSatApp, 17.1) for non-terrestrial networks (satellite connectivity).\nExposes NtnDataServiceImpl; only useful on devices/carriers that support NTN.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "vendor.qti.frameworks.utils": {
+    "list": "Misc",
+    "description": "Qualcomm QESDK system service (/system_ext/app/FrameworksUtilsSysService) with very broad privileged permissions.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "br.com.billingpay.app.pf": {
+    "list": "Misc",
+    "description": "BillingPay, a Brazilian bill-payment app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "br.com.estrategiaeducacional.concursos": {
+    "list": "Misc",
+    "description": "Estratégia Concursos, a Brazilian exam-prep app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "br.com.mobicare.clarofree": {
+    "list": "Misc",
+    "description": "Claro Free, the Claro (Brazil) carrier perks app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.alphainventor.filemanager": {
+    "list": "Misc",
+    "description": "File Manager by Alpha Inventor.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.canva.editor": {
+    "list": "Misc",
+    "description": "Canva, the design/graphics editor.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.document.pdf.scanner.free.all": {
+    "list": "Misc",
+    "description": "PDF Scanner, a document scanner app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.duckduckgo.mobile.android": {
+    "list": "Misc",
+    "description": "DuckDuckGo browser.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.einnovation.temu": {
+    "list": "Misc",
+    "description": "Temu, the shopping app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.gympass": {
+    "list": "Misc",
+    "description": "Gympass / Wellhub, the gym-benefits app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.lemon.lvoverseas": {
+    "list": "Misc",
+    "description": "CapCut, the video editor by ByteDance.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.luizalabs.mlapp": {
+    "list": "Misc",
+    "description": "Mercado Livre, the shopping app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.picpay": {
+    "list": "Misc",
+    "description": "PicPay, a Brazilian payment app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.riocardmais.autoatendimento": {
+    "list": "Misc",
+    "description": "RioCard Mais, the Rio de Janeiro transit top-up app.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.ss.android.ttmd.video": {
+    "list": "Misc",
+    "description": "TikTok (video app package com.ss.android.ttmd.video).\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.taxis99": {
+    "list": "Misc",
+    "description": "99, the ride-hailing app (DiDi Brazil).\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "org.videolan.vlc": {
+    "list": "Misc",
+    "description": "VLC for Android, the media player.\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "pbsc.cyclefinder.tembici": {
+    "list": "Misc",
+    "description": "Tembici, the bike-sharing app (Brazil).\nNot part of the firmware image: it is installed after setup into /data/app by the OEM's Play Auto Install (com.motorola.playautoinstallext / com.dti.amx DT Ignite).\nSafe to uninstall for the user; it can come back if the device is reset.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.nvt.cs": {
+    "list": "Misc",
+    "description": "Unidentified third-party package (com.nvt.cs) installed into /data/app by DT Ignite (com.dti.amx) right after setup.\nNo public documentation was found for it, which is typical of promotional/tracking apps.\nSafe to uninstall for the user.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
