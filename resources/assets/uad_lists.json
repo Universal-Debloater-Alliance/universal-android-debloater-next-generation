@@ -43357,6 +43357,7 @@
     "labels": [],
     "list": "Oem",
     "removal": "Unsafe"
+  },
     "com.android.permissioncontroller": {
     "list": "Aosp",
     "description": "Allows the user to choose what permissions an app can have. After removing it, it cant't be able to open app settings, and causes a bootloop when restarting. Don't remove it please.",
