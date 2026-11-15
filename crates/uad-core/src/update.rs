@@ -52,6 +52,35 @@ impl std::fmt::Display for SelfUpdateStatus {
     }
 }
 
+// Published app releases use stable major.minor.patch tags. Ignore other tags.
+#[cfg(any(feature = "self-update", test))]
+fn parse_release_version(tag: &str) -> Option<(u64, u64, u64)> {
+    let mut parts = tag.strip_prefix('v').unwrap_or(tag).split('.');
+    let mut next = || {
+        let part = parts.next()?;
+        if part.is_empty()
+            || !part.bytes().all(|b| b.is_ascii_digit())
+            || (part.len() > 1 && part.starts_with('0'))
+        {
+            return None;
+        }
+        part.parse().ok()
+    };
+    let version = (next()?, next()?, next()?);
+    parts.next().is_none().then_some(version)
+}
+
+#[cfg(any(feature = "self-update", test))]
+fn is_newer_release(release: &str, current: &str) -> bool {
+    match (
+        parse_release_version(release),
+        parse_release_version(current),
+    ) {
+        (Some(release), Some(current)) => release > current,
+        _ => false,
+    }
+}
+
 /// Download a file from the internet
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
@@ -168,14 +197,11 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
     Ok(None)
 }
 
-// UAD-ng only has pre-releases so we can't use
-// https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest
-// to only get the latest release
 #[cfg(feature = "self-update")]
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
+    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/latest")
         .call() {
         let release: Release = serde_json::from_value(
             res.body_mut().read_json::<serde_json::Value>()
@@ -184,11 +210,7 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
         )
         .map_err(|_| ())?;
 
-        let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
-
-        if release_version != "dev-build"
-            && release_version > env!("CARGO_PKG_VERSION")
-        {
+        if is_newer_release(&release.tag_name, env!("CARGO_PKG_VERSION")) {
             Ok(Some(release))
         } else {
             Ok(None)
@@ -300,4 +322,39 @@ where
         },
     )
     .map_err(|e| e.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn release_versions_compare_numerically() {
+        for (release, current) in [
+            ("v1.10.0", "1.9.0"),
+            ("1.3.10", "1.3.9"),
+            ("v2.0.0", "1.99.99"),
+        ] {
+            assert!(is_newer_release(release, current));
+            assert!(!is_newer_release(current, release));
+        }
+        assert!(!is_newer_release("v1.3.1", "1.3.1"));
+    }
+
+    #[test]
+    fn malformed_and_prerelease_tags_are_ignored() {
+        for tag in [
+            "",
+            "dev-build",
+            "v1.3",
+            "v1.3.1.4",
+            "v2.0.0-rc.1",
+            "v+2.0.0",
+            "v02.0.0",
+            "v18446744073709551616.0.0",
+        ] {
+            assert!(parse_release_version(tag).is_none(), "accepted {tag}");
+        }
+        assert!(!is_newer_release("v2.0.0", "invalid"));
+    }
 }
