@@ -38,7 +38,7 @@ pub enum LoadingState {
     #[default]
     FindingPhones,
     LoadingPackages,
-    _UpdatingUad,
+    UpdatingUad,
     Ready,
     RestoringDevice(String),
     FailedToUpdate,
@@ -230,7 +230,7 @@ impl List {
                 None,
                 style::Text::Default,
             ),
-            LoadingState::_UpdatingUad => waiting_view(
+            LoadingState::UpdatingUad => waiting_view(
                 &format!("Updating {NAME}. Please wait..."),
                 None,
                 style::Text::Default,
