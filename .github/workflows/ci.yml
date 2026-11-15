@@ -17,6 +17,9 @@ on:
       - .cargo/**
       - .github/workflows/**
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: lint
@@ -46,6 +49,8 @@ jobs:
             args: " --all -- --check"
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/cache@v6
         with:
           path: |
@@ -76,6 +81,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - name: Download grcov
         run: |
