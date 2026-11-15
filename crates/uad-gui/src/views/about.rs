@@ -1,5 +1,5 @@
-use crate::helpers::button_primary;
 use crate::theme::Theme;
+use crate::widgets::primary_button::button_primary;
 use crate::{gui::UpdateState, style, widgets::text};
 use iced::widget::{Space, column, container, row};
 use iced::{Alignment, Element, Length, Renderer};
@@ -7,8 +7,10 @@ use log::error;
 use std::path::PathBuf;
 use uad_core::CACHE_DIR;
 use uad_core::adb;
+use uad_core::opener::open_url;
+use uad_core::relative_time::last_modified_date;
 use uad_core::uad_lists::LIST_FNAME;
-use uad_core::utils::{FULL_NAME, NAME, last_modified_date, open_url};
+use uad_core::{FULL_NAME, NAME};
 
 #[cfg(feature = "self-update")]
 use uad_core::update::SelfUpdateStatus;
@@ -40,7 +42,7 @@ impl About {
     )]
     pub fn view(&self, update_state: &UpdateState) -> Element<'_, Message, Theme, Renderer> {
         let about_text = text(format!(
-            "{FULL_NAME} ({NAME}) is a free and open-source community project \naiming at simplifying the removal of pre-installed apps on any Android device."
+            "{FULL_NAME} ({NAME}) is a free and open-source community project aiming at simplifying the removal of pre-installed apps on any Android device."
         ));
 
         let descr_container = container(about_text)
@@ -105,7 +107,7 @@ impl About {
         However, the server will still be the "old" version
         until it's killed
         */
-        let adb_version_text = text(match adb::ACommand::new().version() {
+        let adb_version_text = text(match adb::AdbCommand::new().version() {
             Ok(s) => s
                 .lines()
                 .nth(0)

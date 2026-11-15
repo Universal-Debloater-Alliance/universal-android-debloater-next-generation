@@ -2,15 +2,28 @@ use serde::Deserialize;
 
 #[cfg(feature = "self-update")]
 use {
-    crate::utils::NAME,
+    crate::{NAME, http_client},
     log::{debug, error},
     retry::{OperationResult, delay::Fibonacci, retry},
+    sha2::{Digest, Sha256},
     std::fs,
-    std::io,
-    std::io::copy,
+    std::io::{self, Read, Write},
     std::path::Path,
     std::path::PathBuf,
+    std::time::Duration,
 };
+
+/// GitHub API endpoint of the newest published release.
+#[cfg(feature = "self-update")]
+const LATEST_RELEASE_URL: &str = "https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/latest";
+
+/// Time allowed for small API and checksum requests.
+#[cfg(feature = "self-update")]
+const METADATA_TIMEOUT: Duration = Duration::from_secs(30);
+
+/// Time allowed for downloading a release binary or archive.
+#[cfg(feature = "self-update")]
+const ASSET_TIMEOUT: Duration = Duration::from_secs(600);
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Release {
@@ -52,23 +65,122 @@ impl std::fmt::Display for SelfUpdateStatus {
     }
 }
 
-/// Download a file from the internet
+/// `major.minor.patch` of a release tag such as `v1.2.3`, or `None` for other tags.
+#[must_use]
+pub fn parse_version(tag: &str) -> Option<(u64, u64, u64)> {
+    let mut parts = tag.strip_prefix('v').unwrap_or(tag).split('.');
+    let mut next = || parts.next()?.parse().ok();
+    let version = (next()?, next()?, next()?);
+    parts.next().is_none().then_some(version)
+}
+
+/// Whether `release_tag` names a newer version than `current_version`.
+/// Compares numbers, so `1.10.0` is newer than `1.9.0`.
+#[must_use]
+pub fn is_newer_release(release_tag: &str, current_version: &str) -> bool {
+    match (parse_version(release_tag), parse_version(current_version)) {
+        (Some(release), Some(current)) => release > current,
+        _ => false,
+    }
+}
+
+/// Downloads `asset` to `dest_file` and checks it against the SHA-256 file that
+/// every release publishes next to it, so a corrupted or tampered download never
+/// replaces the running executable (CWE-494). On a mismatch the file is deleted.
 #[cfg(feature = "self-update")]
 #[allow(clippy::unused_async, reason = "`.call` is equivalent to `.await`")]
-pub async fn download_file(url: &str, dest_file: PathBuf) -> Result<(), String> {
-    debug!("downloading file from {url}");
+pub async fn download_verified_asset(
+    release: &Release,
+    asset: &ReleaseAsset,
+    dest_file: PathBuf,
+) -> Result<(), String> {
+    let checksum_name = checksum_asset_name(&asset.name);
+    let checksum_asset = release
+        .assets
+        .iter()
+        .find(|a| a.name == checksum_name)
+        .ok_or_else(|| format!("Release has no checksum file {checksum_name}"))?;
+    let checksum_file = http_client::agent(METADATA_TIMEOUT)
+        .get(&checksum_asset.download_url)
+        .call()
+        .map_err(|e| e.to_string())?
+        .body_mut()
+        .with_config()
+        .limit(4096)
+        .read_to_string()
+        .map_err(|e| e.to_string())?;
+    let expected = parse_sha256_file(&checksum_file)?;
 
-    match ureq::get(url).call() {
-        Ok(mut res) => {
-            let mut file = fs::File::create(dest_file).map_err(|e| e.to_string())?;
-
-            if let Err(e) = copy(&mut res.body_mut().as_reader(), &mut file) {
-                return Err(e.to_string());
+    debug!("downloading file from {}", asset.download_url);
+    let mut response = http_client::agent(ASSET_TIMEOUT)
+        .get(&asset.download_url)
+        .call()
+        .map_err(|e| e.to_string())?;
+    let mut reader = response.body_mut().as_reader();
+    let mut file = fs::File::create(&dest_file).map_err(|e| e.to_string())?;
+    let mut hasher = Sha256::new();
+    let mut buffer = vec![0u8; 64 * 1024];
+    let copied = loop {
+        match reader.read(&mut buffer) {
+            Ok(0) => break file.flush(),
+            Ok(read) => {
+                hasher.update(&buffer[..read]);
+                if let Err(e) = file.write_all(&buffer[..read]) {
+                    break Err(e);
+                }
             }
+            Err(e) => break Err(e),
         }
-        Err(e) => return Err(e.to_string()),
+    };
+    drop(file);
+
+    let actual = to_lower_hex(&hasher.finalize());
+    if let Err(e) = copied {
+        let _ = fs::remove_file(&dest_file);
+        return Err(e.to_string());
+    }
+    if actual != expected {
+        let _ = fs::remove_file(&dest_file);
+        return Err(format!(
+            "Checksum mismatch for {}: expected {expected}, got {actual}",
+            asset.name
+        ));
     }
     Ok(())
+}
+
+/// Name of the checksum file the release workflow publishes for `asset_name`
+/// (`.github/workflows/build_artifacts.yml`).
+#[cfg(feature = "self-update")]
+fn checksum_asset_name(asset_name: &str) -> String {
+    if Path::new(asset_name)
+        .extension()
+        .is_some_and(|ext| ext.eq_ignore_ascii_case("exe"))
+    {
+        format!("{asset_name}-checksum.txt")
+    } else {
+        format!("{asset_name}-checksum")
+    }
+}
+
+/// The hash from `sha256sum` output (`<64 hex digits>  <file name>`), lowercased.
+#[cfg(feature = "self-update")]
+fn parse_sha256_file(content: &str) -> Result<String, String> {
+    content
+        .split_whitespace()
+        .next()
+        .filter(|hash| hash.len() == 64 && hash.bytes().all(|b| b.is_ascii_hexdigit()))
+        .map(str::to_ascii_lowercase)
+        .ok_or_else(|| "Checksum file is not in sha256sum format".to_string())
+}
+
+#[cfg(feature = "self-update")]
+fn to_lower_hex(bytes: &[u8]) -> String {
+    use std::fmt::Write as _;
+    bytes.iter().fold(String::new(), |mut hex, b| {
+        let _ = write!(hex, "{b:02x}");
+        hex
+    })
 }
 
 /// Downloads the latest release file that matches `bin_name`, renames the current
@@ -109,7 +221,7 @@ pub async fn download_update_to_temp_file(
 
         let archive_path = current_bin_path.parent().ok_or(())?.join(&asset_name);
 
-        if let Err(e) = download_file(&asset.download_url, archive_path.clone()).await {
+        if let Err(e) = download_verified_asset(&release, &asset, archive_path.clone()).await {
             error!("Couldn't download {NAME} update: {e}");
             return Err(());
         }
@@ -132,8 +244,8 @@ pub async fn download_update_to_temp_file(
             .cloned()
             .ok_or(())?;
 
-        if let Err(e) = download_file(&asset.download_url, download_path.clone()).await {
-            error!("Couldn't download {NAME} update: {}", e);
+        if let Err(e) = download_verified_asset(&release, &asset, download_path.clone()).await {
+            error!("Couldn't download {NAME} update: {e}");
             return Err(());
         }
     }
@@ -168,35 +280,20 @@ pub fn get_latest_release() -> Result<Option<Release>, ()> {
     Ok(None)
 }
 
-// UAD-ng only has pre-releases so we can't use
-// https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest
-// to only get the latest release
 #[cfg(feature = "self-update")]
 pub fn get_latest_release() -> Result<Option<Release>, ()> {
     debug!("Checking for {NAME} update");
 
-    if let Ok(mut res) = ureq::get("https://api.github.com/repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest")
-        .call() {
-        let release: Release = serde_json::from_value(
-            res.body_mut().read_json::<serde_json::Value>()
-                .map_err(|_| ())?
-                .clone(),
-        )
-        .map_err(|_| ())?;
+    let mut response = http_client::agent(METADATA_TIMEOUT)
+        .get(LATEST_RELEASE_URL)
+        .call()
+        .map_err(|e| debug!("Failed to check {NAME} update: {e}"))?;
+    let release: Release = response
+        .body_mut()
+        .read_json()
+        .map_err(|e| debug!("Unexpected release metadata: {e}"))?;
 
-        let release_version = release.tag_name.strip_prefix('v').unwrap_or(&release.tag_name);
-
-        if release_version != "dev-build"
-            && release_version > env!("CARGO_PKG_VERSION")
-        {
-            Ok(Some(release))
-        } else {
-            Ok(None)
-        }
-    } else {
-        debug!("Failed to check {NAME} update");
-        Err(())
-    }
+    Ok(is_newer_release(&release.tag_name, env!("CARGO_PKG_VERSION")).then_some(release))
 }
 
 /// Extracts the binary from a `tar.gz` archive to `temp_file` path
@@ -247,57 +344,80 @@ pub const BIN_NAME: &str = {
     }
 };
 
-/// Rename a file or directory to a new name, retrying if the operation fails because of permissions
+/// Runs `operation`, retrying while it fails with `PermissionDenied`.
 ///
-/// Will retry for ~30 seconds with longer and longer delays between each, to allow for virus scan
-/// and other automated operations to complete.
+/// Retries for ~28 seconds (21 Fibonacci steps from 1 ms) with longer and longer
+/// delays, so a virus scan or another automated process can release its file lock.
+/// Rustup uses the same approach: <https://github.com/rust-lang/rustup/pull/1873>
 #[cfg(feature = "self-update")]
-pub fn rename<F, T>(from: F, to: T) -> Result<(), String>
-where
-    F: AsRef<Path>,
-    T: AsRef<Path>,
-{
-    // 21 Fibonacci steps starting at 1 ms is ~28 seconds total
-    // See https://github.com/rust-lang/rustup/pull/1873 where this was used by Rustup to work around
-    // virus scanning file locks
-    let from = from.as_ref();
-    let to = to.as_ref();
-
-    retry(Fibonacci::from_millis(1).take(21), || {
-        match fs::rename(from, to) {
-            Ok(()) => OperationResult::Ok(()),
-            Err(e) => match e.kind() {
-                io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
-                _ => OperationResult::Err(e),
-            },
-        }
+fn retry_while_locked(mut operation: impl FnMut() -> io::Result<()>) -> Result<(), String> {
+    retry(Fibonacci::from_millis(1).take(21), || match operation() {
+        Ok(()) => OperationResult::Ok(()),
+        Err(e) if e.kind() == io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
+        Err(e) => OperationResult::Err(e),
     })
     .map_err(|e| e.to_string())
 }
 
-/// Remove a file, retrying if the operation fails because of permissions
-///
-/// Will retry for ~30 seconds with longer and longer delays between each, to allow for virus scan
-/// and other automated operations to complete.
+/// Rename a file or directory, retrying while another process holds it.
 #[cfg(feature = "self-update")]
-pub fn remove_file<P>(path: P) -> Result<(), String>
-where
-    P: AsRef<Path>,
-{
-    // 21 Fibonacci steps starting at 1 ms is ~28 seconds total
-    // See https://github.com/rust-lang/rustup/pull/1873 where this was used by Rustup to work around
-    // virus scanning file locks
-    let path = path.as_ref();
+pub fn rename(from: impl AsRef<Path>, to: impl AsRef<Path>) -> Result<(), String> {
+    retry_while_locked(|| fs::rename(from.as_ref(), to.as_ref()))
+}
 
-    retry(
-        Fibonacci::from_millis(1).take(21),
-        || match fs::remove_file(path) {
-            Ok(()) => OperationResult::Ok(()),
-            Err(e) => match e.kind() {
-                io::ErrorKind::PermissionDenied => OperationResult::Retry(e),
-                _ => OperationResult::Err(e),
-            },
-        },
-    )
-    .map_err(|e| e.to_string())
+/// Remove a file, retrying while another process holds it.
+#[cfg(feature = "self-update")]
+pub fn remove_file(path: impl AsRef<Path>) -> Result<(), String> {
+    retry_while_locked(|| fs::remove_file(path.as_ref()))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn versions_compare_as_numbers_not_text() {
+        assert!(is_newer_release("v1.10.0", "1.9.0"));
+        assert!(is_newer_release("1.3.10", "1.3.9"));
+        assert!(!is_newer_release("v1.3.1", "1.3.1"));
+        assert!(!is_newer_release("v1.2.9", "1.3.0"));
+        assert!(!is_newer_release("dev-build", "1.3.1"));
+        assert!(!is_newer_release("v1.3", "1.3.1"));
+        assert!(!is_newer_release("v1.3.1.4", "1.3.1"));
+    }
+
+    #[cfg(feature = "self-update")]
+    #[test]
+    fn checksum_files_match_the_release_workflow_names() {
+        assert_eq!(
+            checksum_asset_name("uad-ng-windows.exe"),
+            "uad-ng-windows.exe-checksum.txt"
+        );
+        assert_eq!(
+            checksum_asset_name("uad-ng-linux.tar.gz"),
+            "uad-ng-linux.tar.gz-checksum"
+        );
+    }
+
+    #[cfg(feature = "self-update")]
+    #[test]
+    fn checksum_file_parsing_rejects_malformed_content() {
+        let hash = "A".repeat(64);
+        assert_eq!(
+            parse_sha256_file(&format!("{hash}  uad-ng-linux.tar.gz")),
+            Ok("a".repeat(64))
+        );
+        assert!(parse_sha256_file("").is_err());
+        assert!(parse_sha256_file("abc  file").is_err());
+        assert!(parse_sha256_file(&"g".repeat(64)).is_err());
+    }
+
+    #[cfg(feature = "self-update")]
+    #[test]
+    fn sha256_hex_matches_a_known_vector() {
+        assert_eq!(
+            to_lower_hex(&Sha256::digest(b"abc")),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+    }
 }

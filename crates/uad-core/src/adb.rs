@@ -43,7 +43,6 @@ use std::rc::Rc;
 #[cfg(target_os = "windows")]
 use std::os::windows::process::CommandExt;
 
-use crate::utils::is_all_w_c;
 use log::{error, info, warn};
 
 /// Convert ADB output bytes to a trimmed UTF-8 string.
@@ -79,8 +78,8 @@ fn is_version_triple(s: &str) -> bool {
 ///
 /// [More info here](https://developer.android.com/tools/adb)
 #[derive(Debug)]
-pub struct ACommand(std::process::Command);
-impl ACommand {
+pub struct AdbCommand(std::process::Command);
+impl AdbCommand {
     /// `adb` command builder
     #[must_use]
     pub fn new() -> Self {
@@ -110,25 +109,7 @@ impl ACommand {
     /// - "device"
     pub fn devices(mut self) -> Result<Vec<(String, String)>, String> {
         self.0.arg("devices");
-        Ok(self
-            .run()?
-            .lines()
-            .skip(1) // header
-            .map(|dev_stat| {
-                let tab_idx = dev_stat
-                    // OS-specific?
-                    .find('\t')
-                    // True on Linux,
-                    // no matter if ADB is piped or connected to terminal
-                    .expect("There must be 1 tab after serial");
-                (
-                    // serial
-                    dev_stat[..tab_idx].to_string(),
-                    // status
-                    dev_stat[(tab_idx + 1)..].to_string(),
-                )
-            })
-            .collect())
+        Ok(parse_device_list(&self.run()?))
     }
 
     /// `version` sub-command
@@ -215,7 +196,7 @@ impl ACommand {
     }
 }
 
-impl Default for ACommand {
+impl Default for AdbCommand {
     fn default() -> Self {
         Self::new()
     }
@@ -226,7 +207,7 @@ impl Default for ACommand {
 ///
 /// [More info](https://chromium.googlesource.com/aosp/platform/system/core/+/refs/heads/upstream/shell_and_utilities).
 #[derive(Debug)]
-pub struct ShellCommand(ACommand);
+pub struct ShellCommand(AdbCommand);
 impl ShellCommand {
     /// `pm` command builder
     pub fn pm(mut self) -> PmCommand {
@@ -258,6 +239,28 @@ impl ShellCommand {
         self.0.0.arg(action);
         self.0.run()
     }
+}
+
+/// Returns `true` if `c` matches the regex `\w`
+#[inline]
+#[must_use]
+const fn is_w(c: u8) -> bool {
+    // https://github.com/rust-lang/rust/issues/93279
+    // https://github.com/rust-lang/rust/issues/83623
+    (c == b'_') | c.is_ascii_alphanumeric()
+}
+
+/// Returns `true` if `s` matches the regex `^\w+$`
+#[must_use]
+const fn is_all_w_c(s: &[u8]) -> bool {
+    let mut i = 0;
+    while i < s.len() {
+        if !is_w(s[i]) {
+            return false;
+        }
+        i += 1;
+    }
+    true
 }
 
 #[must_use]
@@ -389,85 +392,101 @@ impl PmCommand {
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
     pub fn list_users(mut self) -> Result<Box<[UserInfo]>, String> {
         self.0.0.0.args(["list", "users"]);
-        Ok(self
-            .0
-            .0
-            .run()?
-            .lines()
-            .skip(1) // omit header
-            .map(|ln| {
-                // this could be optimized by making more API-stability assumptions
-                let ln = ln.trim_ascii_start();
-                let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
-                let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
-                //let run;
-                let ln = if let Some(l) = ln.strip_suffix("running") {
-                    //run = true;
-                    l.trim_ascii_end()
-                } else {
-                    //run = false;
-                    ln
-                };
-                let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
-                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
-                // The format looks stable today, but google may change it in future Android versions
-                // (and very old Androids might differ). Keep parsing defensive.
-                // Expected shape: "UserInfo{<id>:<name>:<flags>}[ running]"
-
-                let mut comps = ln.split(':');
-
-                let id = comps
-                    .next()
-                    .expect("There must be at least 1 ':'-separated component")
-                    .parse()
-                    .expect("string assumed to be UID numeral");
-                //let name = comps
-                //    .next()
-                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
-                //let flags = u32::from_str_radix(
-                //    comps.next().expect(
-                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
-                //    ),
-                //    16,
-                //)
-                //.expect("string assumed to be hexadecimal bit-flags");
-                UserInfo {
-                    id,
-                    //name: name.into(),
-                    //flags,
-                    //running: run,
-                }
-            })
-            .collect())
+        Ok(parse_user_list(&self.0.0.run()?))
     }
+}
+
+/// Parses `adb devices` output into `(serial, status)` pairs.
+/// Lines without a tab (the header, daemon start-up notices) are skipped,
+/// so unexpected output never crashes the app.
+fn parse_device_list(output: &str) -> Vec<(String, String)> {
+    output
+        .lines()
+        .filter_map(|line| {
+            let (serial, status) = line.split_once('\t')?;
+            Some((serial.trim().to_string(), status.trim().to_string()))
+        })
+        .filter(|(serial, _)| !serial.is_empty())
+        .collect()
+}
+
+/// Parses `pm list users` output. Each user line looks like
+/// `UserInfo{<id>:<name>:<flags>}[ running]`. The format is stable today, but
+/// Google may change it and very old Androids differ, so lines that do not
+/// parse are logged and skipped instead of crashing the app.
+///
+/// <https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java>
+fn parse_user_list(output: &str) -> Box<[UserInfo]> {
+    output
+        .lines()
+        .skip(1) // header
+        .filter_map(|line| {
+            let info = line.trim();
+            let info = info.strip_prefix("UserInfo").unwrap_or(info).trim_start();
+            let info = info.strip_prefix('{')?;
+            let id = info.split(':').next()?.trim();
+            match id.parse() {
+                Ok(id) => Some(UserInfo { id }),
+                Err(e) => {
+                    warn!("skipping unexpected user line {line:?}: {e}");
+                    None
+                }
+            }
+        })
+        .collect()
 }
 
 /// Mirror of AOSP `UserInfo` Java Class, with an extra field
 #[derive(Debug, Clone)]
 pub struct UserInfo {
     id: u16,
-    //name: Box<str>,
-    //flags: u32,
-    //running: bool,
 }
 impl UserInfo {
     #[must_use]
     pub const fn get_id(&self) -> u16 {
         self.id
     }
-    /*
-    /// Check if the user was logged-in at the time `pm list users` was invoked
-    #[must_use]
-    #[allow(dead_code, reason = "Currently unused by UI; kept for future features")]
-    pub const fn was_running(&self) -> bool {
-        self.running
-    }
-    */
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn device_list_skips_header_and_notices() {
+        let output = concat!(
+            "* daemon not running; starting now at tcp:5037\n",
+            "* daemon started successfully\n",
+            "List of devices attached\n",
+            "R58M123ABC\tdevice\n",
+            "192.168.1.5:5555\tunauthorized\n",
+            "\n",
+        );
+        assert_eq!(
+            parse_device_list(output),
+            [
+                ("R58M123ABC".to_string(), "device".to_string()),
+                ("192.168.1.5:5555".to_string(), "unauthorized".to_string()),
+            ]
+        );
+        assert_eq!(parse_device_list(""), []);
+    }
+
+    #[test]
+    fn user_list_parses_ids_and_skips_unexpected_lines() {
+        let output = concat!(
+            "Users:\n",
+            "\tUserInfo{0:Owner:c13} running\n",
+            "\tUserInfo{10:Work profile:1030}\n",
+            "\tUserInfo{oops:Broken:0}\n",
+            "\tsomething else\n",
+        );
+        let ids: Vec<u16> = parse_user_list(output)
+            .iter()
+            .map(UserInfo::get_id)
+            .collect();
+        assert_eq!(ids, [0, 10]);
+    }
 
     #[test]
     fn package_list_lf_and_crlf() {

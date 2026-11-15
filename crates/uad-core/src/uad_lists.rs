@@ -1,5 +1,5 @@
-use crate::CACHE_DIR;
-use crate::utils::{format_diff_time_from_now, last_modified_date};
+use crate::relative_time::{format_diff_time_from_now, last_modified_date};
+use crate::{CACHE_DIR, http_client};
 use log::warn;
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
@@ -8,8 +8,12 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fs;
 use std::path::PathBuf;
+use std::time::Duration;
 
 pub const LIST_FNAME: &str = "uad_lists.json";
+
+/// Time allowed for one download attempt of the remote list.
+const LIST_DOWNLOAD_TIMEOUT: Duration = Duration::from_secs(30);
 
 #[allow(
     clippy::large_include_file,
@@ -237,17 +241,20 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
     let cached_uad_lists: PathBuf = CACHE_DIR.join(LIST_FNAME);
     let mut error = false;
     let list: PackageHashMap = if remote {
-        retry(Fixed::from_millis(1000).take(60), || {
-            match ureq::get(format!(
-                "https://raw.githubusercontent.com\
+        let agent = http_client::agent(LIST_DOWNLOAD_TIMEOUT);
+        // About 20 s of retries while offline, then the cached or embedded list.
+        retry(Fixed::from_millis(2000).take(10), || {
+            match agent
+                .get(format!(
+                    "https://raw.githubusercontent.com\
                     /Universal-Debloater-Alliance\
                     /universal-android-debloater-next-generation\
                     /main\
                     /resources\
                     /assets\
                     /{LIST_FNAME}"
-            ))
-            .call()
+                ))
+                .call()
             {
                 Ok(mut data) => {
                     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608

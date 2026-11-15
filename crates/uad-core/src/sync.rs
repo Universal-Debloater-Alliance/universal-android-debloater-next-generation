@@ -1,10 +1,11 @@
 use crate::{
-    adb::{ACommand as AdbCommand, PM_CLEAR_PACK, PackageId},
-    uad_lists::PackageState,
+    adb::{AdbCommand, PM_CLEAR_PACK, PackageId, PmListPacksFlag},
+    uad_lists::{PackageHashMap, PackageState, Removal, UadList},
 };
 use log::{error, info};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
+use std::collections::HashSet;
 
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -144,6 +145,74 @@ pub fn user_flag(user_id: Option<User>) -> String {
     user_id
         .map(|user| format!(" --user {}", user.id))
         .unwrap_or_default()
+}
+
+/// Every system package of `user_id` (all users when `None`), with its state on
+/// the device and its entry from the debloat list. Sorted by name, ignoring case.
+#[must_use]
+pub fn fetch_packages(
+    uad_lists: &PackageHashMap,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> Vec<CorePackage> {
+    let all_sys_packs = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
+        .unwrap_or_default();
+    let enabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+    let disabled_sys_packs: HashSet<String> = AdbCommand::new()
+        .shell(device_serial)
+        .pm()
+        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
+        .unwrap_or_default()
+        .into_iter()
+        .collect();
+
+    let mut description;
+    let mut removal;
+    let mut state;
+    let mut list;
+    let mut user_package: Vec<CorePackage> = Vec::new();
+
+    for pack_name in all_sys_packs {
+        let p_name = &pack_name;
+        description = String::from("[No description]: CONTRIBUTION WELCOMED");
+        removal = Removal::Unlisted;
+        state = PackageState::Uninstalled;
+        list = UadList::Unlisted;
+
+        if let Some(package) = uad_lists.get(p_name) {
+            if !package.description.is_empty() {
+                description = package.description.clone();
+            }
+            removal = package.removal;
+            list = package.list;
+        }
+
+        if enabled_sys_packs.contains(p_name) {
+            state = PackageState::Enabled;
+        } else if disabled_sys_packs.contains(p_name) {
+            state = PackageState::Disabled;
+        }
+
+        let package = CorePackage {
+            name: p_name.clone(),
+            description,
+            removal,
+            state,
+            list,
+        };
+        user_package.push(package);
+    }
+    user_package.sort_by_key(|package| package.name.to_lowercase());
+    user_package
 }
 
 // Minimum information for processing adb commands
@@ -296,7 +365,7 @@ pub fn capture_cross_user_states(
         .iter()
         .filter(|u| !u.protected && u.id != target_user_id)
         .filter_map(|u| {
-            verify_package_state(package_name, device_serial, Some(u.id)).map(|state| (u.id, state))
+            get_package_state(device_serial, package_name, Some(u.id)).map(|state| (u.id, state))
         })
         .collect()
 }
@@ -442,7 +511,7 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
 }
 
 #[must_use]
-pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
+pub fn list_users_with_protection(device_serial: &str) -> Vec<User> {
     AdbCommand::new()
         .shell(device_serial)
         .pm()
@@ -480,7 +549,7 @@ pub fn get_devices_list() -> Vec<Phone> {
                     device_list.push(Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
-                        user_list: list_users_idx_prot(serial),
+                        user_list: list_users_with_protection(serial),
                         adb_id: serial.clone(),
                     });
                 }
@@ -497,7 +566,7 @@ pub fn get_devices_list() -> Vec<Phone> {
 }
 
 #[must_use]
-pub fn initial_load() -> bool {
+pub fn is_adb_available() -> bool {
     match AdbCommand::new().devices() {
         Ok(_devices) => true,
         Err(_err) => false,
@@ -511,8 +580,6 @@ pub fn get_package_state(
     package_name: &str,
     user_id: Option<u16>,
 ) -> Option<PackageState> {
-    use crate::adb::{ACommand as AdbCommand, PmListPacksFlag};
-
     // Check if package is enabled
     if let Ok(enabled_packages) = AdbCommand::new()
         .shell(device_serial)
@@ -547,17 +614,6 @@ pub fn get_package_state(
     None
 }
 
-/// Verify the current state of a package on a device.
-/// Returns the package state, or `None` if the package doesn't exist.
-#[must_use]
-pub fn verify_package_state(
-    package_name: &str,
-    device_serial: &str,
-    user_id: Option<u16>,
-) -> Option<PackageState> {
-    get_package_state(device_serial, package_name, user_id)
-}
-
 /// Check if a package exists on any other users besides the target user.
 /// This helps detect OEM-specific cross-user restoration behavior.
 ///
@@ -575,7 +631,7 @@ pub fn check_cross_user_package_existence(
     for user in &phone.user_list {
         if user.id != target_user_id
             && !user.protected
-            && let Some(state) = verify_package_state(package_name, device_serial, Some(user.id))
+            && let Some(state) = get_package_state(device_serial, package_name, Some(user.id))
             && state != PackageState::Uninstalled
         {
             other_user_states.push((user.id, state));
@@ -631,7 +687,7 @@ pub fn attempt_fallback(
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
             // Verify the package was actually uninstalled
-            match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+            match get_package_state(&phone.adb_id, &package.name, Some(user.id)) {
                 Some(PackageState::Uninstalled) | None => {
                     Ok("uninstalled package instead of disabling".to_string())
                 }

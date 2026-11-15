@@ -2,17 +2,17 @@ use rustyline::DefaultEditor;
 use rustyline::error::ReadlineError;
 use std::collections::HashMap;
 use std::io::Write;
-use uad_core::adb::ACommand;
-use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, get_package_state};
-use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
+use uad_core::adb::AdbCommand;
+use uad_core::sync::{Phone, User, get_package_state};
+use uad_core::uad_lists::{Package, PackageState, load_debloat_lists};
 
 use crate::commands::{
-    PackageListContext, blocked_as_unsafe, display_package_list, execute_with_fallback,
-    expand_with_related, print_package_details,
+    PackageListContext, display_package_list, execute_with_fallback, expand_with_related,
+    plan_state_change, print_package_details,
 };
 use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
-use crate::println_or_exit;
+use crate::println_ignoring_closed_pipe;
 
 enum ReplAction {
     Continue,
@@ -40,10 +40,9 @@ pub fn repl_mode(
     let mut rl = DefaultEditor::new()?;
 
     // Try to load history
-    let history_file = dirs::cache_dir().map(|d| d.join("uad").join("cli_history.txt"));
-    if let Some(ref path) = history_file {
-        let _ = rl.load_history(path);
-    }
+    // `CACHE_DIR` is created on first use, so saving needs no extra folder setup.
+    let history_file = uad_core::CACHE_DIR.join("cli_history.txt");
+    let _ = rl.load_history(&history_file);
 
     loop {
         let readline = rl.readline("uad> ");
@@ -73,12 +72,7 @@ pub fn repl_mode(
     }
 
     // Save history
-    if let Some(ref path) = history_file {
-        if let Some(parent) = path.parent() {
-            let _ = std::fs::create_dir_all(parent);
-        }
-        let _ = rl.save_history(path);
-    }
+    let _ = rl.save_history(&history_file);
 
     Ok(())
 }
@@ -223,7 +217,7 @@ fn handle_list_command(
     let parsed = ReplListArgs::parse(args)?;
 
     let pm_flag = parsed.state_filter.and_then(StateFilter::to_pm_flag);
-    let system_packages = ACommand::new()
+    let system_packages = AdbCommand::new()
         .shell(&device.adb_id)
         .pm()
         .list_packages_sys(pm_flag, user_id)?;
@@ -244,9 +238,9 @@ fn handle_list_command(
     )?;
 
     if displayed_count == 0 {
-        println_or_exit!("  No packages found.");
+        println_ignoring_closed_pipe!("  No packages found.");
     } else {
-        println_or_exit!("\nTotal: {} package(s)", displayed_count);
+        println_ignoring_closed_pipe!("\nTotal: {} package(s)", displayed_count);
     }
 
     Ok(())
@@ -337,33 +331,26 @@ fn process_package_change(
 
     println!("{} {} (current: {})", action_name, pkg_name, current_state);
 
-    if current_state == target_state {
-        println!("  → Already in target state, skipping");
+    let Some(plan) = plan_state_change(
+        pkg_name,
+        current_state,
+        target_state,
+        device,
+        user,
+        force,
+        "  ",
+        uad_lists,
+    ) else {
         return Ok(());
-    }
-
-    let pkg_info = uad_lists.get(pkg_name);
-    if blocked_as_unsafe(pkg_info, target_state, force, "  ") {
-        return Ok(());
-    }
-
-    let core_pkg = CorePackage {
-        name: pkg_name.to_string(),
-        description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
-        removal: pkg_info.map(|p| p.removal).unwrap_or(Removal::Unlisted),
-        state: current_state,
-        list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
-
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device);
 
     execute_with_fallback(
         pkg_name,
         target_state,
-        &core_pkg,
+        &plan.package,
         user,
         device,
-        &commands,
+        &plan.commands,
         "  ",
     )
 }

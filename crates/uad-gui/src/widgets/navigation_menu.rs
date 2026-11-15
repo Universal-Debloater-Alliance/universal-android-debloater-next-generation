@@ -1,7 +1,7 @@
-use crate::helpers::button_primary;
 use crate::theme::Theme;
 pub use crate::views::about::Message as AboutMessage;
 pub use crate::views::list::{List as AppsView, LoadingState as ListLoadingState};
+use crate::widgets::primary_button::button_primary;
 use crate::{gui::Message, style, widgets::text};
 use iced::widget::{Space, button, container, pick_list, row, tooltip};
 use iced::{Alignment, Element, Font, Length, Renderer, alignment, font};
@@ -68,7 +68,7 @@ pub fn nav_menu<'a>(
         button("Update")
             .on_press(Message::AboutAction(AboutMessage::DoSelfUpdate))
             .padding([5, 10])
-            .style(style::Button::SelfUpdate)
+            .style(style::Button::Primary)
     } else {
         button("").height(0).width(0).style(style::Button::Hidden)
     };
@@ -97,41 +97,28 @@ pub fn nav_menu<'a>(
         .style(style::Container::Tooltip)
         .gap(4);
 
-    let device_list_text = match apps_view.loading_state {
-        ListLoadingState::FindingPhones => text("Finding connected devices..."),
-        _ => text("No devices/emulators found"),
+    let device_picker: Element<'_, Message, Theme, Renderer> = match selected_device {
+        Some(phone) => pick_list(device_list, Some(phone), Message::DeviceSelected).into(),
+        None => match apps_view.loading_state {
+            ListLoadingState::FindingPhones => text("Finding connected devices...").into(),
+            _ => text("No devices/emulators found").into(),
+        },
     };
 
-    let row = match selected_device {
-        Some(phone) => row![
-            reboot_btn,
-            apps_refresh_tooltip,
-            pick_list(device_list, Some(phone), Message::DeviceSelected,),
-            Space::new().width(Length::Fill).height(Length::Shrink),
-            uad_version_text,
-            update_btn,
-            apps_btn,
-            about_btn,
-            settings_btn,
-        ]
-        .width(Length::Fill)
-        .align_y(Alignment::Center)
-        .spacing(10),
-        None => row![
-            reboot_btn,
-            apps_refresh_tooltip,
-            device_list_text,
-            Space::new().width(Length::Fill).height(Length::Shrink),
-            uad_version_text,
-            update_btn,
-            apps_btn,
-            about_btn,
-            settings_btn,
-        ]
-        .width(Length::Fill)
-        .align_y(Alignment::Center)
-        .spacing(10),
-    };
+    let row = row![
+        reboot_btn,
+        apps_refresh_tooltip,
+        device_picker,
+        Space::new().width(Length::Fill).height(Length::Shrink),
+        uad_version_text,
+        update_btn,
+        apps_btn,
+        about_btn,
+        settings_btn,
+    ]
+    .width(Length::Fill)
+    .align_y(Alignment::Center)
+    .spacing(10);
 
     container(row)
         .width(Length::Fill)

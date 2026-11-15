@@ -7,7 +7,7 @@
     reason = "Suppress non-critical pedantic/style lints to keep build green"
 )]
 
-use clap::{Parser, Subcommand};
+use clap::{Args, Parser, Subcommand};
 use clap_complete::Shell;
 use std::process::ExitCode;
 use uad_core::uad_lists::PackageState;
@@ -29,6 +29,18 @@ use filters::{ListFilter, RemovalFilter, StateFilter};
 pub struct Cli {
     #[command(subcommand)]
     command: Commands,
+}
+
+/// The device and user a command acts on.
+#[derive(Args)]
+struct TargetArgs {
+    /// Device serial number (optional, uses first device if not specified)
+    #[arg(short, long)]
+    device: Option<String>,
+
+    /// User ID (defaults to 0)
+    #[arg(short, long)]
+    user: Option<u16>,
 }
 
 #[derive(Subcommand)]
@@ -70,26 +82,11 @@ enum Commands {
         /// Package names to uninstall
         packages: Vec<String>,
 
-        /// Device serial number (optional, uses first device if not specified)
-        #[arg(short, long)]
-        device: Option<String>,
+        #[command(flatten)]
+        target: TargetArgs,
 
-        /// User ID (defaults to 0)
-        #[arg(short, long)]
-        user: Option<u16>,
-
-        /// Dry run - show what would be done without actually doing it
-        #[arg(long)]
-        dry_run: bool,
-
-        /// Also remove related packages: packages that need the given ones,
-        /// and packages that only the given ones need. Unsafe packages are never added.
-        #[arg(long)]
-        with_related: bool,
-
-        /// Remove packages rated Unsafe (they are skipped otherwise)
-        #[arg(long)]
-        force: bool,
+        #[command(flatten)]
+        options: ChangeOptions,
     },
 
     /// Restore (reinstall) packages
@@ -98,13 +95,8 @@ enum Commands {
         /// Package names to restore/enable
         packages: Vec<String>,
 
-        /// Device serial number (optional, uses first device if not specified)
-        #[arg(short, long)]
-        device: Option<String>,
-
-        /// User ID (defaults to 0)
-        #[arg(short, long)]
-        user: Option<u16>,
+        #[command(flatten)]
+        target: TargetArgs,
 
         /// Dry run - show what would be done without actually doing it
         #[arg(long)]
@@ -116,26 +108,11 @@ enum Commands {
         /// Package names to disable
         packages: Vec<String>,
 
-        /// Device serial number (optional, uses first device if not specified)
-        #[arg(short, long)]
-        device: Option<String>,
+        #[command(flatten)]
+        target: TargetArgs,
 
-        /// User ID (defaults to 0)
-        #[arg(short, long)]
-        user: Option<u16>,
-
-        /// Dry run - show what would be done without actually doing it
-        #[arg(long)]
-        dry_run: bool,
-
-        /// Also remove related packages: packages that need the given ones,
-        /// and packages that only the given ones need. Unsafe packages are never added.
-        #[arg(long)]
-        with_related: bool,
-
-        /// Remove packages rated Unsafe (they are skipped otherwise)
-        #[arg(long)]
-        force: bool,
+        #[command(flatten)]
+        options: ChangeOptions,
     },
 
     /// Show detailed information about a package
@@ -143,13 +120,8 @@ enum Commands {
         /// Package name
         package: String,
 
-        /// Device serial number (optional, uses first device if not specified)
-        #[arg(short, long)]
-        device: Option<String>,
-
-        /// User ID (defaults to 0)
-        #[arg(short, long)]
-        user: Option<u16>,
+        #[command(flatten)]
+        target: TargetArgs,
     },
 
     /// Update UAD package lists from remote repository
@@ -165,18 +137,12 @@ enum Commands {
     /// Start interactive REPL mode
     #[command(visible_alias = "shell")]
     Repl {
-        /// Device serial number (optional, uses first device if not specified)
-        #[arg(short, long)]
-        device: Option<String>,
-
-        /// User ID (defaults to 0)
-        #[arg(short, long)]
-        user: Option<u16>,
+        #[command(flatten)]
+        target: TargetArgs,
     },
 }
 
-#[tokio::main]
-async fn main() -> ExitCode {
+fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
         Err(err) => {
@@ -205,35 +171,27 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Uninstall {
             packages,
-            device,
-            user,
-            dry_run,
-            with_related,
-            force,
+            target,
+            options,
         } => {
             commands::change_package_state(
                 &packages,
-                device,
-                user,
-                ChangeOptions {
-                    dry_run,
-                    with_related,
-                    force,
-                },
+                target.device,
+                target.user,
+                options,
                 PackageState::Uninstalled,
                 "Uninstalling",
             )?;
         }
         Commands::Enable {
             packages,
-            device,
-            user,
+            target,
             dry_run,
         } => {
             commands::change_package_state(
                 &packages,
-                device,
-                user,
+                target.device,
+                target.user,
                 ChangeOptions {
                     dry_run,
                     ..ChangeOptions::default()
@@ -244,31 +202,20 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::Disable {
             packages,
-            device,
-            user,
-            dry_run,
-            with_related,
-            force,
+            target,
+            options,
         } => {
             commands::change_package_state(
                 &packages,
-                device,
-                user,
-                ChangeOptions {
-                    dry_run,
-                    with_related,
-                    force,
-                },
+                target.device,
+                target.user,
+                options,
                 PackageState::Disabled,
                 "Disabling",
             )?;
         }
-        Commands::Info {
-            package,
-            device,
-            user,
-        } => {
-            commands::show_package_info(&package, device, user)?;
+        Commands::Info { package, target } => {
+            commands::show_package_info(&package, target.device, target.user)?;
         }
         Commands::Update => {
             commands::update_lists()?;
@@ -276,8 +223,8 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Completions { shell } => {
             commands::generate_completions(shell);
         }
-        Commands::Repl { device, user } => {
-            repl::repl_mode(device, user)?;
+        Commands::Repl { target } => {
+            repl::repl_mode(target.device, target.user)?;
         }
     }
 
