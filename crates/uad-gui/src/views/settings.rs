@@ -280,7 +280,11 @@ impl Settings {
             }
             Err(e) => {
                 self.device.backup.backup_state.clone_from(&e);
-                error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
+                if let Some(backup) = &self.device.backup.selected {
+                    error!("{backup} - {e}");
+                } else {
+                    error!("{e}");
+                }
                 Task::none()
             }
         }
