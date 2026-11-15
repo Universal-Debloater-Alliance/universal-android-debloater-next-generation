@@ -4,18 +4,38 @@ on:
         paths:
             - Cargo.lock
             - Cargo.toml
+            - clippy.toml
             - crates/**
             - resources/assets/**
             - .cargo/**
-            - .github/workflows/**
+            - .github/**
+            - "**.md"
+            - package.json
+            - package-lock.json
+            - scripts/**
+            - .jscpd.json
+            - .ls-lint.yml
+            - .prettierrc.json
     pull_request:
         paths:
             - Cargo.lock
             - Cargo.toml
+            - clippy.toml
             - crates/**
             - resources/assets/**
             - .cargo/**
-            - .github/workflows/**
+            - .github/**
+            - "**.md"
+            - package.json
+            - package-lock.json
+            - scripts/**
+            - .jscpd.json
+            - .ls-lint.yml
+            - .prettierrc.json
+
+# Read-only token for every job. No job here needs to write.
+permissions:
+    contents: read
 
 jobs:
     lint:
@@ -45,8 +65,10 @@ jobs:
                     - lint: fmt
                       args: " --all -- --check"
         steps:
-            - uses: actions/checkout@v7
-            - uses: actions/cache@v6
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: |
                       ~/.cargo/bin/
@@ -56,11 +78,16 @@ jobs:
                       target
                   key: ${{ runner.os }}-${{ matrix.lint }}-${{ hashFiles('**/Cargo.lock') }}
                   restore-keys: ${{ runner.OS }}-${{ matrix.lint }}-
-            - uses: dtolnay/rust-toolchain@stable
+            - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable branch
               with:
+                  toolchain: stable
                   components: clippy,rustfmt
             - shell: bash
-              run: RUSTFLAGS='${{ matrix.env-flag }}' cargo ${{ matrix.lint }}${{ matrix.args }}
+              env:
+                  RUSTFLAGS: ${{ matrix.env-flag }}
+                  CARGO_ARGS: ${{ matrix.args }}
+                  LINT: ${{ matrix.lint }}
+              run: cargo $LINT$CARGO_ARGS
             - name: Check standalone crate configurations
               if: matrix.lint == 'check'
               shell: bash
@@ -71,16 +98,60 @@ jobs:
                   cargo check --all-targets --locked -p uad-cli
                   cargo check --all-targets --locked -p uad-gui --no-default-features --features wgpu,no-self-update,img
 
+    tooling:
+        name: formatting, file names and duplicate code
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+              with:
+                  node-version: 24
+            - run: npm ci --ignore-scripts
+            - run: npm run format:check
+            - run: npm run lint:names
+            - run: npm run lint:duplicates
+
+    security:
+        name: dependency and workflow audit
+        runs-on: ubuntu-22.04
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: taiki-e/install-action@68a389c788b2cd04016ce8c80ee23b80d2ab3d68 # v2.88.1
+              with:
+                  tool: cargo-audit
+            - name: Audit Rust dependencies (RustSec)
+              run: cargo audit --deny warnings
+            - name: Audit npm dev dependencies
+              run: npm audit --audit-level=low
+            - name: Audit GitHub workflows
+              uses: zizmorcore/zizmor-action@53290badfa369cb0bf7ad16342cb62c2fa47ac7b # v0.8.0
+              with:
+                  advanced-security: false
+
     coverage:
         name: coverage
         runs-on: ubuntu-22.04
         steps:
-            - uses: actions/checkout@v7
-            - uses: dtolnay/rust-toolchain@stable
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable branch
+              with:
+                  toolchain: stable
             - name: Download grcov
+              env:
+                  # SHA-256 of grcov v0.8.19 for x86_64 Linux, recorded on first download.
+                  GRCOV_SHA256: 098be4d60b8016913542d58456fea6e771890096d1bf86e7f83dac650ba4b58a
               run: |
                   mkdir -p "${HOME}/.local/bin"
-                  curl -fsSL https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf - -C "${HOME}/.local/bin"
+                  curl -fsSL -o grcov.tar.bz2 https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2
+                  echo "${GRCOV_SHA256}  grcov.tar.bz2" | sha256sum --check
+                  tar jxf grcov.tar.bz2 -C "${HOME}/.local/bin"
+                  rm grcov.tar.bz2
                   echo "$HOME/.local/bin" >> "$GITHUB_PATH"
             - name: Install LLVM-profdata
               run: rustup component add llvm-tools-preview
@@ -94,7 +165,7 @@ jobs:
                   # grcov can succeed with an empty report if LLVM tools are missing.
                   grep -q '^SF:crates/' ./target/coverage/tests.lcov
             - name: Upload coverage report
-              uses: actions/upload-artifact@v7
+              uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
               with:
                   name: coverage-lcov
                   path: target/coverage/tests.lcov

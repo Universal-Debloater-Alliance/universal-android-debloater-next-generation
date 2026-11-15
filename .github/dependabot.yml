@@ -1,0 +1,20 @@
+version: 2
+updates:
+    - package-ecosystem: cargo
+      directory: /
+      schedule:
+          interval: weekly
+      labels: [dependencies]
+      groups:
+          cargo:
+              update-types: [minor, patch]
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: monthly
+      labels: [dependencies]
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: monthly
+      labels: [dependencies, ci]
