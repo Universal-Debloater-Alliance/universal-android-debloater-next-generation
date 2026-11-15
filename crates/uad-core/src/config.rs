@@ -117,20 +117,30 @@ mod tests {
 
     use super::*;
 
-    /// A config path inside a fresh folder that is unique to `test_name`.
-    fn scratch_config_file(test_name: &str) -> PathBuf {
+    /// A fresh temporary folder unique to one test, deleted when it goes out of scope.
+    struct ScratchDir(PathBuf);
+    impl Drop for ScratchDir {
+        fn drop(&mut self) {
+            let _ = fs::remove_dir_all(&self.0);
+        }
+    }
+
+    /// A config path inside a fresh [`ScratchDir`] that is unique to `test_name`.
+    /// Keep the returned guard alive for the whole test.
+    fn scratch_config_file(test_name: &str) -> (ScratchDir, PathBuf) {
         let dir = std::env::temp_dir().join(format!(
             "uad-config-test-{}-{test_name}",
             std::process::id()
         ));
         let _ = fs::remove_dir_all(&dir);
         fs::create_dir_all(&dir).unwrap();
-        dir.join("config.toml")
+        let path = dir.join("config.toml");
+        (ScratchDir(dir), path)
     }
 
     #[test]
     fn missing_file_is_created_with_defaults() {
-        let path = scratch_config_file("missing");
+        let (_dir, path) = scratch_config_file("missing");
         let config = load_config_file(&path);
         assert!(path.exists());
         assert_eq!(config.general.theme, DEFAULT_THEME);
@@ -139,7 +149,7 @@ mod tests {
 
     #[test]
     fn invalid_file_falls_back_to_defaults() {
-        let path = scratch_config_file("invalid");
+        let (_dir, path) = scratch_config_file("invalid");
         fs::write(&path, "general = 3").unwrap();
         let config = load_config_file(&path);
         assert_eq!(config.general.theme, DEFAULT_THEME);
@@ -147,7 +157,7 @@ mod tests {
 
     #[test]
     fn saved_device_settings_load_back() {
-        let path = scratch_config_file("round-trip");
+        let (_dir, path) = scratch_config_file("round-trip");
         let mut config = Config::default();
         config.devices.push(DeviceSettings {
             device_id: "test_device".to_string(),
