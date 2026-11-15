@@ -32,7 +32,7 @@ Report a vulnerability privately through GitHub: repository Security tab, "Repor
 | Dependency audit (RustSec, `--deny warnings`), npm audit, workflow audit (zizmor)          | `.github/workflows/ci.yml` job `security`, ignores in `.cargo/audit.toml` |
 | Actions pinned to commit SHAs, read-only `GITHUB_TOKEN`, no persisted checkout credentials | all files in `.github/workflows/`                                         |
 | Downloaded CI tool (grcov) checked against a pinned SHA-256                                | `ci.yml` job `coverage`                                                   |
-| Dependabot for Cargo, npm and GitHub Actions                                               | `.github/dependabot.yml`                                                  |
+| Dependabot for Cargo, npm and GitHub Actions, with a 7-day cooldown                        | `.github/dependabot.yml`                                                  |
 | Node dev tools installed with `--ignore-scripts` and an exact-version lockfile             | `package.json`, `package-lock.json`                                       |
 
 Checklist status (OWASP Top 10:2025 categories that apply to a local desktop app):
