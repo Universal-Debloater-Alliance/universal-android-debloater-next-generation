@@ -1,3 +1,11 @@
 debug/
 target/
 *.log
+
+# Node developer tooling (package.json)
+node_modules/
+
+# Agent and tool work areas
+.agent-local/
+.cache/
+.venv/

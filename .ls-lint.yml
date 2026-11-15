@@ -1,0 +1,38 @@
+# File and folder naming rules, checked by `npm run lint:names`.
+# The conventions and their exceptions are recorded in AGENTS.md#conventions.
+ls:
+    .dir: kebab-case
+    .md: SCREAMING_SNAKE_CASE
+    .json: kebab-case
+    .yml: kebab-case
+    .toml: kebab-case | PascalCase
+    .nix: kebab-case
+    .lock: kebab-case | PascalCase
+    .mjs: kebab-case
+
+    crates:
+        .rs: snake_case
+        .sh: kebab-case
+
+    scripts:
+        .mjs: kebab-case
+
+    resources:
+        # Served by raw GitHub URLs that released apps, the wiki and other
+        # projects use, so existing names stay. New files use kebab-case.
+        .json: kebab-case | snake_case
+        .svg: kebab-case | snake_case
+        .png: kebab-case | regex:v[0-9]+
+        .ico: kebab-case
+        .ttf: kebab-case
+        .rc: kebab-case
+
+ignore:
+    - .git
+    - .github
+    - .cargo
+    - .agent-local
+    - .cache
+    - .venv
+    - node_modules
+    - target

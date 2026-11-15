@@ -1,0 +1,6 @@
+# LF everywhere, so Windows checkouts match rustfmt, Prettier and CI.
+* text=auto eol=lf
+
+*.ico binary
+*.png binary
+*.ttf binary
