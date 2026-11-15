@@ -3,6 +3,10 @@ on:
     workflow_dispatch:
     workflow_call:
 
+# Read-only token by default. The release job asks for write access itself.
+permissions:
+    contents: read
+
 jobs:
     build:
         name: Building ${{ matrix.build_target }} [${{ matrix.update_feature }}]
@@ -28,9 +32,13 @@ jobs:
                     - update_feature: no-self-update
                       update_name: "-noselfupdate"
         steps:
-            - uses: actions/checkout@v7
-            - uses: dtolnay/rust-toolchain@stable
-            - uses: actions/cache@v6
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable branch
+              with:
+                  toolchain: stable
+            - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: |
                       ~/.cargo/bin/
@@ -64,7 +72,7 @@ jobs:
                   sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }} | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}-checksum
                   sha256sum uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz | tee uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}.tar.gz-checksum
             - name: Upload artifacts
-              uses: actions/upload-artifact@v7
+              uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
               with:
                   name: uad-ng${{ matrix.update_name }}-${{ matrix.build_target }}
                   path: uad-ng-*
@@ -84,9 +92,13 @@ jobs:
                     - build_target: windows
                       os: windows-2022
         steps:
-            - uses: actions/checkout@v7
-            - uses: dtolnay/rust-toolchain@stable
-            - uses: actions/cache@v6
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable branch
+              with:
+                  toolchain: stable
+            - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: |
                       ~/.cargo/bin/
@@ -120,7 +132,7 @@ jobs:
                   sha256sum uad-cli-${{ matrix.build_target }} | tee uad-cli-${{ matrix.build_target }}-checksum
                   sha256sum uad-cli-${{ matrix.build_target }}.tar.gz | tee uad-cli-${{ matrix.build_target }}.tar.gz-checksum
             - name: Upload artifacts
-              uses: actions/upload-artifact@v7
+              uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
               with:
                   name: uad-cli-${{ matrix.build_target }}
                   path: uad-cli-*

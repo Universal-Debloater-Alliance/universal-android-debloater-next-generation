@@ -1,0 +1,17 @@
+# cargo-audit settings (`cargo audit` in CI). Every ignore names the crate, the path
+# that pulls it in, and why it is accepted. Recheck them after each Iced upgrade.
+# Recorded in SECURITY.md#residual-risks-and-required-actions.
+[advisories]
+ignore = [
+    # lru 0.16 (via iced_wgpu -> cryoglyph): unsound on a panic inside a cache
+    # callback. Only Iced's glyph cache uses it, with no untrusted input. Fixed in
+    # lru 0.18, which cryoglyph 0.1 does not accept.
+    "RUSTSEC-2026-0253",
+    # Unmaintained, no known vulnerability, no maintained drop-in that Iced 0.14 accepts:
+    "RUSTSEC-2024-0436", # paste (proc-macro, via wgpu-hal -> metal)
+    "RUSTSEC-2026-0441", # pin-utils (via futures-util)
+    "RUSTSEC-2026-0192", # ttf-parser (via cosmic-text -> fontdb)
+    "RUSTSEC-2026-0370", # zvariant (via iced_winit -> mundy -> zbus, Linux only)
+    "RUSTSEC-2026-0371", # zbus_names (same path)
+    "RUSTSEC-2026-0372", # zvariant_derive (same path)
+]
