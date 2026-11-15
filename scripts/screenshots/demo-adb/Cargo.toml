@@ -1,0 +1,10 @@
+# Stand-in `adb` for README screenshots. Kept outside the main workspace on purpose:
+# a workspace member would put `adb.exe` in `target/debug/` next to `uad-ng.exe`,
+# and Windows finds programs in the app's own folder before PATH.
+[package]
+name = "adb"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]

@@ -97,6 +97,13 @@ jobs:
                   cargo check --all-targets --locked -p uad-core
                   cargo check --all-targets --locked -p uad-cli
                   cargo check --all-targets --locked -p uad-gui --no-default-features --features wgpu,no-self-update,img
+            # Outside the workspace on purpose (see its Cargo.toml), so the steps above skip it.
+            - name: Lint the screenshot stand-in adb
+              if: matrix.lint == 'clippy'
+              shell: bash
+              run: |
+                  cargo fmt --manifest-path scripts/screenshots/demo-adb/Cargo.toml -- --check
+                  cargo clippy --manifest-path scripts/screenshots/demo-adb/Cargo.toml --target-dir target/demo-adb --locked -- -D warnings -D clippy::all -W clippy::style
 
     tooling:
         name: formatting, file names and duplicate code

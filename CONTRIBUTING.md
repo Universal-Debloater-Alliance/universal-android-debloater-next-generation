@@ -15,6 +15,17 @@ Follow [README.md#quick-start](README.md#quick-start). Then run `npm ci` once to
 
 Run `npm run check` before opening a pull request. It runs everything CI runs: Prettier, file-name and duplicate-code checks, rustfmt, Clippy, builds with warnings denied, and all tests. Fix every failure, never silence a check.
 
+### Screenshots
+
+Retake the README screenshots in `resources/screenshots/` whenever a change is visible in the GUI:
+
+- Run `npm run screenshots` (Windows only, about a minute). It builds the app and a stand-in `adb` (`scripts/screenshots/demo-adb/`) that simulates one Samsung phone, then saves each screen at 900, 950 and 1440 px wide.
+- Close UAD-ng first and do not use the mouse or keyboard while it runs: it copies the window from the screen, and stops if another window comes to the front.
+- The screen must fit a 1440 x 800 window at your display scaling (for example 1920 x 1080 at 125%).
+- Your UAD-ng config is backed up and restored. The captures use a fresh config with the backup folder `C:\UAD-ng\backups`, so no personal path appears.
+- Look at every image before committing. GitHub limits unauthenticated update checks to 60 an hour, so after many runs the About screen shows "Could not check for updates". Keep the previous `about-dark-950.png` then.
+- Leave the older `v*.png` files in place: outside pages may load them by raw URL.
+
 ### Package list entries
 
 Rules for `resources/assets/uad_lists.json`, checked by the tests in `crates/uad-core/src/uad_lists.rs` (`cargo test -p uad-core`):

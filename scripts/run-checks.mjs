@@ -38,6 +38,11 @@ const steps = [
 		"cargo check --all-targets --locked -p uad-gui --no-default-features --features wgpu,no-self-update,img",
 		denyWarnings,
 	],
+	[
+		"Screenshot stand-in adb",
+		"cargo fmt --manifest-path scripts/screenshots/demo-adb/Cargo.toml -- --check && cargo clippy --manifest-path scripts/screenshots/demo-adb/Cargo.toml --target-dir target/demo-adb --locked -- -D warnings -D clippy::all -W clippy::style",
+		{},
+	],
 	["Tests", "cargo test --workspace --all-features --locked", {}],
 ];
 
