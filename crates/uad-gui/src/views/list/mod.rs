@@ -264,7 +264,7 @@ impl List {
             }
             Err(local_list) => {
                 error!(
-                    "Error loading remote debloat list for the phone. Fallback to embedded (and outdated) list"
+                    "Could not load the remote debloat list. Using the embedded list, which may be outdated."
                 );
                 (local_list, UadListState::Failed)
             }

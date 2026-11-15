@@ -45,6 +45,7 @@ Colours live only in `crates/uad-gui/src/theme.rs`. Widget styles in `style.rs` 
 - Ratings are named in text and coloured: green for `Recommended`, red for `Expert` and `Unsafe`, default text for the rest. Colour never carries the meaning alone.
 - Empty states say what to do next: no device ("Turn on USB debugging ..., then press the refresh button"), or no matching package ("Clear the search or choose other filters").
 - Copy: name actions by what they do ("Review selection", "Export current selection"), call removal levels "rated" (`Recommended`, `Unsafe`), and keep long hints under about 70 characters per line.
+- Casing: labels, picker options and statuses start with a capital letter ("User 0", "Samsung SM-S921B", "Updated 5 minutes ago"). List names use their proper form (`AOSP`, `OEM`, `Misc`). Full-sentence hints end with a full stop.
 - Motion: none. Iced redraws state changes instantly.
 
 ## Decisions

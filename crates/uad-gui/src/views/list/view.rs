@@ -358,7 +358,7 @@ impl List {
         {
             Some(package) => row![
                 text(&package.name).size(16),
-                text(format!("list: {}", package.list)).style(style::Text::Commentary),
+                text(format!("List: {}", package.list)).style(style::Text::Commentary),
                 text(package.removal.to_string()).style(rating_style(package.removal)),
             ]
             .spacing(14)

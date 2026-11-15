@@ -439,8 +439,9 @@ impl Settings {
             text("Most unsafe packages are known to bootloop the device if removed.")
                 .style(style::Text::Commentary);
 
-        let choose_backup_descr = text("Note: If you have previous backups, you will need to transfer them manually to newly changed backup folder to be able to use Restore functionality")
-            .style(style::Text::Commentary);
+        let choose_backup_descr =
+            text("Note: to restore earlier backups, move them into the new backup folder first.")
+                .style(style::Text::Commentary);
 
         let choose_backup_btn = button(text("\u{E930}").font(ICONS))
             .padding([5, 10])
@@ -491,20 +492,13 @@ impl Settings {
     }
 
     fn device_specific_container(&self, phone: &Phone) -> Element<'_, Message, Theme, Renderer> {
-        let multi_user_mode_descr = row![
-            text("This will not affect the following protected work profile users: ")
-                .style(style::Text::Commentary),
-            text(
-                phone
-                    .user_list
-                    .iter()
-                    .filter(|&u| u.protected)
-                    .map(|u| u.id.to_string())
-                    .collect::<Vec<String>>()
-                    .join(", ")
-            )
-            .style(style::Text::Danger)
-        ];
+        let protected_user_ids = phone
+            .user_list
+            .iter()
+            .filter(|&u| u.protected)
+            .map(|u| u.id.to_string())
+            .collect::<Vec<String>>()
+            .join(", ");
 
         let multi_user_mode_checkbox = checkbox(self.device.multi_user_mode)
             .label("Affect all the users of the device (not only the selected user)")
@@ -519,12 +513,12 @@ impl Settings {
         };
 
         let disable_mode_descr =
-            text("In many cases, it's better to disable a package instead of uninstalling it")
+            text("In many cases, it is better to disable a package than to uninstall it.")
                 .style(style::Text::Commentary);
 
         let unavailable_btn = button(text("Unavailable").size(14))
             .on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/FAQ#\
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/FAQ#\
                     why-is-the-disable-mode-setting-not-available-for-my-device",
             )))
             .height(22)
@@ -551,20 +545,23 @@ impl Settings {
             .width(Length::Fill)
         };
 
-        container(
-            column![
-                multi_user_mode_checkbox,
-                multi_user_mode_descr,
-                disable_setting_row,
-                disable_mode_descr,
-            ]
-            .spacing(10),
-        )
-        .padding(10)
-        .width(Length::Fill)
-        .height(Length::Shrink)
-        .style(style::Container::Frame)
-        .into()
+        let mut options = column![multi_user_mode_checkbox].spacing(10);
+        // Shown only when there is an exception to name.
+        if !protected_user_ids.is_empty() {
+            options = options.push(row![
+                text("This does not affect these protected work profile users: ")
+                    .style(style::Text::Commentary),
+                text(protected_user_ids).style(style::Text::Danger),
+            ]);
+        }
+        let options = options.push(disable_setting_row).push(disable_mode_descr);
+
+        container(options)
+            .padding(10)
+            .width(Length::Fill)
+            .height(Length::Shrink)
+            .style(style::Container::Frame)
+            .into()
     }
 
     fn backup_restore_container(
