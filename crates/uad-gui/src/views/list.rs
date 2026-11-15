@@ -1,21 +1,23 @@
-use crate::helpers::button_primary;
+use crate::helpers::{button_primary, export_result_dialog};
 use crate::style;
 use crate::theme::Theme;
 use crate::widgets::navigation_menu::ICONS;
 use log::{error, info, warn};
+use std::collections::HashMap;
 use std::path::PathBuf;
 use uad_core::config::DeviceSettings;
+use uad_core::relations::{DevicePackage, Relations, RemovalPlan};
 use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
 use uad_core::utils::{
-    EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, matches_search, open_url,
+    NAME, export_selection, fetch_packages, matches_search, open_url, truncate_description,
 };
 
 use crate::views::settings::Settings;
 use crate::widgets::modal::Modal;
-use crate::widgets::package_row::{Message as RowMessage, PackageRow};
+use crate::widgets::package_row::{Message as RowMessage, PackageRow, action_label};
 use crate::widgets::text;
 use iced::widget::scrollable::{Direction, Scrollbar};
 use iced::widget::{
@@ -49,6 +51,8 @@ pub enum LoadingState {
 pub struct List {
     pub loading_state: LoadingState,
     pub uad_lists: PackageHashMap,
+    /// `dependencies`/`neededBy` links of `uad_lists`, in both directions
+    relations: Relations,
     /// packages of all users of the phone
     pub phone_packages: Vec<Vec<PackageRow>>,
     /// `phone_packages` indexes of the selected user (= what you see on screen)
@@ -61,11 +65,15 @@ pub struct List {
     pub selected_user: Option<User>,
     all_selected: bool,
     pub input_value: String,
-    description: String,
     description_content: text_editor::Content,
     selection_modal: bool,
     error_modal: Option<String>,
-    export_modal: bool,
+    /// Result of the last "export selection", shown until dismissed
+    export_result: Option<Result<PathBuf, String>>,
+    /// Single-package action waiting for confirmation: `(user_index, pkg_index)`
+    pending_action: Option<(usize, usize)>,
+    /// Whether removals also remove related packages (opt-in, see `Relations`)
+    include_related: bool,
     current_package_index: usize,
     is_adb_satisfied: bool,
     copy_confirmation: bool,
@@ -98,7 +106,9 @@ pub enum Message {
     UpdateFailed,
     GoToUrl(PathBuf),
     ExportSelection,
-    SelectionExported(Result<bool, String>),
+    SelectionExported(Result<PathBuf, String>),
+    IncludeRelatedToggled(bool),
+    ConfirmPendingAction,
     DescriptionEdit(text_editor::Action),
     CopyError(String),
     HideCopyConfirmation,
@@ -170,8 +180,15 @@ impl List {
             Message::ADBSatisfied(result) => self.on_adb_satisfied(result),
             Message::UpdateFailed => self.on_update_failed(),
             Message::GoToUrl(url) => Self::on_go_to_url(url),
-            Message::ExportSelection => self.on_export_selection(),
+            Message::ExportSelection => self.on_export_selection(&settings.general.backup_folder),
             Message::SelectionExported(res) => self.on_selection_exported(res),
+            Message::IncludeRelatedToggled(include) => {
+                self.include_related = include;
+                Task::none()
+            }
+            Message::ConfirmPendingAction => {
+                self.on_confirm_pending_action(settings, selected_device)
+            }
             Message::Nothing => Task::none(),
             Message::DescriptionEdit(action) => self.on_description_edit(action),
             Message::CopyError(err) => self.on_copy_error(err),
@@ -193,9 +210,15 @@ impl List {
         }
         package.state = result.new_state;
         package.selected = false;
+        // Drop only this (user, package) pair. Other selections stay selected.
         self.selected_packages
-            .retain(|&x| x.1 != result.index && x.0 != result.i_user);
+            .retain(|&x| x != (result.i_user, result.index));
         Self::filter_package_lists(self);
+        if result.i_user == self.selected_user.unwrap_or_default().index
+            && result.index == self.current_package_index
+        {
+            self.refresh_details();
+        }
         Task::none()
     }
 
@@ -348,11 +371,12 @@ impl List {
             scrollable(text_editor(&self.description_content).on_action(Message::DescriptionEdit))
                 .style(style::Scrollable::Description);
 
-        let description_panel = container(description_scroll)
-            .padding(6)
-            .height(Length::FillPortion(2))
-            .width(Length::Fill)
-            .style(style::Container::Frame);
+        let description_panel =
+            container(column![self.details_header(), description_scroll].spacing(6))
+                .padding(6)
+                .height(Length::FillPortion(2))
+                .width(Length::Fill)
+                .style(style::Container::Frame);
 
         let review_selection = {
             let tmp_widget = text(format!(
@@ -478,37 +502,25 @@ impl List {
             .into();
         }
 
-        if self.export_modal {
-            let title = container(row![text("Success").size(24)].align_y(Alignment::Center))
-                .width(Length::Fill)
-                .style(style::Container::Frame)
-                .padding([10, 0])
-                .center_y(Length::Shrink)
-                .center_x(Length::Shrink);
-
-            let text_box = row![
-                text(format!("Exported current selection into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
-            ].padding(20);
-
-            let file_row = row![text(EXPORT_FILE_NAME).style(style::Text::Commentary)].padding(20);
-
-            let modal_btn_row = row![
-                Space::new().width(Length::Fill).height(Length::Shrink),
-                button(text("Close").width(Length::Shrink))
-                    .width(Length::Shrink)
-                    .on_press(Message::ModalHide),
-                Space::new().width(Length::Fill).height(Length::Shrink),
-            ];
-
-            let ctn = container(column![title, text_box, file_row, modal_btn_row])
-                .height(Length::Shrink)
-                .width(500)
-                .padding(10)
-                .style(style::Container::Frame);
-
-            return Modal::new(content.padding(10), ctn)
+        if let Some(result) = &self.export_result {
+            let dialog = export_result_dialog(
+                "the selected package names",
+                result,
+                Message::ModalHide,
+                Message::GoToUrl,
+            );
+            return Modal::new(content.padding(10), dialog)
                 .on_blur(Message::ModalHide)
                 .into();
+        }
+
+        if let Some(selection) = self.pending_action {
+            return Modal::new(
+                content.padding(10),
+                self.confirm_action_modal(settings, selection),
+            )
+            .on_blur(Message::ModalHide)
+            .into();
         }
 
         if let Some(err) = &self.error_modal {
@@ -697,6 +709,16 @@ impl List {
         .max_height(150)
         .padding([0, 10]);
 
+        let i_user = self.selected_user.unwrap_or_default().index;
+        let selection: Vec<usize> = self
+            .selected_packages
+            .iter()
+            .filter(|s| s.0 == i_user)
+            .map(|s| s.1)
+            .collect();
+        let relations_ctn =
+            container(self.relations_panel(settings, i_user, &selection)).padding([0, 10]);
+
         container(
             if device.user_list.iter().filter(|&u| !u.protected).count() > 1
                 && settings.device.multi_user_mode
@@ -707,6 +729,7 @@ impl List {
                     row![explaination_ctn].padding([0, 10]),
                     container(recap_view).padding(10),
                     selected_pkgs_ctn,
+                    relations_ctn,
                     modal_btn_row,
                 ]
                 .spacing(10)
@@ -717,6 +740,7 @@ impl List {
                     users_ctn,
                     container(recap_view).padding(10),
                     selected_pkgs_ctn,
+                    relations_ctn,
                     modal_btn_row,
                 ]
                 .spacing(10)
@@ -726,6 +750,7 @@ impl List {
                     title_ctn,
                     container(recap_view).padding(10),
                     selected_pkgs_ctn,
+                    relations_ctn,
                     modal_btn_row,
                 ]
                 .spacing(10)
@@ -734,7 +759,7 @@ impl List {
         )
         .width(900)
         .height(Length::Shrink)
-        .max_height(700)
+        .max_height(760)
         .style(style::Container::Background)
         .into()
     }
@@ -815,7 +840,8 @@ impl List {
     fn on_modal_hide(&mut self) -> Task<Message> {
         self.selection_modal = false;
         self.error_modal = None;
-        self.export_modal = false;
+        self.export_result = None;
+        self.pending_action = None;
         Task::none()
     }
 
@@ -825,6 +851,21 @@ impl List {
         selected_device: &mut Phone,
     ) -> Task<Message> {
         self.fallback_notifications.clear();
+        if self.include_related {
+            let users: Vec<usize> = self.selected_packages.iter().map(|s| s.0).collect();
+            for i_user in users {
+                let selection: Vec<usize> = self
+                    .selected_packages
+                    .iter()
+                    .filter(|s| s.0 == i_user)
+                    .map(|s| s.1)
+                    .collect();
+                for index in self.related_indices(i_user, &selection) {
+                    self.phone_packages[i_user][index].selected = true;
+                    self.selected_packages.push((i_user, index));
+                }
+            }
+        }
         let mut commands = vec![];
         self.selected_packages.sort_unstable();
         self.selected_packages.dedup();
@@ -841,12 +882,18 @@ impl List {
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
-        if let Ok(p) = output {
-            self.loading_state =
-                LoadingState::RestoringDevice(self.phone_packages[i_user][p.index].name.clone());
-        } else {
-            self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
+        match output {
+            Ok(p) => {
+                if let Some(package) = self
+                    .phone_packages
+                    .get(p.i_user)
+                    .and_then(|packages| packages.get(p.index))
+                {
+                    self.loading_state = LoadingState::RestoringDevice(package.name.clone());
+                }
+            }
+            // Shown once the package list reloads after the restore.
+            Err(AdbError::Generic(err)) => self.error_modal = Some(err),
         }
         Task::none()
     }
@@ -873,6 +920,7 @@ impl List {
     ) -> Task<Message> {
         let (uad_list, list_state) = payload;
         self.loading_state = LoadingState::LoadingPackages;
+        self.relations = Relations::new(&uad_list);
         self.uad_lists.clone_from(&uad_list);
         *list_update_state = list_state;
         Task::perform(
@@ -1000,23 +1048,22 @@ impl List {
                 Task::none()
             }
             RowMessage::ActionPressed => {
-                self.fallback_notifications.clear();
-                self.phone_packages[i_user][i_package].selected = true;
-                Task::batch(build_action_pkg_commands(
-                    &self.phone_packages,
-                    selected_device,
-                    &settings.device,
-                    (i_user, i_package),
-                ))
+                if self.needs_confirmation(i_user, i_package) {
+                    self.pending_action = Some((i_user, i_package));
+                    return Task::none();
+                }
+                self.run_single_action(settings, selected_device, (i_user, i_package), &[])
             }
             RowMessage::PackagePressed => {
-                self.description = package.clone().description;
-                self.description_content = text_editor::Content::with_text(&package.description);
                 package.current = true;
-                if self.current_package_index != i_package {
-                    self.phone_packages[i_user][self.current_package_index].current = false;
+                if self.current_package_index != i_package
+                    && let Some(previous) =
+                        self.phone_packages[i_user].get_mut(self.current_package_index)
+                {
+                    previous.current = false;
                 }
                 self.current_package_index = i_package;
+                self.refresh_details();
                 Task::none()
             }
         }
@@ -1326,24 +1373,25 @@ impl List {
         Task::none()
     }
 
-    fn on_export_selection(&mut self) -> Task<Message> {
+    fn on_export_selection(&mut self, backup_folder: &std::path::Path) -> Task<Message> {
         let i_user = self.selected_user.unwrap_or_default().index;
         let package_names: Vec<String> = self.phone_packages[i_user]
             .iter()
             .filter(|p| p.selected)
             .map(|p| p.name.clone())
             .collect();
+        let dir = backup_folder.to_path_buf();
         Task::perform(
-            async move { export_selection(&package_names) },
+            async move { export_selection(&dir, &package_names) },
             Message::SelectionExported,
         )
     }
 
-    fn on_selection_exported(&mut self, export: Result<bool, String>) -> Task<Message> {
-        match export {
-            Ok(_) => self.export_modal = true,
-            Err(err) => error!("Failed to export current selection: {err:?}"),
+    fn on_selection_exported(&mut self, export: Result<PathBuf, String>) -> Task<Message> {
+        if let Err(err) = &export {
+            error!("Failed to export current selection: {err}");
         }
+        self.export_result = Some(export);
         Task::none()
     }
 
@@ -1379,6 +1427,368 @@ impl List {
     fn on_dismiss_fallback_notifications(&mut self) -> Task<Message> {
         self.fallback_notifications.clear();
         Task::none()
+    }
+
+    /// Selects every selected package on all given users as well (multi-user mode).
+    pub fn mirror_selection(&mut self, users: &[User]) {
+        let selected: Vec<usize> = self.selected_packages.iter().map(|s| s.1).collect();
+        for user in users.iter().filter(|u| !u.protected) {
+            for &index in &selected {
+                if let Some(package) = self
+                    .phone_packages
+                    .get_mut(user.index)
+                    .and_then(|packages| packages.get_mut(index))
+                {
+                    package.selected = true;
+                    if !self.selected_packages.contains(&(user.index, index)) {
+                        self.selected_packages.push((user.index, index));
+                    }
+                }
+            }
+        }
+    }
+
+    /// State and rating of every package of one user, by name.
+    fn device_lookup(&self, i_user: usize) -> HashMap<&str, DevicePackage> {
+        self.phone_packages
+            .get(i_user)
+            .map(|packages| {
+                packages
+                    .iter()
+                    .map(|p| {
+                        (
+                            p.name.as_str(),
+                            DevicePackage {
+                                state: p.state,
+                                removal: p.removal,
+                            },
+                        )
+                    })
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
+    /// Relation analysis of `selection` (package indexes of one user):
+    /// the removal plan for the packages being removed, and the
+    /// `(package, requirement)` pairs that block the packages being restored.
+    fn removal_plan(
+        &self,
+        i_user: usize,
+        selection: &[usize],
+    ) -> (RemovalPlan, Vec<(String, String)>) {
+        let (mut removing, mut restoring) = (vec![], vec![]);
+        for package in selection
+            .iter()
+            .filter_map(|&i| self.phone_packages.get(i_user)?.get(i))
+        {
+            if package.state == PackageState::Enabled {
+                removing.push(package.name.clone());
+            } else {
+                restoring.push(package.name.clone());
+            }
+        }
+        let device = self.device_lookup(i_user);
+        let lookup = |name: &str| device.get(name).copied();
+        let plan = if removing.is_empty() {
+            RemovalPlan::default()
+        } else {
+            self.relations
+                .plan_removal(&removing, lookup, self.include_related)
+        };
+        (
+            plan,
+            self.relations.missing_requirements(&restoring, lookup),
+        )
+    }
+
+    /// Indexes of the related packages to remove together with `selection`.
+    fn related_indices(&self, i_user: usize, selection: &[usize]) -> Vec<usize> {
+        let (plan, _) = self.removal_plan(i_user, selection);
+        plan.related
+            .iter()
+            .filter_map(|r| {
+                self.phone_packages[i_user]
+                    .iter()
+                    .position(|p| p.name == r.name)
+            })
+            .collect()
+    }
+
+    /// A single-package action is confirmed first unless it is a plain removal of a
+    /// `Recommended` package, or a plain restore, with no relations involved.
+    fn needs_confirmation(&self, i_user: usize, i_package: usize) -> bool {
+        let Some(package) = self.phone_packages[i_user].get(i_package) else {
+            return false;
+        };
+        let (plan, missing) = self.removal_plan(i_user, &[i_package]);
+        (package.state == PackageState::Enabled && package.removal != Removal::Recommended)
+            || !plan.related.is_empty()
+            || !plan.excluded_unsafe.is_empty()
+            || !plan.at_risk.is_empty()
+            || !missing.is_empty()
+    }
+
+    /// Toggles one package, plus `related` packages of the same user.
+    fn run_single_action(
+        &mut self,
+        settings: &Settings,
+        selected_device: &Phone,
+        (i_user, i_package): (usize, usize),
+        related: &[usize],
+    ) -> Task<Message> {
+        self.fallback_notifications.clear();
+        let mut tasks = vec![];
+        for &index in std::iter::once(&i_package).chain(related) {
+            self.phone_packages[i_user][index].selected = true;
+            tasks.extend(build_action_pkg_commands(
+                &self.phone_packages,
+                selected_device,
+                &settings.device,
+                (i_user, index),
+            ));
+        }
+        Task::batch(tasks)
+    }
+
+    fn on_confirm_pending_action(
+        &mut self,
+        settings: &Settings,
+        selected_device: &Phone,
+    ) -> Task<Message> {
+        let Some((i_user, i_package)) = self.pending_action.take() else {
+            return Task::none();
+        };
+        let related = if self.include_related {
+            self.related_indices(i_user, &[i_package])
+        } else {
+            vec![]
+        };
+        self.run_single_action(settings, selected_device, (i_user, i_package), &related)
+    }
+
+    /// Related packages, warnings about dependents and missing requirements
+    /// for `selection` (package indexes of one user). Empty when nothing applies.
+    fn relations_panel(
+        &self,
+        settings: &Settings,
+        i_user: usize,
+        selection: &[usize],
+    ) -> Element<'_, Message, Theme, Renderer> {
+        let (plan, missing) = self.removal_plan(i_user, selection);
+        let rating = |name: &str| {
+            self.phone_packages[i_user]
+                .iter()
+                .find(|p| p.name == name)
+                .map_or(Removal::Unlisted, |p| p.removal)
+        };
+        let verb = if settings.device.disable_mode {
+            "disable"
+        } else {
+            "remove"
+        };
+
+        let mut lines: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
+        if !plan.related.is_empty() {
+            lines.push(
+                checkbox(self.include_related)
+                    .label(format!(
+                        "Also {verb} {} related package(s) listed below",
+                        plan.related.len()
+                    ))
+                    .on_toggle(Message::IncludeRelatedToggled)
+                    .size(18)
+                    .style(style::CheckBox::SettingsEnabled)
+                    .into(),
+            );
+            for related in &plan.related {
+                lines.push(
+                    text(format!(
+                        "    {} [{}]: {}",
+                        related.name,
+                        rating(&related.name),
+                        related.reason
+                    ))
+                    .style(style::Text::Commentary)
+                    .into(),
+                );
+            }
+        }
+        for skipped in &plan.excluded_unsafe {
+            lines.push(
+                text(format!(
+                    "{} is rated Unsafe ({}). It is never added automatically.",
+                    skipped.name, skipped.reason
+                ))
+                .style(style::Text::Danger)
+                .into(),
+            );
+        }
+        for risk in &plan.at_risk {
+            lines.push(
+                text(format!(
+                    "Warning: {} may stop working, because it needs {}.",
+                    risk.dependent, risk.requirement
+                ))
+                .style(style::Text::Danger)
+                .into(),
+            );
+        }
+        for (package, requirement) in &missing {
+            lines.push(
+                text(format!(
+                    "Warning: {package} needs {requirement}, which is not enabled. \
+                     Restore it too, or {package} may not work."
+                ))
+                .style(style::Text::Danger)
+                .into(),
+            );
+        }
+
+        if lines.is_empty() {
+            return Space::new().into();
+        }
+        container(scrollable(column(lines).spacing(4).padding(4)))
+            .width(Length::Fill)
+            .max_height(170)
+            .padding(8)
+            .style(style::Container::BorderedFrame)
+            .into()
+    }
+
+    /// Asks before acting on one package, showing its rating and relations.
+    fn confirm_action_modal(
+        &self,
+        settings: &Settings,
+        (i_user, i_package): (usize, usize),
+    ) -> Element<'_, Message, Theme, Renderer> {
+        let package = &self.phone_packages[i_user][i_package];
+        let action = action_label(package.state, settings.device.disable_mode);
+        let removing = package.state == PackageState::Enabled;
+
+        let mut body = column![
+            text(format!("{action} {}?", package.name)).size(22),
+            row![
+                text("Removal rating:"),
+                text(package.removal.to_string()).style(rating_style(package.removal)),
+            ]
+            .spacing(6),
+            text(package.removal.explanation()).style(if removing {
+                rating_style(package.removal)
+            } else {
+                style::Text::Commentary
+            }),
+            text(truncate_description(&package.description, 240)),
+            self.relations_panel(settings, i_user, &[i_package]),
+        ]
+        .spacing(12);
+
+        if removing && settings.device.disable_mode {
+            body = body.push(
+                text("Disabling keeps the package installed. You can enable it again at any time.")
+                    .style(style::Text::Commentary),
+            );
+        } else if removing {
+            body = body.push(
+                text(
+                    "Uninstalling removes the package for this user only. \
+                     You can restore it later from the list (filter by \"Uninstalled\").",
+                )
+                .style(style::Text::Commentary),
+            );
+        }
+
+        let confirm = button(text(action))
+            .padding([5, 10])
+            .on_press(Message::ConfirmPendingAction)
+            .style(if removing {
+                style::Button::UninstallPackage
+            } else {
+                style::Button::RestorePackage
+            });
+        body = body.push(row![
+            button(text("Cancel"))
+                .padding([5, 10])
+                .on_press(Message::ModalHide),
+            Space::new().width(Length::Fill),
+            confirm,
+        ]);
+
+        container(body)
+            .width(680)
+            .padding(20)
+            .style(style::Container::Background)
+            .into()
+    }
+
+    /// Name, list and rating of the package shown in the details panel.
+    fn details_header(&self) -> Element<'_, Message, Theme, Renderer> {
+        let i_user = self.selected_user.unwrap_or_default().index;
+        match self
+            .phone_packages
+            .get(i_user)
+            .and_then(|packages| packages.get(self.current_package_index))
+            .filter(|package| package.current)
+        {
+            Some(package) => row![
+                text(&package.name).size(16),
+                text(format!("list: {}", package.list)).style(style::Text::Commentary),
+                text(package.removal.to_string()).style(rating_style(package.removal)),
+            ]
+            .spacing(14)
+            .align_y(Alignment::Center)
+            .into(),
+            None => text("Click a package to see what it does and what depends on it.")
+                .style(style::Text::Commentary)
+                .into(),
+        }
+    }
+
+    /// Rebuilds the details text of the current package: what its rating
+    /// means, its description, and the state of related packages.
+    fn refresh_details(&mut self) {
+        let i_user = self.selected_user.unwrap_or_default().index;
+        let Some(package) = self
+            .phone_packages
+            .get(i_user)
+            .and_then(|packages| packages.get(self.current_package_index))
+        else {
+            return;
+        };
+        let device = self.device_lookup(i_user);
+        let describe = |names: Vec<&str>| {
+            names
+                .iter()
+                .map(|name| match device.get(name) {
+                    Some(p) => format!("{name} ({})", p.state),
+                    None => format!("{name} (not installed for this user)"),
+                })
+                .collect::<Vec<_>>()
+                .join(", ")
+        };
+
+        let mut details = vec![
+            package.removal.explanation().to_string(),
+            package.description.clone(),
+        ];
+        let needs = self.relations.requirements(&package.name);
+        if !needs.is_empty() {
+            details.push(format!("Needs: {}", describe(needs)));
+        }
+        let needed_by = self.relations.dependents(&package.name);
+        if !needed_by.is_empty() {
+            details.push(format!("Needed by: {}", describe(needed_by)));
+        }
+        self.description_content = text_editor::Content::with_text(&details.join("\n\n"));
+    }
+}
+
+/// Text colour for a removal rating: green for low risk, red for high risk.
+fn rating_style(removal: Removal) -> fn(&Theme) -> iced::widget::text::Style {
+    match removal {
+        Removal::Recommended => style::Text::Ok,
+        Removal::Expert | Removal::Unsafe => style::Text::Danger,
+        Removal::Advanced | Removal::Unlisted | Removal::All => style::Text::Default,
     }
 }
 fn error_view<'a>(
@@ -1594,4 +2004,111 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
     .height(45)
     .style(style::Container::Frame)
     .into()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn row(name: &str, removal: Removal, state: PackageState) -> PackageRow {
+        PackageRow::new(name, "", removal, state, UadList::Oem, false, false)
+    }
+
+    /// `pay` needs `framework`. `framework` is needed by nothing else.
+    fn list_with(rows: Vec<PackageRow>) -> List {
+        let lists: PackageHashMap = serde_json::from_str(
+            r#"{
+                "pay": {"list":"Oem","description":"","dependencies":["framework"],"neededBy":[],"labels":[],"removal":"Recommended"},
+                "framework": {"list":"Oem","description":"","dependencies":[],"neededBy":["pay"],"labels":[],"removal":"Recommended"}
+            }"#,
+        )
+        .expect("test list must parse");
+        List {
+            relations: Relations::new(&lists),
+            phone_packages: vec![rows],
+            selected_user: Some(User::default()),
+            selected_list: Some(UadList::All),
+            selected_package_state: Some(PackageState::All),
+            selected_removal: Some(Removal::All),
+            ..List::default()
+        }
+    }
+
+    #[test]
+    fn removing_a_primary_package_offers_its_requirement() {
+        let list = list_with(vec![
+            row("framework", Removal::Recommended, PackageState::Enabled),
+            row("pay", Removal::Recommended, PackageState::Enabled),
+            row("unrelated", Removal::Recommended, PackageState::Enabled),
+        ]);
+        assert_eq!(list.related_indices(0, &[1]), vec![0]);
+        assert_eq!(list.related_indices(0, &[2]), Vec::<usize>::new());
+    }
+
+    #[test]
+    fn only_risky_or_related_actions_need_confirmation() {
+        let list = list_with(vec![
+            row("framework", Removal::Recommended, PackageState::Enabled),
+            row("pay", Removal::Recommended, PackageState::Enabled),
+            row("plain", Removal::Recommended, PackageState::Enabled),
+            row("expert", Removal::Expert, PackageState::Enabled),
+            row("restorable", Removal::Expert, PackageState::Uninstalled),
+        ]);
+        assert!(list.needs_confirmation(0, 1), "has a related package");
+        assert!(list.needs_confirmation(0, 3), "Expert removal");
+        assert!(!list.needs_confirmation(0, 2), "plain Recommended removal");
+        assert!(!list.needs_confirmation(0, 4), "plain restore");
+    }
+
+    #[test]
+    fn restoring_warns_about_a_missing_requirement() {
+        let list = list_with(vec![
+            row("framework", Removal::Recommended, PackageState::Uninstalled),
+            row("pay", Removal::Recommended, PackageState::Uninstalled),
+        ]);
+        let (_, missing) = list.removal_plan(0, &[1]);
+        assert_eq!(missing, vec![("pay".to_string(), "framework".to_string())]);
+        assert!(list.needs_confirmation(0, 1));
+    }
+
+    #[test]
+    fn finishing_one_action_keeps_the_other_selections() {
+        let mut list = list_with(vec![
+            row("a", Removal::Recommended, PackageState::Enabled),
+            row("b", Removal::Recommended, PackageState::Enabled),
+        ]);
+        list.selected_packages = vec![(0, 0), (0, 1)];
+        let _ = list.on_verify_and_fallback_finished(VerifyAndFallbackResult {
+            i_user: 0,
+            index: 0,
+            new_state: PackageState::Uninstalled,
+            notification: None,
+            error_modal: None,
+        });
+        assert_eq!(list.selected_packages, vec![(0, 1)]);
+    }
+
+    #[test]
+    fn mirror_selection_uses_package_indexes() {
+        let rows = vec![
+            row("a", Removal::Recommended, PackageState::Enabled),
+            row("b", Removal::Recommended, PackageState::Enabled),
+        ];
+        let mut list = list_with(rows.clone());
+        list.phone_packages.push(rows);
+        list.phone_packages[0][1].selected = true;
+        list.selected_packages = vec![(0, 1)];
+        let users = [
+            User::default(),
+            User {
+                id: 10,
+                index: 1,
+                protected: false,
+            },
+        ];
+        list.mirror_selection(&users);
+        assert!(list.phone_packages[1][1].selected);
+        assert!(!list.phone_packages[1][0].selected);
+        assert!(list.selected_packages.contains(&(1, 1)));
+    }
 }

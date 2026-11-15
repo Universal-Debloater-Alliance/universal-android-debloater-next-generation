@@ -151,7 +151,9 @@ pub fn open_url(dir: PathBuf) {
     };
     match std::process::Command::new(OPENER).arg(dir).output() {
         Ok(o) => {
-            if !o.status.success() {
+            // `explorer.exe` exits with code 1 even when it opened the target,
+            // so its exit code says nothing about success.
+            if !o.status.success() && OPENER != "explorer" {
                 // Use lossy conversion for stderr - some systems (like Windows)
                 // may output non-UTF8 characters in error messages
                 let stderr = String::from_utf8_lossy(&o.stderr);
@@ -191,15 +193,14 @@ pub fn format_diff_time_from_now(date: DateTime<Utc>) -> String {
     }
 }
 
-/// Export selected package names.
-/// File will be saved in same directory where UAD-ng is located.
-pub fn export_selection(package_names: &[String]) -> Result<bool, String> {
-    let selected = package_names.join("\n");
-
-    match fs::write(EXPORT_FILE_NAME, selected) {
-        Ok(()) => Ok(true),
-        Err(err) => Err(err.to_string()),
-    }
+/// Export selected package names, one per line, into `dir`.
+/// Returns the full path of the written file.
+pub fn export_selection(dir: &Path, package_names: &[String]) -> Result<PathBuf, String> {
+    fs::create_dir_all(dir).map_err(|err| format!("{}: {err}", dir.display()))?;
+    let path = dir.join(EXPORT_FILE_NAME);
+    fs::write(&path, package_names.join("\n"))
+        .map_err(|err| format!("{}: {err}", path.display()))?;
+    Ok(path)
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -228,12 +229,19 @@ impl fmt::Display for DisplayablePath {
     }
 }
 
-/// Export uninstalled packages in a csv file.
+/// Export uninstalled packages in a csv file inside `dir`.
 /// Exported information will contain package name and description.
-pub fn export_packages(user: User, phone_packages: &[Vec<CorePackage>]) -> Result<bool, String> {
-    let backup_file = generate_backup_name(chrono::Local::now());
+/// Returns the full path of the written file.
+pub fn export_packages(
+    dir: &Path,
+    user: User,
+    phone_packages: &[Vec<CorePackage>],
+) -> Result<PathBuf, String> {
+    fs::create_dir_all(dir).map_err(|err| format!("{}: {err}", dir.display()))?;
+    let backup_file = dir.join(generate_backup_name(chrono::Local::now()));
 
-    let file = fs::File::create(backup_file).map_err(|err| err.to_string())?;
+    let file = fs::File::create(&backup_file)
+        .map_err(|err| format!("{}: {err}", backup_file.display()))?;
     let mut wtr = Writer::from_writer(file);
 
     wtr.write_record(["Package Name", "Description"])
@@ -251,18 +259,20 @@ pub fn export_packages(user: User, phone_packages: &[Vec<CorePackage>]) -> Resul
 
     wtr.flush().map_err(|err| err.to_string())?;
 
-    Ok(true)
+    Ok(backup_file)
 }
 
-/// Truncate description to fit within max length, taking only the first line
+/// Truncate description to at most `max_len` characters, taking only the first line
 #[must_use]
 pub fn truncate_description(desc: &str, max_len: usize) -> String {
     let first_line = desc.split('\n').next().unwrap_or("").trim_end();
 
-    if first_line.len() <= max_len {
+    if first_line.chars().count() <= max_len {
         first_line.to_string()
     } else {
-        format!("{}...", &first_line[..max_len.saturating_sub(3)])
+        // Count characters, not bytes, so multi-byte text is never cut mid-character.
+        let kept: String = first_line.chars().take(max_len.saturating_sub(3)).collect();
+        format!("{kept}...")
     }
 }
 
@@ -294,6 +304,18 @@ mod tests {
         assert_eq!(
             generate_backup_name(chrono::Utc.timestamp_millis_opt(0).unwrap()),
             "uninstalled_packages_19700101.csv".to_string()
+        );
+    }
+
+    #[test]
+    fn truncate_description_handles_multibyte_text() {
+        assert_eq!(truncate_description("short", 80), "short");
+        assert_eq!(truncate_description("first\nsecond", 80), "first");
+        // 'é' is 2 bytes. Byte slicing at 3 would panic mid-character.
+        assert_eq!(truncate_description("ééééé", 4), "é...");
+        assert_eq!(
+            truncate_description("Huawei\u{FFFD}s mobile services", 8),
+            "Huawe..."
         );
     }
 }

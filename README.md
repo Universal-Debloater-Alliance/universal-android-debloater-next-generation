@@ -22,6 +22,15 @@ Everything about UAD-ng (and related stuff) can be found on the Wiki, such as:
 - Weird things OEMs do
 - [Suggested apps for analyzing APKs](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute#useful-apps)
 
+## Removing related packages
+
+When you remove a package, UAD-ng lists the related packages from the debloat list: packages that need it (they would break anyway) and packages that only it needs. In the GUI, tick "Also remove N related packages" in the review or confirmation dialog. In the CLI, pass `--with-related` to `uninstall` or `disable`. Packages rated `Unsafe` are never added automatically, and the CLI skips removing them unless you pass `--force`.
+
+## Troubleshooting
+
+- **The GUI closes right after start, or shows no window**: on Windows, UAD-ng uses DirectX 12 by default, because some graphics drivers crash when Vulkan and OpenGL are loaded together. If it still fails, set the `WGPU_BACKEND` environment variable to `gl` or `vulkan`, or set `ICED_BACKEND=tiny-skia` for software rendering. A value you set always overrides the default. The chosen backend is written to the log file (`%LOCALAPPDATA%\uad\uadng.log` on Windows).
+- **Exports**: "Export current selection" and "Export uninstalled packages" save into the backup folder chosen in Settings. The dialog shows the full path and can open the folder.
+
 ## Privacy
 
 UAD-ng does not collect or transmit any user data. The only external connections are `GET` requests to GitHub for fetching the [package list](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/blob/main/resources/assets/uad_lists.json) ([crates/uad-core/src/uad_lists.rs](crates/uad-core/src/uad_lists.rs)) and checking for updates ([crates/uad-core/src/update.rs](crates/uad-core/src/update.rs)).

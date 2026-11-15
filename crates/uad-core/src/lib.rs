@@ -9,6 +9,7 @@
 
 pub mod adb;
 pub mod config;
+pub mod relations;
 pub mod save;
 pub mod sync;
 pub mod uad_lists;

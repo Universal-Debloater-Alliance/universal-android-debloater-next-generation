@@ -23,8 +23,10 @@ pub static DATA: &str = include_str!("../../../resources/assets/uad_lists.json")
 pub struct Package {
     pub list: UadList,
     pub description: String,
-    dependencies: Vec<String>,
-    needed_by: Vec<String>,
+    /// Packages this package needs in order to work.
+    pub dependencies: Vec<String>,
+    /// Packages that need this package in order to work.
+    pub needed_by: Vec<String>,
     labels: Vec<String>,
     pub removal: Removal,
 }
@@ -189,6 +191,33 @@ impl Removal {
             Self::Unlisted => "Unlisted",
         }
     }
+
+    /// What the rating means for someone deciding whether to remove a package.
+    /// Follows the "Removal definitions" on the project wiki (Debloat-Lists page).
+    #[must_use]
+    pub const fn explanation(self) -> &'static str {
+        match self {
+            Self::Recommended => {
+                "Safe to remove for most people. Still read the description: you may use this app."
+            }
+            Self::Advanced => {
+                "Breaks minor or obscure features, or removes a useful default app \
+                 (keyboard, gallery, launcher) that you should replace first."
+            }
+            Self::Expert => {
+                "Breaks widespread or important features. Should not cause a boot loop, \
+                 but this is not guaranteed. Prefer disabling over uninstalling."
+            }
+            Self::Unsafe => {
+                "Can break vital parts of the system and has a very high risk of a boot loop. \
+                 Do not remove unless you know exactly what you are doing."
+            }
+            Self::Unlisted => {
+                "Not reviewed by the UAD-ng community yet. Its effect on your device is unknown."
+            }
+            Self::All => "",
+        }
+    }
 }
 
 impl std::fmt::Display for Removal {
@@ -212,7 +241,7 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
             match ureq::get(format!(
                 "https://raw.githubusercontent.com\
                     /Universal-Debloater-Alliance\
-                    /universal-android-debloater\
+                    /universal-android-debloater-next-generation\
                     /main\
                     /resources\
                     /assets\
@@ -222,48 +251,145 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
             {
                 Ok(mut data) => {
                     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
-                    let text = data
+                    let text = match data
                         .body_mut()
                         .with_config()
                         .limit(1 << (3 + 10 + 10))
                         .read_to_string()
-                        .expect("remote list is bigger than 8MiB");
-                    fs::write(cached_uad_lists.clone(), &text).expect("Unable to write file");
-                    let list: PackageHashMap =
-                        serde_json::from_str(&text).expect("Unable to parse");
-                    OperationResult::Ok(list)
+                    {
+                        Ok(text) => text,
+                        Err(e) => {
+                            // Too big (over 8 MiB) or a broken transfer: retrying will not help.
+                            warn!("Could not read remote debloat list: {e}");
+                            error = true;
+                            return OperationResult::Err(());
+                        }
+                    };
+                    match serde_json::from_str::<PackageHashMap>(&text) {
+                        Ok(list) => {
+                            // Only cache a list that parses, so a bad download never
+                            // replaces a good cached copy.
+                            if let Err(e) = fs::write(&cached_uad_lists, &text) {
+                                warn!("Could not cache remote debloat list: {e}");
+                            }
+                            OperationResult::Ok(list)
+                        }
+                        Err(e) => {
+                            warn!("Remote debloat list is not valid: {e}");
+                            error = true;
+                            OperationResult::Err(())
+                        }
+                    }
                 }
                 Err(e) => {
                     warn!("Could not load remote debloat list: {e}");
                     error = true;
-                    OperationResult::Retry(PackageHashMap::new())
+                    OperationResult::Retry(())
                 }
             }
         })
         .unwrap_or_else(|_| get_local_lists())
     } else {
-        warn!("Could not load remote debloat list");
         get_local_lists()
     };
 
     (if error { Err } else { Ok })(list)
 }
 
+/// Loads the cached list, or the list embedded at build time
+/// when the cache is missing or cannot be parsed.
 fn get_local_lists() -> PackageHashMap {
     let cached_uad_lists = CACHE_DIR.join(LIST_FNAME);
-    serde_json::from_str(
-        fs::read_to_string(cached_uad_lists)
-            .as_deref()
-            .unwrap_or(DATA),
-    )
-    .expect("Unable to parse")
+    if let Ok(text) = fs::read_to_string(&cached_uad_lists) {
+        match serde_json::from_str(&text) {
+            Ok(list) => return list,
+            Err(e) => warn!(
+                "Cached debloat list {} is not valid ({e}), using the embedded list",
+                cached_uad_lists.display()
+            ),
+        }
+    }
+    serde_json::from_str(DATA).expect("the embedded list is checked by `test_parse_json`")
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde::de::{Deserializer, IgnoredAny, MapAccess, Visitor};
+
     #[test]
     fn test_parse_json() {
         let _: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
+    }
+
+    /// Top-level keys in file order, duplicates included.
+    /// (A `HashMap` silently keeps only the last of two duplicate keys.)
+    struct Keys(Vec<String>);
+
+    impl<'de> Deserialize<'de> for Keys {
+        fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+            struct KeysVisitor;
+            impl<'de> Visitor<'de> for KeysVisitor {
+                type Value = Keys;
+                fn expecting(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                    f.write_str("a JSON object")
+                }
+                fn visit_map<A: MapAccess<'de>>(self, mut map: A) -> Result<Keys, A::Error> {
+                    let mut keys = vec![];
+                    while let Some((key, IgnoredAny)) = map.next_entry::<String, IgnoredAny>()? {
+                        keys.push(key);
+                    }
+                    Ok(Keys(keys))
+                }
+            }
+            deserializer.deserialize_map(KeysVisitor)
+        }
+    }
+
+    #[test]
+    fn no_duplicate_package_names() {
+        let Keys(keys) = serde_json::from_str(DATA).expect("Unable to parse");
+        let mut seen = std::collections::HashSet::new();
+        let duplicates: Vec<&String> = keys.iter().filter(|k| !seen.insert(*k)).collect();
+        assert_eq!(duplicates, Vec::<&String>::new());
+    }
+
+    #[test]
+    fn every_package_has_a_description() {
+        let lists: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
+        let mut empty: Vec<&String> = lists
+            .iter()
+            .filter(|(_, p)| p.description.trim().is_empty())
+            .map(|(name, _)| name)
+            .collect();
+        empty.sort();
+        assert_eq!(empty, Vec::<&String>::new());
+    }
+
+    /// `A.dependencies` lists `B` exactly when `B.neededBy` lists `A`.
+    #[test]
+    fn relation_links_are_recorded_on_both_packages() {
+        let lists: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
+        let mut one_sided = vec![];
+        for (name, package) in &lists {
+            for requirement in &package.dependencies {
+                if lists
+                    .get(requirement)
+                    .is_some_and(|r| !r.needed_by.contains(name))
+                {
+                    one_sided.push(format!("{name} -> {requirement}"));
+                }
+            }
+            for dependent in &package.needed_by {
+                if lists
+                    .get(dependent)
+                    .is_some_and(|d| !d.dependencies.contains(name))
+                {
+                    one_sided.push(format!("{dependent} -> {name}"));
+                }
+            }
+        }
+        one_sided.sort();
+        assert_eq!(one_sided, Vec::<String>::new());
     }
 }

@@ -248,19 +248,8 @@ impl UadGui {
                         }
                     }
                     SettingsMessage::MultiUserMode(toggled) if toggled => {
-                        for user in self.apps_view.phone_packages.clone() {
-                            for (i, _) in user.iter().filter(|&pkg| pkg.selected).enumerate() {
-                                for u in self
-                                    .selected_device
-                                    .as_ref()
-                                    .expect("Device should be selected")
-                                    .user_list
-                                    .iter()
-                                    .filter(|&u| !u.protected)
-                                {
-                                    self.apps_view.phone_packages[u.index][i].selected = true;
-                                }
-                            }
+                        if let Some(device) = &self.selected_device {
+                            self.apps_view.mirror_selection(&device.user_list);
                         }
                     }
                     _ => (),

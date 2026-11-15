@@ -4630,6 +4630,7 @@ dependencies = [
  "image",
  "log",
  "rfd",
+ "serde_json",
  "tar",
  "uad-core",
  "win32console",
