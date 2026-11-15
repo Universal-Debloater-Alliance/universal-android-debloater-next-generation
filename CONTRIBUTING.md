@@ -38,6 +38,19 @@ You should be careful with mass-editing anyways. Even if the verification is suc
 
 Since AI is non-deterministic, the version number is optional, but it's helpful to know how "intelligent" it is. AI edits are non-reproducible, so "verification scripts" are useless.
 
+### Package list entries
+
+Rules for `resources/assets/uad_lists.json`, checked by the tests in `crates/uad-core/src/uad_lists.rs` (`cargo test -p uad-core`):
+
+- Each package name appears once. A duplicate key is silently dropped by JSON parsers, so its text is lost.
+- Each package has a non-empty `description`.
+- `dependencies` lists the packages this package needs. `neededBy` lists the packages that need it. Record every link on both packages: if `A.dependencies` has `B`, then `B.neededBy` has `A`.
+- An overlay needs the package it overlays, so the overlay lists its target in `dependencies`. Add the reverse link only when the target really needs the overlay.
+- The app uses these links to offer removing related packages together (GUI checkbox, CLI `--with-related`) and to warn about packages that may break. A wrong link causes a wrong suggestion, so add only links you have verified.
+- A good description says what the package is, what breaks without it, what you gain by removing it, and which packages depend on it. Do not repeat the removal rating, the app explains it next to the description.
+- If something cannot be verified, say so. Text inferred only from the package name ends with `Unverified: inferred from the package name.`, so reviewers can find and improve it.
+- Format the file with Prettier using the repository's `.prettierrc.json` (tabs, short arrays on one line).
+
 ### Branching strategy
 
 As for our branching strategy, we're using [Trunk-Based Development](https://trunkbaseddevelopment.com/#one-line-summary).
