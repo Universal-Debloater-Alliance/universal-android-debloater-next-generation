@@ -130,7 +130,7 @@
 	"com.google.android.wifi.resources.overlay": {
 		"list": "Aosp",
 		"description": "A google mainline module overlay for com.android.wifi.resources, which might be useless if gms is removed, as it only provides gms customizations for Wi-Fi, not android system customizations.\n Only safe to remove if you have removed gms.\n There's no such package as com.google.android.wifi.resources, but only com.android.wifi.resources. And there are multiple packages with such names, that cause no damage when removed.",
-		"dependencies": [],
+		"dependencies": ["com.google.android.wifi.resources"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -386,16 +386,16 @@
 	"com.xiaomi.phone.overlay": {
 		"list": "Oem",
 		"description": "An overlay needed for com.xiaomi.phone. Safe to remove if com.xiaomi.phone has been removed.",
-		"dependencies": [],
-		"neededBy": [],
+		"dependencies": ["com.xiaomi.phone"],
+		"neededBy": ["com.xiaomi.phone"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.xiaomi.phone": {
 		"list": "Oem",
 		"description": "A MIUI/HyperOS extension for telephony services. Called HyperPhone (at least on HyperOS), I don't know how is it named in MIUI, if you know, please edit this package and add it's MIUI name here. (in GitHub)\nIt's similar to com.xiaomi.bluetooth by it's purpose, but here it's a Xiaomi extension for telephony services. Deleting it caused no data loss or issues with telephony, calls, mobile data, and other on HyperOS 2.0.",
-		"dependencies": [],
-		"neededBy": [],
+		"dependencies": ["com.xiaomi.phone.overlay"],
+		"neededBy": ["com.xiaomi.phone.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -482,8 +482,8 @@
 	"com.android.providers.settings.overlay": {
 		"list": "Aosp",
 		"description": "Required for com.android.providers.settings. Not safe to delete.",
-		"dependencies": [],
-		"neededBy": [],
+		"dependencies": ["com.android.providers.settings"],
+		"neededBy": ["com.android.providers.settings"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -610,7 +610,7 @@
 	"com.android.phone.product.res.overlay": {
 		"list": "Oem",
 		"description": "Overlays the phone app, needed if you use the device for calls/SMS/contact management. Find out more by running: adb shell cmd overlay list, to see other packages",
-		"dependencies": [],
+		"dependencies": ["com.android.phone"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -827,14 +827,14 @@
 		"list": "Oem",
 		"description": "Sony's default launcher, do not remove unless you have another launcher or you will brick your device",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.sonyericsson.home.product.res.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.sonyericsson.home.product.res.overlay": {
 		"list": "Oem",
 		"description": "Launcher overlay, best left enabled. Find out more by running: adb shell cmd overlay list, to see other packages",
-		"dependencies": [],
+		"dependencies": ["com.sonyericsson.home"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -1586,7 +1586,7 @@
 	"com.sonymobile.xperiaxlivewallpaper.product.res.overlay": {
 		"list": "Oem",
 		"description": "Some overlay for a live wallpaper from Sony? Overlays are usually themes, but not sure about this one as theming seems weird for live wallpapers. Could be that Sony automatically generates theme packages for all or most system apps, which might generate some unnecessary packages.",
-		"dependencies": [],
+		"dependencies": ["com.sonymobile.xperiaxlivewallpaper"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -1691,15 +1691,15 @@
 		"list": "Oem",
 		"description": "Provides junk cleaner feature for Wiko mobile",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.ape.cleanassistoverlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.ape.cleanassistoverlay": {
 		"list": "Oem",
 		"description": "Overlay app for com.ape.cleanassist.\n If we uninstall com.ape.cleanassist this package should be removed also.",
-		"dependencies": [],
-		"neededBy": ["com.ape.cleanassist"],
+		"dependencies": ["com.ape.cleanassist"],
+		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -1707,15 +1707,15 @@
 		"list": "Oem",
 		"description": "FM Radio app for Wiko mobile",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.ape.fmradiooverlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.ape.fmradiooverlay": {
 		"list": "Oem",
 		"description": "Overlay app for com.ape.fmradio.\n If we uninstall com.ape.fmradio this package should be removed also.",
-		"dependencies": [],
-		"neededBy": ["com.ape.fmradio"],
+		"dependencies": ["com.ape.fmradio"],
+		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -1739,15 +1739,15 @@
 		"list": "Oem",
 		"description": "Weather app for Wiko mobile",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.ape.weatherliveoverlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.ape.weatherliveoverlay": {
 		"list": "Oem",
 		"description": "Overlay app for com.ape.weatherlive.\n If we uninstall com.ape.weatherlive this package should be removed also.",
-		"dependencies": [],
-		"neededBy": ["com.ape.weatherlive"],
+		"dependencies": ["com.ape.weatherlive"],
+		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -1771,15 +1771,15 @@
 		"list": "Oem",
 		"description": "Sound recorder app for Wiko mobile",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.ape.soundrecorderoverlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.ape.soundrecorderoverlay": {
 		"list": "Oem",
 		"description": "Overlay app for com.ape.soundrecorder.\n If we uninstall com.ape.soundrecorder this package should be removed also.",
-		"dependencies": [],
-		"neededBy": ["com.ape.soundrecorder"],
+		"dependencies": ["com.ape.soundrecorder"],
+		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -1947,7 +1947,7 @@
 		"list": "Oem",
 		"description": "Mi AI\nChinese voice assist.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.miui.voiceassistoverlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -2163,7 +2163,7 @@
 		"list": "Aosp",
 		"description": "Network connectivity resources.\nCause BOOTLOOP.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.connectivity.resources.overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -3259,7 +3259,7 @@
 		"list": "Oem",
 		"description": "Huawei Share features.\nFile transfer tool between Huawei mobiles, using Bluetooth connection and WiFi Direct technology.\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.huawei.nearby"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -3491,7 +3491,19 @@
 		"list": "Oem",
 		"description": "Huawei Mobile Services\nHuawei’s alternative to Google Play Services. Needed to access advanced Huawei features.\nA Huawei ID is required to access services, like Themes, Mobile Cloud, HiCare, Huawei Wear, Huawei Health. This may break an app like InPost Mobile, see:\nhttps://github.com/0x192/universal-android-debloater/issues/477\nSee more about Huawei Mobile Services: https://www.xda-developers.com/huawei-hms-core-android-alternative-google-play-services-gms/",
 		"dependencies": [],
-		"neededBy": ["com.huawei.fastapp"],
+		"neededBy": [
+			"com.huawei.fastapp",
+			"com.huawei.health",
+			"com.huawei.cloud",
+			"com.huawei.android.findmyphone",
+			"com.huawei.gamebox",
+			"com.huawei.hicar",
+			"com.huawei.smarthome",
+			"com.huawei.hiskytone",
+			"com.huawei.fans",
+			"com.huawei.lives",
+			"com.huawei.hwvplayer.youku"
+		],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -3803,7 +3815,7 @@
 		"list": "Oem",
 		"description": "Can be disabled via Settings as well",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.huawei.permissioncontroller.overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -4403,7 +4415,7 @@
 		"list": "Oem",
 		"description": "Moto Actions (https://play.google.com/store/apps/details?id=com.motorola.actions)\nAllows you to perform specific gestures to perform certain tasks. Frontend to change settings provided by \"com.motorola.moto\".\n\nRemoving this breaks gesture controls, such as the shake/chop-chop gesture to turn the flashlight on/off.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.motorola.actions.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -5603,7 +5615,7 @@
 		"list": "Oem",
 		"description": "SmartFaceService\nUsed to automatically detects faces when using the Samsung camera\nIt might be related to \"Keep screen on while viewing\" under Motions and gestures in Settings.\nNOTE: This package has nothing to do with face unlock (com.samsung.android.bio.face.service)\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.samsung.android.smartface.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -5722,7 +5734,7 @@
 	"com.samsung.android.smartcallprovider": {
 		"list": "Oem",
 		"description": "Samsung Smart Call\nProvides caller profile information to help consumers identify incoming calls and block unwanted ones.\nAlso related to the 'local places' feature in Samsung dialer.\nRelies on Hiya (see com.hiya.star)\nTL;DR : really bad for your privacy.",
-		"dependencies": [],
+		"dependencies": ["com.hiya.star"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Recommended"
@@ -7902,14 +7914,14 @@
 		"list": "Aosp",
 		"description": "Photographic screensavers\nDaydream stuff, see com.android.dreams.basic",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.dreams.phototable.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.android.dreams.phototable.overlay": {
 		"list": "Aosp",
 		"description": "Overlay for the phototable daydream? Overlays are usually themes, but not sure about this one.",
-		"dependencies": [],
+		"dependencies": ["com.android.dreams.phototable"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -8085,7 +8097,7 @@
 	"com.android.email.partnerprovider.overlay": {
 		"list": "Oem",
 		"description": "Theme overlay for partnerprovider?",
-		"dependencies": [],
+		"dependencies": ["com.android.email.partnerprovider"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -8110,7 +8122,7 @@
 		"list": "Aosp",
 		"description": "Google/AOSP Safety Center resources.\n. Uninstalling this will change the configuration to revert back the \"Security & privacy\" look to the old style.\nDoes not contain code, just the configuration for code that lives in another package.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.safetycenter.resources.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -8173,7 +8185,7 @@
 	"com.android.wallpaper.livepicker.overlay": {
 		"list": "Aosp",
 		"description": "Overlay for live wallpaper picker? Overlays are usually themes, but not sure about this one.",
-		"dependencies": [],
+		"dependencies": ["com.android.wallpaper.livepicker"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -8238,7 +8250,7 @@
 		"list": "Aosp",
 		"description": "Bluetooth service\nHandles all Bluetooth functionality including device discovery, pairing, and data transfer.\nRemoving this will completely break Bluetooth functionality on the device.\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.bluetooth.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -8286,7 +8298,7 @@
 		"list": "Aosp",
 		"description": "Support for captive portal: https://en.wikipedia.org/wiki/Captive_portal\nA captive portal login is a web page where users have to log in or accept terms of use. Common for public wifi networks.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.captiveportallogin.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -8310,7 +8322,12 @@
 		"list": "Aosp",
 		"description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.androidcentral.com/amber-alerts-and-android-what-you-need-know\nhttps://android.googlesource.com/platform/packages/apps/CellBroadcastReceiver/+/refs/heads/master/src/com/android/cellbroadcastreceiver",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": [
+			"com.android.cellbroadcastreceiver.module",
+			"com.android.cellbroadcastreceiver.basiccolorblack.overlay",
+			"com.android.cellbroadcastreceiver.basiccolorwhite.overlay",
+			"com.android.cellbroadcastreceiver.overlay.base.s600ww"
+		],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -8574,7 +8591,7 @@
 		"list": "Aosp",
 		"description": "NFC Service\nRuns in the background as part of the System.\nI assume NFC breaks when disabled.\nWill probably run even if disabled, like most system packages. So disabling/uninstalling is probably pointless.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.nfc.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -8590,7 +8607,7 @@
 		"list": "Aosp",
 		"description": "Work Setup/Work profile setup\nManages Android user account profiles.\nThe typical use-case is setting up a corporate profile that is controlled by the employer on an employee's personal device, to keep personal and work data separate.\nhttps://support.google.com/work/android/answer/6191949?\nhttps://developers.google.com/android/work/requirements/work-profile\nNeeded for sandbox's apps like Shelter/Island.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.managedprovisioning.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -8838,14 +8855,14 @@
 		"list": "Aosp",
 		"description": "Occasionally runs in the background.\nFile selector for other apps.\nStorage Access Framework (SAF) will break if this is disabled.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.documentsui.a_overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
 	"com.android.documentsui.a_overlay": {
 		"list": "Aosp",
 		"description": "Some overlay for for \"Files\"?",
-		"dependencies": [],
+		"dependencies": ["com.android.documentsui"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -8973,8 +8990,8 @@
 	"com.android.providers.settings": {
 		"list": "Aosp",
 		"description": "Provider for settings app data.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
-		"dependencies": [],
-		"neededBy": [],
+		"dependencies": ["com.android.providers.settings.overlay"],
+		"neededBy": ["com.android.providers.settings.overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -8990,14 +9007,14 @@
 		"list": "Aosp",
 		"description": "Manages calls via your network provider or SIM and controls the phone modem?",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.server.telecom.a_overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
 	"com.android.server.telecom.a_overlay": {
 		"list": "Aosp",
 		"description": "Overlay for com.android.server.telecom?",
-		"dependencies": [],
+		"dependencies": ["com.android.server.telecom"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Unsafe"
@@ -9046,7 +9063,7 @@
 		"list": "Aosp",
 		"description": "Everything you see in Android that's not an app. User interface of Android\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.systemui.overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -9213,7 +9230,11 @@
 	"com.oneplus.gamespace": {
 		"list": "Oem",
 		"description": "OnePlus Game Space\nOccasionally runs in the background as part of the system.\nAllows you to launch your game library, check game stats(such as playtime), activate game overlay features, change performance settings to tweak game/battery performance during gaming.\nThis is the only way to access the recording buffer functionality (records the last X seconds into RAM and saves them when you tap save), so keep enabled if you need that or any of the other features.",
-		"dependencies": ["com.oplus.cosa"],
+		"dependencies": [
+			"com.oplus.cosa",
+			"com.oplus.batterywarning",
+			"com.oplus.stdid"
+		],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Recommended"
@@ -9814,7 +9835,7 @@
 		"list": "Aosp",
 		"description": "is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns in the background.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.androidcentral.com/amber-alerts-and-android-what-you-need-know",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.cellbroadcastservice.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -10030,7 +10051,7 @@
 		"list": "Oem",
 		"description": "OnePlus Account\nEnables Oneplus account login on device.\nProbably handles authentication for Oneplus apps. Safe to remove if you don't use them.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -10484,7 +10505,7 @@
 	},
 	"com.oneplus.overlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "OnePlus resource overlay. A resource overlay replaces resources (default settings, colours, text) of another system package without changing its code. Which package this one overlays is not known. Removing it can undo OnePlus customisations of that package. Keep it unless you have tested removing it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11022,7 +11043,10 @@
 		"list": "Aosp",
 		"description": "Wireless emergency alerts\nCell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISP to send Emergency/Government alerts.\nRuns at boot and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.androidcentral.com/amber-alerts-and-android-what-you-need-know\nhttps://android.googlesource.com/platform/packages/apps/CellBroadcastReceiver/+/refs/heads/master/src/com/android/cellbroadcastreceiver",
 		"dependencies": ["com.google.android.cellbroadcastservice"],
-		"neededBy": [],
+		"neededBy": [
+			"com.google.android.overlay.modules.cellbroadcastreceiver",
+			"com.google.android.cellbroadcastreceiver.overlay"
+		],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -11046,7 +11070,10 @@
 		"list": "Aosp",
 		"description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISP to send Emergency/Government alerts.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.androidcentral.com/amber-alerts-and-android-what-you-need-know",
 		"dependencies": [],
-		"neededBy": ["com.google.android.cellbroadcastreceiver"],
+		"neededBy": [
+			"com.google.android.cellbroadcastreceiver",
+			"com.google.android.cellbroadcastservice.overlay"
+		],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -11188,7 +11215,7 @@
 	},
 	"com.google.android.overlay.modules.cellbroadcastservice": {
 		"list": "Aosp",
-		"description": "",
+		"description": "Google configuration overlay for the Cell Broadcast Service module (com.google.android.cellbroadcastservice). Cell broadcast delivers emergency alerts (earthquake, tsunami, AMBER alerts) from mobile networks. Removing it can change or break emergency alerts. Keep it.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11484,7 +11511,7 @@
 	},
 	"com.verizon.cloudsetupwizard": {
 		"list": "Carrier",
-		"description": "",
+		"description": "Verizon Cloud setup wizard. Asks you to set up Verizon Cloud backup during or after device setup. Safe to remove if you do not use Verizon Cloud. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11492,7 +11519,7 @@
 	},
 	"com.jrd.verizonuriintentservice": {
 		"list": "Carrier",
-		"description": "",
+		"description": "Verizon link (URI) handling service on TCL/Alcatel devices sold by Verizon. Its exact function is not known. Carrier services can affect activation, calling or messaging on the carrier they were made for, so keep it if you use Verizon. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11500,7 +11527,7 @@
 	},
 	"com.tcl.vzwintents": {
 		"list": "Carrier",
-		"description": "",
+		"description": "TCL helper for Verizon (VZW) features. Its exact function is not known. Keep it if you use Verizon, it may support carrier features. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11508,7 +11535,7 @@
 	},
 	"com.tct.vzwwifioffload": {
 		"list": "Carrier",
-		"description": "",
+		"description": "Verizon Wi-Fi offload on TCL devices. Wi-Fi offload moves mobile data traffic to carrier approved Wi-Fi networks. Removing it may stop automatic carrier Wi-Fi connections on Verizon. It has no use on other carriers. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11516,7 +11543,7 @@
 	},
 	"com.vzw.easvalidation": {
 		"list": "Carrier",
-		"description": "",
+		"description": "Verizon EAS validation. EAS most likely means Exchange ActiveSync (work email, calendar and contacts). Removing it may affect work email accounts on Verizon devices. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11524,7 +11551,7 @@
 	},
 	"com.ts.setupwizard.overlay.overlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "Resource overlay for a setup wizard (the screens shown on first start and after a factory reset). Which wizard it overlays is not known. Removing it can change or break the setup screens after a factory reset. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11532,8 +11559,8 @@
 	},
 	"com.jrdcom.Elabel.overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for com.jrdcom.Elabel, the TCL/Alcatel electronic label (the regulatory certification screen in Settings). Removing it may change or break that screen. Unverified: inferred from the package name.",
+		"dependencies": ["com.jrdcom.Elabel"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -11548,7 +11575,7 @@
 	},
 	"com.hiya.axolotl.tcl": {
 		"list": "Oem",
-		"description": "",
+		"description": "Hiya caller ID and spam protection, customised for TCL. Hiya is a third-party service that looks up unknown numbers online, so it shares the numbers of your calls with Hiya. Removing it stops caller ID and spam labels in the dialer, if your dialer uses it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11556,23 +11583,23 @@
 	},
 	"com.jrdcom.filemanager": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL/Alcatel File Manager app. Not needed if you use another file manager. Apps can still open and save files through the system file picker (com.android.documentsui).",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.jrdcom.filemanager.a_overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.jrdcom.filemanager.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL/Alcatel File Manager (com.jrdcom.filemanager). Useless once the File Manager is removed.",
+		"dependencies": ["com.jrdcom.filemanager"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.vendor.frameworkresoverlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "Device maker's overlay for framework-res, the core Android resources (default settings, text, layouts used by the whole system). Removing it can change system defaults, break features configured through it, and on some devices cause boot problems. Keep it.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11644,7 +11671,7 @@
 	},
 	"com.samsung.gamedriver.sm8250": {
 		"list": "Oem",
-		"description": "",
+		"description": "Samsung updatable GPU driver (Game Driver) for the Snapdragon 865 (SM8250). Apps can use it instead of the built-in GPU driver, usually for better game performance. If removed, apps fall back to the built-in driver, and some games may run worse.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11652,7 +11679,7 @@
 	},
 	"com.samsung.huxplatform": {
 		"list": "Oem",
-		"description": "",
+		"description": "Samsung HUX platform. Its function is not known. Keep it until its role is documented. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11669,7 +11696,7 @@
 	"com.samsung.android.app.telephonyui": {
 		"list": "Oem",
 		"description": "Samsung Dialer UI.\nDisabling breaks Phone app settings and SIM Manager.",
-		"dependencies": [],
+		"dependencies": ["com.samsung.oda.service"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -11820,7 +11847,7 @@
 	},
 	"com.samsung.android.wifi.softapwpathree.resources": {
 		"list": "Oem",
-		"description": "",
+		"description": "Resources that enable WPA3 security for the Wi-Fi hotspot (soft AP) on Samsung devices. Removing it may remove WPA3 from the hotspot security options. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11836,7 +11863,7 @@
 	},
 	"com.samsung.gamedriver.ex2100": {
 		"list": "Oem",
-		"description": "",
+		"description": "Samsung updatable GPU driver (Game Driver) for the Exynos 2100. Apps can use it instead of the built-in GPU driver, usually for better game performance. If removed, apps fall back to the built-in driver, and some games may run worse.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11844,7 +11871,7 @@
 	},
 	"com.samsung.internal.systemui.navbar.gestural_no_hint_extra_wide_back": {
 		"list": "Oem",
-		"description": "",
+		"description": "Navigation overlay for gesture navigation without the gesture hint bar, with the widest back-gesture area. Android applies it when you pick that navigation style and back sensitivity in Settings. If removed while in use, gesture navigation may break.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11852,7 +11879,7 @@
 	},
 	"com.samsung.internal.systemui.navbar.gestural_no_hint_narrow_back": {
 		"list": "Oem",
-		"description": "",
+		"description": "Navigation overlay for gesture navigation without the gesture hint bar, with a narrow back-gesture area. Android applies it when you pick that navigation style and back sensitivity in Settings. If removed while in use, gesture navigation may break.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11860,7 +11887,7 @@
 	},
 	"com.samsung.internal.systemui.navbar.gestural_no_hint_wide_back": {
 		"list": "Oem",
-		"description": "",
+		"description": "Navigation overlay for gesture navigation without the gesture hint bar, with a wide back-gesture area. Android applies it when you pick that navigation style and back sensitivity in Settings. If removed while in use, gesture navigation may break.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11868,7 +11895,7 @@
 	},
 	"com.samsung.pregpudriver.ex2100": {
 		"list": "Oem",
-		"description": "",
+		"description": "Samsung prerelease GPU driver for the Exynos 2100. Used only by apps you switch to the prerelease driver in Developer options (Graphics driver preferences). Not needed if you never use that option. Apps then use the built-in driver.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11932,7 +11959,7 @@
 	},
 	"com.sonymobile.home.product.res.overlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "Product resource overlay for Sony's Xperia Home launcher (com.sonymobile.home). It sets the launcher's default configuration. Removing it may reset the launcher's defaults. Useless if Xperia Home is removed.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11940,7 +11967,7 @@
 	},
 	"com.sonymobile.swiqisystemservice": {
 		"list": "Oem",
-		"description": "",
+		"description": "Sony Swiqi system service on Xperia devices. Its exact function is not known. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11948,16 +11975,16 @@
 	},
 	"com.evenwell.whitebalance": {
 		"list": "Oem",
-		"description": "",
+		"description": "Display white balance (colour temperature) setting on Nokia devices (Evenwell is the software arm of FIH, which builds Nokia phones for HMD). Removing it may remove the white balance option or change screen colours. Unverified: inferred from the package name.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.whitebalance.overlay.base"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.evenwell.whitebalance.overlay.base": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the Nokia white balance setting (com.evenwell.whitebalance). Useless once that package is removed.",
+		"dependencies": ["com.evenwell.whitebalance"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -11972,7 +11999,7 @@
 	},
 	"com.android.gallery3d.refocus": {
 		"list": "Oem",
-		"description": "",
+		"description": "Refocus add-on for the Gallery app (com.android.gallery3d), found on Qualcomm-based ROMs. It changes the focus point of photos taken with a multi-focus camera mode. Not needed if your camera does not take such photos. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11988,7 +12015,7 @@
 	},
 	"com.android.providers.tctdatahubprovider": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL data hub content provider. A content provider stores data for other apps to read. Which TCL apps use it is not known, and they may break without it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -11996,15 +12023,15 @@
 	},
 	"com.tcl.android.launchertheme.res.overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL launcher themes (com.tcl.android.launchertheme.res). Removing it may reset the launcher theme.",
+		"dependencies": ["com.tcl.android.launchertheme.res"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.android.wallpaper.livepicker": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL live wallpaper picker. Needed to choose a live (animated) wallpaper. Only needed if you use live wallpapers. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12012,7 +12039,7 @@
 	},
 	"com.tcl.aota.a_overlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "Resource overlay for com.tcl.aota, TCL's over-the-air app update service. Useless once that service is removed. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12020,39 +12047,39 @@
 	},
 	"com.tcl.camera": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Camera, the stock camera app. Install another camera app before removing it. Otherwise the phone has no camera app, and apps that ask for a photo (for example to scan a document) will fail.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.camera.a_overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.camera.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL Camera (com.tcl.camera). Useless once TCL Camera is removed.",
+		"dependencies": ["com.tcl.camera"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.compass": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Compass app. Only needed if you need a compass.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.compass.a_overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.compass.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL Compass (com.tcl.compass). Useless once TCL Compass is removed.",
+		"dependencies": ["com.tcl.compass"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.demopage": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL retail demo page, shown on phones displayed in shops. It has no use on a personal phone. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12060,7 +12087,7 @@
 	},
 	"com.tcl.entitlement": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL entitlement service. On Android, an entitlement check asks the carrier whether your plan allows a feature, such as the Wi-Fi hotspot or Wi-Fi calling. Removing it may block those features with some carriers. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12092,15 +12119,15 @@
 	},
 	"com.tcl.fota.system.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL system updates (com.tcl.fota.system, firmware over the air). Removing it may change or break the system update screen.",
+		"dependencies": ["com.tcl.fota.system"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.healthy": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL health app. Its features are not known. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12108,23 +12135,23 @@
 	},
 	"com.tcl.mibc.tclplus": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Plus. Its function is not known. Unverified: inferred from the package name.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.mibc.tclplus.a_overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.mibc.tclplus.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL Plus (com.tcl.mibc.tclplus). Useless once TCL Plus is removed.",
+		"dependencies": ["com.tcl.mibc.tclplus"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.nfc.gsma.usermenu": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL NFC settings menu defined by the GSMA standard, used to choose where contactless payments are handled (SIM card or phone). Removing it may hide those settings and break SIM-based contactless payments. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12132,23 +12159,23 @@
 	},
 	"com.tcl.screenrecorder": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Screen Recorder. Only needed if you record your screen.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.screenrecorder.a_overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.screenrecorder.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for TCL Screen Recorder (com.tcl.screenrecorder). Useless once the Screen Recorder is removed.",
+		"dependencies": ["com.tcl.screenrecorder"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tcl.screenshotex": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL extended screenshots (long or scrolling screenshots). Removing it may remove those options. Normal screenshots are taken by the system and keep working. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12156,7 +12183,7 @@
 	},
 	"com.tcl.sos": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL emergency SOS. Sends your location to emergency contacts when triggered, for example by pressing the power key several times. Keep it if you rely on emergency SOS. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12164,7 +12191,7 @@
 	},
 	"com.tcl.tclswitch.a_overlay": {
 		"list": "Oem",
-		"description": "",
+		"description": "Resource overlay for TCL Switch, the app that transfers data from an old phone. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12174,21 +12201,21 @@
 		"list": "Oem",
 		"description": "Support Centre, alcatel support. Safe to remove",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.usercare.a_overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.tclhz.gallery.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL Gallery (com.tclhz.gallery). Useless once the Gallery is removed.",
+		"dependencies": ["com.tclhz.gallery"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tct": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL system package named com.tct. Its function is not known. Keep it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12196,15 +12223,15 @@
 	},
 	"com.tct.calculator.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL Calculator (com.tct.calculator). Useless once the Calculator is removed.",
+		"dependencies": ["com.tct.calculator"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tct.cellular.arda": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL cellular component. Its function is not known. As a mobile network component, removing it may affect calls or mobile data. Keep it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12212,7 +12239,7 @@
 	},
 	"com.tct.diagprotector": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL diagnostic protector. Its function is not known. The name suggests it guards the modem diagnostic interface. Keep it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12220,8 +12247,8 @@
 	},
 	"com.tct.dialer.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL Phone app (com.tct.dialer). Removing it may change or break parts of the dialer.",
+		"dependencies": ["com.tct.dialer"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -12252,7 +12279,7 @@
 	},
 	"com.tct.privacymode": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Privacy Mode. Its features are not known. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12260,23 +12287,23 @@
 	},
 	"com.tct.retaildemo.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL retail demo (com.tct.retaildemo), used on phones displayed in shops. Not needed on a personal phone.",
+		"dependencies": ["com.tct.retaildemo"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tct.simplelauncher.a_overlay": {
 		"list": "Oem",
-		"description": "",
-		"dependencies": [],
+		"description": "Resource overlay for the TCL Simple launcher (com.tct.simplelauncher), a simplified home screen. Useless once that launcher is removed.",
+		"dependencies": ["com.tct.simplelauncher"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.tct.simsettings": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL SIM settings: names and defaults for each SIM card (which SIM to use for calls, SMS and data). Removing it may hide these settings. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12284,7 +12311,7 @@
 	},
 	"com.tct.smart.account": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL account service, used by TCL cloud features. Only needed if you use a TCL account. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12292,7 +12319,7 @@
 	},
 	"com.tct.smart.aikey": {
 		"list": "Oem",
-		"description": "",
+		"description": "Handler for the TCL Smart Key, a programmable button on some TCL phones. Removing it disables the custom actions of that key. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12300,7 +12327,7 @@
 	},
 	"com.tct.smart.cloud": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Cloud backup and sync. Only needed if you use TCL Cloud. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12308,7 +12335,7 @@
 	},
 	"com.tct.smart.drivemode": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Driving Mode, which limits distractions while driving. Only needed if you use it. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12316,7 +12343,7 @@
 	},
 	"com.tct.smart.switchphone.service": {
 		"list": "Oem",
-		"description": "",
+		"description": "Background service of TCL's data transfer (phone switch) app. Not needed once you have moved your data to the phone. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12332,7 +12359,7 @@
 	},
 	"com.tct.video": {
 		"list": "Oem",
-		"description": "",
+		"description": "TCL Video player. Not needed if you use another video player.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -12350,14 +12377,14 @@
 		"list": "Oem",
 		"description": "Weather forecasting app.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.weather.a_overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.tct.weather.a_overlay": {
 		"list": "Oem",
 		"description": "Overlay for com.tct.weather. Usage is not known.",
-		"dependencies": [],
+		"dependencies": ["com.tct.weather"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -13525,7 +13552,7 @@
 	"com.coloros.gamespace": {
 		"list": "Oem",
 		"description": "Game Space\nHub for your Games + some performance optimizations\nhttps://community.coloros.com/thread-9962-1-1.html\n",
-		"dependencies": [],
+		"dependencies": ["com.oplus.stdid"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Recommended"
@@ -13540,7 +13567,7 @@
 	},
 	"com.coloros.mcs": {
 		"list": "Oem",
-		"description": "",
+		"description": "OPPO/ColorOS push message service, the older name of com.heytap.mcs. OPPO and Realme apps use it to receive notifications from OPPO servers. Safe to remove if you do not rely on OPPO apps' notifications. Unverified: inferred from the package name.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -13550,7 +13577,7 @@
 		"list": "Oem",
 		"description": "ColorOS Optical character recognition scanner\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.coloros.colordirectservice"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -13644,7 +13671,7 @@
 	},
 	"com.oppo.logkit": {
 		"list": "Oem",
-		"description": "",
+		"description": "OPPO LogKit. Records system logs so they can be sent to OPPO for bug reports. Safe to remove. You will not be able to send diagnostic logs to OPPO.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -15526,14 +15553,14 @@
 		"list": "Misc",
 		"description": "Swiftkey Keyboard (https://play.google.com/store/apps/details?id=com.touchtype.swiftkey)\nKeyboard app by TouchType, a Microsoft subsidiary (https://en.wikipedia.org/wiki/SwiftKey)\n4 Trackers + 11 Permissions: https://reports.exodus-privacy.eu.org/en/reports/com.touchtype.swiftkey/latest/\nNOTE: default keyboard on some Nokia and Huawei phones. Make sure you have another keyboard app before disabling this.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.touchtype.swiftkey.res.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.touchtype.swiftkey.res.overlay": {
 		"list": "Misc",
 		"description": "Some overlay for Swiftkey? Overlays are usually themes, but not sure about this one.",
-		"dependencies": [],
+		"dependencies": ["com.touchtype.swiftkey"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -16758,14 +16785,14 @@
 		"list": "Oem",
 		"description": "Mi Video (https://play.google.com/store/apps/details?id=com.miui.videoplayer)\nHas a lot of ads, tracking.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.miui.videoplayer.overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.miui.videoplayer.overlay": {
 		"list": "Oem",
 		"description": "Mi Video overlay\nOverlays are usually themes.",
-		"dependencies": [],
+		"dependencies": ["com.miui.videoplayer"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -16781,7 +16808,7 @@
 	"com.miui.voiceassistoverlay": {
 		"list": "Oem",
 		"description": "Overlay to Mi AI 'com.miui.voiceassist'.\nThe overlay won't show up when you trigger it, which makes the voice-to-command features largely inaccessible.",
-		"dependencies": [],
+		"dependencies": ["com.miui.voiceassist"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -17030,7 +17057,7 @@
 		"list": "Oem",
 		"description": "Share Me (Mi Drop) (https://play.google.com/store/apps/details?id=com.xiaomi.midrop)\nP2P file transfer tool.\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.xiaomi.midrop.overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -17045,7 +17072,7 @@
 	"com.xiaomi.midrop.overlay": {
 		"list": "Oem",
 		"description": "Mi Drop overlay\nOverlays are usually themes.",
-		"dependencies": [],
+		"dependencies": ["com.xiaomi.midrop"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -17269,7 +17296,7 @@
 	"com.android.camera": {
 		"list": "Aosp",
 		"description": "The stock AOSP camera app on many phones. However, on some Xiaomi phones, it is actually the Xiaomi Camera app. Deleting this will result in no camera app.\nTry Open Camera as an open source alternative:\nhttps://play.google.com/store/apps/details?id=net.sourceforge.opencamera&hl=en&gl=US",
-		"dependencies": [],
+		"dependencies": ["com.xiaomi.cameramind"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -17390,7 +17417,7 @@
 		"list": "Oem",
 		"description": "MIUI Biometric\nFace Unlock feature\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.miui.face.overlay.miui"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -20112,7 +20139,6 @@
 		"labels": []
 	},
 	"com.meizu.net.search": {
-		"leabel": "com.meizu.net.search",
 		"description": "Chinese Search",
 		"removal": "Recommended",
 		"list": "Oem",
@@ -20575,7 +20601,7 @@
 		"description": "Useless overlay config default to Moto Actions (com.motorola.actions)",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.motorola.actions"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -22496,7 +22522,7 @@
 		"removal": "Advanced",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": []
 	},
 	"com.coloros.athena": {
@@ -22784,7 +22810,12 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": [
+			"com.heytap.cloud",
+			"com.oplus.synergy",
+			"com.heytap.accessory",
+			"com.heytap.market"
+		],
 		"labels": []
 	},
 	"com.coloros.apprecover": {
@@ -22824,7 +22855,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.coloros.colordirectservice"],
 		"labels": []
 	},
 	"com.coloros.ocs.opencapabilityservice": {
@@ -22832,7 +22863,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.coloros.colordirectservice"],
 		"labels": []
 	},
 	"com.oppo.atlas": {
@@ -23058,7 +23089,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": []
 	},
 	"com.coloros.sceneservice": {
@@ -23434,7 +23465,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": []
 	},
 	"com.oplus.padconnect": {
@@ -23546,7 +23577,7 @@
 		"removal": "Expert",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.google.android.euiccoverlay"],
 		"labels": []
 	},
 	"com.google.euiccpixel": {
@@ -23777,7 +23808,7 @@
 		"description": "it's overlay only to icon color.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.android.captiveportallogin"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -23817,7 +23848,7 @@
 		"description": "Random useless code to com.android.managedprovisioning",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.android.managedprovisioning"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -24210,7 +24241,10 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": [
+			"com.jrdcom.Elabel.overlay",
+			"com.jrdcom.Elabel.a_overlay"
+		],
 		"labels": []
 	},
 	"com.alcatel.mcrm": {
@@ -24234,7 +24268,7 @@
 		"removal": "Expert",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.fota.system.a_overlay"],
 		"labels": []
 	},
 	"com.focaltech.fingerprint": {
@@ -24306,7 +24340,7 @@
 		"removal": "Expert",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.android.launcher.a_overlay"],
 		"labels": []
 	},
 	"com.tcl.android.launcher.hotapp": {
@@ -24322,7 +24356,7 @@
 		"removal": "Expert",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.android.launchertheme.res.overlay"],
 		"labels": []
 	},
 	"com.android.launcher3.tv": {
@@ -24434,7 +24468,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.retaildemo.a_overlay"],
 		"labels": []
 	},
 	"com.tct.reducesar": {
@@ -24466,7 +24500,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.simplelauncher.a_overlay"],
 		"labels": []
 	},
 	"com.tct.onetouchbooster.a_overlay": {
@@ -24516,7 +24550,7 @@
 		"suggestions": "calculators",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.calculator.a_overlay"],
 		"labels": []
 	},
 	"com.tct.camera": {
@@ -24525,7 +24559,7 @@
 		"suggestions": "cameras",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.camera.a_overlay"],
 		"labels": []
 	},
 	"com.tct.compass": {
@@ -24542,7 +24576,7 @@
 		"suggestions": "dialers",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tct.dialer.a_overlay"],
 		"labels": []
 	},
 	"com.tcl.tct.filemanager": {
@@ -24560,7 +24594,7 @@
 		"suggestions": "radios",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tcl.fmradio.a_overlay"],
 		"labels": []
 	},
 	"com.tclhz.gallery": {
@@ -24569,7 +24603,7 @@
 		"suggestions": "gallery",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.tclhz.gallery.a_overlay"],
 		"labels": []
 	},
 	"com.tct.smart.ircontrol": {
@@ -24747,7 +24781,7 @@
 		"description": "Useless overlay. It has only an icon and no code.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.tct.camera"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -24763,7 +24797,7 @@
 		"description": "Another useless Chinese bookmarks icon overlay.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.tcl.android.launcher"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -24795,7 +24829,7 @@
 		"description": "Useless overlay code for this bloatware app",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.jrdcom.Elabel"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -24827,7 +24861,7 @@
 		"description": "Another useless icon overlay.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.tcl.fmradio"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -24835,7 +24869,7 @@
 		"description": "Another useless icon overlay.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.tcl.usercare"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -26049,7 +26083,7 @@
 		"description": "Unused overlay. Cross-SIM duplicate detection false.",
 		"removal": "Recommended",
 		"list": "Oem",
-		"dependencies": [],
+		"dependencies": ["com.android.cellbroadcastservice"],
 		"neededBy": [],
 		"labels": []
 	},
@@ -27349,7 +27383,7 @@
 	"com.google.android.cellbroadcastreceiver.overlay": {
 		"list": "Oem",
 		"description": "CellBroadcastReceiver overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastReceiver app is a default system app that handles emergency and nonemergency alerts (such as amber and presidential alerts) and presents the information to end users based on carrier and regional regulations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
-		"dependencies": [],
+		"dependencies": ["com.google.android.cellbroadcastreceiver"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -27357,7 +27391,7 @@
 	"com.google.android.cellbroadcastservice.overlay": {
 		"list": "Oem",
 		"description": "CellBroadcastService overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nThe CellBroadcastService service supports CellBroadcast SMS decoding, geofencing for wireless emergency alert (WEA) 3.0, message duplication checks, and broadcasting messages to apps. It's a one-to-many geotargeted and geofenced messaging service designed to deliver messages to multiple mobile phone users, in a defined area, at the same time. The service is defined by the [ETSI](https://www.etsi.org/about) GSM committee, [3GPP](https://www.3gpp.org/about-3gpp), and is a part of the telecommunication standards.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/core/ota/modular-system/cellbroadcast",
-		"dependencies": [],
+		"dependencies": ["com.google.android.cellbroadcastservice"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -27429,7 +27463,7 @@
 	"com.android.safetycenter.resources.overlay": {
 		"list": "Oem",
 		"description": "Safety Center overlay.\nOverlays work by mapping resources defined in the overlay package to resources defined in the target package. When an app attempts to resolve the value of a resource in the target package, the value of the overlay resource the target resource is mapped to is returned instead.\nSafety Center provides redirection entries so that users can access specific security and privacy settings. Safety Center also identifies issues that users can fix on their devices or accounts, by combining dynamic data received from multiple sources. This data provides users with a general safety status with specific recommendations.\nhttps://source.android.com/docs/core/runtime/rros\nhttps://source.android.com/docs/security/safety-center/overview",
-		"dependencies": [],
+		"dependencies": ["com.android.safetycenter.resources"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -27623,7 +27657,10 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": [
+			"com.coloros.colordirectservice",
+			"com.oplus.mediacontroller"
+		],
 		"labels": []
 	},
 	"com.oplus.olc": {
@@ -28018,7 +28055,7 @@
 		"removal": "Recommended",
 		"list": "Oem",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": []
 	},
 	"com.oplus.themestore": {
@@ -29481,7 +29518,7 @@
 		"list": "Google",
 		"description": "Google Play Store",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.google.android.overlay.permissioncontroller"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -29545,7 +29582,7 @@
 		"list": "Aosp",
 		"description": "The ExtServices module updates framework components for core OS functionality such as notification ranking, autofill text-matching strategies, storage cache, package watchdog, and other services that run continually. This module is updatable, meaning it can receive updates to functionality outside of the normal Android release cycle.\nCan run before the user unlocks the device (direct-boot aware) and Android 9+ version have internet and location permissions.\n\nWARNING: Causes bootloop on most Android 11+ phones. This module is related to the Android mainline project (which is a useful project).There is no reason to mess with this.\n\nSources:\nhttps://source.android.com/devices/architecture/modular-system/extservices\nhttps://arstechnica.com/gadgets/2016/11/android-extensions-could-be-googles-plan-to-make-android-updates-suck-less/\nPithus analysis (Android 11): https://beta.pithus.org/report/e5e4a181082b88baf55e19aab0f9cb62e131d612eeaa73cddb510a52e0ff5c1a",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.google.android.overlay.modules.ext.services"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -29729,14 +29766,14 @@
 		"list": "Oem",
 		"description": "Spyware app which sends warranty details to China\nhttps://milankragujevic.com/the-trade-of-privacy-for-convenience\nhttps://archive.is/https://nitter.privacydev.net/drwetter/status/1108801189662130176",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.autoregistration.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.autoregistration.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for a Spyware app?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.autoregistration"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29769,14 +29806,14 @@
 		"list": "Oem",
 		"description": "Battery protect is advertised to improve battery performance, but in practice it drains your battery and kills apps aggressively.\nhttps://dontkillmyapp.com/nokia\nNokia decided to stop using this app-killer in the future:\nhttps://www.androidpolice.com/2019/08/27/nokia-hmd-phones-disable-evenwell-background-process-app-killer/",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.batteryprotect.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.batteryprotect.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Battery Protect?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.batteryprotect"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29817,14 +29854,14 @@
 		"list": "Oem",
 		"description": "CP = Client Provisioning.\nSurely used to push new carrier internet/MMS settings automatically\nMaybe it's useful if carriers change their APN... but you still can change it manually, it's not difficult.\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.CPClient.overlay.base"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.evenwell.CPClient.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for CPClient?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.CPClient"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29873,14 +29910,14 @@
 		"list": "Oem",
 		"description": "Data agent\nUsed for backup/restore? [MORE INFO NEEDED]",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.dataagent.overlay.base"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.evenwell.dataagent.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Data Agent?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.dataagent"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29897,14 +29934,14 @@
 		"list": "Oem",
 		"description": "Debug Config Tool?",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.DbgCfgTool.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.DbgCfgTool.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Debug Config Tool?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.DbgCfgTool"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29945,14 +29982,14 @@
 		"list": "Oem",
 		"description": "Likely part of the first-boot device setup (new/factory reset device).",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.factorywizard.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.factorywizard.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for setup wizard?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.factorywizard"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29969,14 +30006,14 @@
 		"list": "Oem",
 		"description": "Nokia implementation of com.android.managedprovisioning? If so it manages Android user accounts, allowing you to add extra accounts. The typical use-case is setting up a corporate profile that is controlled by the employer on an employee's personal device, to keep personal and work data separate.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.managedprovisioning.overlay.base"],
 		"labels": [],
 		"removal": "Expert"
 	},
 	"com.evenwell.managedprovisioning.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Managed Provisioning?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.managedprovisioning"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -29993,14 +30030,14 @@
 		"list": "Oem",
 		"description": "Net Promoter Score\nPreinstalled survey.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.nps.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.nps.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Net Promoter Score?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.nps"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30025,14 +30062,14 @@
 		"list": "Oem",
 		"description": "Adds something (Nokia-)partner-related to your browser? Probably adds bookmarks.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.partnerbrowsercustomizations.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.partnerbrowsercustomizations.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for some browser customization?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.partnerbrowsercustomizations"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30065,14 +30102,14 @@
 		"list": "Oem",
 		"description": "Drains more battery than it saves.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.PowerMonitor.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.PowerMonitor.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Power Monitor?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.PowerMonitor"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30105,14 +30142,14 @@
 		"list": "Oem",
 		"description": "Related to push notifications for Nokia apps?",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.pushagent.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.pushagent.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for pushagent?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.pushagent"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30129,14 +30166,14 @@
 		"list": "Oem",
 		"description": "Nokia retail demonstration mode\nhttps://en.wikipedia.org/wiki/Demo_mode",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.retaildemoapp.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.retaildemoapp.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Nokia retail demonstration mode?\nhttps://en.wikipedia.org/wiki/Demo_mode",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.retaildemoapp"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30169,14 +30206,14 @@
 		"list": "Oem",
 		"description": "The first-boot device setup wizard for new/factory reset devices.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.evenwell.SetupWizard.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.evenwell.SetupWizard.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for Setup Wizard?",
-		"dependencies": [],
+		"dependencies": ["com.evenwell.SetupWizard"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30273,14 +30310,14 @@
 		"list": "Oem",
 		"description": "Sends diagnostic data to HMD (Company behind Nokia)?",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.hmdglobal.datago.overlay.base"],
 		"labels": [],
 		"removal": "Recommended"
 	},
 	"com.hmdglobal.datago.overlay.base": {
 		"list": "Oem",
 		"description": "Theme overlay for a Nokia telemetry package?",
-		"dependencies": [],
+		"dependencies": ["com.hmdglobal.datago"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -30713,7 +30750,7 @@
 		"list": "Oem",
 		"description": "Xperia Loops\nUseless and ugly live wallaper from Sony.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.sonymobile.xperiaxlivewallpaper.product.res.overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -30777,14 +30814,14 @@
 		"list": "Google",
 		"description": "Android Setup\nThe factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your bank) to authenticate you. Also breaks syncing of Google accounts setup after this package is removed.\nSee https://en.wikipedia.org/wiki/Mobile_identity_management for Mobile Identity Management.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.google.android.setupwizard.a_overlay"],
 		"labels": ["mim"],
 		"removal": "Advanced"
 	},
 	"com.google.android.setupwizard.a_overlay": {
 		"list": "Google",
 		"description": "Overlay for setupwizard?",
-		"dependencies": [],
+		"dependencies": ["com.google.android.setupwizard"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -30977,7 +31014,7 @@
 		"list": "Aosp",
 		"description": "Lets Google partners (OEM in most of the case) to customize the default email settings.\nThe manufacturer often changes the default signature displayed at the end of each of your mail (e.g \"Sent from my Nokia phone\")",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.email.partnerprovider.overlay"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -30985,7 +31022,7 @@
 		"list": "Aosp",
 		"description": "Enables you to pick a live wallpaper. Removing it will break some weather applications (especially ones with widgets) and wallpaper applications like Muzei.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.wallpaper.livepicker.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -31145,7 +31182,7 @@
 		"list": "Aosp",
 		"description": "AOSP Dialer\nRemoving this package breaks the software update/download and install screen on Samsung. WARNING: for me, it breaks the phone app completely with call routing enabled. Not sure about other cases.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.phone.product.res.overlay"],
 		"labels": [],
 		"removal": "Expert"
 	},
@@ -31728,7 +31765,7 @@
 	"com.nearme.statistics.rom": {
 		"list": "Oem",
 		"description": "User Experience Program\n Collect user data and sends them to Oppo. Intrusive and starts at boot\nSee https://support.oppo.com/uk/answer/?aid=neu105\n\nNote: removing it may break the search feature in the settings on some ColorOS versions.\n\nPithus analysis: https://beta.pithus.org/report/5e06191ac6f8aefd39642f6341ee4897039815f5059dbe093a7bd2fe1e20c038",
-		"dependencies": [],
+		"dependencies": ["com.nearme.deamon"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Recommended"
@@ -31865,7 +31902,7 @@
 		"list": "Oem",
 		"description": "Login service for various HeyTap related services like HeyTap Cloud etc.\nNeeded if you want to join Early Access Testing for new ColorOS/RealmeUI\n\n[APK NEEDED]",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.heytap.usercenter.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -31945,7 +31982,7 @@
 		"list": "Oem",
 		"description": "User Experience Program\nIntrusive telemetry. Runs at boot and constantly stays in background\n\nPithus analysis: https://beta.pithus.org/report/7720549a5b4bc305a15e19b3e17ba6857a52e6e12db94006677c59f2fad84331",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.oplus.mediacontroller"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -32405,14 +32442,6 @@
 		"labels": [],
 		"removal": "Advanced"
 	},
-	"com.aura.oobe.kddi": {
-		"list": "Carrier",
-		"description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some au carrier phones\nSafe to remove.",
-		"dependencies": [],
-		"neededBy": [],
-		"labels": [],
-		"removal": "Recommended"
-	},
 	"com.aura.oobe.ntt": {
 		"list": "Carrier",
 		"description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some docomo carrier phones\nSafe to remove.",
@@ -32456,22 +32485,6 @@
 	"com.aura.oobe.ml": {
 		"list": "Oem",
 		"description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
-		"dependencies": [],
-		"neededBy": [],
-		"labels": [],
-		"removal": "Recommended"
-	},
-	"com.aura.oobe.motorola": {
-		"list": "Oem",
-		"description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
-		"dependencies": [],
-		"neededBy": [],
-		"labels": [],
-		"removal": "Recommended"
-	},
-	"com.dti.motorola": {
-		"list": "Oem",
-		"description": "Digital Turbine\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -33392,7 +33405,7 @@
 	"com.android.bluetooth.overlay": {
 		"list": "Oem",
 		"description": "Not a standard package provided by the Android framework.\nIt seems to be a custom package specific to a particular Android device or custom ROM.\nBased on the search results, there is no official documentation or information available about in the Android documentation or developer resources.\nIt is possible that this package contains custom overlays or modifications related to the Bluetooth functionality on a specific device or ROM.\nOverlays are used to customize the behavior or appearance of the Android system without modifying the core framework.\nThese overlays can be provided by device manufacturers or custom ROM developers to add or modify features specific to their devices. Safe to remove if com.android.bluetooth is removed.",
-		"dependencies": [],
+		"dependencies": ["com.android.bluetooth"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -33408,7 +33421,7 @@
 	"com.android.networkstack.tethering.inprocess.overlay": {
 		"list": "Aosp",
 		"description": "Related to the Tethering module,\nwhich allows an Android device to share its internet connection with other connected client devices.\nThis package contains classes and components that are used for in-process overlay functionality within the Tethering module.\nhttps://source.android.com/docs/core/ota/modular-system/tethering",
-		"dependencies": [],
+		"dependencies": ["com.android.networkstack.tethering.inprocess"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -33555,7 +33568,10 @@
 	"com.felicanetworks.mfm.main": {
 		"list": "Oem",
 		"description": "Osaifu-Keitai App (https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main)\nA digital wallet app for Osaifu-Keitai brand.\nIt does not appear to be related to the FeliCa core functionality, but is required for services under the Osaifu-Keitai brand, such as iD and Mobile Suica.\nFor details, please check the app description (https://play.google.com/store/apps/details?id=com.felicanetworks.mfm.main) on Play Store.",
-		"dependencies": ["com.felicanetworks.mfc"],
+		"dependencies": [
+			"com.felicanetworks.mfc",
+			"com.google.android.pixelnfc"
+		],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -33647,7 +33663,10 @@
 		"list": "Carrier",
 		"description": "docomo service/cloud Settings\nAdds a \"docomo service/cloud\" entry to the system Settings app. Simple navigation screen providing entry points to docomo-specific app settings, such as d-account and docomo application manager.\nEssential for launching d-account settings.\nSafe to remove if you don't use any docomo service.",
 		"dependencies": [],
-		"neededBy": ["com.nttdocomo.android.idmanager"],
+		"neededBy": [
+			"com.nttdocomo.android.idmanager",
+			"jp.co.nttdocomo.lcsapp"
+		],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -33734,7 +33753,7 @@
 	"com.nttdocomo.android.schedulememo": {
 		"list": "Carrier",
 		"description": "Schedule & Memo\n2 different apps in one package; docomo's schedule and memo apps.",
-		"dependencies": [],
+		"dependencies": ["com.nttdocomo.android.databackup"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Recommended"
@@ -33791,7 +33810,7 @@
 		"list": "Oem",
 		"description": "This is used to lock the Osaifu-Keitai (FeliCa), works with Omakase-lock (com.nttdocomo.android.remotelock).\nSafe to remove.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.nttdocomo.android.remotelock"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -33821,7 +33840,7 @@
 	},
 	"com.aura.oobe.motorola": {
 		"list": "Carrier",
-		"description": "MotoApps\nIt's something to install apps, but it's an advertising company.",
+		"description": "Aura (also called AppCloud or MotoApps), an app-promotion service by Unity (formerly ironSource), preinstalled on some Motorola phones. It shows a persistent notification after setup until you agree to install suggested apps and games. It provides no system function. Safe to remove.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -33829,7 +33848,7 @@
 	},
 	"com.dti.motorola": {
 		"list": "Carrier",
-		"description": "Mobile Services Manager\nit's something for install apps but it's useless and a lot permissions.",
+		"description": "Digital Turbine app installer, shown as Mobile Services Manager. Digital Turbine is an advertising company that installs promoted apps through deals with phone makers and carriers. It shows a persistent notification until you agree to install games, and it holds many permissions, including installing apps. It provides no system function. Safe to remove.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -34302,7 +34321,7 @@
 	"com.samsung.android.smartface.overlay": {
 		"list": "Oem",
 		"description": "Not needed overlay to smartface",
-		"dependencies": [],
+		"dependencies": ["com.samsung.android.smartface"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -34518,7 +34537,7 @@
 	"com.heytap.usercenter.overlay": {
 		"list": "Oem",
 		"description": "overlay needed to usercenter app has resources",
-		"dependencies": [],
+		"dependencies": ["com.heytap.usercenter"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -35318,7 +35337,7 @@
 	"com.huawei.permissioncontroller.overlay": {
 		"list": "Oem",
 		"description": "Found help app permissions - only link to Google site in code, overlay to permission things like buttons, dialogs, etc.\nBut it's not needed?",
-		"dependencies": [],
+		"dependencies": ["com.huawei.permissioncontroller"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -35390,7 +35409,7 @@
 	"com.android.systemui.overlay": {
 		"list": "Aosp",
 		"description": "System UI Overlay. DO NOT remove this.",
-		"dependencies": [],
+		"dependencies": ["com.android.systemui"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Unsafe"
@@ -36055,7 +36074,7 @@
 		"list": "Oem",
 		"description": "AIUnit\nSystem service related to the intelligence function. It's safe to remove but also breaks the Smart Cutout, AI Editor, and potentially other gallery features.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.coloros.colordirectservice"],
 		"labels": [],
 		"removal": "Advanced"
 	},
@@ -36406,7 +36425,7 @@
 	"com.google.android.euiccoverlay": {
 		"list": "Oem",
 		"description": "Partner customization on first boot Setup, overlay.",
-		"dependencies": [],
+		"dependencies": ["com.google.android.euicc"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -37175,7 +37194,7 @@
 		"list": "Oem",
 		"description": "SkyTone Overseas Data Service.",
 		"dependencies": ["com.huawei.hwid"],
-		"neededBy": [],
+		"neededBy": ["com.huawei.skytone"],
 		"labels": [],
 		"removal": "Recommended"
 	},
@@ -39102,7 +39121,7 @@
 	"com.android.connectivity.resources.overlay": {
 		"list": "Oem",
 		"description": "Cause bootloop?\nFound in TECNO phone, in overlay there's a notification saying 'No Internet As Dialog When High Priority'.\nCan someone test it?",
-		"dependencies": [],
+		"dependencies": ["com.android.connectivity.resources"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Unsafe"
@@ -39703,7 +39722,7 @@
 		"list": "Google",
 		"description": "Wi-Fi Service Resources. Overlay APK manifest is stored here. Extracts Wi-Fi configs.\nhttps://source.android.com/docs/core/ota/modular-system/wifi",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.google.android.wifi.resources.overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -39815,14 +39834,14 @@
 		"list": "Oem",
 		"description": "This package is part of Motorola's battery management system, specifically related to features or optimizations for battery care.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.motorola.batterycare.overlay"],
 		"labels": [],
 		"removal": "Advanced"
 	},
 	"com.motorola.batterycare.overlay": {
 		"list": "Oem",
 		"description": "This package is part of Motorola’s custom battery care overlay and is likely responsible for providing Motorola-specific enhancements or visual elements related to battery management.",
-		"dependencies": [],
+		"dependencies": ["com.motorola.batterycare"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Advanced"
@@ -40078,7 +40097,7 @@
 	"com.android.nfc.overlay": {
 		"list": "Oem",
 		"description": "NFC overlay configuration for system-level settings.",
-		"dependencies": [],
+		"dependencies": ["com.android.nfc"],
 		"neededBy": [],
 		"labels": [],
 		"removal": "Expert"
@@ -41333,7 +41352,7 @@
 	},
 	"com.aura.oobe.kddi": {
 		"list": "Carrier",
-		"description": "AppCloud\nSeems to exist to try to get you to download games and another testimonial.",
+		"description": "Aura (also called AppCloud), an app-promotion service by Unity (formerly ironSource), preinstalled on some au (KDDI) carrier phones. It shows a persistent notification until you agree to install suggested apps and games. It provides no system function. Safe to remove.",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -42175,7 +42194,7 @@
 		"list": "Oem",
 		"description": "Causes a lockscreen loop on some Xiaomi devices. Provides TetherableWifiRegexs, the lack of which crashes systemui and miui.home.",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.android.networkstack.tethering.inprocess.overlay"],
 		"labels": [],
 		"removal": "Unsafe"
 	},
@@ -42879,7 +42898,7 @@
 		"list": "Oem",
 		"description": "Honor Share features.\nFile transfer tool between Honor mobiles, using Bluetooth connection and WiFi Direct technology.\n",
 		"dependencies": [],
-		"neededBy": [],
+		"neededBy": ["com.hihonor.nearby"],
 		"labels": [],
 		"removal": "Recommended"
 	},
