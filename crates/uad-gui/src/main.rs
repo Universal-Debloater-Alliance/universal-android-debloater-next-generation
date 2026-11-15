@@ -77,7 +77,7 @@ fn setup_logger() -> Result<(), fern::InitError> {
                     format!("{:5}", record.level().to_string())
                 },
                 record.file().unwrap_or("?"),
-                record.line().map(|l| l.to_string()).unwrap_or_default(),
+                record.line().map_or_default(|l| l.to_string()),
                 message
             ));
         }

@@ -142,9 +142,7 @@ fn make_friendly_error_message(error_output: &str, action: &str) -> String {
 /// If `None`, returns an empty String, not " --user 0"
 #[must_use]
 pub fn user_flag(user_id: Option<User>) -> String {
-    user_id
-        .map(|user| format!(" --user {}", user.id))
-        .unwrap_or_default()
+    user_id.map_or_default(|user| format!(" --user {}", user.id))
 }
 
 /// Every system package of `user_id` (all users when `None`), with its state on
@@ -328,8 +326,7 @@ pub fn get_device_brand(serial: &str) -> String {
         .shell(serial)
         .getprop("ro.product.brand")
         // `trim` is just-in-case
-        .map(|s| capitalize_first(s.trim()))
-        .unwrap_or_default()
+        .map_or_default(|s| capitalize_first(s.trim()))
 }
 
 /// Upper-cases the first character and keeps the rest (`oneplus` becomes `Oneplus`, `OnePlus` stays).
@@ -525,7 +522,7 @@ pub fn list_users_with_protection(device_serial: &str) -> Vec<User> {
         .shell(device_serial)
         .pm()
         .list_users()
-        .map(|out| {
+        .map_or_default(|out| {
             out.into_iter()
                 .enumerate()
                 .map(|(i, user)| {
@@ -538,7 +535,6 @@ pub fn list_users_with_protection(device_serial: &str) -> Vec<User> {
                 })
                 .collect()
         })
-        .unwrap_or_default()
 }
 
 /// This matches serials (`getprop ro.serialno`)

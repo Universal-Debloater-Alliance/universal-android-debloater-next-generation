@@ -105,8 +105,7 @@ impl Relations {
     pub fn requirements(&self, package: &str) -> Vec<&str> {
         self.requirements
             .get(package)
-            .map(|set| set.iter().map(String::as_str).collect())
-            .unwrap_or_default()
+            .map_or_default(|set| set.iter().map(String::as_str).collect())
     }
 
     /// Packages that need `package`, sorted by name.
@@ -114,8 +113,7 @@ impl Relations {
     pub fn dependents(&self, package: &str) -> Vec<&str> {
         self.dependents
             .get(package)
-            .map(|set| set.iter().map(String::as_str).collect())
-            .unwrap_or_default()
+            .map_or_default(|set| set.iter().map(String::as_str).collect())
     }
 
     /// Works out which packages are affected when `removing` is removed.

@@ -27,23 +27,20 @@ impl List {
 
     /// State and rating of every package of one user, by name.
     pub(super) fn device_lookup(&self, i_user: usize) -> HashMap<&str, DevicePackage> {
-        self.phone_packages
-            .get(i_user)
-            .map(|packages| {
-                packages
-                    .iter()
-                    .map(|p| {
-                        (
-                            p.name.as_str(),
-                            DevicePackage {
-                                state: p.state,
-                                removal: p.removal,
-                            },
-                        )
-                    })
-                    .collect()
-            })
-            .unwrap_or_default()
+        self.phone_packages.get(i_user).map_or_default(|packages| {
+            packages
+                .iter()
+                .map(|p| {
+                    (
+                        p.name.as_str(),
+                        DevicePackage {
+                            state: p.state,
+                            removal: p.removal,
+                        },
+                    )
+                })
+                .collect()
+        })
     }
 
     /// Relation analysis of `selection` (package indexes of one user):

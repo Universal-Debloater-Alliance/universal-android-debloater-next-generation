@@ -64,10 +64,7 @@ fn is_version_triple(s: &str) -> bool {
             return false;
         }
     }
-    if components.next().is_some() {
-        return false;
-    }
-    true
+    components.next().is_none()
 }
 
 /// Builder object for an Android Debug Bridge CLI command,
