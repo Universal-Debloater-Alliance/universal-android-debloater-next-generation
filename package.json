@@ -1,0 +1,22 @@
+{
+	"name": "uad-ng-workspace",
+	"private": true,
+	"description": "Developer tooling for UAD-ng: the local launcher, formatting, naming and duplication checks. The app itself is the Rust workspace.",
+	"license": "GPL-3.0",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"dev": "node scripts/run-dev.mjs",
+		"check": "node scripts/run-checks.mjs",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"lint:names": "ls-lint",
+		"lint:duplicates": "jscpd"
+	},
+	"devDependencies": {
+		"@ls-lint/ls-lint": "2.3.2",
+		"jscpd": "5.4.2",
+		"prettier": "3.10.1"
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"path": ["crates"],
+	"format": ["rust"],
+	"minTokens": 50,
+	"threshold": 0,
+	"reporters": ["console"],
+	"gitignore": true
+}
