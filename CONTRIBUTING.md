@@ -1,42 +1,19 @@
-# Contributors Guide
+# Contributing
 
-## For who is this guide?
+Purpose: how to propose changes to the app code or to the package list, and how maintainers release. Read when: preparing a contribution or a release.
+Last verified: 2026-11-15.
 
-This guide is meant for users who want to contribute to the codebase of Universal Android Debloater Next Generation, whether that is the application code or [the "database"-file for adding packages](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute). To keep all processes streamlined and consistent, we're asking you to stick to this guide whenever contributing.
+These rules apply to everyone, the UAD-ng team included. For adding packages, the wiki page [How to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute) explains the research behind an entry.
 
-Even though the guide is made for contributors, it's also strongly recommended that the UAD-ng team sticks to these guidelines. After all, we're a prime example.
+## Setup
 
-## What are the guidelines?
+Follow [README.md#quick-start](README.md#quick-start). Then run `npm ci` once to install the formatting and lint tools.
 
-### Mass edits
+## Workflow
 
-If you've performed massive edits via automation, you must specify what automation you used. For example, if you ran the command:
+### Checks
 
-```sh
-sed -i 's/a/b/' resources/assets/uad_lists.json
-```
-
-You should copy-paste that cmd to the pull-request description. This rule applies even if you use "proper" cmds such as `jq`, which safely edit structured data. And it also applies to AI, _especially_ LLMs.
-
-This is required so that we can review your big patch without reading it. This improves [transparency](<https://en.wikipedia.org/wiki/Transparency_(behavior)>), which makes you more trust-worthy! Bonus points if you can provide a sequence of cmds that proves your patch contains exactly what you said it does. For the simple `sed` case, something like:
-
-```sh
-# alt: `gh pr checkout 0000 && git checkout main`
-git remote add fork https://github.com/user/uadng
-git fetch fork
-# example commit hash from upstream (not fork);
-# more reproducible than branch-name
-git checkout beefcafe
-sed -i 's/a/b/' resources/assets/uad_lists.json
-# compare unstaged change with commit from fork
-git diff cafebeef
-```
-
-Should be enough.
-
-You should be careful with mass-editing anyways. Even if the verification is successful, the effects [might not be what you expect](https://en.wikipedia.org/wiki/Scunthorpe_problem).
-
-Since AI is non-deterministic, the version number is optional, but it's helpful to know how "intelligent" it is. AI edits are non-reproducible, so "verification scripts" are useless.
+Run `npm run check` before opening a pull request. It runs everything CI runs: Prettier, file-name and duplicate-code checks, rustfmt, Clippy, builds with warnings denied, and all tests. Fix every failure, never silence a check.
 
 ### Package list entries
 
@@ -49,57 +26,68 @@ Rules for `resources/assets/uad_lists.json`, checked by the tests in `crates/uad
 - The app uses these links to offer removing related packages together (GUI checkbox, CLI `--with-related`) and to warn about packages that may break. A wrong link causes a wrong suggestion, so add only links you have verified.
 - A good description says what the package is, what breaks without it, what you gain by removing it, and which packages depend on it. Do not repeat the removal rating, the app explains it next to the description.
 - If something cannot be verified, say so. Text inferred only from the package name ends with `Unverified: inferred from the package name.`, so reviewers can find and improve it.
-- Format the file with Prettier using the repository's `.prettierrc.json` (tabs, short arrays on one line).
+- Format the file with `npm run format` (Prettier with the repository's `.prettierrc.json`: tabs, short arrays on one line).
 
-### Branching strategy
+### Mass edits
 
-As for our branching strategy, we're using [Trunk-Based Development](https://trunkbaseddevelopment.com/#one-line-summary).
+If you made large edits with automation, put the exact command in the pull request description, even for "safe" tools such as `jq`, and for AI tools name the tool and, if known, its version. Reviewers can then check the patch without reading every line. Better still, add commands that prove the patch contains only that change, for example:
 
-In short, there's one trunk branch named `main` (`master`). Apart from `main`/`master` there can be different short-lived branches, such as:
+```sh
+# alt: `gh pr checkout 0000 && git checkout main`
+git remote add fork https://github.com/user/uadng
+git fetch fork
+# a commit from upstream (not the fork) is more reproducible than a branch name
+git checkout beefcafe
+sed -i 's/a/b/' resources/assets/uad_lists.json
+# compare the unstaged change with the commit from the fork
+git diff cafebeef
+```
 
-- Features (`feature/*`)
-- Fixes (`hotfix/*` or simply `fix/*`)
-- Dependency updates (`deps/*`)
-- Etc.
+Mass edits can still have [unexpected effects](https://en.wikipedia.org/wiki/Scunthorpe_problem) even when the verification passes. AI edits are not reproducible, so a verification script does not apply to them.
 
-Do mind that these branch names do only not apply to the addition of packages; for that, we use the following scheme: `[issue number][issue title]`. This can be done [automatically](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-a-branch-for-an-issue) too.
+### Branches
 
-This is how it looks like and works:
-![Trunk-Based Development](https://trunkbaseddevelopment.com/trunk1c.png)
+We use [trunk-based development](https://trunkbaseddevelopment.com/#one-line-summary): one trunk, `main`, and short-lived branches.
 
-### Syncing branches
+- Features: `feature/<summary>`. Fixes: `fix/<summary>` (or `hotfix/<summary>`). Dependency updates: `deps/<summary>`.
+- Package additions use `<issue number>-<issue title>`, which GitHub can [create from the issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-a-branch-for-an-issue).
+- To update a branch from `main`, `rebase` rather than `merge`. Do not sync changes between two non-`main` branches. If that is ever unavoidable, the UAD-ng team decides case by case.
 
-If you want to [back-port](https://en.wikipedia.org/wiki/Backporting) (GitHub's "Update" and "Sync" buttons) from upstream `main` to any other branch (for testing purposes, or any other reasonable case), it's recommended that you `rebase` rather than `merge` the changes.
+### Commits
 
-**Don't apply changes to/from arbitrary branches**, that's a recipe for chaos! If you encounter a situation where it's absolutely necessary to sync non-`main` branches, whether to `merge` or `rebase` should be decided by the UAD-ng team (with some contributor feedback) on a case-by-case basis.
+Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). Close the related issue with a [closing keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword).
 
-### Commit messages
+### Labels
 
-As for commits, we prefer using [Conventional Commit Messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13). When working in any of the branches listed above (if there's an existing issue for it), close it using a [closing keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword). For more information regarding Conventional Commit Messages, see <https://www.conventionalcommits.org/en/v1.0.0/> as well.
+Issues are labelled by the [issue template](.github/ISSUE_TEMPLATE/) you choose. Labels sort the generated [release notes](.github/release.yml).
 
-### Issue labels
+| Label                    | Purpose                                          | Issue template                            | Release notes section |
+| ------------------------ | ------------------------------------------------ | ----------------------------------------- | --------------------- |
+| `bug`                    | Software bugs in UAD-ng                          | Bug Report                                | Fixed                 |
+| `enhancement`            | New feature requests                             | Feature Request                           | Features              |
+| `package::addition`      | Adding new packages to the debloat list          | Add new package(s)                        | Packages/apps         |
+| `package::breakage`      | Issues caused by debloating                      | Debloat issue report                      | Packages/apps         |
+| `package::documentation` | Updating package descriptions or recommendations | Update apps description or recommendation | Packages/apps         |
+| `documentation`          | Improvements to docs or the wiki                 | UAD-ng documentation                      | Documentation         |
+| `ci`                     | CI/CD related issues                             | CI/CD                                     | Development           |
+| `refactor`               | Code refactoring                                 | None (maintainer-assigned)                | Refactors             |
+| `dependencies`           | Dependency updates                               | None (maintainer-assigned)                | Development           |
 
-When creating issues, they are automatically labeled based on the [issue template](.github/ISSUE_TEMPLATE/) you choose. These labels help categorize work and generate release notes.
+## Releases
 
-| Label                    | Purpose                                          | Issue template                            |
-| ------------------------ | ------------------------------------------------ | ----------------------------------------- |
-| `bug`                    | Software bugs in UAD-ng                          | Bug Report                                |
-| `enhancement`            | New feature requests                             | Feature Request                           |
-| `package::addition`      | Adding new packages to the debloat list          | Add new package(s)                        |
-| `package::breakage`      | Issues caused by debloating                      | Debloat issue report                      |
-| `package::documentation` | Updating package descriptions or recommendations | Update apps description or recommendation |
-| `documentation`          | Improvements to docs/wiki                        | UAD-ng documentation                      |
-| `ci`                     | CI/CD related issues                             | CI/CD                                     |
-| `refactor`               | Code refactoring                                 | — (maintainer-assigned)                   |
-| `dependencies`           | Dependency updates                               | — (maintainer-assigned)                   |
+For maintainers. Versions follow [semantic versioning](https://semver.org/), for both GitHub milestones and releases. If a pull request adds a feature during a bug-fix milestone (for example 1.0.3), review it against semantic versioning and rename the milestone (for example to 1.1.0) when the change warrants it.
 
-Labels are also used to automatically generate categorized [release notes](.github/release.yml). Each label maps to a changelog section:
+Before releasing:
 
-| Label(s)                                                           | Changelog category |
-| ------------------------------------------------------------------ | ------------------ |
-| `enhancement`                                                      | Features           |
-| `bug`                                                              | Fixed              |
-| `refactor`                                                         | Refactors          |
-| `package::addition`, `package::breakage`, `package::documentation` | Packages/apps      |
-| `ci`, `dependencies`                                               | Development        |
-| `documentation`                                                    | Documentation      |
+- [ ] The milestone is complete, or what remains is known.
+- [ ] Every merged pull request follows Conventional Commits and has the right labels (the release notes are generated from them).
+- [ ] A release preparation pull request bumps the version in `Cargo.toml` and `Cargo.lock`.
+
+Then push a signed tag to `main`. `.github/workflows/release.yml` builds every binary with its SHA-256 file and publishes the release (the self-updater refuses assets without that file):
+
+```sh
+git tag -s v1.2.3 -am '1.2.3'
+git push origin v1.2.3
+```
+
+Cycle: update dependencies right after a release, develop and fix during the milestone, then release. A faulty release stays published: ship a hotfix and add a warning to the faulty release's notes.
