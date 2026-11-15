@@ -1,6 +1,8 @@
-use crate::helpers::{button_primary, export_result_dialog, open_folder};
+use crate::folder_picker::pick_backup_folder;
 use crate::theme::Theme;
 use crate::theme::string_to_theme;
+use crate::widgets::export_result_dialog::export_result_dialog;
+use crate::widgets::primary_button::button_primary;
 use crate::{
     style,
     views::list::{List as AppsView, PackageInfo},
@@ -15,13 +17,25 @@ use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
+    export::export_packages,
+    opener::open_url,
+    save::{
+        DisplayablePath, backup_phone, device_backup_dir, list_available_backup_user,
+        list_available_backups, restore_backup,
+    },
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
         supports_disabling, supports_multi_user,
     },
-    utils::{DisplayablePath, Error, export_packages, open_url},
 };
+
+/// The package rows of every user, reduced to what backups and exports need.
+fn to_core_packages(packages: &[Vec<PackageRow>]) -> Vec<Vec<CorePackage>> {
+    packages
+        .iter()
+        .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
+        .collect()
+}
 
 #[derive(Debug, Clone)]
 pub struct Settings {
@@ -57,7 +71,7 @@ pub enum Message {
     RestoringDevice(Result<PackageInfo, AdbError>),
     DeviceBackedUp(Result<bool, String>),
     ChooseBackUpFolder,
-    FolderChosen(Result<PathBuf, Error>),
+    FolderChosen(Option<PathBuf>),
     ExportPackages,
     PackagesExported(Result<PathBuf, String>),
     ModalHide,
@@ -144,7 +158,10 @@ impl Settings {
     }
 
     fn load_device_settings(&mut self, phone: &Phone) {
-        let backups = list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
+        let backups = list_available_backups(&device_backup_dir(
+            &self.general.backup_folder,
+            &phone.adb_id,
+        ));
         let backup = BackupSettings {
             backups: backups.clone(),
             selected: backups.first().cloned(),
@@ -185,16 +202,13 @@ impl Settings {
         phone: &Phone,
         packages: &[Vec<PackageRow>],
     ) -> Task<Message> {
-        let core_packages: Vec<Vec<_>> = packages
-            .iter()
-            .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
-            .collect();
+        let core_packages = to_core_packages(packages);
         // Avoid capturing &self and &phone in the future; clone owned data first.
         let user_list = phone.user_list.clone();
         let device_id = self.device.device_id.clone();
-        let packages_owned = core_packages;
+        let backup_folder = self.general.backup_folder.clone();
         Task::perform(
-            async move { backup_phone(user_list, device_id, &packages_owned) },
+            async move { backup_phone(&backup_folder, user_list, &device_id, &core_packages) },
             Message::DeviceBackedUp,
         )
     }
@@ -207,8 +221,10 @@ impl Settings {
         match result {
             Ok(_) => {
                 info!("[BACKUP] Backup successfully created");
-                self.device.backup.backups =
-                    list_available_backups(&self.general.backup_folder.join(phone.adb_id.clone()));
+                self.device.backup.backups = list_available_backups(&device_backup_dir(
+                    &self.general.backup_folder,
+                    &phone.adb_id,
+                ));
                 self.device.backup.selected = self.device.backup.backups.first().cloned();
             }
             Err(err) => {
@@ -224,10 +240,7 @@ impl Settings {
         packages: &[Vec<PackageRow>],
         nb_running_async_adb_commands: &mut u32,
     ) -> Task<Message> {
-        let core_packages: Vec<Vec<_>> = packages
-            .iter()
-            .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
-            .collect();
+        let core_packages = to_core_packages(packages);
         match restore_backup(phone, &core_packages, &self.device) {
             Ok(restore_result) => {
                 let mut commands = vec![];
@@ -267,15 +280,14 @@ impl Settings {
                 } else {
                     self.device.backup.backup_state = "Restore completed successfully".to_string();
                 }
-                info!(
-                    "[RESTORE] Restoring backup {}",
-                    self.device.backup.selected.as_ref().unwrap()
-                );
+                if let Some(backup) = &self.device.backup.selected {
+                    info!("[RESTORE] Restoring backup {backup}");
+                }
                 Task::batch(commands)
             }
             Err(e) => {
                 self.device.backup.backup_state.clone_from(&e);
-                error!("{} - {}", self.device.backup.selected.as_ref().unwrap(), e);
+                error!("[RESTORE] {e}");
                 Task::none()
             }
         }
@@ -284,11 +296,11 @@ impl Settings {
     fn handle_folder_chosen(
         &mut self,
         phone: &Phone,
-        result: Result<PathBuf, Error>,
+        chosen_folder: Option<PathBuf>,
     ) -> Task<Message> {
         self.is_loading = false;
 
-        if let Ok(path) = result {
+        if let Some(path) = chosen_folder {
             self.general.backup_folder = path;
             let mut config = Config::load_configuration_file();
             config.save_device_settings(self.device.clone(), self.general.clone());
@@ -302,7 +314,7 @@ impl Settings {
             Task::none()
         } else {
             self.is_loading = true;
-            Task::perform(open_folder(), Message::FolderChosen)
+            Task::perform(pick_backup_folder(), Message::FolderChosen)
         }
     }
 
@@ -311,10 +323,7 @@ impl Settings {
         selected_user: Option<User>,
         packages: &[Vec<PackageRow>],
     ) -> Task<Message> {
-        let core_packages: Vec<Vec<_>> = packages
-            .iter()
-            .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
-            .collect();
+        let core_packages = to_core_packages(packages);
         let dir = self.general.backup_folder.clone();
         Task::perform(
             async move { export_packages(&dir, selected_user.unwrap_or_default(), &core_packages) },
@@ -335,11 +344,7 @@ impl Settings {
         phone: &Phone,
         apps_view: &AppsView,
     ) -> Element<'_, Message, Theme, Renderer> {
-        let content = if phone.adb_id.is_empty() {
-            self.build_no_device_content()
-        } else {
-            self.build_device_content(phone, apps_view)
-        };
+        let content = self.build_content(phone, apps_view);
 
         if let Some(result) = &self.export_result {
             let dialog = export_result_dialog(
@@ -360,39 +365,42 @@ impl Settings {
             .into()
     }
 
-    fn build_no_device_content(&self) -> Element<'_, Message, Theme, Renderer> {
-        column![
-            text("Theme").size(26),
-            self.theme_container(),
-            text("General").size(26),
-            self.general_container(),
-            text("Current device").size(26),
-            Self::no_device_container(),
-            text("Backup / Restore").size(26),
-            Self::no_device_container(),
-        ]
-        .width(Length::Fill)
-        .spacing(20)
-        .into()
-    }
-
-    fn build_device_content(
+    /// The settings sections. The device sections show a notice when no device is connected.
+    fn build_content(
         &self,
         phone: &Phone,
         apps_view: &AppsView,
     ) -> Element<'_, Message, Theme, Renderer> {
+        let (device_section, backup_section): (Element<'_, Message, Theme, Renderer>, _) =
+            if phone.adb_id.is_empty() {
+                (Self::no_device_container(), Self::no_device_container())
+            } else {
+                (
+                    column![
+                        Self::warning_container(phone),
+                        self.device_specific_container(phone)
+                    ]
+                    .spacing(20)
+                    .into(),
+                    self.backup_restore_container(phone, apps_view),
+                )
+            };
         column![
             text("Theme").size(26),
             self.theme_container(),
             text("General").size(26),
             self.general_container(),
             text("Current device").size(26),
-            Self::warning_container(phone),
-            self.device_specific_container(phone),
+            device_section,
             text("Backup / Restore").size(26),
-            self.backup_restore_container(phone, apps_view),
+            backup_section,
         ]
         .width(Length::Fill)
+        // Keeps text clear of the vertical scrollbar.
+        .padding(iced::Padding {
+            right: 16.0,
+            ..iced::Padding::ZERO
+        })
         .spacing(20)
         .into()
     }
@@ -422,7 +430,7 @@ impl Settings {
 
     fn general_container(&self) -> Element<'_, Message, Theme, Renderer> {
         let expert_mode_checkbox = checkbox(self.general.expert_mode)
-            .label("Allow to uninstall packages marked as \"unsafe\" (I KNOW WHAT I AM DOING)")
+            .label("Allow removing packages rated Unsafe (I know what I am doing)")
             .on_toggle(Message::ExpertMode)
             .size(20)
             .style(style::CheckBox::SettingsEnabled);
@@ -520,7 +528,7 @@ impl Settings {
                     why-is-the-disable-mode-setting-not-available-for-my-device",
             )))
             .height(22)
-            .style(style::Button::Unavailable);
+            .style(style::Button::UninstallPackage);
 
         let disable_mode_checkbox = checkbox(self.device.disable_mode)
             .label("Clear and disable packages instead of uninstalling them")
@@ -596,7 +604,7 @@ impl Settings {
             button_primary("Open backup directory")
         } else {
             button_primary("Open backup directory").on_press(Message::UrlPressed(
-                self.general.backup_folder.join(phone.adb_id.clone()),
+                device_backup_dir(&self.general.backup_folder, &phone.adb_id),
             ))
         };
 

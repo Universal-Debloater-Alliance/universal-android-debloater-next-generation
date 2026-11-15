@@ -3,42 +3,42 @@ use clap_complete::{Shell, generate};
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::io::Write;
-use uad_core::adb::{ACommand, PmListPacksFlag};
+use uad_core::adb::{AdbCommand, PmListPacksFlag};
+use uad_core::package_text::{matches_search, truncate_description};
 use uad_core::relations::{DevicePackage, Relations};
 use uad_core::sync::{
     CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, get_package_state,
     run_adb_shell_action,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
-use uad_core::utils::{matches_search, truncate_description};
 
 use crate::device::{NO_DEVICES_FOUND, get_target_device, get_user};
 use crate::filters::{ListFilter, RemovalFilter, StateFilter};
-use crate::{Cli, print_or_exit, println_or_exit};
+use crate::{Cli, print_ignoring_closed_pipe, println_ignoring_closed_pipe};
 
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
-    println_or_exit!("Scanning for connected devices...");
+    println_ignoring_closed_pipe!("Scanning for connected devices...");
     let devices = get_devices_list();
 
     if devices.is_empty() {
         return Err(NO_DEVICES_FOUND.into());
     }
 
-    println_or_exit!("\nFound {} device(s):\n", devices.len());
+    println_ignoring_closed_pipe!("\nFound {} device(s):\n", devices.len());
     for device in &devices {
-        println_or_exit!("  Model:       {}", device.model);
-        println_or_exit!("  Serial:      {}", device.adb_id);
-        println_or_exit!("  Android SDK: {}", device.android_sdk);
+        println_ignoring_closed_pipe!("  Model:       {}", device.model);
+        println_ignoring_closed_pipe!("  Serial:      {}", device.adb_id);
+        println_ignoring_closed_pipe!("  Android SDK: {}", device.android_sdk);
 
         if !device.user_list.is_empty() {
-            println_or_exit!("  Users:       {} user(s)", device.user_list.len());
+            println_ignoring_closed_pipe!("  Users:       {} user(s)", device.user_list.len());
             for user in &device.user_list {
                 let protected = if user.protected { " (protected)" } else { "" };
-                println_or_exit!("               - User ID: {}{}", user.id, protected);
+                println_ignoring_closed_pipe!("               - User ID: {}{}", user.id, protected);
             }
         }
-        println_or_exit!();
+        println_ignoring_closed_pipe!();
     }
 
     Ok(())
@@ -118,7 +118,7 @@ pub fn list_packages(
     let target_device = get_target_device(device)?;
     let uad_lists = load_debloat_lists(false).unwrap_or_else(|lists| lists);
 
-    println_or_exit!(
+    println_ignoring_closed_pipe!(
         "Listing packages on: {} ({})\n",
         target_device.model,
         target_device.adb_id
@@ -132,7 +132,7 @@ pub fn list_packages(
     };
 
     let pm_flag = state_filter.and_then(StateFilter::to_pm_flag);
-    let system_packages = ACommand::new()
+    let system_packages = AdbCommand::new()
         .shell(&target_device.adb_id)
         .pm()
         .list_packages_sys(pm_flag, user_id)?;
@@ -146,9 +146,9 @@ pub fn list_packages(
     )?;
 
     if displayed_count == 0 {
-        println_or_exit!("  No packages found matching the specified filters.");
+        println_ignoring_closed_pipe!("  No packages found matching the specified filters.");
     } else {
-        println_or_exit!("\nTotal: {} package(s)", displayed_count);
+        println_ignoring_closed_pipe!("\nTotal: {} package(s)", displayed_count);
     }
 
     Ok(())
@@ -165,14 +165,14 @@ pub fn display_package_list(
     let config = context.display_config();
     let mut displayed_count = 0;
 
-    let enabled_packages: HashSet<String> = ACommand::new()
+    let enabled_packages: HashSet<String> = AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
         .unwrap_or_default()
         .into_iter()
         .collect();
-    let disabled_packages: HashSet<String> = ACommand::new()
+    let disabled_packages: HashSet<String> = AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
@@ -209,46 +209,51 @@ pub fn display_package_entry(
     pkg_state: PackageState,
     config: &DisplayConfig,
 ) {
-    print_or_exit!("[");
+    print_ignoring_closed_pipe!("[");
 
     if let Some(info) = pkg_info {
         if config.show_removal {
-            print_or_exit!("{}", info.removal);
+            print_ignoring_closed_pipe!("{}", info.removal);
             if config.show_state {
-                print_or_exit!(" - ");
+                print_ignoring_closed_pipe!(" - ");
             }
         }
         if config.show_state {
-            print_or_exit!("{}", pkg_state);
+            print_ignoring_closed_pipe!("{}", pkg_state);
         }
-        print_or_exit!("] {}", pkg_name);
+        print_ignoring_closed_pipe!("] {}", pkg_name);
         if !info.description.is_empty() {
-            print_or_exit!(" - {}", truncate_description(&info.description, 80));
+            print_ignoring_closed_pipe!(" - {}", truncate_description(&info.description, 80));
         }
     } else {
         if config.show_removal {
-            print_or_exit!("Unlisted");
+            print_ignoring_closed_pipe!("Unlisted");
             if config.show_state {
-                print_or_exit!(" - ");
+                print_ignoring_closed_pipe!(" - ");
             }
         }
         if config.show_state {
-            print_or_exit!("{}", pkg_state);
+            print_ignoring_closed_pipe!("{}", pkg_state);
         }
-        print_or_exit!("] {}", pkg_name);
+        print_ignoring_closed_pipe!("] {}", pkg_name);
     }
 
-    println_or_exit!();
+    println_ignoring_closed_pipe!();
 }
 
 /// Options shared by the `uninstall`, `disable` and `enable` commands.
-#[derive(Debug, Clone, Copy, Default)]
+/// The doc comments of the fields are the command-line help.
+#[derive(Debug, Clone, Copy, Default, clap::Args)]
 pub struct ChangeOptions {
-    /// Show what would be done without doing it.
+    /// Dry run - show what would be done without actually doing it
+    #[arg(long)]
     pub dry_run: bool,
-    /// Also remove the related packages found by `Relations::plan_removal`.
+    /// Also remove related packages: packages that need the given ones,
+    /// and packages that only the given ones need. Unsafe packages are never added.
+    #[arg(long)]
     pub with_related: bool,
-    /// Allow removing packages rated `Unsafe`.
+    /// Remove packages rated Unsafe (they are skipped otherwise)
+    #[arg(long)]
     pub force: bool,
 }
 
@@ -316,6 +321,50 @@ pub fn change_package_state(
 }
 
 /// Process state change for a single package
+/// The device package and the ADB commands that move it to `target_state`.
+pub struct PlannedChange {
+    pub package: CorePackage,
+    pub commands: Vec<String>,
+}
+
+/// Plans moving `pkg_name` from `current_state` to `target_state`.
+/// Returns `None`, after saying why, when the package is already there or is
+/// an `Unsafe` package that `force` does not allow.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Each value comes from a different caller context, so a struct would be built once per call"
+)]
+pub fn plan_state_change(
+    pkg_name: &str,
+    current_state: PackageState,
+    target_state: PackageState,
+    device: &Phone,
+    user: User,
+    force: bool,
+    indent: &str,
+    uad_lists: &HashMap<String, Package>,
+) -> Option<PlannedChange> {
+    if current_state == target_state {
+        println!("{indent}→ Already in target state, skipping");
+        return None;
+    }
+
+    let pkg_info = uad_lists.get(pkg_name);
+    if blocked_as_unsafe(pkg_info, target_state, force, indent) {
+        return None;
+    }
+
+    let package = CorePackage {
+        name: pkg_name.to_string(),
+        description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
+        removal: pkg_info.map(|p| p.removal).unwrap_or(Removal::Unlisted),
+        state: current_state,
+        list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
+    };
+    let commands = apply_pkg_state_commands(&package, target_state, user, device);
+    Some(PlannedChange { package, commands })
+}
+
 fn process_package_state_change(
     pkg_name: &str,
     device: &Phone,
@@ -330,25 +379,22 @@ fn process_package_state_change(
 
     println!("  {} ({})", pkg_name, current_state);
 
-    if current_state == target_state {
-        println!("    → Already in target state, skipping");
+    let Some(PlannedChange {
+        package: core_pkg,
+        commands,
+    }) = plan_state_change(
+        pkg_name,
+        current_state,
+        target_state,
+        device,
+        user,
+        options.force,
+        "    ",
+        uad_lists,
+    )
+    else {
         return Ok(());
-    }
-
-    let pkg_info = uad_lists.get(pkg_name);
-    if blocked_as_unsafe(pkg_info, target_state, options.force, "    ") {
-        return Ok(());
-    }
-
-    let core_pkg = CorePackage {
-        name: pkg_name.to_string(),
-        description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
-        removal: pkg_info.map(|p| p.removal).unwrap_or(Removal::Unlisted),
-        state: current_state,
-        list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
-
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device);
 
     if dry_run {
         for cmd in &commands {

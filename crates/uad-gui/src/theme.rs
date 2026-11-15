@@ -37,8 +37,6 @@ pub struct BaseColors {
 #[derive(Debug, Clone, Copy)]
 pub struct NormalColors {
     pub primary: Color,
-    #[allow(dead_code, reason = "Reserved for future palette updates")]
-    pub secondary: Color,
     pub surface: Color,
     pub error: Color,
 }
@@ -76,15 +74,14 @@ impl Theme {
             },
             normal: NormalColors {
                 primary: color!(0x5E4266),
-                secondary: color!(0x386E50),
-                surface: color!(0x828282),
+                surface: color!(0x8C8C8C),
                 error: color!(0x992B2B),
             },
             bright: BrightColors {
                 primary: color!(0xBA84FC),
                 secondary: color!(0x49EB7A),
                 surface: color!(0xE0E0E0),
-                error: color!(0xC13047),
+                error: color!(0xE5566B),
             },
         };
         const LIGHT: ColorPalette = ColorPalette {
@@ -94,15 +91,14 @@ impl Theme {
             },
             normal: NormalColors {
                 primary: color!(0x818181),
-                secondary: color!(0xF9D659),
-                surface: color!(0x818181),
+                surface: color!(0x5F5F5F),
                 error: color!(0x992B2B),
             },
             bright: BrightColors {
                 primary: color!(0x673AB7),
-                secondary: color!(0x3797A4),
+                secondary: color!(0x1D6B75),
                 surface: color!(0x000000),
-                error: color!(0xC13047),
+                error: color!(0xA5243A),
             },
         };
         const LUPIN: ColorPalette = ColorPalette {
@@ -112,7 +108,6 @@ impl Theme {
             },
             normal: NormalColors {
                 primary: color!(0x58406F),
-                secondary: color!(0x386E50),
                 surface: color!(0xA2A4A3),
                 error: color!(0xA13034),
             },
@@ -120,7 +115,7 @@ impl Theme {
                 primary: color!(0xBD94F9),
                 secondary: color!(0x49EB7A),
                 surface: color!(0xF4F8F3),
-                error: color!(0xE63E6D),
+                error: color!(0xFF7A95),
             },
         };
         match self {
@@ -159,6 +154,37 @@ pub fn string_to_theme(theme: &str) -> Theme {
         "Light" => Theme::Light,
         _ => Theme::Auto,
     }
+}
+
+/// WCAG 2.2 relative luminance of an opaque colour.
+#[cfg(test)]
+fn relative_luminance(c: Color) -> f32 {
+    let channel = |v: f32| {
+        if v <= 0.040_45 {
+            v / 12.92
+        } else {
+            ((v + 0.055) / 1.055).powf(2.4)
+        }
+    };
+    0.2126 * channel(c.r) + 0.7152 * channel(c.g) + 0.0722 * channel(c.b)
+}
+
+/// WCAG 2.2 contrast ratio between two opaque colours, from 1 to 21.
+#[cfg(test)]
+fn contrast_ratio(a: Color, b: Color) -> f32 {
+    let (la, lb) = (relative_luminance(a), relative_luminance(b));
+    (la.max(lb) + 0.05) / (la.min(lb) + 0.05)
+}
+
+/// `top` with its alpha painted over the opaque `bottom`.
+#[cfg(test)]
+fn blend(top: Color, bottom: Color) -> Color {
+    let mix = |t: f32, b: f32| t * top.a + b * (1.0 - top.a);
+    Color::from_rgb(
+        mix(top.r, bottom.r),
+        mix(top.g, bottom.g),
+        mix(top.b, bottom.b),
+    )
 }
 
 impl theme::Base for Theme {
@@ -215,5 +241,73 @@ impl theme::Base for Theme {
             Self::Lupin => "Lupin",
             Self::Auto => "Auto",
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Text must reach 4.5:1 and non-text UI (borders, scrollbars) 3:1 (WCAG 2.2 AA).
+    #[test]
+    fn every_theme_meets_wcag_aa_contrast() {
+        let mut failures = vec![];
+        for theme in [Theme::Dark, Theme::Light, Theme::Lupin] {
+            let p = theme.palette();
+            let selected_row = blend(p.normal.primary.scale_alpha(0.25), p.base.background);
+            let text_pairs = [
+                (
+                    "body text on background",
+                    p.bright.surface,
+                    p.base.background,
+                ),
+                ("body text on frame", p.bright.surface, p.base.foreground),
+                (
+                    "commentary on background",
+                    p.normal.surface,
+                    p.base.background,
+                ),
+                ("commentary on frame", p.normal.surface, p.base.foreground),
+                (
+                    "ok text on background",
+                    p.bright.secondary,
+                    p.base.background,
+                ),
+                ("ok text on frame", p.bright.secondary, p.base.foreground),
+                (
+                    "danger text on background",
+                    p.bright.error,
+                    p.base.background,
+                ),
+                ("danger text on frame", p.bright.error, p.base.foreground),
+                ("primary button text", p.bright.primary, p.base.foreground),
+                ("selected row text", p.bright.primary, selected_row),
+            ];
+            for (role, fg, bg) in text_pairs {
+                let ratio = contrast_ratio(fg, bg);
+                if ratio < 4.5 {
+                    failures.push(format!("{theme:?}: {role} is {ratio:.2}:1, needs 4.5:1"));
+                }
+            }
+            let ui_pairs = [
+                (
+                    "scrollbar on background",
+                    p.normal.surface,
+                    p.base.background,
+                ),
+                (
+                    "checkbox border on frame",
+                    p.normal.surface,
+                    p.base.foreground,
+                ),
+            ];
+            for (role, fg, bg) in ui_pairs {
+                let ratio = contrast_ratio(fg, bg);
+                if ratio < 3.0 {
+                    failures.push(format!("{theme:?}: {role} is {ratio:.2}:1, needs 3:1"));
+                }
+            }
+        }
+        assert!(failures.is_empty(), "{}", failures.join("\n"));
     }
 }

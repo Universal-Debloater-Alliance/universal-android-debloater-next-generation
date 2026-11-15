@@ -22,10 +22,10 @@ use log::{error, info};
 #[cfg(feature = "self-update")]
 use std::path::PathBuf;
 use uad_core::adb;
-use uad_core::sync::{Phone, get_devices_list, initial_load};
+use uad_core::sync::{Phone, get_devices_list, is_adb_available};
 use uad_core::uad_lists::UadListState;
 use uad_core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_release};
-use uad_core::utils::{FULL_NAME, NAME};
+use uad_core::{FULL_NAME, NAME};
 
 #[cfg(feature = "self-update")]
 use uad_core::update::{BIN_NAME, download_update_to_temp_file, remove_file};
@@ -51,7 +51,7 @@ pub struct UadGui {
     about_view: AboutView,
     settings_view: SettingsView,
     devices_list: Vec<Phone>,
-    /// index of `devices_list`
+    /// The device the views act on, one of `devices_list`
     selected_device: Option<Phone>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
@@ -72,7 +72,7 @@ pub enum Message {
     RebootButtonPressed,
     LoadDevices(Vec<Phone>),
     #[cfg(feature = "self-update")]
-    _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
+    NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
     FontLoaded(Result<(), iced::font::Error>),
     Nothing,
@@ -98,7 +98,7 @@ impl UadGui {
                 // Used in crate::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
-                Task::perform(async { initial_load() }, Message::ADBSatisfied),
+                Task::perform(async { is_adb_available() }, Message::ADBSatisfied),
                 Task::perform(async { get_devices_list() }, Message::LoadDevices),
                 Task::perform(
                     async move { get_latest_release() },
@@ -215,7 +215,7 @@ impl UadGui {
                 self.selected_device = None;
                 self.devices_list = vec![];
                 Task::perform(
-                    async { adb::ACommand::new().shell(serial).reboot() },
+                    async { adb::AdbCommand::new().shell(serial).reboot() },
                     |_| Message::Nothing,
                 )
             }
@@ -278,10 +278,10 @@ impl UadGui {
                         if let Some(release) = self.update_state.self_update.latest_release.as_ref()
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
-                            self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
+                            self.apps_view.loading_state = ListLoadingState::UpdatingUad;
                             Task::perform(
                                 download_update_to_temp_file(BIN_NAME, release.clone()),
-                                Message::_NewReleaseDownloaded,
+                                Message::NewReleaseDownloaded,
                             )
                         } else {
                             Task::none()
@@ -315,7 +315,7 @@ impl UadGui {
                 ))))
             }
             #[cfg(feature = "self-update")]
-            Message::_NewReleaseDownloaded(res) => {
+            Message::NewReleaseDownloaded(res) => {
                 debug!("{NAME} update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {
@@ -421,6 +421,20 @@ impl UadGui {
     }
 }
 
+/// Decodes the PNG logo into a window icon. Only the PNG codec is compiled in,
+/// so Iced's `image` feature (every codec, including an AVIF encoder) is not needed.
+#[cfg(feature = "img")]
+fn window_icon(png: &[u8]) -> Option<icon::Icon> {
+    let rgba = image::load_from_memory_with_format(png, ImageFormat::Png)
+        .map_err(|e| error!("Could not decode the window icon: {e}"))
+        .ok()?
+        .into_rgba8();
+    let (width, height) = rgba.dimensions();
+    icon::from_rgba(rgba.into_raw(), width, height)
+        .map_err(|e| error!("Invalid window icon: {e}"))
+        .ok()
+}
+
 impl UadGui {
     pub fn start() -> iced::Result {
         #[cfg(feature = "img")]
@@ -455,10 +469,15 @@ impl UadGui {
                     width: 950.0,
                     height: 700.0,
                 },
+                // Below this size the filter row and the navigation buttons get clipped.
+                min_size: Some(iced::Size {
+                    width: 900.0,
+                    height: 560.0,
+                }),
                 resizable: true,
                 decorations: true,
                 #[cfg(feature = "img")]
-                icon: icon::from_file_data(logo, Some(ImageFormat::Png)).ok(),
+                icon: window_icon(logo),
                 ..iced::window::Settings::default()
             })
             .run()

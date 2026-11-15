@@ -342,13 +342,18 @@ mod tests {
         );
     }
 
-    #[test]
-    fn at_risk_follows_the_include_choice() {
-        let l = lists(&format!(
+    /// `pay` needs `framework`, and both are `Recommended`.
+    fn pay_needs_framework() -> PackageHashMap {
+        lists(&format!(
             r#"{{"pay":{},"framework":{}}}"#,
             entry("Recommended", &["framework"], &[]),
             entry("Recommended", &[], &[]),
-        ));
+        ))
+    }
+
+    #[test]
+    fn at_risk_follows_the_include_choice() {
+        let l = pay_needs_framework();
         let r = Relations::new(&l);
         let without = r.plan_removal(&["framework".into()], all_enabled(&l), false);
         assert_eq!(names(&without.related), vec!["pay"]);
@@ -382,11 +387,7 @@ mod tests {
 
     #[test]
     fn restoring_reports_requirements_that_are_not_enabled() {
-        let l = lists(&format!(
-            r#"{{"pay":{},"framework":{}}}"#,
-            entry("Recommended", &["framework"], &[]),
-            entry("Recommended", &[], &[]),
-        ));
+        let l = pay_needs_framework();
         let device = |name: &str| {
             l.get(name).map(|p| DevicePackage {
                 state: PackageState::Uninstalled,

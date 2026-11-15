@@ -1,12 +1,61 @@
-use crate::config::{Config, DeviceSettings};
+use crate::config::DeviceSettings;
 use crate::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
-use crate::utils::DisplayablePath;
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
+use std::fmt;
 use std::{
     fs,
     path::{Path, PathBuf},
 };
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DisplayablePath {
+    pub path: PathBuf,
+}
+
+impl fmt::Display for DisplayablePath {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let stem = self.path.file_stem().map_or_else(
+            || {
+                error!("[PATH STEM]: No file stem found");
+                "[File steam not found]".to_string()
+            },
+            |p| {
+                if let Ok(stem) = p.to_os_string().into_string() {
+                    stem
+                } else {
+                    error!("[PATH ENCODING]: {}", self.path.display());
+                    "[PATH ENCODING ERROR]".to_string()
+                }
+            },
+        );
+
+        write!(f, "{stem}")
+    }
+}
+
+/// Folder holding the backups of one device: `backup_folder/<device_id>`.
+///
+/// `device_id` is an ADB serial. A wireless serial (`192.168.1.5:5555`) has a `:`,
+/// which Windows forbids in file names, and a serial must never add path
+/// components (CWE-22). Such characters become `_`. USB serials and every
+/// serial on Linux and macOS keep their existing folder name.
+#[must_use]
+pub fn device_backup_dir(backup_folder: &Path, device_id: &str) -> PathBuf {
+    const WINDOWS_RESERVED: [char; 7] = [':', '*', '?', '"', '<', '>', '|'];
+    let folder_name: String = device_id
+        .chars()
+        .map(|c| {
+            let is_unsafe = matches!(c, '/' | '\\' | '\0')
+                || (cfg!(target_os = "windows") && WINDOWS_RESERVED.contains(&c));
+            if is_unsafe { '_' } else { c }
+        })
+        .collect();
+    match folder_name.as_str() {
+        "" | "." | ".." => backup_folder.join("_"),
+        name => backup_folder.join(name),
+    }
+}
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {
@@ -20,14 +69,15 @@ pub struct UserBackup {
     pub packages: Vec<CorePackage>,
 }
 
-/// Backup all `Uninstalled` and `Disabled` packages
+/// Backup the state of every package of `users` into `backup_folder`.
 pub fn backup_phone(
+    backup_folder: &Path,
     users: Vec<User>,
-    device_id: String,
+    device_id: &str,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<bool, String> {
     let mut backup = PhoneBackup {
-        device_id: device_id.clone(),
+        device_id: device_id.to_string(),
         ..PhoneBackup::default()
     };
 
@@ -37,16 +87,16 @@ pub fn backup_phone(
             ..UserBackup::default()
         };
 
-        for p in phone_packages[u.index].iter().cloned() {
-            user_backup.packages.push(p);
-        }
+        let user_packages = phone_packages
+            .get(u.index)
+            .ok_or_else(|| format!("No package list loaded for {u}"))?;
+        user_backup.packages.extend(user_packages.iter().cloned());
         backup.users.push(user_backup);
     }
 
     match serde_json::to_string_pretty(&backup) {
         Ok(json) => {
-            let backup_dir: PathBuf = Config::load_configuration_file().general.backup_folder;
-            let backup_path = &*backup_dir.join(device_id);
+            let backup_path = &*device_backup_dir(backup_folder, device_id);
 
             if let Err(e) = fs::create_dir_all(backup_path) {
                 error!("BACKUP: could not create backup dir: {e}");
@@ -146,7 +196,9 @@ pub fn restore_backup(
                 for backup_package in &u.packages {
                     // `index` must point into the device package list, which the
                     // GUI uses to show and update the package, not into the backup.
-                    let (i, package): (usize, CorePackage) = if let Some((i, p)) = packages[i_user]
+                    let (i, package): (usize, CorePackage) = if let Some((i, p)) = packages
+                        .get(i_user)
+                        .ok_or_else(|| format!("No package list loaded for user {}", u.id))?
                         .iter()
                         .enumerate()
                         .find(|(_, x)| x.name == backup_package.name)
@@ -196,5 +248,52 @@ pub fn restore_backup(
             })
         }
         Err(e) => Err(e.to_string()),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn device_backup_dir_never_leaves_the_backup_folder() {
+        let root = Path::new("backups");
+        for serial in ["../../etc", "..", ".", "", "a/b", "a\\b", "x\0y"] {
+            let dir = device_backup_dir(root, serial);
+            assert_eq!(
+                dir.parent(),
+                Some(root),
+                "{serial:?} gave {}",
+                dir.display()
+            );
+            assert!(!dir.ends_with(".."), "{serial:?} gave {}", dir.display());
+        }
+    }
+
+    #[test]
+    fn usb_serials_keep_their_folder_name() {
+        assert_eq!(
+            device_backup_dir(Path::new("backups"), "R58M123ABC"),
+            Path::new("backups").join("R58M123ABC")
+        );
+    }
+
+    #[cfg(target_os = "windows")]
+    #[test]
+    fn wireless_serials_are_valid_windows_folder_names() {
+        assert_eq!(
+            device_backup_dir(Path::new("backups"), "192.168.1.5:5555"),
+            Path::new("backups").join("192.168.1.5_5555")
+        );
+    }
+
+    #[test]
+    fn backup_rejects_an_unknown_user_instead_of_panicking() {
+        let user = User {
+            id: 10,
+            index: 2,
+            protected: false,
+        };
+        assert!(backup_phone(Path::new("unused"), vec![user], "serial", &[]).is_err());
     }
 }

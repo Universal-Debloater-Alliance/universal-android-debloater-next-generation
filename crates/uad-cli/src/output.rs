@@ -1,7 +1,7 @@
-/// Helper macro to handle broken pipe errors gracefully
-/// When piping to commands like `head`, we want to exit cleanly when the pipe closes
+/// `println!` that ignores write errors, so piping into a command such as `head`
+/// that closes the pipe early does not panic with a broken-pipe error.
 #[macro_export]
-macro_rules! println_or_exit {
+macro_rules! println_ignoring_closed_pipe {
     () => {
         let _ = writeln!(std::io::stdout());
     };
@@ -10,8 +10,9 @@ macro_rules! println_or_exit {
     };
 }
 
+/// `print!` that ignores write errors. See `println_ignoring_closed_pipe`.
 #[macro_export]
-macro_rules! print_or_exit {
+macro_rules! print_ignoring_closed_pipe {
     ($($arg:tt)*) => {
         let _ = write!(std::io::stdout(), $($arg)*);
     };

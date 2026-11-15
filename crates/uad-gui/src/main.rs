@@ -5,14 +5,10 @@ use fern::{
     colors::{Color, ColoredLevelConfig},
 };
 use log::Record;
-use std::sync::LazyLock;
-use std::{fmt::Arguments, fs::OpenOptions, path::PathBuf};
-use uad_core::utils::setup_uad_dir;
+use std::{fmt::Arguments, fs::OpenOptions};
+use uad_core::CACHE_DIR;
 
 use uad_gui::gui::UadGui;
-
-static CACHE_DIR: LazyLock<PathBuf> =
-    LazyLock::new(|| setup_uad_dir(&dirs::cache_dir().expect("Can't detect cache dir")));
 
 fn main() -> iced::Result {
     configure_graphics();

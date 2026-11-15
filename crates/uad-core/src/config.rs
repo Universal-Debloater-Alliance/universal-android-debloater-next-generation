@@ -1,11 +1,11 @@
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
+use crate::save::DisplayablePath;
 use crate::sync::User;
-use crate::utils::DisplayablePath;
 use log::{error, info};
 use serde::{Deserialize, Serialize};
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
 const DEFAULT_THEME: &str = "Auto (follow system theme)";
@@ -71,35 +71,40 @@ impl Config {
             self.devices.push(device_settings);
         }
         self.general = general;
-        write_config_file(self);
+        write_config_file(&CONFIG_FILE, self);
     }
 
     #[must_use]
     pub fn load_configuration_file() -> Self {
-        match fs::read_to_string(&*CONFIG_FILE) {
-            Ok(s) => match toml::from_str(&s) {
-                Ok(config) => return config,
-                Err(e) => error!("Invalid config file: `{e}`"),
-            },
-            // A missing file is normal on the first launch.
-            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-                info!("No config file yet, creating the default one");
-            }
-            Err(e) => error!("Failed to read config file: `{e}`"),
-        }
-        let config = Self::default();
-        write_config_file(&config);
-        config
+        load_config_file(&CONFIG_FILE)
     }
 }
 
-/// Saves `config`. A failure is logged instead of crashing the app,
+/// Reads the config at `path`. A missing or invalid file is replaced by the defaults.
+fn load_config_file(path: &Path) -> Config {
+    match fs::read_to_string(path) {
+        Ok(s) => match toml::from_str(&s) {
+            Ok(config) => return config,
+            Err(e) => error!("Invalid config file: `{e}`"),
+        },
+        // A missing file is normal on the first launch.
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+            info!("No config file yet, creating the default one");
+        }
+        Err(e) => error!("Failed to read config file: `{e}`"),
+    }
+    let config = Config::default();
+    write_config_file(path, &config);
+    config
+}
+
+/// Saves `config` to `path`. A failure is logged instead of crashing the app,
 /// because the settings still apply to the current session.
-fn write_config_file(config: &Config) {
+fn write_config_file(path: &Path, config: &Config) {
     match toml::to_string(config) {
         Ok(toml) => {
-            if let Err(e) = fs::write(&*CONFIG_FILE, toml) {
-                error!("Could not write config file {}: {e}", CONFIG_FILE.display());
+            if let Err(e) = fs::write(path, toml) {
+                error!("Could not write config file {}: {e}", path.display());
             }
         }
         Err(e) => error!("Could not serialize config: {e}"),
@@ -108,46 +113,53 @@ fn write_config_file(config: &Config) {
 
 #[cfg(test)]
 mod tests {
-    //! Unit tests
+    //! Unit tests. They use a scratch file, never the user's real config.
 
     use super::*;
-    use std::path::Path;
 
-    // create a clean default config file for testing
-    fn create_default_config_file() {
-        let toml = toml::to_string(&Config::default()).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
+    /// A config path inside a fresh folder that is unique to `test_name`.
+    fn scratch_config_file(test_name: &str) -> PathBuf {
+        let dir = std::env::temp_dir().join(format!(
+            "uad-config-test-{}-{test_name}",
+            std::process::id()
+        ));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        dir.join("config.toml")
     }
 
     #[test]
-    fn test_create_default_config_file() {
-        create_default_config_file();
-        assert!(CONFIG_FILE.exists());
-    }
-
-    #[test]
-    fn test_load_configuration_file() {
-        create_default_config_file();
-        let config = Config::load_configuration_file();
-        // non-deterministic
-        //assert_eq!(config.devices.len(), 0);
+    fn missing_file_is_created_with_defaults() {
+        let path = scratch_config_file("missing");
+        let config = load_config_file(&path);
+        assert!(path.exists());
         assert_eq!(config.general.theme, DEFAULT_THEME);
-        assert!(!config.general.expert_mode);
-        assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
+        assert!(config.devices.is_empty());
     }
 
-    // non-deterministic
-    /*
     #[test]
-    fn test_save_changes() {
-        let mut settings = Settings::default();
-        let device_id = "test_device".to_string();
-        settings.device.device_id = device_id.clone();
-        Config::save_changes(&settings, &device_id);
-        let config = Config::load_configuration_file();
-        assert_eq!(config.devices[0].device_id, device_id);
+    fn invalid_file_falls_back_to_defaults() {
+        let path = scratch_config_file("invalid");
+        fs::write(&path, "general = 3").unwrap();
+        let config = load_config_file(&path);
+        assert_eq!(config.general.theme, DEFAULT_THEME);
     }
-    */
+
+    #[test]
+    fn saved_device_settings_load_back() {
+        let path = scratch_config_file("round-trip");
+        let mut config = Config::default();
+        config.devices.push(DeviceSettings {
+            device_id: "test_device".to_string(),
+            disable_mode: true,
+            ..DeviceSettings::default()
+        });
+        write_config_file(&path, &config);
+        let loaded = load_config_file(&path);
+        assert_eq!(loaded.devices.len(), 1);
+        assert_eq!(loaded.devices[0].device_id, "test_device");
+        assert!(loaded.devices[0].disable_mode);
+    }
 
     #[test]
     fn test_default_config() {

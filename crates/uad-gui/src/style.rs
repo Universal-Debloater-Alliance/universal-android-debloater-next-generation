@@ -12,7 +12,7 @@ use iced::widget::{
 use iced::{Background, Border, Color, Shadow};
 
 // Implement theming catalogs for our custom `Theme` so generic widgets
-// like `Button<'_, Message, Theme, Renderer>` compile under iced 0.13.
+// like `Button<'_, Message, Theme, Renderer>` compile.
 
 impl button::Catalog for Theme {
     type Class<'a> = button::StyleFn<'a, Theme>;
@@ -62,7 +62,7 @@ impl scrollable::Catalog for Theme {
     type Class<'a> = scrollable::StyleFn<'a, Theme>;
 
     fn default<'a>() -> <Self as scrollable::Catalog>::Class<'a> {
-        Box::new(|t: &Theme, s: scrollable::Status| Scrollable::Description(t, s))
+        Box::new(|t: &Theme, s: scrollable::Status| Scrollable::Panel(t, s))
     }
 
     fn style(
@@ -299,10 +299,40 @@ impl iced::widget::rule::Catalog for Theme {
     }
 }
 
+/// A border of `width` pixels in `color`, with rounded corners of `radius` pixels.
+fn border(color: Color, width: f32, radius: f32) -> Border {
+    Border {
+        color,
+        width,
+        radius: radius.into(),
+    }
+}
+
+/// A flat (shadowless) container.
+fn panel(background: Color, text: Color, border: Border) -> container::Style {
+    container::Style {
+        background: Some(Background::Color(background)),
+        text_color: Some(text),
+        border,
+        shadow: Shadow::default(),
+        snap: true,
+    }
+}
+
+/// A flat (shadowless) button.
+fn flat_button(background: Color, text: Color, border: Border) -> button::Style {
+    button::Style {
+        background: Some(Background::Color(background)),
+        text_color: text,
+        border,
+        shadow: Shadow::default(),
+        snap: true,
+    }
+}
+
 pub mod Container {
     use super::*;
 
-    #[allow(dead_code, reason = "Used by other themes or future styles")]
     #[must_use]
     pub fn Invisible(_: &Theme) -> container::Style {
         container::Style::default()
@@ -311,116 +341,57 @@ pub mod Container {
     #[must_use]
     pub fn Frame(theme: &Theme) -> container::Style {
         let p = theme.palette();
-        container::Style {
-            background: Some(Background::Color(p.base.foreground)),
-            text_color: Some(p.bright.surface),
-            border: Border {
-                color: Color::TRANSPARENT,
-                width: 0.0,
-                radius: 5.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        panel(
+            p.base.foreground,
+            p.bright.surface,
+            border(Color::TRANSPARENT, 0.0, 5.0),
+        )
     }
 
     #[must_use]
     pub fn BorderedFrame(theme: &Theme) -> container::Style {
         let p = theme.palette();
-        container::Style {
-            background: Some(Background::Color(p.base.foreground)),
-            text_color: Some(p.bright.surface),
-            border: Border {
-                color: p.normal.error,
-                width: 1.0,
-                radius: 5.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        panel(
+            p.base.foreground,
+            p.bright.surface,
+            border(p.normal.error, 1.0, 5.0),
+        )
     }
 
-    #[allow(dead_code, reason = "Currently unused in some views")]
     #[must_use]
     pub fn Tooltip(theme: &Theme) -> container::Style {
         let p = theme.palette();
-        container::Style {
-            background: Some(Background::Color(p.base.foreground)),
-            text_color: Some(p.bright.surface),
-            border: Border {
-                color: p.normal.primary,
-                width: 1.0,
-                radius: 8.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        panel(
+            p.base.foreground,
+            p.bright.surface,
+            border(p.normal.primary, 1.0, 8.0),
+        )
     }
 
     #[must_use]
     pub fn Background(theme: &Theme) -> container::Style {
         let p = theme.palette();
-        container::Style {
-            background: Some(Background::Color(p.base.background)),
-            text_color: Some(p.bright.surface),
-            border: Border {
-                color: Color::TRANSPARENT,
-                width: 0.0,
-                radius: 5.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        panel(
+            p.base.background,
+            p.bright.surface,
+            border(Color::TRANSPARENT, 0.0, 5.0),
+        )
     }
 }
 
 pub mod Button {
     use super::*;
 
-    #[allow(
-        dead_code,
-        reason = "Helper used by multiple styles; may be inlined by compiler"
-    )]
-    fn base(border_color: Color) -> button::Style {
-        button::Style {
-            background: None,
-            text_color: Color::WHITE,
-            border: Border {
-                color: border_color,
-                width: 1.0,
-                radius: 2.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
-    }
-
     #[must_use]
     pub fn Primary(theme: &Theme, status: button::Status) -> button::Style {
         let p = theme.palette();
-        let mut style = style_active_hover_disabled(p.bright.primary, p.bright.primary, status);
-        if matches!(status, button::Status::Active | button::Status::Pressed) {
-            style.background = Some(Background::Color(p.base.foreground));
-        }
-        style
-    }
-
-    #[allow(
-        dead_code,
-        reason = "Alias kept for semantic clarity in some call-sites"
-    )]
-    #[must_use]
-    pub fn SelfUpdate(theme: &Theme, status: button::Status) -> button::Style {
-        Primary(theme, status)
+        outlined(p.bright.primary, p, status)
     }
 
     #[must_use]
     pub fn RestorePackage(theme: &Theme, status: button::Status) -> button::Style {
         let p = theme.palette();
-        let mut style = style_active_hover_disabled(p.bright.secondary, p.bright.secondary, status);
-        if matches!(status, button::Status::Active | button::Status::Pressed) {
-            style.background = Some(Background::Color(p.base.foreground));
-        }
+        let mut style = outlined(p.bright.secondary, p, status);
         if matches!(status, button::Status::Disabled) {
             style.background = Some(Background::Color(p.normal.primary.scale_alpha(0.05)));
             style.text_color = p.bright.primary;
@@ -431,122 +402,55 @@ pub mod Button {
     #[must_use]
     pub fn UninstallPackage(theme: &Theme, status: button::Status) -> button::Style {
         let p = theme.palette();
-        let mut style = style_active_hover_disabled(p.bright.error, p.bright.error, status);
-        if matches!(status, button::Status::Active | button::Status::Pressed) {
-            style.background = Some(Background::Color(p.base.foreground));
-        }
-        style
-    }
-
-    #[allow(
-        dead_code,
-        reason = "Style exposed for disabled state buttons in some contexts"
-    )]
-    #[must_use]
-    pub fn Unavailable(theme: &Theme, status: button::Status) -> button::Style {
-        UninstallPackage(theme, status)
+        outlined(p.bright.error, p, status)
     }
 
     #[must_use]
     pub fn NormalPackage(theme: &Theme, status: button::Status) -> button::Style {
         let p = theme.palette();
-        match status {
-            button::Status::Hovered => button::Style {
-                background: Some(Background::Color(p.normal.primary.scale_alpha(0.25))),
-                text_color: p.bright.surface,
-                border: Border {
-                    color: p.base.background,
-                    width: 0.0,
-                    radius: 5.0.into(),
-                },
-                shadow: Shadow::default(),
-                snap: true,
-            },
-            _ => button::Style {
-                background: Some(Background::Color(p.base.foreground)),
-                text_color: p.bright.surface,
-                border: Border {
-                    color: p.base.background,
-                    width: 0.0,
-                    radius: 5.0.into(),
-                },
-                shadow: Shadow::default(),
-                snap: true,
-            },
-        }
+        let background = match status {
+            button::Status::Hovered => p.normal.primary.scale_alpha(0.25),
+            _ => p.base.foreground,
+        };
+        flat_button(
+            background,
+            p.bright.surface,
+            border(p.base.background, 0.0, 5.0),
+        )
     }
 
     #[must_use]
     pub fn SelectedPackage(theme: &Theme, _status: button::Status) -> button::Style {
         let p = theme.palette();
-        button::Style {
-            background: Some(Background::Color(p.normal.primary.scale_alpha(0.25))),
-            text_color: p.bright.primary,
-            border: Border {
-                color: p.normal.primary,
-                width: 0.0,
-                radius: 5.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        flat_button(
+            p.normal.primary.scale_alpha(0.25),
+            p.bright.primary,
+            border(p.normal.primary, 0.0, 5.0),
+        )
     }
 
-    #[allow(dead_code, reason = "Used in views where buttons must be invisible")]
     #[must_use]
     pub fn Hidden(_: &Theme, _: button::Status) -> button::Style {
-        button::Style {
-            background: Some(Background::Color(Color::TRANSPARENT)),
-            text_color: Color::TRANSPARENT,
-            border: Border {
-                color: Color::TRANSPARENT,
-                width: 0.0,
-                radius: 5.0.into(),
-            },
-            shadow: Shadow::default(),
-            snap: true,
-        }
+        flat_button(
+            Color::TRANSPARENT,
+            Color::TRANSPARENT,
+            border(Color::TRANSPARENT, 0.0, 5.0),
+        )
     }
 
-    fn style_active_hover_disabled(
-        main: Color,
-        text: Color,
-        status: button::Status,
-    ) -> button::Style {
+    /// A frame-coloured button with `accent` text and outline, tinted on hover.
+    fn outlined(accent: Color, p: ColorPalette, status: button::Status) -> button::Style {
+        let outline = border(Color { a: 0.5, ..accent }, 1.0, 2.0);
         match status {
-            button::Status::Active | button::Status::Pressed => button::Style {
-                background: Some(Background::Color(main)),
-                text_color: text,
-                border: Border {
-                    color: Color { a: 0.5, ..main },
-                    width: 1.0,
-                    radius: 2.0.into(),
-                },
-                shadow: Shadow::default(),
-                snap: true,
-            },
-            button::Status::Hovered => button::Style {
-                background: Some(Background::Color(Color { a: 0.25, ..main })),
-                text_color: text,
-                border: Border {
-                    color: Color { a: 0.5, ..main },
-                    width: 1.0,
-                    radius: 2.0.into(),
-                },
-                shadow: Shadow::default(),
-                snap: true,
-            },
-            button::Status::Disabled => button::Style {
-                background: Some(Background::Color(Color { a: 0.05, ..main })),
-                text_color: Color { a: 0.5, ..text },
-                border: Border {
-                    color: Color { a: 0.5, ..main },
-                    width: 1.0,
-                    radius: 2.0.into(),
-                },
-                shadow: Shadow::default(),
-                snap: true,
-            },
+            button::Status::Active | button::Status::Pressed => {
+                flat_button(p.base.foreground, accent, outline)
+            }
+            button::Status::Hovered => flat_button(Color { a: 0.25, ..accent }, accent, outline),
+            button::Status::Disabled => flat_button(
+                Color { a: 0.05, ..accent },
+                Color { a: 0.5, ..accent },
+                outline,
+            ),
         }
     }
 }
@@ -554,63 +458,29 @@ pub mod Button {
 pub mod Scrollable {
     use super::*;
 
-    #[allow(dead_code, reason = "Kept for future custom rails variations")]
-    fn rails(scroller_color: Color) -> (scrollable::Rail, scrollable::Rail) {
+    /// Package list and description panels: a visible scroller on transparent rails.
+    #[must_use]
+    pub fn Panel(theme: &Theme, _status: scrollable::Status) -> scrollable::Style {
+        let p = theme.palette();
         let rail = scrollable::Rail {
             background: Some(Background::Color(Color::TRANSPARENT)),
-            border: Border {
-                color: Color::TRANSPARENT,
-                width: 0.0,
-                radius: 5.0.into(),
-            },
+            border: border(Color::TRANSPARENT, 0.0, 5.0),
             scroller: scrollable::Scroller {
-                background: Background::Color(scroller_color),
-                border: Border {
-                    color: Color::TRANSPARENT,
-                    width: 1.0,
-                    radius: 5.0.into(),
-                },
+                background: Background::Color(p.normal.surface),
+                border: border(Color::TRANSPARENT, 1.0, 5.0),
             },
         };
-        (rail, rail)
-    }
-
-    fn autoscroll(p: ColorPalette) -> scrollable::AutoScroll {
-        scrollable::AutoScroll {
-            background: Background::Color(p.base.background.scale_alpha(0.05)),
-            border: Border {
-                color: Color::TRANSPARENT,
-                width: 0.0,
-                radius: 5.0.into(),
+        scrollable::Style {
+            container: container::Style::default(),
+            vertical_rail: rail,
+            horizontal_rail: rail,
+            gap: Some(Background::Color(Color::TRANSPARENT)),
+            auto_scroll: scrollable::AutoScroll {
+                background: Background::Color(p.base.background.scale_alpha(0.05)),
+                border: border(Color::TRANSPARENT, 0.0, 5.0),
+                shadow: Shadow::default(),
+                icon: p.bright.surface,
             },
-            shadow: Shadow::default(),
-            icon: p.bright.surface,
-        }
-    }
-
-    #[must_use]
-    pub fn Description(theme: &Theme, _status: scrollable::Status) -> scrollable::Style {
-        let p = theme.palette();
-        let (v, h) = rails(p.normal.surface);
-        scrollable::Style {
-            container: container::Style::default(),
-            vertical_rail: v,
-            horizontal_rail: h,
-            gap: Some(Background::Color(Color::TRANSPARENT)),
-            auto_scroll: autoscroll(p),
-        }
-    }
-
-    #[must_use]
-    pub fn Packages(theme: &Theme, _status: scrollable::Status) -> scrollable::Style {
-        let p = theme.palette();
-        let (v, h) = rails(p.base.foreground);
-        scrollable::Style {
-            container: container::Style::default(),
-            vertical_rail: v,
-            horizontal_rail: h,
-            gap: Some(Background::Color(Color::TRANSPARENT)),
-            auto_scroll: autoscroll(p),
         }
     }
 }
@@ -618,64 +488,47 @@ pub mod Scrollable {
 pub mod CheckBox {
     use super::*;
 
+    fn checkbox_style(
+        background: Color,
+        border_color: Color,
+        text: Color,
+        p: ColorPalette,
+    ) -> checkbox::Style {
+        checkbox::Style {
+            background: Background::Color(background),
+            icon_color: p.bright.primary,
+            border: border(border_color, 1.0, 5.0),
+            text_color: Some(text),
+        }
+    }
+
     #[must_use]
     pub fn PackageEnabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
         let p = theme.palette();
-        checkbox::Style {
-            background: Background::Color(p.base.background),
-            icon_color: p.bright.primary,
-            border: Border {
-                color: p.base.background,
-                width: 1.0,
-                radius: 5.0.into(),
-            },
-            text_color: Some(p.bright.surface),
-        }
+        checkbox_style(p.base.background, p.normal.surface, p.bright.surface, p)
     }
 
     #[must_use]
     pub fn PackageDisabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
         let p = theme.palette();
-        checkbox::Style {
-            background: Background::Color(p.base.background.scale_alpha(0.55)),
-            icon_color: p.bright.primary,
-            border: Border {
-                color: p.normal.primary,
-                width: 1.0,
-                radius: 5.0.into(),
-            },
-            text_color: Some(p.normal.primary),
-        }
+        checkbox_style(
+            p.base.background.scale_alpha(0.55),
+            p.normal.primary,
+            p.normal.primary,
+            p,
+        )
     }
 
     #[must_use]
     pub fn SettingsEnabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
         let p = theme.palette();
-        checkbox::Style {
-            background: Background::Color(p.base.background),
-            icon_color: p.bright.primary,
-            border: Border {
-                color: p.bright.primary,
-                width: 1.0,
-                radius: 5.0.into(),
-            },
-            text_color: Some(p.bright.surface),
-        }
+        checkbox_style(p.base.background, p.bright.primary, p.bright.surface, p)
     }
 
     #[must_use]
     pub fn SettingsDisabled(theme: &Theme, _status: checkbox::Status) -> checkbox::Style {
         let p = theme.palette();
-        checkbox::Style {
-            background: Background::Color(p.base.foreground),
-            icon_color: p.bright.primary,
-            border: Border {
-                color: p.normal.primary,
-                width: 1.0,
-                radius: 5.0.into(),
-            },
-            text_color: Some(p.bright.surface),
-        }
+        checkbox_style(p.base.foreground, p.normal.primary, p.bright.surface, p)
     }
 }
 
@@ -710,34 +563,5 @@ pub mod Text {
         text::Style {
             color: Some(p.normal.surface),
         }
-    }
-
-    #[allow(
-        dead_code,
-        reason = "Convenience factory used by dynamic text coloring"
-    )]
-    pub fn Color(c: Color) -> impl Fn(&Theme) -> text::Style {
-        move |_t: &Theme| text::Style { color: Some(c) }
-    }
-}
-
-// Unit tests
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_palette() {
-        let palette = Theme::Dark.palette();
-
-        assert_ne!(palette.base.background, palette.base.foreground);
-        assert_ne!(palette.normal.primary, Color::BLACK);
-        assert_ne!(palette.normal.surface, Color::BLACK);
-        assert_ne!(palette.bright.primary, Color::BLACK);
-        // if `LIGHT` then this can be `BLACK`
-        // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/pull/730#issuecomment-2525405134
-        //assert_ne!(palette.bright.surface, Color::BLACK);
-        assert_ne!(palette.normal.error, Color::BLACK);
-        assert_ne!(palette.bright.error, Color::BLACK);
     }
 }

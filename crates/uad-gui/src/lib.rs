@@ -3,8 +3,8 @@
     reason = "Short-circuit doc lint to keep CI green"
 )]
 
+pub mod folder_picker;
 pub mod gui;
-pub mod helpers;
 pub mod style;
 pub mod theme;
 pub mod views;
