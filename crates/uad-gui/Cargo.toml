@@ -37,6 +37,9 @@ tar = { workspace = true, optional = true }
 [target.'cfg(target_os = "windows")'.dependencies]
 win32console.workspace = true
 
+[dev-dependencies]
+serde_json.workspace = true
+
 [build-dependencies]
 embed-resource = "3"
 

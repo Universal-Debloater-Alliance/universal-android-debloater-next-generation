@@ -77,17 +77,26 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
 
 #[must_use]
 pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
-    match fs::read_to_string(backup.path) {
-        Ok(data) => serde_json::from_str::<PhoneBackup>(&data)
-            .expect("Unable to parse backup file")
-            .users
-            .into_iter()
-            .map(|u| User {
-                id: u.id,
-                index: 0,
-                protected: false,
-            })
-            .collect(),
+    let path = backup.path;
+    match fs::read_to_string(&path) {
+        Ok(data) => match serde_json::from_str::<PhoneBackup>(&data) {
+            Ok(phone_backup) => phone_backup
+                .users
+                .into_iter()
+                .map(|u| User {
+                    id: u.id,
+                    index: 0,
+                    protected: false,
+                })
+                .collect(),
+            Err(e) => {
+                error!(
+                    "[BACKUP]: {} is not a valid backup file: {e}",
+                    path.display()
+                );
+                vec![]
+            }
+        },
         Err(e) => {
             error!("[BACKUP]: Selected backup file not found: {e}");
             vec![]
@@ -123,8 +132,8 @@ pub fn restore_backup(
             .clone(),
     ) {
         Ok(data) => {
-            let phone_backup: PhoneBackup =
-                serde_json::from_str(&data).expect("Unable to parse backup file");
+            let phone_backup: PhoneBackup = serde_json::from_str(&data)
+                .map_err(|e| format!("The selected backup file is not valid: {e}"))?;
 
             let mut commands = vec![];
             let mut skipped_packages = 0;
@@ -134,12 +143,15 @@ pub fn restore_backup(
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
-                for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage = if let Some(p) = packages[i_user]
+                for backup_package in &u.packages {
+                    // `index` must point into the device package list, which the
+                    // GUI uses to show and update the package, not into the backup.
+                    let (i, package): (usize, CorePackage) = if let Some((i, p)) = packages[i_user]
                         .iter()
-                        .find(|x| x.name == backup_package.name)
+                        .enumerate()
+                        .find(|(_, x)| x.name == backup_package.name)
                     {
-                        p.clone()
+                        (i, p.clone())
                     } else {
                         skipped_packages += 1;
                         warn!(

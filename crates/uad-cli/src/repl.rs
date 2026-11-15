@@ -6,7 +6,10 @@ use uad_core::adb::ACommand;
 use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, get_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
-use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
+use crate::commands::{
+    PackageListContext, blocked_as_unsafe, display_package_list, execute_with_fallback,
+    expand_with_related, print_package_details,
+};
 use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
 use crate::println_or_exit;
@@ -265,9 +268,7 @@ fn handle_info_command(
     println!("Package: {}", package);
 
     if let Some(pkg_info) = uad_lists.get(package) {
-        println!("  List:        {}", pkg_info.list);
-        println!("  Removal:     {}", pkg_info.removal);
-        println!("  Description: {}", pkg_info.description);
+        print_package_details(package, pkg_info, uad_lists);
     } else {
         println!("  Not found in UAD lists (unlisted package)");
     }
@@ -288,16 +289,34 @@ fn handle_state_change_command(
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    if args.is_empty() {
+    let force = args.contains(&"--force");
+    let with_related = args.contains(&"--with-related");
+    let mut packages: Vec<String> = args
+        .iter()
+        .filter(|arg| !arg.starts_with("--"))
+        .map(ToString::to_string)
+        .collect();
+    if packages.is_empty() {
         eprintln!(
-            "Usage: {} <package_name> [package_name...]",
+            "Usage: {} <package_name> [package_name...] [--with-related] [--force]",
             action_name.to_lowercase()
         );
         return Ok(());
     }
+    if target_state != PackageState::Enabled {
+        packages = expand_with_related(packages, uad_lists, device, user, with_related, "  ");
+    }
 
-    for pkg_name in args {
-        process_package_change(pkg_name, device, user, target_state, action_name, uad_lists)?;
+    for pkg_name in &packages {
+        process_package_change(
+            pkg_name,
+            device,
+            user,
+            target_state,
+            action_name,
+            uad_lists,
+            force,
+        )?;
     }
 
     Ok(())
@@ -311,6 +330,7 @@ fn process_package_change(
     target_state: PackageState,
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
+    force: bool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let current_state = get_package_state(&device.adb_id, pkg_name, Some(user.id))
         .ok_or("Package not found on device")?;
@@ -323,10 +343,8 @@ fn process_package_change(
     }
 
     let pkg_info = uad_lists.get(pkg_name);
-    if let Some(info) = pkg_info {
-        if info.removal == Removal::Unsafe {
-            println!("  ⚠ WARNING: This package is marked as UNSAFE to remove!");
-        }
+    if blocked_as_unsafe(pkg_info, target_state, force, "  ") {
+        return Ok(());
     }
 
     let core_pkg = CorePackage {
@@ -357,12 +375,13 @@ fn print_repl_help() {
     println!("      List packages with optional filters");
     println!("  info <package_name>");
     println!("      Show information about a package");
-    println!("  uninstall <package_name> [package_name...]");
-    println!("      Uninstall one or more packages");
+    println!("  uninstall <package_name> [package_name...] [--with-related] [--force]");
+    println!("      Uninstall one or more packages. --with-related also removes related");
+    println!("      packages. --force allows packages rated Unsafe");
     println!("  enable <package_name> [package_name...]");
     println!("      Enable/restore one or more packages");
-    println!("  disable <package_name> [package_name...]");
-    println!("      Disable one or more packages");
+    println!("  disable <package_name> [package_name...] [--with-related] [--force]");
+    println!("      Disable one or more packages (same options as uninstall)");
     println!("  device");
     println!("      Show current device information");
     println!("  clear");

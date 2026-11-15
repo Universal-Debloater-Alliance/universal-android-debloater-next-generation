@@ -175,7 +175,10 @@ pub fn apply_pkg_state_commands(
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
                 19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
-                _ => unreachable!("already prevented by the GUI"),
+                sdk => {
+                    error!("Restoring packages is not supported on Android SDK {sdk}");
+                    vec![]
+                }
             },
             _ => vec![],
         },
@@ -269,7 +272,10 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
         .shell(device_serial)
         .getprop("ro.build.version.sdk")
         .map_or(0, |sdk| {
-            sdk.parse().expect("SDK version numeral must be valid")
+            sdk.trim().parse().unwrap_or_else(|e| {
+                error!("Unexpected Android SDK version {sdk:?}: {e}");
+                0
+            })
         })
 }
 

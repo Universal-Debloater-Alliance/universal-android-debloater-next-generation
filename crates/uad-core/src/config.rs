@@ -2,7 +2,7 @@ use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
 use crate::sync::User;
 use crate::utils::DisplayablePath;
-use log::error;
+use log::{error, info};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::PathBuf;
@@ -71,8 +71,7 @@ impl Config {
             self.devices.push(device_settings);
         }
         self.general = general;
-        let toml = toml::to_string(&self).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
+        write_config_file(self);
     }
 
     #[must_use]
@@ -82,12 +81,28 @@ impl Config {
                 Ok(config) => return config,
                 Err(e) => error!("Invalid config file: `{e}`"),
             },
+            // A missing file is normal on the first launch.
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                info!("No config file yet, creating the default one");
+            }
             Err(e) => error!("Failed to read config file: `{e}`"),
         }
-        error!("Restoring default config file");
-        let toml = toml::to_string(&Self::default()).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
-        Self::default()
+        let config = Self::default();
+        write_config_file(&config);
+        config
+    }
+}
+
+/// Saves `config`. A failure is logged instead of crashing the app,
+/// because the settings still apply to the current session.
+fn write_config_file(config: &Config) {
+    match toml::to_string(config) {
+        Ok(toml) => {
+            if let Err(e) = fs::write(&*CONFIG_FILE, toml) {
+                error!("Could not write config file {}: {e}", CONFIG_FILE.display());
+            }
+        }
+        Err(e) => error!("Could not serialize config: {e}"),
     }
 }
 

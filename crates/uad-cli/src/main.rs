@@ -18,6 +18,7 @@ mod filters;
 mod output;
 mod repl;
 
+use commands::ChangeOptions;
 use filters::{ListFilter, RemovalFilter, StateFilter};
 
 #[derive(Parser)]
@@ -80,6 +81,15 @@ enum Commands {
         /// Dry run - show what would be done without actually doing it
         #[arg(long)]
         dry_run: bool,
+
+        /// Also remove related packages: packages that need the given ones,
+        /// and packages that only the given ones need. Unsafe packages are never added.
+        #[arg(long)]
+        with_related: bool,
+
+        /// Remove packages rated Unsafe (they are skipped otherwise)
+        #[arg(long)]
+        force: bool,
     },
 
     /// Restore (reinstall) packages
@@ -117,6 +127,15 @@ enum Commands {
         /// Dry run - show what would be done without actually doing it
         #[arg(long)]
         dry_run: bool,
+
+        /// Also remove related packages: packages that need the given ones,
+        /// and packages that only the given ones need. Unsafe packages are never added.
+        #[arg(long)]
+        with_related: bool,
+
+        /// Remove packages rated Unsafe (they are skipped otherwise)
+        #[arg(long)]
+        force: bool,
     },
 
     /// Show detailed information about a package
@@ -189,12 +208,18 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             device,
             user,
             dry_run,
+            with_related,
+            force,
         } => {
             commands::change_package_state(
                 &packages,
                 device,
                 user,
-                dry_run,
+                ChangeOptions {
+                    dry_run,
+                    with_related,
+                    force,
+                },
                 PackageState::Uninstalled,
                 "Uninstalling",
             )?;
@@ -209,7 +234,10 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                 &packages,
                 device,
                 user,
-                dry_run,
+                ChangeOptions {
+                    dry_run,
+                    ..ChangeOptions::default()
+                },
                 PackageState::Enabled,
                 "Enabling",
             )?;
@@ -219,12 +247,18 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             device,
             user,
             dry_run,
+            with_related,
+            force,
         } => {
             commands::change_package_state(
                 &packages,
                 device,
                 user,
-                dry_run,
+                ChangeOptions {
+                    dry_run,
+                    with_related,
+                    force,
+                },
                 PackageState::Disabled,
                 "Disabling",
             )?;

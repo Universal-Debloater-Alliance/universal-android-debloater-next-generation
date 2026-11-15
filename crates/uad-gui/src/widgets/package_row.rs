@@ -9,6 +9,18 @@ use uad_core::uad_lists::{PackageState, Removal, UadList};
 use iced::widget::{Space, button, checkbox, row};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 
+/// The verb for the action that toggles a package in `state`.
+#[must_use]
+pub const fn action_label(state: PackageState, disable_mode: bool) -> &'static str {
+    match state {
+        PackageState::Enabled if disable_mode => "Disable",
+        PackageState::Enabled => "Uninstall",
+        PackageState::Disabled => "Enable",
+        PackageState::Uninstalled => "Restore",
+        PackageState::All => "Error",
+    }
+}
+
 #[derive(Clone, Debug)]
 pub struct PackageRow {
     pub name: String,
@@ -65,29 +77,16 @@ impl PackageRow {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
         let button_style: fn(&Theme, iced::widget::button::Status) -> iced::widget::button::Style;
-        let action_text;
         let action_btn;
         let selection_checkbox;
 
+        let action_text = action_label(self.state, settings.device.disable_mode);
         match self.state {
-            PackageState::Enabled => {
-                action_text = if settings.device.disable_mode {
-                    "Disable"
-                } else {
-                    "Uninstall"
-                };
-                button_style = style::Button::UninstallPackage;
-            }
-            PackageState::Disabled => {
-                action_text = "Enable";
-                button_style = style::Button::RestorePackage;
-            }
-            PackageState::Uninstalled => {
-                action_text = "Restore";
+            PackageState::Enabled => button_style = style::Button::UninstallPackage,
+            PackageState::Disabled | PackageState::Uninstalled => {
                 button_style = style::Button::RestorePackage;
             }
             PackageState::All => {
-                action_text = "Error";
                 button_style = style::Button::RestorePackage;
                 warn!("Incredible! Something impossible happened!");
             }

@@ -1,8 +1,10 @@
 use clap::CommandFactory;
 use clap_complete::{Shell, generate};
+use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PmListPacksFlag};
+use uad_core::relations::{DevicePackage, Relations};
 use uad_core::sync::{
     CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, get_package_state,
     run_adb_shell_action,
@@ -239,12 +241,23 @@ pub fn display_package_entry(
     println_or_exit!();
 }
 
+/// Options shared by the `uninstall`, `disable` and `enable` commands.
+#[derive(Debug, Clone, Copy, Default)]
+pub struct ChangeOptions {
+    /// Show what would be done without doing it.
+    pub dry_run: bool,
+    /// Also remove the related packages found by `Relations::plan_removal`.
+    pub with_related: bool,
+    /// Allow removing packages rated `Unsafe`.
+    pub force: bool,
+}
+
 /// Change the state of one or more packages
 pub fn change_package_state(
     packages: &[String],
     device: Option<String>,
     user_id: Option<u16>,
-    dry_run: bool,
+    options: ChangeOptions,
     target_state: PackageState,
     action_name: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -255,6 +268,19 @@ pub fn change_package_state(
     let target_device = get_target_device(device)?;
     let user = get_user(&target_device, user_id)?;
     let uad_lists = load_debloat_lists(false).unwrap_or_else(|lists| lists);
+    let dry_run = options.dry_run;
+
+    let mut packages = packages.to_vec();
+    if target_state != PackageState::Enabled {
+        packages = expand_with_related(
+            packages,
+            &uad_lists,
+            &target_device,
+            user,
+            options.with_related,
+            "",
+        );
+    }
 
     println!(
         "{} {} package(s) on: {} ({})\n",
@@ -268,13 +294,13 @@ pub fn change_package_state(
         println!("DRY RUN - No changes will be made\n");
     }
 
-    for pkg_name in packages {
+    for pkg_name in &packages {
         process_package_state_change(
             pkg_name,
             &target_device,
             user,
             target_state,
-            dry_run,
+            options,
             &uad_lists,
         )?;
         println!();
@@ -295,9 +321,10 @@ fn process_package_state_change(
     device: &Phone,
     user: User,
     target_state: PackageState,
-    dry_run: bool,
+    options: ChangeOptions,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let dry_run = options.dry_run;
     let current_state = get_package_state(&device.adb_id, pkg_name, Some(user.id))
         .ok_or("Package not found on device")?;
 
@@ -309,10 +336,8 @@ fn process_package_state_change(
     }
 
     let pkg_info = uad_lists.get(pkg_name);
-    if let Some(info) = pkg_info {
-        if info.removal == Removal::Unsafe {
-            println!("    ⚠ WARNING: This package is marked as UNSAFE to remove!");
-        }
+    if blocked_as_unsafe(pkg_info, target_state, options.force, "    ") {
+        return Ok(());
     }
 
     let core_pkg = CorePackage {
@@ -415,6 +440,113 @@ pub fn execute_with_fallback(
     Ok(())
 }
 
+/// Returns `true`, after explaining why, when a removal must be skipped because
+/// the package is rated `Unsafe` and `force` is not set. Restoring is never blocked.
+pub fn blocked_as_unsafe(
+    pkg_info: Option<&Package>,
+    target_state: PackageState,
+    force: bool,
+    indent: &str,
+) -> bool {
+    if target_state == PackageState::Enabled
+        || pkg_info.is_none_or(|info| info.removal != Removal::Unsafe)
+    {
+        return false;
+    }
+    println!(
+        "{indent}⚠ This package is rated UNSAFE: {}",
+        Removal::Unsafe.explanation()
+    );
+    if force {
+        println!("{indent}  Continuing because --force was given.");
+        false
+    } else {
+        println!("{indent}→ Skipped. Pass --force to remove it anyway.");
+        true
+    }
+}
+
+/// Prints the related packages of a removal, warns about packages that may
+/// break, and returns `packages`, plus the related ones when `with_related`.
+pub fn expand_with_related(
+    packages: Vec<String>,
+    uad_lists: &HashMap<String, Package>,
+    device: &Phone,
+    user: User,
+    with_related: bool,
+    indent: &str,
+) -> Vec<String> {
+    let relations = Relations::new(uad_lists);
+    // Each lookup is an ADB call, so remember the answers.
+    let cache: RefCell<HashMap<String, Option<DevicePackage>>> = RefCell::default();
+    let lookup = |name: &str| {
+        *cache
+            .borrow_mut()
+            .entry(name.to_string())
+            .or_insert_with(|| {
+                get_package_state(&device.adb_id, name, Some(user.id)).map(|state| DevicePackage {
+                    state,
+                    removal: uad_lists.get(name).map_or(Removal::Unlisted, |p| p.removal),
+                })
+            })
+    };
+    let plan = relations.plan_removal(&packages, lookup, with_related);
+
+    if !plan.related.is_empty() {
+        if with_related {
+            println!("{indent}Also removing related packages:");
+        } else {
+            println!("{indent}Related packages (add --with-related to remove them too):");
+        }
+        for related in &plan.related {
+            println!("{indent}  - {} ({})", related.name, related.reason);
+        }
+        println!();
+    }
+    for skipped in &plan.excluded_unsafe {
+        println!(
+            "{indent}⚠ {} is rated Unsafe ({}), so it is not added automatically.",
+            skipped.name, skipped.reason
+        );
+    }
+    for risk in &plan.at_risk {
+        println!(
+            "{indent}⚠ {} may stop working, because it needs {}.",
+            risk.dependent, risk.requirement
+        );
+    }
+    if !plan.excluded_unsafe.is_empty() || !plan.at_risk.is_empty() {
+        println!();
+    }
+
+    let mut packages = packages;
+    if with_related {
+        packages.extend(plan.related.into_iter().map(|r| r.name));
+    }
+    packages
+}
+
+/// Prints what a rating means and which listed packages relate to `package`.
+pub fn print_package_details(
+    package: &str,
+    pkg_info: &Package,
+    uad_lists: &HashMap<String, Package>,
+) {
+    println!("  List:        {}", pkg_info.list);
+    println!("  Removal:     {}", pkg_info.removal);
+    println!("               {}", pkg_info.removal.explanation());
+    println!("  Description: {}", pkg_info.description);
+    let relations = Relations::new(uad_lists);
+    let needs = relations.requirements(package);
+    if !needs.is_empty() {
+        println!("  Needs:       {}", needs.join(", "));
+    }
+    let needed_by = relations.dependents(package);
+    if !needed_by.is_empty() {
+        println!("  Needed by:   {}", needed_by.join(", "));
+    }
+}
+
 /// Show detailed information about a package
 pub fn show_package_info(
     package: &str,
@@ -427,9 +559,7 @@ pub fn show_package_info(
 
     if let Some(pkg_info) = uad_lists.get(package) {
         println!("UAD Information:");
-        println!("  List:        {}", pkg_info.list);
-        println!("  Removal:     {}", pkg_info.removal);
-        println!("  Description: {}", pkg_info.description);
+        print_package_details(package, pkg_info, &uad_lists);
         println!();
     } else {
         println!("  Not found in UAD lists (unlisted package)\n");
