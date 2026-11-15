@@ -16,6 +16,8 @@ ls:
 
     scripts:
         .mjs: kebab-case
+        .ps1: kebab-case
+        .rs: snake_case
 
     resources:
         # Served by raw GitHub URLs that released apps, the wiki and other

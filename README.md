@@ -63,13 +63,14 @@ When you remove a package, UAD-ng lists the related packages from the debloat li
 
 ## Development
 
-| Command                          | What it does                                                                      |
-| -------------------------------- | --------------------------------------------------------------------------------- |
-| `npm run dev`                    | Builds and starts the GUI in debug mode                                           |
-| `cargo run -p uad-cli -- --help` | Builds the CLI and shows its commands                                             |
-| `npm ci`                         | Installs the formatting and lint tools (once)                                     |
-| `npm run check`                  | Runs every CI check locally: formatting, names, duplicates, Clippy, builds, tests |
-| `npm run format`                 | Formats Markdown, JSON and YAML with Prettier (Rust: `cargo fmt --all`)           |
+| Command                          | What it does                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------ |
+| `npm run dev`                    | Builds and starts the GUI in debug mode                                              |
+| `cargo run -p uad-cli -- --help` | Builds the CLI and shows its commands                                                |
+| `npm ci`                         | Installs the formatting and lint tools (once)                                        |
+| `npm run check`                  | Runs every CI check locally: formatting, names, duplicates, Clippy, builds, tests    |
+| `npm run screenshots`            | Retakes the README screenshots with a simulated phone (Windows, see CONTRIBUTING.md) |
+| `npm run format`                 | Formats Markdown, JSON and YAML with Prettier (Rust: `cargo fmt --all`)              |
 
 ## Troubleshooting
 

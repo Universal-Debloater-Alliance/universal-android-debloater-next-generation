@@ -9,6 +9,7 @@ Last verified: 2026-11-15.
 - Run the CLI: `cargo run -p uad-cli -- --help`
 - Install dev tools (Prettier, ls-lint, jscpd): `npm ci`
 - Full local CI, same as GitHub: `npm run check`
+- Retake README screenshots after a visible GUI change: `npm run screenshots` (Windows, see `CONTRIBUTING.md#screenshots`)
 - Tests: `cargo test --workspace --all-features`. One crate: `cargo test -p uad-core`. One test: `cargo test -p uad-core device_backup_dir`
 - Lint: `cargo clippy --workspace --all-targets --all-features -- -D clippy::all -W clippy::style`
 - Format: `cargo fmt --all` and `npm run format`

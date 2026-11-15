@@ -12,7 +12,8 @@
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
 		"lint:names": "ls-lint",
-		"lint:duplicates": "jscpd"
+		"lint:duplicates": "jscpd",
+		"screenshots": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/screenshots/capture-screenshots.ps1"
 	},
 	"devDependencies": {
 		"@ls-lint/ls-lint": "2.3.2",
