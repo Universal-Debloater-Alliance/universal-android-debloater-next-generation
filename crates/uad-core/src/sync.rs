@@ -48,7 +48,7 @@ pub struct User {
 
 impl std::fmt::Display for User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "user {}", self.id)
+        write!(f, "User {}", self.id)
     }
 }
 
@@ -235,7 +235,7 @@ pub fn apply_pkg_state_commands(
     selected_user: User,
     phone: &Phone,
 ) -> Vec<String> {
-    // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
+    // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
         PackageState::Enabled => match package.state {
@@ -318,7 +318,8 @@ pub fn get_device_model(serial: &str) -> String {
         })
 }
 
-/// Get the brand by querying the `ro.product.brand` property.
+/// Get the brand by querying the `ro.product.brand` property,
+/// with its first letter capitalised for display (`samsung` becomes `Samsung`).
 ///
 /// If `serial` is empty, it lets ADB choose the default device.
 #[must_use]
@@ -327,8 +328,16 @@ pub fn get_device_brand(serial: &str) -> String {
         .shell(serial)
         .getprop("ro.product.brand")
         // `trim` is just-in-case
-        .map(|s| s.trim().to_string())
+        .map(|s| capitalize_first(s.trim()))
         .unwrap_or_default()
+}
+
+/// Upper-cases the first character and keeps the rest (`oneplus` becomes `Oneplus`, `OnePlus` stays).
+fn capitalize_first(s: &str) -> String {
+    let mut chars = s.chars();
+    chars.next().map_or_else(String::new, |first| {
+        first.to_uppercase().chain(chars).collect()
+    })
 }
 
 /// Get Android SDK version by querying the
@@ -675,7 +684,7 @@ pub fn attempt_fallback(
             let pkg = package_with_state(package, PackageState::Enabled);
             let commands = apply_pkg_state_commands(&pkg, PackageState::Disabled, user, phone);
             execute_first_command(&commands, phone)
-                .map(|()| "disabled package instead of uninstalling".to_string())
+                .map(|()| "Disabled the package instead of uninstalling".to_string())
                 .map_err(|e| format!("Failed to disable package: {e}"))
         }
 
@@ -689,7 +698,7 @@ pub fn attempt_fallback(
             // Verify the package was actually uninstalled
             match get_package_state(&phone.adb_id, &package.name, Some(user.id)) {
                 Some(PackageState::Uninstalled) | None => {
-                    Ok("uninstalled package instead of disabling".to_string())
+                    Ok("Uninstalled the package instead of disabling it".to_string())
                 }
                 _ => Err("Package still exists after uninstall attempt".to_string()),
             }
@@ -709,11 +718,11 @@ pub fn attempt_fallback(
                 apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone);
 
             if enable_cmds.is_empty() {
-                return Ok("uninstalled package but couldn't reinstall".to_string());
+                return Ok("Uninstalled the package but could not reinstall it".to_string());
             }
 
             execute_first_command(&enable_cmds, phone)
-                .map(|()| "uninstalled and reinstalled package to enable it".to_string())
+                .map(|()| "Uninstalled and reinstalled the package to enable it".to_string())
                 .map_err(|e| format!("Failed to reinstall package: {e}"))
         }
 
@@ -721,5 +730,17 @@ pub fn attempt_fallback(
         _ => Err(format!(
             "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::capitalize_first;
+
+    #[test]
+    fn capitalize_first_upper_cases_only_the_first_letter() {
+        assert_eq!(capitalize_first("samsung"), "Samsung");
+        assert_eq!(capitalize_first("OnePlus"), "OnePlus");
+        assert_eq!(capitalize_first(""), "");
     }
 }

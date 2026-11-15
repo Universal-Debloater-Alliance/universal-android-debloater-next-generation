@@ -70,7 +70,7 @@ impl About {
                 .map_or_else(
                     || {
                         if update_state.self_update.status == SelfUpdateStatus::Done {
-                            "(No update available)".to_string()
+                            "No update available".to_string()
                         } else {
                             update_state.self_update.status.to_string()
                         }
@@ -140,19 +140,19 @@ impl About {
 
         let website_btn =
             button_primary("GitHub page").on_press(Message::UrlPressed(PathBuf::from(
-                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater",
+                "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation",
             )));
 
         let issue_btn = button_primary("Have an issue?")
             .on_press(Message::UrlPressed(PathBuf::from(
-            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/issues",
+            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues",
         )));
 
-        let log_btn = button_primary("Locate the logfiles")
+        let log_btn = button_primary("Open the log folder")
             .on_press(Message::UrlPressed(CACHE_DIR.to_path_buf()));
 
         let wiki_btn = button_primary("Wiki").on_press(Message::UrlPressed(PathBuf::from(
-            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki",
+            "https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki",
         )));
 
         let row = row![website_btn, wiki_btn, issue_btn, log_btn,].spacing(20);

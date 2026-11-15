@@ -60,9 +60,9 @@ impl std::fmt::Display for UadListState {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let date = last_modified_date(CACHE_DIR.join(LIST_FNAME));
         let s = match self {
-            Self::Downloading => "Checking updates...".to_string(),
-            Self::Done => format!("Done (last was {})", format_diff_time_from_now(date)),
-            Self::Failed => "Failed to check update!".to_string(),
+            Self::Downloading => "Checking for updates...".to_string(),
+            Self::Done => format!("Updated {}", format_diff_time_from_now(date)),
+            Self::Failed => "Could not check for updates".to_string(),
         };
         write!(f, "{s}")
     }
@@ -84,13 +84,13 @@ impl UadList {
     pub const fn as_str(self) -> &'static str {
         match self {
             Self::All => "All lists",
-            Self::Aosp => "aosp",
-            Self::Carrier => "carrier",
-            Self::Google => "google",
-            Self::Misc => "misc",
-            Self::Oem => "oem",
-            Self::Pending => "pending",
-            Self::Unlisted => "unlisted",
+            Self::Aosp => "AOSP",
+            Self::Carrier => "Carrier",
+            Self::Google => "Google",
+            Self::Misc => "Misc",
+            Self::Oem => "OEM",
+            Self::Pending => "Pending",
+            Self::Unlisted => "Unlisted",
         }
     }
 }

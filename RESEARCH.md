@@ -13,7 +13,7 @@ Purpose: dated evidence behind tooling, dependency and security decisions. Read 
 - The old check compared version strings as text, so `"1.9.0" > "1.10.0"`.
 
 **Decision:** Adapt. Verify each download against the published checksum with `sha2`, behind the `self-update` feature. Compare versions as numbers. Release signing was not added: it changes the release process and needs a maintainer key.
-**Sources:** `.github/workflows/build_artifacts.yml`, GitHub API `repos/Universal-Debloater-Alliance/universal-android-debloater/releases/latest`, `cargo info sha2`.
+**Sources:** `.github/workflows/build_artifacts.yml`, GitHub API `repos/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/latest`, `cargo info sha2`.
 
 ## HTTP client settings (2026-11-15)
 

@@ -56,9 +56,9 @@ pub enum SelfUpdateStatus {
 impl std::fmt::Display for SelfUpdateStatus {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let s = match self {
-            Self::Checking => "Checking updates...",
+            Self::Checking => "Checking for updates...",
             Self::Updating => "Updating...",
-            Self::Failed => "Failed to check update!",
+            Self::Failed => "Could not check for updates",
             Self::Done => "Done",
         };
         write!(f, "{s}")
