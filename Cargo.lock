@@ -3967,7 +3967,6 @@ dependencies = [
  "tar",
  "toml 0.9.12+spec-1.1.0",
  "ureq",
- "win32console",
 ]
 
 [[package]]

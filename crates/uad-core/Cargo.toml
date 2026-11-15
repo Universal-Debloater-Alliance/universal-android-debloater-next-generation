@@ -3,7 +3,6 @@ name = "uad-core"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
-homepage.workspace = true
 repository.workspace = true
 readme.workspace = true
 keywords.workspace = true
@@ -26,10 +25,9 @@ retry.workspace = true
 csv.workspace = true
 flate2 = { workspace = true, optional = true }
 sha2 = { workspace = true, optional = true }
-tar = { workspace = true, optional = true }
 
-[target.'cfg(target_os = "windows")'.dependencies]
-win32console.workspace = true
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+tar = { workspace = true, optional = true }
 
 [lints]
 workspace = true
