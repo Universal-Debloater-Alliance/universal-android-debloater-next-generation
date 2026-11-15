@@ -16,9 +16,9 @@ If you've performed massive edits via automation, you must specify what automati
 sed -i 's/a/b/' resources/assets/uad_lists.json
 ```
 
-You should copy-paste that cmd to the pull-request description. This rule applies even if you use "proper" cmds such as `jq`, which safely edit structured data. And it also applies to AI, *especially* LLMs.
+You should copy-paste that cmd to the pull-request description. This rule applies even if you use "proper" cmds such as `jq`, which safely edit structured data. And it also applies to AI, _especially_ LLMs.
 
-This is required so that we can review your big patch without reading it. This improves [transparency](https://en.wikipedia.org/wiki/Transparency_(behavior)), which makes you more trust-worthy! Bonus points if you can provide a sequence of cmds that proves your patch contains exactly what you said it does. For the simple `sed` case, something like:
+This is required so that we can review your big patch without reading it. This improves [transparency](<https://en.wikipedia.org/wiki/Transparency_(behavior)>), which makes you more trust-worthy! Bonus points if you can provide a sequence of cmds that proves your patch contains exactly what you said it does. For the simple `sed` case, something like:
 
 ```sh
 # alt: `gh pr checkout 0000 && git checkout main`
@@ -68,25 +68,25 @@ As for commits, we prefer using [Conventional Commit Messages](https://gist.gith
 
 When creating issues, they are automatically labeled based on the [issue template](.github/ISSUE_TEMPLATE/) you choose. These labels help categorize work and generate release notes.
 
-| Label | Purpose | Issue template |
-| ----- | ------- | -------------- |
-| `bug` | Software bugs in UAD-ng | Bug Report |
-| `enhancement` | New feature requests | Feature Request |
-| `package::addition` | Adding new packages to the debloat list | Add new package(s) |
-| `package::breakage` | Issues caused by debloating | Debloat issue report |
+| Label                    | Purpose                                          | Issue template                            |
+| ------------------------ | ------------------------------------------------ | ----------------------------------------- |
+| `bug`                    | Software bugs in UAD-ng                          | Bug Report                                |
+| `enhancement`            | New feature requests                             | Feature Request                           |
+| `package::addition`      | Adding new packages to the debloat list          | Add new package(s)                        |
+| `package::breakage`      | Issues caused by debloating                      | Debloat issue report                      |
 | `package::documentation` | Updating package descriptions or recommendations | Update apps description or recommendation |
-| `documentation` | Improvements to docs/wiki | UAD-ng documentation |
-| `ci` | CI/CD related issues | CI/CD |
-| `refactor` | Code refactoring | — (maintainer-assigned) |
-| `dependencies` | Dependency updates | — (maintainer-assigned) |
+| `documentation`          | Improvements to docs/wiki                        | UAD-ng documentation                      |
+| `ci`                     | CI/CD related issues                             | CI/CD                                     |
+| `refactor`               | Code refactoring                                 | — (maintainer-assigned)                   |
+| `dependencies`           | Dependency updates                               | — (maintainer-assigned)                   |
 
 Labels are also used to automatically generate categorized [release notes](.github/release.yml). Each label maps to a changelog section:
 
-| Label(s) | Changelog category |
-| -------- | ------------------ |
-| `enhancement` | Features |
-| `bug` | Fixed |
-| `refactor` | Refactors |
-| `package::addition`, `package::breakage`, `package::documentation` | Packages/apps |
-| `ci`, `dependencies` | Development |
-| `documentation` | Documentation |
+| Label(s)                                                           | Changelog category |
+| ------------------------------------------------------------------ | ------------------ |
+| `enhancement`                                                      | Features           |
+| `bug`                                                              | Fixed              |
+| `refactor`                                                         | Refactors          |
+| `package::addition`, `package::breakage`, `package::documentation` | Packages/apps      |
+| `ci`, `dependencies`                                               | Development        |
+| `documentation`                                                    | Documentation      |

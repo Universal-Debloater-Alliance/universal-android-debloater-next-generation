@@ -43,8 +43,8 @@ Several projects integrate with or depend on UAD-ng's data and tools:
 - **[Canta](https://github.com/samolego/Canta)** — A mobile Android debloater that uses Shizuku for rootless privilege escalation. It integrates with UAD-ng's Universal Debloat List to provide safe package recommendations without requiring a PC.
 
 - **Projects by [Muntashir Akon](https://github.com/MuntashirAkon):**
-  - **[AppManager](https://github.com/MuntashirAkon/AppManager)** — An advanced Android app manager with powerful debloating features.
-  - **[android-debloat-list](https://github.com/MuntashirAkon/android-debloat-list)** — A comprehensive, community-driven list of Android packages to debloat, based on UAD-ng's list.
+    - **[AppManager](https://github.com/MuntashirAkon/AppManager)** — An advanced Android app manager with powerful debloating features.
+    - **[android-debloat-list](https://github.com/MuntashirAkon/android-debloat-list)** — A comprehensive, community-driven list of Android packages to debloat, based on UAD-ng's list.
 - **[De-Bloater](https://github.com/sunilpaulmathew/De-Bloater)** — An application using the power of Magisk to debloat unwanted system apps!
 
 ## Special thanks
