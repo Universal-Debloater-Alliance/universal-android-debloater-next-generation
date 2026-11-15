@@ -4,7 +4,7 @@
 > **DISCLAIMER**: Use at your own risk. We're not responsible for anything that could happen to your devices.
 
 <div align=center>
-<img width=75% alt="screenshot of apps view" src=./resources/screenshots/v1.0.2.png>
+<img width=75% alt="UAD-ng package list in the Dark theme, with one package selected and its description shown" src=./resources/screenshots/package-list-dark-950.png>
 </div>
 
 This is a detached fork of the [UAD project](https://github.com/0x192/universal-android-debloater). This aims to improve privacy and efficiency (energy, speed, memory) by removing unnecessary and obscure system apps.
@@ -20,9 +20,23 @@ UAD-ng has a desktop app (`uad-ng`) and a command-line tool (`uad`). Both talk t
 
 To run the newest code instead, install [Rust](https://rustup.rs) and [Node.js](https://nodejs.org) 20 or later, then in the repository root run `npm run dev`. It builds and opens the app (the first build takes a few minutes). Ctrl+C stops it.
 
+## Screenshots
+
+Taken from the current code (v1.3.1) on Windows with a simulated Samsung phone. Package names and descriptions come from the real debloat list.
+
+The window opens at 950 x 700 and can be resized down to 900 x 560. The package list and its details panel grow with the window:
+
+| Minimum (900 x 560)                                                                                       | Default (950 x 700)                                                                                       | Wide (1440 x 800)                                                                                |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| <img alt="Package list at the minimum window size" src=./resources/screenshots/package-list-dark-900.png> | <img alt="Package list at the default window size" src=./resources/screenshots/package-list-dark-950.png> | <img alt="Package list in a wide window" src=./resources/screenshots/package-list-dark-1440.png> |
+
+| Light theme                                                                                        | Settings                                                                                                            | About                                                                                              |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| <img alt="Package list in the Light theme" src=./resources/screenshots/package-list-light-950.png> | <img alt="Settings screen with theme, backup and device options" src=./resources/screenshots/settings-dark-950.png> | <img alt="About screen with update and help links" src=./resources/screenshots/about-dark-950.png> |
+
 ## Documentation
 
-Everything about UAD-ng (and related stuff) can be found on the Wiki, such as:
+The wiki covers UAD-ng in depth, including:
 
 - [Getting started](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/Getting-started)
 - Features of this app

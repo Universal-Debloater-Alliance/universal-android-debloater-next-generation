@@ -55,4 +55,4 @@ Colours live only in `crates/uad-gui/src/theme.rs`. Widget styles in `style.rs` 
 - Unchecked package checkboxes have a visible border: it matched the background before and was invisible on rows.
 - Package-list scrollbar uses `normal.surface`: it used the frame colour and could not be seen.
 - Minimum window size instead of a reflowing layout: below about 900 px the search field collapsed and navigation buttons left the window. A desktop tool with seven filters and actions in one row reads best at that width.
-- Screenshots at 900 px and 1440 px in Dark and Light were reviewed after the change (list, settings and about screens, no device attached). The package list with a real device was not captured: no device was connected.
+- README screenshots (`resources/screenshots/*-dark-*.png`, `*-light-*.png`) show the package list at 900, 950 and 1440 px, plus Settings and About. They use a simulated phone, because no real device was connected. Retake them after any visible change. Keep the older `v*.png` files: outside pages may load them by raw URL (see `.ls-lint.yml`).
