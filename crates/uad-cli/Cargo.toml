@@ -18,7 +18,6 @@ path = "src/main.rs"
 uad-core = { path = "../uad-core" }
 clap.workspace = true
 clap_complete = "4.4"
-tokio.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 log.workspace = true
