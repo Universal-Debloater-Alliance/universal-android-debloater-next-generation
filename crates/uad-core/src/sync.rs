@@ -284,7 +284,7 @@ pub fn request_builder(commands: &[&str], package: &str, user: Option<User>) -> 
     // Defense-in-depth: `package` is interpolated verbatim into a device-shell
     // action, so refuse any invalid name/ID. Every current caller already
     // reconciles the name against the live device package list before reaching
-    // here, so this rejects nothing legitimate — it just keeps the no-injection
+    // here, so this rejects nothing legitimate. It just keeps the no-injection
     // guarantee local to the sink instead of relying on each caller to sanitise.
     // Fail closed: emit no command for a malformed name rather than an injectable
     // device-shell string.
