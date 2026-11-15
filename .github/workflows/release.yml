@@ -29,12 +29,20 @@ jobs:
             - name: Downloads artifacts
               uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
             - name: Create release
-              uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
-              with:
-                  files: |
-                      uad-ng-*/*
-                      uad-cli-*/*
-                  generate_release_notes: true
-                  body: |
-                      > [!NOTE]
-                      > 📦 **Package list updates don't require a new app version**—UAD-ng automatically fetches the latest package definitions on launch (requires internet connection).
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  GH_REPO: ${{ github.repository }}
+                  TAG: ${{ github.ref_name }}
+              run: |
+                  notes="${RUNNER_TEMP}/release-notes.md"
+                  cat > "${notes}" <<'NOTE'
+                  > [!NOTE]
+                  > 📦 **Package list updates don't require a new app version**: UAD-ng automatically fetches the latest package definitions on launch (requires internet connection).
+
+                  NOTE
+                  gh api --method POST "repos/${GH_REPO}/releases/generate-notes" -f tag_name="${TAG}" --jq .body >> "${notes}"
+                  if gh release view "${TAG}" > /dev/null 2>&1; then
+                      gh release upload "${TAG}" uad-ng-*/* uad-cli-*/* --clobber
+                  else
+                      gh release create "${TAG}" uad-ng-*/* uad-cli-*/* --title "${TAG}" --notes-file "${notes}"
+                  fi
