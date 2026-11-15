@@ -1,34 +1,34 @@
 name: Build and release
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - v?[0-9]+.[0-9]+.[0-9]+ # semver
-      - '!dev-build' # not dev-build
+    push:
+        branches:
+            - main
+        tags:
+            - v?[0-9]+.[0-9]+.[0-9]+ # semver
+            - "!dev-build" # not dev-build
 
 jobs:
-  build:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    uses: ./.github/workflows/build_artifacts.yml
-  release:
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-    runs-on: ubuntu-22.04
-    needs: build
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v7
-      - name: Downloads artifacts
-        uses: actions/download-artifact@v8
-      - name: Create release
-        uses: softprops/action-gh-release@v3
-        with:
-          files: |
-            uad-ng-*/*
-            uad-cli-*/*
-          generate_release_notes: true
-          body: |
-            > [!NOTE]
-            > 📦 **Package list updates don't require a new app version**—UAD-ng automatically fetches the latest package definitions on launch (requires internet connection).
+    build:
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        uses: ./.github/workflows/build_artifacts.yml
+    release:
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        runs-on: ubuntu-22.04
+        needs: build
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v7
+            - name: Downloads artifacts
+              uses: actions/download-artifact@v8
+            - name: Create release
+              uses: softprops/action-gh-release@v3
+              with:
+                  files: |
+                      uad-ng-*/*
+                      uad-cli-*/*
+                  generate_release_notes: true
+                  body: |
+                      > [!NOTE]
+                      > 📦 **Package list updates don't require a new app version**—UAD-ng automatically fetches the latest package definitions on launch (requires internet connection).

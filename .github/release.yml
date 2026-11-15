@@ -1,23 +1,23 @@
 changelog:
-  categories:
-    - title: Features
-      labels:
-        - enhancement
-    - title: Fixed
-      labels:
-        - bug
-    - title: Refactors
-      labels:
-        - refactor
-    - title: Development
-      labels:
-        - ci
-        - dependencies
-    - title: Documentation
-      labels:
-        - documentation
-    - title: Packages/apps
-      labels:
-        - package::documentation
-        - package::addition
-        - package::breakage
+    categories:
+        - title: Features
+          labels:
+              - enhancement
+        - title: Fixed
+          labels:
+              - bug
+        - title: Refactors
+          labels:
+              - refactor
+        - title: Development
+          labels:
+              - ci
+              - dependencies
+        - title: Documentation
+          labels:
+              - documentation
+        - title: Packages/apps
+          labels:
+              - package::documentation
+              - package::addition
+              - package::breakage
