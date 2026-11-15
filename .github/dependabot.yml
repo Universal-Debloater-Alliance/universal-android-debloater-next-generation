@@ -4,6 +4,8 @@ updates:
       directory: /
       schedule:
           interval: weekly
+      cooldown:
+          default-days: 7
       labels: [dependencies]
       groups:
           cargo:
@@ -12,9 +14,13 @@ updates:
       directory: /
       schedule:
           interval: monthly
+      cooldown:
+          default-days: 7
       labels: [dependencies]
     - package-ecosystem: github-actions
       directory: /
       schedule:
           interval: monthly
+      cooldown:
+          default-days: 7
       labels: [dependencies, ci]
