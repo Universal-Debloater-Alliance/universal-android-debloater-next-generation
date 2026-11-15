@@ -5677,7 +5677,7 @@
 	},
 	"com.samsung.android.sconnect": {
 		"list": "Oem",
-		"description": "Samsung Quick connect (discontinued?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi that support multiple protocols — including Wifi Direct and Miracast — to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
+		"description": "Samsung Quick connect (discontinued?)\nIn theory, it lets you connect your phone to a variety of devices over Wifi that support multiple protocols, including Wifi Direct and Miracast, to display photos, video or audio.\nhttps://www.samsung.com/uk/support/tv-audio-video/what-is-screen-mirroring-and-how-do-i-use-it-with-my-samsung-tv-and-samsung-mobile-device/\n",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],
@@ -41432,7 +41432,7 @@
 	},
 	"com.taboola.mip": {
 		"list": "Misc",
-		"description": "Intrusive background module (Taboola) that keeps pushing a lock-screen stories feed — spam-ads and irrelevant articles (often from foreign/hostile sources).\nRuns in background, uses data, nags user until it is enabled. No system function — safe to remove.\nhttps://techissuestoday.com/motorola-lock-screen-ads-articles/",
+		"description": "Intrusive background module (Taboola) that keeps pushing a lock-screen stories feed: spam-ads and irrelevant articles (often from foreign/hostile sources).\nRuns in background, uses data, nags user until it is enabled. No system function. Safe to remove.\nhttps://techissuestoday.com/motorola-lock-screen-ads-articles/",
 		"dependencies": [],
 		"neededBy": [],
 		"labels": [],

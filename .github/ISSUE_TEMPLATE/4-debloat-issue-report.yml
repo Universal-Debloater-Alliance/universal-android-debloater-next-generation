@@ -8,7 +8,7 @@ body:
           value: |
               ## Consider submitting a Pull Request
 
-              If you know which package caused the issue and how the documentation should be updated, **consider submitting a Pull Request yourself**—it helps us process changes much faster! See our [guide on how to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute) for instructions.
+              If you know which package caused the issue and how the documentation should be updated, **consider submitting a Pull Request yourself**. It helps us process changes much faster! See our [guide on how to contribute](https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/wiki/How-to-contribute) for instructions.
 
     - type: textarea
       id: what-happened
