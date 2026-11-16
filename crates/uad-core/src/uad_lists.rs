@@ -8,6 +8,7 @@ use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
+use std::time::Duration;
 
 pub const LIST_FNAME: &str = "uad_lists.json";
 
@@ -210,18 +211,40 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
         return Ok(get_local_lists(&cached_uad_lists));
     }
 
-    let agent: ureq::Agent = ureq::Agent::config_builder()
+    let agent = list_agent();
+    let url = format!(
+        "https://raw.githubusercontent.com/Universal-Debloater-Alliance/\
+         universal-android-debloater-next-generation/main/resources/assets/{LIST_FNAME}"
+    );
+    load_remote_list(
+        &agent,
+        &url,
+        &cached_uad_lists,
+        Fixed::from_millis(1000).take(60),
+    )
+}
+
+fn list_agent() -> ureq::Agent {
+    ureq::Agent::config_builder()
         .https_only(true)
+        .timeout_resolve(Some(Duration::from_secs(15)))
+        .timeout_connect(Some(Duration::from_secs(15)))
+        .timeout_recv_response(Some(Duration::from_secs(30)))
+        // Bound inactivity, not the time needed for a large download.
+        .timeout_per_read(Some(Duration::from_secs(30)))
+        .timeout_per_write(Some(Duration::from_secs(30)))
         .build()
-        .into();
-    retry(Fixed::from_millis(1000).take(60), || {
-        match agent
-            .get(format!(
-                "https://raw.githubusercontent.com/Universal-Debloater-Alliance/\
-                 universal-android-debloater-next-generation/main/resources/assets/{LIST_FNAME}"
-            ))
-            .call()
-        {
+        .into()
+}
+
+fn load_remote_list(
+    agent: &ureq::Agent,
+    url: &str,
+    cached_uad_lists: &Path,
+    delays: impl IntoIterator<Item = Duration>,
+) -> Result<PackageHashMap, PackageHashMap> {
+    retry(delays, || {
+        match agent.get(url).call() {
             Ok(mut response) => {
                 // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
                 let text = match response
@@ -237,10 +260,10 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
                     }
                     Err(e) => {
                         warn!("Could not read remote debloat list: {e}");
-                        return OperationResult::Retry(());
+                        return retry_unless_timed_out(&e);
                     }
                 };
-                match parse_and_cache_list(&text, &cached_uad_lists) {
+                match parse_and_cache_list(&text, cached_uad_lists) {
                     Ok(list) => OperationResult::Ok(list),
                     Err(e) => {
                         warn!("Remote debloat list is not valid: {e}");
@@ -250,11 +273,21 @@ pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap
             }
             Err(e) => {
                 warn!("Could not load remote debloat list: {e}");
-                OperationResult::Retry(())
+                retry_unless_timed_out(&e)
             }
         }
     })
-    .map_err(|_| get_local_lists(&cached_uad_lists))
+    .map_err(|_| get_local_lists(cached_uad_lists))
+}
+
+/// A connection that stalled would most likely stall again on every retry,
+/// delaying the fallback to the local list for minutes.
+fn retry_unless_timed_out(e: &ureq::Error) -> OperationResult<PackageHashMap, ()> {
+    if matches!(e, ureq::Error::Timeout(_)) {
+        OperationResult::Err(())
+    } else {
+        OperationResult::Retry(())
+    }
 }
 
 fn parse_and_cache_list(
@@ -334,5 +367,97 @@ mod tests {
     #[test]
     fn test_parse_json() {
         let _: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
+    }
+
+    fn serve_lists(attempts: Vec<(Vec<u8>, Duration)>) -> (String, std::thread::JoinHandle<()>) {
+        use std::io::{Read, Write};
+        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+        let url = format!("http://{}/list", listener.local_addr().unwrap());
+        let server = std::thread::spawn(move || {
+            for (body, delay) in attempts {
+                let (mut stream, _) = listener.accept().unwrap();
+                stream
+                    .set_read_timeout(Some(Duration::from_secs(5)))
+                    .unwrap();
+                let mut request = Vec::new();
+                let mut byte = [0];
+                while !request.ends_with(b"\r\n\r\n") {
+                    stream.read_exact(&mut byte).unwrap();
+                    request.push(byte[0]);
+                }
+                write!(
+                    stream,
+                    "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                    TEST_LIST.len()
+                )
+                .unwrap();
+                for chunk in body.chunks(8) {
+                    std::thread::sleep(delay);
+                    if stream.write_all(chunk).is_err() {
+                        break;
+                    }
+                }
+            }
+        });
+        (url, server)
+    }
+
+    fn local_agent() -> ureq::Agent {
+        ureq::Agent::config_builder()
+            .https_only(false)
+            .proxy(None)
+            .timeout_per_read(Some(Duration::from_millis(200)))
+            .build()
+            .into()
+    }
+
+    #[test]
+    fn a_progressing_list_download_can_exceed_the_idle_timeout() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        let (url, server) = serve_lists(vec![(
+            TEST_LIST.as_bytes().to_vec(),
+            Duration::from_millis(30),
+        )]);
+        let started = std::time::Instant::now();
+        assert!(load_remote_list(&local_agent(), &url, &path, []).is_ok());
+        server.join().unwrap();
+        assert!(started.elapsed() > Duration::from_millis(200));
+        assert_eq!(fs::read_to_string(path).unwrap(), TEST_LIST);
+    }
+
+    #[test]
+    fn stalled_list_download_falls_back_to_the_cache_without_retrying() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        fs::write(&path, TEST_LIST).unwrap();
+        let (url, server) = serve_lists(vec![(
+            TEST_LIST.as_bytes().to_vec(),
+            Duration::from_millis(300),
+        )]);
+        let mut retries = 0;
+        let delays = std::iter::from_fn(|| {
+            retries += 1;
+            Some(Duration::ZERO)
+        })
+        .take(3);
+        let fallback = load_remote_list(&local_agent(), &url, &path, delays).unwrap_err();
+        server.join().unwrap();
+        assert_eq!(retries, 0);
+        assert_eq!(fallback, serde_json::from_str(TEST_LIST).unwrap());
+        assert_eq!(fs::read_to_string(path).unwrap(), TEST_LIST);
+    }
+
+    #[test]
+    fn interrupted_list_download_retries_before_updating_the_cache() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        let (url, server) = serve_lists(vec![
+            (TEST_LIST.as_bytes()[..10].to_vec(), Duration::ZERO),
+            (TEST_LIST.as_bytes().to_vec(), Duration::ZERO),
+        ]);
+        assert!(load_remote_list(&local_agent(), &url, &path, [Duration::ZERO]).is_ok());
+        server.join().unwrap();
+        assert_eq!(fs::read_to_string(path).unwrap(), TEST_LIST);
     }
 }
