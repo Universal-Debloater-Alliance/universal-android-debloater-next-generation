@@ -254,15 +254,18 @@ pub fn export_packages(user: User, phone_packages: &[Vec<CorePackage>]) -> Resul
     Ok(true)
 }
 
-/// Truncate description to fit within max length, taking only the first line
+/// Truncate the first line to at most `max_len` Unicode characters.
 #[must_use]
 pub fn truncate_description(desc: &str, max_len: usize) -> String {
     let first_line = desc.split('\n').next().unwrap_or("").trim_end();
 
-    if first_line.len() <= max_len {
+    if first_line.chars().count() <= max_len {
         first_line.to_string()
+    } else if max_len < 3 {
+        ".".repeat(max_len)
     } else {
-        format!("{}...", &first_line[..max_len.saturating_sub(3)])
+        let prefix: String = first_line.chars().take(max_len - 3).collect();
+        format!("{prefix}...")
     }
 }
 
@@ -288,6 +291,22 @@ pub fn matches_search(pkg_name: &str, search_term: &str, pkg_description: Option
 mod tests {
     use super::*;
     use chrono::TimeZone;
+
+    #[test]
+    fn description_truncation_respects_unicode_and_short_limits() {
+        for (description, limit, expected) in [
+            ("é漢🙂abc", 5, "é漢..."),
+            ("你好世界", 4, "你好世界"),
+            ("abcdef", 0, ""),
+            ("abcdef", 1, "."),
+            ("abcdef", 2, ".."),
+            ("abcdef", 3, "..."),
+            ("abc\r\nsecond line", 10, "abc"),
+            ("", 0, ""),
+        ] {
+            assert_eq!(truncate_description(description, limit), expected);
+        }
+    }
 
     #[test]
     fn backup_name() {
