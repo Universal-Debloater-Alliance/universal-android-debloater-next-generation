@@ -40,6 +40,7 @@ clap = { version = "4.6.7", features = ["derive"] }
 # Platform-specific dependencies
 flate2 = "^1"
 tar = "^0.4"
+sha2 = "0.11.1"
 win32console = "^0.1.5"
 
 [workspace.lints.rust]

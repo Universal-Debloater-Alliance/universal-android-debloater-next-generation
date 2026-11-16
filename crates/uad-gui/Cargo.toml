@@ -16,12 +16,12 @@ path = "src/main.rs"
 [features]
 default = ["wgpu", "self-update", "img"]
 wgpu = [] # Iced/wgpu is default
-self-update = ["flate2", "tar"]
+self-update = ["uad-core/self-update"]
 no-self-update = []
 img = ["image", "iced/image"]
 
 [dependencies]
-uad-core = { path = "../uad-core", features = ["self-update"] }
+uad-core = { path = "../uad-core" }
 iced.workspace = true
 image = { workspace = true, optional = true }
 rfd.workspace = true
@@ -30,8 +30,6 @@ fern.workspace = true
 chrono.workspace = true
 dirs.workspace = true
 log.workspace = true
-flate2 = { workspace = true, optional = true }
-tar = { workspace = true, optional = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 win32console.workspace = true

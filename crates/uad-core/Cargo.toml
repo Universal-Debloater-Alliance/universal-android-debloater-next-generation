@@ -11,7 +11,7 @@ edition.workspace = true
 
 [features]
 default = []
-self-update = ["dep:flate2", "dep:tar"]
+self-update = ["dep:flate2", "dep:tar", "dep:sha2", "dep:tempfile"]
 
 [dependencies]
 serde.workspace = true
@@ -25,6 +25,8 @@ retry.workspace = true
 csv.workspace = true
 flate2 = { workspace = true, optional = true }
 tar = { workspace = true, optional = true }
+sha2 = { workspace = true, optional = true }
+tempfile = { version = "3", optional = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 win32console.workspace = true
