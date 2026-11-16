@@ -235,7 +235,9 @@ pub fn export_packages(
     user: User,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<PathBuf, String> {
-    let user_packages = &phone_packages[user.index];
+    let user_packages = phone_packages
+        .get(user.index)
+        .ok_or_else(|| format!("No package list loaded for user {}", user.id))?;
     fs::create_dir_all(dir).map_err(|err| err.to_string())?;
     let backup_file = std::path::absolute(dir)
         .map_err(|err| err.to_string())?
@@ -251,13 +253,24 @@ pub fn export_packages(
         .iter()
         .filter(|p| p.state == PackageState::Uninstalled)
     {
-        wtr.write_record([&package.name, &package.description.replace('\n', " ")])
+        wtr.write_record([csv_text(&package.name), csv_text(&package.description)])
             .map_err(|err| err.to_string())?;
     }
 
     wtr.flush().map_err(|err| err.to_string())?;
 
     Ok(backup_file)
+}
+
+// CSV quoting alone does not prevent spreadsheets from evaluating formulas.
+fn csv_text(value: &str) -> String {
+    let text = value.replace(['\r', '\n'], " ");
+    if value.starts_with(['\t', '\r', '\n']) || text.trim_start().starts_with(['=', '+', '-', '@'])
+    {
+        format!("'{text}")
+    } else {
+        text
+    }
 }
 
 /// Truncate the first line to at most `max_len` Unicode characters.
@@ -315,7 +328,7 @@ mod tests {
     }
 
     #[test]
-    fn csv_export_uses_the_requested_directory() {
+    fn csv_export_uses_the_requested_directory_and_quotes_text() {
         let dir = tempfile::tempdir().expect("temporary export directory");
         let user = User {
             id: 0,
@@ -324,7 +337,7 @@ mod tests {
         };
         let package = CorePackage {
             name: "com.example.app".into(),
-            description: "normal, \"quoted\" text\nnext line".into(),
+            description: " =HYPERLINK(\"x\",\"y\")\r\nnext line".into(),
             removal: Removal::Recommended,
             state: PackageState::Uninstalled,
             list: UadList::Misc,
@@ -346,7 +359,28 @@ mod tests {
             .expect("valid CSV records");
         assert_eq!(records.len(), 1);
         assert_eq!(&records[0][0], "com.example.app");
-        assert_eq!(&records[0][1], "normal, \"quoted\" text next line");
+        assert_eq!(&records[0][1], "' =HYPERLINK(\"x\",\"y\")  next line");
+        for value in [
+            "=1+1", "+1", "-2", "@SUM(A1)", " \t=1+1", "\tvalue", "\rvalue",
+        ] {
+            assert!(csv_text(value).starts_with('\''));
+        }
+        assert_eq!(
+            csv_text("normal, \"quoted\" text"),
+            "normal, \"quoted\" text"
+        );
+    }
+
+    #[test]
+    fn csv_export_rejects_unknown_users_before_creating_a_file() {
+        let dir = tempfile::tempdir().expect("temporary export directory");
+        assert!(export_packages(dir.path(), User::default(), &[]).is_err());
+        assert_eq!(
+            fs::read_dir(dir.path())
+                .expect("read export directory")
+                .count(),
+            0
+        );
     }
 
     #[test]
