@@ -28,7 +28,7 @@ use uad_core::update::{Release, SelfUpdateState, SelfUpdateStatus, get_latest_re
 use uad_core::utils::{FULL_NAME, NAME};
 
 #[cfg(feature = "self-update")]
-use uad_core::update::{BIN_NAME, download_update_to_temp_file, remove_file};
+use uad_core::update::{BIN_NAME, download_update_to_temp_file, remove_file, rename};
 
 #[derive(Default, Debug, Clone)]
 enum View {
@@ -338,10 +338,12 @@ impl UadGui {
                     if let Some(idx) = args.iter().position(|a| a == "--self-update-temp") {
                         args.remove(idx);
                         // Remove path passed after this arg
-                        args.remove(idx);
+                        if idx < args.len() {
+                            args.remove(idx);
+                        }
                     }
 
-                    match std::process::Command::new(relaunch_path)
+                    match std::process::Command::new(&relaunch_path)
                         .args(args)
                         .arg("--self-update-temp")
                         .arg(&cleanup_path)
@@ -354,21 +356,21 @@ impl UadGui {
                             std::process::exit(0)
                         }
                         Err(error) => {
-                            if let Err(e) = remove_file(cleanup_path) {
-                                error!("Could not remove temp update file: {e}");
+                            if let Err(e) = rename(&cleanup_path, &relaunch_path) {
+                                error!(
+                                    "Could not restore executable: {e}. Original saved at {}",
+                                    cleanup_path.display()
+                                );
                             }
                             error!("Failed to update {NAME}: {error}");
+                            self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                            return self.update(Message::AppsAction(AppsMessage::UpdateFailed));
                         }
                     }
-                } else {
-                    error!("Failed to update {NAME}!");
-                    #[expect(unused_must_use, reason = "side-effect")]
-                    {
-                        self.update(Message::AppsAction(AppsMessage::UpdateFailed));
-                        self.update_state.self_update.status = SelfUpdateStatus::Failed;
-                    }
                 }
-                Task::none()
+                error!("Failed to update {NAME}!");
+                self.update_state.self_update.status = SelfUpdateStatus::Failed;
+                self.update(Message::AppsAction(AppsMessage::UpdateFailed))
             }
             Message::GetLatestRelease(release) => {
                 match release {
