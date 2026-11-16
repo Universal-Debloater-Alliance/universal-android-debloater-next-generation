@@ -9,7 +9,6 @@ use crate::{
     widgets::package_row::PackageRow,
     widgets::text,
 };
-use chrono;
 use iced::widget::{Space, button, checkbox, column, container, pick_list, radio, row, scrollable};
 use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 use log::{debug, error, info};
@@ -21,12 +20,12 @@ use uad_core::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
         supports_disabling, supports_multi_user,
     },
-    utils::{DisplayablePath, Error, NAME, export_packages, generate_backup_name, open_url},
+    utils::{DisplayablePath, Error, export_packages, open_url},
 };
 
 #[derive(Debug, Clone)]
 pub enum PopUpModal {
-    ExportUninstalled,
+    ExportUninstalled(PathBuf),
 }
 
 #[derive(Debug, Clone)]
@@ -64,7 +63,7 @@ pub enum Message {
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
     ExportPackages,
-    PackagesExported(Result<bool, String>),
+    PackagesExported(Result<PathBuf, String>),
     ModalHide,
 }
 
@@ -94,7 +93,7 @@ impl Settings {
             Message::RestoringDevice(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
-            Message::ExportPackages => Self::handle_export_packages(selected_user, packages),
+            Message::ExportPackages => self.handle_export_packages(selected_user, packages),
             Message::PackagesExported(result) => self.handle_packages_exported(result),
         }
     }
@@ -316,6 +315,7 @@ impl Settings {
     }
 
     fn handle_export_packages(
+        &self,
         selected_user: Option<User>,
         packages: &[Vec<PackageRow>],
     ) -> Task<Message> {
@@ -323,15 +323,16 @@ impl Settings {
             .iter()
             .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
             .collect();
+        let dir = self.general.backup_folder.clone();
         Task::perform(
-            async move { export_packages(selected_user.unwrap_or_default(), &core_packages) },
+            async move { export_packages(&dir, selected_user.unwrap_or_default(), &core_packages) },
             Message::PackagesExported,
         )
     }
 
-    fn handle_packages_exported(&mut self, result: Result<bool, String>) -> Task<Message> {
+    fn handle_packages_exported(&mut self, result: Result<PathBuf, String>) -> Task<Message> {
         match result {
-            Ok(_) => self.modal = Some(PopUpModal::ExportUninstalled),
+            Ok(path) => self.modal = Some(PopUpModal::ExportUninstalled(path)),
             Err(err) => error!("Failed to export list of uninstalled packages: {err:?}"),
         }
         Task::none()
@@ -348,8 +349,8 @@ impl Settings {
             self.build_device_content(phone, apps_view)
         };
 
-        if let Some(PopUpModal::ExportUninstalled) = self.modal {
-            return Self::render_export_modal(content);
+        if let Some(PopUpModal::ExportUninstalled(path)) = &self.modal {
+            return Self::render_export_modal(content, path);
         }
 
         container(scrollable(content))
@@ -654,6 +655,7 @@ impl Settings {
 
     fn render_export_modal<'a>(
         content: Element<'a, Message, Theme, Renderer>,
+        path: &std::path::Path,
     ) -> Element<'a, Message, Theme, Renderer> {
         let title = container(row![text("Success").size(24)].align_y(Alignment::Center))
             .width(Length::Fill)
@@ -662,17 +664,11 @@ impl Settings {
             .center_y(Length::Shrink)
             .center_x(Length::Shrink);
 
-        let text_box = row![
-            text(format!(
-                "Exported uninstalled packages into file.\nFile is exported in same directory where {NAME} is located."
-            ))
-            .width(Length::Fill),
-        ]
-        .padding(20);
+        let text_box =
+            row![text("Exported uninstalled packages to:").width(Length::Fill),].padding(20);
 
         let file_row =
-            row![text(generate_backup_name(chrono::Local::now())).style(style::Text::Commentary)]
-                .padding(20);
+            row![text(path.display().to_string()).style(style::Text::Commentary)].padding(20);
 
         let modal_btn_row = row![
             Space::new().width(Length::Fill).height(Length::Shrink),

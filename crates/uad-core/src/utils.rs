@@ -230,28 +230,34 @@ impl fmt::Display for DisplayablePath {
 
 /// Export uninstalled packages in a csv file.
 /// Exported information will contain package name and description.
-pub fn export_packages(user: User, phone_packages: &[Vec<CorePackage>]) -> Result<bool, String> {
-    let backup_file = generate_backup_name(chrono::Local::now());
+pub fn export_packages(
+    dir: &Path,
+    user: User,
+    phone_packages: &[Vec<CorePackage>],
+) -> Result<PathBuf, String> {
+    let user_packages = &phone_packages[user.index];
+    fs::create_dir_all(dir).map_err(|err| err.to_string())?;
+    let backup_file = std::path::absolute(dir)
+        .map_err(|err| err.to_string())?
+        .join(generate_backup_name(chrono::Local::now()));
 
-    let file = fs::File::create(backup_file).map_err(|err| err.to_string())?;
+    let file = fs::File::create(&backup_file).map_err(|err| err.to_string())?;
     let mut wtr = Writer::from_writer(file);
 
     wtr.write_record(["Package Name", "Description"])
         .map_err(|err| err.to_string())?;
 
-    let uninstalled_packages: Vec<&CorePackage> = phone_packages[user.index]
+    for package in user_packages
         .iter()
         .filter(|p| p.state == PackageState::Uninstalled)
-        .collect();
-
-    for package in uninstalled_packages {
+    {
         wtr.write_record([&package.name, &package.description.replace('\n', " ")])
             .map_err(|err| err.to_string())?;
     }
 
     wtr.flush().map_err(|err| err.to_string())?;
 
-    Ok(true)
+    Ok(backup_file)
 }
 
 /// Truncate the first line to at most `max_len` Unicode characters.
@@ -306,6 +312,41 @@ mod tests {
         ] {
             assert_eq!(truncate_description(description, limit), expected);
         }
+    }
+
+    #[test]
+    fn csv_export_uses_the_requested_directory() {
+        let dir = tempfile::tempdir().expect("temporary export directory");
+        let user = User {
+            id: 0,
+            index: 0,
+            protected: false,
+        };
+        let package = CorePackage {
+            name: "com.example.app".into(),
+            description: "normal, \"quoted\" text\nnext line".into(),
+            removal: Removal::Recommended,
+            state: PackageState::Uninstalled,
+            list: UadList::Misc,
+        };
+        let enabled = CorePackage {
+            state: PackageState::Enabled,
+            ..package.clone()
+        };
+        let path =
+            export_packages(dir.path(), user, &[vec![package, enabled]]).expect("export packages");
+        assert_eq!(
+            path.parent().expect("export directory"),
+            std::path::absolute(dir.path()).expect("absolute export directory")
+        );
+        let records = csv::Reader::from_path(path)
+            .expect("open exported CSV")
+            .records()
+            .collect::<Result<Vec<_>, _>>()
+            .expect("valid CSV records");
+        assert_eq!(records.len(), 1);
+        assert_eq!(&records[0][0], "com.example.app");
+        assert_eq!(&records[0][1], "normal, \"quoted\" text next line");
     }
 
     #[test]
