@@ -7636,7 +7636,7 @@
   },
   "com.samsung.android.honeyboard": {
     "list": "Oem",
-    "description": "Samsung keyboard\nWARNING: do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.\nWARNING: Removing this packages breaks the edge panel clipboard.",
+    "description": "Samsung keyboard\nWARNING: Do NOT disable if you don't have another keyboard with direct boot mode support, or you'll be stuck at boot (no keyboard to unlock the phone).\nhttps://developer.android.com/training/articles/direct-boot\nWARNING: Do NOT remove this package with root if it wasn't first uninstalled with the non-root method.\nWARNING: Removing this packages breaks the Accessibility settings on Android 11.\nWARNING: Removing this packages breaks the edge panel clipboard.\nWARNING: Disabling breaks the keyboard switcher in One UI 8.5.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -8898,7 +8898,7 @@
   },
   "com.android.externalstorage": {
     "list": "Aosp",
-    "description": "Needed by apps to access external storage (like memory cards).",
+    "description": "Needed by apps to access (external) shared storage, including those using the Software Access Framework. Requires All Files Access permission.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -43257,6 +43257,86 @@
   "com.softwinner.dragonatt": {
     "list": "Oem",
     "description": "DragonAtt",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.cnce.frozenapp": {
+    "list": "Oem",
+    "description": "App freezer. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.goodbarber.inoitips": {
+    "list": "Oem",
+    "description": "INOI-specific. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.pri.applock": {
+    "list": "Oem",
+    "description": "App lock. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.pri.childrenspace": {
+    "list": "Oem",
+    "description": "Children Space. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.pri.easylauncher": {
+    "list": "Oem",
+    "description": "Easy Launcher. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.xunrui.health": {
+    "list": "Oem",
+    "description": "TBA. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xunrui.phonemanager": {
+    "list": "Oem",
+    "description": "Phone Manager. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.xunrui.privacyspace": {
+    "list": "Oem",
+    "description": "Privacy Space. Safe to disable.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.zookingsoft.themestore": {
+    "list": "Oem",
+    "description": "Safe to disable; does not affect standard theming features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "pepsl.com.recordwavrf64": {
+    "list": "Oem",
+    "description": "Safe to disable.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
