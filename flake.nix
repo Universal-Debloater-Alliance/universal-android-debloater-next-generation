@@ -2,18 +2,49 @@
   description = "uad-ng: GUI, CLI and devshell";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.rust-overlay = {
+    url = "github:oxalica/rust-overlay";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs =
-    { nixpkgs, self, ... }:
+    {
+      nixpkgs,
+      rust-overlay,
+      self,
+      ...
+    }:
     let
       inherit (nixpkgs) lib;
 
-      forSystemList = systems: f: lib.genAttrs systems (system: f (import nixpkgs { inherit system; }));
+      forSystemList =
+        systems: f:
+        lib.genAttrs systems (
+          system:
+          f (
+            import nixpkgs {
+              inherit system;
+              overlays = [ rust-overlay.overlays.default ];
+            }
+          )
+        );
       forSystems = forSystemList lib.systems.flakeExposed;
-      # The GUI only targets desktop Linux and macOS.
+      # Nix builds target Linux and macOS.
       forPackageSystems = forSystemList (
         lib.intersectLists lib.systems.flakeExposed (lib.platforms.linux ++ lib.platforms.darwin)
       );
+
+      rustToolchainFor =
+        pkgs:
+        pkgs.rust-bin.stable.latest.minimal.override {
+          extensions = [
+            "clippy"
+            "rustfmt"
+            "rust-src"
+            "rust-analyzer"
+            "llvm-tools-preview"
+          ];
+        };
 
       runtimeLibsFor =
         pkgs:
@@ -41,7 +72,12 @@
         pkgs:
         let
           runtimeLibs = runtimeLibsFor pkgs;
-          uad-ng = pkgs.rustPlatform.buildRustPackage {
+          rustToolchain = rustToolchainFor pkgs;
+          rustPlatform = pkgs.makeRustPlatform {
+            cargo = rustToolchain;
+            rustc = rustToolchain;
+          };
+          uad-ng = rustPlatform.buildRustPackage {
             pname = "uad-ng";
             version = (lib.importTOML ./Cargo.toml).workspace.package.version;
 
@@ -100,7 +136,7 @@
             };
           };
 
-          uad-cli = pkgs.rustPlatform.buildRustPackage {
+          uad-cli = rustPlatform.buildRustPackage {
             pname = "uad-cli";
             inherit (uad-ng) version src cargoDeps;
 
@@ -160,27 +196,25 @@
         }
       );
 
-      devShells = forSystems (
+      devShells = forPackageSystems (
         pkgs:
         let
           inherit (pkgs) stdenv;
           runtimeLibs = runtimeLibsFor pkgs;
+          rustToolchain = rustToolchainFor pkgs;
         in
         {
           default = pkgs.mkShell (
             {
               packages = with pkgs; [
-                rustc
-                cargo
-                rustfmt
-                rust-analyzer
-                clippy
+                rustToolchain
+                grcov
                 android-tools
                 clang
                 pkg-config
               ];
 
-              RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}/lib/rustlib/src/rust";
+              RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
               LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
             }
             // lib.optionalAttrs stdenv.hostPlatform.isLinux {

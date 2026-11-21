@@ -5,7 +5,7 @@ use crate::utils::DisplayablePath;
 use log::error;
 use serde::{Deserialize, Serialize};
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
 const DEFAULT_THEME: &str = "Auto (follow system theme)";
@@ -61,6 +61,15 @@ impl Config {
         device_settings: DeviceSettings,
         general: GeneralSettings,
     ) {
+        self.save_device_settings_to_path(device_settings, general, &CONFIG_FILE);
+    }
+
+    fn save_device_settings_to_path(
+        &mut self,
+        device_settings: DeviceSettings,
+        general: GeneralSettings,
+        path: &Path,
+    ) {
         if let Some(device) = self
             .devices
             .iter_mut()
@@ -72,12 +81,16 @@ impl Config {
         }
         self.general = general;
         let toml = toml::to_string(&self).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
+        fs::write(path, toml).expect("Could not write config file to disk!");
     }
 
     #[must_use]
     pub fn load_configuration_file() -> Self {
-        match fs::read_to_string(&*CONFIG_FILE) {
+        Self::load_from_path(&CONFIG_FILE)
+    }
+
+    fn load_from_path(path: &Path) -> Self {
+        match fs::read_to_string(path) {
             Ok(s) => match toml::from_str(&s) {
                 Ok(config) => return config,
                 Err(e) => error!("Invalid config file: `{e}`"),
@@ -86,7 +99,7 @@ impl Config {
         }
         error!("Restoring default config file");
         let toml = toml::to_string(&Self::default()).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
+        fs::write(path, toml).expect("Could not write config file to disk!");
         Self::default()
     }
 }
@@ -96,43 +109,117 @@ mod tests {
     //! Unit tests
 
     use super::*;
-    use std::path::Path;
-
-    // create a clean default config file for testing
-    fn create_default_config_file() {
-        let toml = toml::to_string(&Config::default()).unwrap();
-        fs::write(&*CONFIG_FILE, toml).expect("Could not write config file to disk!");
-    }
+    use tempfile::tempdir;
 
     #[test]
-    fn test_create_default_config_file() {
-        create_default_config_file();
-        assert!(CONFIG_FILE.exists());
-    }
-
-    #[test]
-    fn test_load_configuration_file() {
-        create_default_config_file();
-        let config = Config::load_configuration_file();
-        // non-deterministic
-        //assert_eq!(config.devices.len(), 0);
+    fn missing_config_creates_defaults_in_the_requested_directory() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("config.toml");
+        let config = Config::load_from_path(&path);
+        let saved: Config = toml::from_str(&fs::read_to_string(path).unwrap()).unwrap();
         assert_eq!(config.general.theme, DEFAULT_THEME);
-        assert!(!config.general.expert_mode);
-        assert_eq!(config.general.backup_folder, CACHE_DIR.join("backups"));
+        assert_eq!(saved.general.theme, DEFAULT_THEME);
+        assert!(saved.devices.is_empty());
     }
 
-    // non-deterministic
-    /*
     #[test]
-    fn test_save_changes() {
-        let mut settings = Settings::default();
-        let device_id = "test_device".to_string();
-        settings.device.device_id = device_id.clone();
-        Config::save_changes(&settings, &device_id);
-        let config = Config::load_configuration_file();
-        assert_eq!(config.devices[0].device_id, device_id);
+    fn valid_config_preserves_settings_and_file_contents() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("config.toml");
+        let contents = r#"
+[general]
+theme = "Light"
+expert_mode = true
+backup_folder = "custom-backups"
+
+[[devices]]
+device_id = "test-device"
+disable_mode = true
+multi_user_mode = false
+"#;
+        fs::write(&path, contents).unwrap();
+        let config = Config::load_from_path(&path);
+        assert_eq!(config.general.theme, "Light");
+        assert!(config.general.expert_mode);
+        assert_eq!(config.general.backup_folder, Path::new("custom-backups"));
+        assert_eq!(config.devices.len(), 1);
+        assert!(config.devices[0].disable_mode);
+        assert_eq!(fs::read_to_string(path).unwrap(), contents);
     }
-    */
+
+    #[test]
+    fn invalid_config_is_replaced_with_defaults() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("config.toml");
+        fs::write(&path, "invalid = [").unwrap();
+        let config = Config::load_from_path(&path);
+        assert_eq!(config.general.theme, DEFAULT_THEME);
+        let saved: Config = toml::from_str(&fs::read_to_string(path).unwrap()).unwrap();
+        assert_eq!(saved.general.theme, DEFAULT_THEME);
+    }
+
+    #[test]
+    fn saving_settings_persists_a_new_device_and_general_settings() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("config.toml");
+        let mut config = Config::default();
+        let device = DeviceSettings {
+            device_id: "test-device".to_string(),
+            disable_mode: true,
+            multi_user_mode: true,
+            ..DeviceSettings::default()
+        };
+        let general = GeneralSettings {
+            theme: "Light".to_string(),
+            expert_mode: true,
+            backup_folder: dir.path().join("backups"),
+        };
+        config.save_device_settings_to_path(device, general, &path);
+
+        let saved = Config::load_from_path(&path);
+        assert_eq!(saved.devices.len(), 1);
+        assert_eq!(saved.devices[0].device_id, "test-device");
+        assert!(saved.devices[0].disable_mode);
+        assert!(saved.devices[0].multi_user_mode);
+        assert_eq!(saved.general.theme, "Light");
+        assert!(saved.general.expert_mode);
+        assert_eq!(saved.general.backup_folder, dir.path().join("backups"));
+    }
+
+    #[test]
+    fn saving_settings_updates_the_matching_device_and_preserves_other_devices() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("config.toml");
+        let mut config = Config {
+            devices: vec![
+                DeviceSettings {
+                    device_id: "other-device".to_string(),
+                    multi_user_mode: true,
+                    ..DeviceSettings::default()
+                },
+                DeviceSettings {
+                    device_id: "test-device".to_string(),
+                    ..DeviceSettings::default()
+                },
+            ],
+            ..Config::default()
+        };
+        let device = DeviceSettings {
+            device_id: "test-device".to_string(),
+            disable_mode: true,
+            ..DeviceSettings::default()
+        };
+        config.save_device_settings_to_path(device, GeneralSettings::default(), &path);
+
+        let saved = Config::load_from_path(&path);
+        assert_eq!(saved.devices.len(), 2);
+        assert_eq!(saved.devices[0].device_id, "other-device");
+        assert!(saved.devices[0].multi_user_mode);
+        assert!(!saved.devices[0].disable_mode);
+        assert_eq!(saved.devices[1].device_id, "test-device");
+        assert!(saved.devices[1].disable_mode);
+        assert!(!saved.devices[1].multi_user_mode);
+    }
 
     #[test]
     fn test_default_config() {

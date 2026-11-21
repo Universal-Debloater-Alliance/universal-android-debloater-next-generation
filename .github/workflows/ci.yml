@@ -17,6 +17,9 @@ on:
       - .cargo/**
       - .github/workflows/**
 
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: lint
@@ -46,6 +49,8 @@ jobs:
             args: " --all -- --check"
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: actions/cache@v6
         with:
           path: |
@@ -76,14 +81,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
-      - name: Download grcov
-        run: |
-          mkdir -p "${HOME}/.local/bin"
-          curl -fsSL https://github.com/mozilla/grcov/releases/download/v0.8.19/grcov-x86_64-unknown-linux-gnu.tar.bz2 | tar jxf - -C "${HOME}/.local/bin"
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-      - name: Install LLVM-profdata
-        run: rustup component add llvm-tools-preview
+        with:
+          components: llvm-tools-preview
+      - name: Install grcov
+        run: cargo install grcov --version 0.10.8 --locked
       - name: Run tests
         run: CARGO_INCREMENTAL=0 RUSTFLAGS='-Cinstrument-coverage' LLVM_PROFILE_FILE='cargo-test-%p-%m.profraw' cargo test --workspace --all-features --locked
       - name: make coverage directory

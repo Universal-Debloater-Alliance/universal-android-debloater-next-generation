@@ -3,7 +3,6 @@ name = "uad-core"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
-homepage.workspace = true
 repository.workspace = true
 readme.workspace = true
 keywords.workspace = true
@@ -29,6 +28,9 @@ tar = { workspace = true, optional = true }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 win32console.workspace = true
+
+[dev-dependencies]
+tempfile = "3"
 
 [lints.rust]
 deprecated_safe = "warn"

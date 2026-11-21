@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Building ${{ matrix.build_target }} [${{ matrix.update_feature }}]
@@ -29,6 +32,8 @@ jobs:
             update_name: "-noselfupdate"
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v6
         with:
@@ -85,6 +90,8 @@ jobs:
             os: windows-2022
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v6
         with:

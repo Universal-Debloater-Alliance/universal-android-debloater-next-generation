@@ -7,7 +7,7 @@ use serde_json;
 use std::borrow::Cow;
 use std::collections::HashMap;
 use std::fs;
-use std::path::PathBuf;
+use std::path::Path;
 
 pub const LIST_FNAME: &str = "uad_lists.json";
 
@@ -205,63 +205,132 @@ impl From<Removal> for Cow<'_, str> {
 
 pub type PackageHashMap = HashMap<String, Package>;
 pub fn load_debloat_lists(remote: bool) -> Result<PackageHashMap, PackageHashMap> {
-    let cached_uad_lists: PathBuf = CACHE_DIR.join(LIST_FNAME);
-    let mut error = false;
-    let list: PackageHashMap = if remote {
-        retry(Fixed::from_millis(1000).take(60), || {
-            match ureq::get(format!(
-                "https://raw.githubusercontent.com\
-                    /Universal-Debloater-Alliance\
-                    /universal-android-debloater\
-                    /main\
-                    /resources\
-                    /assets\
-                    /{LIST_FNAME}"
+    let cached_uad_lists = CACHE_DIR.join(LIST_FNAME);
+    if !remote {
+        return Ok(get_local_lists(&cached_uad_lists));
+    }
+
+    let agent: ureq::Agent = ureq::Agent::config_builder()
+        .https_only(true)
+        .build()
+        .into();
+    retry(Fixed::from_millis(1000).take(60), || {
+        match agent
+            .get(format!(
+                "https://raw.githubusercontent.com/Universal-Debloater-Alliance/\
+                 universal-android-debloater-next-generation/main/resources/assets/{LIST_FNAME}"
             ))
             .call()
-            {
-                Ok(mut data) => {
-                    // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
-                    let text = data
-                        .body_mut()
-                        .with_config()
-                        .limit(1 << (3 + 10 + 10))
-                        .read_to_string()
-                        .expect("remote list is bigger than 8MiB");
-                    fs::write(cached_uad_lists.clone(), &text).expect("Unable to write file");
-                    let list: PackageHashMap =
-                        serde_json::from_str(&text).expect("Unable to parse");
-                    OperationResult::Ok(list)
-                }
-                Err(e) => {
-                    warn!("Could not load remote debloat list: {e}");
-                    error = true;
-                    OperationResult::Retry(PackageHashMap::new())
+        {
+            Ok(mut response) => {
+                // https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/discussions/608
+                let text = match response
+                    .body_mut()
+                    .with_config()
+                    .limit(8 * 1024 * 1024)
+                    .read_to_string()
+                {
+                    Ok(text) => text,
+                    Err(ureq::Error::BodyExceedsLimit(_)) => {
+                        warn!("remote list is bigger than 8MiB");
+                        return OperationResult::Err(());
+                    }
+                    Err(e) => {
+                        warn!("Could not read remote debloat list: {e}");
+                        return OperationResult::Retry(());
+                    }
+                };
+                match parse_and_cache_list(&text, &cached_uad_lists) {
+                    Ok(list) => OperationResult::Ok(list),
+                    Err(e) => {
+                        warn!("Remote debloat list is not valid: {e}");
+                        OperationResult::Err(())
+                    }
                 }
             }
-        })
-        .unwrap_or_else(|_| get_local_lists())
-    } else {
-        warn!("Could not load remote debloat list");
-        get_local_lists()
-    };
-
-    (if error { Err } else { Ok })(list)
+            Err(e) => {
+                warn!("Could not load remote debloat list: {e}");
+                OperationResult::Retry(())
+            }
+        }
+    })
+    .map_err(|_| get_local_lists(&cached_uad_lists))
 }
 
-fn get_local_lists() -> PackageHashMap {
-    let cached_uad_lists = CACHE_DIR.join(LIST_FNAME);
-    serde_json::from_str(
-        fs::read_to_string(cached_uad_lists)
-            .as_deref()
-            .unwrap_or(DATA),
-    )
-    .expect("Unable to parse")
+fn parse_and_cache_list(
+    text: &str,
+    cache_path: &Path,
+) -> Result<PackageHashMap, serde_json::Error> {
+    let list = serde_json::from_str(text)?;
+    // Invalid downloads must not overwrite a usable cached list.
+    if let Err(e) = fs::write(cache_path, text) {
+        warn!("Could not cache remote debloat list: {e}");
+    }
+    Ok(list)
+}
+
+fn get_local_lists(cache_path: &Path) -> PackageHashMap {
+    if let Ok(text) = fs::read_to_string(cache_path) {
+        match serde_json::from_str(&text) {
+            Ok(list) => return list,
+            Err(e) => warn!("Cached debloat list is not valid: {e}"),
+        }
+    }
+    serde_json::from_str(DATA).expect("embedded debloat list must be valid")
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use tempfile::tempdir;
+
+    const TEST_LIST: &str = r#"{
+        "com.example.app": {
+            "list": "Misc", "description": "Test package", "removal": "Recommended",
+            "dependencies": [], "neededBy": [], "labels": []
+        }
+    }"#;
+
+    #[test]
+    fn invalid_download_preserves_cached_list() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        fs::write(&path, TEST_LIST).unwrap();
+        for invalid in ["{", r#"{"com.example.app": {}}"#] {
+            assert!(parse_and_cache_list(invalid, &path).is_err());
+            assert_eq!(fs::read_to_string(&path).unwrap(), TEST_LIST);
+        }
+    }
+
+    #[test]
+    fn valid_download_is_cached_and_used_offline() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        let downloaded = parse_and_cache_list(TEST_LIST, &path).unwrap();
+        assert_eq!(get_local_lists(&path), downloaded);
+        assert_eq!(downloaded.len(), 1);
+        assert!(downloaded.contains_key("com.example.app"));
+    }
+
+    #[test]
+    fn missing_or_invalid_cache_falls_back_to_embedded_list() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join(LIST_FNAME);
+        let embedded: PackageHashMap = serde_json::from_str(DATA).unwrap();
+        assert_eq!(get_local_lists(&path), embedded);
+        fs::write(&path, "invalid JSON").unwrap();
+        assert_eq!(get_local_lists(&path), embedded);
+    }
+
+    #[test]
+    fn cache_write_failure_does_not_discard_a_valid_download() {
+        let dir = tempdir().unwrap();
+        // A directory cannot be overwritten with the downloaded JSON.
+        let downloaded = parse_and_cache_list(TEST_LIST, dir.path()).unwrap();
+        assert!(downloaded.contains_key("com.example.app"));
+        assert!(dir.path().is_dir());
+    }
+
     #[test]
     fn test_parse_json() {
         let _: PackageHashMap = serde_json::from_str(DATA).expect("Unable to parse");
