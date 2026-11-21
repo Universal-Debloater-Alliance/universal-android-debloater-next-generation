@@ -38,7 +38,7 @@ pub enum LoadingState {
     #[default]
     FindingPhones,
     LoadingPackages,
-    _UpdatingUad,
+    UpdatingUad,
     Ready,
     RestoringDevice(String),
     FailedToUpdate,
@@ -230,7 +230,7 @@ impl List {
                 None,
                 style::Text::Default,
             ),
-            LoadingState::_UpdatingUad => waiting_view(
+            LoadingState::UpdatingUad => waiting_view(
                 &format!("Updating {NAME}. Please wait..."),
                 None,
                 style::Text::Default,
@@ -765,16 +765,14 @@ impl List {
             .collect();
     }
 
-    #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn load_packages<S: AsRef<str>>(
-        uad_list: PackageHashMap,
-        device_serial: S,
-        user_list: Vec<User>,
+    fn load_packages(
+        uad_list: &PackageHashMap,
+        device_serial: &str,
+        user_list: &[User],
     ) -> Vec<Vec<PackageRow>> {
-        let serial = device_serial.as_ref();
         if user_list.len() <= 1 {
             vec![
-                fetch_packages(&uad_list, serial, None)
+                fetch_packages(uad_list, device_serial, None)
                     .into_iter()
                     .map(PackageRow::from)
                     .collect(),
@@ -783,7 +781,7 @@ impl List {
             user_list
                 .iter()
                 .map(|user| {
-                    fetch_packages(&uad_list, serial, Some(user.id))
+                    fetch_packages(uad_list, device_serial, Some(user.id))
                         .into_iter()
                         .map(PackageRow::from)
                         .collect()
@@ -792,8 +790,7 @@ impl List {
         }
     }
 
-    #[expect(clippy::unused_async, reason = "1 call-site")]
-    async fn init_apps_view(remote: bool, phone: Phone) -> (PackageHashMap, UadListState) {
+    fn init_apps_view(remote: bool, phone: &Phone) -> (PackageHashMap, UadListState) {
         let uad_lists = load_debloat_lists(remote);
         match uad_lists {
             Ok(list) => {
@@ -859,8 +856,9 @@ impl List {
         );
         info!("{:-^65}", "-");
         self.loading_state = LoadingState::DownloadingList;
+        let phone = selected_device.clone();
         Task::perform(
-            Self::init_apps_view(remote, selected_device.clone()),
+            async move { Self::init_apps_view(remote, &phone) },
             Message::LoadPhonePackages,
         )
     }
@@ -875,12 +873,10 @@ impl List {
         self.loading_state = LoadingState::LoadingPackages;
         self.uad_lists.clone_from(&uad_list);
         *list_update_state = list_state;
+        let device_serial = selected_device.adb_id.clone();
+        let user_list = selected_device.user_list.clone();
         Task::perform(
-            Self::load_packages(
-                uad_list,
-                selected_device.adb_id.clone(),
-                selected_device.user_list.clone(),
-            ),
+            async move { Self::load_packages(&uad_list, &device_serial, &user_list) },
             Message::ApplyFilters,
         )
     }

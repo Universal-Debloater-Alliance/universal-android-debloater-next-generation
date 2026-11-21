@@ -72,7 +72,7 @@ pub enum Message {
     RebootButtonPressed,
     LoadDevices(Vec<Phone>),
     #[cfg(feature = "self-update")]
-    _NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
+    NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
     FontLoaded(Result<(), iced::font::Error>),
     Nothing,
@@ -289,10 +289,10 @@ impl UadGui {
                         if let Some(release) = self.update_state.self_update.latest_release.as_ref()
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
-                            self.apps_view.loading_state = ListLoadingState::_UpdatingUad;
+                            self.apps_view.loading_state = ListLoadingState::UpdatingUad;
                             Task::perform(
                                 download_update_to_temp_file(BIN_NAME, release.clone()),
-                                Message::_NewReleaseDownloaded,
+                                Message::NewReleaseDownloaded,
                             )
                         } else {
                             Task::none()
@@ -326,7 +326,7 @@ impl UadGui {
                 ))))
             }
             #[cfg(feature = "self-update")]
-            Message::_NewReleaseDownloaded(res) => {
+            Message::NewReleaseDownloaded(res) => {
                 debug!("{NAME} update has been downloaded!");
 
                 if let Ok((relaunch_path, cleanup_path)) = res {

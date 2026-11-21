@@ -141,9 +141,7 @@ fn make_friendly_error_message(error_output: &str, action: &str) -> String {
 /// If `None`, returns an empty String, not " --user 0"
 #[must_use]
 pub fn user_flag(user_id: Option<User>) -> String {
-    user_id
-        .map(|user| format!(" --user {}", user.id))
-        .unwrap_or_default()
+    user_id.map_or_else(String::new, |user| format!(" --user {}", user.id))
 }
 
 // Minimum information for processing adb commands
@@ -255,8 +253,7 @@ pub fn get_device_brand(serial: &str) -> String {
         .shell(serial)
         .getprop("ro.product.brand")
         // `trim` is just-in-case
-        .map(|s| s.trim().to_string())
-        .unwrap_or_default()
+        .map_or_else(|_| String::new(), |s| s.trim().to_string())
 }
 
 /// Get Android SDK version by querying the
@@ -441,20 +438,22 @@ pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
         .shell(device_serial)
         .pm()
         .list_users()
-        .map(|out| {
-            out.into_iter()
-                .enumerate()
-                .map(|(i, user)| {
-                    let id = user.get_id();
-                    User {
-                        id,
-                        index: i,
-                        protected: is_protected_user(id, device_serial),
-                    }
-                })
-                .collect()
-        })
-        .unwrap_or_default()
+        .map_or_else(
+            |_| Vec::new(),
+            |out| {
+                out.into_iter()
+                    .enumerate()
+                    .map(|(i, user)| {
+                        let id = user.get_id();
+                        User {
+                            id,
+                            index: i,
+                            protected: is_protected_user(id, device_serial),
+                        }
+                    })
+                    .collect()
+            },
+        )
 }
 
 /// This matches serials (`getprop ro.serialno`)

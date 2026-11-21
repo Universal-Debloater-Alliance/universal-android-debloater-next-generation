@@ -78,16 +78,21 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
 #[must_use]
 pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
     match fs::read_to_string(backup.path) {
-        Ok(data) => serde_json::from_str::<PhoneBackup>(&data)
-            .expect("Unable to parse backup file")
-            .users
-            .into_iter()
-            .map(|u| User {
-                id: u.id,
-                index: 0,
-                protected: false,
-            })
-            .collect(),
+        Ok(data) => match serde_json::from_str::<PhoneBackup>(&data) {
+            Ok(phone_backup) => phone_backup
+                .users
+                .into_iter()
+                .map(|u| User {
+                    id: u.id,
+                    index: 0,
+                    protected: false,
+                })
+                .collect(),
+            Err(e) => {
+                error!("[BACKUP]: Invalid backup file: {e}");
+                vec![]
+            }
+        },
         Err(e) => {
             error!("[BACKUP]: Selected backup file not found: {e}");
             vec![]
@@ -123,8 +128,8 @@ pub fn restore_backup(
             .clone(),
     ) {
         Ok(data) => {
-            let phone_backup: PhoneBackup =
-                serde_json::from_str(&data).expect("Unable to parse backup file");
+            let phone_backup: PhoneBackup = serde_json::from_str(&data)
+                .map_err(|e| format!("The selected backup file is not valid: {e}"))?;
 
             let mut commands = vec![];
             let mut skipped_packages = 0;
@@ -134,13 +139,16 @@ pub fn restore_backup(
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
-                for (i, backup_package) in u.packages.iter().enumerate() {
-                    let package: CorePackage = if let Some(p) = packages[i_user]
+                let user_packages = packages
+                    .get(i_user)
+                    .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
+                for backup_package in &u.packages {
+                    // The GUI updates the live device list using this index.
+                    let Some((i, package)) = user_packages
                         .iter()
-                        .find(|x| x.name == backup_package.name)
-                    {
-                        p.clone()
-                    } else {
+                        .enumerate()
+                        .find(|(_, p)| p.name == backup_package.name)
+                    else {
                         skipped_packages += 1;
                         warn!(
                             "{} not found for user {} - skipping package during restore",
@@ -149,7 +157,7 @@ pub fn restore_backup(
                         continue;
                     };
                     let p_commands = apply_pkg_state_commands(
-                        &package,
+                        package,
                         backup_package.state,
                         settings
                             .backup
@@ -184,5 +192,95 @@ pub fn restore_backup(
             })
         }
         Err(e) => Err(e.to_string()),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{
+        config::BackupSettings,
+        uad_lists::{PackageState, Removal, UadList},
+    };
+    use tempfile::tempdir;
+
+    fn package(name: &str, state: PackageState) -> CorePackage {
+        CorePackage {
+            name: name.to_string(),
+            description: String::new(),
+            state,
+            removal: Removal::Recommended,
+            list: UadList::Misc,
+        }
+    }
+
+    #[test]
+    fn restore_uses_device_indexes_and_skips_missing_packages() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("backup.json");
+        let user = User::default();
+        let backup = PhoneBackup {
+            device_id: "test-device".to_string(),
+            users: vec![UserBackup {
+                id: user.id,
+                packages: vec![
+                    package("com.example.missing", PackageState::Disabled),
+                    package("com.example.second", PackageState::Disabled),
+                    package("com.example.first", PackageState::Disabled),
+                ],
+            }],
+        };
+        fs::write(&path, serde_json::to_vec(&backup).unwrap()).unwrap();
+        let phone = Phone {
+            android_sdk: 35,
+            user_list: vec![user],
+            ..Phone::default()
+        };
+        let settings = DeviceSettings {
+            backup: BackupSettings {
+                selected: Some(DisplayablePath { path }),
+                selected_user: Some(user),
+                ..BackupSettings::default()
+            },
+            ..DeviceSettings::default()
+        };
+        let packages = vec![vec![
+            package("com.example.first", PackageState::Enabled),
+            package("com.example.second", PackageState::Enabled),
+        ]];
+        let result = restore_backup(&phone, &packages, &settings).unwrap();
+        let actions: Vec<_> = result
+            .packages
+            .iter()
+            .filter(|p| !p.commands.is_empty())
+            .collect();
+        assert_eq!(result.skipped_count, 1);
+        assert_eq!(actions.len(), 2);
+        assert_eq!(actions[0].index, 1);
+        assert!(actions[0].commands[0].ends_with("com.example.second"));
+        assert_eq!(actions[1].index, 0);
+        assert!(actions[1].commands[0].ends_with("com.example.first"));
+        assert!(restore_backup(&phone, &[], &settings).is_err());
+    }
+
+    #[test]
+    fn malformed_backup_and_missing_selection_return_errors() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("backup.json");
+        fs::write(&path, "not JSON").unwrap();
+        let backup = DisplayablePath { path };
+        assert_eq!(
+            list_available_backup_user(backup.clone()),
+            Vec::<User>::new()
+        );
+        let settings = DeviceSettings {
+            backup: BackupSettings {
+                selected: Some(backup),
+                ..BackupSettings::default()
+            },
+            ..DeviceSettings::default()
+        };
+        assert!(restore_backup(&Phone::default(), &[], &settings).is_err());
+        assert!(restore_backup(&Phone::default(), &[], &DeviceSettings::default()).is_err());
     }
 }

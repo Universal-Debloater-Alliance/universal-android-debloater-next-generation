@@ -65,10 +65,7 @@ fn is_version_triple(s: &str) -> bool {
             return false;
         }
     }
-    if components.next().is_some() {
-        return false;
-    }
-    true
+    components.next().is_none()
 }
 
 /// Builder object for an Android Debug Bridge CLI command,
@@ -495,7 +492,7 @@ mod tests {
         for output in ["package:com.example", "package:com.example\r"] {
             assert_eq!(parse_package_list(output), ["com.example"]);
         }
-        assert!(parse_package_list("").is_empty());
+        assert_eq!(parse_package_list(""), Vec::<String>::new());
     }
 
     #[test]
