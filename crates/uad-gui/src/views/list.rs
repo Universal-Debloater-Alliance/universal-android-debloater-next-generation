@@ -222,6 +222,15 @@ impl List {
         Some((user.index, find_package(packages, &info.name, info.index)?))
     }
 
+    /// Number of packages selected for the user being displayed.
+    fn selection_count(&self) -> usize {
+        let i_user = self.selected_user.unwrap_or_default().index;
+        self.selected_packages
+            .iter()
+            .filter(|s| s.0 == i_user)
+            .count()
+    }
+
     /// Builds the main view for the app list interface
     pub fn view(
         &self,
@@ -378,11 +387,8 @@ impl List {
             .style(style::Container::Frame);
 
         let review_selection = {
-            let tmp_widget = text(format!(
-                "Review selection ({})",
-                self.selected_packages.len()
-            ));
-            if self.selected_packages.is_empty() {
+            let tmp_widget = text(format!("Review selection ({})", self.selection_count()));
+            if self.selection_count() == 0 {
                 button(tmp_widget).padding([5, 10])
             } else {
                 button_primary(tmp_widget).on_press(Message::ApplyActionOnSelection)
@@ -391,10 +397,10 @@ impl List {
 
         let mut export_selection = button(text(format!(
             "Export current selection ({})",
-            self.selected_packages.len()
+            self.selection_count()
         )))
         .padding([5, 10]);
-        if !self.selected_packages.is_empty() {
+        if self.selection_count() != 0 {
             export_selection = export_selection
                 .on_press(Message::ExportSelection)
                 .style(style::Button::Primary);
