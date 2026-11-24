@@ -821,19 +821,38 @@ impl List {
         selected_device: &mut Phone,
     ) -> Task<Message> {
         self.fallback_notifications.clear();
+        let commands = self.apply_selection(selected_device, &settings.device);
+        self.selection_modal = false;
+        Task::batch(commands)
+    }
+
+    /// Build the commands of the selection under review.
+    fn apply_selection(&mut self, device: &Phone, settings: &DeviceSettings) -> Vec<Task<Message>> {
+        // `build_action_pkg_commands` expands a selection to the other users the
+        // package is selected for, so run each package once, from the user under review.
+        let i_user = self.selected_user.unwrap_or_default().index;
+        let mut actions = self.selected_packages.clone();
+        actions.sort_unstable_by_key(|&(user, package)| (package, user != i_user, user));
+        actions.dedup_by_key(|&mut (_, package)| package);
+
         let mut commands = vec![];
-        self.selected_packages.sort_unstable();
-        self.selected_packages.dedup();
-        for selection in &self.selected_packages {
+        for selection in &actions {
             commands.append(&mut build_action_pkg_commands(
                 &self.phone_packages,
-                selected_device,
-                &settings.device,
+                device,
+                settings,
                 *selection,
             ));
         }
-        self.selection_modal = false;
-        Task::batch(commands)
+
+        // The other users only report back when they needed a command: deselect them now.
+        for &(user, package) in &self.selected_packages {
+            if !actions.contains(&(user, package)) {
+                self.phone_packages[user][package].selected = false;
+            }
+        }
+        self.selected_packages = actions;
+        commands
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
@@ -1644,7 +1663,7 @@ mod tests {
 
     /// Two users with the same three packages. The owner has the last two selected.
     fn view_with_selection() -> List {
-        let packages: Vec<PackageRow> = ["a", "b", "c"]
+        let packages: Vec<PackageRow> = ["com.example.a", "com.example.b", "com.example.c"]
             .iter()
             .map(|name| {
                 PackageRow::new(
@@ -1699,5 +1718,34 @@ mod tests {
         let selected: Vec<bool> = view.phone_packages[1].iter().map(|p| p.selected).collect();
         assert_eq!(selected, [false, true, true]);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 1), (1, 2)]);
+    }
+
+    #[test]
+    fn apply_runs_each_package_once_from_the_reviewed_user() {
+        let mut view = view_with_selection();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let phone = Phone {
+            android_sdk: 35,
+            user_list: vec![User::default(), work],
+            ..Phone::default()
+        };
+        let settings = DeviceSettings {
+            multi_user_mode: true,
+            ..DeviceSettings::default()
+        };
+        view.select_for_all_users(&phone.user_list);
+        // The second package is already uninstalled for the work profile.
+        view.phone_packages[1][1].state = PackageState::Uninstalled;
+
+        // The owner is under review: uninstall the second package for the owner only,
+        // and the third one for both users.
+        let commands = view.apply_selection(&phone, &settings);
+        assert_eq!(commands.len(), 3);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        assert!(view.phone_packages[1].iter().all(|p| !p.selected));
     }
 }
