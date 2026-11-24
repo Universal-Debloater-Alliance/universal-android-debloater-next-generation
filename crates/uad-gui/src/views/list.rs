@@ -27,6 +27,13 @@ pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
     pub removal: String,
+    /// Device, user and package the action was planned for.
+    /// The displayed lists can change before the action completes.
+    pub device: Phone,
+    pub user: User,
+    pub name: String,
+    /// State of the package before the action
+    pub state: PackageState,
     /// State the action is meant to put the package in
     pub wanted_state: PackageState,
     pub before_cross_user_states: Vec<(u16, PackageState)>,
@@ -89,7 +96,7 @@ pub enum Message {
     PackageStateSelected(PackageState),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    VerifyAndFallback(Result<PackageInfo, AdbError>),
+    VerifyAndFallback(PackageInfo, Result<(), AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -113,8 +120,7 @@ pub struct SummaryEntry {
 
 #[derive(Debug, Clone)]
 pub struct VerifyAndFallbackResult {
-    pub i_user: usize,
-    pub index: usize,
+    pub info: PackageInfo,
     pub new_state: PackageState,
     pub notification: Option<String>,
     pub error_modal: Option<String>,
@@ -158,9 +164,9 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::VerifyAndFallback(res) => self.on_verify_and_fallback(res, selected_device),
+            Message::VerifyAndFallback(info, res) => self.on_verify_and_fallback(info, res),
             Message::VerifyAndFallbackFinished(result) => {
-                self.on_verify_and_fallback_finished(result)
+                self.on_verify_and_fallback_finished(result, selected_device)
             }
             Message::ModalUserSelected(user) => {
                 self.on_modal_user_selected(user, settings, selected_device, list_update_state)
@@ -182,20 +188,38 @@ impl List {
     fn on_verify_and_fallback_finished(
         &mut self,
         result: VerifyAndFallbackResult,
+        selected_device: &Phone,
     ) -> Task<Message> {
-        let package = &mut self.phone_packages[result.i_user][result.index];
         if let Some(notification) = result.notification {
             self.fallback_notifications.push(notification);
         }
         if let Some(err) = result.error_modal {
             self.error_modal = Some(err);
         }
-        package.state = result.new_state;
-        package.selected = false;
-        self.selected_packages
-            .retain(|&x| x != (result.i_user, result.index));
-        Self::filter_package_lists(self);
+        if let Some((i_user, index)) = self.current_row(&result.info, selected_device) {
+            let package = &mut self.phone_packages[i_user][index];
+            package.state = result.new_state;
+            package.selected = false;
+            self.selected_packages.retain(|&x| x != (i_user, index));
+            Self::filter_package_lists(self);
+        }
         Task::none()
+    }
+
+    /// Current row of the package an action was started for.
+    ///
+    /// `None` if the lists were replaced by those of another device,
+    /// or no longer have the package, since the action started.
+    fn current_row(&self, info: &PackageInfo, selected_device: &Phone) -> Option<(usize, usize)> {
+        if selected_device.adb_id != info.device.adb_id {
+            return None;
+        }
+        let user = selected_device
+            .user_list
+            .iter()
+            .find(|u| u.id == info.user.id)?;
+        let packages = self.phone_packages.get(user.index)?;
+        Some((user.index, find_package(packages, &info.name, info.index)?))
     }
 
     /// Builds the main view for the app list interface
@@ -839,12 +863,12 @@ impl List {
 
         let mut commands = vec![];
         for selection in &actions {
-            commands.append(&mut build_action_pkg_commands(
+            commands.append(&mut pkg_action_tasks(plan_pkg_action(
                 &self.phone_packages,
                 device,
                 settings,
                 *selection,
-            ));
+            )));
         }
 
         if settings.multi_user_mode {
@@ -1015,12 +1039,12 @@ impl List {
             RowMessage::ActionPressed => {
                 self.fallback_notifications.clear();
                 self.phone_packages[i_user][i_package].selected = true;
-                Task::batch(build_action_pkg_commands(
+                Task::batch(pkg_action_tasks(plan_pkg_action(
                     &self.phone_packages,
                     selected_device,
                     &settings.device,
                     (i_user, i_package),
-                ))
+                )))
             }
             RowMessage::PackagePressed => {
                 self.description = package.clone().description;
@@ -1062,20 +1086,19 @@ impl List {
     // also this really should be refactored, these are gigantic code blocks
     fn on_verify_and_fallback(
         &mut self,
-        res: Result<PackageInfo, AdbError>,
-        selected_device: &Phone,
+        p: PackageInfo,
+        res: Result<(), AdbError>,
     ) -> Task<Message> {
         match res {
-            Ok(p) => {
-                // Snapshot minimal info to move into background task
-                let i_user = p.i_user;
-                let index = p.index;
-                let pkg_name = self.phone_packages[i_user][index].name.clone();
-                let current_state = self.phone_packages[i_user][index].state;
+            Ok(()) => {
+                // Use what the action was planned with: the displayed lists
+                // and the selected device can have changed since.
+                let pkg_name = p.name.clone();
+                let current_state = p.state;
                 let wanted_state = p.wanted_state;
                 let before_cross_user_states = p.before_cross_user_states.clone();
-                let device = selected_device.clone();
-                let user_id = device.user_list[i_user].id;
+                let device = p.device.clone();
+                let user = p.user;
 
                 // Offload verification + potential fallback to background
                 Task::perform(
@@ -1084,7 +1107,7 @@ impl List {
                         let actual_state_opt = uad_core::sync::verify_package_state(
                             &pkg_name,
                             device.adb_id.as_str(),
-                            Some(user_id),
+                            Some(user.id),
                         );
 
                         match actual_state_opt {
@@ -1093,7 +1116,7 @@ impl List {
                                 let error_modal = uad_core::sync::detect_cross_user_behavior(
                                     &pkg_name,
                                     device.adb_id.as_str(),
-                                    user_id,
+                                    user.id,
                                     wanted_state,
                                     actual_state,
                                     &device,
@@ -1108,8 +1131,7 @@ impl List {
                                 });
 
                                 VerifyAndFallbackResult {
-                                    i_user,
-                                    index,
+                                    info: p,
                                     new_state: wanted_state,
                                     notification: None,
                                     error_modal,
@@ -1131,7 +1153,7 @@ impl List {
                                     &core_package,
                                     wanted_state,
                                     actual_state,
-                                    device.user_list[i_user],
+                                    user,
                                     &device,
                                 );
 
@@ -1168,8 +1190,7 @@ impl List {
                                 };
 
                                 VerifyAndFallbackResult {
-                                    i_user,
-                                    index,
+                                    info: p,
                                     new_state,
                                     notification,
                                     error_modal: None,
@@ -1190,116 +1211,76 @@ impl List {
             // and weird.
             Err(AdbError::Generic(err)) => {
                 // this is such a hacky solution
-                if err.contains("Shell cannot change component state") {
-                    // look for the "pm enable --user " to get the command
-                    if let Some(start_index) = err.find("pm enable --user ") {
-                        // slice the string starting from the end of the prefix
-                        let remainder = &err[start_index + "pm enable --user ".len()..];
-                        // split by whitespace to get the arguments: [ID, PACKAGE, ...]
-                        let parts: Vec<&str> = remainder.split_whitespace().collect();
+                if err.contains("Shell cannot change component state")
+                    && err.contains("pm enable --user ")
+                {
+                    let user = p.user;
+                    let device = p.device.clone();
+                    let pkg_name = p.name.clone();
 
-                        if parts.len() >= 2 {
-                            let user_id_str = parts[0];
-                            let pkg_name_str = parts[1];
+                    // fallback task
+                    return Task::perform(
+                        async move {
+                            let temp_pkg = uad_core::sync::CorePackage {
+                                name: pkg_name.clone(),
+                                description: String::new(),
+                                removal: Removal::All,
+                                state: PackageState::Disabled,
+                                list: UadList::Unlisted,
+                            };
 
-                            let found_user = selected_device
-                                .user_list
-                                .iter()
-                                .enumerate()
-                                .find(|(_, u)| u.id.to_string() == user_id_str);
+                            // get uninstall command
+                            let uninstall_cmds = uad_core::sync::apply_pkg_state_commands(
+                                &temp_pkg,
+                                PackageState::Uninstalled,
+                                user,
+                                &device,
+                            );
 
-                            if let Some((i_user, user_ref)) = found_user {
-                                // find the package index
-                                let found_pkg = self.phone_packages[i_user]
-                                    .iter()
-                                    .enumerate()
-                                    .find(|(_, p)| p.name == pkg_name_str);
-
-                                if let Some((index, _)) = found_pkg {
-                                    let user = *user_ref;
-                                    let device = selected_device.clone();
-                                    let pkg_name = pkg_name_str.to_string();
-
-                                    // fallback task
-                                    return Task::perform(
-                                        async move {
-                                            let temp_pkg = uad_core::sync::CorePackage {
-                                                name: pkg_name.clone(),
-                                                description: String::new(),
-                                                removal: Removal::All,
-                                                state: PackageState::Disabled,
-                                                list: UadList::Unlisted,
-                                            };
-
-                                            // get uninstall command
-                                            let uninstall_cmds =
-                                                uad_core::sync::apply_pkg_state_commands(
-                                                    &temp_pkg,
-                                                    PackageState::Uninstalled,
-                                                    user,
-                                                    &device,
-                                                );
-
-                                            if let Some(cmd) = uninstall_cmds.first() {
-                                                let _ = uad_core::sync::run_adb_shell_action(
-                                                    &device.adb_id,
-                                                    cmd,
-                                                );
-                                            }
-
-                                            // reinstall/enable
-                                            let temp_pkg_uninstalled =
-                                                uad_core::sync::CorePackage {
-                                                    name: pkg_name.clone(),
-                                                    description: String::new(),
-                                                    removal: Removal::All,
-                                                    state: PackageState::Uninstalled,
-                                                    list: UadList::Unlisted,
-                                                };
-
-                                            let enable_cmds =
-                                                uad_core::sync::apply_pkg_state_commands(
-                                                    &temp_pkg_uninstalled,
-                                                    PackageState::Enabled,
-                                                    user,
-                                                    &device,
-                                                );
-
-                                            // lets enable the new package
-                                            if let Some(cmd) = enable_cmds.first() {
-                                                let _ = uad_core::sync::run_adb_shell_action(
-                                                    &device.adb_id,
-                                                    cmd,
-                                                );
-                                            }
-
-                                            //verifies the final state for thread confirmation
-                                            let actual_state =
-                                                uad_core::sync::verify_package_state(
-                                                    &pkg_name,
-                                                    &device.adb_id,
-                                                    Some(user.id),
-                                                )
-                                                .unwrap_or(PackageState::Uninstalled);
-                                            VerifyAndFallbackResult {
-                                                i_user,
-                                                index,
-                                                new_state: actual_state,
-                                                notification: Some(format!(
-                                                    "Attempted recovery for {pkg_name}"
-                                                )),
-                                                error_modal: None,
-                                            }
-                                        },
-                                        Message::VerifyAndFallbackFinished,
-                                    );
-                                }
+                            if let Some(cmd) = uninstall_cmds.first() {
+                                let _ = uad_core::sync::run_adb_shell_action(&device.adb_id, cmd);
                             }
-                        }
-                    }
+
+                            // reinstall/enable
+                            let temp_pkg_uninstalled = uad_core::sync::CorePackage {
+                                name: pkg_name.clone(),
+                                description: String::new(),
+                                removal: Removal::All,
+                                state: PackageState::Uninstalled,
+                                list: UadList::Unlisted,
+                            };
+
+                            let enable_cmds = uad_core::sync::apply_pkg_state_commands(
+                                &temp_pkg_uninstalled,
+                                PackageState::Enabled,
+                                user,
+                                &device,
+                            );
+
+                            // lets enable the new package
+                            if let Some(cmd) = enable_cmds.first() {
+                                let _ = uad_core::sync::run_adb_shell_action(&device.adb_id, cmd);
+                            }
+
+                            //verifies the final state for thread confirmation
+                            let actual_state = uad_core::sync::verify_package_state(
+                                &pkg_name,
+                                &device.adb_id,
+                                Some(user.id),
+                            )
+                            .unwrap_or(PackageState::Uninstalled);
+                            VerifyAndFallbackResult {
+                                info: p,
+                                new_state: actual_state,
+                                notification: Some(format!("Attempted recovery for {pkg_name}")),
+                                error_modal: None,
+                            }
+                        },
+                        Message::VerifyAndFallbackFinished,
+                    );
                 }
 
-                // Fallthrough: default error handling if parsing failed or unrelated error
+                // Fallthrough: default error handling for unrelated errors
                 self.error_modal = Some(err);
                 Task::none()
             }
@@ -1513,14 +1494,15 @@ fn same_package(
     i_user: usize,
 ) -> Option<usize> {
     let name = &packages.get(selection.0)?.get(selection.1)?.name;
-    let user_packages = packages.get(i_user)?;
-    if user_packages
-        .get(selection.1)
-        .is_some_and(|p| p.name == *name)
-    {
-        return Some(selection.1);
+    find_package(packages.get(i_user)?, name, selection.1)
+}
+
+/// Find a package by name, looking first at the row it is expected on.
+fn find_package(packages: &[PackageRow], name: &str, expected: usize) -> Option<usize> {
+    if packages.get(expected).is_some_and(|p| p.name == name) {
+        return Some(expected);
     }
-    user_packages.iter().position(|p| p.name == *name)
+    packages.iter().position(|p| p.name == name)
 }
 
 /// The users the action of `selection` applies to, with the ADB commands to run for each.
@@ -1529,7 +1511,7 @@ fn plan_pkg_action(
     device: &Phone,
     settings: &DeviceSettings,
     selection: (usize, usize),
-) -> Vec<(User, PackageInfo, Vec<String>)> {
+) -> Vec<(PackageInfo, Vec<String>)> {
     let pkg = &packages[selection.0][selection.1];
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
@@ -1548,48 +1530,36 @@ fn plan_pkg_action(
             i_user: u.index,
             index,
             removal: pkg.removal.to_string(),
+            device: device.clone(),
+            user: *u,
+            name: u_pkg.name.clone(),
+            state: u_pkg.state,
             wanted_state,
             // Will be filled asynchronously before running the adb action
             before_cross_user_states: vec![],
         };
         let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
-        plan.push((*u, p_info, actions));
+        plan.push((p_info, actions));
     }
     plan
 }
 
-fn build_action_pkg_commands(
-    packages: &[Vec<PackageRow>],
-    device: &Phone,
-    settings: &DeviceSettings,
-    selection: (usize, usize),
-) -> Vec<Task<Message>> {
+/// Queue the ADB commands of a planned action.
+fn pkg_action_tasks(plan: Vec<(PackageInfo, Vec<String>)>) -> Vec<Task<Message>> {
     let mut commands = vec![];
-    for (u, p_info, actions) in plan_pkg_action(packages, device, settings, selection) {
+    for (p_info, actions) in plan {
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = p_info.clone();
-            // Clone data before async block to avoid borrowing issues
-            let device_serial = device.adb_id.clone();
-            let package_name = packages[p_info.i_user][p_info.index].name.clone();
-            let user_id = u.id;
-            let phone = device.clone();
             // In the end there is only one package state change
             // even if we run multiple adb commands
             commands.push(Task::perform(
-                async move {
-                    run_adb_action_with_before_states(
-                        &device_serial,
-                        &action,
-                        p_info,
-                        &package_name,
-                        user_id,
-                        &phone,
-                    )
-                },
-                if j == 0 {
-                    Message::VerifyAndFallback
-                } else {
-                    |_| Message::Nothing
+                async move { run_adb_action_with_before_states(&action, p_info) },
+                move |(p_info, result)| {
+                    if j == 0 {
+                        Message::VerifyAndFallback(p_info, result)
+                    } else {
+                        Message::Nothing
+                    }
                 },
             ));
         }
@@ -1598,24 +1568,19 @@ fn build_action_pkg_commands(
 }
 
 fn run_adb_action_with_before_states(
-    device_serial: &str,
     action: &str,
     mut p_info: PackageInfo,
-    package_name: &str,
-    target_user_id: u16,
-    phone: &Phone,
-) -> Result<PackageInfo, AdbError> {
+) -> (PackageInfo, Result<(), AdbError>) {
     // Capture before-state in background to avoid blocking UI thread
-    let before_states = uad_core::sync::capture_cross_user_states(
-        package_name,
-        device_serial,
-        target_user_id,
-        phone,
+    p_info.before_cross_user_states = uad_core::sync::capture_cross_user_states(
+        &p_info.name,
+        &p_info.device.adb_id,
+        p_info.user.id,
+        &p_info.device,
     );
-    p_info.before_cross_user_states = before_states;
     // Run the ADB action
-    uad_core::sync::run_adb_shell_action(device_serial, action)?;
-    Ok(p_info)
+    let result = uad_core::sync::run_adb_shell_action(&p_info.device.adb_id, action).map(|_| ());
+    (p_info, result)
 }
 
 fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
@@ -1725,21 +1690,6 @@ mod tests {
         view
     }
 
-    #[test]
-    fn finished_action_keeps_the_other_packages_selected() {
-        let mut view = view_with_selection();
-        let _ = view.on_verify_and_fallback_finished(VerifyAndFallbackResult {
-            i_user: 0,
-            index: 1,
-            new_state: PackageState::Uninstalled,
-            notification: None,
-            error_modal: None,
-        });
-        assert!(!view.phone_packages[0][1].selected);
-        assert!(view.phone_packages[0][2].selected);
-        assert_eq!(view.selected_packages, [(0, 2)]);
-    }
-
     /// The owner and a work profile.
     fn two_users() -> Phone {
         let work = User {
@@ -1759,6 +1709,55 @@ mod tests {
             multi_user_mode,
             ..DeviceSettings::default()
         }
+    }
+
+    /// Result of the action of `selection`, for the user it was started from.
+    fn finished(view: &List, selection: (usize, usize)) -> VerifyAndFallbackResult {
+        let plan = plan_pkg_action(
+            &view.phone_packages,
+            &two_users(),
+            &settings(false),
+            selection,
+        );
+        VerifyAndFallbackResult {
+            info: plan[0].0.clone(),
+            new_state: PackageState::Uninstalled,
+            notification: None,
+            error_modal: None,
+        }
+    }
+
+    #[test]
+    fn finished_action_keeps_the_other_packages_selected() {
+        let mut view = view_with_selection();
+        let result = finished(&view, (0, 1));
+        let _ = view.on_verify_and_fallback_finished(result, &two_users());
+        assert!(!view.phone_packages[0][1].selected);
+        assert!(view.phone_packages[0][2].selected);
+        assert_eq!(view.selected_packages, [(0, 2)]);
+    }
+
+    #[test]
+    fn finished_action_updates_the_package_it_was_started_for() {
+        let mut view = view_with_selection();
+        let result = finished(&view, (0, 1));
+
+        // Another device was selected in the meantime: nothing is updated.
+        let other = Phone {
+            adb_id: "other".to_string(),
+            ..two_users()
+        };
+        let _ = view.on_verify_and_fallback_finished(result.clone(), &other);
+        assert_eq!(view.phone_packages[0][1].state, PackageState::Enabled);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+
+        // The list was reloaded without its first package: the rows are shifted.
+        view.phone_packages[0].remove(0);
+        view.selected_packages = vec![(0, 0), (0, 1)];
+        let _ = view.on_verify_and_fallback_finished(result, &two_users());
+        let states: Vec<_> = view.phone_packages[0].iter().map(|p| p.state).collect();
+        assert_eq!(states, [PackageState::Uninstalled, PackageState::Enabled]);
+        assert_eq!(view.selected_packages, [(0, 1)]);
     }
 
     #[test]
@@ -1796,18 +1795,20 @@ mod tests {
 
         let plan: Vec<_> = plan_pkg_action(&view.phone_packages, &phone, &settings(true), (0, 1))
             .into_iter()
-            .map(|(user, info, commands)| (user.id, info.wanted_state, commands))
+            .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
             .collect();
         assert_eq!(
             plan,
             [
                 (
                     0,
+                    PackageState::Enabled,
                     PackageState::Uninstalled,
                     vec!["pm uninstall --user 0 com.example.b".to_string()]
                 ),
                 (
                     10,
+                    PackageState::Disabled,
                     PackageState::Uninstalled,
                     vec!["pm uninstall --user 10 com.example.b".to_string()]
                 ),
