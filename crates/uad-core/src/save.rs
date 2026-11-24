@@ -1,12 +1,9 @@
-use crate::config::{Config, DeviceSettings};
+use crate::config::DeviceSettings;
 use crate::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::utils::DisplayablePath;
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
-use std::{
-    fs,
-    path::{Path, PathBuf},
-};
+use std::{fs, path::Path};
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {
@@ -22,33 +19,34 @@ pub struct UserBackup {
 
 /// Backup all `Uninstalled` and `Disabled` packages
 pub fn backup_phone(
+    backup_dir: &Path,
     users: Vec<User>,
     device_id: String,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<bool, String> {
+    let backup_path = backup_dir.join(&device_id);
     let mut backup = PhoneBackup {
-        device_id: device_id.clone(),
+        device_id,
         ..PhoneBackup::default()
     };
 
+    // The users could not be listed: a backup without them could not be restored.
+    if users.is_empty() {
+        return Err("No user was found on the device".to_string());
+    }
     for u in users {
-        let mut user_backup = UserBackup {
+        let packages = phone_packages
+            .get(u.index)
+            .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
+        backup.users.push(UserBackup {
             id: u.id,
-            ..UserBackup::default()
-        };
-
-        for p in phone_packages[u.index].iter().cloned() {
-            user_backup.packages.push(p);
-        }
-        backup.users.push(user_backup);
+            packages: packages.clone(),
+        });
     }
 
     match serde_json::to_string_pretty(&backup) {
         Ok(json) => {
-            let backup_dir: PathBuf = Config::load_configuration_file().general.backup_folder;
-            let backup_path = &*backup_dir.join(device_id);
-
-            if let Err(e) = fs::create_dir_all(backup_path) {
+            if let Err(e) = fs::create_dir_all(&backup_path) {
                 error!("BACKUP: could not create backup dir: {e}");
                 return Err(e.to_string());
             }
@@ -261,6 +259,26 @@ mod tests {
         assert_eq!(actions[1].index, 0);
         assert!(actions[1].commands[0].ends_with("com.example.first"));
         assert!(restore_backup(&phone, &[], &settings).is_err());
+    }
+
+    #[test]
+    fn backup_is_saved_in_the_device_folder() {
+        let dir = tempdir().unwrap();
+        let serial = "USB123";
+        let users = vec![User::default()];
+        let packages = vec![vec![package("com.example.app", PackageState::Enabled)]];
+
+        assert!(backup_phone(dir.path(), users.clone(), serial.to_string(), &[]).is_err());
+        assert!(backup_phone(dir.path(), vec![], serial.to_string(), &packages).is_err());
+        assert_eq!(fs::read_dir(dir.path()).unwrap().count(), 0);
+
+        backup_phone(dir.path(), users, serial.to_string(), &packages).unwrap();
+        let backups = list_available_backups(&dir.path().join(serial));
+        assert_eq!(backups.len(), 1);
+        let saved: PhoneBackup =
+            serde_json::from_slice(&fs::read(&backups[0].path).unwrap()).unwrap();
+        assert_eq!(saved.device_id, serial);
+        assert_eq!(saved.users[0].packages, packages[0]);
     }
 
     #[test]

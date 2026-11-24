@@ -197,8 +197,9 @@ impl Settings {
         let user_list = phone.user_list.clone();
         let device_id = self.device.device_id.clone();
         let packages_owned = core_packages;
+        let backup_dir = self.general.backup_folder.clone();
         Task::perform(
-            async move { backup_phone(user_list, device_id, &packages_owned) },
+            async move { backup_phone(&backup_dir, user_list, device_id, &packages_owned) },
             Message::DeviceBackedUp,
         )
     }
