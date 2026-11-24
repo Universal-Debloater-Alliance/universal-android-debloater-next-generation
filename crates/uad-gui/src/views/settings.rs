@@ -252,18 +252,19 @@ impl Settings {
                         name: packages[p.i_user][p.index].name.clone(),
                         ..PackageInfo::default()
                     };
-                    for command in p.commands.clone() {
-                        *nb_running_async_adb_commands += 1;
-                        let p_info_clone = p_info.clone();
-                        let phone_id = phone.adb_id.clone();
-                        commands.push(Task::perform(
-                            async move {
-                                run_adb_shell_action(phone_id, command.as_str())
-                                    .map(|_| p_info_clone)
-                            },
-                            Message::RestoringDevice,
-                        ));
-                    }
+                    *nb_running_async_adb_commands += 1;
+                    let package_commands = p.commands.clone();
+                    let phone_id = phone.adb_id.clone();
+                    commands.push(Task::perform(
+                        async move {
+                            // In order: the next commands must not run if one fails.
+                            for command in &package_commands {
+                                run_adb_shell_action(&phone_id, command)?;
+                            }
+                            Ok(p_info)
+                        },
+                        Message::RestoringDevice,
+                    ));
                 }
                 if restore_result.skipped_count > 0 {
                     self.device.backup.backup_state = format!(

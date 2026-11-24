@@ -1590,29 +1590,19 @@ fn plan_pkg_action(
 
 /// Queue the ADB commands of a planned action.
 fn pkg_action_tasks(plan: Vec<(PackageInfo, Vec<String>)>) -> Vec<Task<Message>> {
-    let mut commands = vec![];
-    for (p_info, actions) in plan {
-        for (j, action) in actions.into_iter().enumerate() {
-            let p_info = p_info.clone();
-            // In the end there is only one package state change
-            // even if we run multiple adb commands
-            commands.push(Task::perform(
-                async move { run_adb_action_with_before_states(&action, p_info) },
-                move |(p_info, result)| {
-                    if j == 0 {
-                        Message::VerifyAndFallback(p_info, result)
-                    } else {
-                        Message::Nothing
-                    }
-                },
-            ));
-        }
-    }
-    commands
+    plan.into_iter()
+        .filter(|(_, actions)| !actions.is_empty())
+        .map(|(p_info, actions)| {
+            Task::perform(
+                async move { run_adb_actions_with_before_states(&actions, p_info) },
+                |(p_info, result)| Message::VerifyAndFallback(p_info, result),
+            )
+        })
+        .collect()
 }
 
-fn run_adb_action_with_before_states(
-    action: &str,
+fn run_adb_actions_with_before_states(
+    actions: &[String],
     mut p_info: PackageInfo,
 ) -> (PackageInfo, Result<(), AdbError>) {
     // Capture before-state in background to avoid blocking UI thread
@@ -1622,8 +1612,19 @@ fn run_adb_action_with_before_states(
         p_info.user.id,
         &p_info.device,
     );
-    // Run the ADB action
-    let result = uad_core::sync::run_adb_shell_action(&p_info.device.adb_id, action).map(|_| ());
+    // The first command changes the package state. The others clean up after it,
+    // in order: they must not run if it failed.
+    let mut result = Ok(());
+    for (i, action) in actions.iter().enumerate() {
+        if let Err(e) = uad_core::sync::run_adb_shell_action(&p_info.device.adb_id, action) {
+            if i == 0 {
+                result = Err(e);
+            } else {
+                warn!("{action} failed: {e:?}");
+            }
+            break;
+        }
+    }
     (p_info, result)
 }
 
