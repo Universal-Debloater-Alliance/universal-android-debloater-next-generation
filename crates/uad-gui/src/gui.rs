@@ -275,8 +275,11 @@ impl UadGui {
                         self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
                     }
                     AboutMessage::DoSelfUpdate => {
+                        // A second update would replace the backup of the first one.
                         #[cfg(feature = "self-update")]
-                        if let Some(release) = self.update_state.self_update.latest_release.as_ref()
+                        if self.update_state.self_update.status != SelfUpdateStatus::Updating
+                            && let Some(release) =
+                                self.update_state.self_update.latest_release.as_ref()
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::UpdatingUad;
