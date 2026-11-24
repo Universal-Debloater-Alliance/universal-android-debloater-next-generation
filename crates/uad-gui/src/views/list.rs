@@ -897,8 +897,7 @@ impl List {
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
         if let Ok(p) = output {
-            self.loading_state =
-                LoadingState::RestoringDevice(self.phone_packages[p.i_user][p.index].name.clone());
+            self.loading_state = LoadingState::RestoringDevice(p.name);
         } else {
             self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
         }
@@ -1679,24 +1678,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn restore_progress_shows_the_package_of_the_restored_user() {
-        let work_package = PackageRow::new(
-            "com.example.work",
-            "",
-            Removal::Recommended,
-            PackageState::Enabled,
-            UadList::Misc,
-            false,
-            false,
-        );
-        // The owner (user index 0) is selected, the restored package belongs to index 1.
-        let mut view = List {
-            selected_user: Some(User::default()),
-            phone_packages: vec![vec![], vec![work_package]],
-            ..List::default()
-        };
+    fn restore_progress_shows_the_restored_package() {
+        // The rows can be gone by the time a restore command completes.
+        let mut view = List::default();
         let _ = view.on_restoring_device(Ok(PackageInfo {
             i_user: 1,
+            name: "com.example.work".to_string(),
             ..PackageInfo::default()
         }));
         assert!(matches!(

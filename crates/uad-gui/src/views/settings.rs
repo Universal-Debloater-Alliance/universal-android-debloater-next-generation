@@ -239,11 +239,17 @@ impl Settings {
             Ok(restore_result) => {
                 let mut commands = vec![];
                 *nb_running_async_adb_commands = 0;
-                for p in &restore_result.packages {
+                for p in restore_result
+                    .packages
+                    .iter()
+                    .filter(|p| !p.commands.is_empty())
+                {
                     let p_info = PackageInfo {
                         i_user: p.i_user,
                         index: p.index,
                         removal: "RESTORE".to_string(),
+                        // The rows can be gone by the time the commands complete.
+                        name: packages[p.i_user][p.index].name.clone(),
                         ..PackageInfo::default()
                     };
                     for command in p.commands.clone() {
