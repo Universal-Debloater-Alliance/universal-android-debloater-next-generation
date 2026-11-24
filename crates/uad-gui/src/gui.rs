@@ -340,7 +340,11 @@ impl UadGui {
                         .spawn()
                     {
                         Ok(_) => {
-                            if let Err(e) = remove_file(cleanup_path) {
+                            // Windows cannot delete the executable of a running process:
+                            // the next update replaces this backup.
+                            if !cfg!(target_os = "windows")
+                                && let Err(e) = remove_file(cleanup_path)
+                            {
                                 error!("Could not remove temp update file: {e}");
                             }
                             std::process::exit(0)
