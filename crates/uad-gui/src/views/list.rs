@@ -115,8 +115,8 @@ pub enum Message {
 
 pub struct SummaryEntry {
     category: Removal,
-    discard: u8,
-    restore: u8,
+    discard: usize,
+    restore: usize,
 }
 
 #[derive(Debug, Clone)]
