@@ -194,7 +194,7 @@ impl List {
         package.state = result.new_state;
         package.selected = false;
         self.selected_packages
-            .retain(|&x| x.1 != result.index && x.0 != result.i_user);
+            .retain(|&x| x != (result.i_user, result.index));
         Self::filter_package_lists(self);
         Task::none()
     }
@@ -1670,6 +1670,21 @@ mod tests {
         view.phone_packages[0][1].selected = true;
         view.phone_packages[0][2].selected = true;
         view
+    }
+
+    #[test]
+    fn finished_action_keeps_the_other_packages_selected() {
+        let mut view = view_with_selection();
+        let _ = view.on_verify_and_fallback_finished(VerifyAndFallbackResult {
+            i_user: 0,
+            index: 1,
+            new_state: PackageState::Uninstalled,
+            notification: None,
+            error_modal: None,
+        });
+        assert!(!view.phone_packages[0][1].selected);
+        assert!(view.phone_packages[0][2].selected);
+        assert_eq!(view.selected_packages, [(0, 2)]);
     }
 
     #[test]
