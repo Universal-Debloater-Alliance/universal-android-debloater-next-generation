@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.Universal_Debloater_Alliance.uad_ng</id>
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>Universal Android Debloater Next Generation</name>
+  <summary>Manage unwanted apps on non-rooted Android devices</summary>
+  <developer id="io.github.universal-debloater-alliance">
+    <name>Universal Debloater Alliance</name>
+  </developer>
+  <description>
+    <p>
+      Universal Android Debloater Next Generation uses Android Debug Bridge
+      (ADB) to manage preinstalled apps on a connected Android device. Browse
+      installed packages, read descriptions and recommendations, and disable,
+      uninstall, or restore apps without rooting the device.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.Universal_Debloater_Alliance.uad_ng.desktop</launchable>
+  <url type="homepage">https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation</url>
+  <url type="bugtracker">https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Browse apps on a connected Android device</caption>
+      <image type="source">https://raw.githubusercontent.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/v1.3.1/resources/screenshots/v1.0.2.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1" />
+</component>

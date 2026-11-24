@@ -72,6 +72,7 @@
         pkgs:
         let
           runtimeLibs = runtimeLibsFor pkgs;
+          appId = "io.github.Universal_Debloater_Alliance.uad_ng";
           rustToolchain = rustToolchainFor pkgs;
           rustPlatform = pkgs.makeRustPlatform {
             cargo = rustToolchain;
@@ -125,6 +126,11 @@
               wrapProgram $out/bin/uad-ng \
                 --suffix PATH : ${lib.makeBinPath [ pkgs.android-tools ]} \
                 ${lib.optionalString pkgs.stdenv.hostPlatform.isLinux "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath runtimeLibs}"}
+            ''
+            + lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+              install -Dm644 resources/linux/${appId}.desktop "$out/share/applications/${appId}.desktop"
+              install -Dm644 resources/linux/${appId}.metainfo.xml "$out/share/metainfo/${appId}.metainfo.xml"
+              install -Dm644 resources/assets/logo-dark.png "$out/share/pixmaps/${appId}.png"
             '';
 
             meta = {
@@ -204,16 +210,16 @@
           rustToolchain = rustToolchainFor pkgs;
         in
         {
-          default = pkgs.mkShell (
-            {
-              packages = with pkgs; [
-                rustToolchain
-                grcov
-                android-tools
-                clang
-                pkg-config
-              ];
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              rustToolchain
+              grcov
+              android-tools
+              clang
+              pkg-config
+            ];
 
+            env = {
               RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
               LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
             }
@@ -222,8 +228,8 @@
             }
             // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
               DYLD_FALLBACK_LIBRARY_PATH = lib.makeLibraryPath runtimeLibs;
-            }
-          );
+            };
+          };
         }
       );
     };

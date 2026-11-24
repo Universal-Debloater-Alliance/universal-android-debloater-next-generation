@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Universal Android Debloater Next Generation
+Comment=Manage unwanted apps on non-rooted Android devices
+Exec=uad-ng
+Icon=io.github.Universal_Debloater_Alliance.uad_ng
+Terminal=false
+Categories=Utility;
+Keywords=Android;ADB;Debloat;
