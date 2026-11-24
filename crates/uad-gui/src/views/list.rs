@@ -828,13 +828,14 @@ impl List {
 
     /// Build the commands of the selection under review.
     fn apply_selection(&mut self, device: &Phone, settings: &DeviceSettings) -> Vec<Task<Message>> {
-        // `build_action_pkg_commands` expands a selection to the other users the
-        // package is selected for, so run each package once, from the user under review.
+        // Only the packages shown in the review are applied: those of the user under review.
         let i_user = self.selected_user.unwrap_or_default().index;
-        let name = |(user, package): (usize, usize)| &self.phone_packages[user][package].name;
-        let mut actions = self.selected_packages.clone();
-        actions.sort_unstable_by_key(|&s| (name(s), s.0 != i_user, s.0));
-        actions.dedup_by_key(|s| name(*s));
+        let actions: Vec<(usize, usize)> = self
+            .selected_packages
+            .iter()
+            .copied()
+            .filter(|s| s.0 == i_user)
+            .collect();
 
         let mut commands = vec![];
         for selection in &actions {
@@ -846,13 +847,20 @@ impl List {
             ));
         }
 
-        // The other users only report back when they needed a command: deselect them now.
-        for &(user, package) in &self.selected_packages {
-            if !actions.contains(&(user, package)) {
-                self.phone_packages[user][package].selected = false;
+        if settings.multi_user_mode {
+            // The action is extended to the other users. They only report back
+            // when they needed a command: deselect them now.
+            for u in device.user_list.iter().filter(|u| u.index != i_user) {
+                for &selection in &actions {
+                    if let Some(i_package) = same_package(&self.phone_packages, selection, u.index)
+                    {
+                        self.phone_packages[u.index][i_package].selected = false;
+                        self.selected_packages
+                            .retain(|&x| x != (u.index, i_package));
+                    }
+                }
             }
         }
-        self.selected_packages = actions;
         commands
     }
 
@@ -1511,45 +1519,53 @@ fn same_package(
     user_packages.iter().position(|p| p.name == *name)
 }
 
+/// The users the action of `selection` applies to, with the ADB commands to run for each.
+fn plan_pkg_action(
+    packages: &[Vec<PackageRow>],
+    device: &Phone,
+    settings: &DeviceSettings,
+    selection: (usize, usize),
+) -> Vec<(User, PackageInfo, Vec<String>)> {
+    let pkg = &packages[selection.0][selection.1];
+    let wanted_state = pkg.state.opposite(settings.disable_mode);
+
+    let mut plan = vec![];
+    for u in device.user_list.iter().filter(|u| !u.protected) {
+        let Some(index) = same_package(packages, selection, u.index) else {
+            continue;
+        };
+        let u_pkg = &packages[u.index][index];
+        // Only the initiating user, unless multi-user mode extends the action
+        // to the other users the package is selected for.
+        if u.index != selection.0 && !(settings.multi_user_mode && u_pkg.selected) {
+            continue;
+        }
+        let p_info = PackageInfo {
+            i_user: u.index,
+            index,
+            removal: pkg.removal.to_string(),
+            // Will be filled asynchronously before running the adb action
+            before_cross_user_states: vec![],
+        };
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
+        plan.push((*u, p_info, actions));
+    }
+    plan
+}
+
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
     device: &Phone,
     settings: &DeviceSettings,
     selection: (usize, usize),
 ) -> Vec<Task<Message>> {
-    let pkg = &packages[selection.0][selection.1];
-    let wanted_state = pkg.state.opposite(settings.disable_mode);
-
     let mut commands = vec![];
-    for u in device.user_list.iter().filter(|u| !u.protected) {
-        let Some(index) = same_package(packages, selection, u.index) else {
-            continue;
-        };
-        let u_pkg = &packages[u.index][index];
-        // Only apply to users where package is explicitly selected
-        // OR if multi_user_mode is enabled AND this is the initiating user
-        if !(u_pkg.selected || (settings.multi_user_mode && u.index == selection.0)) {
-            continue;
-        }
-        let wanted_state = if settings.multi_user_mode {
-            wanted_state
-        } else {
-            u_pkg.state.opposite(settings.disable_mode)
-        };
-
-        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
-
+    for (u, p_info, actions) in plan_pkg_action(packages, device, settings, selection) {
         for (j, action) in actions.into_iter().enumerate() {
-            let p_info = PackageInfo {
-                i_user: u.index,
-                index,
-                removal: pkg.removal.to_string(),
-                // Will be filled asynchronously before running the adb action
-                before_cross_user_states: vec![],
-            };
+            let p_info = p_info.clone();
             // Clone data before async block to avoid borrowing issues
             let device_serial = device.adb_id.clone();
-            let package_name = u_pkg.name.clone();
+            let package_name = packages[p_info.i_user][p_info.index].name.clone();
             let user_id = u.id;
             let phone = device.clone();
             // In the end there is only one package state change
@@ -1719,15 +1735,31 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 2)]);
     }
 
-    #[test]
-    fn multi_user_mode_selects_the_same_packages_for_every_user() {
-        let mut view = view_with_selection();
+    /// The owner and a work profile.
+    fn two_users() -> Phone {
         let work = User {
             id: 10,
             index: 1,
             protected: false,
         };
-        view.select_for_all_users(&[User::default(), work]);
+        Phone {
+            android_sdk: 35,
+            user_list: vec![User::default(), work],
+            ..Phone::default()
+        }
+    }
+
+    fn settings(multi_user_mode: bool) -> DeviceSettings {
+        DeviceSettings {
+            multi_user_mode,
+            ..DeviceSettings::default()
+        }
+    }
+
+    #[test]
+    fn multi_user_mode_selects_the_same_packages_for_every_user() {
+        let mut view = view_with_selection();
+        view.select_for_all_users(&two_users().user_list);
         let selected: Vec<bool> = view.phone_packages[1].iter().map(|p| p.selected).collect();
         assert_eq!(selected, [false, true, true]);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 1), (1, 2)]);
@@ -1736,49 +1768,44 @@ mod tests {
     #[test]
     fn apply_runs_each_package_once_from_the_reviewed_user() {
         let mut view = view_with_selection();
-        let work = User {
-            id: 10,
-            index: 1,
-            protected: false,
-        };
-        let phone = Phone {
-            android_sdk: 35,
-            user_list: vec![User::default(), work],
-            ..Phone::default()
-        };
-        let settings = DeviceSettings {
-            multi_user_mode: true,
-            ..DeviceSettings::default()
-        };
+        let phone = two_users();
         view.select_for_all_users(&phone.user_list);
         // The second package is already uninstalled for the work profile.
         view.phone_packages[1][1].state = PackageState::Uninstalled;
 
         // The owner is under review: uninstall the second package for the owner only,
         // and the third one for both users.
-        let commands = view.apply_selection(&phone, &settings);
+        let commands = view.apply_selection(&phone, &settings(true));
         assert_eq!(commands.len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
         assert!(view.phone_packages[1].iter().all(|p| !p.selected));
     }
 
     #[test]
+    fn every_user_gets_the_action_of_the_user_under_review() {
+        let mut view = view_with_selection();
+        let phone = two_users();
+        view.select_for_all_users(&phone.user_list);
+        // The second package is disabled for the work profile.
+        view.phone_packages[1][1].state = PackageState::Disabled;
+
+        let plan: Vec<_> = plan_pkg_action(&view.phone_packages, &phone, &settings(true), (0, 1))
+            .into_iter()
+            .map(|(user, _, commands)| (user.id, commands))
+            .collect();
+        assert_eq!(
+            plan,
+            [
+                (0, vec!["pm uninstall --user 0 com.example.b".to_string()]),
+                (10, vec!["pm uninstall --user 10 com.example.b".to_string()]),
+            ]
+        );
+    }
+
+    #[test]
     fn packages_are_matched_by_name_across_users() {
         let mut view = view_with_selection();
-        let work = User {
-            id: 10,
-            index: 1,
-            protected: false,
-        };
-        let phone = Phone {
-            android_sdk: 35,
-            user_list: vec![User::default(), work],
-            ..Phone::default()
-        };
-        let settings = DeviceSettings {
-            multi_user_mode: true,
-            ..DeviceSettings::default()
-        };
+        let phone = two_users();
         // The work profile does not list the first package: its rows are shifted.
         view.phone_packages[1].remove(0);
 
@@ -1791,8 +1818,27 @@ mod tests {
         assert!(!view.phone_packages[1][0].selected);
 
         // The third package is uninstalled for both users.
-        let commands = view.apply_selection(&phone, &settings);
+        let commands = view.apply_selection(&phone, &settings(true));
         assert_eq!(commands.len(), 2);
         assert_eq!(view.selected_packages, [(0, 2)]);
+    }
+
+    #[test]
+    fn apply_only_runs_the_selection_under_review() {
+        let apply = |multi_user_mode| {
+            let mut view = view_with_selection();
+            // The work profile has its own selection: the first and second packages.
+            for i_package in [0, 1] {
+                view.phone_packages[1][i_package].selected = true;
+                view.selected_packages.push((1, i_package));
+            }
+            let commands = view.apply_selection(&two_users(), &settings(multi_user_mode));
+            (commands.len(), view.selected_packages)
+        };
+
+        // The owner is under review, with the second and third packages selected.
+        assert_eq!(apply(false), (2, vec![(0, 1), (0, 2), (1, 0), (1, 1)]));
+        // In multi-user mode, the second package of the work profile follows the owner.
+        assert_eq!(apply(true), (3, vec![(0, 1), (0, 2), (1, 0)]));
     }
 }
