@@ -3,7 +3,10 @@ use crate::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
 use crate::utils::DisplayablePath;
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
-use std::{fs, path::Path};
+use std::{
+    fs,
+    path::{Path, PathBuf},
+};
 
 #[derive(Default, Deserialize, Serialize, Debug, Clone, PartialEq, Eq)]
 pub struct PhoneBackup {
@@ -17,6 +20,18 @@ pub struct UserBackup {
     pub packages: Vec<CorePackage>,
 }
 
+/// Folder holding the backups of one device.
+#[must_use]
+pub fn device_backup_dir(backup_dir: &Path, device_id: &str) -> PathBuf {
+    // Wireless serials such as `192.168.1.5:5555` are not valid file names on Windows.
+    let invalid: &[char] = if cfg!(windows) {
+        &['<', '>', ':', '"', '/', '\\', '|', '?', '*']
+    } else {
+        &['/']
+    };
+    backup_dir.join(device_id.replace(invalid, "_"))
+}
+
 /// Backup all `Uninstalled` and `Disabled` packages
 pub fn backup_phone(
     backup_dir: &Path,
@@ -24,7 +39,7 @@ pub fn backup_phone(
     device_id: String,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<bool, String> {
-    let backup_path = backup_dir.join(&device_id);
+    let backup_path = device_backup_dir(backup_dir, &device_id);
     let mut backup = PhoneBackup {
         device_id,
         ..PhoneBackup::default()
@@ -251,7 +266,7 @@ mod tests {
     #[test]
     fn backup_is_saved_in_the_device_folder() {
         let dir = tempdir().unwrap();
-        let serial = "USB123";
+        let serial = "192.168.1.5:5555";
         let users = vec![User::default()];
         let packages = vec![vec![package("com.example.app", PackageState::Enabled)]];
 
@@ -260,7 +275,7 @@ mod tests {
         assert_eq!(fs::read_dir(dir.path()).unwrap().count(), 0);
 
         backup_phone(dir.path(), users, serial.to_string(), &packages).unwrap();
-        let backups = list_available_backups(&dir.path().join(serial));
+        let backups = list_available_backups(&device_backup_dir(dir.path(), serial));
         assert_eq!(backups.len(), 1);
         let saved: PhoneBackup =
             serde_json::from_slice(&fs::read(&backups[0].path).unwrap()).unwrap();

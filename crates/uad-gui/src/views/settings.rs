@@ -15,7 +15,7 @@ use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, list_available_backups, restore_backup},
+    save::{backup_phone, device_backup_dir, list_available_backups, restore_backup},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
         supports_disabling, supports_multi_user,
@@ -148,7 +148,10 @@ impl Settings {
     }
 
     fn load_device_settings(&mut self, phone: &Phone) {
-        let backups = list_available_backups(&self.general.backup_folder.join(&phone.adb_id));
+        let backups = list_available_backups(&device_backup_dir(
+            &self.general.backup_folder,
+            &phone.adb_id,
+        ));
         let backup = BackupSettings {
             backups: backups.clone(),
             selected: backups.first().cloned(),
@@ -209,8 +212,10 @@ impl Settings {
         match result {
             Ok(_) => {
                 info!("[BACKUP] Backup successfully created");
-                self.device.backup.backups =
-                    list_available_backups(&self.general.backup_folder.join(phone.adb_id.clone()));
+                self.device.backup.backups = list_available_backups(&device_backup_dir(
+                    &self.general.backup_folder,
+                    &phone.adb_id,
+                ));
                 self.device.backup.selected = self.device.backup.backups.first().cloned();
             }
             Err(err) => {
@@ -594,7 +599,7 @@ impl Settings {
             button_primary("Open backup directory")
         } else {
             button_primary("Open backup directory").on_press(Message::UrlPressed(
-                self.general.backup_folder.join(phone.adb_id.clone()),
+                device_backup_dir(&self.general.backup_folder, &phone.adb_id),
             ))
         };
 
