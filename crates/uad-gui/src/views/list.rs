@@ -1006,32 +1006,15 @@ impl List {
                 .map(move |row_message| Message::List(i_package, row_message));
         }
 
-        let package = &mut self.phone_packages[i_user][i_package];
-
         match *row_message {
             RowMessage::ToggleSelection(toggle) => {
-                if package.removal == Removal::Unsafe && !settings.general.expert_mode {
-                    package.selected = false;
-                    return Task::none();
-                }
-
-                if settings.device.multi_user_mode {
-                    self.toggle_for_all_users(
-                        &selected_device.user_list,
-                        (i_user, i_package),
-                        toggle,
-                    );
-                } else {
-                    package.selected = toggle;
-                    if toggle {
-                        if !self.selected_packages.contains(&(i_user, i_package)) {
-                            self.selected_packages.push((i_user, i_package));
-                        }
-                    } else {
-                        self.selected_packages
-                            .retain(|&x| x.1 != i_package || x.0 != i_user);
-                    }
-                }
+                self.toggle_selection(
+                    &selected_device.user_list,
+                    i_package,
+                    toggle,
+                    settings.general.expert_mode,
+                    settings.device.multi_user_mode,
+                );
                 Task::none()
             }
             RowMessage::ActionPressed => {
@@ -1043,20 +1026,55 @@ impl List {
                 ))
             }
             RowMessage::PackagePressed => {
-                self.description = package.clone().description;
-                self.description_content = text_editor::Content::with_text(&package.description);
-                package.current = true;
                 // The previous row can belong to a longer list of another user.
-                if self.current_package_index != i_package
-                    && let Some(previous) =
-                        self.phone_packages[i_user].get_mut(self.current_package_index)
+                if let Some(previous) =
+                    self.phone_packages[i_user].get_mut(self.current_package_index)
                 {
                     previous.current = false;
                 }
+                let package = &mut self.phone_packages[i_user][i_package];
+                self.description.clone_from(&package.description);
+                self.description_content = text_editor::Content::with_text(&package.description);
+                package.current = true;
                 self.current_package_index = i_package;
                 Task::none()
             }
         }
+    }
+
+    /// Select or deselect a package of the user being displayed.
+    fn toggle_selection(
+        &mut self,
+        users: &[User],
+        i_package: usize,
+        toggle: bool,
+        expert_mode: bool,
+        multi_user_mode: bool,
+    ) {
+        let user = self.selected_user.unwrap_or_default();
+        let package = &mut self.phone_packages[user.index][i_package];
+        if toggle && needs_expert_mode(package) && !expert_mode {
+            package.selected = false;
+            return;
+        }
+        let users = if multi_user_mode {
+            users
+        } else {
+            std::slice::from_ref(&user)
+        };
+        self.toggle_for_users(users, (user.index, i_package), toggle);
+    }
+
+    /// Deselect the packages that can only be selected in expert mode.
+    pub fn deselect_unsafe(&mut self) {
+        let packages = &mut self.phone_packages;
+        self.selected_packages.retain(|&(i_user, i_package)| {
+            let package = &mut packages[i_user][i_package];
+            if needs_expert_mode(package) {
+                package.selected = false;
+            }
+            package.selected
+        });
     }
 
     fn on_apply_action_on_selection(&mut self) -> Task<Message> {
@@ -1314,12 +1332,12 @@ impl List {
     /// as if they had been selected with multi-user mode enabled.
     pub fn select_for_all_users(&mut self, users: &[User]) {
         for selection in self.selected_packages.clone() {
-            self.toggle_for_all_users(users, selection, true);
+            self.toggle_for_users(users, selection, true);
         }
     }
 
-    /// Select or deselect the package of `selection` for every user.
-    fn toggle_for_all_users(&mut self, users: &[User], selection: (usize, usize), toggle: bool) {
+    /// Select or deselect the package of `selection` for `users`.
+    fn toggle_for_users(&mut self, users: &[User], selection: (usize, usize), toggle: bool) {
         for u in users.iter().filter(|u| !u.protected) {
             let Some(i_package) = same_package(&self.phone_packages, selection, u.index) else {
                 continue;
@@ -1484,6 +1502,11 @@ fn waiting_view<'a>(
         .center_x(Length::Fill)
         .style(style::Container::Frame)
         .into()
+}
+
+/// Removing an Unsafe package needs expert mode. Restoring one does not.
+fn needs_expert_mode(package: &PackageRow) -> bool {
+    package.removal == Removal::Unsafe && package.state == PackageState::Enabled
 }
 
 /// Find the package of `selection` in the list of another user.
@@ -1771,6 +1794,34 @@ mod tests {
     }
 
     #[test]
+    fn unsafe_packages_need_expert_mode_to_be_selected() {
+        let mut view = view_with_selection();
+        let users = two_users().user_list;
+        view.phone_packages[0][0].removal = Removal::Unsafe;
+        view.phone_packages[0][1].removal = Removal::Unsafe;
+
+        view.toggle_selection(&users, 0, true, false, false);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        view.toggle_selection(&users, 0, true, true, false);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2), (0, 0)]);
+
+        // Without expert mode, an Unsafe package can still be deselected.
+        view.toggle_selection(&users, 0, false, false, false);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        assert!(!view.phone_packages[0][0].selected);
+
+        // Restoring an Unsafe package does not need expert mode.
+        view.phone_packages[0][0].state = PackageState::Uninstalled;
+        view.toggle_selection(&users, 0, true, false, false);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2), (0, 0)]);
+
+        // Leaving expert mode deselects the Unsafe packages that would be removed.
+        view.deselect_unsafe();
+        assert_eq!(view.selected_packages, [(0, 2), (0, 0)]);
+        assert!(!view.phone_packages[0][1].selected);
+    }
+
+    #[test]
     fn apply_runs_each_package_once_from_the_reviewed_user() {
         let mut view = view_with_selection();
         let phone = two_users();
@@ -1831,7 +1882,7 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 0), (1, 1)]);
 
         // Deselecting the second package deselects it for the work profile too.
-        view.toggle_for_all_users(&phone.user_list, (0, 1), false);
+        view.toggle_for_users(&phone.user_list, (0, 1), false);
         assert_eq!(view.selected_packages, [(0, 2), (1, 1)]);
         assert!(!view.phone_packages[1][0].selected);
 

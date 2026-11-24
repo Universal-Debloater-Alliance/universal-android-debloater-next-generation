@@ -252,6 +252,7 @@ impl UadGui {
                             self.apps_view.select_for_all_users(&device.user_list);
                         }
                     }
+                    SettingsMessage::ExpertMode(false) => self.apps_view.deselect_unsafe(),
                     _ => (),
                 }
                 self.settings_view
