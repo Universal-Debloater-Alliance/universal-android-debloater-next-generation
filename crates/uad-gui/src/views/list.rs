@@ -908,9 +908,10 @@ impl List {
     }
 
     fn on_apply_filters(&mut self, packages: Vec<Vec<PackageRow>>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
         self.phone_packages = packages;
-        self.filtered_packages = (0..self.phone_packages[i_user].len()).collect();
+        // The selection refers to rows of the previous list.
+        self.selected_packages.clear();
+        self.all_selected = false;
         self.selected_removal = Some(Removal::Recommended);
         self.selected_package_state = Some(PackageState::Enabled);
         self.selected_list = Some(UadList::All);
@@ -1025,8 +1026,12 @@ impl List {
                 self.description = package.clone().description;
                 self.description_content = text_editor::Content::with_text(&package.description);
                 package.current = true;
-                if self.current_package_index != i_package {
-                    self.phone_packages[i_user][self.current_package_index].current = false;
+                // The previous row can belong to a longer list of another user.
+                if self.current_package_index != i_package
+                    && let Some(previous) =
+                        self.phone_packages[i_user].get_mut(self.current_package_index)
+                {
+                    previous.current = false;
                 }
                 self.current_package_index = i_package;
                 Task::none()
@@ -1848,5 +1853,15 @@ mod tests {
         assert_eq!(apply(false), (2, vec![(0, 1), (0, 2), (1, 0), (1, 1)]));
         // In multi-user mode, the second package of the work profile follows the owner.
         assert_eq!(apply(true), (3, vec![(0, 1), (0, 2), (1, 0)]));
+    }
+
+    #[test]
+    fn reloading_the_packages_resets_the_selection_and_the_user() {
+        let mut view = view_with_selection();
+        // The work profile is displayed, and the new device has a single user.
+        view.selected_user = Some(two_users().user_list[1]);
+        let _ = view.on_apply_filters(vec![vec![]]);
+        assert_eq!(view.selected_packages, []);
+        assert_eq!(view.selected_user, Some(User::default()));
     }
 }
