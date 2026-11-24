@@ -27,6 +27,8 @@ pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
     pub removal: String,
+    /// State the action is meant to put the package in
+    pub wanted_state: PackageState,
     pub before_cross_user_states: Vec<(u16, PackageState)>,
 }
 
@@ -156,9 +158,7 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::VerifyAndFallback(res) => {
-                self.on_verify_and_fallback(res, settings, selected_device)
-            }
+            Message::VerifyAndFallback(res) => self.on_verify_and_fallback(res, selected_device),
             Message::VerifyAndFallbackFinished(result) => {
                 self.on_verify_and_fallback_finished(result)
             }
@@ -1058,7 +1058,6 @@ impl List {
     fn on_verify_and_fallback(
         &mut self,
         res: Result<PackageInfo, AdbError>,
-        settings: &Settings,
         selected_device: &Phone,
     ) -> Task<Message> {
         match res {
@@ -1068,7 +1067,7 @@ impl List {
                 let index = p.index;
                 let pkg_name = self.phone_packages[i_user][index].name.clone();
                 let current_state = self.phone_packages[i_user][index].state;
-                let wanted_state = current_state.opposite(settings.device.disable_mode);
+                let wanted_state = p.wanted_state;
                 let before_cross_user_states = p.before_cross_user_states.clone();
                 let device = selected_device.clone();
                 let user_id = device.user_list[i_user].id;
@@ -1544,6 +1543,7 @@ fn plan_pkg_action(
             i_user: u.index,
             index,
             removal: pkg.removal.to_string(),
+            wanted_state,
             // Will be filled asynchronously before running the adb action
             before_cross_user_states: vec![],
         };
@@ -1791,13 +1791,21 @@ mod tests {
 
         let plan: Vec<_> = plan_pkg_action(&view.phone_packages, &phone, &settings(true), (0, 1))
             .into_iter()
-            .map(|(user, _, commands)| (user.id, commands))
+            .map(|(user, info, commands)| (user.id, info.wanted_state, commands))
             .collect();
         assert_eq!(
             plan,
             [
-                (0, vec!["pm uninstall --user 0 com.example.b".to_string()]),
-                (10, vec!["pm uninstall --user 10 com.example.b".to_string()]),
+                (
+                    0,
+                    PackageState::Uninstalled,
+                    vec!["pm uninstall --user 0 com.example.b".to_string()]
+                ),
+                (
+                    10,
+                    PackageState::Uninstalled,
+                    vec!["pm uninstall --user 10 com.example.b".to_string()]
+                ),
             ]
         );
     }
