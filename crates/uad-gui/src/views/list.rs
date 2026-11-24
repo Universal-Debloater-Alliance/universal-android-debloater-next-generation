@@ -1179,7 +1179,13 @@ impl List {
                                             },
                                             state_description
                                         )),
-                                        actual_state,
+                                        // The fallback changed the package again.
+                                        uad_core::sync::verify_package_state(
+                                            &pkg_name,
+                                            device.adb_id.as_str(),
+                                            Some(user.id),
+                                        )
+                                        .unwrap_or(PackageState::Uninstalled),
                                     ),
                                     Err(err) => (
                                         Some(format!(
