@@ -9,9 +9,7 @@ use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
-use uad_core::utils::{
-    EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, matches_search, open_url,
-};
+use uad_core::utils::{NAME, export_selection, fetch_packages, matches_search, open_url};
 
 use crate::views::settings::Settings;
 use crate::widgets::modal::Modal;
@@ -65,7 +63,8 @@ pub struct List {
     description_content: text_editor::Content,
     selection_modal: bool,
     error_modal: Option<String>,
-    export_modal: bool,
+    /// Path of the last exported selection
+    export_modal: Option<PathBuf>,
     current_package_index: usize,
     is_adb_satisfied: bool,
     copy_confirmation: bool,
@@ -98,7 +97,7 @@ pub enum Message {
     UpdateFailed,
     GoToUrl(PathBuf),
     ExportSelection,
-    SelectionExported(Result<bool, String>),
+    SelectionExported(Result<PathBuf, String>),
     DescriptionEdit(text_editor::Action),
     CopyError(String),
     HideCopyConfirmation,
@@ -170,7 +169,7 @@ impl List {
             Message::ADBSatisfied(result) => self.on_adb_satisfied(result),
             Message::UpdateFailed => self.on_update_failed(),
             Message::GoToUrl(url) => Self::on_go_to_url(url),
-            Message::ExportSelection => self.on_export_selection(),
+            Message::ExportSelection => self.on_export_selection(settings),
             Message::SelectionExported(res) => self.on_selection_exported(res),
             Message::Nothing => Task::none(),
             Message::DescriptionEdit(action) => self.on_description_edit(action),
@@ -478,7 +477,7 @@ impl List {
             .into();
         }
 
-        if self.export_modal {
+        if let Some(path) = &self.export_modal {
             let title = container(row![text("Success").size(24)].align_y(Alignment::Center))
                 .width(Length::Fill)
                 .style(style::Container::Frame)
@@ -486,11 +485,11 @@ impl List {
                 .center_y(Length::Shrink)
                 .center_x(Length::Shrink);
 
-            let text_box = row![
-                text(format!("Exported current selection into file.\nFile is exported in same directory where {NAME} is located.")).width(Length::Fill),
-            ].padding(20);
+            let text_box =
+                row![text("Exported current selection to:").width(Length::Fill),].padding(20);
 
-            let file_row = row![text(EXPORT_FILE_NAME).style(style::Text::Commentary)].padding(20);
+            let file_row =
+                row![text(path.display().to_string()).style(style::Text::Commentary)].padding(20);
 
             let modal_btn_row = row![
                 Space::new().width(Length::Fill).height(Length::Shrink),
@@ -812,7 +811,7 @@ impl List {
     fn on_modal_hide(&mut self) -> Task<Message> {
         self.selection_modal = false;
         self.error_modal = None;
-        self.export_modal = false;
+        self.export_modal = None;
         Task::none()
     }
 
@@ -1341,22 +1340,23 @@ impl List {
         Task::none()
     }
 
-    fn on_export_selection(&mut self) -> Task<Message> {
+    fn on_export_selection(&mut self, settings: &Settings) -> Task<Message> {
         let i_user = self.selected_user.unwrap_or_default().index;
         let package_names: Vec<String> = self.phone_packages[i_user]
             .iter()
             .filter(|p| p.selected)
             .map(|p| p.name.clone())
             .collect();
+        let dir = settings.general.backup_folder.clone();
         Task::perform(
-            async move { export_selection(&package_names) },
+            async move { export_selection(&dir, &package_names) },
             Message::SelectionExported,
         )
     }
 
-    fn on_selection_exported(&mut self, export: Result<bool, String>) -> Task<Message> {
+    fn on_selection_exported(&mut self, export: Result<PathBuf, String>) -> Task<Message> {
         match export {
-            Ok(_) => self.export_modal = true,
+            Ok(path) => self.export_modal = Some(path),
             Err(err) => error!("Failed to export current selection: {err:?}"),
         }
         Task::none()

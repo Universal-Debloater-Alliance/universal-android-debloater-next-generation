@@ -191,15 +191,15 @@ pub fn format_diff_time_from_now(date: DateTime<Utc>) -> String {
     }
 }
 
-/// Export selected package names.
-/// File will be saved in same directory where UAD-ng is located.
-pub fn export_selection(package_names: &[String]) -> Result<bool, String> {
-    let selected = package_names.join("\n");
-
-    match fs::write(EXPORT_FILE_NAME, selected) {
-        Ok(()) => Ok(true),
-        Err(err) => Err(err.to_string()),
-    }
+/// Export selected package names into `dir`.
+/// Returns the path of the exported file.
+pub fn export_selection(dir: &Path, package_names: &[String]) -> Result<PathBuf, String> {
+    fs::create_dir_all(dir).map_err(|err| err.to_string())?;
+    let export_file = std::path::absolute(dir)
+        .map_err(|err| err.to_string())?
+        .join(EXPORT_FILE_NAME);
+    fs::write(&export_file, package_names.join("\n")).map_err(|err| err.to_string())?;
+    Ok(export_file)
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -325,6 +325,24 @@ mod tests {
         ] {
             assert_eq!(truncate_description(description, limit), expected);
         }
+    }
+
+    #[test]
+    fn selection_export_uses_the_requested_directory() {
+        let dir = tempfile::tempdir().expect("temporary export directory");
+        let export_dir = dir.path().join("backups");
+        let names = ["com.example.one".to_string(), "com.example.two".to_string()];
+        let path = export_selection(&export_dir, &names).expect("export selection");
+        assert_eq!(
+            path,
+            std::path::absolute(&export_dir)
+                .expect("absolute export directory")
+                .join(EXPORT_FILE_NAME)
+        );
+        assert_eq!(
+            fs::read_to_string(path).expect("read exported selection"),
+            "com.example.one\ncom.example.two"
+        );
     }
 
     #[test]
