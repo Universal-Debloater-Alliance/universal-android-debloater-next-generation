@@ -861,31 +861,29 @@ impl List {
             .filter(|s| s.0 == i_user)
             .collect();
 
-        let mut commands = vec![];
-        for selection in &actions {
-            commands.append(&mut pkg_action_tasks(plan_pkg_action(
-                &self.phone_packages,
-                device,
-                settings,
-                *selection,
-            )));
-        }
+        actions
+            .into_iter()
+            .flat_map(|selection| self.run_pkg_action(device, settings, selection))
+            .collect()
+    }
 
-        if settings.multi_user_mode {
-            // The action is extended to the other users. They only report back
-            // when they needed a command: deselect them now.
-            for u in device.user_list.iter().filter(|u| u.index != i_user) {
-                for &selection in &actions {
-                    if let Some(i_package) = same_package(&self.phone_packages, selection, u.index)
-                    {
-                        self.phone_packages[u.index][i_package].selected = false;
-                        self.selected_packages
-                            .retain(|&x| x != (u.index, i_package));
-                    }
-                }
+    /// Queue the action of `selection` for the users it applies to.
+    fn run_pkg_action(
+        &mut self,
+        device: &Phone,
+        settings: &DeviceSettings,
+        selection: (usize, usize),
+    ) -> Vec<Task<Message>> {
+        let plan = plan_pkg_action(&self.phone_packages, device, settings, selection);
+        for (p_info, actions) in &plan {
+            // Nothing reports back for another user already in the wanted state.
+            if actions.is_empty() && p_info.i_user != selection.0 {
+                self.phone_packages[p_info.i_user][p_info.index].selected = false;
+                self.selected_packages
+                    .retain(|&x| x != (p_info.i_user, p_info.index));
             }
         }
-        commands
+        pkg_action_tasks(plan)
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
@@ -1038,13 +1036,11 @@ impl List {
             }
             RowMessage::ActionPressed => {
                 self.fallback_notifications.clear();
-                self.phone_packages[i_user][i_package].selected = true;
-                Task::batch(pkg_action_tasks(plan_pkg_action(
-                    &self.phone_packages,
+                Task::batch(self.run_pkg_action(
                     selected_device,
                     &settings.device,
                     (i_user, i_package),
-                )))
+                ))
             }
             RowMessage::PackagePressed => {
                 self.description = package.clone().description;
@@ -1523,15 +1519,14 @@ fn plan_pkg_action(
 
     let mut plan = vec![];
     for u in device.user_list.iter().filter(|u| !u.protected) {
+        // Only the initiating user, unless multi-user mode extends the action to every user.
+        if u.index != selection.0 && !settings.multi_user_mode {
+            continue;
+        }
         let Some(index) = same_package(packages, selection, u.index) else {
             continue;
         };
         let u_pkg = &packages[u.index][index];
-        // Only the initiating user, unless multi-user mode extends the action
-        // to the other users the package is selected for.
-        if u.index != selection.0 && !(settings.multi_user_mode && u_pkg.selected) {
-            continue;
-        }
         let p_info = PackageInfo {
             i_user: u.index,
             index,
@@ -1787,22 +1782,25 @@ mod tests {
         // and the third one for both users.
         let commands = view.apply_selection(&phone, &settings(true));
         assert_eq!(commands.len(), 3);
-        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
-        assert!(view.phone_packages[1].iter().all(|p| !p.selected));
+        // A package stays selected until its own action succeeds.
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 2)]);
+        let selected: Vec<bool> = view.phone_packages[1].iter().map(|p| p.selected).collect();
+        assert_eq!(selected, [false, false, true]);
     }
 
     #[test]
     fn every_user_gets_the_action_of_the_user_under_review() {
         let mut view = view_with_selection();
-        let phone = two_users();
-        view.select_for_all_users(&phone.user_list);
         // The second package is disabled for the work profile.
         view.phone_packages[1][1].state = PackageState::Disabled;
 
-        let plan: Vec<_> = plan_pkg_action(&view.phone_packages, &phone, &settings(true), (0, 1))
-            .into_iter()
-            .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
-            .collect();
+        // Whether it comes from the review or from the button of a row,
+        // multi-user mode extends the action to every user.
+        let plan: Vec<_> =
+            plan_pkg_action(&view.phone_packages, &two_users(), &settings(true), (0, 1))
+                .into_iter()
+                .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
+                .collect();
         assert_eq!(
             plan,
             [
@@ -1840,7 +1838,6 @@ mod tests {
         // The third package is uninstalled for both users.
         let commands = view.apply_selection(&phone, &settings(true));
         assert_eq!(commands.len(), 2);
-        assert_eq!(view.selected_packages, [(0, 2)]);
     }
 
     #[test]
@@ -1855,11 +1852,12 @@ mod tests {
             let commands = view.apply_selection(&two_users(), &settings(multi_user_mode));
             (commands.len(), view.selected_packages)
         };
+        let selection = vec![(0, 1), (0, 2), (1, 0), (1, 1)];
 
         // The owner is under review, with the second and third packages selected.
-        assert_eq!(apply(false), (2, vec![(0, 1), (0, 2), (1, 0), (1, 1)]));
-        // In multi-user mode, the second package of the work profile follows the owner.
-        assert_eq!(apply(true), (3, vec![(0, 1), (0, 2), (1, 0)]));
+        assert_eq!(apply(false), (2, selection.clone()));
+        // In multi-user mode, they are also uninstalled for the work profile.
+        assert_eq!(apply(true), (4, selection));
     }
 
     #[test]
