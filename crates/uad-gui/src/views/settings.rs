@@ -15,7 +15,7 @@ use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
+    save::{backup_phone, list_available_backups, restore_backup},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
         supports_disabling, supports_multi_user,
@@ -152,8 +152,6 @@ impl Settings {
         let backup = BackupSettings {
             backups: backups.clone(),
             selected: backups.first().cloned(),
-            users: phone.user_list.clone(),
-            selected_user: phone.user_list.first().copied(),
             backup_state: String::default(),
         };
 
@@ -179,8 +177,7 @@ impl Settings {
     }
 
     fn handle_backup_selected(&mut self, d_path: DisplayablePath) -> Task<Message> {
-        self.device.backup.selected = Some(d_path.clone());
-        self.device.backup.users = list_available_backup_user(d_path);
+        self.device.backup.selected = Some(d_path);
         Task::none()
     }
 

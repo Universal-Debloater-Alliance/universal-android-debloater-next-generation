@@ -838,10 +838,9 @@ impl List {
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
         if let Ok(p) = output {
             self.loading_state =
-                LoadingState::RestoringDevice(self.phone_packages[i_user][p.index].name.clone());
+                LoadingState::RestoringDevice(self.phone_packages[p.i_user][p.index].name.clone());
         } else {
             self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
         }
@@ -1590,4 +1589,36 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
     .height(45)
     .style(style::Container::Frame)
     .into()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn restore_progress_shows_the_package_of_the_restored_user() {
+        let work_package = PackageRow::new(
+            "com.example.work",
+            "",
+            Removal::Recommended,
+            PackageState::Enabled,
+            UadList::Misc,
+            false,
+            false,
+        );
+        // The owner (user index 0) is selected, the restored package belongs to index 1.
+        let mut view = List {
+            selected_user: Some(User::default()),
+            phone_packages: vec![vec![], vec![work_package]],
+            ..List::default()
+        };
+        let _ = view.on_restoring_device(Ok(PackageInfo {
+            i_user: 1,
+            ..PackageInfo::default()
+        }));
+        assert!(matches!(
+            view.loading_state,
+            LoadingState::RestoringDevice(name) if name == "com.example.work"
+        ));
+    }
 }

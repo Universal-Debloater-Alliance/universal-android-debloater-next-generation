@@ -73,31 +73,6 @@ pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
     }
 }
 
-#[must_use]
-pub fn list_available_backup_user(backup: DisplayablePath) -> Vec<User> {
-    match fs::read_to_string(backup.path) {
-        Ok(data) => match serde_json::from_str::<PhoneBackup>(&data) {
-            Ok(phone_backup) => phone_backup
-                .users
-                .into_iter()
-                .map(|u| User {
-                    id: u.id,
-                    index: 0,
-                    protected: false,
-                })
-                .collect(),
-            Err(e) => {
-                error!("[BACKUP]: Invalid backup file: {e}");
-                vec![]
-            }
-        },
-        Err(e) => {
-            error!("[BACKUP]: Selected backup file not found: {e}");
-            vec![]
-        }
-    }
-}
-
 #[derive(Debug)]
 pub struct BackupPackage {
     pub i_user: usize,
@@ -132,13 +107,13 @@ pub fn restore_backup(
             let mut commands = vec![];
             let mut skipped_packages = 0;
             for u in phone_backup.users {
-                let i_user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
-                    Some(i) => i.index,
+                let user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
+                    Some(user) => *user,
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
                 let user_packages = packages
-                    .get(i_user)
+                    .get(user.index)
                     .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
                 for backup_package in &u.packages {
                     // The GUI updates the live device list using this index.
@@ -157,15 +132,12 @@ pub fn restore_backup(
                     let p_commands = apply_pkg_state_commands(
                         package,
                         backup_package.state,
-                        settings
-                            .backup
-                            .selected_user
-                            .ok_or("field should be Some type")?,
+                        user,
                         selected_device,
                     );
                     if !p_commands.is_empty() {
                         commands.push(BackupPackage {
-                            i_user,
+                            i_user: user.index,
                             index: i,
                             commands: p_commands,
                         });
@@ -216,36 +188,49 @@ mod tests {
     fn restore_uses_device_indexes_and_skips_missing_packages() {
         let dir = tempdir().unwrap();
         let path = dir.path().join("backup.json");
-        let user = User::default();
+        let owner = User::default();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
         let backup = PhoneBackup {
             device_id: "test-device".to_string(),
-            users: vec![UserBackup {
-                id: user.id,
-                packages: vec![
-                    package("com.example.missing", PackageState::Disabled),
-                    package("com.example.second", PackageState::Disabled),
-                    package("com.example.first", PackageState::Disabled),
-                ],
-            }],
+            users: vec![
+                UserBackup {
+                    id: owner.id,
+                    packages: vec![package("com.example.owner", PackageState::Disabled)],
+                },
+                UserBackup {
+                    id: work.id,
+                    packages: vec![
+                        package("com.example.missing", PackageState::Disabled),
+                        package("com.example.second", PackageState::Disabled),
+                        package("com.example.first", PackageState::Disabled),
+                    ],
+                },
+            ],
         };
         fs::write(&path, serde_json::to_vec(&backup).unwrap()).unwrap();
         let phone = Phone {
             android_sdk: 35,
-            user_list: vec![user],
+            user_list: vec![owner, work],
             ..Phone::default()
         };
         let settings = DeviceSettings {
             backup: BackupSettings {
                 selected: Some(DisplayablePath { path }),
-                selected_user: Some(user),
                 ..BackupSettings::default()
             },
             ..DeviceSettings::default()
         };
-        let packages = vec![vec![
-            package("com.example.first", PackageState::Enabled),
-            package("com.example.second", PackageState::Enabled),
-        ]];
+        let packages = vec![
+            vec![package("com.example.owner", PackageState::Enabled)],
+            vec![
+                package("com.example.first", PackageState::Enabled),
+                package("com.example.second", PackageState::Enabled),
+            ],
+        ];
         let result = restore_backup(&phone, &packages, &settings).unwrap();
         let actions: Vec<_> = result
             .packages
@@ -253,11 +238,13 @@ mod tests {
             .filter(|p| !p.commands.is_empty())
             .collect();
         assert_eq!(result.skipped_count, 1);
-        assert_eq!(actions.len(), 2);
-        assert_eq!(actions[0].index, 1);
-        assert!(actions[0].commands[0].ends_with("com.example.second"));
-        assert_eq!(actions[1].index, 0);
-        assert!(actions[1].commands[0].ends_with("com.example.first"));
+        assert_eq!(actions.len(), 3);
+        assert_eq!((actions[0].i_user, actions[0].index), (0, 0));
+        assert!(actions[0].commands[0].ends_with("--user 0 com.example.owner"));
+        assert_eq!((actions[1].i_user, actions[1].index), (1, 1));
+        assert!(actions[1].commands[0].ends_with("--user 10 com.example.second"));
+        assert_eq!((actions[2].i_user, actions[2].index), (1, 0));
+        assert!(actions[2].commands[0].ends_with("--user 10 com.example.first"));
         assert!(restore_backup(&phone, &[], &settings).is_err());
     }
 
@@ -286,14 +273,9 @@ mod tests {
         let dir = tempdir().unwrap();
         let path = dir.path().join("backup.json");
         fs::write(&path, "not JSON").unwrap();
-        let backup = DisplayablePath { path };
-        assert_eq!(
-            list_available_backup_user(backup.clone()),
-            Vec::<User>::new()
-        );
         let settings = DeviceSettings {
             backup: BackupSettings {
-                selected: Some(backup),
+                selected: Some(DisplayablePath { path }),
                 ..BackupSettings::default()
             },
             ..DeviceSettings::default()

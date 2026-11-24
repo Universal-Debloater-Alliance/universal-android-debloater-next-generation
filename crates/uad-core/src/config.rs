@@ -1,6 +1,5 @@
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
-use crate::sync::User;
 use crate::utils::DisplayablePath;
 use log::error;
 use serde::{Deserialize, Serialize};
@@ -28,8 +27,6 @@ pub struct GeneralSettings {
 pub struct BackupSettings {
     pub backups: Vec<DisplayablePath>,
     pub selected: Option<DisplayablePath>,
-    pub users: Vec<User>,
-    pub selected_user: Option<User>,
     pub backup_state: String,
 }
 
