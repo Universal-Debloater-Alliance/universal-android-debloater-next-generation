@@ -85,7 +85,8 @@ pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages((PackageHashMap, UadListState)),
     RestoringDevice(Result<PackageInfo, AdbError>),
-    ApplyFilters(Vec<Vec<PackageRow>>),
+    /// Packages of the device with the given serial
+    ApplyFilters(String, Vec<Vec<PackageRow>>),
     DismissFallbackNotifications,
     VerifyAndFallbackFinished(VerifyAndFallbackResult),
     SearchInputChanged(String),
@@ -152,7 +153,9 @@ impl List {
             Message::LoadPhonePackages(payload) => {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
-            Message::ApplyFilters(packages) => self.on_apply_filters(packages),
+            Message::ApplyFilters(serial, packages) => {
+                self.on_apply_filters(&serial, packages, selected_device)
+            }
             Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
             Message::ToggleAllSelected(selected) => {
                 self.on_toggle_all_selected(selected, settings, selected_device, list_update_state)
@@ -930,12 +933,24 @@ impl List {
         let device_serial = selected_device.adb_id.clone();
         let user_list = selected_device.user_list.clone();
         Task::perform(
-            async move { Self::load_packages(&uad_list, &device_serial, &user_list) },
-            Message::ApplyFilters,
+            async move {
+                let packages = Self::load_packages(&uad_list, &device_serial, &user_list);
+                (device_serial, packages)
+            },
+            |(serial, packages)| Message::ApplyFilters(serial, packages),
         )
     }
 
-    fn on_apply_filters(&mut self, packages: Vec<Vec<PackageRow>>) -> Task<Message> {
+    fn on_apply_filters(
+        &mut self,
+        device_serial: &str,
+        packages: Vec<Vec<PackageRow>>,
+        selected_device: &Phone,
+    ) -> Task<Message> {
+        // Another device was selected while these packages were loading.
+        if device_serial != selected_device.adb_id {
+            return Task::none();
+        }
         self.phone_packages = packages;
         // The selection refers to rows of the previous list.
         self.selected_packages.clear();
@@ -1922,8 +1937,17 @@ mod tests {
         let mut view = view_with_selection();
         // The work profile is displayed, and the new device has a single user.
         view.selected_user = Some(two_users().user_list[1]);
-        let _ = view.on_apply_filters(vec![vec![]]);
+        let _ = view.on_apply_filters("", vec![vec![]], &two_users());
         assert_eq!(view.selected_packages, []);
         assert_eq!(view.selected_user, Some(User::default()));
+    }
+
+    #[test]
+    fn packages_of_another_device_are_not_displayed() {
+        let mut view = view_with_selection();
+        // These packages finished loading after another device was selected.
+        let _ = view.on_apply_filters("previous-device", vec![vec![]], &two_users());
+        assert_eq!(view.phone_packages[0].len(), 3);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
     }
 }
