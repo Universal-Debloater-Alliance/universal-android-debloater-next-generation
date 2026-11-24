@@ -1306,6 +1306,26 @@ impl List {
         Task::none()
     }
 
+    /// Select the already selected packages for every user,
+    /// as if they had been selected with multi-user mode enabled.
+    pub fn select_for_all_users(&mut self, users: &[User]) {
+        let indexes: Vec<usize> = self.selected_packages.iter().map(|s| s.1).collect();
+        for u in users.iter().filter(|u| !u.protected) {
+            for &i_package in &indexes {
+                if let Some(pkg) = self
+                    .phone_packages
+                    .get_mut(u.index)
+                    .and_then(|pkgs| pkgs.get_mut(i_package))
+                {
+                    pkg.selected = true;
+                    if !self.selected_packages.contains(&(u.index, i_package)) {
+                        self.selected_packages.push((u.index, i_package));
+                    }
+                }
+            }
+        }
+    }
+
     fn on_adb_satisfied(&mut self, result: bool) -> Task<Message> {
         self.is_adb_satisfied = result;
         Task::none()
@@ -1620,5 +1640,49 @@ mod tests {
             view.loading_state,
             LoadingState::RestoringDevice(name) if name == "com.example.work"
         ));
+    }
+
+    /// Two users with the same three packages. The owner has the last two selected.
+    fn view_with_selection() -> List {
+        let packages: Vec<PackageRow> = ["a", "b", "c"]
+            .iter()
+            .map(|name| {
+                PackageRow::new(
+                    name,
+                    "",
+                    Removal::Recommended,
+                    PackageState::Enabled,
+                    UadList::Misc,
+                    false,
+                    false,
+                )
+            })
+            .collect();
+        let mut view = List {
+            selected_user: Some(User::default()),
+            selected_list: Some(UadList::All),
+            selected_package_state: Some(PackageState::All),
+            selected_removal: Some(Removal::All),
+            phone_packages: vec![packages.clone(), packages],
+            selected_packages: vec![(0, 1), (0, 2)],
+            ..List::default()
+        };
+        view.phone_packages[0][1].selected = true;
+        view.phone_packages[0][2].selected = true;
+        view
+    }
+
+    #[test]
+    fn multi_user_mode_selects_the_same_packages_for_every_user() {
+        let mut view = view_with_selection();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        view.select_for_all_users(&[User::default(), work]);
+        let selected: Vec<bool> = view.phone_packages[1].iter().map(|p| p.selected).collect();
+        assert_eq!(selected, [false, true, true]);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 1), (1, 2)]);
     }
 }
