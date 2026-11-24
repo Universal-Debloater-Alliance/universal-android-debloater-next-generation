@@ -831,9 +831,10 @@ impl List {
         // `build_action_pkg_commands` expands a selection to the other users the
         // package is selected for, so run each package once, from the user under review.
         let i_user = self.selected_user.unwrap_or_default().index;
+        let name = |(user, package): (usize, usize)| &self.phone_packages[user][package].name;
         let mut actions = self.selected_packages.clone();
-        actions.sort_unstable_by_key(|&(user, package)| (package, user != i_user, user));
-        actions.dedup_by_key(|&mut (_, package)| package);
+        actions.sort_unstable_by_key(|&s| (name(s), s.0 != i_user, s.0));
+        actions.dedup_by_key(|s| name(*s));
 
         let mut commands = vec![];
         for selection in &actions {
@@ -984,21 +985,11 @@ impl List {
                 }
 
                 if settings.device.multi_user_mode {
-                    for u in selected_device.user_list.iter().filter(|&u| !u.protected) {
-                        if let Some(pkg) = self
-                            .phone_packages
-                            .get_mut(u.index)
-                            .and_then(|pkgs| pkgs.get_mut(i_package))
-                        {
-                            pkg.selected = toggle;
-                            if toggle && !self.selected_packages.contains(&(u.index, i_package)) {
-                                self.selected_packages.push((u.index, i_package));
-                            }
-                        }
-                    }
-                    if !toggle {
-                        self.selected_packages.retain(|&x| x.1 != i_package);
-                    }
+                    self.toggle_for_all_users(
+                        &selected_device.user_list,
+                        (i_user, i_package),
+                        toggle,
+                    );
                 } else {
                     package.selected = toggle;
                     if toggle {
@@ -1327,19 +1318,23 @@ impl List {
     /// Select the already selected packages for every user,
     /// as if they had been selected with multi-user mode enabled.
     pub fn select_for_all_users(&mut self, users: &[User]) {
-        let indexes: Vec<usize> = self.selected_packages.iter().map(|s| s.1).collect();
+        for selection in self.selected_packages.clone() {
+            self.toggle_for_all_users(users, selection, true);
+        }
+    }
+
+    /// Select or deselect the package of `selection` for every user.
+    fn toggle_for_all_users(&mut self, users: &[User], selection: (usize, usize), toggle: bool) {
         for u in users.iter().filter(|u| !u.protected) {
-            for &i_package in &indexes {
-                if let Some(pkg) = self
-                    .phone_packages
-                    .get_mut(u.index)
-                    .and_then(|pkgs| pkgs.get_mut(i_package))
-                {
-                    pkg.selected = true;
-                    if !self.selected_packages.contains(&(u.index, i_package)) {
-                        self.selected_packages.push((u.index, i_package));
-                    }
-                }
+            let Some(i_package) = same_package(&self.phone_packages, selection, u.index) else {
+                continue;
+            };
+            self.phone_packages[u.index][i_package].selected = toggle;
+            if !toggle {
+                self.selected_packages
+                    .retain(|&x| x != (u.index, i_package));
+            } else if !self.selected_packages.contains(&(u.index, i_package)) {
+                self.selected_packages.push((u.index, i_package));
             }
         }
     }
@@ -1496,6 +1491,26 @@ fn waiting_view<'a>(
         .into()
 }
 
+/// Find the package of `selection` in the list of another user.
+///
+/// Each user has its own list, and a package can be missing from some of them,
+/// so the same package is not always on the same row.
+fn same_package(
+    packages: &[Vec<PackageRow>],
+    selection: (usize, usize),
+    i_user: usize,
+) -> Option<usize> {
+    let name = &packages.get(selection.0)?.get(selection.1)?.name;
+    let user_packages = packages.get(i_user)?;
+    if user_packages
+        .get(selection.1)
+        .is_some_and(|p| p.name == *name)
+    {
+        return Some(selection.1);
+    }
+    user_packages.iter().position(|p| p.name == *name)
+}
+
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
     device: &Phone,
@@ -1506,18 +1521,16 @@ fn build_action_pkg_commands(
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
     let mut commands = vec![];
-    for u in device.user_list.iter().filter(|&&u| {
-        !u.protected
-            && packages
-                .get(u.index)
-                .and_then(|user_pkgs| user_pkgs.get(selection.1))
-                .is_some_and(|row_pkg| {
-                    // Only apply to users where package is explicitly selected
-                    // OR if multi_user_mode is enabled AND this is the initiating user
-                    row_pkg.selected || (settings.multi_user_mode && u.index == selection.0)
-                })
-    }) {
-        let u_pkg = &packages[u.index][selection.1];
+    for u in device.user_list.iter().filter(|u| !u.protected) {
+        let Some(index) = same_package(packages, selection, u.index) else {
+            continue;
+        };
+        let u_pkg = &packages[u.index][index];
+        // Only apply to users where package is explicitly selected
+        // OR if multi_user_mode is enabled AND this is the initiating user
+        if !(u_pkg.selected || (settings.multi_user_mode && u.index == selection.0)) {
+            continue;
+        }
         let wanted_state = if settings.multi_user_mode {
             wanted_state
         } else {
@@ -1529,7 +1542,7 @@ fn build_action_pkg_commands(
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
-                index: selection.1,
+                index,
                 removal: pkg.removal.to_string(),
                 // Will be filled asynchronously before running the adb action
                 before_cross_user_states: vec![],
@@ -1747,5 +1760,39 @@ mod tests {
         assert_eq!(commands.len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
         assert!(view.phone_packages[1].iter().all(|p| !p.selected));
+    }
+
+    #[test]
+    fn packages_are_matched_by_name_across_users() {
+        let mut view = view_with_selection();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let phone = Phone {
+            android_sdk: 35,
+            user_list: vec![User::default(), work],
+            ..Phone::default()
+        };
+        let settings = DeviceSettings {
+            multi_user_mode: true,
+            ..DeviceSettings::default()
+        };
+        // The work profile does not list the first package: its rows are shifted.
+        view.phone_packages[1].remove(0);
+
+        view.select_for_all_users(&phone.user_list);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 0), (1, 1)]);
+
+        // Deselecting the second package deselects it for the work profile too.
+        view.toggle_for_all_users(&phone.user_list, (0, 1), false);
+        assert_eq!(view.selected_packages, [(0, 2), (1, 1)]);
+        assert!(!view.phone_packages[1][0].selected);
+
+        // The third package is uninstalled for both users.
+        let commands = view.apply_selection(&phone, &settings);
+        assert_eq!(commands.len(), 2);
+        assert_eq!(view.selected_packages, [(0, 2)]);
     }
 }
