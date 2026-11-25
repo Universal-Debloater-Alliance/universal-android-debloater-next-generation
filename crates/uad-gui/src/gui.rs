@@ -51,11 +51,11 @@ pub struct UadGui {
     about_view: AboutView,
     settings_view: SettingsView,
     devices_list: Vec<Phone>,
+    discovery_id: u64,
     /// index of `devices_list`
     selected_device: Option<Phone>,
     update_state: UpdateState,
     nb_running_async_adb_commands: u32,
-    adb_satisfied: bool,
 }
 
 #[derive(Debug, Clone)]
@@ -70,7 +70,7 @@ pub enum Message {
     SettingsAction(SettingsMessage),
     RefreshButtonPressed,
     RebootButtonPressed,
-    LoadDevices(Vec<Phone>),
+    LoadDevices(u64, Vec<Phone>),
     #[cfg(feature = "self-update")]
     NewReleaseDownloaded(Result<(PathBuf, PathBuf), ()>),
     GetLatestRelease(Result<Option<Release>, ()>),
@@ -102,7 +102,9 @@ impl UadGui {
                 font::load(include_bytes!("../../../resources/assets/icons.ttf").as_slice())
                     .map(Message::FontLoaded),
                 Task::perform(async { initial_load() }, Message::ADBSatisfied),
-                Task::perform(async { get_devices_list() }, Message::LoadDevices),
+                Task::perform(async { get_devices_list() }, |devices| {
+                    Message::LoadDevices(0, devices)
+                }),
                 Task::perform(
                     async move { get_latest_release() },
                     Message::GetLatestRelease,
@@ -163,7 +165,8 @@ impl UadGui {
     )]
     fn update(&mut self, msg: Message) -> Task<Message> {
         match msg {
-            Message::LoadDevices(devices_list) => {
+            Message::LoadDevices(id, _) if id != self.discovery_id => Task::none(),
+            Message::LoadDevices(_, devices_list) => {
                 self.selected_device = match &self.selected_device {
                     Some(s_device) => {
                         // Try to reload last selected phone
@@ -200,17 +203,16 @@ impl UadGui {
                 Task::none()
             }
             Message::RefreshButtonPressed => {
-                self.apps_view = AppsView::default();
-                #[expect(unused_must_use, reason = "side-effect")]
-                {
-                    self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                        self.adb_satisfied,
-                    )));
-                }
-                Task::perform(async { get_devices_list() }, Message::LoadDevices)
+                self.apps_view.reset_inventory();
+                self.discovery_id += 1;
+                let id = self.discovery_id;
+                Task::perform(async { get_devices_list() }, move |devices| {
+                    Message::LoadDevices(id, devices)
+                })
             }
             Message::RebootButtonPressed => {
-                self.apps_view = AppsView::default();
+                self.discovery_id += 1;
+                self.apps_view.reset_inventory();
                 let serial = match &self.selected_device {
                     Some(d) => d.adb_id.clone(),
                     _ => String::default(),
@@ -261,10 +263,9 @@ impl UadGui {
                 self.settings_view
                     .update(
                         &self.selected_device.clone().unwrap_or_default(),
-                        &self.apps_view.phone_packages,
+                        &self.apps_view,
                         &mut self.nb_running_async_adb_commands,
                         msg,
-                        self.apps_view.selected_user,
                     )
                     .map(Message::SettingsAction)
             }
@@ -300,6 +301,7 @@ impl UadGui {
                 }
             }
             Message::DeviceSelected(s_device) => {
+                self.discovery_id += 1;
                 self.selected_device = Some(s_device.clone());
                 self.view = View::List;
                 info!("{:-^65}", "-");
@@ -308,18 +310,11 @@ impl UadGui {
                     s_device.android_sdk, s_device.model
                 );
                 info!("{:-^65}", "-");
-                self.apps_view.loading_state = ListLoadingState::FindingPhones;
-
                 #[expect(unused_must_use, reason = "side-effects")]
                 {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
-                    self.update(Message::AppsAction(AppsMessage::ToggleAllSelected(false)));
-                    self.update(Message::AppsAction(AppsMessage::ClearSelectedPackages));
                 }
-                self.update(Message::AppsAction(AppsMessage::LoadPhonePackages((
-                    self.apps_view.uad_lists.clone(),
-                    UadListState::Done,
-                ))))
+                self.reload_packages()
             }
             #[cfg(feature = "self-update")]
             Message::NewReleaseDownloaded(res) => {
@@ -390,13 +385,21 @@ impl UadGui {
                 Task::none()
             }
             Message::ADBSatisfied(result) => {
-                self.adb_satisfied = result;
-                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(
-                    self.adb_satisfied,
-                )))
+                self.update(Message::AppsAction(AppsMessage::ADBSatisfied(result)))
             }
             Message::Nothing => Task::none(),
         }
+    }
+
+    fn reload_packages(&mut self) -> Task<Message> {
+        if self.apps_view.uad_lists.is_empty() {
+            return self.update(Message::AppsAction(AppsMessage::LoadUadList(true)));
+        }
+        self.apps_view.reset_inventory();
+        self.update(Message::AppsAction(AppsMessage::LoadPhonePackages(
+            self.apps_view.load_id,
+            (self.apps_view.uad_lists.clone(), self.update_state.uad_list),
+        )))
     }
 
     fn view(&self) -> Element<'_, Message, Theme> {
@@ -475,5 +478,80 @@ impl UadGui {
                 ..iced::window::Settings::default()
             })
             .run()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::widgets::package_row::PackageRow;
+    use uad_core::{
+        sync::User,
+        uad_lists::{PackageState, Removal, UadList},
+    };
+
+    fn phone(serial: &str) -> Phone {
+        Phone {
+            adb_id: serial.to_owned(),
+            android_sdk: 35,
+            user_list: vec![User::default()],
+            ..Phone::default()
+        }
+    }
+
+    fn inventory(id: u64, serial: &str, state: PackageState) -> Message {
+        let row = PackageRow::new(
+            "com.example.app",
+            "",
+            Removal::Recommended,
+            state,
+            UadList::Misc,
+            false,
+            false,
+        );
+        Message::AppsAction(AppsMessage::ApplyFilters(
+            id,
+            serial.into(),
+            vec![vec![row]],
+        ))
+    }
+
+    /// Select a phone as `DeviceSelected` does, without reading the saved settings.
+    fn select(gui: &mut UadGui, serial: &str) {
+        gui.selected_device = Some(phone(serial));
+        gui.settings_view.device.device_id = serial.to_owned();
+        let _ = gui.reload_packages();
+    }
+
+    #[test]
+    fn settings_waits_for_the_current_inventory_after_switching_devices() {
+        let mut gui = UadGui::default();
+        select(&mut gui, "A");
+        let old = gui.apps_view.load_id;
+        let _ = gui.update(inventory(old, "A", PackageState::Enabled));
+        assert!(gui.apps_view.inventory_ready(&phone("A")));
+
+        select(&mut gui, "B");
+        assert!(gui.apps_view.phone_packages.is_empty());
+        for action in [
+            SettingsMessage::BackupDevice,
+            SettingsMessage::RestoreDevice,
+            SettingsMessage::ExportPackages,
+        ] {
+            assert_eq!(gui.update(Message::SettingsAction(action)).units(), 0);
+        }
+        select(&mut gui, "A");
+        let latest = gui.apps_view.load_id;
+        let _ = gui.update(inventory(latest, "A", PackageState::Disabled));
+        let _ = gui.update(inventory(old, "A", PackageState::Enabled));
+        assert_eq!(
+            gui.apps_view.phone_packages[0][0].state,
+            PackageState::Disabled
+        );
+        assert_eq!(
+            gui.update(Message::SettingsAction(SettingsMessage::BackupDevice))
+                .units(),
+            1
+        );
     }
 }

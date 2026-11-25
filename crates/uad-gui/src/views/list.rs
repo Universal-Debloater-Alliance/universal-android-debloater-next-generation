@@ -55,6 +55,8 @@ pub enum LoadingState {
 #[allow(clippy::struct_excessive_bools, reason = "Not a state-machine")]
 pub struct List {
     pub loading_state: LoadingState,
+    pub(crate) load_id: u64,
+    loaded_serial: Option<String>,
     pub uad_lists: PackageHashMap,
     /// packages of all users of the phone
     pub phone_packages: Vec<Vec<PackageRow>>,
@@ -83,10 +85,10 @@ pub struct List {
 #[derive(Debug, Clone)]
 pub enum Message {
     LoadUadList(bool),
-    LoadPhonePackages((PackageHashMap, UadListState)),
+    LoadPhonePackages(u64, (PackageHashMap, UadListState)),
     RestoringDevice(Result<PackageInfo, AdbError>),
     /// Packages of the device with the given serial
-    ApplyFilters(String, Vec<Vec<PackageRow>>),
+    ApplyFilters(u64, String, Vec<Vec<PackageRow>>),
     DismissFallbackNotifications,
     VerifyAndFallbackFinished(VerifyAndFallbackResult),
     SearchInputChanged(String),
@@ -102,7 +104,6 @@ pub enum Message {
     ModalHide,
     ModalUserSelected(User),
     ModalValidate,
-    ClearSelectedPackages,
     ADBSatisfied(bool),
     UpdateFailed,
     GoToUrl(PathBuf),
@@ -150,10 +151,20 @@ impl List {
             Message::ModalValidate => self.on_modal_validate(settings, selected_device),
             Message::RestoringDevice(output) => self.on_restoring_device(output),
             Message::LoadUadList(remote) => self.on_load_uad_list(remote, selected_device),
-            Message::LoadPhonePackages(payload) => {
+            Message::LoadPhonePackages(id, (uad_lists, list_state)) if id != self.load_id => {
+                // A newer request loads the packages. These lists are kept
+                // if no other download has brought newer ones since.
+                if *list_update_state == UadListState::Downloading {
+                    self.uad_lists = uad_lists;
+                    *list_update_state = list_state;
+                }
+                Task::none()
+            }
+            Message::ApplyFilters(id, ..) if id != self.load_id => Task::none(),
+            Message::LoadPhonePackages(_, payload) => {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
-            Message::ApplyFilters(serial, packages) => {
+            Message::ApplyFilters(_, serial, packages) => {
                 self.on_apply_filters(&serial, packages, selected_device)
             }
             Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
@@ -174,7 +185,6 @@ impl List {
             Message::ModalUserSelected(user) => {
                 self.on_modal_user_selected(user, settings, selected_device, list_update_state)
             }
-            Message::ClearSelectedPackages => self.on_clear_selected_packages(),
             Message::ADBSatisfied(result) => self.on_adb_satisfied(result),
             Message::UpdateFailed => self.on_update_failed(),
             Message::GoToUrl(url) => Self::on_go_to_url(url),
@@ -904,6 +914,19 @@ impl List {
         Task::none()
     }
 
+    pub(crate) fn reset_inventory(&mut self) {
+        *self = Self {
+            load_id: self.load_id + 1,
+            is_adb_satisfied: self.is_adb_satisfied,
+            uad_lists: std::mem::take(&mut self.uad_lists),
+            ..Self::default()
+        };
+    }
+
+    pub(crate) fn inventory_ready(&self, phone: &Phone) -> bool {
+        !phone.adb_id.is_empty() && self.loaded_serial.as_ref() == Some(&phone.adb_id)
+    }
+
     fn on_load_uad_list(&mut self, remote: bool, selected_device: &Phone) -> Task<Message> {
         info!("{:-^65}", "-");
         info!(
@@ -911,11 +934,13 @@ impl List {
             selected_device.android_sdk, selected_device.model
         );
         info!("{:-^65}", "-");
+        self.reset_inventory();
         self.loading_state = LoadingState::DownloadingList;
+        let id = self.load_id;
         let phone = selected_device.clone();
         Task::perform(
             async move { Self::init_apps_view(remote, &phone) },
-            Message::LoadPhonePackages,
+            move |lists| Message::LoadPhonePackages(id, lists),
         )
     }
 
@@ -929,6 +954,7 @@ impl List {
         self.loading_state = LoadingState::LoadingPackages;
         self.uad_lists.clone_from(&uad_list);
         *list_update_state = list_state;
+        let id = self.load_id;
         let device_serial = selected_device.adb_id.clone();
         let user_list = selected_device.user_list.clone();
         Task::perform(
@@ -936,7 +962,7 @@ impl List {
                 let packages = Self::load_packages(&uad_list, &device_serial, &user_list);
                 (device_serial, packages)
             },
-            |(serial, packages)| Message::ApplyFilters(serial, packages),
+            move |(serial, packages)| Message::ApplyFilters(id, serial, packages),
         )
     }
 
@@ -950,6 +976,7 @@ impl List {
         if device_serial != selected_device.adb_id {
             return Task::none();
         }
+        self.loaded_serial = Some(device_serial.to_owned());
         self.phone_packages = packages;
         // The selection refers to rows of the previous list.
         self.selected_packages.clear();
@@ -1019,10 +1046,16 @@ impl List {
         selected_device: &mut Phone,
     ) -> Task<Message> {
         let i_user = self.selected_user.unwrap_or_default().index;
+        let Some(row) = self
+            .phone_packages
+            .get_mut(i_user)
+            .and_then(|rows| rows.get_mut(i_package))
+        else {
+            return Task::none();
+        };
         #[expect(unused_must_use, reason = "side-effect")]
         {
-            self.phone_packages[i_user][i_package]
-                .update(row_message)
+            row.update(row_message)
                 .map(move |row_message| Message::List(i_package, row_message));
         }
 
@@ -1103,6 +1136,9 @@ impl List {
     }
 
     fn on_user_selected(&mut self, user: User) -> Task<Message> {
+        if self.phone_packages.get(user.index).is_none() {
+            return Task::none();
+        }
         self.selected_user = Some(user);
         self.fallback_notifications.clear();
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
@@ -1334,18 +1370,12 @@ impl List {
         selected_device: &mut Phone,
         list_update_state: &mut UadListState,
     ) -> Task<Message> {
-        self.selected_user = Some(user);
         self.update(
             settings,
             selected_device,
             list_update_state,
             Message::UserSelected(user),
         )
-    }
-
-    fn on_clear_selected_packages(&mut self) -> Task<Message> {
-        self.selected_packages = Vec::new();
-        Task::none()
     }
 
     /// Select the already selected packages for every user,
@@ -1937,5 +1967,27 @@ mod tests {
         let _ = view.on_apply_filters("previous-device", vec![vec![]], &two_users());
         assert_eq!(view.phone_packages[0].len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+    }
+
+    #[test]
+    fn a_late_list_download_is_kept_for_the_next_load() {
+        let mut view = view_with_selection();
+        let mut state = UadListState::Downloading;
+        let mut settings = Settings::default();
+        let late = Message::LoadPhonePackages(
+            view.load_id + 1,
+            (PackageHashMap::new(), UadListState::Done),
+        );
+        let _ = view.update(&mut settings, &mut two_users(), &mut state, late);
+        assert_eq!(state, UadListState::Done);
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+
+        // An older download ending after it does not replace it.
+        let older = Message::LoadPhonePackages(
+            view.load_id + 1,
+            (PackageHashMap::new(), UadListState::Failed),
+        );
+        let _ = view.update(&mut settings, &mut two_users(), &mut state, older);
+        assert_eq!(state, UadListState::Done);
     }
 }

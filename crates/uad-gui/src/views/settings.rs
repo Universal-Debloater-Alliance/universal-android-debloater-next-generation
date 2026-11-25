@@ -80,10 +80,9 @@ impl Settings {
     pub fn update(
         &mut self,
         phone: &Phone,
-        packages: &[Vec<PackageRow>],
+        apps: &AppsView,
         nb_running_async_adb_commands: &mut u32,
         msg: Message,
-        selected_user: Option<User>,
     ) -> Task<Message> {
         match msg {
             Message::ModalHide => self.handle_modal_hide(),
@@ -94,15 +93,24 @@ impl Settings {
             Message::UrlPressed(url) => Self::handle_url_pressed(url),
             Message::LoadDeviceSettings => self.handle_load_device_settings(phone),
             Message::BackupSelected(d_path) => self.handle_backup_selected(d_path),
-            Message::BackupDevice => self.handle_backup_device(phone, packages),
-            Message::DeviceBackedUp(result) => self.handle_device_backed_up(phone, result),
-            Message::RestoreDevice => {
-                self.handle_restore_device(phone, packages, nb_running_async_adb_commands)
+            Message::BackupDevice | Message::RestoreDevice | Message::ExportPackages
+                if !apps.inventory_ready(phone) =>
+            {
+                Task::none()
             }
+            Message::BackupDevice => self.handle_backup_device(phone, &apps.phone_packages),
+            Message::DeviceBackedUp(result) => self.handle_device_backed_up(phone, result),
+            Message::RestoreDevice => self.handle_restore_device(
+                phone,
+                &apps.phone_packages,
+                nb_running_async_adb_commands,
+            ),
             Message::RestoringDevice(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
-            Message::ExportPackages => self.handle_export_packages(selected_user, packages),
+            Message::ExportPackages => {
+                self.handle_export_packages(apps.selected_user, &apps.phone_packages)
+            }
             Message::PackagesExported(result) => self.handle_packages_exported(result),
         }
     }
@@ -586,26 +594,15 @@ impl Settings {
         )
         .padding(6);
 
+        let ready = apps_view.inventory_ready(phone);
         let backup_btn = button_primary(text("Backup").align_x(alignment::Horizontal::Center))
-            .on_press(Message::BackupDevice)
+            .on_press_maybe(ready.then_some(Message::BackupDevice))
             .width(77);
 
-        let restore_btn = |enabled| {
-            if enabled {
-                button(text("Restore").align_x(alignment::Horizontal::Center))
-                    .padding([5, 10])
-                    .on_press(Message::RestoreDevice)
-                    .width(77)
-            } else {
-                button(
-                    text("No backup")
-                        .align_x(alignment::Horizontal::Center)
-                        .align_y(alignment::Vertical::Center),
-                )
-                .padding([5, 10])
-                .width(77)
-            }
-        };
+        let restore_btn = button(text("Restore").align_x(alignment::Horizontal::Center))
+            .padding([5, 10])
+            .on_press_maybe(ready.then_some(Message::RestoreDevice))
+            .width(77);
 
         let locate_backup_btn = if self.device.backup.backups.is_empty() {
             button_primary("Open backup directory")
@@ -615,7 +612,8 @@ impl Settings {
             ))
         };
 
-        let export_btn = button_primary("Export").on_press(Message::ExportPackages);
+        let export_btn =
+            button_primary("Export").on_press_maybe(ready.then_some(Message::ExportPackages));
 
         let backup_row = row![
             backup_btn,
@@ -630,7 +628,7 @@ impl Settings {
             row![]
         } else {
             row![
-                restore_btn(true),
+                restore_btn,
                 "Restore the state of the device",
                 Space::new().width(Length::Fill).height(Length::Shrink),
                 text(self.device.backup.backup_state.clone()).style(style::Text::Danger),
