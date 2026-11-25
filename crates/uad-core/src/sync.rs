@@ -178,7 +178,9 @@ pub fn apply_pkg_state_commands(
             _ => vec![],
         },
         PackageState::Disabled => match package.state {
-            PackageState::Uninstalled | PackageState::Enabled => {
+            // Not for an uninstalled package: it would stay uninstalled,
+            // and be disabled the next time it is installed.
+            PackageState::Enabled => {
                 if supports_disabling(phone) {
                     vec!["pm disable-user", "am force-stop", PM_CLEAR_PACK]
                 } else {
@@ -672,6 +674,26 @@ pub fn attempt_fallback(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn an_uninstalled_package_is_not_disabled() {
+        let phone = Phone {
+            android_sdk: 35,
+            ..Phone::default()
+        };
+        let commands = |state| {
+            let package = CorePackage {
+                name: "com.example.app".to_string(),
+                description: String::new(),
+                removal: crate::uad_lists::Removal::Recommended,
+                state,
+                list: crate::uad_lists::UadList::Misc,
+            };
+            apply_pkg_state_commands(&package, PackageState::Disabled, User::default(), &phone)
+        };
+        assert_eq!(commands(PackageState::Enabled).len(), 3);
+        assert_eq!(commands(PackageState::Uninstalled), Vec::<String>::new());
+    }
 
     #[test]
     fn uninstall_only_reports_users_where_the_package_appeared() {
