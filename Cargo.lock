@@ -4650,6 +4650,7 @@ dependencies = [
  "image",
  "log",
  "rfd",
+ "tempfile",
  "uad-core",
  "win32console",
 ]

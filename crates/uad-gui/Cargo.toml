@@ -57,3 +57,6 @@ disallowed_methods = "deny"
 
 allow_attributes_without_reason = "warn"
 pedantic = { level = "warn", priority = -1 }
+
+[dev-dependencies]
+tempfile = "3"

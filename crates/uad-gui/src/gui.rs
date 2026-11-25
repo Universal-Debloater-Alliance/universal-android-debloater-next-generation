@@ -55,7 +55,6 @@ pub struct UadGui {
     /// index of `devices_list`
     selected_device: Option<Phone>,
     update_state: UpdateState,
-    nb_running_async_adb_commands: u32,
 }
 
 #[derive(Debug, Clone)]
@@ -238,22 +237,13 @@ impl UadGui {
                 .map(Message::AppsAction),
             Message::SettingsAction(msg) => {
                 match msg {
-                    SettingsMessage::RestoringDevice(ref output) => {
-                        self.nb_running_async_adb_commands -= 1;
-                        self.view = View::List;
-
-                        #[expect(unused_must_use, reason = "side-effect")]
+                    SettingsMessage::RestorePackageFinished(ref result) => {
+                        if self.settings_view.finish_restore_package(result)
+                            && self.selected_device.is_some()
                         {
-                            self.apps_view.update(
-                                &mut self.settings_view,
-                                &mut self.selected_device.clone().unwrap_or_default(),
-                                &mut self.update_state.uad_list,
-                                AppsMessage::RestoringDevice(output.clone()),
-                            );
+                            return self.reload_packages();
                         }
-                        if self.nb_running_async_adb_commands == 0 {
-                            return self.update(Message::RefreshButtonPressed);
-                        }
+                        return Task::none();
                     }
                     SettingsMessage::MultiUserMode(toggled) if toggled => {
                         if let Some(device) = &self.selected_device {
@@ -263,14 +253,14 @@ impl UadGui {
                     SettingsMessage::ExpertMode(false) => self.apps_view.deselect_unsafe(),
                     _ => (),
                 }
-                self.settings_view
-                    .update(
-                        &self.selected_device.clone().unwrap_or_default(),
-                        &self.apps_view,
-                        &mut self.nb_running_async_adb_commands,
-                        msg,
-                    )
-                    .map(Message::SettingsAction)
+                let device = self.selected_device.clone().unwrap_or_default();
+                let restore = matches!(msg, SettingsMessage::RestoreDevice);
+                let task = self.settings_view.update(&device, &self.apps_view, msg);
+                // The package list shows the progress, then the restored packages.
+                if restore && self.settings_view.restoring(&device).is_some() {
+                    self.view = View::List;
+                }
+                task.map(Message::SettingsAction)
             }
             Message::AboutAction(msg) => {
                 self.about_view.update(msg.clone());
@@ -579,5 +569,49 @@ mod tests {
         assert_eq!(gui.update(install.clone()).units(), 0);
         let _ = gui.update(Message::NewReleaseDownloaded(Err(())));
         assert_eq!(gui.update(install).units(), 1);
+    }
+
+    #[test]
+    fn restore_blocks_backup_and_restore_then_reports_failures() {
+        use uad_core::utils::DisplayablePath;
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("backup.json");
+        std::fs::write(
+            &file,
+            r#"{"device_id":"A","users":[{"id":0,"packages":[
+            {"name":"com.example.app","description":"","state":"Disabled"},
+            {"name":"com.example.missing","description":"","state":"Enabled"}
+        ]}]}"#,
+        )
+        .unwrap();
+        let mut gui = UadGui::default();
+        select(&mut gui, "A");
+        let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
+        gui.settings_view.device.backup.selected = Some(DisplayablePath { path: file });
+        let restore = Message::SettingsAction(SettingsMessage::RestoreDevice);
+        gui.view = View::Settings;
+        assert_eq!(gui.update(restore.clone()).units(), 1);
+        assert!(matches!(gui.view, View::List));
+        assert_eq!(gui.update(restore).units(), 0);
+        let backup = Message::SettingsAction(SettingsMessage::BackupDevice);
+        assert_eq!(gui.update(backup.clone()).units(), 0);
+        assert!(
+            gui.settings_view
+                .device
+                .backup
+                .backup_state
+                .starts_with("Restoring")
+        );
+        let error = "com.example.app (user 0): device offline";
+        let done =
+            Message::SettingsAction(SettingsMessage::RestorePackageFinished(Err(error.into())));
+        assert_eq!(gui.update(done).units(), 1);
+        let report = &gui.settings_view.device.backup.backup_state;
+        assert!(report.contains(error));
+        assert!(report.contains("Skipped 1"));
+
+        // The restored packages can be backed up once they are loaded.
+        let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
+        assert_eq!(gui.update(backup).units(), 1);
     }
 }

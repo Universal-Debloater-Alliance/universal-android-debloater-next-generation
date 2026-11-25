@@ -47,7 +47,6 @@ pub enum LoadingState {
     LoadingPackages,
     UpdatingUad,
     Ready,
-    RestoringDevice(String),
     FailedToUpdate,
 }
 
@@ -86,7 +85,6 @@ pub struct List {
 pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages(u64, (PackageHashMap, UadListState)),
-    RestoringDevice(Result<PackageInfo, AdbError>),
     /// Packages of the device with the given serial
     ApplyFilters(u64, String, Vec<Vec<PackageRow>>),
     DismissFallbackNotifications,
@@ -149,7 +147,6 @@ impl List {
         match message {
             Message::ModalHide => self.on_modal_hide(),
             Message::ModalValidate => self.on_modal_validate(settings, selected_device),
-            Message::RestoringDevice(output) => self.on_restoring_device(output),
             Message::LoadUadList(remote) => self.on_load_uad_list(remote, selected_device),
             Message::LoadPhonePackages(id, (uad_lists, list_state)) if id != self.load_id => {
                 // A newer request loads the packages. These lists are kept
@@ -250,6 +247,15 @@ impl List {
         settings: &Settings,
         selected_device: &Phone,
     ) -> Element<'_, Message, Theme, Renderer> {
+        // The packages of a device being restored are hidden: no action can be started.
+        if let Some(package) = settings.restoring(selected_device) {
+            let progress = if package.is_empty() {
+                "Restoring device...".to_string()
+            } else {
+                format!("Restoring device: {package}")
+            };
+            return waiting_view(&progress, None, style::Text::Default);
+        }
         match &self.loading_state {
             LoadingState::DownloadingList => waiting_view(
                 &format!("Downloading latest {NAME} lists from GitHub. Please wait..."),
@@ -277,11 +283,6 @@ impl List {
             ),
             LoadingState::UpdatingUad => waiting_view(
                 &format!("Updating {NAME}. Please wait..."),
-                None,
-                style::Text::Default,
-            ),
-            LoadingState::RestoringDevice(device) => waiting_view(
-                &format!("Restoring device: {device}"),
                 None,
                 style::Text::Default,
             ),
@@ -903,15 +904,6 @@ impl List {
             }
         }
         pkg_action_tasks(plan)
-    }
-
-    fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
-        if let Ok(p) = output {
-            self.loading_state = LoadingState::RestoringDevice(p.name);
-        } else {
-            self.loading_state = LoadingState::RestoringDevice("Error [TODO]".to_string());
-        }
-        Task::none()
     }
 
     pub(crate) fn reset_inventory(&mut self) {
@@ -1707,21 +1699,6 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn restore_progress_shows_the_restored_package() {
-        // The rows can be gone by the time a restore command completes.
-        let mut view = List::default();
-        let _ = view.on_restoring_device(Ok(PackageInfo {
-            i_user: 1,
-            name: "com.example.work".to_string(),
-            ..PackageInfo::default()
-        }));
-        assert!(matches!(
-            view.loading_state,
-            LoadingState::RestoringDevice(name) if name == "com.example.work"
-        ));
-    }
 
     /// Two users with the same three packages. The owner has the last two selected.
     fn view_with_selection() -> List {
