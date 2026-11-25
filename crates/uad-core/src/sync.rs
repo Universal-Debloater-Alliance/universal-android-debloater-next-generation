@@ -319,6 +319,28 @@ pub fn detect_cross_user_behavior(
 
     let after_states =
         check_cross_user_package_existence(package_name, device_serial, target_user_id, phone);
+    cross_user_change(target_user_id, wanted_state, before_states, &after_states)
+}
+
+/// Compare the package of the other users before and after an action on `target_user_id`.
+fn cross_user_change(
+    target_user_id: u16,
+    wanted_state: PackageState,
+    before_states: &[(u16, PackageState)],
+    after_states: &[(u16, PackageState)],
+) -> Option<String> {
+    // Check if a user didn't have the package before (not tracked or package didn't exist).
+    // Detects packages that appear on users where they didn't exist previously (OEM cross-user restoration).
+    let was_package_absent_before = |uid: &u16| {
+        before_states
+            .iter()
+            .find(|(before_uid, _)| before_uid == uid)
+            .is_none_or(|(_, before_state)| *before_state == PackageState::Uninstalled)
+    };
+    let newly_appeared: Vec<_> = after_states
+        .iter()
+        .filter(|(uid, _after_state)| was_package_absent_before(uid))
+        .collect();
 
     match wanted_state {
         PackageState::Uninstalled => {
@@ -348,9 +370,12 @@ pub fn detect_cross_user_behavior(
                         "Detected cross-user uninstall: package was also uninstalled from {user_list} after uninstalling from user {target_user_id}"
                     ))
                 }
+            } else if newly_appeared.is_empty() {
+                // The other users only kept the package they already had.
+                None
             } else {
                 // Case A: Uninstall → Restore (package appears on other users)
-                let user_list = after_states
+                let user_list = newly_appeared
                     .iter()
                     .map(|(uid, state)| format!("user {uid} ({state:?})"))
                     .collect::<Vec<_>>()
@@ -363,21 +388,6 @@ pub fn detect_cross_user_behavior(
         }
         PackageState::Enabled | PackageState::Disabled => {
             // Case C: Restore → Restore (package appears on other users)
-
-            // Check if a user didn't have the package before (not tracked or package didn't exist).
-            // Detects packages that appear on users where they didn't exist previously (OEM cross-user restoration).
-            let was_package_absent_before = |uid: &u16| {
-                before_states
-                    .iter()
-                    .find(|(before_uid, _)| before_uid == uid)
-                    .is_none_or(|(_, before_state)| *before_state == PackageState::Uninstalled)
-            };
-
-            let newly_appeared: Vec<_> = after_states
-                .iter()
-                .filter(|(uid, _after_state)| was_package_absent_before(uid))
-                .collect();
-
             if newly_appeared.is_empty() {
                 None
             } else {
@@ -656,5 +666,24 @@ pub fn attempt_fallback(
         _ => Err(format!(
             "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn uninstall_only_reports_users_where_the_package_appeared() {
+        let enabled = [(10, PackageState::Enabled)];
+        // The other user kept its package.
+        assert_eq!(
+            cross_user_change(0, PackageState::Uninstalled, &enabled, &enabled),
+            None
+        );
+        // It was uninstalled for the other user, and came back.
+        let uninstalled = [(10, PackageState::Uninstalled)];
+        let message = cross_user_change(0, PackageState::Uninstalled, &uninstalled, &enabled);
+        assert!(message.unwrap().contains("cross-user restoration"));
     }
 }

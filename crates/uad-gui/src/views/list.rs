@@ -29,6 +29,7 @@ pub struct PackageInfo {
     pub allow_removal: bool,
     /// Device, user and package the action was planned for.
     /// The displayed lists can change before the action completes.
+    /// The device does not list the other users targeted by the same action.
     pub device: Phone,
     pub user: User,
     pub name: String,
@@ -1437,6 +1438,19 @@ fn plan_pkg_action(
         let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
         plan.push((p_info, actions));
     }
+    // An action changes the package of its own user on purpose. To detect unexpected
+    // changes, each one only watches the users that no action is planned for.
+    let targeted: Vec<u16> = plan
+        .iter()
+        .filter(|(_, actions)| !actions.is_empty())
+        .map(|(info, _)| info.user.id)
+        .collect();
+    for (info, _) in &mut plan {
+        let own = info.user.id;
+        info.device
+            .user_list
+            .retain(|u| u.id == own || !targeted.contains(&u.id));
+    }
     plan
 }
 
@@ -1963,6 +1977,27 @@ mod tests {
         );
         let _ = view.update(&mut settings, &mut two_users(), &mut state, older);
         assert_eq!(state, UadListState::Done);
+    }
+
+    #[test]
+    fn actions_only_watch_the_users_they_leave_alone() {
+        let view = view_with_selection();
+        let watched = |multi_user_mode| -> Vec<Vec<u16>> {
+            plan_pkg_action(
+                &view.phone_packages,
+                &two_users(),
+                &settings(multi_user_mode),
+                false,
+                (0, 1),
+            )
+            .iter()
+            .map(|(info, _)| info.device.user_list.iter().map(|u| u.id).collect())
+            .collect()
+        };
+        // The owner's action must notice a change for the work profile.
+        assert_eq!(watched(false), [[0, 10]]);
+        // Both are uninstalled on purpose: neither is a surprise for the other.
+        assert_eq!(watched(true), [vec![0], vec![10]]);
     }
 
     #[test]
