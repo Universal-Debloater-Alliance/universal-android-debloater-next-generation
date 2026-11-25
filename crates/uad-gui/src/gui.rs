@@ -166,7 +166,8 @@ impl UadGui {
         match msg {
             Message::LoadDevices(id, _) if id != self.discovery_id => Task::none(),
             Message::LoadDevices(_, devices_list) => {
-                self.selected_device = match &self.selected_device {
+                let previous = self.selected_device.take();
+                self.selected_device = match &previous {
                     Some(s_device) => {
                         // Try to reload last selected phone
                         devices_list
@@ -183,7 +184,17 @@ impl UadGui {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
                 }
 
-                self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
+                if previous.is_some()
+                    && let Some(phone) = &self.selected_device
+                {
+                    // Refresh already cleared this phone's inventory. Keep action messages
+                    // received while discovery was running.
+                    self.apps_view
+                        .load_uad_list(true, phone)
+                        .map(Message::AppsAction)
+                } else {
+                    self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
+                }
             }
             Message::AppsPress => {
                 self.view = View::List;

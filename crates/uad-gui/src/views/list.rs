@@ -148,7 +148,10 @@ impl List {
         match message {
             Message::ModalHide => self.on_modal_hide(),
             Message::ModalValidate => self.on_modal_validate(settings, selected_device),
-            Message::LoadUadList(remote) => self.on_load_uad_list(remote, selected_device),
+            Message::LoadUadList(remote) => {
+                self.reset_inventory();
+                self.load_uad_list(remote, selected_device)
+            }
             Message::LoadPhonePackages(id, (uad_lists, list_state)) if id != self.load_id => {
                 // A newer request loads the packages. These lists are kept
                 // if no other download has brought newer ones since.
@@ -946,15 +949,16 @@ impl List {
         !phone.adb_id.is_empty() && self.loaded_serial.as_ref() == Some(&phone.adb_id)
     }
 
-    fn on_load_uad_list(&mut self, remote: bool, selected_device: &Phone) -> Task<Message> {
+    pub(crate) fn load_uad_list(&mut self, remote: bool, selected_device: &Phone) -> Task<Message> {
         info!("{:-^65}", "-");
         info!(
             "ANDROID_SDK: {} | DEVICE: {}",
             selected_device.android_sdk, selected_device.model
         );
         info!("{:-^65}", "-");
-        self.reset_inventory();
+        self.loaded_serial = None;
         self.loading_state = LoadingState::DownloadingList;
+        self.load_id += 1;
         let id = self.load_id;
         let phone = selected_device.clone();
         Task::perform(
@@ -1004,7 +1008,6 @@ impl List {
         self.selected_package_state = Some(PackageState::Enabled);
         self.selected_list = Some(UadList::All);
         self.selected_user = Some(User::default());
-        self.fallback_notifications.clear();
         Self::filter_package_lists(self);
         self.loading_state = LoadingState::Ready;
         Task::none()
@@ -1934,6 +1937,10 @@ mod tests {
         assert_eq!(view.error_modal.as_deref(), Some("refused"));
         assert_eq!(view.phone_packages[0][1].state, PackageState::Enabled);
         assert_eq!(view.selected_packages, [(0, 2)]);
+
+        // They are still listed once the packages of the other device are loaded.
+        let _ = view.on_apply_filters("other", vec![vec![], vec![]], &other);
+        assert_eq!(view.fallback_notifications.len(), 2);
     }
 
     #[test]
@@ -1956,5 +1963,20 @@ mod tests {
         );
         let _ = view.update(&mut settings, &mut two_users(), &mut state, older);
         assert_eq!(state, UadListState::Done);
+    }
+
+    #[test]
+    fn discovery_keeps_action_messages_received_since_refresh_started() {
+        let mut view = view_with_selection();
+        let phone = two_users();
+        let mut action = finished(&view, (0, 1));
+        action.notification = Some("Retry failed".into());
+        view.fallback_notifications.push("Old warning".into());
+
+        view.reset_inventory();
+        let _ = view.on_verify_and_fallback_finished(action, &phone);
+        let _ = view.load_uad_list(true, &phone);
+        let _ = view.on_apply_filters("", vec![vec![]], &phone);
+        assert_eq!(view.fallback_notifications, ["Retry failed"]);
     }
 }
