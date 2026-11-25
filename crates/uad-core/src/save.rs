@@ -160,13 +160,18 @@ pub fn restore_backup(
                             index: i,
                             commands: p_commands,
                         });
+                    } else if package.state != backup_package.state {
+                        // Such as a package saved as disabled that is now uninstalled.
+                        skipped_packages += 1;
+                        warn!(
+                            "{} cannot go from {} to {} for user {} - skipping package during restore",
+                            package.name, package.state, backup_package.state, u.id
+                        );
                     }
                 }
             }
             if skipped_packages > 0 {
-                info!(
-                    "Restore completed with {skipped_packages} packages skipped (not found on device)"
-                );
+                info!("Restore planned with {skipped_packages} packages skipped");
             }
             if !commands.is_empty() {
                 commands.push(BackupPackage {
@@ -226,6 +231,7 @@ mod tests {
                         package("com.example.missing", PackageState::Disabled),
                         package("com.example.second", PackageState::Disabled),
                         package("com.example.first", PackageState::Disabled),
+                        package("com.example.uninstalled", PackageState::Disabled),
                     ],
                 },
             ],
@@ -248,6 +254,8 @@ mod tests {
             vec![
                 package("com.example.first", PackageState::Enabled),
                 package("com.example.second", PackageState::Enabled),
+                // An uninstalled package cannot be disabled.
+                package("com.example.uninstalled", PackageState::Uninstalled),
             ],
         ];
         let result = restore_backup(&phone, &packages, &settings).unwrap();
@@ -256,7 +264,7 @@ mod tests {
             .iter()
             .filter(|p| !p.commands.is_empty())
             .collect();
-        assert_eq!(result.skipped_count, 1);
+        assert_eq!(result.skipped_count, 2);
         assert_eq!(actions.len(), 3);
         assert_eq!((actions[0].i_user, actions[0].index), (0, 0));
         assert!(actions[0].commands[0].ends_with("--user 0 com.example.owner"));

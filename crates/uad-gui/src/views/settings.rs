@@ -300,7 +300,8 @@ impl Settings {
                     format!("Restoring {} package entries…", commands.len())
                 } else if skipped > 0 {
                     format!(
-                        "Restore completed with {skipped} packages skipped (not found on device)"
+                        "Nothing was restored: {skipped} packages skipped \
+                         (not found, or cannot be put in their saved state)"
                     )
                 } else if get_android_sdk(&phone.adb_id) == 0 {
                     "Device is not connected".to_string()
@@ -375,7 +376,7 @@ impl Settings {
         };
         if batch.skipped > 0 {
             report = format!(
-                "{report}\nSkipped {} packages missing from the device.",
+                "{report}\nSkipped {} packages (not found, or cannot be put in their saved state).",
                 batch.skipped
             );
         }
