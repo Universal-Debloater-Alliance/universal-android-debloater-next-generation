@@ -504,40 +504,38 @@ pub fn get_package_state(
     package_name: &str,
     user_id: Option<u16>,
 ) -> Option<PackageState> {
-    use crate::adb::{ACommand as AdbCommand, PmListPacksFlag};
+    query_package_state(device_serial, package_name, user_id)
+        .ok()
+        .flatten()
+}
 
-    // Check if package is enabled
-    if let Ok(enabled_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
-        && enabled_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Enabled);
+/// Distinguish a successful search with no match from a failed ADB query.
+pub fn query_package_state(
+    device_serial: &str,
+    package_name: &str,
+    user_id: Option<u16>,
+) -> Result<Option<PackageState>, String> {
+    use crate::adb::PmListPacksFlag;
+    for (flag, state) in [
+        (PmListPacksFlag::OnlyEnabled, PackageState::Enabled),
+        (PmListPacksFlag::OnlyDisabled, PackageState::Disabled),
+        (
+            PmListPacksFlag::IncludeUninstalled,
+            PackageState::Uninstalled,
+        ),
+    ] {
+        let packages = AdbCommand::new()
+            .shell(device_serial)
+            .pm()
+            .list_packages_sys(Some(flag), user_id)?;
+        if flag == PmListPacksFlag::IncludeUninstalled && packages.is_empty() {
+            return Err("ADB returned an empty system package list".into());
+        }
+        if packages.iter().any(|name| name == package_name) {
+            return Ok(Some(state));
+        }
     }
-
-    // Check if package is disabled
-    if let Ok(disabled_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
-        && disabled_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Disabled);
-    }
-
-    // Check if package exists at all (including uninstalled)
-    if let Ok(all_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
-        && all_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Uninstalled);
-    }
-
-    // Package not found at all - it doesn't exist on this device/user
-    None
+    Ok(None)
 }
 
 /// Verify the current state of a package on a device.
@@ -624,7 +622,7 @@ pub fn attempt_fallback(
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
             // Verify the package was actually uninstalled
-            match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+            match query_package_state(&phone.adb_id, &package.name, Some(user.id))? {
                 Some(PackageState::Uninstalled) | None => {
                     Ok("uninstalled package instead of disabling".to_string())
                 }

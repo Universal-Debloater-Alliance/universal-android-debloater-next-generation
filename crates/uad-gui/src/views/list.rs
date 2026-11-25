@@ -97,7 +97,6 @@ pub enum Message {
     PackageStateSelected(PackageState),
     ApplyActionOnSelection,
     List(usize, RowMessage),
-    VerifyAndFallback(PackageInfo, Result<(), AdbError>),
     Nothing,
     ModalHide,
     ModalUserSelected(User),
@@ -121,7 +120,9 @@ pub struct SummaryEntry {
 #[derive(Debug, Clone)]
 pub struct VerifyAndFallbackResult {
     pub info: PackageInfo,
-    pub new_state: PackageState,
+    pub new_state: Option<PackageState>,
+    /// The command changing the package state ran, confirmed or not.
+    pub ran: bool,
     pub notification: Option<String>,
     pub error_modal: Option<String>,
 }
@@ -175,7 +176,6 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::VerifyAndFallback(info, res) => self.on_verify_and_fallback(info, res),
             Message::VerifyAndFallbackFinished(result) => {
                 self.on_verify_and_fallback_finished(result, selected_device)
             }
@@ -208,9 +208,13 @@ impl List {
         }
         if let Some((i_user, index)) = self.current_row(&result.info, selected_device) {
             let package = &mut self.phone_packages[i_user][index];
-            package.state = result.new_state;
-            package.selected = false;
-            self.selected_packages.retain(|&x| x != (i_user, index));
+            if let Some(state) = result.new_state {
+                package.state = state;
+            }
+            if result.ran {
+                package.selected = false;
+                self.selected_packages.retain(|&x| x != (i_user, index));
+            }
             Self::filter_package_lists(self);
         }
         Task::none()
@@ -461,7 +465,7 @@ impl List {
 
                 container(
                     column![
-                        text("Fallback Actions Performed:").style(style::Text::Default),
+                        text("Package action details").style(style::Text::Default),
                         column(notification_texts).spacing(4),
                         row![
                             Space::new().width(Length::Fill).height(Length::Shrink),
@@ -1138,223 +1142,6 @@ impl List {
         Task::none()
     }
 
-    #[allow(
-        clippy::too_many_lines,
-        reason = "Complex verification and fallback logic"
-    )]
-    //this functions matches the adb command to two types, when it is a soft issue and when it is a hard issue
-    // soft issue: utilizes core::sync::attempt_fallback in the case the state that wanted to be changed wasn't in fact changed
-    // hard issue: does basically nothing in most cases FIXME, besides handling enabling packages.
-    // also this really should be refactored, these are gigantic code blocks
-    fn on_verify_and_fallback(
-        &mut self,
-        p: PackageInfo,
-        res: Result<(), AdbError>,
-    ) -> Task<Message> {
-        match res {
-            Ok(()) => {
-                // Use what the action was planned with: the displayed lists
-                // and the selected device can have changed since.
-                let pkg_name = p.name.clone();
-                let current_state = p.state;
-                let wanted_state = p.wanted_state;
-                let before_cross_user_states = p.before_cross_user_states.clone();
-                let device = p.device.clone();
-                let user = p.user;
-
-                // Offload verification + potential fallback to background
-                Task::perform(
-                    async move {
-                        // Blocking ADB calls happen here (off UI thread)
-                        let actual_state_opt = uad_core::sync::verify_package_state(
-                            &pkg_name,
-                            device.adb_id.as_str(),
-                            Some(user.id),
-                        );
-
-                        match actual_state_opt {
-                            Some(actual_state) if actual_state == wanted_state => {
-                                // Check cross-user behavior
-                                let error_modal = uad_core::sync::detect_cross_user_behavior(
-                                    &pkg_name,
-                                    device.adb_id.as_str(),
-                                    user.id,
-                                    wanted_state,
-                                    actual_state,
-                                    &device,
-                                    &before_cross_user_states,
-                                )
-                                .map(|notification| {
-                                    format!(
-                                        "Cross-User Behavior Detected:\n\n{notification}\n\n\
-                                        This is unusual behavior that may be specific to your device manufacturer (OEM). \
-                                        The package state has been successfully changed on the target user."
-                                    )
-                                });
-
-                                VerifyAndFallbackResult {
-                                    info: p,
-                                    new_state: wanted_state,
-                                    notification: None,
-                                    error_modal,
-                                }
-                            }
-                            actual_state_opt => {
-                                // Package doesn't exist (None) or has wrong state - try fallback
-                                let actual_state =
-                                    actual_state_opt.unwrap_or(PackageState::Uninstalled);
-                                // Create CorePackage for fallback
-                                let core_package = uad_core::sync::CorePackage {
-                                    name: pkg_name.clone(),
-                                    description: String::new(),
-                                    removal: Removal::All,
-                                    state: current_state,
-                                    list: UadList::Unlisted,
-                                };
-                                let fallback_result = uad_core::sync::attempt_fallback(
-                                    &core_package,
-                                    wanted_state,
-                                    actual_state,
-                                    user,
-                                    &device,
-                                );
-
-                                let state_description = match actual_state_opt {
-                                    Some(PackageState::Uninstalled) => "remains uninstalled",
-                                    Some(PackageState::Disabled) => "was disabled",
-                                    Some(PackageState::Enabled) => "was enabled",
-                                    Some(PackageState::All) => {
-                                        "unexpected state (error determining state)"
-                                    }
-                                    None => "does not exist on device",
-                                };
-
-                                let (notification, new_state) = match fallback_result {
-                                    Ok(fallback_action) => (
-                                        Some(format!(
-                                            "Package '{pkg_name}' was {} but {} instead. Fallback: {fallback_action}",
-                                            match wanted_state {
-                                                PackageState::Uninstalled => "uninstalled",
-                                                PackageState::Disabled => "disabled",
-                                                PackageState::Enabled => "enabled",
-                                                PackageState::All => "modified",
-                                            },
-                                            state_description
-                                        )),
-                                        // The fallback changed the package again.
-                                        uad_core::sync::verify_package_state(
-                                            &pkg_name,
-                                            device.adb_id.as_str(),
-                                            Some(user.id),
-                                        )
-                                        .unwrap_or(PackageState::Uninstalled),
-                                    ),
-                                    Err(err) => (
-                                        Some(format!(
-                                            "Package '{pkg_name}' verification failed: {err}"
-                                        )),
-                                        current_state, // no change if fallback failed
-                                    ),
-                                };
-
-                                VerifyAndFallbackResult {
-                                    info: p,
-                                    new_state,
-                                    notification,
-                                    error_modal: None,
-                                }
-                            }
-                        }
-                    },
-                    Message::VerifyAndFallbackFinished,
-                )
-            }
-
-            //this is an example of how errors should be done, this is hard to implement however.
-            // Err(AdbError::SecurityException(err)) => {
-
-            // }
-            //FIXME: this has to be changed as soon as possible, generic errors are bad practice
-            // keep in mind most solutions to hard errors like this are going to be hacky
-            // and weird.
-            Err(AdbError::Generic(err)) => {
-                // this is such a hacky solution
-                if err.contains("Shell cannot change component state")
-                    && err.contains("pm enable --user ")
-                {
-                    let user = p.user;
-                    let device = p.device.clone();
-                    let pkg_name = p.name.clone();
-
-                    // fallback task
-                    return Task::perform(
-                        async move {
-                            let temp_pkg = uad_core::sync::CorePackage {
-                                name: pkg_name.clone(),
-                                description: String::new(),
-                                removal: Removal::All,
-                                state: PackageState::Disabled,
-                                list: UadList::Unlisted,
-                            };
-
-                            // get uninstall command
-                            let uninstall_cmds = uad_core::sync::apply_pkg_state_commands(
-                                &temp_pkg,
-                                PackageState::Uninstalled,
-                                user,
-                                &device,
-                            );
-
-                            if let Some(cmd) = uninstall_cmds.first() {
-                                let _ = uad_core::sync::run_adb_shell_action(&device.adb_id, cmd);
-                            }
-
-                            // reinstall/enable
-                            let temp_pkg_uninstalled = uad_core::sync::CorePackage {
-                                name: pkg_name.clone(),
-                                description: String::new(),
-                                removal: Removal::All,
-                                state: PackageState::Uninstalled,
-                                list: UadList::Unlisted,
-                            };
-
-                            let enable_cmds = uad_core::sync::apply_pkg_state_commands(
-                                &temp_pkg_uninstalled,
-                                PackageState::Enabled,
-                                user,
-                                &device,
-                            );
-
-                            // lets enable the new package
-                            if let Some(cmd) = enable_cmds.first() {
-                                let _ = uad_core::sync::run_adb_shell_action(&device.adb_id, cmd);
-                            }
-
-                            //verifies the final state for thread confirmation
-                            let actual_state = uad_core::sync::verify_package_state(
-                                &pkg_name,
-                                &device.adb_id,
-                                Some(user.id),
-                            )
-                            .unwrap_or(PackageState::Uninstalled);
-                            VerifyAndFallbackResult {
-                                info: p,
-                                new_state: actual_state,
-                                notification: Some(format!("Attempted recovery for {pkg_name}")),
-                                error_modal: None,
-                            }
-                        },
-                        Message::VerifyAndFallbackFinished,
-                    );
-                }
-
-                // Fallthrough: default error handling for unrelated errors
-                self.error_modal = Some(err);
-                Task::none()
-            }
-        }
-    }
-
     fn on_modal_user_selected(
         &mut self,
         user: User,
@@ -1616,38 +1403,133 @@ fn pkg_action_tasks(plan: Vec<(PackageInfo, Vec<String>)>) -> Vec<Task<Message>>
         .filter(|(_, actions)| !actions.is_empty())
         .map(|(p_info, actions)| {
             Task::perform(
-                async move { run_adb_actions_with_before_states(&actions, p_info) },
-                |(p_info, result)| Message::VerifyAndFallback(p_info, result),
+                async move { run_package_action(&actions, p_info) },
+                Message::VerifyAndFallbackFinished,
             )
         })
         .collect()
 }
 
-fn run_adb_actions_with_before_states(
-    actions: &[String],
-    mut p_info: PackageInfo,
-) -> (PackageInfo, Result<(), AdbError>) {
-    // Capture before-state in background to avoid blocking UI thread
-    p_info.before_cross_user_states = uad_core::sync::capture_cross_user_states(
-        &p_info.name,
-        &p_info.device.adb_id,
-        p_info.user.id,
-        &p_info.device,
-    );
-    // The first command changes the package state. The others clean up after it,
-    // in order: they must not run if it failed.
-    let mut result = Ok(());
-    for (i, action) in actions.iter().enumerate() {
-        if let Err(e) = uad_core::sync::run_adb_shell_action(&p_info.device.adb_id, action) {
-            if i == 0 {
-                result = Err(e);
-            } else {
-                warn!("{action} failed: {e:?}");
+fn run_package_action(actions: &[String], mut info: PackageInfo) -> VerifyAndFallbackResult {
+    use uad_core::sync::{capture_cross_user_states, run_adb_shell_action};
+
+    info.before_cross_user_states =
+        capture_cross_user_states(&info.name, &info.device.adb_id, info.user.id, &info.device);
+    let mut result = VerifyAndFallbackResult {
+        info,
+        new_state: None,
+        ran: false,
+        notification: None,
+        error_modal: None,
+    };
+    for (index, command) in actions.iter().enumerate() {
+        if let Err(AdbError::Generic(error)) =
+            run_adb_shell_action(&result.info.device.adb_id, command)
+        {
+            if index > 0 {
+                add_note(
+                    &mut result,
+                    format!("Package cleanup incomplete. Failed command: {command}. {error}"),
+                );
+            } else if !(error.contains("Shell cannot change component state")
+                && command.starts_with("pm enable --user "))
+            {
+                result.error_modal = Some(error);
+                return result;
             }
             break;
         }
     }
-    (p_info, result)
+    result.ran = true;
+    if let Err(error) = verify_action(&mut result) {
+        // Listed with the other notifications: several packages can fail in one batch.
+        let note = format!(
+            "Package '{}' (user {}) verification failed: {error}",
+            result.info.name, result.info.user.id
+        );
+        add_note(&mut result, note);
+    }
+    result
+}
+
+fn add_note(result: &mut VerifyAndFallbackResult, note: String) {
+    result.notification = Some(match result.notification.take() {
+        Some(notes) => format!("{notes}\n{note}"),
+        None => note,
+    });
+}
+
+fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
+    use uad_core::sync::{
+        CorePackage, attempt_fallback, detect_cross_user_behavior, query_package_state,
+    };
+
+    let info = &result.info;
+    let read_state = || {
+        query_package_state(&info.device.adb_id, &info.name, Some(info.user.id))
+            .map(|state| state.unwrap_or(PackageState::Uninstalled))
+    };
+    let actual = read_state()?;
+    result.new_state = Some(actual);
+    if actual == info.wanted_state {
+        result.error_modal = detect_cross_user_behavior(
+            &info.name,
+            &info.device.adb_id,
+            info.user.id,
+            info.wanted_state,
+            actual,
+            &info.device,
+            &info.before_cross_user_states,
+        )
+        .map(|details| {
+            format!(
+                "Cross-User Behavior Detected:\n\n{details}\n\n\
+                This is unusual behavior that may be specific to your device manufacturer (OEM). \
+                The package state has been successfully changed on the target user."
+            )
+        });
+        return Ok(());
+    }
+    let pkg = CorePackage {
+        name: info.name.clone(),
+        description: String::new(),
+        removal: Removal::All,
+        state: actual,
+        list: UadList::Unlisted,
+    };
+    let fallback = attempt_fallback(&pkg, info.wanted_state, actual, info.user, &info.device);
+    // Even a failed recovery can have changed the package.
+    let confirmed = read_state()?;
+    result.new_state = Some(confirmed);
+    let action = fallback?;
+    let expected = match (info.wanted_state, actual) {
+        (PackageState::Uninstalled, PackageState::Enabled) => PackageState::Disabled,
+        (PackageState::Disabled, PackageState::Enabled) => PackageState::Uninstalled,
+        _ => info.wanted_state,
+    };
+    if confirmed != expected {
+        return Err(format!(
+            "After recovery, expected {expected:?} but found {confirmed:?}."
+        ));
+    }
+    let note = format!(
+        "Package '{}' was {} but {} instead. Fallback: {action}",
+        info.name,
+        match info.wanted_state {
+            PackageState::Uninstalled => "uninstalled",
+            PackageState::Disabled => "disabled",
+            PackageState::Enabled => "enabled",
+            PackageState::All => "modified",
+        },
+        match actual {
+            PackageState::Uninstalled => "remains uninstalled",
+            PackageState::Disabled => "was disabled",
+            PackageState::Enabled => "was enabled",
+            PackageState::All => "unexpected state (error determining state)",
+        }
+    );
+    add_note(result, note);
+    Ok(())
 }
 
 fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, Theme, Renderer> {
@@ -1761,7 +1643,8 @@ mod tests {
         );
         VerifyAndFallbackResult {
             info: plan[0].0.clone(),
-            new_state: PackageState::Uninstalled,
+            new_state: Some(PackageState::Uninstalled),
+            ran: true,
             notification: None,
             error_modal: None,
         }
@@ -1944,6 +1827,34 @@ mod tests {
         let _ = view.on_apply_filters("previous-device", vec![vec![]], &two_users());
         assert_eq!(view.phone_packages[0].len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+    }
+
+    #[test]
+    fn failed_actions_are_reported_and_deselected_once_they_ran() {
+        let mut view = view_with_selection();
+        // The action ran but could not be confirmed.
+        let mut unverified = finished(&view, (0, 1));
+        unverified.new_state = None;
+        unverified.notification = Some("unverified".to_string());
+        // ADB refused the action.
+        let mut refused = finished(&view, (0, 2));
+        refused.new_state = None;
+        refused.ran = false;
+        refused.error_modal = Some("refused".to_string());
+
+        // Messages are shown even if another device was selected in the meantime.
+        let other = Phone {
+            adb_id: "other".to_string(),
+            ..two_users()
+        };
+        let _ = view.on_verify_and_fallback_finished(unverified.clone(), &other);
+        let _ = view.on_verify_and_fallback_finished(unverified, &two_users());
+        let _ = view.on_verify_and_fallback_finished(refused, &two_users());
+
+        assert_eq!(view.fallback_notifications, ["unverified", "unverified"]);
+        assert_eq!(view.error_modal.as_deref(), Some("refused"));
+        assert_eq!(view.phone_packages[0][1].state, PackageState::Enabled);
+        assert_eq!(view.selected_packages, [(0, 2)]);
     }
 
     #[test]
