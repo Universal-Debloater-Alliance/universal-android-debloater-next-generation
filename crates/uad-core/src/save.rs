@@ -53,6 +53,10 @@ pub fn backup_phone(
         let packages = phone_packages
             .get(u.index)
             .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
+        // A user whose packages can be listed always has some.
+        if !u.protected && packages.is_empty() {
+            return Err(format!("The packages of user {} could not be read", u.id));
+        }
         backup.users.push(UserBackup {
             id: u.id,
             packages: packages.clone(),
@@ -272,6 +276,8 @@ mod tests {
 
         assert!(backup_phone(dir.path(), users.clone(), serial.to_string(), &[]).is_err());
         assert!(backup_phone(dir.path(), vec![], serial.to_string(), &packages).is_err());
+        // The packages of the user could not be read.
+        assert!(backup_phone(dir.path(), users.clone(), serial.to_string(), &[vec![]]).is_err());
         assert_eq!(fs::read_dir(dir.path()).unwrap().count(), 0);
 
         backup_phone(dir.path(), users, serial.to_string(), &packages).unwrap();

@@ -40,6 +40,8 @@ pub struct Settings {
     pub device: DeviceSettings,
     active_restore: Option<RestoreBatch>,
     restore_reports: HashMap<String, String>,
+    /// Why the last backup could not be made
+    backup_error: String,
     is_loading: bool,
     modal: Option<PopUpModal>,
 }
@@ -52,6 +54,7 @@ impl Default for Settings {
             device: DeviceSettings::default(),
             active_restore: None,
             restore_reports: HashMap::new(),
+            backup_error: String::new(),
             is_loading: false,
             modal: None,
         }
@@ -169,6 +172,7 @@ impl Settings {
     }
 
     fn load_device_settings(&mut self, phone: &Phone, config: &Config) {
+        self.backup_error.clear();
         let backups = list_available_backups(&device_backup_dir(
             &self.general.backup_folder,
             &phone.adb_id,
@@ -235,6 +239,7 @@ impl Settings {
         match result {
             Ok(_) => {
                 info!("[BACKUP] Backup successfully created");
+                self.backup_error.clear();
                 self.device.backup.backups = list_available_backups(&device_backup_dir(
                     &self.general.backup_folder,
                     &phone.adb_id,
@@ -243,6 +248,7 @@ impl Settings {
             }
             Err(err) => {
                 error!("[BACKUP FAILED] Backup creation failed: {err:?}");
+                self.backup_error = err;
             }
         }
         Task::none()
@@ -693,6 +699,7 @@ impl Settings {
             backup_btn,
             "Backup the current state of the phone",
             Space::new().width(Length::Fill).height(Length::Shrink),
+            text(self.backup_error.clone()).style(style::Text::Danger),
             locate_backup_btn,
         ]
         .spacing(10)
@@ -866,5 +873,17 @@ mod tests {
         assert!(!error.starts_with("Restore finished"));
         settings.load_device_settings(&phone("A"), &config);
         assert_eq!(settings.device.backup.backup_state, error);
+    }
+
+    #[test]
+    fn a_failed_backup_is_shown_until_the_next_one() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut settings = Settings::default();
+        settings.general.backup_folder = dir.path().to_path_buf();
+        let error = "The packages of user 10 could not be read".to_string();
+        let _ = settings.handle_device_backed_up(&phone("A"), Err(error.clone()));
+        assert_eq!(settings.backup_error, error);
+        let _ = settings.handle_device_backed_up(&phone("A"), Ok(true));
+        assert_eq!(settings.backup_error, "");
     }
 }
