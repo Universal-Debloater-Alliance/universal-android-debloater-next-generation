@@ -12234,6 +12234,286 @@
     "labels": [],
     "removal": "Expert"
   },
+  "android.autoinstalls.config.tcl.device": {
+    "list": "Oem",
+    "description": "TCL Play Auto Install configuration stub. Advertises the PLAY_AUTO_INSTALL action used to select OEM apps during device setup. Removing it may prevent automatic installation of bundled apps during setup; it does not remove apps already installed.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.android.tethering.overlay": {
+    "list": "Aosp",
+    "description": "Likely a resource overlay for the Android tethering module, based on the package name. The APK was not available for inspection; the target and overridden resources are unverified. Removing it may affect network sharing or tethering configuration.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.tethering.overlay.gsi": {
+    "list": "Aosp",
+    "description": "Likely a Generic System Image (GSI) tethering resource overlay, based on the package name. The APK was not available for inspection; the target and overridden resources are unverified. Removing it may affect tethering configuration.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.android.tv.settings.gms.resoverlay": {
+    "list": "Google",
+    "description": "Likely a Google Mobile Services resource overlay for Android TV Settings, based on the package name. The APK was not available for inspection; the exact target and overrides are unverified. Removing it may change or hide settings options; keep it if unsure.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.apps.nbu.smartconnect.tv": {
+    "list": "Google",
+    "description": "Google Android TV Data Saver. Monitors network data usage, provides data alerts and settings slices, and includes a VPN service for the data-saving feature. Removing it disables these features and may leave nonfunctional Data Saver settings.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.google.android.tv.assistant": {
+    "list": "Google",
+    "description": "Google Assistant LED service for Android TV. Provides LED state and animation handling for Assistant feedback on compatible TVs. Removing it may break Assistant or microphone indicator lights; keep it if you rely on visual microphone feedback.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.assistant": {
+    "list": "Oem",
+    "description": "TCL voice assistant integration for Google Assistant. Includes voice handling, search, reminders, TV/media/settings control and LED-related broadcasts. Removing it may break voice commands, voice search and TV control via Assistant.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.autopair": {
+    "list": "Oem",
+    "description": "TCL automatic Bluetooth pairing service. Starts at boot and handles Bluetooth scanning, bonding and connection events. Removing it may prevent automatic pairing or reconnection of the TV remote; keep it if you use a Bluetooth remote.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.bi": {
+    "list": "Oem",
+    "description": "TCL business intelligence and usage statistics reporting service. Contains reporting, event caching and network upload logic, as well as parameter providers for other TCL components. Removing it may stop TCL analytics and affect apps that use its reporting interface. Actual network activity was not verified.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.copydatatotv": {
+    "list": "Oem",
+    "description": "TCL privileged data-copy utility with a boot receiver and background DataService. Code references device information, project IDs, system configuration, demo assets and upgrade files. Its exact provisioning workflow is unverified; removing it may interfere with OEM initialization or servicing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.esticker": {
+    "list": "Oem",
+    "description": "TCL electronic sticker and retail demonstration application. Displays promotional overlays and demo videos in shop mode. Removing it may disable retail display features; generally unnecessary for normal home viewing, but removal has not been tested.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.factory.view": {
+    "list": "Oem",
+    "description": "TCL factory settings and diagnostics. Provides factory menus, panel test patterns, warm-up and shop modes, model-name handling and signal-strength diagnostics. Removing it may disable factory or service functions and affect initialization; keep it for servicing.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.initsetup": {
+    "list": "Oem",
+    "description": "TCL initial TV setup wizard. Handles country and timezone, PIN, channel installation, regional broadcast setup, AirPlay setup and automatic update options. Removing it may break first-run or post-reset setup and leave the TV incompletely configured.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.tcl.inputmethod.international": {
+    "list": "Oem",
+    "description": "TCL international on-screen keyboard (T_IME). Provides an Android input method and its settings. Removing it may prevent text entry with the remote unless another working TV-compatible keyboard is enabled first.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.keycustomfunctionservice": {
+    "list": "Oem",
+    "description": "TCL system service for remote and panel key handling, custom shortcuts and multiple-key actions. Also declares a fallback HOME activity. Removing it may break important remote buttons, input handling or fallback home behavior.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.tcl.messagebox": {
+    "list": "Oem",
+    "description": "TCL message center. Provides a message service, content provider and UI for OEM messages, images and web content. Removing it may disable TCL notifications or messages delivered through this service; it is not the Android system notification service.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.micmanager": {
+    "list": "Oem",
+    "description": "TCL microphone management service. Handles microphone mute state and reacts to input-source and foreground-activity changes. Removing it may break voice input, hardware microphone mute behavior or microphone state synchronization; keep it if privacy controls are important.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.miracast": {
+    "list": "Oem",
+    "description": "TCL Miracast receiver for Wi-Fi Direct screen mirroring. Provides sink activities and a peer-to-peer service. Removing it disables TCL Miracast screen mirroring; this is not necessarily the same feature as Google Cast.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.MultiScreenInteraction_TV": {
+    "list": "Oem",
+    "description": "TCL multi-screen interaction and casting application. Provides wireless display, media casting, phone remote-control guidance and remote text input. Removing it may disable TCL phone-to-TV casting, mirroring or remote interaction; Google Cast is a separate implementation.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.overlay.systemui": {
+    "list": "Oem",
+    "description": "Likely a TCL resource overlay for Android System UI, based on the package name. The APK was not available for inspection; the target and overrides are unverified. Removing it may change or break TV-specific System UI behavior or appearance.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.overseasappshow": {
+    "list": "Oem",
+    "description": "TCL regional application visibility/configuration service. Monitors boot, network and package changes and contains country-based app hiding and whitelist logic. Removing it may interfere with regional app availability or launcher visibility.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.partnercustomizer": {
+    "list": "Oem",
+    "description": "TCL Android TV launcher partner customization. Exposes launcher configuration, app recommendations, widget and customer settings, and handles launcher data synchronization and T-Key activity. Removing it may affect home-screen configuration, recommendations or OEM shortcuts.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.providers.config": {
+    "list": "Oem",
+    "description": "TCL core configuration provider. Runs in the system process and exposes OEM configuration through com.tcl.config.ConfigProvider. Removing it may break TV framework configuration or dependent system components.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.tcl.settings": {
+    "list": "Oem",
+    "description": "TCL TV-specific system settings and quick controls. Provides settings UI, Bluetooth pairing, timers, shortcut menus and OEM messages. Removing it may make important TV settings or control functions inaccessible.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.tcl.systemserver": {
+    "list": "Oem",
+    "description": "TCL core system server extension. Hosts hotkey handling, far-field and hotword microphone state providers and a Netflix monitor service. Removing it may disrupt essential TV integration, remote keys and microphone state handling.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
+  "com.tcl.tv": {
+    "list": "Oem",
+    "description": "TCL Live TV application. Provides tuner and channel scanning, channel lists, electronic programme guide, recording/time-shift, teletext and the source-selection UI. Removing it may disable broadcast television, recording and input selection, including access to external sources through the TCL UI.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.tv.tclhome_passive": {
+    "list": "Oem",
+    "description": "TCL Home background integration for account/device binding and cloud connectivity. Includes a token provider, user-center binding service and MQTT/IoT client code. Removing it may disable TCL Home linking and cloud-connected TV features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.tvinput": {
+    "list": "Oem",
+    "description": "TCL implementation of the Android TV Input Framework. Registers digital TV and passthrough input services, with TV input setup and data update components. Removing it may disable tuner and external inputs such as HDMI; keep it if using any TV input.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.ui_mediaCenter": {
+    "list": "Oem",
+    "description": "TCL Media Center for browsing and playing local and network media. Includes audio, photo and video players, NAS/shared storage and DLNA support, as well as a PVR recording player. Removing it disables these OEM playback features; use an alternative player where possible.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.useragreement": {
+    "list": "Oem",
+    "description": "TCL user agreement and privacy policy UI/service. Handles agreement screens, service consent and boot/shop-reset events. Removing it may prevent reviewing or changing TCL service consent and may interfere with setup or OEM services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.usercenter": {
+    "list": "Oem",
+    "description": "TCL account management (User Center). Provides sign-in, registration, QR login, password recovery, account management and subscription UI, plus a background account service. Removing it may disable TCL account sign-in and account-dependent features.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.versionUpdateApp": {
+    "list": "Oem",
+    "description": "TCL system and service updater. Provides network/system update UI, update checking, package installation and service update management. Removing it may prevent firmware/security updates and TCL component updates; keeping it is strongly advised.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tcl.waterfall.overseas": {
+    "list": "Oem",
+    "description": "TCL Channel, the overseas streaming/content discovery application. Provides video playback, media browsing, recommendations, programme listings and ad-related UI. Removing it may disable TCL Channel, its content recommendations and associated launcher entry points.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Advanced"
+  },
+  "com.tcl.xian.StartandroidService": {
+    "list": "Oem",
+    "description": "TCL device authentication and activation service (DeviceAuthenCommon). Starts from boot-related broadcasts and includes device login, license retrieval and activation logic. Removing it may break device authentication, licensed features or TCL online services; exact runtime dependencies are unverified.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Expert"
+  },
+  "com.tvos": {
+    "list": "Oem",
+    "description": "TCL TV OS framework resource package (tvos-framework-res.apk). Contains shared TV UI resources such as buttons, dialogs and other drawables; the manifest declares hasCode=false. Removing it may break OEM UI or framework resource references.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Unsafe"
+  },
   "com.tct": {
     "list": "Oem",
     "description": "",
