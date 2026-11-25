@@ -93,7 +93,10 @@ impl UadGui {
 
     fn new() -> (Self, Task<Message>) {
         (
-            Self::default(),
+            Self {
+                settings_view: SettingsView::load(),
+                ..Self::default()
+            },
             Task::batch([
                 // Used in crate::widgets::navigation_menu::ICONS. Name is `icomoon`.
                 font::load(include_bytes!("../../../resources/assets/icons.ttf").as_slice())

@@ -37,9 +37,10 @@ pub struct Settings {
 }
 
 impl Default for Settings {
+    /// Default settings, without reading the configuration file.
     fn default() -> Self {
         Self {
-            general: Config::load_configuration_file().general,
+            general: GeneralSettings::default(),
             device: DeviceSettings::default(),
             is_loading: false,
             modal: None,
@@ -68,6 +69,14 @@ pub enum Message {
 }
 
 impl Settings {
+    /// Settings saved in the configuration file.
+    pub(crate) fn load() -> Self {
+        Self {
+            general: Config::load_configuration_file().general,
+            ..Self::default()
+        }
+    }
+
     pub fn update(
         &mut self,
         phone: &Phone,
@@ -143,11 +152,11 @@ impl Settings {
     }
 
     fn handle_load_device_settings(&mut self, phone: &Phone) -> Task<Message> {
-        self.load_device_settings(phone);
+        self.load_device_settings(phone, &Config::load_configuration_file());
         Task::none()
     }
 
-    fn load_device_settings(&mut self, phone: &Phone) {
+    fn load_device_settings(&mut self, phone: &Phone, config: &Config) {
         let backups = list_available_backups(&device_backup_dir(
             &self.general.backup_folder,
             &phone.adb_id,
@@ -158,11 +167,7 @@ impl Settings {
             backup_state: String::default(),
         };
 
-        match Config::load_configuration_file()
-            .devices
-            .iter()
-            .find(|d| d.device_id == phone.adb_id)
-        {
+        match config.devices.iter().find(|d| d.device_id == phone.adb_id) {
             Some(device) => {
                 self.device.clone_from(device);
                 self.device.backup = backup;
@@ -310,7 +315,7 @@ impl Settings {
             self.general.backup_folder = path;
             let mut config = Config::load_configuration_file();
             config.save_device_settings(self.device.clone(), self.general.clone());
-            self.load_device_settings(phone);
+            self.load_device_settings(phone, &config);
         }
         Task::none()
     }
