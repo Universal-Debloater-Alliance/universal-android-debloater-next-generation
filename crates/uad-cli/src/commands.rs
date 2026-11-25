@@ -4,8 +4,8 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PmListPacksFlag};
 use uad_core::sync::{
-    CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, query_package_state,
-    run_adb_shell_action,
+    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list,
+    query_package_state, run_adb_shell_action,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 use uad_core::utils::{matches_search, truncate_description};
@@ -373,9 +373,8 @@ pub fn execute_with_fallback(
     for cmd in commands {
         match run_adb_shell_action(&device.adb_id, cmd.as_str()) {
             Ok(_) => println!("{}✓ {}", indent, cmd),
-            Err(e) => {
-                return Err(format!("{indent}✗ Failed to execute `{cmd}`: {e:?}").into());
-            }
+            // The message names the command, or explains why it failed.
+            Err(AdbError::Generic(message)) => return Err(message.into()),
         }
     }
 

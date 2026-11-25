@@ -50,7 +50,7 @@ pub fn repl_mode(
                     Ok(ReplAction::Continue) => {}
                     Ok(ReplAction::Exit) => break,
                     Err(e) => {
-                        eprintln!("Error: {}", e);
+                        crate::output::print_command_error(e.as_ref());
                     }
                 }
             }

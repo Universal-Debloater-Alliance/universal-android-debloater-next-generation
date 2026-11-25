@@ -160,7 +160,7 @@ fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
         Err(err) => {
-            eprintln!("Error: {err}");
+            output::print_command_error(err.as_ref());
             ExitCode::FAILURE
         }
     }
