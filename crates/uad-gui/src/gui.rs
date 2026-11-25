@@ -192,6 +192,9 @@ impl UadGui {
             }
             Message::AboutPressed => {
                 self.view = View::About;
+                if self.update_state.self_update.status == SelfUpdateStatus::Updating {
+                    return Task::none();
+                }
                 self.update_state.self_update = SelfUpdateState::default();
                 Task::perform(
                     async move { get_latest_release() },
@@ -281,14 +284,13 @@ impl UadGui {
                     AboutMessage::DoSelfUpdate => {
                         // A second update would replace the backup of the first one.
                         #[cfg(feature = "self-update")]
-                        if self.update_state.self_update.status != SelfUpdateStatus::Updating
-                            && let Some(release) =
-                                self.update_state.self_update.latest_release.as_ref()
+                        if let Some(release) =
+                            self.update_state.self_update.available_release().cloned()
                         {
                             self.update_state.self_update.status = SelfUpdateStatus::Updating;
                             self.apps_view.loading_state = ListLoadingState::UpdatingUad;
                             Task::perform(
-                                download_update_to_temp_file(BIN_NAME, release.clone()),
+                                download_update_to_temp_file(BIN_NAME, release),
                                 Message::NewReleaseDownloaded,
                             )
                         } else {
@@ -366,6 +368,11 @@ impl UadGui {
                 error!("Failed to update {NAME}!");
                 self.update_state.self_update.status = SelfUpdateStatus::Failed;
                 self.update(Message::AppsAction(AppsMessage::UpdateFailed))
+            }
+            Message::GetLatestRelease(_)
+                if self.update_state.self_update.status == SelfUpdateStatus::Updating =>
+            {
+                Task::none()
             }
             Message::GetLatestRelease(release) => {
                 match release {
@@ -553,5 +560,24 @@ mod tests {
                 .units(),
             1
         );
+    }
+
+    #[cfg(feature = "self-update")]
+    #[test]
+    fn an_install_survives_about_and_late_release_checks() {
+        let mut gui = UadGui::default();
+        let release = Release {
+            tag_name: "v2.0.0".into(),
+            assets: vec![],
+        };
+        let check = Message::GetLatestRelease(Ok(Some(release)));
+        let install = Message::AboutAction(AboutMessage::DoSelfUpdate);
+        let _ = gui.update(check.clone());
+        assert_eq!(gui.update(install.clone()).units(), 1);
+        assert_eq!(gui.update(Message::AboutPressed).units(), 0);
+        let _ = gui.update(check);
+        assert_eq!(gui.update(install.clone()).units(), 0);
+        let _ = gui.update(Message::NewReleaseDownloaded(Err(())));
+        assert_eq!(gui.update(install).units(), 1);
     }
 }

@@ -66,7 +66,11 @@ pub fn nav_menu<'a>(
 
     let update_btn = if self_update_state.latest_release.is_some() {
         button("Update")
-            .on_press(Message::AboutAction(AboutMessage::DoSelfUpdate))
+            .on_press_maybe(
+                self_update_state
+                    .available_release()
+                    .map(|_| Message::AboutAction(AboutMessage::DoSelfUpdate)),
+            )
             .padding([5, 10])
             .style(style::Button::SelfUpdate)
     } else {

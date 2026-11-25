@@ -56,31 +56,20 @@ impl About {
 
         #[cfg(feature = "self-update")]
         let self_update_row = {
-            let self_update_btn = button_primary("Update").on_press(Message::DoSelfUpdate);
-
+            let update = update_state
+                .self_update
+                .available_release()
+                .map(|_| Message::DoSelfUpdate);
+            let self_update_btn = button_primary("Update").on_press_maybe(update);
             let uad_version_text =
                 text(format!("{NAME} version: v{}", env!("CARGO_PKG_VERSION"))).width(250);
 
-            let self_update_text = update_state
-                .self_update
-                .latest_release
-                .as_ref()
-                .map_or_else(
-                    || {
-                        if update_state.self_update.status == SelfUpdateStatus::Done {
-                            "(No update available)".to_string()
-                        } else {
-                            update_state.self_update.status.to_string()
-                        }
-                    },
-                    |r| {
-                        if update_state.self_update.status == SelfUpdateStatus::Updating {
-                            update_state.self_update.status.to_string()
-                        } else {
-                            format!("({} available)", r.tag_name)
-                        }
-                    },
-                );
+            let status = &update_state.self_update.status;
+            let self_update_text = match (&update_state.self_update.latest_release, status) {
+                (None, SelfUpdateStatus::Done) => "(No update available)".to_string(),
+                (None, _) | (_, SelfUpdateStatus::Updating) => status.to_string(),
+                (Some(release), _) => format!("({} available)", release.tag_name),
+            };
 
             let last_self_update_text = text(self_update_text).style(style::Text::Default);
 

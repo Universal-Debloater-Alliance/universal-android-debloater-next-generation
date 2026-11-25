@@ -32,6 +32,15 @@ pub struct SelfUpdateState {
     pub status: SelfUpdateStatus,
 }
 
+impl SelfUpdateState {
+    #[must_use]
+    pub fn available_release(&self) -> Option<&Release> {
+        self.latest_release
+            .as_ref()
+            .filter(|_| self.status != SelfUpdateStatus::Updating)
+    }
+}
+
 #[derive(Default, Debug, PartialEq, Eq, Clone)]
 pub enum SelfUpdateStatus {
     Updating,
