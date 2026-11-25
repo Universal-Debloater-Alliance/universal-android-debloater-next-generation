@@ -57,6 +57,8 @@ pub struct List {
     pub loading_state: LoadingState,
     pub(crate) load_id: u64,
     loaded_serial: Option<String>,
+    /// An action finished while the packages were being read
+    reread_packages: bool,
     pub uad_lists: PackageHashMap,
     /// packages of all users of the phone
     pub phone_packages: Vec<Vec<PackageRow>>,
@@ -220,6 +222,12 @@ impl List {
                 self.selected_packages.retain(|&x| x != (i_user, index));
             }
             Self::filter_package_lists(self);
+        } else if result.ran
+            && selected_device.adb_id == result.info.device.adb_id
+            && matches!(self.loading_state, LoadingState::LoadingPackages)
+        {
+            // The packages being read may still have the state from before the action.
+            self.reread_packages = true;
         }
         Task::none()
     }
@@ -976,9 +984,15 @@ impl List {
     ) -> Task<Message> {
         let (uad_list, list_state) = payload;
         self.loading_state = LoadingState::LoadingPackages;
-        self.uad_lists.clone_from(&uad_list);
+        self.uad_lists = uad_list;
         *list_update_state = list_state;
+        self.read_packages(selected_device)
+    }
+
+    /// Read the packages of the device in the background.
+    fn read_packages(&self, selected_device: &Phone) -> Task<Message> {
         let id = self.load_id;
+        let uad_list = self.uad_lists.clone();
         let device_serial = selected_device.adb_id.clone();
         let user_list = selected_device.user_list.clone();
         Task::perform(
@@ -999,6 +1013,10 @@ impl List {
         // Another device was selected while these packages were loading.
         if device_serial != selected_device.adb_id {
             return Task::none();
+        }
+        // These packages may have been read before an action that finished since.
+        if std::mem::take(&mut self.reread_packages) {
+            return self.read_packages(selected_device);
         }
         self.loaded_serial = Some(device_serial.to_owned());
         self.phone_packages = packages;
@@ -2013,5 +2031,31 @@ mod tests {
         let _ = view.load_uad_list(true, &phone);
         let _ = view.on_apply_filters("", vec![vec![]], &phone);
         assert_eq!(view.fallback_notifications, ["Retry failed"]);
+    }
+
+    #[test]
+    fn packages_are_read_again_when_an_action_finished_during_their_load() {
+        let mut view = view_with_selection();
+        let mut state = UadListState::Done;
+        let mut settings = Settings::default();
+        let mut phone = two_users();
+        let action = finished(&view, (0, 1));
+        let read_before_the_action = view.phone_packages.clone();
+
+        // The device is refreshed, and the action finishes while its packages are read.
+        view.reset_inventory();
+        let load =
+            Message::LoadPhonePackages(view.load_id, (PackageHashMap::new(), UadListState::Done));
+        let _ = view.update(&mut settings, &mut phone, &mut state, load);
+        let _ = view.on_verify_and_fallback_finished(action, &phone);
+
+        // What was read is dropped for a new read.
+        let mut loaded = |packages| {
+            let message = Message::ApplyFilters(view.load_id, String::new(), packages);
+            let task = view.update(&mut settings, &mut phone, &mut state, message);
+            (task.units(), view.phone_packages.len())
+        };
+        assert_eq!(loaded(read_before_the_action.clone()), (1, 0));
+        assert_eq!(loaded(read_before_the_action), (0, 2));
     }
 }
