@@ -326,6 +326,9 @@ fn process_package_state_change(
     let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device);
 
     if dry_run {
+        if commands.is_empty() {
+            print_nothing_to_run("    ", current_state, target_state);
+        }
         for cmd in &commands {
             println!("    Would run: {}", cmd);
         }
@@ -344,6 +347,11 @@ fn process_package_state_change(
     Ok(())
 }
 
+/// Such as when asked to disable a package that is already uninstalled.
+fn print_nothing_to_run(indent: &str, current: PackageState, target: PackageState) {
+    println!("{indent}→ Nothing to run: cannot go from {current} to {target}");
+}
+
 /// Execute commands and verify package state with fallback
 pub fn execute_with_fallback(
     package: &str,
@@ -354,6 +362,11 @@ pub fn execute_with_fallback(
     commands: &[String],
     indent: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    if commands.is_empty() {
+        print_nothing_to_run(indent, core_pkg.state, target_state);
+        return Ok(());
+    }
+
     // Capture the before-state of packages on other users for cross-user detection
     let before_cross_user_states =
         uad_core::sync::capture_cross_user_states(package, &device.adb_id, user.id, device);
