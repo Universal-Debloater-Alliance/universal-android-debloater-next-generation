@@ -247,7 +247,10 @@ impl UadGui {
                     }
                     SettingsMessage::MultiUserMode(toggled) if toggled => {
                         if let Some(device) = &self.selected_device {
-                            self.apps_view.select_for_all_users(&device.user_list);
+                            self.apps_view.select_for_all_users(
+                                &device.user_list,
+                                self.settings_view.general.expert_mode,
+                            );
                         }
                     }
                     SettingsMessage::ExpertMode(false) => self.apps_view.deselect_unsafe(),

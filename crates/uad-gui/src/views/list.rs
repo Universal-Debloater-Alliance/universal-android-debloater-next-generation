@@ -26,7 +26,7 @@ use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
-    pub removal: String,
+    pub allow_removal: bool,
     /// Device, user and package the action was planned for.
     /// The displayed lists can change before the action completes.
     pub device: Phone,
@@ -579,7 +579,9 @@ impl List {
 
         // 5 element slice is cheap
         let mut summaries = Removal::CATEGORIES.map(SummaryEntry::from);
-        for p in packages.iter().filter(|p| p.selected) {
+        let eligible =
+            |p: &PackageRow| p.selected && (settings.general.expert_mode || !needs_expert_mode(p));
+        for p in packages.iter().filter(|p| eligible(p)) {
             let summary = &mut summaries[p.removal as usize];
             match p.state {
                 PackageState::Uninstalled | PackageState::Disabled => summary.restore += 1,
@@ -643,7 +645,12 @@ impl List {
         let modal_btn_row = row![
             button(text("Cancel")).on_press(Message::ModalHide),
             Space::new().width(Length::Fill),
-            button(text("Apply")).on_press(Message::ModalValidate),
+            button(text("Apply")).on_press_maybe(
+                packages
+                    .iter()
+                    .any(eligible)
+                    .then_some(Message::ModalValidate)
+            ),
         ]
         .padding(iced::Padding {
             top: 0.0,
@@ -662,15 +669,15 @@ impl List {
             container(
                 scrollable(
                     container(
-                        if self
-                            .selected_packages
-                            .iter()
-                            .any(|s| s.0 == self.selected_user.expect(PACK_NO_USER_MSG).index)
-                        {
+                        if self.selected_packages.iter().any(|s| {
+                            s.0 == self.selected_user.expect(PACK_NO_USER_MSG).index
+                                && eligible(&packages[s.1])
+                        }) {
                             self.selected_packages
                                 .iter()
                                 .filter(|s| {
                                     s.0 == self.selected_user.expect(PACK_NO_USER_MSG).index
+                                        && eligible(&packages[s.1])
                                 })
                                 .fold(
                                     column![].spacing(6).width(Length::Shrink),
@@ -869,13 +876,22 @@ impl List {
         selected_device: &mut Phone,
     ) -> Task<Message> {
         self.fallback_notifications.clear();
-        let commands = self.apply_selection(selected_device, &settings.device);
+        let commands = self.apply_selection(
+            selected_device,
+            &settings.device,
+            settings.general.expert_mode,
+        );
         self.selection_modal = false;
         Task::batch(commands)
     }
 
     /// Build the commands of the selection under review.
-    fn apply_selection(&mut self, device: &Phone, settings: &DeviceSettings) -> Vec<Task<Message>> {
+    fn apply_selection(
+        &mut self,
+        device: &Phone,
+        settings: &DeviceSettings,
+        expert_mode: bool,
+    ) -> Vec<Task<Message>> {
         // Only the packages shown in the review are applied: those of the user under review.
         let i_user = self.selected_user.unwrap_or_default().index;
         let actions: Vec<(usize, usize)> = self
@@ -887,7 +903,7 @@ impl List {
 
         actions
             .into_iter()
-            .flat_map(|selection| self.run_pkg_action(device, settings, selection))
+            .flat_map(|selection| self.run_pkg_action(device, settings, expert_mode, selection))
             .collect()
     }
 
@@ -896,9 +912,16 @@ impl List {
         &mut self,
         device: &Phone,
         settings: &DeviceSettings,
+        expert_mode: bool,
         selection: (usize, usize),
     ) -> Vec<Task<Message>> {
-        let plan = plan_pkg_action(&self.phone_packages, device, settings, selection);
+        let plan = plan_pkg_action(
+            &self.phone_packages,
+            device,
+            settings,
+            expert_mode,
+            selection,
+        );
         for (p_info, actions) in &plan {
             // Nothing reports back for another user already in the wanted state.
             if actions.is_empty() && p_info.i_user != selection.0 {
@@ -1071,6 +1094,7 @@ impl List {
                 Task::batch(self.run_pkg_action(
                     selected_device,
                     &settings.device,
+                    settings.general.expert_mode,
                     (i_user, i_package),
                 ))
             }
@@ -1111,7 +1135,7 @@ impl List {
         } else {
             std::slice::from_ref(&user)
         };
-        self.toggle_for_users(users, (user.index, i_package), toggle);
+        self.toggle_for_users(users, (user.index, i_package), toggle, expert_mode);
     }
 
     /// Deselect the packages that can only be selected in expert mode.
@@ -1159,19 +1183,27 @@ impl List {
 
     /// Select the already selected packages for every user,
     /// as if they had been selected with multi-user mode enabled.
-    pub fn select_for_all_users(&mut self, users: &[User]) {
+    pub fn select_for_all_users(&mut self, users: &[User], expert_mode: bool) {
         for selection in self.selected_packages.clone() {
-            self.toggle_for_users(users, selection, true);
+            self.toggle_for_users(users, selection, true, expert_mode);
         }
     }
 
     /// Select or deselect the package of `selection` for `users`.
-    fn toggle_for_users(&mut self, users: &[User], selection: (usize, usize), toggle: bool) {
+    fn toggle_for_users(
+        &mut self,
+        users: &[User],
+        selection: (usize, usize),
+        toggle: bool,
+        expert_mode: bool,
+    ) {
         for u in users.iter().filter(|u| !u.protected) {
             let Some(i_package) = same_package(&self.phone_packages, selection, u.index) else {
                 continue;
             };
-            self.phone_packages[u.index][i_package].selected = toggle;
+            let row = &mut self.phone_packages[u.index][i_package];
+            let toggle = toggle && (expert_mode || !needs_expert_mode(row));
+            row.selected = toggle;
             if !toggle {
                 self.selected_packages
                     .retain(|&x| x != (u.index, i_package));
@@ -1364,9 +1396,13 @@ fn plan_pkg_action(
     packages: &[Vec<PackageRow>],
     device: &Phone,
     settings: &DeviceSettings,
+    expert_mode: bool,
     selection: (usize, usize),
 ) -> Vec<(PackageInfo, Vec<String>)> {
     let pkg = &packages[selection.0][selection.1];
+    if needs_expert_mode(pkg) && !expert_mode {
+        return Vec::new();
+    }
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
     let mut plan = vec![];
@@ -1379,10 +1415,14 @@ fn plan_pkg_action(
             continue;
         };
         let u_pkg = &packages[u.index][index];
+        if u_pkg.removal == Removal::Unsafe && wanted_state != PackageState::Enabled && !expert_mode
+        {
+            continue;
+        }
         let p_info = PackageInfo {
             i_user: u.index,
             index,
-            removal: pkg.removal.to_string(),
+            allow_removal: expert_mode || u_pkg.removal != Removal::Unsafe,
             device: device.clone(),
             user: *u,
             name: u_pkg.name.clone(),
@@ -1489,6 +1529,10 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
             )
         });
         return Ok(());
+    }
+    // Recovery starts by removing or disabling the package, unless it is already uninstalled.
+    if !info.allow_removal && actual != PackageState::Uninstalled {
+        return Err("Recovery would require removing an Unsafe package.".into());
     }
     let pkg = CorePackage {
         name: info.name.clone(),
@@ -1639,6 +1683,7 @@ mod tests {
             &view.phone_packages,
             &two_users(),
             &settings(false),
+            false,
             selection,
         );
         VerifyAndFallbackResult {
@@ -1686,7 +1731,7 @@ mod tests {
     #[test]
     fn multi_user_mode_selects_the_same_packages_for_every_user() {
         let mut view = view_with_selection();
-        view.select_for_all_users(&two_users().user_list);
+        view.select_for_all_users(&two_users().user_list, false);
         let selected: Vec<bool> = view.phone_packages[1].iter().map(|p| p.selected).collect();
         assert_eq!(selected, [false, true, true]);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 1), (1, 2)]);
@@ -1724,13 +1769,13 @@ mod tests {
     fn apply_runs_each_package_once_from_the_reviewed_user() {
         let mut view = view_with_selection();
         let phone = two_users();
-        view.select_for_all_users(&phone.user_list);
+        view.select_for_all_users(&phone.user_list, false);
         // The second package is already uninstalled for the work profile.
         view.phone_packages[1][1].state = PackageState::Uninstalled;
 
         // The owner is under review: uninstall the second package for the owner only,
         // and the third one for both users.
-        let commands = view.apply_selection(&phone, &settings(true));
+        let commands = view.apply_selection(&phone, &settings(true), false);
         assert_eq!(commands.len(), 3);
         // A package stays selected until its own action succeeds.
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 2)]);
@@ -1746,11 +1791,16 @@ mod tests {
 
         // Whether it comes from the review or from the button of a row,
         // multi-user mode extends the action to every user.
-        let plan: Vec<_> =
-            plan_pkg_action(&view.phone_packages, &two_users(), &settings(true), (0, 1))
-                .into_iter()
-                .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
-                .collect();
+        let plan: Vec<_> = plan_pkg_action(
+            &view.phone_packages,
+            &two_users(),
+            &settings(true),
+            false,
+            (0, 1),
+        )
+        .into_iter()
+        .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
+        .collect();
         assert_eq!(
             plan,
             [
@@ -1777,16 +1827,16 @@ mod tests {
         // The work profile does not list the first package: its rows are shifted.
         view.phone_packages[1].remove(0);
 
-        view.select_for_all_users(&phone.user_list);
+        view.select_for_all_users(&phone.user_list, false);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 0), (1, 1)]);
 
         // Deselecting the second package deselects it for the work profile too.
-        view.toggle_for_users(&phone.user_list, (0, 1), false);
+        view.toggle_for_users(&phone.user_list, (0, 1), false, false);
         assert_eq!(view.selected_packages, [(0, 2), (1, 1)]);
         assert!(!view.phone_packages[1][0].selected);
 
         // The third package is uninstalled for both users.
-        let commands = view.apply_selection(&phone, &settings(true));
+        let commands = view.apply_selection(&phone, &settings(true), false);
         assert_eq!(commands.len(), 2);
     }
 
@@ -1799,7 +1849,7 @@ mod tests {
                 view.phone_packages[1][i_package].selected = true;
                 view.selected_packages.push((1, i_package));
             }
-            let commands = view.apply_selection(&two_users(), &settings(multi_user_mode));
+            let commands = view.apply_selection(&two_users(), &settings(multi_user_mode), false);
             (commands.len(), view.selected_packages)
         };
         let selection = vec![(0, 1), (0, 2), (1, 0), (1, 1)];
@@ -1827,6 +1877,35 @@ mod tests {
         let _ = view.on_apply_filters("previous-device", vec![vec![]], &two_users());
         assert_eq!(view.phone_packages[0].len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+    }
+
+    #[test]
+    fn review_cannot_turn_an_unsafe_restore_into_a_removal() {
+        let mut view = view_with_selection();
+        let phone = two_users();
+        for rows in &mut view.phone_packages {
+            rows[0].removal = Removal::Unsafe;
+        }
+        view.phone_packages[0][0].state = PackageState::Disabled;
+        view.toggle_selection(&phone.user_list, 0, true, false, true);
+        view.select_for_all_users(&phone.user_list, false);
+        assert!(view.phone_packages[0][0].selected);
+        assert!(!view.phone_packages[1][0].selected);
+        // Apply also checks the action in case the selection outlived a state change.
+        assert!(
+            plan_pkg_action(&view.phone_packages, &phone, &settings(true), false, (1, 0))
+                .is_empty()
+        );
+        assert_eq!(
+            view.run_pkg_action(&phone, &settings(true), false, (0, 0))
+                .len(),
+            1
+        );
+        assert_eq!(
+            view.run_pkg_action(&phone, &settings(true), true, (1, 0))
+                .len(),
+            2
+        );
     }
 
     #[test]
