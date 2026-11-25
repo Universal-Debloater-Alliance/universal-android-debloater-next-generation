@@ -101,7 +101,7 @@ enum Commands {
         dry_run: bool,
     },
 
-    /// Disable packages (keeps data but prevents execution)
+    /// Disable packages (clears their data and prevents execution)
     Disable {
         /// Package names to disable
         packages: Vec<String>,
