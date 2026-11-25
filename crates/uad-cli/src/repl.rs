@@ -3,7 +3,7 @@ use rustyline::error::ReadlineError;
 use std::collections::HashMap;
 use std::io::Write;
 use uad_core::adb::ACommand;
-use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, get_package_state};
+use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, query_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
 use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
@@ -272,7 +272,7 @@ fn handle_info_command(
         println!("  Not found in UAD lists (unlisted package)");
     }
 
-    let state = get_package_state(&device.adb_id, package, Some(user_id))
+    let state = query_package_state(&device.adb_id, package, Some(user_id))?
         .ok_or("Package not found on device")?;
     println!("  State:       {}", state);
 
@@ -312,7 +312,7 @@ fn process_package_change(
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state = get_package_state(&device.adb_id, pkg_name, Some(user.id))
+    let current_state = query_package_state(&device.adb_id, pkg_name, Some(user.id))?
         .ok_or("Package not found on device")?;
 
     println!("{} {} (current: {})", action_name, pkg_name, current_state);

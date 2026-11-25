@@ -4,7 +4,7 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PmListPacksFlag};
 use uad_core::sync::{
-    CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, get_package_state,
+    CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, query_package_state,
     run_adb_shell_action,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
@@ -163,20 +163,18 @@ pub fn display_package_list(
     let config = context.display_config();
     let mut displayed_count = 0;
 
-    let enabled_packages: HashSet<String> = ACommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
-    let disabled_packages: HashSet<String> = ACommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
+    // Without both lists, installed packages would be shown as uninstalled.
+    let list = |flag| {
+        ACommand::new()
+            .shell(device_serial)
+            .pm()
+            .list_packages_sys(Some(flag), user_id)
+            .map_err(|e| format!("Could not list the packages: {e}"))
+    };
+    let enabled_packages: HashSet<String> =
+        list(PmListPacksFlag::OnlyEnabled)?.into_iter().collect();
+    let disabled_packages: HashSet<String> =
+        list(PmListPacksFlag::OnlyDisabled)?.into_iter().collect();
 
     for pkg_name in packages {
         let pkg_info = uad_lists.get(pkg_name);
@@ -298,7 +296,7 @@ fn process_package_state_change(
     dry_run: bool,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state = get_package_state(&device.adb_id, pkg_name, Some(user.id))
+    let current_state = query_package_state(&device.adb_id, pkg_name, Some(user.id))?
         .ok_or("Package not found on device")?;
 
     println!("  {} ({})", pkg_name, current_state);
@@ -382,7 +380,10 @@ pub fn execute_with_fallback(
     }
 
     // Verify package state and attempt fallback if needed
-    let actual_state = match get_package_state(&device.adb_id, package, Some(user.id)) {
+    // A failed query does not mean that the package is uninstalled.
+    let actual_state = match query_package_state(&device.adb_id, package, Some(user.id))
+        .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
+    {
         Some(state) => state,
         None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
         None => {
@@ -454,7 +455,7 @@ pub fn show_package_info(
         println!("Device: {} ({})", target_device.model, target_device.adb_id);
         println!("User:   {}", user.id);
 
-        let state = get_package_state(&target_device.adb_id, package, Some(user.id))
+        let state = query_package_state(&target_device.adb_id, package, Some(user.id))?
             .ok_or("Package not found on device")?;
         println!("  State: {}", state);
     }
