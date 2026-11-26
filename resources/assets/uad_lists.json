@@ -22649,8 +22649,8 @@
     "labels": []
   },
   "com.heytap.colorfulengine": {
-    "description": "Useless frameworks for theming. Maybe needed for premium",
-    "removal": "Recommended",
+    "description": "Theming and wallpaper engine. Removing it can break Wallpaper & style Apply action.",
+    "removal": "Advanced",
     "list": "Oem",
     "dependencies": [],
     "neededBy": [],
