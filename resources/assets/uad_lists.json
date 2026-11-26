@@ -43413,5 +43413,29 @@
     "neededBy": [],
     "labels": [],
     "removal": "Recommended"
+  },
+  "com.samsung.android.agent.storage": {
+    "list": "Oem",
+    "description": "Samsung component used to synchronize the Samsung Gallery with Google Photos.\nRemoving it disables the Gallery sync option in Settings and prevents automatic synchronization and backup of photos and videos to Google Photos.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.drivingplus": {
+    "list": "Oem",
+    "description": "Samsung feature that tracks driving activity and generates driving reports.\nIt can automatically detect trips via Bluetooth, record routes using GPS, analyze driving habits, measure phone usage during trips, and display statistics, maps, and trip history.\nData is stored locally on the device and does not appear to be sent to external services.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
+  },
+  "com.samsung.android.warrantycare": {
+    "list": "Oem",
+    "description": "Provides access to warranty information, Samsung Care+, repairs, and device support services. It displays warranty status, support resources, service history, and device care options.",
+    "dependencies": [],
+    "neededBy": [],
+    "labels": [],
+    "removal": "Recommended"
   }
 }
