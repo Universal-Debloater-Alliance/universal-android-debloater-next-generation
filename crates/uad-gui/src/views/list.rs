@@ -1541,7 +1541,8 @@ fn add_note(result: &mut VerifyAndFallbackResult, note: String) {
 
 fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
     use uad_core::sync::{
-        CorePackage, attempt_fallback, detect_cross_user_behavior, query_package_state,
+        CorePackage, detect_cross_user_behavior, query_package_state, run_fallback_commands,
+        verify_fallback_state,
     };
 
     let info = &result.info;
@@ -1581,21 +1582,12 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
         state: actual,
         list: UadList::Unlisted,
     };
-    let fallback = attempt_fallback(&pkg, info.wanted_state, actual, info.user, &info.device);
+    let fallback = run_fallback_commands(&pkg, info.wanted_state, actual, info.user, &info.device);
     // Even a failed recovery can have changed the package.
     let confirmed = read_state()?;
     result.new_state = Some(confirmed);
-    let action = fallback?;
-    let expected = match (info.wanted_state, actual) {
-        (PackageState::Uninstalled, PackageState::Enabled) => PackageState::Disabled,
-        (PackageState::Disabled, PackageState::Enabled) => PackageState::Uninstalled,
-        _ => info.wanted_state,
-    };
-    if confirmed != expected {
-        return Err(format!(
-            "After recovery, expected {expected:?} but found {confirmed:?}."
-        ));
-    }
+    let (expected, action) = fallback?;
+    verify_fallback_state(expected, confirmed)?;
     let note = format!(
         "Package '{}' was {} but {} instead. Fallback: {action}",
         info.name,

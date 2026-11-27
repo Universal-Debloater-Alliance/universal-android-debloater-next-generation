@@ -626,14 +626,10 @@ fn package_with_state(package: &CorePackage, state: PackageState) -> CorePackage
 
 /// Executes the first available command and returns the result.
 fn execute_first_command(commands: &[String], phone: &Phone) -> Result<(), String> {
-    if commands.is_empty() {
-        return Err("No command available".to_string());
-    }
-    AdbCommand::new()
-        .shell(&phone.adb_id)
-        .raw(&commands[0])
+    let command = commands.first().ok_or("No command available")?;
+    run_adb_shell_action(&phone.adb_id, command)
         .map(|_| ())
-        .map_err(|err| err.clone())
+        .map_err(|AdbError::Generic(error)| error)
 }
 
 /// Attempt fallback action when package state verification fails
@@ -644,14 +640,46 @@ pub fn attempt_fallback(
     user: User,
     phone: &Phone,
 ) -> Result<String, String> {
+    let (expected, message) =
+        run_fallback_commands(package, wanted_state, actual_state, user, phone)?;
+    let confirmed = query_package_state(&phone.adb_id, &package.name, Some(user.id))?
+        .unwrap_or(PackageState::Uninstalled);
+    verify_fallback_state(expected, confirmed)?;
+    Ok(message.to_owned())
+}
+
+pub fn verify_fallback_state(
+    expected: PackageState,
+    confirmed: PackageState,
+) -> Result<(), String> {
+    if confirmed == expected {
+        Ok(())
+    } else {
+        Err(format!(
+            "After recovery, expected {expected:?} but found {confirmed:?}."
+        ))
+    }
+}
+
+/// Run the recovery commands and return the state the caller must verify.
+pub fn run_fallback_commands(
+    package: &CorePackage,
+    wanted_state: PackageState,
+    actual_state: PackageState,
+    user: User,
+    phone: &Phone,
+) -> Result<(PackageState, &'static str), String> {
     match (wanted_state, actual_state) {
         // Case 1: Tried to uninstall but package was reinstalled -> disable it
         (PackageState::Uninstalled, PackageState::Enabled) => {
             let pkg = package_with_state(package, PackageState::Enabled);
             let commands = apply_pkg_state_commands(&pkg, PackageState::Disabled, user, phone);
             execute_first_command(&commands, phone)
-                .map(|()| "disabled package instead of uninstalling".to_string())
-                .map_err(|e| format!("Failed to disable package: {e}"))
+                .map_err(|e| format!("Failed to disable package: {e}"))?;
+            Ok((
+                PackageState::Disabled,
+                "disabled package instead of uninstalling",
+            ))
         }
 
         // Case 2: Tried to disable but package re-enabled itself -> try uninstall
@@ -661,13 +689,10 @@ pub fn attempt_fallback(
             execute_first_command(&commands, phone)
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
-            // Verify the package was actually uninstalled
-            match query_package_state(&phone.adb_id, &package.name, Some(user.id))? {
-                Some(PackageState::Uninstalled) | None => {
-                    Ok("uninstalled package instead of disabling".to_string())
-                }
-                _ => Err("Package still exists after uninstall attempt".to_string()),
-            }
+            Ok((
+                PackageState::Uninstalled,
+                "uninstalled package instead of disabling",
+            ))
         }
 
         // Case 3: Tried to enable but package was disabled -> try uninstall then reinstall
@@ -684,12 +709,15 @@ pub fn attempt_fallback(
                 apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone);
 
             if enable_cmds.is_empty() {
-                return Ok("uninstalled package but couldn't reinstall".to_string());
+                return Err("uninstalled package but couldn't reinstall".to_string());
             }
 
             execute_first_command(&enable_cmds, phone)
-                .map(|()| "uninstalled and reinstalled package to enable it".to_string())
-                .map_err(|e| format!("Failed to reinstall package: {e}"))
+                .map_err(|e| format!("Failed to reinstall package: {e}"))?;
+            Ok((
+                PackageState::Enabled,
+                "uninstalled and reinstalled package to enable it",
+            ))
         }
 
         // Other cases - no fallback available

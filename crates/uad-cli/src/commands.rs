@@ -401,13 +401,9 @@ pub fn execute_with_fallback(
         );
 
         // Attempt fallback
-        if let Ok(fallback_action) =
-            uad_core::sync::attempt_fallback(core_pkg, target_state, actual_state, user, device)
-        {
-            println!("{}↻ Fallback: {}", indent, fallback_action);
-        } else {
-            println!("{}✗ No fallback available", indent);
-        }
+        let fallback_action =
+            uad_core::sync::attempt_fallback(core_pkg, target_state, actual_state, user, device)?;
+        println!("{}↻ Fallback: {}", indent, fallback_action);
     }
 
     // Check for cross-user behavior if operation succeeded
