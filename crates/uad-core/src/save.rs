@@ -4,6 +4,7 @@ use crate::utils::DisplayablePath;
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
 use std::{
+    collections::HashMap,
     fs,
     path::{Path, PathBuf},
 };
@@ -104,6 +105,20 @@ pub fn restore_backup(
     packages: &[Vec<CorePackage>],
     settings: &DeviceSettings,
 ) -> Result<RestoreResult, String> {
+    restore_backup_with_errors(
+        selected_device,
+        packages,
+        settings,
+        &HashMap::<usize, String>::new(),
+    )
+}
+
+pub fn restore_backup_with_errors(
+    selected_device: &Phone,
+    packages: &[Vec<CorePackage>],
+    settings: &DeviceSettings,
+    inventory_errors: &HashMap<usize, String, impl std::hash::BuildHasher>,
+) -> Result<RestoreResult, String> {
     match fs::read_to_string(
         settings
             .backup
@@ -120,14 +135,23 @@ pub fn restore_backup(
             let mut commands = vec![];
             let mut skipped_packages = 0;
             for u in phone_backup.users {
+                if u.packages.is_empty() {
+                    continue;
+                }
                 let user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
                     Some(user) => *user,
                     None => return Err(format!("user {} doesn't exist", u.id)),
                 };
 
-                let user_packages = packages
-                    .get(user.index)
-                    .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
+                if let Some(error) = inventory_errors.get(&user.index) {
+                    return Err(format!(
+                        "Could not read {user}: {error}. Refresh the device and retry the restore."
+                    ));
+                }
+
+                let user_packages = user.packages(packages).map_err(|error| {
+                    format!("{error}. Refresh the device and retry the restore.")
+                })?;
                 for backup_package in &u.packages {
                     // The GUI updates the live device list using this index.
                     let Some((i, package)) = user_packages
@@ -222,6 +246,11 @@ mod tests {
                         package("com.example.uninstalled", PackageState::Disabled),
                     ],
                 },
+                // A protected profile saved no packages and has since been removed.
+                UserBackup {
+                    id: 11,
+                    packages: Vec::new(),
+                },
             ],
         };
         fs::write(&path, serde_json::to_vec(&backup).unwrap()).unwrap();
@@ -246,6 +275,12 @@ mod tests {
                 package("com.example.uninstalled", PackageState::Uninstalled),
             ],
         ];
+        let errors = HashMap::from([(work.index, "device offline".to_owned())]);
+        let error = restore_backup_with_errors(&phone, &packages, &settings, &errors).unwrap_err();
+        assert!(error.contains("user 10") && error.contains("device offline"));
+        let empty_work = [packages[0].clone(), vec![]];
+        let empty_error = restore_backup(&phone, &empty_work, &settings).unwrap_err();
+        assert!(empty_error.contains("user 10") && empty_error.contains("Refresh"));
         let result = restore_backup(&phone, &packages, &settings).unwrap();
         let actions: Vec<_> = result
             .packages

@@ -11,7 +11,7 @@ use log::{debug, error, info};
 use std::{collections::HashMap, path::PathBuf};
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, device_backup_dir, list_available_backups, restore_backup},
+    save::{backup_phone, device_backup_dir, list_available_backups, restore_backup_with_errors},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, profile_access_denied,
         query_package_state, run_adb_shell_action, supports_disabling, supports_multi_user,
@@ -124,7 +124,7 @@ impl Settings {
                 self.handle_device_backed_up(&serial, phone, result)
             }
             Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
-            Message::RestoreDevice => self.handle_restore_device(phone, &apps.phone_packages),
+            Message::RestoreDevice => self.handle_restore_device(phone, apps),
             Message::RestorePackageFinished(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
@@ -278,16 +278,18 @@ impl Settings {
         Task::none()
     }
 
-    fn handle_restore_device(
-        &mut self,
-        phone: &Phone,
-        packages: &[Vec<PackageRow>],
-    ) -> Task<Message> {
+    fn handle_restore_device(&mut self, phone: &Phone, apps: &AppsView) -> Task<Message> {
+        let packages = &apps.phone_packages;
         let core_packages: Vec<Vec<_>> = packages
             .iter()
             .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
             .collect();
-        match restore_backup(phone, &core_packages, &self.device) {
+        match restore_backup_with_errors(
+            phone,
+            &core_packages,
+            &self.device,
+            &apps.inventory_errors,
+        ) {
             Ok(restore_result) => {
                 let mut commands = vec![];
                 for package in restore_result.packages {
@@ -901,7 +903,7 @@ mod tests {
         settings.device.backup.selected = Some(DisplayablePath {
             path: dir.path().join("missing.json"),
         });
-        let _ = settings.handle_restore_device(&phone("A"), &[]);
+        let _ = settings.handle_restore_device(&phone("A"), &AppsView::default());
         let error = settings.device.backup.backup_state.clone();
         assert!(!error.starts_with("Restore finished"));
         settings.load_device_settings(&phone("A"), &config);
