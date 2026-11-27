@@ -395,6 +395,32 @@ mod tests {
     }
 
     #[test]
+    fn restoring_a_blocked_package_preserves_its_data() {
+        let backup = PhoneBackup {
+            device_id: "test".into(),
+            users: vec![UserBackup {
+                id: 0,
+                packages: vec![package("com.example.app", PackageState::Enabled)],
+            }],
+        };
+        for sdk in [19, 20] {
+            let phone = Phone {
+                android_sdk: sdk,
+                user_list: vec![User::default()],
+                ..Phone::default()
+            };
+            let plan = backup
+                .clone()
+                .plan_restore(&phone, |_, user_id| {
+                    assert!(user_id.is_none());
+                    Ok(vec![package("com.example.app", PackageState::Uninstalled)])
+                })
+                .unwrap();
+            assert_eq!(plan.packages[0].commands, ["pm unblock com.example.app"]);
+        }
+    }
+
+    #[test]
     fn malformed_backup_and_missing_selection_return_errors() {
         let dir = tempdir().unwrap();
         let path = dir.path().join("backup.json");

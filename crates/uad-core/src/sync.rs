@@ -310,7 +310,7 @@ pub(crate) fn commands_for_user(
             PackageState::Uninstalled => match phone.android_sdk {
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
-                19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
+                19 | 20 => vec!["pm unblock"],
                 sdk => return Err(format!("Cannot reinstall a package on Android SDK {sdk}.")),
             },
             _ => vec![],
