@@ -769,6 +769,23 @@ pub fn run_fallback_commands(
                 return Err("No command available to reinstall the package".to_string());
             }
 
+            if phone.android_sdk >= 23 {
+                // Some devices lack install-existing, and older versions omit it from help.
+                // With no package argument, Android validates the command without changing a package.
+                let probe = format!("cmd package install-existing --user {}", user.id);
+                let reply = match AdbCommand::new().shell(&phone.adb_id).raw(&probe) {
+                    Ok(reply) | Err(reply) => reply,
+                };
+                if !reply
+                    .trim()
+                    .eq_ignore_ascii_case("Error: package name not specified")
+                {
+                    return Err(format!(
+                        "Cannot confirm install-existing support for {user}. Skipping uninstall. {reply}"
+                    ));
+                }
+            }
+
             execute_first_command(&uninstall_cmds, phone)
                 .map_err(|e| format!("Failed to uninstall for reinstall: {e}"))?;
             execute_first_command(&enable_cmds, phone)
