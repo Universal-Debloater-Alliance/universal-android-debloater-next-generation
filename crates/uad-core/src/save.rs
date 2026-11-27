@@ -1,7 +1,7 @@
 use crate::config::DeviceSettings;
 use crate::sync::{CorePackage, Phone, User, commands_for_user};
 use crate::utils::{DisplayablePath, try_fetch_packages};
-use log::{error, info, warn};
+use log::{info, warn};
 use serde::{Deserialize, Serialize};
 use std::{
     collections::HashMap,
@@ -39,7 +39,7 @@ pub fn backup_phone(
     users: Vec<User>,
     device_id: String,
     phone_packages: &[Vec<CorePackage>],
-) -> Result<bool, String> {
+) -> Result<PathBuf, String> {
     let backup_path = device_backup_dir(backup_dir, &device_id);
     let mut backup = PhoneBackup {
         device_id,
@@ -57,23 +57,12 @@ pub fn backup_phone(
         });
     }
 
-    match serde_json::to_string_pretty(&backup) {
-        Ok(json) => {
-            if let Err(e) = fs::create_dir_all(&backup_path) {
-                error!("BACKUP: could not create backup dir: {e}");
-                return Err(e.to_string());
-            }
-
-            let backup_filename =
-                format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
-
-            match fs::write(backup_path.join(backup_filename), json) {
-                Ok(()) => Ok(true),
-                Err(err) => Err(err.to_string()),
-            }
-        }
-        Err(err) => Err(err.to_string()),
-    }
+    let json = serde_json::to_string_pretty(&backup).map_err(|error| error.to_string())?;
+    fs::create_dir_all(&backup_path).map_err(|error| error.to_string())?;
+    let filename = format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
+    let path = backup_path.join(filename);
+    fs::write(&path, json).map_err(|error| error.to_string())?;
+    Ok(path)
 }
 
 pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
@@ -395,9 +384,10 @@ mod tests {
         assert!(backup_phone(dir.path(), users.clone(), serial.to_string(), &[vec![]]).is_err());
         assert_eq!(fs::read_dir(dir.path()).unwrap().count(), 0);
 
-        backup_phone(dir.path(), users, serial.to_string(), &packages).unwrap();
+        let written = backup_phone(dir.path(), users, serial.to_string(), &packages).unwrap();
         let backups = list_available_backups(&device_backup_dir(dir.path(), serial));
         assert_eq!(backups.len(), 1);
+        assert_eq!(backups[0].path, written);
         let saved: PhoneBackup =
             serde_json::from_slice(&fs::read(&backups[0].path).unwrap()).unwrap();
         assert_eq!(saved.device_id, serial);

@@ -76,7 +76,7 @@ pub enum Message {
     /// Name of the restored package, or why it failed
     RestorePackageFinished(Result<String, String>),
     RestorePlanned(Phone, Result<RestoreResult, String>),
-    DeviceBackedUp(String, Result<bool, String>),
+    DeviceBackedUp(String, Result<PathBuf, String>),
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
     ExportPackages,
@@ -256,10 +256,10 @@ impl Settings {
         &mut self,
         serial: &str,
         phone: &Phone,
-        result: Result<bool, String>,
+        result: Result<PathBuf, String>,
     ) -> Task<Message> {
         match result {
-            Ok(_) => {
+            Ok(path) => {
                 info!("[BACKUP] Backup successfully created for {serial}");
                 if phone.adb_id != serial {
                     return Task::none();
@@ -269,7 +269,17 @@ impl Settings {
                     &self.general.backup_folder,
                     &phone.adb_id,
                 ));
-                self.device.backup.selected = self.device.backup.backups.first().cloned();
+                let backup = &mut self.device.backup;
+                let written = DisplayablePath { path };
+                if backup.backups.contains(&written) {
+                    backup.selected = Some(written);
+                } else if !backup
+                    .selected
+                    .as_ref()
+                    .is_some_and(|file| backup.backups.contains(file))
+                {
+                    backup.selected = backup.backups.first().cloned();
+                }
             }
             Err(err) => {
                 error!("[BACKUP FAILED] Backup creation failed for {serial}: {err:?}");
@@ -957,7 +967,7 @@ mod tests {
         let _ = settings.handle_backup_selected(chosen.clone());
         settings.backup_error = "B's previous error".into();
 
-        for result in [Ok(true), Err("A is offline".into())] {
+        for result in [Ok(backups.join("from-A.json")), Err("A is offline".into())] {
             let _ = settings.update(
                 &b,
                 &AppsView::default(),
@@ -969,6 +979,21 @@ mod tests {
     }
 
     #[test]
+    fn a_backup_from_another_folder_keeps_the_current_folders_selection() {
+        let dirs = [tempfile::tempdir().unwrap(), tempfile::tempdir().unwrap()];
+        let mut settings = Settings::default();
+        let file = |i: usize| device_backup_dir(dirs[i].path(), "A").join("same.json");
+        for i in [0, 1] {
+            std::fs::create_dir(file(i).parent().unwrap()).unwrap();
+            std::fs::write(file(i), "{}").unwrap();
+        }
+        settings.general.backup_folder = dirs[1].path().into();
+        settings.load_device_settings(&phone("A"), &Config::default());
+        let _ = settings.handle_device_backed_up("A", &phone("A"), Ok(file(0)));
+        assert_eq!(settings.device.backup.selected.unwrap().path, file(1));
+    }
+
+    #[test]
     fn a_failed_backup_is_shown_until_the_next_one() {
         let dir = tempfile::tempdir().unwrap();
         let mut settings = Settings::default();
@@ -976,7 +1001,14 @@ mod tests {
         let error = "The packages of user 10 could not be read".to_string();
         let _ = settings.handle_device_backed_up("A", &phone("A"), Err(error.clone()));
         assert_eq!(settings.backup_error, error);
-        let _ = settings.handle_device_backed_up("A", &phone("A"), Ok(true));
+        let written = device_backup_dir(dir.path(), "A").join("new.json");
+        std::fs::create_dir(written.parent().unwrap()).unwrap();
+        std::fs::write(&written, "{}").unwrap();
+        let _ = settings.handle_device_backed_up("A", &phone("A"), Ok(written.clone()));
+        assert_eq!(
+            settings.device.backup.selected.as_ref().unwrap().path,
+            written
+        );
         assert_eq!(settings.backup_error, "");
     }
 }
