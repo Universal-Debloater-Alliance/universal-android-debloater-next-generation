@@ -39,7 +39,11 @@ pub fn nav_menu<'a>(
     .style(style::Container::Tooltip)
     .gap(4);
 
-    let reboot_btn = button_primary("Reboot").on_press(Message::RebootButtonPressed);
+    let reboot_btn = button_primary("Reboot").on_press_maybe(
+        selected_device
+            .as_ref()
+            .map(|_| Message::RebootButtonPressed),
+    );
 
     let reboot_btn = tooltip(
         reboot_btn,

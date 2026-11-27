@@ -224,16 +224,14 @@ impl UadGui {
                 })
             }
             Message::RebootButtonPressed => {
+                let Some(phone) = self.selected_device.take() else {
+                    return Task::none();
+                };
                 self.discovery_id += 1;
                 self.apps_view.reset_inventory();
-                let serial = match &self.selected_device {
-                    Some(d) => d.adb_id.clone(),
-                    _ => String::default(),
-                };
-                self.selected_device = None;
-                self.devices_list = vec![];
+                self.devices_list.clear();
                 Task::perform(
-                    async { adb::ACommand::new().shell(serial).reboot() },
+                    async move { adb::ACommand::new().shell(phone.adb_id).reboot() },
                     |_| Message::Nothing,
                 )
             }
@@ -581,6 +579,16 @@ mod tests {
                 .units(),
             1
         );
+    }
+
+    #[test]
+    fn reboot_requires_a_selected_phone() {
+        let mut gui = UadGui::default();
+        gui.devices_list.push(phone("B"));
+        assert_eq!(gui.update(Message::RebootButtonPressed).units(), 0);
+        assert_eq!(gui.devices_list[0].adb_id, "B");
+        gui.selected_device = Some(phone("B"));
+        assert_eq!(gui.update(Message::RebootButtonPressed).units(), 1);
     }
 
     #[test]
