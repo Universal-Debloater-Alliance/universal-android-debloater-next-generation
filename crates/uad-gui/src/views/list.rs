@@ -58,7 +58,10 @@ pub struct List {
     pub(crate) load_id: u64,
     loaded_serial: Option<String>,
     pub(crate) inventory_errors: HashMap<usize, String>,
-    /// An action finished while the packages were being read
+    pending_actions: HashMap<String, usize>,
+    /// Keep filters and eligible selections during the same-phone Settings reread.
+    preserve_selection: bool,
+    /// An action on this phone finished since the last inventory read started.
     reread_packages: bool,
     pub uad_lists: PackageHashMap,
     /// packages of all users of the phone
@@ -169,9 +172,12 @@ impl List {
             Message::LoadPhonePackages(_, payload) => {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
-            Message::ApplyFilters(_, serial, packages) => {
-                self.on_apply_filters(&serial, packages, selected_device)
-            }
+            Message::ApplyFilters(_, serial, packages) => self.on_apply_filters(
+                &serial,
+                packages,
+                selected_device,
+                settings.general.expert_mode,
+            ),
             Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
             Message::ToggleAllSelected(selected) => {
                 self.on_toggle_all_selected(selected, settings, selected_device, list_update_state)
@@ -207,6 +213,17 @@ impl List {
         result: VerifyAndFallbackResult,
         selected_device: &Phone,
     ) -> Task<Message> {
+        let serial = &result.info.device.adb_id;
+        if let Some(count) = self.pending_actions.get_mut(serial) {
+            *count -= 1;
+            if *count == 0 {
+                self.pending_actions.remove(serial);
+            }
+        }
+        // ADB can lose the reply after the phone has applied the command.
+        if selected_device.adb_id == *serial {
+            self.reread_packages = true;
+        }
         if let Some(notification) = result.notification {
             self.fallback_notifications.push(notification);
         }
@@ -223,12 +240,6 @@ impl List {
                 self.selected_packages.retain(|&x| x != (i_user, index));
             }
             Self::filter_package_lists(self);
-        } else if result.ran
-            && selected_device.adb_id == result.info.device.adb_id
-            && matches!(self.loading_state, LoadingState::LoadingPackages)
-        {
-            // The packages being read may still have the state from before the action.
-            self.reread_packages = true;
         }
         Task::none()
     }
@@ -934,13 +945,21 @@ impl List {
                     .retain(|&x| x != (p_info.i_user, p_info.index));
             }
         }
-        pkg_action_tasks(plan)
+        let tasks = pkg_action_tasks(plan);
+        if !tasks.is_empty() {
+            *self
+                .pending_actions
+                .entry(device.adb_id.clone())
+                .or_default() += tasks.len();
+        }
+        tasks
     }
 
     pub(crate) fn reset_inventory(&mut self) {
         *self = Self {
             load_id: self.load_id + 1,
             is_adb_satisfied: self.is_adb_satisfied,
+            pending_actions: std::mem::take(&mut self.pending_actions),
             uad_lists: std::mem::take(&mut self.uad_lists),
             ..Self::default()
         };
@@ -948,6 +967,28 @@ impl List {
 
     pub(crate) fn inventory_ready(&self, phone: &Phone) -> bool {
         !phone.adb_id.is_empty() && self.loaded_serial.as_ref() == Some(&phone.adb_id)
+    }
+
+    pub(crate) fn can_plan_restore(&self, phone: &Phone) -> bool {
+        self.inventory_ready(phone)
+            && !self.reread_packages
+            && !self.pending_actions.contains_key(&phone.adb_id)
+    }
+
+    /// Re-read once after the last action, when settings needs the inventory.
+    pub(crate) fn refresh_for_settings(&mut self, phone: &Phone) -> Task<Message> {
+        if self.reread_packages
+            && self.inventory_ready(phone)
+            && !self.pending_actions.contains_key(&phone.adb_id)
+        {
+            self.preserve_selection = true;
+            self.loaded_serial = None;
+            self.load_id += 1;
+            self.loading_state = LoadingState::LoadingPackages;
+            self.read_packages(phone)
+        } else {
+            Task::none()
+        }
     }
 
     pub(crate) fn load_uad_list(&mut self, remote: bool, selected_device: &Phone) -> Task<Message> {
@@ -958,6 +999,7 @@ impl List {
         );
         info!("{:-^65}", "-");
         self.loaded_serial = None;
+        self.preserve_selection = false;
         self.loading_state = LoadingState::DownloadingList;
         self.load_id += 1;
         let id = self.load_id;
@@ -982,7 +1024,8 @@ impl List {
     }
 
     /// Read the packages of the device in the background.
-    fn read_packages(&self, selected_device: &Phone) -> Task<Message> {
+    fn read_packages(&mut self, selected_device: &Phone) -> Task<Message> {
+        self.reread_packages = false;
         let id = self.load_id;
         let uad_list = self.uad_lists.clone();
         let device_serial = selected_device.adb_id.clone();
@@ -1001,17 +1044,19 @@ impl List {
         device_serial: &str,
         packages: Vec<Result<Vec<PackageRow>, String>>,
         selected_device: &Phone,
+        expert_mode: bool,
     ) -> Task<Message> {
         // Another device was selected while these packages were loading.
         if device_serial != selected_device.adb_id {
             return Task::none();
         }
         // These packages may have been read before an action that finished since.
-        if std::mem::take(&mut self.reread_packages) {
+        if self.reread_packages {
             return self.read_packages(selected_device);
         }
         self.loaded_serial = Some(device_serial.to_owned());
         self.inventory_errors.clear();
+        let old_packages = std::mem::take(&mut self.phone_packages);
         self.phone_packages = packages
             .into_iter()
             .enumerate()
@@ -1025,14 +1070,57 @@ impl List {
                 })
             })
             .collect();
-        // The selection refers to rows of the previous list.
         self.selected_packages.clear();
-        self.all_selected = false;
-        self.selected_removal = Some(Removal::Recommended);
-        self.selected_package_state = Some(PackageState::Enabled);
-        self.selected_list = Some(UadList::All);
-        self.selected_user = Some(User::default());
+        let keep_filters = std::mem::take(&mut self.preserve_selection);
+        if keep_filters {
+            // A Settings reread keeps the same user list. Take the latest selections
+            // from each user's old rows, including changes made while the read ran.
+            for user in selected_device
+                .user_list
+                .iter()
+                .filter(|user| !user.protected)
+            {
+                if let (Some(old_rows), Some(rows)) = (
+                    old_packages.get(user.index),
+                    self.phone_packages.get_mut(user.index),
+                ) {
+                    let selected: HashMap<_, _> = old_rows
+                        .iter()
+                        .filter(|row| row.selected)
+                        .map(|row| (row.name.as_str(), row.state))
+                        .collect();
+                    for (index, row) in rows.iter_mut().enumerate() {
+                        if selected.get(row.name.as_str()) == Some(&row.state)
+                            && (expert_mode || !needs_expert_mode(row))
+                        {
+                            row.selected = true;
+                            self.selected_packages.push((user.index, index));
+                        }
+                    }
+                }
+            }
+        } else {
+            self.selected_removal = Some(Removal::Recommended);
+            self.selected_package_state = Some(PackageState::Enabled);
+            self.selected_list = Some(UadList::All);
+        }
+        self.selected_user = Some(
+            self.selected_user
+                .and_then(|previous| {
+                    selected_device
+                        .user_list
+                        .iter()
+                        .find(|u| u.id == previous.id && u.index < self.phone_packages.len())
+                        .copied()
+                })
+                .unwrap_or_default(),
+        );
         Self::filter_package_lists(self);
+        self.all_selected = keep_filters
+            && !self.filtered_packages.is_empty()
+            && self.filtered_packages.iter().all(|&i| {
+                self.phone_packages[self.selected_user.unwrap_or_default().index][i].selected
+            });
         self.loading_state = LoadingState::Ready;
         Task::none()
     }
@@ -1893,11 +1981,41 @@ mod tests {
     }
 
     #[test]
+    fn settings_reread_preserves_filters_and_eligible_selections() {
+        let mut view = view_with_selection();
+        let phone = Phone {
+            adb_id: "A".into(),
+            ..two_users()
+        };
+        view.loaded_serial = Some(phone.adb_id.clone());
+        view.selected_list = Some(UadList::Misc);
+        view.reread_packages = true;
+        assert_eq!(view.refresh_for_settings(&phone).units(), 1);
+
+        let mut fresh = view.phone_packages.clone();
+        // Multi-user mode was enabled in Settings while the read was in flight.
+        view.select_for_all_users(&phone.user_list, false);
+        for row in &mut fresh[0] {
+            row.selected = false;
+        }
+        // One selected package moved, and the other now requires expert mode.
+        fresh[0].swap(0, 1);
+        fresh[0][2].removal = Removal::Unsafe;
+        let _ = view.on_apply_filters("A", fresh.into_iter().map(Ok).collect(), &phone, false);
+        assert_eq!(view.selected_packages, [(0, 0), (1, 1), (1, 2)]);
+        assert!(view.phone_packages[0][0].selected);
+        assert!(!view.phone_packages[0][2].selected);
+        assert_eq!(view.selected_removal, Some(Removal::All));
+        assert_eq!(view.selected_package_state, Some(PackageState::All));
+        assert_eq!(view.selected_list, Some(UadList::Misc));
+    }
+
+    #[test]
     fn reloading_the_packages_resets_the_selection_and_the_user() {
         let mut view = view_with_selection();
         // The work profile is displayed, and the new device has a single user.
         view.selected_user = Some(two_users().user_list[1]);
-        let _ = view.on_apply_filters("", vec![Ok(vec![])], &two_users());
+        let _ = view.on_apply_filters("", vec![Ok(vec![])], &two_users(), false);
         assert_eq!(view.selected_packages, []);
         assert_eq!(view.selected_user, Some(User::default()));
     }
@@ -1906,7 +2024,7 @@ mod tests {
     fn packages_of_another_device_are_not_displayed() {
         let mut view = view_with_selection();
         // These packages finished loading after another device was selected.
-        let _ = view.on_apply_filters("previous-device", vec![Ok(vec![])], &two_users());
+        let _ = view.on_apply_filters("previous-device", vec![Ok(vec![])], &two_users(), false);
         assert_eq!(view.phone_packages[0].len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
     }
@@ -1959,8 +2077,11 @@ mod tests {
             ..two_users()
         };
         let _ = view.on_verify_and_fallback_finished(unverified.clone(), &other);
-        let _ = view.on_verify_and_fallback_finished(unverified, &two_users());
+        assert!(!view.reread_packages);
         let _ = view.on_verify_and_fallback_finished(refused, &two_users());
+        // A failed command may have changed the phone before ADB lost the reply.
+        assert!(view.reread_packages);
+        let _ = view.on_verify_and_fallback_finished(unverified, &two_users());
 
         assert_eq!(view.fallback_notifications, ["unverified", "unverified"]);
         assert_eq!(view.error_modal.as_deref(), Some("refused"));
@@ -1968,7 +2089,7 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 2)]);
 
         // They are still listed once the packages of the other device are loaded.
-        let _ = view.on_apply_filters("other", vec![Ok(vec![]), Ok(vec![])], &other);
+        let _ = view.on_apply_filters("other", vec![Ok(vec![]), Ok(vec![])], &other, false);
         assert_eq!(view.fallback_notifications.len(), 2);
     }
 
@@ -2026,7 +2147,7 @@ mod tests {
         view.reset_inventory();
         let _ = view.on_verify_and_fallback_finished(action, &phone);
         let _ = view.load_uad_list(true, &phone);
-        let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone);
+        let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone, false);
         assert_eq!(view.fallback_notifications, ["Retry failed"]);
     }
 

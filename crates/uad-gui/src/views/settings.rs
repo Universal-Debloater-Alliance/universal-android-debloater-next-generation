@@ -125,7 +125,11 @@ impl Settings {
             Message::DeviceBackedUp(serial, result) => {
                 self.handle_device_backed_up(&serial, phone, result)
             }
-            Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
+            Message::RestoreDevice
+                if self.active_restore.is_some() || !apps.can_plan_restore(phone) =>
+            {
+                Task::none()
+            }
             Message::RestoreDevice => self.handle_restore_device(phone, &apps.phone_packages),
             Message::RestorePackageFinished(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
@@ -712,7 +716,8 @@ impl Settings {
         let restore_btn = button(text("Restore").align_x(alignment::Horizontal::Center))
             .padding([5, 10])
             .on_press_maybe(
-                (ready && self.active_restore.is_none()).then_some(Message::RestoreDevice),
+                (apps_view.can_plan_restore(phone) && self.active_restore.is_none())
+                    .then_some(Message::RestoreDevice),
             )
             .width(77);
 

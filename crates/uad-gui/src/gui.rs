@@ -213,7 +213,7 @@ impl UadGui {
             }
             Message::SettingsPressed => {
                 self.view = View::Settings;
-                Task::none()
+                self.refresh_settings_inventory()
             }
             Message::RefreshButtonPressed => {
                 self.apps_view.reset_inventory();
@@ -237,15 +237,22 @@ impl UadGui {
                     |_| Message::Nothing,
                 )
             }
-            Message::AppsAction(msg) => self
-                .apps_view
-                .update(
-                    &mut self.settings_view,
-                    &mut self.selected_device.clone().unwrap_or_default(),
-                    &mut self.update_state.uad_list,
-                    msg,
-                )
-                .map(Message::AppsAction),
+            Message::AppsAction(msg) => {
+                let task = self
+                    .apps_view
+                    .update(
+                        &mut self.settings_view,
+                        &mut self.selected_device.clone().unwrap_or_default(),
+                        &mut self.update_state.uad_list,
+                        msg,
+                    )
+                    .map(Message::AppsAction);
+                if matches!(self.view, View::Settings) {
+                    Task::batch([task, self.refresh_settings_inventory()])
+                } else {
+                    task
+                }
+            }
             Message::SettingsAction(msg) => {
                 match msg {
                     SettingsMessage::RestorePackageFinished(ref result) => {
@@ -400,6 +407,16 @@ impl UadGui {
             }
             Message::Nothing => Task::none(),
         }
+    }
+
+    fn refresh_settings_inventory(&mut self) -> Task<Message> {
+        self.selected_device
+            .as_ref()
+            .map_or_else(Task::none, |phone| {
+                self.apps_view
+                    .refresh_for_settings(phone)
+                    .map(Message::AppsAction)
+            })
     }
 
     fn reload_packages(&mut self) -> Task<Message> {
@@ -564,6 +581,48 @@ mod tests {
                 .units(),
             1
         );
+    }
+
+    #[test]
+    fn restore_waits_for_actions_on_its_phone_and_the_next_inventory() {
+        use crate::views::list::{PackageInfo, VerifyAndFallbackResult};
+        use crate::widgets::package_row::Message::ActionPressed;
+        let mut gui = UadGui::default();
+        select(&mut gui, "A");
+        let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
+        let action = Message::AppsAction(AppsMessage::List(0, ActionPressed));
+        assert_eq!(gui.update(action.clone()).units(), 1);
+        assert_eq!(gui.update(action).units(), 1);
+
+        select(&mut gui, "B");
+        let _ = gui.update(inventory(gui.apps_view.load_id, "B", PackageState::Enabled));
+        assert!(gui.apps_view.can_plan_restore(&phone("B")));
+        select(&mut gui, "A");
+        let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
+        let _ = gui.update(Message::SettingsPressed);
+        let done = Message::AppsAction(AppsMessage::VerifyAndFallbackFinished(
+            VerifyAndFallbackResult {
+                info: PackageInfo {
+                    device: phone("A"),
+                    name: "com.example.app".into(),
+                    ..PackageInfo::default()
+                },
+                new_state: Some(PackageState::Disabled),
+                ran: true,
+                notification: None,
+                error_modal: None,
+            },
+        ));
+        assert_eq!(gui.update(done.clone()).units(), 0);
+        assert!(!gui.apps_view.can_plan_restore(&phone("A")));
+        assert_eq!(gui.update(done).units(), 1);
+        assert!(!gui.apps_view.can_plan_restore(&phone("A")));
+        let _ = gui.update(inventory(
+            gui.apps_view.load_id,
+            "A",
+            PackageState::Disabled,
+        ));
+        assert!(gui.apps_view.can_plan_restore(&phone("A")));
     }
 
     #[cfg(feature = "self-update")]
