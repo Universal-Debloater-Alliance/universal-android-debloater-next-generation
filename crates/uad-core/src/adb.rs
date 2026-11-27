@@ -53,6 +53,38 @@ pub fn to_trimmed_utf8(v: &[u8]) -> String {
     String::from_utf8_lossy(v).trim_end().to_string()
 }
 
+pub(crate) fn command_failed(output: &str) -> bool {
+    output.lines().any(|line| {
+        let line = line.trim();
+        if line.eq_ignore_ascii_case("failed") {
+            return true;
+        }
+        [
+            "error",
+            "failure",
+            "exception occurred while executing",
+            "security exception",
+            "java.lang.SecurityException",
+        ]
+        .iter()
+        .any(|prefix| {
+            line.split_at_checked(prefix.len())
+                .is_some_and(|(label, rest)| {
+                    label.eq_ignore_ascii_case(prefix)
+                        && (rest.is_empty() || rest.starts_with([':', '[', ' ', '\t']))
+                })
+        })
+    })
+}
+
+/// Android denies the shell access to some secondary users.
+#[must_use]
+pub fn profile_access_denied(error: &str) -> bool {
+    error.contains("Shell does not have permission to access user")
+        || (error.contains("SecurityException")
+            && error.contains("android.permission.INTERACT_ACROSS_USERS"))
+}
+
 #[cfg(debug_assertions)]
 #[must_use]
 fn is_version_triple(s: &str) -> bool {
@@ -180,10 +212,13 @@ impl ACommand {
             }
             Ok(o) => {
                 let stdout = to_trimmed_utf8(&o.stdout);
+                let stderr = to_trimmed_utf8(&o.stderr);
+                if command_failed(&stderr) || profile_access_denied(&stderr) {
+                    return Err(stderr);
+                }
                 if o.status.success() {
                     Ok(stdout)
                 } else {
-                    let stderr = to_trimmed_utf8(&o.stderr);
                     // ADB does really weird things:
                     // Some errors are not redirected to `stderr`
                     let err = if stdout.is_empty() { stderr } else { stdout };
@@ -553,6 +588,25 @@ mod tests {
             parse_package_list(&output).expect_err("ADB diagnostic"),
             diagnostic
         );
+    }
+
+    #[test]
+    fn command_failures_are_recognized_by_their_label() {
+        for reply in [
+            "ERROR: refused",
+            "some output\n  error: refused",
+            "Failure [restricted]",
+            "Error type 3",
+            "  Failed\r\n",
+            "FAILED",
+        ] {
+            assert!(command_failed(reply), "{reply}");
+        }
+        assert!(!command_failed(
+            "Package com.sec.app.RilErrorNotifier new state: disabled-user"
+        ));
+        assert!(!command_failed("FailureNotifier started"));
+        assert!(!command_failed("Failed to match that name"));
     }
 
     #[test]

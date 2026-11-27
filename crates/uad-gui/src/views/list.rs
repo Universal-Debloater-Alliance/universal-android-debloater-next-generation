@@ -1662,9 +1662,7 @@ fn run_package_action(actions: &[String], mut info: PackageInfo) -> VerifyAndFal
                     &mut result,
                     format!("Package cleanup incomplete. Failed command: {command}. {error}"),
                 );
-            } else if !(error.contains("Shell cannot change component state")
-                && command.starts_with("pm enable --user "))
-            {
+            } else {
                 result.error_modal = Some(error);
                 return result;
             }

@@ -6,6 +6,8 @@ use log::{error, info};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 
+pub use crate::adb::profile_access_denied;
+
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Phone {
@@ -101,7 +103,7 @@ pub fn run_adb_shell_action<S: AsRef<str>>(
 
     match AdbCommand::new().shell(serial).raw(action) {
         Ok(o) => {
-            if ["Error", "Failure"].iter().any(|&e| o.contains(e)) {
+            if crate::adb::command_failed(&o) {
                 let friendly_msg = make_friendly_error_message(&o, action);
                 return Err(AdbError::Generic(friendly_msg));
             }
@@ -473,14 +475,6 @@ pub const fn supports_disabling(dev: &Phone) -> bool {
 pub const fn supports_multi_user(dev: &Phone) -> bool {
     // >= Lollipop (5.0)
     dev.android_sdk >= 21
-}
-
-/// Android denies the shell access to some secondary users.
-#[must_use]
-pub fn profile_access_denied(error: &str) -> bool {
-    error.contains("Shell does not have permission to access user")
-        || (error.contains("SecurityException")
-            && error.contains("android.permission.INTERACT_ACROSS_USERS"))
 }
 
 /// Check if a `user_id` is protected on a device by trying
