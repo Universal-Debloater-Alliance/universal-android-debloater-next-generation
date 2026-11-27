@@ -311,21 +311,27 @@ impl ToString for PmListPacksFlag {
 
 const PACK_PREFIX: &str = "package:";
 
-fn parse_package_list(pack_ls: &str) -> Vec<String> {
-    pack_ls
-        .lines()
-        .filter_map(|p_ln| {
-            debug_assert!(p_ln.starts_with(PACK_PREFIX));
-            // `.lines()` handles CRLF; older ADB output may contain extra `\r`s.
-            let p = p_ln[PACK_PREFIX.len()..].trim_end_matches('\r');
-            if PackageId::new(p).is_some() {
-                Some(String::from(p))
-            } else {
-                warn!("skipping nonstandard package name: {p:?}");
-                None
-            }
-        })
-        .collect()
+fn parse_package_list(pack_ls: &str) -> Result<Vec<String>, String> {
+    let mut packages = Vec::new();
+    let mut remaining = pack_ls;
+    while !remaining.is_empty() {
+        let (line, rest) = remaining.split_once('\n').unwrap_or((remaining, ""));
+        if line.trim().is_empty() {
+            remaining = rest;
+            continue;
+        }
+        let Some(name) = line.strip_prefix(PACK_PREFIX) else {
+            return Err(remaining.trim_end_matches(['\r', '\n']).to_owned());
+        };
+        remaining = rest;
+        let name = name.trim_end_matches('\r');
+        if PackageId::new(name).is_some() {
+            packages.push(name.to_owned());
+        } else {
+            warn!("skipping nonstandard package name: {name:?}");
+        }
+    }
+    Ok(packages)
 }
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
@@ -359,7 +365,10 @@ impl PmCommand {
             cmd.arg(u.to_string());
         }
 
-        self.0.0.run().map(|pack_ls| parse_package_list(&pack_ls))
+        self.0
+            .0
+            .run()
+            .and_then(|pack_ls| parse_package_list(&pack_ls))
     }
 
     /// `list users` sub-command, deserialized/parsed.
@@ -491,7 +500,7 @@ mod tests {
             let output =
                 format!("package:android{newline}package:com.android.MtpApplication{newline}");
             assert_eq!(
-                parse_package_list(&output),
+                parse_package_list(&output).expect("valid package list"),
                 ["android", "com.android.MtpApplication"]
             );
         }
@@ -501,7 +510,7 @@ mod tests {
     fn package_list_extra_carriage_returns() {
         let output = "package:android\r\r\npackage:com.android.MtpApplication\r\r\n";
         assert_eq!(
-            parse_package_list(&to_trimmed_utf8(output.as_bytes())),
+            parse_package_list(&to_trimmed_utf8(output.as_bytes())).expect("valid package list"),
             ["android", "com.android.MtpApplication"]
         );
     }
@@ -509,9 +518,15 @@ mod tests {
     #[test]
     fn package_list_without_final_newline() {
         for output in ["package:com.example", "package:com.example\r"] {
-            assert_eq!(parse_package_list(output), ["com.example"]);
+            assert_eq!(
+                parse_package_list(output).expect("valid package list"),
+                ["com.example"]
+            );
         }
-        assert_eq!(parse_package_list(""), Vec::<String>::new());
+        assert_eq!(
+            parse_package_list("").expect("empty package list"),
+            Vec::<String>::new()
+        );
     }
 
     #[test]
@@ -524,7 +539,20 @@ mod tests {
             "package:com.example\u{a0}\n",
             "package:com.example\n",
         );
-        assert_eq!(parse_package_list(output), ["com.example"]);
+        assert_eq!(
+            parse_package_list(output).expect("package lines"),
+            ["com.example"]
+        );
+    }
+
+    #[test]
+    fn package_list_propagates_a_diagnostic_after_valid_rows() {
+        let diagnostic = "Exception occurred while executing 'list':\r\n  java.lang.SecurityException: Shell does not have permission to access user 10";
+        let output = format!("package:android\r\n\r\n{diagnostic}\r\n");
+        assert_eq!(
+            parse_package_list(&output).expect_err("ADB diagnostic"),
+            diagnostic
+        );
     }
 
     #[test]
