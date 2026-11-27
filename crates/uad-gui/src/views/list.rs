@@ -1063,6 +1063,12 @@ impl List {
         self.selected_user.is_some_and(|u| !u.protected)
             && self.inventory_current(phone)
             && settings.restoring(phone).is_none()
+            && !settings.backing_up(phone)
+    }
+
+    pub(crate) fn invalidate_inventory(&mut self, phone: &Phone) -> Task<Message> {
+        self.reread_packages = true;
+        self.refresh_if_needed(phone)
     }
 
     /// Re-read stale rows once the phone's last pending action is done.

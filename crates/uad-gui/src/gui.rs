@@ -236,6 +236,29 @@ impl UadGui {
                     msg,
                 )
                 .map(Message::AppsAction),
+            Message::SettingsAction(SettingsMessage::DeviceBackedUp(id, origin, result)) => {
+                let displayed = self.selected_device.clone().unwrap_or_default();
+                self.settings_view
+                    .finish_backup(&origin.adb_id, &displayed, result);
+                if displayed.adb_id != origin.adb_id {
+                    return Task::none();
+                }
+                // A later device refresh owns the profile list if it has already started.
+                if id == self.apps_view.load_id && origin.user_list != displayed.user_list {
+                    if let Some(entry) = self
+                        .devices_list
+                        .iter_mut()
+                        .find(|p| p.adb_id == origin.adb_id)
+                    {
+                        entry.clone_from(&origin);
+                    }
+                    self.selected_device = Some(origin);
+                    return self.reload_packages();
+                }
+                self.apps_view
+                    .invalidate_inventory(&displayed)
+                    .map(Message::AppsAction)
+            }
             Message::SettingsAction(msg) => {
                 match msg {
                     SettingsMessage::RestorePackageFinished(ref result) => {
@@ -568,6 +591,40 @@ mod tests {
                 .units(),
             1
         );
+    }
+
+    #[test]
+    fn backup_completion_waits_for_fresh_rows_before_unlocking_actions() {
+        use crate::widgets::package_row::Message::ActionPressed;
+        let mut gui = UadGui::default();
+        select(&mut gui, "A");
+        let id = gui.apps_view.load_id;
+        let _ = gui.update(inventory(id, "A", PackageState::Enabled));
+        let _ = gui.update(Message::SettingsAction(SettingsMessage::BackupDevice));
+        let task = gui.update(Message::SettingsAction(SettingsMessage::DeviceBackedUp(
+            id,
+            phone("A"),
+            Ok("saved.json".into()),
+        )));
+        assert_eq!(task.units(), 1);
+        assert!(!gui.apps_view.inventory_current(&phone("A")));
+        assert_eq!(
+            gui.update(Message::AppsAction(AppsMessage::List(0, ActionPressed)))
+                .units(),
+            0
+        );
+        let _ = gui.update(inventory(id, "A", PackageState::Enabled));
+        assert!(!gui.apps_view.inventory_current(&phone("A")));
+        let _ = gui.update(inventory(
+            gui.apps_view.load_id,
+            "A",
+            PackageState::Disabled,
+        ));
+        assert_eq!(
+            gui.apps_view.phone_packages[0][0].state,
+            PackageState::Disabled
+        );
+        assert!(gui.apps_view.inventory_current(&phone("A")));
     }
 
     #[test]

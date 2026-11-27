@@ -1,5 +1,6 @@
 use crate::config::DeviceSettings;
-use crate::sync::{CorePackage, Phone, User, commands_for_user};
+use crate::sync::{CorePackage, Phone, User, commands_for_user, profile_access_denied};
+use crate::uad_lists::PackageHashMap;
 use crate::utils::{DisplayablePath, try_fetch_packages};
 use log::{info, warn};
 use serde::{Deserialize, Serialize};
@@ -33,12 +34,54 @@ pub fn device_backup_dir(backup_dir: &Path, device_id: &str) -> PathBuf {
     backup_dir.join(device_id.replace(invalid, "_"))
 }
 
-/// Backup all `Uninstalled` and `Disabled` packages
+/// Read each profile from the device before saving the snapshot.
+pub fn backup_device(
+    backup_dir: &Path,
+    phone: &Phone,
+    definitions: &PackageHashMap,
+) -> Result<PathBuf, String> {
+    backup_device_and_refresh_users(backup_dir, &mut phone.clone(), definitions)
+}
+
+/// Also return the discovered profiles to the GUI for its next inventory read.
+pub fn backup_device_and_refresh_users(
+    backup_dir: &Path,
+    phone: &mut Phone,
+    definitions: &PackageHashMap,
+) -> Result<PathBuf, String> {
+    phone.refresh_users()?;
+    write_backup(
+        backup_dir,
+        phone.user_list.iter().copied(),
+        phone.adb_id.clone(),
+        |user| {
+            let user_id = phone.package_user_id(user.id)?;
+            match try_fetch_packages(definitions, &phone.adb_id, user_id) {
+                Ok(packages) => Ok(packages),
+                Err(error) if user.protected && profile_access_denied(&error) => Ok(Vec::new()),
+                Err(error) => Err(format!("Could not read {user}: {error}")),
+            }
+        },
+    )
+}
+
+/// Save the package states of every user.
 pub fn backup_phone(
     backup_dir: &Path,
     users: Vec<User>,
     device_id: String,
     phone_packages: &[Vec<CorePackage>],
+) -> Result<PathBuf, String> {
+    write_backup(backup_dir, users, device_id, |user| {
+        user.packages(phone_packages).map(<[_]>::to_vec)
+    })
+}
+
+fn write_backup(
+    backup_dir: &Path,
+    users: impl IntoIterator<Item = User>,
+    device_id: String,
+    read_packages: impl Fn(User) -> Result<Vec<CorePackage>, String>,
 ) -> Result<PathBuf, String> {
     let backup_path = device_backup_dir(backup_dir, &device_id);
     let mut backup = PhoneBackup {
@@ -46,17 +89,20 @@ pub fn backup_phone(
         ..PhoneBackup::default()
     };
 
-    // The users could not be listed: a backup without them could not be restored.
-    if users.is_empty() {
-        return Err("No user was found on the device".to_string());
-    }
-    for u in users {
+    for user in users {
+        let packages = read_packages(user)?;
+        if packages.is_empty() && !user.protected {
+            return Err(format!("The packages of {user} could not be read"));
+        }
         backup.users.push(UserBackup {
-            id: u.id,
-            packages: u.packages(phone_packages)?.to_vec(),
+            id: user.id,
+            packages,
         });
     }
 
+    if backup.users.is_empty() {
+        return Err("No user was found on the device".to_string());
+    }
     let json = serde_json::to_string_pretty(&backup).map_err(|error| error.to_string())?;
     fs::create_dir_all(&backup_path).map_err(|error| error.to_string())?;
     let filename = format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
