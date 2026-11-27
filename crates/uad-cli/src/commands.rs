@@ -322,33 +322,15 @@ fn process_package_state_change(
         list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
 
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device)?;
-
-    if dry_run {
-        if commands.is_empty() {
-            print_nothing_to_run("    ", current_state, target_state);
-        }
-        for cmd in &commands {
-            println!("    Would run: {}", cmd);
-        }
-    } else {
-        execute_with_fallback(
-            pkg_name,
-            target_state,
-            &core_pkg,
-            user,
-            device,
-            &commands,
-            "    ",
-        )?;
-    }
-
-    Ok(())
-}
-
-/// Such as when asked to disable a package that is already uninstalled.
-fn print_nothing_to_run(indent: &str, current: PackageState, target: PackageState) {
-    println!("{indent}→ Nothing to run: cannot go from {current} to {target}");
+    execute_with_fallback(
+        pkg_name,
+        target_state,
+        &core_pkg,
+        user,
+        device,
+        dry_run,
+        "    ",
+    )
 }
 
 /// Execute commands and verify package state with fallback
@@ -358,11 +340,21 @@ pub fn execute_with_fallback(
     core_pkg: &CorePackage,
     user: User,
     device: &Phone,
-    commands: &[String],
+    dry_run: bool,
     indent: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    let commands = apply_pkg_state_commands(core_pkg, target_state, user, device)?;
     if commands.is_empty() {
-        print_nothing_to_run(indent, core_pkg.state, target_state);
+        return Err(format!(
+            "Nothing to run: cannot go from {} to {target_state} for {package}",
+            core_pkg.state
+        )
+        .into());
+    }
+    if dry_run {
+        for cmd in &commands {
+            println!("{indent}Would run: {cmd}");
+        }
         return Ok(());
     }
 
@@ -371,7 +363,7 @@ pub fn execute_with_fallback(
         uad_core::sync::capture_cross_user_states(package, &device.adb_id, user.id, device);
 
     // Execute commands
-    for cmd in commands {
+    for cmd in &commands {
         match run_adb_shell_action(&device.adb_id, cmd.as_str()) {
             Ok(_) => println!("{}✓ {}", indent, cmd),
             // The message names the command, or explains why it failed.

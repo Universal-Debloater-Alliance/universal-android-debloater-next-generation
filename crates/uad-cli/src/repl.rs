@@ -3,7 +3,7 @@ use rustyline::error::ReadlineError;
 use std::collections::HashMap;
 use std::io::Write;
 use uad_core::adb::ACommand;
-use uad_core::sync::{CorePackage, Phone, User, apply_pkg_state_commands, query_package_state};
+use uad_core::sync::{CorePackage, Phone, User, query_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
 use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
@@ -338,17 +338,7 @@ fn process_package_change(
         list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
 
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device)?;
-
-    execute_with_fallback(
-        pkg_name,
-        target_state,
-        &core_pkg,
-        user,
-        device,
-        &commands,
-        "  ",
-    )
+    execute_with_fallback(pkg_name, target_state, &core_pkg, user, device, false, "  ")
 }
 
 /// Print REPL help message
