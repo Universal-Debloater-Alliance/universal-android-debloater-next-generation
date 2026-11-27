@@ -2,7 +2,6 @@ use rustyline::DefaultEditor;
 use rustyline::error::ReadlineError;
 use std::collections::HashMap;
 use std::io::Write;
-use uad_core::adb::ACommand;
 use uad_core::sync::{CorePackage, Phone, User, query_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
@@ -45,15 +44,13 @@ pub fn repl_mode(
     loop {
         let readline = rl.readline("uad> ");
         match readline {
-            Ok(line) => {
-                match handle_repl_line(&line, &mut rl, &target_device, user, user_id, &uad_lists) {
-                    Ok(ReplAction::Continue) => {}
-                    Ok(ReplAction::Exit) => break,
-                    Err(e) => {
-                        crate::output::print_command_error(e.as_ref());
-                    }
+            Ok(line) => match handle_repl_line(&line, &mut rl, &target_device, user, &uad_lists) {
+                Ok(ReplAction::Continue) => {}
+                Ok(ReplAction::Exit) => break,
+                Err(e) => {
+                    crate::output::print_command_error(e.as_ref());
                 }
-            }
+            },
             Err(ReadlineError::Interrupted) => {
                 println!("Interrupted (Ctrl-C). Type 'exit' to quit.");
                 continue;
@@ -86,7 +83,6 @@ fn handle_repl_line(
     rl: &mut DefaultEditor,
     device: &Phone,
     user: User,
-    user_id: Option<u16>,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<ReplAction, Box<dyn std::error::Error>> {
     let line = line.trim();
@@ -108,7 +104,7 @@ fn handle_repl_line(
             return Ok(ReplAction::Exit);
         }
         "list" | "ls" => {
-            handle_list_command(&parts[1..], device, user_id, uad_lists)?;
+            handle_list_command(&parts[1..], device, user, uad_lists)?;
         }
         "info" => {
             handle_info_command(&parts[1..], device, user.id, uad_lists)?;
@@ -214,16 +210,10 @@ impl ReplListArgs {
 fn handle_list_command(
     args: &[&str],
     device: &Phone,
-    user_id: Option<u16>,
+    user: User,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let parsed = ReplListArgs::parse(args)?;
-
-    let pm_flag = parsed.state_filter.and_then(StateFilter::to_pm_flag);
-    let system_packages = ACommand::new()
-        .shell(&device.adb_id)
-        .pm()
-        .list_packages_sys(pm_flag, user_id)?;
 
     let context = PackageListContext {
         state_filter: parsed.state_filter,
@@ -232,13 +222,7 @@ fn handle_list_command(
         search: parsed.search_term,
     };
 
-    let displayed_count = display_package_list(
-        &system_packages,
-        uad_lists,
-        &device.adb_id,
-        user_id,
-        &context,
-    )?;
+    let displayed_count = display_package_list(device, user, uad_lists, &context)?;
 
     if displayed_count == 0 {
         println_or_exit!("  No packages found.");
@@ -272,7 +256,7 @@ fn handle_info_command(
         println!("  Not found in UAD lists (unlisted package)");
     }
 
-    let state = query_package_state(&device.adb_id, package, Some(user_id))?
+    let state = query_package_state(&device.adb_id, package, device.package_user_id(user_id)?)?
         .ok_or("Package not found on device")?;
     println!("  State:       {}", state);
 

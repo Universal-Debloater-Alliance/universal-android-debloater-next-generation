@@ -114,6 +114,7 @@ pub fn list_packages(
     user_id: Option<u16>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let target_device = get_target_device(device)?;
+    let user = get_user(&target_device, user_id)?;
     let uad_lists = load_debloat_lists(false).unwrap_or_else(|lists| lists);
 
     println_or_exit!(
@@ -129,19 +130,7 @@ pub fn list_packages(
         search,
     };
 
-    let pm_flag = state_filter.and_then(StateFilter::to_pm_flag);
-    let system_packages = ACommand::new()
-        .shell(&target_device.adb_id)
-        .pm()
-        .list_packages_sys(pm_flag, user_id)?;
-
-    let displayed_count = display_package_list(
-        &system_packages,
-        &uad_lists,
-        &target_device.adb_id,
-        user_id,
-        &context,
-    )?;
+    let displayed_count = display_package_list(&target_device, user, &uad_lists, &context)?;
 
     if displayed_count == 0 {
         println_or_exit!("  No packages found matching the specified filters.");
@@ -154,29 +143,41 @@ pub fn list_packages(
 
 /// Display a list of packages with their info
 pub fn display_package_list(
-    packages: &[String],
+    device: &Phone,
+    user: User,
     uad_lists: &HashMap<String, Package>,
-    device_serial: &str,
-    user_id: Option<u16>,
     context: &PackageListContext,
 ) -> Result<usize, Box<dyn std::error::Error>> {
     let config = context.display_config();
     let mut displayed_count = 0;
 
-    // Without both lists, installed packages would be shown as uninstalled.
+    let user_id = device.package_user_id(user.id)?;
     let list = |flag| {
         ACommand::new()
-            .shell(device_serial)
+            .shell(&device.adb_id)
             .pm()
-            .list_packages_sys(Some(flag), user_id)
-            .map_err(|e| format!("Could not list the packages: {e}"))
+            .list_packages_sys(flag, user_id)
     };
-    let enabled_packages: HashSet<String> =
-        list(PmListPacksFlag::OnlyEnabled)?.into_iter().collect();
-    let disabled_packages: HashSet<String> =
-        list(PmListPacksFlag::OnlyDisabled)?.into_iter().collect();
+    let all = list(Some(PmListPacksFlag::IncludeUninstalled))?;
+    if all.is_empty() && !user.protected {
+        return Err(format!("ADB returned an empty system package list for {user}").into());
+    }
+    // Without a state filter, list only the packages installed for this user.
+    let packages = if context.state_filter.is_none() {
+        list(None)?
+    } else {
+        all
+    };
+    let state_list =
+        |flag| list(Some(flag)).map_err(|e| format!("Could not list the packages: {e}"));
+    let enabled_packages: HashSet<_> = state_list(PmListPacksFlag::OnlyEnabled)?
+        .into_iter()
+        .collect();
+    let disabled_packages: HashSet<_> = state_list(PmListPacksFlag::OnlyDisabled)?
+        .into_iter()
+        .collect();
 
-    for pkg_name in packages {
+    for pkg_name in &packages {
         let pkg_info = uad_lists.get(pkg_name);
 
         let pkg_state = if enabled_packages.contains(pkg_name) {
@@ -446,8 +447,12 @@ pub fn show_package_info(
         println!("Device: {} ({})", target_device.model, target_device.adb_id);
         println!("User:   {}", user.id);
 
-        let state = query_package_state(&target_device.adb_id, package, Some(user.id))?
-            .ok_or("Package not found on device")?;
+        let state = query_package_state(
+            &target_device.adb_id,
+            package,
+            target_device.package_user_id(user.id)?,
+        )?
+        .ok_or("Package not found on device")?;
         println!("  State: {}", state);
     }
 

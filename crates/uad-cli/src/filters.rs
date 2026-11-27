@@ -1,5 +1,4 @@
 use clap::ValueEnum;
-use uad_core::adb::PmListPacksFlag;
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList};
 
 #[derive(Debug, Clone, Copy, ValueEnum)]
@@ -37,14 +36,6 @@ pub enum ListFilter {
 }
 
 impl StateFilter {
-    pub fn to_pm_flag(self) -> Option<PmListPacksFlag> {
-        match self {
-            Self::Enabled => Some(PmListPacksFlag::OnlyEnabled),
-            Self::Disabled => Some(PmListPacksFlag::OnlyDisabled),
-            Self::Uninstalled | Self::All => Some(PmListPacksFlag::IncludeUninstalled),
-        }
-    }
-
     pub fn matches(self, pkg_state: PackageState) -> bool {
         match self {
             Self::All => true,

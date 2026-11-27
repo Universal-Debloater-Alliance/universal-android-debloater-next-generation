@@ -30,21 +30,17 @@ pub fn get_target_device(device: Option<String>) -> Result<Phone, Box<dyn std::e
     Ok(target_device)
 }
 
-/// Get user from device, creating a basic one if not found
+/// Resolve the requested user, defaulting to the owner.
 pub fn get_user(device: &Phone, user_id: Option<u16>) -> Result<User, Box<dyn std::error::Error>> {
     if let Some(error) = &device.user_list_error {
         return Err(error.clone().into());
     }
     let uid = user_id.unwrap_or(0);
 
-    if let Some(user) = device.user_list.iter().find(|u| u.id == uid) {
-        Ok(*user)
-    } else {
-        // Create a basic user if not found in list
-        Ok(User {
-            id: uid,
-            index: 0,
-            protected: false,
-        })
-    }
+    device
+        .user_list
+        .iter()
+        .find(|u| u.id == uid)
+        .copied()
+        .ok_or_else(|| format!("User {uid} was not found on the device").into())
 }
