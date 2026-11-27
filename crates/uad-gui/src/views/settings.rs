@@ -14,7 +14,7 @@ use uad_core::{
     save::{backup_phone, device_backup_dir, list_available_backups, restore_backup},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, profile_access_denied,
-        run_adb_shell_action, supports_disabling, supports_multi_user,
+        query_package_state, run_adb_shell_action, supports_disabling, supports_multi_user,
     },
     utils::{DisplayablePath, Error, export_packages, open_url},
 };
@@ -292,11 +292,7 @@ impl Settings {
         match restore_backup(phone, &core_packages, &self.device) {
             Ok(restore_result) => {
                 let mut commands = vec![];
-                for package in restore_result
-                    .packages
-                    .into_iter()
-                    .filter(|p| !p.commands.is_empty())
-                {
+                for package in restore_result.packages {
                     let name = packages[package.i_user][package.index].name.clone();
                     let user_id = phone.user_list[package.i_user].id;
                     let serial = phone.adb_id.clone();
@@ -308,6 +304,15 @@ impl Settings {
                                 {
                                     return Err(format!("{name} (user {user_id}): {error}"));
                                 }
+                            }
+                            let actual = query_package_state(&serial, &name, Some(user_id))
+                                .map_err(|error| format!("{name} (user {user_id}): {error}"))?
+                                .unwrap_or(uad_core::uad_lists::PackageState::Uninstalled);
+                            if actual != package.target {
+                                return Err(format!(
+                                    "{name} (user {user_id}): expected {}, found {actual}",
+                                    package.target
+                                ));
                             }
                             Ok(name)
                         },

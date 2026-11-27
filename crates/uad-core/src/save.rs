@@ -90,6 +90,7 @@ pub struct BackupPackage {
     pub i_user: usize,
     pub index: usize,
     pub commands: Vec<String>,
+    pub target: crate::uad_lists::PackageState,
 }
 
 #[derive(Debug)]
@@ -152,6 +153,7 @@ pub fn restore_backup(
                             i_user: user.index,
                             index: i,
                             commands: p_commands,
+                            target: backup_package.state,
                         });
                     } else if package.state != backup_package.state {
                         // Such as a package saved as disabled that is now uninstalled.
@@ -165,13 +167,6 @@ pub fn restore_backup(
             }
             if skipped_packages > 0 {
                 info!("Restore planned with {skipped_packages} packages skipped");
-            }
-            if !commands.is_empty() {
-                commands.push(BackupPackage {
-                    i_user: 0,
-                    index: 0,
-                    commands: vec![],
-                });
             }
             Ok(RestoreResult {
                 packages: commands,
