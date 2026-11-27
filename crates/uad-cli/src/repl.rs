@@ -5,7 +5,9 @@ use std::io::Write;
 use uad_core::sync::{CorePackage, Phone, User, query_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
-use crate::commands::{PackageListContext, display_package_list, execute_with_fallback};
+use crate::commands::{
+    PackageListContext, action_package_state, display_package_list, execute_with_fallback,
+};
 use crate::device::{get_target_device, get_user};
 use crate::filters::StateFilter;
 use crate::println_or_exit;
@@ -296,9 +298,10 @@ fn process_package_change(
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state =
-        query_package_state(&device.adb_id, pkg_name, device.package_user_id(user.id)?)?
-            .ok_or("Package not found on device")?;
+    let Some(current_state) = action_package_state(device, user, pkg_name, target_state)? else {
+        println!("  → {pkg_name} is already absent, skipping");
+        return Ok(());
+    };
 
     println!("{} {} (current: {})", action_name, pkg_name, current_state);
 

@@ -2,7 +2,7 @@ use clap::CommandFactory;
 use clap_complete::{Shell, generate};
 use std::collections::{HashMap, HashSet};
 use std::io::Write;
-use uad_core::adb::{ACommand, PmListPacksFlag};
+use uad_core::adb::{ACommand, PackageId, PmListPacksFlag};
 use uad_core::sync::{
     AdbError, CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list,
     query_package_state, run_adb_shell_action,
@@ -288,6 +288,20 @@ pub fn change_package_state(
     Ok(())
 }
 
+/// A valid uninstall request is already satisfied if the full inventory omits the name.
+pub fn action_package_state(
+    device: &Phone,
+    user: User,
+    name: &str,
+    target: PackageState,
+) -> Result<Option<PackageState>, Box<dyn std::error::Error>> {
+    match query_package_state(&device.adb_id, name, device.package_user_id(user.id)?)? {
+        Some(state) => Ok(Some(state)),
+        None if target == PackageState::Uninstalled && PackageId::new(name).is_some() => Ok(None),
+        None => Err("Package not found on device".into()),
+    }
+}
+
 /// Process state change for a single package
 fn process_package_state_change(
     pkg_name: &str,
@@ -297,9 +311,10 @@ fn process_package_state_change(
     dry_run: bool,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state =
-        query_package_state(&device.adb_id, pkg_name, device.package_user_id(user.id)?)?
-            .ok_or("Package not found on device")?;
+    let Some(current_state) = action_package_state(device, user, pkg_name, target_state)? else {
+        println!("    → {pkg_name} is already absent, skipping");
+        return Ok(());
+    };
 
     println!("  {} ({})", pkg_name, current_state);
 
