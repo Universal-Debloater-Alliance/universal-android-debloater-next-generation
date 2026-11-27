@@ -759,10 +759,13 @@ impl Settings {
             export_btn,
             "Export uninstalled packages with their description",
             Space::new().width(Length::Fill).height(Length::Shrink),
-            text(format!(
-                "Selected: user {}",
-                apps_view.selected_user.unwrap_or_default().id
-            )),
+            text(if let Some(error) = &phone.user_list_error {
+                error.clone()
+            } else if let Some(user) = apps_view.selected_user {
+                format!("Selected: {user}")
+            } else {
+                String::new()
+            }),
         ]
         .spacing(10)
         .align_y(Alignment::Center);

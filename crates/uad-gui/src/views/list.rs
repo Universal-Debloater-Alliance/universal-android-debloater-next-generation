@@ -314,7 +314,13 @@ impl List {
                 None,
                 style::Text::Default,
             ),
-            LoadingState::Ready => self.ready_view(settings, selected_device),
+            LoadingState::Ready => match &selected_device.user_list_error {
+                Some(error) => waiting_view(error, None, style::Text::Danger),
+                None if selected_device.adb_id.is_empty() => {
+                    waiting_view("No device selected.", None, style::Text::Default)
+                }
+                None => self.ready_view(settings, selected_device),
+            },
             LoadingState::FailedToUpdate => waiting_view(
                 "Failed to download update",
                 Some(button("Go back").on_press(Message::LoadUadList(false))),
@@ -862,18 +868,16 @@ impl List {
 
     fn load_packages(
         uad_list: &PackageHashMap,
-        device_serial: &str,
-        user_list: &[User],
+        phone: &Phone,
     ) -> Vec<Result<Vec<PackageRow>, String>> {
-        let load = |user| {
-            try_fetch_packages(uad_list, device_serial, user)
-                .map(|packages| packages.into_iter().map(PackageRow::from).collect())
-        };
-        if user_list.len() <= 1 {
-            vec![load(None)]
-        } else {
-            user_list.iter().map(|user| load(Some(user.id))).collect()
-        }
+        phone
+            .user_list
+            .iter()
+            .map(|user| {
+                try_fetch_packages(uad_list, &phone.adb_id, phone.package_user_id(user.id)?)
+                    .map(|packages| packages.into_iter().map(PackageRow::from).collect())
+            })
+            .collect()
     }
 
     fn init_apps_view(remote: bool, phone: &Phone) -> (PackageHashMap, UadListState) {
@@ -996,7 +1000,9 @@ impl List {
     }
 
     pub(crate) fn inventory_ready(&self, phone: &Phone) -> bool {
-        !phone.adb_id.is_empty() && self.loaded_serial.as_ref() == Some(&phone.adb_id)
+        !phone.user_list.is_empty()
+            && self.loaded_serial.as_ref() == Some(&phone.adb_id)
+            && !phone.adb_id.is_empty()
     }
 
     pub(crate) fn inventory_current(&self, phone: &Phone) -> bool {
@@ -1056,14 +1062,17 @@ impl List {
     /// Read the packages of the device in the background.
     fn read_packages(&mut self, selected_device: &Phone) -> Task<Message> {
         self.reread_packages = false;
+        if selected_device.user_list.is_empty() {
+            self.loading_state = LoadingState::Ready;
+            return Task::none();
+        }
         let id = self.load_id;
         let uad_list = self.uad_lists.clone();
-        let device_serial = selected_device.adb_id.clone();
-        let user_list = selected_device.user_list.clone();
+        let phone = selected_device.clone();
         Task::perform(
             async move {
-                let packages = Self::load_packages(&uad_list, &device_serial, &user_list);
-                (device_serial, packages)
+                let packages = Self::load_packages(&uad_list, &phone);
+                (phone.adb_id, packages)
             },
             move |(serial, packages)| Message::ApplyFilters(id, serial, packages),
         )

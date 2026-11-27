@@ -16,6 +16,7 @@ pub struct Phone {
     /// In theory, `len < u16::MAX` _should_ always be `true`.
     /// In practice, `len <= u8::MAX`.
     pub user_list: Vec<User>,
+    pub user_list_error: Option<String>,
     /// Unique serial identifier
     pub adb_id: String, // could be `Copy`
 }
@@ -26,6 +27,7 @@ impl Default for Phone {
             model: "fetching devices...".to_string(),
             android_sdk: 0,
             user_list: vec![],
+            user_list_error: None,
             adb_id: String::default(),
         }
     }
@@ -500,28 +502,36 @@ pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool 
     }
 }
 
-#[must_use]
-pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
-    AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_users()
-        .map_or_else(
-            |_| Vec::new(),
-            |out| {
-                out.into_iter()
-                    .enumerate()
-                    .map(|(i, user)| {
-                        let id = user.get_id();
-                        User {
-                            id,
-                            index: i,
-                            protected: is_protected_user(id, device_serial),
-                        }
-                    })
-                    .collect()
-            },
-        )
+pub fn list_users_idx_prot(device_serial: &str) -> Result<Vec<User>, String> {
+    let users = AdbCommand::new().shell(device_serial).pm().list_users()?;
+    if users.is_empty() {
+        return Err("ADB returned an empty user list".into());
+    }
+    Ok(users
+        .into_iter()
+        .enumerate()
+        .map(|(i, user)| {
+            let id = user.get_id();
+            User {
+                id,
+                index: i,
+                protected: is_protected_user(id, device_serial),
+            }
+        })
+        .collect())
+}
+
+/// Older versions of pm print this diagnostic followed by their usage text.
+fn user_listing_unsupported(error: &str) -> bool {
+    error.trim_start().lines().next().is_some_and(|line| {
+        [
+            "Error: unknown list type 'users'",
+            "Unknown command: list users",
+            "Unknown command: users",
+        ]
+        .iter()
+        .any(|message| line.trim_end().eq_ignore_ascii_case(message))
+    })
 }
 
 /// This matches serials (`getprop ro.serialno`)
@@ -538,10 +548,17 @@ pub fn get_devices_list() -> Vec<Phone> {
                 }
                 for device in devices {
                     let serial = &device.0;
+                    let android_sdk = get_android_sdk(serial);
+                    let (user_list, user_list_error) = match list_users_idx_prot(serial) {
+                        Ok(users) => (users, None),
+                        Err(error) if (1..21).contains(&android_sdk) && user_listing_unsupported(&error) => (vec![User::default()], None),
+                        Err(error) => (Vec::new(), Some(format!("Could not list device users: {error}. Refresh the device and retry."))),
+                    };
                     device_list.push(Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
-                        android_sdk: get_android_sdk(serial),
-                        user_list: list_users_idx_prot(serial),
+                        android_sdk,
+                        user_list,
+                        user_list_error,
                         adb_id: serial.clone(),
                     });
                 }
@@ -760,6 +777,22 @@ pub fn run_fallback_commands(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn only_an_unsupported_user_list_can_fall_back_to_the_owner() {
+        assert!(user_listing_unsupported(
+            "Error: unknown list type 'users'\nusage: pm ..."
+        ));
+        for error in [
+            "error: device offline",
+            "Can't find service: package",
+            "ADB returned an empty user list",
+            "Invalid user ID",
+            "Unknown command: packages",
+        ] {
+            assert!(!user_listing_unsupported(error), "{error}");
+        }
+    }
 
     #[test]
     fn only_a_known_legacy_owner_uses_unscoped_commands() {

@@ -32,6 +32,9 @@ pub fn get_target_device(device: Option<String>) -> Result<Phone, Box<dyn std::e
 
 /// Get user from device, creating a basic one if not found
 pub fn get_user(device: &Phone, user_id: Option<u16>) -> Result<User, Box<dyn std::error::Error>> {
+    if let Some(error) = &device.user_list_error {
+        return Err(error.clone().into());
+    }
     let uid = user_id.unwrap_or(0);
 
     if let Some(user) = device.user_list.iter().find(|u| u.id == uid) {
