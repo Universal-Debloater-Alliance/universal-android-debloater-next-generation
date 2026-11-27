@@ -240,7 +240,12 @@ impl List {
             self.fallback_notifications.push(notification);
         }
         if let Some(err) = result.error_modal {
-            self.error_modal = Some(err);
+            if let Some(previous) = &mut self.error_modal {
+                previous.push_str("\n\n");
+                previous.push_str(&err);
+            } else {
+                self.error_modal = Some(err);
+            }
         }
         if let Some((i_user, index)) = self.current_row(&result.info, selected_device) {
             let package = &mut self.phone_packages[i_user][index];
@@ -1656,7 +1661,10 @@ fn run_package_action(actions: &[String], mut info: PackageInfo) -> VerifyAndFal
             run_adb_shell_action(&result.info.device.adb_id, command)
         {
             if !result.ran {
-                result.error_modal = Some(error);
+                result.error_modal = Some(format!(
+                    "{} ({}): {error}",
+                    result.info.name, result.info.user
+                ));
                 return result;
             }
             add_note(
@@ -2205,6 +2213,26 @@ mod tests {
         // They are still listed once the packages of the other device are loaded.
         let _ = view.on_apply_filters("other", vec![Ok(vec![]), Ok(vec![])], &other, false);
         assert_eq!(view.fallback_notifications.len(), 2);
+    }
+
+    #[test]
+    fn batch_refusals_stay_together_until_the_modal_is_closed() {
+        let mut view = view_with_selection();
+        let phone = two_users();
+        for index in [1, 2] {
+            let mut result = finished(&view, (0, index));
+            result.ran = false;
+            result.new_state = None;
+            result.error_modal = Some(format!("{} (user 0): refused", result.info.name));
+            let _ = view.on_verify_and_fallback_finished(result, &phone);
+        }
+        assert_eq!(
+            view.error_modal.as_deref(),
+            Some("com.example.b (user 0): refused\n\ncom.example.c (user 0): refused")
+        );
+        assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        let _ = view.on_modal_hide();
+        assert!(view.error_modal.is_none());
     }
 
     #[test]
