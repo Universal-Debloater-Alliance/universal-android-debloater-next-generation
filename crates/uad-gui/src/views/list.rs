@@ -5,7 +5,7 @@ use crate::widgets::navigation_menu::ICONS;
 use log::{error, info, warn};
 use std::{collections::HashMap, path::PathBuf};
 use uad_core::config::DeviceSettings;
-use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands};
+use uad_core::sync::{Phone, User, apply_pkg_state_commands};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
@@ -1657,9 +1657,7 @@ fn run_package_action(actions: &[String], mut info: PackageInfo) -> VerifyAndFal
     };
     let mut cleanup_complete = true;
     for command in actions {
-        if let Err(AdbError::Generic(error)) =
-            run_adb_shell_action(&result.info.device.adb_id, command)
-        {
+        if let Err(error) = run_adb_shell_action(&result.info.device.adb_id, command) {
             if !result.ran {
                 result.error_modal = Some(format!(
                     "{} ({}): {error}",
@@ -1704,6 +1702,7 @@ fn verify_action(result: &mut VerifyAndFallbackResult, allow_recovery: bool) -> 
         info.device
             .finish_package_action(info.user, &info.name, reinstalled)
             .map(|state| state.unwrap_or(PackageState::Uninstalled))
+            .map_err(|error| error.to_string())
     };
     let actual = finish_action(
         allow_recovery
@@ -1746,9 +1745,15 @@ fn verify_action(result: &mut VerifyAndFallbackResult, allow_recovery: bool) -> 
     };
     let fallback = run_fallback_commands(&pkg, info.wanted_state, actual, info.user, &info.device);
     // Even a failed recovery can have changed the package.
-    let confirmed = finish_action(matches!(fallback, Ok((PackageState::Enabled, _))))?;
-    result.new_state = Some(confirmed);
-    let (expected, action) = fallback?;
+    let confirmed = finish_action(matches!(fallback, Ok((PackageState::Enabled, _))));
+    result.new_state = confirmed.as_ref().ok().copied();
+    let (expected, action) = fallback.map_err(|error| match &confirmed {
+        Ok(_) => error.to_string(),
+        Err(read_error) => {
+            format!("{error}\nCould not verify the final package state: {read_error}")
+        }
+    })?;
+    let confirmed = confirmed?;
     verify_fallback_state(expected, confirmed)?;
     let note = format!(
         "Package '{}' was {} but {} instead. Fallback: {action}",

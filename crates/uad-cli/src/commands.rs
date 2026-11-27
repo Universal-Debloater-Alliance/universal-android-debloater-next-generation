@@ -4,8 +4,8 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PackageId, PmListPacksFlag};
 use uad_core::sync::{
-    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, query_package_state,
-    run_adb_shell_action, try_get_devices_list,
+    CorePackage, Phone, User, apply_pkg_state_commands, query_package_state, run_adb_shell_action,
+    try_get_devices_list,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 use uad_core::utils::{matches_search, truncate_description};
@@ -387,11 +387,8 @@ pub fn execute_with_fallback(
 
     // Execute commands
     for cmd in &commands {
-        match run_adb_shell_action(&device.adb_id, cmd.as_str()) {
-            Ok(_) => println!("{}✓ {}", indent, cmd),
-            // The message names the command, or explains why it failed.
-            Err(AdbError::Generic(message)) => return Err(message.into()),
-        }
+        run_adb_shell_action(&device.adb_id, cmd)?;
+        println!("{}✓ {}", indent, cmd);
     }
 
     // Verify package state and attempt fallback if needed
@@ -400,7 +397,7 @@ pub fn execute_with_fallback(
         core_pkg.state == PackageState::Uninstalled && target_state == PackageState::Enabled;
     let actual_state = match device
         .finish_package_action(user, package, reinstalled)
-        .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
+        .map_err(|e| e.with_context(format_args!("Could not verify the state of '{package}'")))?
     {
         Some(state) => state,
         None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,

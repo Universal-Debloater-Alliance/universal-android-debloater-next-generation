@@ -13,8 +13,8 @@ use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     save::{backup_phone, device_backup_dir, list_available_backups, restore_backup_with_errors},
     sync::{
-        AdbError, CorePackage, Phone, User, get_android_sdk, profile_access_denied,
-        run_adb_shell_action, supports_disabling, supports_multi_user,
+        CorePackage, Phone, User, get_android_sdk, profile_access_denied, run_adb_shell_action,
+        supports_disabling, supports_multi_user,
     },
     uad_lists::PackageState,
     utils::{DisplayablePath, Error, export_packages, open_url},
@@ -303,9 +303,7 @@ impl Settings {
                     commands.push(Task::perform(
                         async move {
                             for command in package.commands {
-                                if let Err(AdbError::Generic(error)) =
-                                    run_adb_shell_action(&phone.adb_id, &command)
-                                {
+                                if let Err(error) = run_adb_shell_action(&phone.adb_id, &command) {
                                     return Err(format!("{name} ({user}): {error}"));
                                 }
                             }

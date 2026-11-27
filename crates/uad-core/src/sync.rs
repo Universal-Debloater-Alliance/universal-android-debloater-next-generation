@@ -63,13 +63,22 @@ impl Phone {
         user: User,
         name: &str,
         reinstalled: bool,
-    ) -> Result<Option<PackageState>, String> {
+    ) -> Result<Option<PackageState>, AdbError> {
         let user_id = self.package_user_id(user.id)?;
         let read_state = || query_package_state(&self.adb_id, name, user_id);
         let actual = read_state()?;
         if reinstalled && actual == Some(PackageState::Disabled) {
             let commands = request_builder(&["pm enable"], name, user_id.map(|_| user));
-            execute_first_command(&commands, self)?;
+            if let Err(mut refusal) = execute_first_command(&commands, self) {
+                if let Err(error) = read_state() {
+                    use std::fmt::Write;
+                    let _ = write!(
+                        refusal.diagnostic,
+                        "\nCould not verify the final package state: {error}"
+                    );
+                }
+                return Err(refusal);
+            }
             let confirmed = read_state()?.unwrap_or(PackageState::Uninstalled);
             verify_fallback_state(PackageState::Enabled, confirmed)?;
             return Ok(Some(confirmed));
@@ -105,11 +114,113 @@ impl std::fmt::Display for User {
     }
 }
 
-/// An enum to contain different variants for errors yielded by ADB.
-#[derive(Debug, Clone)]
-pub enum AdbError {
-    Generic(String),
+/// A package action failure, with optional advice for a recognized Android diagnostic.
+#[derive(Clone, Debug)]
+pub struct AdbError {
+    pub context: String,
+    pub diagnostic: String,
+    pub advice: Option<AdbAdvice>,
 }
+
+#[derive(Clone, Debug)]
+pub struct AdbAdvice {
+    heading: &'static str,
+    pub explanation: &'static str,
+    pub tip: &'static str,
+}
+
+impl From<String> for AdbError {
+    fn from(diagnostic: String) -> Self {
+        Self {
+            context: String::new(),
+            diagnostic,
+            advice: None,
+        }
+    }
+}
+
+impl From<&str> for AdbError {
+    fn from(diagnostic: &str) -> Self {
+        diagnostic.to_owned().into()
+    }
+}
+
+impl AdbError {
+    #[must_use]
+    pub fn with_context(mut self, context: impl std::fmt::Display) -> Self {
+        self.context = format!("{context}: {}", self.context);
+        self
+    }
+
+    /// Attach an explanation to recognized Android errors and keep the original diagnostic intact.
+    #[must_use]
+    pub fn from_action(action: &str, diagnostic: String) -> Self {
+        let explain = |explanation, tip| AdbAdvice {
+            heading: "",
+            explanation,
+            tip,
+        };
+        let advice = if diagnostic.contains("DELETE_FAILED_USER_RESTRICTED") {
+            // Common Samsung errors
+            explain(
+                "Cannot uninstall: This package is restricted by the device manufacturer (Samsung Knox or similar).",
+                "Try disabling the package instead, or check device settings for Knox/security restrictions.",
+            )
+        } else if diagnostic.contains("NOT_INSTALLED_FOR_USER") {
+            explain(
+                "Package is not installed for the current user.",
+                "The package may be installed for a different user profile or work profile.",
+            )
+        } else if diagnostic.contains("Shell cannot change component state for null") {
+            // Empty package name error
+            explain(
+                "Invalid package: Empty package name detected.",
+                "Please refresh the package list and try again.",
+            )
+        } else if diagnostic.contains("Permission denied")
+            || diagnostic.contains("INSTALL_FAILED_PERMISSION_MODEL_DOWNGRADE")
+        {
+            // Generic permission errors
+            AdbAdvice {
+                heading: "Permission denied: ",
+                explanation: "Insufficient privileges to perform this action.",
+                tip: "This may require root access or the package is protected by the system.",
+            }
+        } else if diagnostic.contains("DELETE_FAILED_DEVICE_POLICY_MANAGER") {
+            // Work profile / managed device errors
+            explain(
+                "Cannot modify: Package is managed by device policy (MDM/EMM).",
+                "Contact your IT administrator if this is a work device.",
+            )
+        } else {
+            // Generic failure with context
+            return Self {
+                context: format!("{action} -> "),
+                ..diagnostic.into()
+            };
+        };
+        Self {
+            diagnostic,
+            advice: Some(advice),
+            context: String::new(),
+        }
+    }
+}
+
+impl std::fmt::Display for AdbError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.context)?;
+        if let Some(advice) = &self.advice {
+            writeln!(f, "{}{}", advice.heading, advice.explanation)?;
+            writeln!(f, "Error: {}", self.diagnostic)?;
+            write!(f, "Tip: {}", advice.tip)
+        } else {
+            f.write_str(&self.diagnostic)
+        }
+    }
+}
+
+impl std::error::Error for AdbError {}
 
 /// Run an arbitrary shell action via the typed ADB wrapper.
 /// This replaces the deprecated `adb_shell_command`.
@@ -121,75 +232,15 @@ pub fn run_adb_shell_action<S: AsRef<str>>(
 ) -> Result<String, AdbError> {
     let serial = device_serial.as_ref();
 
-    match AdbCommand::new().shell(serial).raw(action) {
-        Ok(o) => {
-            if crate::adb::command_failed(&o) {
-                let friendly_msg = make_friendly_error_message(&o, action);
-                return Err(AdbError::Generic(friendly_msg));
-            }
-            info!("{action} -> {o}");
-            Ok(o)
+    let diagnostic = match AdbCommand::new().shell(serial).raw(action) {
+        Ok(output) if !crate::adb::command_failed(&output) => {
+            info!("{action} -> {output}");
+            return Ok(output);
         }
-        Err(err) => {
-            if !err.contains("[not installed for") {
-                let friendly_msg = make_friendly_error_message(&err, action);
-                return Err(AdbError::Generic(friendly_msg));
-            }
-            Err(AdbError::Generic(err))
-        }
-    }
-}
-
-/// Convert common OEM-specific ADB error messages into user-friendly explanations.
-fn make_friendly_error_message(error_output: &str, action: &str) -> String {
-    // Common Samsung errors
-    if error_output.contains("DELETE_FAILED_USER_RESTRICTED") {
-        return format!(
-            "Cannot uninstall: This package is restricted by the device manufacturer (Samsung Knox or similar).\n\
-            Error: {error_output}\n\
-            Tip: Try disabling the package instead, or check device settings for Knox/security restrictions."
-        );
-    }
-
-    if error_output.contains("NOT_INSTALLED_FOR_USER") {
-        return format!(
-            "Package is not installed for the current user.\n\
-            Error: {error_output}\n\
-            Tip: The package may be installed for a different user profile or work profile."
-        );
-    }
-
-    // Empty package name error
-    if error_output.contains("Shell cannot change component state for null") {
-        return format!(
-            "Invalid package: Empty package name detected.\n\
-            Error: {error_output}\n\
-            Tip: Please refresh the package list and try again."
-        );
-    }
-
-    // Generic permission errors
-    if error_output.contains("Permission denied")
-        || error_output.contains("INSTALL_FAILED_PERMISSION_MODEL_DOWNGRADE")
-    {
-        return format!(
-            "Permission denied: Insufficient privileges to perform this action.\n\
-            Error: {error_output}\n\
-            Tip: This may require root access or the package is protected by the system."
-        );
-    }
-
-    // Work profile / managed device errors
-    if error_output.contains("DELETE_FAILED_DEVICE_POLICY_MANAGER") {
-        return format!(
-            "Cannot modify: Package is managed by device policy (MDM/EMM).\n\
-            Error: {error_output}\n\
-            Tip: Contact your IT administrator if this is a work device."
-        );
-    }
-
-    // Generic failure with context
-    format!("{action} -> {error_output}")
+        Err(error) if error.contains("[not installed for") => return Err(error.into()),
+        Ok(output) | Err(output) => output,
+    };
+    Err(AdbError::from_action(action, diagnostic))
 }
 
 /// If `None`, returns an empty String, not " --user 0"
@@ -690,11 +741,9 @@ fn package_with_state(package: &CorePackage, state: PackageState) -> CorePackage
 }
 
 /// Executes the first available command and returns the result.
-fn execute_first_command(commands: &[String], phone: &Phone) -> Result<(), String> {
+fn execute_first_command(commands: &[String], phone: &Phone) -> Result<(), AdbError> {
     let command = commands.first().ok_or("No command available")?;
-    run_adb_shell_action(&phone.adb_id, command)
-        .map(|_| ())
-        .map_err(|AdbError::Generic(error)| error)
+    run_adb_shell_action(&phone.adb_id, command).map(|_| ())
 }
 
 /// Attempt fallback action when package state verification fails
@@ -704,7 +753,7 @@ pub fn attempt_fallback(
     actual_state: PackageState,
     user: User,
     phone: &Phone,
-) -> Result<String, String> {
+) -> Result<String, AdbError> {
     let (expected, message) =
         run_fallback_commands(package, wanted_state, actual_state, user, phone)?;
     // Recovery reinstalls the package when its target is Enabled.
@@ -735,14 +784,14 @@ pub fn run_fallback_commands(
     actual_state: PackageState,
     user: User,
     phone: &Phone,
-) -> Result<(PackageState, &'static str), String> {
+) -> Result<(PackageState, &'static str), AdbError> {
     match (wanted_state, actual_state) {
         // Case 1: Tried to uninstall but package was reinstalled -> disable it
         (PackageState::Uninstalled, PackageState::Enabled) => {
             let pkg = package_with_state(package, PackageState::Enabled);
             let commands = apply_pkg_state_commands(&pkg, PackageState::Disabled, user, phone)?;
             execute_first_command(&commands, phone)
-                .map_err(|e| format!("Failed to disable package: {e}"))?;
+                .map_err(|e| e.with_context("Failed to disable package"))?;
             Ok((
                 PackageState::Disabled,
                 "disabled package instead of uninstalling",
@@ -754,7 +803,7 @@ pub fn run_fallback_commands(
             let pkg = package_with_state(package, PackageState::Enabled);
             let commands = apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone)?;
             execute_first_command(&commands, phone)
-                .map_err(|e| format!("Failed to uninstall: {e}"))?;
+                .map_err(|e| e.with_context("Failed to uninstall"))?;
 
             Ok((
                 PackageState::Uninstalled,
@@ -769,7 +818,7 @@ pub fn run_fallback_commands(
                 apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone)?;
 
             if enable_cmds.is_empty() {
-                return Err("No command available to reinstall the package".to_string());
+                return Err("No command available to reinstall the package".into());
             }
 
             let uninstall_cmds = if phone.android_sdk >= 23 {
@@ -785,7 +834,7 @@ pub fn run_fallback_commands(
                 {
                     return Err(format!(
                         "Cannot confirm install-existing support for {user}. Skipping uninstall. {reply}"
-                    ));
+                    ).into());
                 }
                 request_builder(&["pm uninstall -k"], &package.name, Some(user))
             } else {
@@ -794,9 +843,9 @@ pub fn run_fallback_commands(
             };
 
             execute_first_command(&uninstall_cmds, phone)
-                .map_err(|e| format!("Failed to uninstall for reinstall: {e}"))?;
+                .map_err(|e| e.with_context("Failed to uninstall for reinstall"))?;
             execute_first_command(&enable_cmds, phone)
-                .map_err(|e| format!("Failed to reinstall package: {e}"))?;
+                .map_err(|e| e.with_context("Failed to reinstall package"))?;
             Ok((
                 PackageState::Enabled,
                 "uninstalled and reinstalled package to enable it",
@@ -806,13 +855,29 @@ pub fn run_fallback_commands(
         // Other cases - no fallback available
         _ => Err(format!(
             "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
-        )),
+        ).into()),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn explained_action_errors_keep_the_full_android_reply() {
+        let diagnostic = "ERROR: NOT_INSTALLED_FOR_USER\n  Android detail";
+        let explanation = "Package is not installed for the current user.";
+        let tip = "Tip: The package may be installed for a different user profile or work profile.";
+        let action = "pm uninstall --user 10 com.example.app";
+        let error = AdbError::from_action(action, diagnostic.to_owned())
+            .with_context("Failed to uninstall");
+        assert_eq!(
+            error.to_string(),
+            format!("Failed to uninstall: {explanation}\nError: {diagnostic}\n{tip}")
+        );
+        let refusal = AdbError::from_action(action, "ERROR: refused".to_owned());
+        assert_eq!(refusal.to_string(), format!("{action} -> ERROR: refused"));
+    }
 
     #[test]
     fn only_an_unsupported_user_list_can_fall_back_to_the_owner() {
