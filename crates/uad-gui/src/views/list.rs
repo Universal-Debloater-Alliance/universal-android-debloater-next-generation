@@ -3,13 +3,13 @@ use crate::style;
 use crate::theme::Theme;
 use crate::widgets::navigation_menu::ICONS;
 use log::{error, info, warn};
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 use uad_core::config::DeviceSettings;
 use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
-use uad_core::utils::{NAME, export_selection, fetch_packages, matches_search, open_url};
+use uad_core::utils::{NAME, export_selection, matches_search, open_url, try_fetch_packages};
 
 use crate::views::settings::Settings;
 use crate::widgets::modal::Modal;
@@ -57,6 +57,7 @@ pub struct List {
     pub loading_state: LoadingState,
     pub(crate) load_id: u64,
     loaded_serial: Option<String>,
+    pub(crate) inventory_errors: HashMap<usize, String>,
     /// An action finished while the packages were being read
     reread_packages: bool,
     pub uad_lists: PackageHashMap,
@@ -89,7 +90,7 @@ pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages(u64, (PackageHashMap, UadListState)),
     /// Packages of the device with the given serial
-    ApplyFilters(u64, String, Vec<Vec<PackageRow>>),
+    ApplyFilters(u64, String, Vec<Result<Vec<PackageRow>, String>>),
     DismissFallbackNotifications,
     VerifyAndFallbackFinished(VerifyAndFallbackResult),
     SearchInputChanged(String),
@@ -835,24 +836,15 @@ impl List {
         uad_list: &PackageHashMap,
         device_serial: &str,
         user_list: &[User],
-    ) -> Vec<Vec<PackageRow>> {
+    ) -> Vec<Result<Vec<PackageRow>, String>> {
+        let load = |user| {
+            try_fetch_packages(uad_list, device_serial, user)
+                .map(|packages| packages.into_iter().map(PackageRow::from).collect())
+        };
         if user_list.len() <= 1 {
-            vec![
-                fetch_packages(uad_list, device_serial, None)
-                    .into_iter()
-                    .map(PackageRow::from)
-                    .collect(),
-            ]
+            vec![load(None)]
         } else {
-            user_list
-                .iter()
-                .map(|user| {
-                    fetch_packages(uad_list, device_serial, Some(user.id))
-                        .into_iter()
-                        .map(PackageRow::from)
-                        .collect()
-                })
-                .collect()
+            user_list.iter().map(|user| load(Some(user.id))).collect()
         }
     }
 
@@ -1007,7 +999,7 @@ impl List {
     fn on_apply_filters(
         &mut self,
         device_serial: &str,
-        packages: Vec<Vec<PackageRow>>,
+        packages: Vec<Result<Vec<PackageRow>, String>>,
         selected_device: &Phone,
     ) -> Task<Message> {
         // Another device was selected while these packages were loading.
@@ -1019,7 +1011,20 @@ impl List {
             return self.read_packages(selected_device);
         }
         self.loaded_serial = Some(device_serial.to_owned());
-        self.phone_packages = packages;
+        self.inventory_errors.clear();
+        self.phone_packages = packages
+            .into_iter()
+            .enumerate()
+            .map(|(index, result)| {
+                result.unwrap_or_else(|error| {
+                    error!(
+                        "Could not read packages on {device_serial} for user index {index}: {error}"
+                    );
+                    self.inventory_errors.insert(index, error);
+                    Vec::new()
+                })
+            })
+            .collect();
         // The selection refers to rows of the previous list.
         self.selected_packages.clear();
         self.all_selected = false;
@@ -1900,7 +1905,7 @@ mod tests {
         let mut view = view_with_selection();
         // The work profile is displayed, and the new device has a single user.
         view.selected_user = Some(two_users().user_list[1]);
-        let _ = view.on_apply_filters("", vec![vec![]], &two_users());
+        let _ = view.on_apply_filters("", vec![Ok(vec![])], &two_users());
         assert_eq!(view.selected_packages, []);
         assert_eq!(view.selected_user, Some(User::default()));
     }
@@ -1909,7 +1914,7 @@ mod tests {
     fn packages_of_another_device_are_not_displayed() {
         let mut view = view_with_selection();
         // These packages finished loading after another device was selected.
-        let _ = view.on_apply_filters("previous-device", vec![vec![]], &two_users());
+        let _ = view.on_apply_filters("previous-device", vec![Ok(vec![])], &two_users());
         assert_eq!(view.phone_packages[0].len(), 3);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
     }
@@ -1971,7 +1976,7 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 2)]);
 
         // They are still listed once the packages of the other device are loaded.
-        let _ = view.on_apply_filters("other", vec![vec![], vec![]], &other);
+        let _ = view.on_apply_filters("other", vec![Ok(vec![]), Ok(vec![])], &other);
         assert_eq!(view.fallback_notifications.len(), 2);
     }
 
@@ -2029,7 +2034,7 @@ mod tests {
         view.reset_inventory();
         let _ = view.on_verify_and_fallback_finished(action, &phone);
         let _ = view.load_uad_list(true, &phone);
-        let _ = view.on_apply_filters("", vec![vec![]], &phone);
+        let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone);
         assert_eq!(view.fallback_notifications, ["Retry failed"]);
     }
 
@@ -2040,7 +2045,8 @@ mod tests {
         let mut settings = Settings::default();
         let mut phone = two_users();
         let action = finished(&view, (0, 1));
-        let read_before_the_action = view.phone_packages.clone();
+        let read_before_the_action: Vec<_> =
+            view.phone_packages.clone().into_iter().map(Ok).collect();
 
         // The device is refreshed, and the action finishes while its packages are read.
         view.reset_inventory();

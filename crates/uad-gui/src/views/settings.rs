@@ -13,8 +13,8 @@ use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
     save::{backup_phone, device_backup_dir, list_available_backups, restore_backup},
     sync::{
-        AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
-        supports_disabling, supports_multi_user,
+        AdbError, CorePackage, Phone, User, get_android_sdk, profile_access_denied,
+        run_adb_shell_action, supports_disabling, supports_multi_user,
     },
     utils::{DisplayablePath, Error, export_packages, open_url},
 };
@@ -108,7 +108,19 @@ impl Settings {
             }
             // It would save a half-restored device.
             Message::BackupDevice if self.restoring(phone).is_some() => Task::none(),
-            Message::BackupDevice => self.handle_backup_device(phone, &apps.phone_packages),
+            Message::BackupDevice => {
+                for user in &phone.user_list {
+                    if let Some(error) = apps.inventory_errors.get(&user.index)
+                        && !(user.protected && profile_access_denied(error))
+                    {
+                        return self.handle_device_backed_up(
+                            phone,
+                            Err(format!("Could not read {user}: {error}")),
+                        );
+                    }
+                }
+                self.handle_backup_device(phone, &apps.phone_packages)
+            }
             Message::DeviceBackedUp(result) => self.handle_device_backed_up(phone, result),
             Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
             Message::RestoreDevice => self.handle_restore_device(phone, &apps.phone_packages),
@@ -116,6 +128,11 @@ impl Settings {
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
             Message::ExportPackages => {
+                let user = apps.selected_user.unwrap_or_default();
+                if let Some(error) = apps.inventory_errors.get(&user.index) {
+                    return self
+                        .handle_packages_exported(Err(format!("Could not read {user}: {error}")));
+                }
                 self.handle_export_packages(apps.selected_user, &apps.phone_packages)
             }
             Message::PackagesExported(result) => self.handle_packages_exported(result),
@@ -693,8 +710,13 @@ impl Settings {
             ))
         };
 
-        let export_btn =
-            button_primary("Export").on_press_maybe(ready.then_some(Message::ExportPackages));
+        let export_user = apps_view.selected_user.unwrap_or_default();
+        let export_btn = button_primary("Export").on_press_maybe(
+            (ready
+                && !apps_view.inventory_errors.contains_key(&export_user.index)
+                && export_user.packages(&apps_view.phone_packages).is_ok())
+            .then_some(Message::ExportPackages),
+        );
 
         let backup_row = row![
             backup_btn,

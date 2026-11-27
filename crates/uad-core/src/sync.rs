@@ -45,6 +45,19 @@ pub struct User {
     pub protected: bool,
 }
 
+impl User {
+    /// System packages loaded for this user. Only a protected profile can have an empty list.
+    pub fn packages<T>(self, inventory: &[Vec<T>]) -> Result<&[T], String> {
+        let packages = inventory
+            .get(self.index)
+            .ok_or_else(|| format!("No package list loaded for {self}"))?;
+        if packages.is_empty() && !self.protected {
+            return Err(format!("The packages of {self} could not be read"));
+        }
+        Ok(packages)
+    }
+}
+
 impl std::fmt::Display for User {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "user {}", self.id)
@@ -432,16 +445,31 @@ pub const fn supports_multi_user(dev: &Phone) -> bool {
     dev.android_sdk >= 21
 }
 
+/// Android denies the shell access to some secondary users.
+#[must_use]
+pub fn profile_access_denied(error: &str) -> bool {
+    error.contains("Shell does not have permission to access user")
+        || (error.contains("SecurityException")
+            && error.contains("android.permission.INTERACT_ACROSS_USERS"))
+}
+
 /// Check if a `user_id` is protected on a device by trying
 /// to list associated packages.
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
-    AdbCommand::new()
+    match AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_packages_sys(None, Some(user_id))
-        .is_err()
+    {
+        Ok(_) => false,
+        Err(error) if profile_access_denied(&error) => true,
+        Err(error) => {
+            error!("Could not check access to user {user_id}: {error}");
+            false
+        }
+    }
 }
 
 #[must_use]

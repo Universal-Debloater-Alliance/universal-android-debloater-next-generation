@@ -71,6 +71,17 @@ pub fn fetch_packages(
     device_serial: &str,
     user_id: Option<u16>,
 ) -> Vec<CorePackage> {
+    try_fetch_packages(uad_lists, device_serial, user_id).unwrap_or_else(|error| {
+        error!("Could not list the packages of user {user_id:?}: {error}");
+        Vec::new()
+    })
+}
+
+pub fn try_fetch_packages(
+    uad_lists: &PackageHashMap,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> Result<Vec<CorePackage>, String> {
     let query = |flag| {
         AdbCommand::new()
             .shell(device_serial)
@@ -78,17 +89,9 @@ pub fn fetch_packages(
             .list_packages_sys(Some(flag), user_id)
     };
     // Without all three lists, packages would be given the wrong state.
-    let lists = query(PmListPacksFlag::IncludeUninstalled).and_then(|all| {
-        Ok((
-            all,
-            query(PmListPacksFlag::OnlyEnabled)?,
-            query(PmListPacksFlag::OnlyDisabled)?,
-        ))
-    });
-    let Ok((all_sys_packs, enabled, disabled)) = lists else {
-        error!("Could not list the packages of user {user_id:?}");
-        return Vec::new();
-    };
+    let all_sys_packs = query(PmListPacksFlag::IncludeUninstalled)?;
+    let enabled = query(PmListPacksFlag::OnlyEnabled)?;
+    let disabled = query(PmListPacksFlag::OnlyDisabled)?;
     let enabled_sys_packs: HashSet<String> = enabled.into_iter().collect();
     let disabled_sys_packs: HashSet<String> = disabled.into_iter().collect();
 
@@ -129,7 +132,7 @@ pub fn fetch_packages(
         user_package.push(package);
     }
     user_package.sort_by_key(|package| package.name.to_lowercase());
-    user_package
+    Ok(user_package)
 }
 
 #[must_use]
@@ -236,9 +239,7 @@ pub fn export_packages(
     user: User,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<PathBuf, String> {
-    let user_packages = phone_packages
-        .get(user.index)
-        .ok_or_else(|| format!("No package list loaded for user {}", user.id))?;
+    let user_packages = user.packages(phone_packages)?;
     fs::create_dir_all(dir).map_err(|err| err.to_string())?;
     let backup_file = std::path::absolute(dir)
         .map_err(|err| err.to_string())?
@@ -365,13 +366,15 @@ mod tests {
             state: PackageState::Enabled,
             ..package.clone()
         };
-        let path =
-            export_packages(dir.path(), user, &[vec![package, enabled]]).expect("export packages");
+        let path = export_packages(dir.path(), user, &[vec![package, enabled.clone()]])
+            .expect("export packages");
         assert_eq!(
             path.parent().expect("export directory"),
             std::path::absolute(dir.path()).expect("absolute export directory")
         );
-        let records = csv::Reader::from_path(path)
+        // A failed read must leave the previous export intact.
+        assert!(export_packages(dir.path(), user, &[vec![]]).is_err());
+        let records = csv::Reader::from_path(&path)
             .expect("open exported CSV")
             .records()
             .collect::<Result<Vec<_>, _>>()
@@ -379,6 +382,12 @@ mod tests {
         assert_eq!(records.len(), 1);
         assert_eq!(&records[0][0], "com.example.app");
         assert_eq!(&records[0][1], "' =HYPERLINK(\"x\",\"y\")  next line");
+        // A valid inventory can have no uninstalled packages.
+        export_packages(dir.path(), user, &[vec![enabled]]).expect("export header only");
+        assert_eq!(
+            fs::read_to_string(path).expect("read CSV"),
+            "Package Name,Description\n"
+        );
         for value in [
             "=1+1", "+1", "-2", "@SUM(A1)", " \t=1+1", "\tvalue", "\rvalue",
         ] {

@@ -50,16 +50,9 @@ pub fn backup_phone(
         return Err("No user was found on the device".to_string());
     }
     for u in users {
-        let packages = phone_packages
-            .get(u.index)
-            .ok_or_else(|| format!("No package list loaded for user {}", u.id))?;
-        // A user whose packages can be listed always has some.
-        if !u.protected && packages.is_empty() {
-            return Err(format!("The packages of user {} could not be read", u.id));
-        }
         backup.users.push(UserBackup {
             id: u.id,
-            packages: packages.clone(),
+            packages: u.packages(phone_packages)?.to_vec(),
         });
     }
 

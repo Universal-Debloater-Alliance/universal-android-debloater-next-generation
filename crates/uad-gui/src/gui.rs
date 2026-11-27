@@ -523,7 +523,7 @@ mod tests {
         Message::AppsAction(AppsMessage::ApplyFilters(
             id,
             serial.into(),
-            vec![vec![row]],
+            vec![Ok(vec![row])],
         ))
     }
 
