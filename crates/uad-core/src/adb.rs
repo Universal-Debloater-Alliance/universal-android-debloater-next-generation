@@ -56,12 +56,23 @@ pub fn to_trimmed_utf8(v: &[u8]) -> String {
 pub(crate) fn command_failed(output: &str) -> bool {
     output.lines().any(|line| {
         let line = line.trim();
-        if line.eq_ignore_ascii_case("failed") {
+        if line.eq_ignore_ascii_case("failed")
+            || matches!(
+                line,
+                "/system/bin/sh: cmd: not found"
+                    | "sh: cmd: not found"
+                    | "/system/bin/sh: cmd: inaccessible or not found"
+                    | "sh: cmd: inaccessible or not found"
+            )
+        {
             return true;
         }
         [
             "error",
             "failure",
+            "unknown command",
+            "cmd: can't find service",
+            "can't find service",
             "exception occurred while executing",
             "security exception",
             "java.lang.SecurityException",
@@ -622,6 +633,13 @@ mod tests {
             "some output\n  error: refused",
             "Failure [restricted]",
             "Error type 3",
+            "Unknown command: install-existing",
+            "/system/bin/sh: cmd: not found",
+            "sh: cmd: not found",
+            "/system/bin/sh: cmd: inaccessible or not found",
+            "sh: cmd: inaccessible or not found",
+            "cmd: Can't find service: activity",
+            "Can't find service: package",
             "  Failed\r\n",
             "FAILED",
         ] {
