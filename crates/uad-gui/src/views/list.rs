@@ -459,21 +459,6 @@ impl List {
         .spacing(10)
         .align_y(Alignment::Center);
 
-        let unavailable = container(
-                    column![
-                        text("ADB is not authorized to access this user!").size(20)
-                            .style(style::Text::Danger),
-                        text("The most likely reason is that it is the user of your work profile (also called Secure Folder on Samsung devices). There's really no solution, other than completely disabling your work profile in your device settings.")
-                            .style(style::Text::Commentary)
-                            .align_x(alignment::Horizontal::Center),
-                    ]
-                    .spacing(6)
-                    .align_x(Alignment::Center)
-                )
-                .padding(10)
-                .center_x(Length::Shrink)
-                .style(style::Container::BorderedFrame);
-
         let control_panel = self.control_panel(selected_device);
 
         // Fallback notifications area
@@ -527,7 +512,7 @@ impl List {
             column![
                 control_panel,
                 notifications_area,
-                container(unavailable)
+                container(self.unavailable_packages())
                     .height(Length::Fill)
                     .center_y(Length::Fill),
             ]
@@ -814,6 +799,38 @@ impl List {
         .height(Length::Shrink)
         .max_height(700)
         .style(style::Container::Background)
+        .into()
+    }
+
+    fn unavailable_packages(&self) -> Element<'_, Message, Theme, Renderer> {
+        let user = self.selected_user.unwrap_or_default();
+        let retry = Some("Check the device connection and press Refresh to try again.");
+        let (title, detail) = match self.inventory_errors.get(&user.index) {
+            Some(error) if uad_core::sync::profile_access_denied(error) => (
+                format!("ADB is not authorized to access {user}."),
+                Some("This may be a work profile or a Secure Folder."),
+            ),
+            Some(error) => (
+                format!("Could not read packages for {user}: {error}"),
+                retry,
+            ),
+            None => match user.packages(&self.phone_packages) {
+                Err(error) => (error, retry),
+                Ok(_) => (format!("No system packages found for {user}."), None),
+            },
+        };
+        container(
+            column![text(title).size(20)]
+                .extend(
+                    detail
+                        .into_iter()
+                        .map(|line| text(line).style(style::Text::Commentary).into()),
+                )
+                .spacing(6)
+                .align_x(Alignment::Center),
+        )
+        .padding(10)
+        .style(style::Container::BorderedFrame)
         .into()
     }
 
