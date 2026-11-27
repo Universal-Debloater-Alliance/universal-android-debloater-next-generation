@@ -57,12 +57,13 @@ pub enum LoadingState {
 pub struct List {
     pub loading_state: LoadingState,
     pub(crate) load_id: u64,
+    pending_definitions: Option<u64>,
     loaded_serial: Option<String>,
     pub(crate) inventory_errors: HashMap<usize, String>,
     pending_actions: HashMap<String, usize>,
     /// Keep filters and eligible selections during a same-phone reread.
     preserve_selection: bool,
-    /// An action on this phone finished since the last inventory read started.
+    /// Actions or new definitions made the last inventory read stale.
     reread_packages: bool,
     pub uad_lists: PackageHashMap,
     /// packages of all users of the phone
@@ -166,16 +167,21 @@ impl List {
                 self.load_uad_list(remote, selected_device)
             }
             Message::LoadPhonePackages(id, (uad_lists, list_state)) if id != self.load_id => {
-                // A newer request loads the packages. These lists are kept
-                // if no other download has brought newer ones since.
-                if *list_update_state == UadListState::Downloading {
+                // A phone switch can finish loading cached definitions before this download.
+                if self.pending_definitions == Some(id) {
+                    self.pending_definitions = None;
                     self.uad_lists = uad_lists;
                     *list_update_state = list_state;
+                    self.reread_packages = true;
+                    return self.refresh_if_needed(selected_device);
                 }
                 Task::none()
             }
             Message::ApplyFilters(id, ..) if id != self.load_id => Task::none(),
-            Message::LoadPhonePackages(_, payload) => {
+            Message::LoadPhonePackages(id, payload) => {
+                if self.pending_definitions == Some(id) {
+                    self.pending_definitions = None;
+                }
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
             Message::ApplyFilters(_, serial, packages) => self.on_apply_filters(
@@ -1002,6 +1008,7 @@ impl List {
     pub(crate) fn reset_inventory(&mut self) {
         *self = Self {
             load_id: self.load_id + 1,
+            pending_definitions: self.pending_definitions,
             is_adb_satisfied: self.is_adb_satisfied,
             pending_actions: std::mem::take(&mut self.pending_actions),
             uad_lists: std::mem::take(&mut self.uad_lists),
@@ -1050,6 +1057,7 @@ impl List {
         self.loading_state = LoadingState::DownloadingList;
         self.load_id += 1;
         let id = self.load_id;
+        self.pending_definitions = Some(id);
         let phone = selected_device.clone();
         Task::perform(
             async move { Self::init_apps_view(remote, &phone) },
@@ -1100,7 +1108,7 @@ impl List {
         if device_serial != selected_device.adb_id {
             return Task::none();
         }
-        // An action may have finished while these rows were loading.
+        // An action or definitions update may have finished while these rows were loading.
         if self.reread_packages {
             if self.pending_actions.contains_key(device_serial) {
                 // The last action will start a fresh read. Discard these obsolete rows.
@@ -2186,17 +2194,47 @@ mod tests {
     }
 
     #[test]
-    fn a_late_list_download_is_kept_for_the_next_load() {
+    fn a_late_definitions_update_invalidates_rows_from_the_cache() {
         let mut view = view_with_selection();
         let mut state = UadListState::Downloading;
         let mut settings = Settings::default();
-        let late = Message::LoadPhonePackages(
-            view.load_id + 1,
-            (PackageHashMap::new(), UadListState::Done),
+        let mut phone = Phone {
+            adb_id: "B".into(),
+            ..two_users()
+        };
+        let _ = view.load_uad_list(true, &phone);
+        let id = view.load_id;
+        // The selected phone has already loaded rows from the cached definitions.
+        view.load_id += 1;
+        view.loaded_serial = Some(phone.adb_id.clone());
+        let late = Message::LoadPhonePackages(id, (PackageHashMap::new(), UadListState::Done));
+        assert_eq!(
+            view.update(&mut settings, &mut phone, &mut state, late)
+                .units(),
+            1
         );
-        let _ = view.update(&mut settings, &mut two_users(), &mut state, late);
         assert_eq!(state, UadListState::Done);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        assert!(!view.inventory_current(&phone));
+        let action = Message::List(1, RowMessage::ActionPressed);
+        assert_eq!(
+            view.update(&mut settings, &mut phone, &mut state, action.clone())
+                .units(),
+            0
+        );
+
+        let mut fresh = view.phone_packages.clone();
+        fresh[0][1].removal = Removal::Unsafe;
+        for row in fresh.iter_mut().flatten() {
+            row.selected = false;
+        }
+        let _ = view.on_apply_filters("B", fresh.into_iter().map(Ok).collect(), &phone, false);
+        assert_eq!(view.selected_packages, [(0, 2)]);
+        assert_eq!(
+            view.update(&mut settings, &mut phone, &mut state, action)
+                .units(),
+            0
+        );
 
         // An older download ending after it does not replace it.
         let older = Message::LoadPhonePackages(
