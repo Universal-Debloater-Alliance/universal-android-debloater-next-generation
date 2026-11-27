@@ -78,7 +78,6 @@ pub struct List {
     pub selected_user: Option<User>,
     all_selected: bool,
     pub input_value: String,
-    description: String,
     description_content: text_editor::Content,
     selection_modal: bool,
     error_modal: Option<String>,
@@ -1147,6 +1146,8 @@ impl List {
         }
         self.loaded_serial = Some(device_serial.to_owned());
         self.inventory_errors.clear();
+        self.description_content = text_editor::Content::new();
+        self.current_package_index = 0;
         let old_packages = std::mem::take(&mut self.phone_packages);
         self.phone_packages = packages
             .into_iter()
@@ -1308,7 +1309,6 @@ impl List {
                     previous.current = false;
                 }
                 let package = &mut self.phone_packages[i_user][i_package];
-                self.description.clone_from(&package.description);
                 self.description_content = text_editor::Content::with_text(&package.description);
                 package.current = true;
                 self.current_package_index = i_package;
@@ -1376,6 +1376,16 @@ impl List {
     fn on_user_selected(&mut self, user: User) -> Task<Message> {
         if self.phone_packages.get(user.index).is_none() {
             return Task::none();
+        }
+        if self.selected_user != Some(user) {
+            if let Some(previous) = self.selected_user
+                && let Some(rows) = self.phone_packages.get_mut(previous.index)
+                && let Some(row) = rows.get_mut(self.current_package_index)
+            {
+                row.current = false;
+            }
+            self.current_package_index = 0;
+            self.description_content = text_editor::Content::new();
         }
         self.selected_user = Some(user);
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
@@ -2137,6 +2147,28 @@ mod tests {
     }
 
     #[test]
+    fn switching_users_clears_the_highlight_and_description_together() {
+        let mut view = view_with_selection();
+        let mut phone = two_users();
+        for (user, index) in [(0, 1), (1, 2), (0, 0)] {
+            let _ = view.on_user_selected(phone.user_list[user]);
+            assert_eq!(view.description_content.text().trim(), "");
+            assert!(!view.phone_packages.iter().flatten().any(|row| row.current));
+            view.phone_packages[user][index].description = format!("Advice for {user}/{index}");
+            let _ = view.on_list_row(
+                index,
+                &RowMessage::PackagePressed,
+                &Settings::default(),
+                &mut phone,
+            );
+            assert_eq!(
+                view.description_content.text().trim(),
+                format!("Advice for {user}/{index}")
+            );
+        }
+    }
+
+    #[test]
     fn reread_preserves_filters_and_eligible_selections() {
         let mut view = view_with_selection();
         let phone = Phone {
@@ -2382,6 +2414,13 @@ mod tests {
         // The selected phone has already loaded rows from the cached definitions.
         view.load_id += 1;
         view.loaded_serial = Some(phone.adb_id.clone());
+        view.phone_packages[0][1].description = "Old safety advice".into();
+        let _ = view.on_list_row(1, &RowMessage::PackagePressed, &settings, &mut phone);
+        assert!(
+            view.description_content
+                .text()
+                .contains("Old safety advice")
+        );
         let late = Message::LoadPhonePackages(id, (PackageHashMap::new(), UadListState::Done));
         assert_eq!(
             view.update(&mut settings, &mut phone, &mut state, late)
@@ -2404,6 +2443,7 @@ mod tests {
             row.selected = false;
         }
         let _ = view.on_apply_filters("B", fresh.into_iter().map(Ok).collect(), &phone, false);
+        assert_eq!(view.description_content.text().trim(), "");
         assert_eq!(view.selected_packages, [(0, 2)]);
         assert_eq!(
             view.update(&mut settings, &mut phone, &mut state, action)
