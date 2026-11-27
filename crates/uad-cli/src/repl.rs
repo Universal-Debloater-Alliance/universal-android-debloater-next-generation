@@ -312,8 +312,9 @@ fn process_package_change(
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state = query_package_state(&device.adb_id, pkg_name, Some(user.id))?
-        .ok_or("Package not found on device")?;
+    let current_state =
+        query_package_state(&device.adb_id, pkg_name, device.package_user_id(user.id)?)?
+            .ok_or("Package not found on device")?;
 
     println!("{} {} (current: {})", action_name, pkg_name, current_state);
 
@@ -337,7 +338,7 @@ fn process_package_change(
         list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
 
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device);
+    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device)?;
 
     execute_with_fallback(
         pkg_name,

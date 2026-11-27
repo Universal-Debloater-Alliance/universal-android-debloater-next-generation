@@ -37,6 +37,23 @@ impl std::fmt::Display for Phone {
     }
 }
 
+impl Phone {
+    /// Only the owner on a known legacy device can be addressed without `--user`.
+    pub fn package_user_id(&self, id: u16) -> Result<Option<u16>, String> {
+        match self.android_sdk {
+            0 => Err(
+                "Could not determine the Android SDK version. Refresh the device and retry.".into(),
+            ),
+            1..21 if id == 0 => Ok(None),
+            1..21 => Err(format!(
+                "Cannot target user {id} on Android SDK {}.",
+                self.android_sdk
+            )),
+            _ => Ok(Some(id)),
+        }
+    }
+}
+
 /// `UserInfo` but relevant to UAD
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct User {
@@ -170,13 +187,25 @@ pub struct CorePackage {
     pub list: crate::uad_lists::UadList,
 }
 
-#[must_use]
 pub fn apply_pkg_state_commands(
     package: &CorePackage,
     wanted_state: PackageState,
     selected_user: User,
     phone: &Phone,
-) -> Vec<String> {
+) -> Result<Vec<String>, String> {
+    let user = phone
+        .package_user_id(selected_user.id)?
+        .map(|_| selected_user);
+    commands_for_user(package, wanted_state, user, phone)
+}
+
+/// Plan one package transition after the caller has resolved the target user.
+pub(crate) fn commands_for_user(
+    package: &CorePackage,
+    wanted_state: PackageState,
+    user: Option<User>,
+    phone: &Phone,
+) -> Result<Vec<String>, String> {
     // https://github.com/Universal-Debloater-Alliance/universal-android-debloater/wiki/ADB-reference
     // ALWAYS PUT THE COMMAND THAT CHANGES THE PACKAGE STATE FIRST!
     let commands = match wanted_state {
@@ -186,7 +215,7 @@ pub fn apply_pkg_state_commands(
                 i if i >= 23 => vec!["cmd package install-existing"],
                 21 | 22 => vec!["pm unhide"],
                 19 | 20 => vec!["pm unblock", PM_CLEAR_PACK],
-                _ => unreachable!("already prevented by the GUI"),
+                sdk => return Err(format!("Cannot reinstall a package on Android SDK {sdk}.")),
             },
             _ => vec![],
         },
@@ -213,8 +242,7 @@ pub fn apply_pkg_state_commands(
         PackageState::All => vec![],
     }; // this should be a `tinyvec`, as `len <= 4`
 
-    let user = supports_multi_user(phone).then_some(selected_user);
-    request_builder(&commands, &package.name, user)
+    Ok(request_builder(&commands, &package.name, user))
 }
 
 /// Build a command request to be sent via ADB to a device.
@@ -280,9 +308,9 @@ pub fn get_android_sdk(device_serial: &str) -> u8 {
     AdbCommand::new()
         .shell(device_serial)
         .getprop("ro.build.version.sdk")
-        .map_or(0, |sdk| {
-            sdk.parse().expect("SDK version numeral must be valid")
-        })
+        .ok()
+        .and_then(|sdk| sdk.parse().ok())
+        .unwrap_or(0)
 }
 
 /// Capture the current state of a package across all non-protected users.
@@ -642,8 +670,12 @@ pub fn attempt_fallback(
 ) -> Result<String, String> {
     let (expected, message) =
         run_fallback_commands(package, wanted_state, actual_state, user, phone)?;
-    let confirmed = query_package_state(&phone.adb_id, &package.name, Some(user.id))?
-        .unwrap_or(PackageState::Uninstalled);
+    let confirmed = query_package_state(
+        &phone.adb_id,
+        &package.name,
+        phone.package_user_id(user.id)?,
+    )?
+    .unwrap_or(PackageState::Uninstalled);
     verify_fallback_state(expected, confirmed)?;
     Ok(message.to_owned())
 }
@@ -673,7 +705,7 @@ pub fn run_fallback_commands(
         // Case 1: Tried to uninstall but package was reinstalled -> disable it
         (PackageState::Uninstalled, PackageState::Enabled) => {
             let pkg = package_with_state(package, PackageState::Enabled);
-            let commands = apply_pkg_state_commands(&pkg, PackageState::Disabled, user, phone);
+            let commands = apply_pkg_state_commands(&pkg, PackageState::Disabled, user, phone)?;
             execute_first_command(&commands, phone)
                 .map_err(|e| format!("Failed to disable package: {e}"))?;
             Ok((
@@ -685,7 +717,7 @@ pub fn run_fallback_commands(
         // Case 2: Tried to disable but package re-enabled itself -> try uninstall
         (PackageState::Disabled, PackageState::Enabled) => {
             let pkg = package_with_state(package, PackageState::Enabled);
-            let commands = apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone);
+            let commands = apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone)?;
             execute_first_command(&commands, phone)
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
@@ -699,19 +731,17 @@ pub fn run_fallback_commands(
         (PackageState::Enabled, PackageState::Disabled) => {
             let pkg = package_with_state(package, PackageState::Disabled);
             let uninstall_cmds =
-                apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone);
-            execute_first_command(&uninstall_cmds, phone)
-                .map_err(|e| format!("Failed to uninstall for reinstall: {e}"))?;
-
-            // Now try to reinstall/enable
+                apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone)?;
             let pkg_uninstalled = package_with_state(package, PackageState::Uninstalled);
             let enable_cmds =
-                apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone);
+                apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone)?;
 
             if enable_cmds.is_empty() {
-                return Err("uninstalled package but couldn't reinstall".to_string());
+                return Err("No command available to reinstall the package".to_string());
             }
 
+            execute_first_command(&uninstall_cmds, phone)
+                .map_err(|e| format!("Failed to uninstall for reinstall: {e}"))?;
             execute_first_command(&enable_cmds, phone)
                 .map_err(|e| format!("Failed to reinstall package: {e}"))?;
             Ok((
@@ -732,6 +762,17 @@ mod tests {
     use super::*;
 
     #[test]
+    fn only_a_known_legacy_owner_uses_unscoped_commands() {
+        let mut phone = Phone::default();
+        assert!(phone.package_user_id(0).is_err());
+        phone.android_sdk = 19;
+        assert_eq!(phone.package_user_id(0), Ok(None));
+        assert!(phone.package_user_id(10).is_err());
+        phone.android_sdk = 35;
+        assert_eq!(phone.package_user_id(10), Ok(Some(10)));
+    }
+
+    #[test]
     fn an_uninstalled_package_is_not_disabled() {
         let phone = Phone {
             android_sdk: 35,
@@ -746,6 +787,7 @@ mod tests {
                 list: crate::uad_lists::UadList::Misc,
             };
             apply_pkg_state_commands(&package, PackageState::Disabled, User::default(), &phone)
+                .unwrap()
         };
         assert_eq!(commands(PackageState::Enabled).len(), 3);
         assert_eq!(commands(PackageState::Uninstalled), Vec::<String>::new());

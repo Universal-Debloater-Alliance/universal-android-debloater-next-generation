@@ -295,6 +295,7 @@ impl Settings {
                 for package in restore_result.packages {
                     let name = packages[package.i_user][package.index].name.clone();
                     let user_id = phone.user_list[package.i_user].id;
+                    let query_user = supports_multi_user(phone).then_some(user_id);
                     let serial = phone.adb_id.clone();
                     commands.push(Task::perform(
                         async move {
@@ -305,7 +306,7 @@ impl Settings {
                                     return Err(format!("{name} (user {user_id}): {error}"));
                                 }
                             }
-                            let actual = query_package_state(&serial, &name, Some(user_id))
+                            let actual = query_package_state(&serial, &name, query_user)
                                 .map_err(|error| format!("{name} (user {user_id}): {error}"))?
                                 .unwrap_or(uad_core::uad_lists::PackageState::Uninstalled);
                             if actual != package.target {

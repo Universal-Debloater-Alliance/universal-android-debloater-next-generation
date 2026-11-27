@@ -1,5 +1,5 @@
 use crate::config::DeviceSettings;
-use crate::sync::{CorePackage, Phone, User, apply_pkg_state_commands};
+use crate::sync::{CorePackage, Phone, User, commands_for_user};
 use crate::utils::DisplayablePath;
 use log::{error, info, warn};
 use serde::{Deserialize, Serialize};
@@ -152,6 +152,7 @@ pub fn restore_backup_with_errors(
                 let user_packages = user.packages(packages).map_err(|error| {
                     format!("{error}. Refresh the device and retry the restore.")
                 })?;
+                let target_user = selected_device.package_user_id(user.id)?.map(|_| user);
                 for backup_package in &u.packages {
                     // The GUI updates the live device list using this index.
                     let Some((i, package)) = user_packages
@@ -166,12 +167,22 @@ pub fn restore_backup_with_errors(
                         );
                         continue;
                     };
-                    let p_commands = apply_pkg_state_commands(
+                    let p_commands = match commands_for_user(
                         package,
                         backup_package.state,
-                        user,
+                        target_user,
                         selected_device,
-                    );
+                    ) {
+                        Ok(actions) => actions,
+                        Err(error) => {
+                            skipped_packages += 1;
+                            warn!(
+                                "Skipping {} for {user} during restore: {error}",
+                                package.name
+                            );
+                            continue;
+                        }
+                    };
                     if !p_commands.is_empty() {
                         commands.push(BackupPackage {
                             i_user: user.index,
@@ -296,6 +307,47 @@ mod tests {
         assert_eq!((actions[2].i_user, actions[2].index), (1, 0));
         assert!(actions[2].commands[0].ends_with("--user 10 com.example.first"));
         assert!(restore_backup(&phone, &[], &settings).is_err());
+    }
+
+    #[test]
+    fn restore_skips_an_unsupported_reinstall_but_requires_a_known_sdk() {
+        let dir = tempdir().unwrap();
+        let path = dir.path().join("backup.json");
+        let known = "com.example.disabled";
+        let removed = "com.example.removed";
+        let backup = PhoneBackup {
+            device_id: "phone".into(),
+            users: vec![UserBackup {
+                id: 0,
+                packages: vec![
+                    package(removed, PackageState::Enabled),
+                    package(known, PackageState::Enabled),
+                ],
+            }],
+        };
+        fs::write(&path, serde_json::to_vec(&backup).unwrap()).unwrap();
+        let settings = DeviceSettings {
+            backup: BackupSettings {
+                selected: Some(DisplayablePath { path }),
+                ..BackupSettings::default()
+            },
+            ..DeviceSettings::default()
+        };
+        let packages = [vec![
+            package(known, PackageState::Disabled),
+            package(removed, PackageState::Uninstalled),
+        ]];
+        let mut phone = Phone {
+            android_sdk: 18,
+            user_list: vec![User::default()],
+            ..Phone::default()
+        };
+        let plan = restore_backup(&phone, &packages, &settings).unwrap();
+        assert_eq!(plan.skipped_count, 1);
+        assert_eq!(plan.packages.len(), 1);
+        assert_eq!(plan.packages[0].commands, [format!("pm enable {known}")]);
+        phone.android_sdk = 0;
+        assert!(restore_backup(&phone, &packages, &settings).is_err());
     }
 
     #[test]

@@ -296,8 +296,9 @@ fn process_package_state_change(
     dry_run: bool,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let current_state = query_package_state(&device.adb_id, pkg_name, Some(user.id))?
-        .ok_or("Package not found on device")?;
+    let current_state =
+        query_package_state(&device.adb_id, pkg_name, device.package_user_id(user.id)?)?
+            .ok_or("Package not found on device")?;
 
     println!("  {} ({})", pkg_name, current_state);
 
@@ -321,7 +322,7 @@ fn process_package_state_change(
         list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
 
-    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device);
+    let commands = apply_pkg_state_commands(&core_pkg, target_state, user, device)?;
 
     if dry_run {
         if commands.is_empty() {
@@ -380,19 +381,20 @@ pub fn execute_with_fallback(
 
     // Verify package state and attempt fallback if needed
     // A failed query does not mean that the package is uninstalled.
-    let actual_state = match query_package_state(&device.adb_id, package, Some(user.id))
-        .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
-    {
-        Some(state) => state,
-        None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
-        None => {
-            return Err(format!(
-                "Package '{package}' was not found on device for user {}",
-                user.id
-            )
-            .into());
-        }
-    };
+    let actual_state =
+        match query_package_state(&device.adb_id, package, device.package_user_id(user.id)?)
+            .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
+        {
+            Some(state) => state,
+            None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
+            None => {
+                return Err(format!(
+                    "Package '{package}' was not found on device for user {}",
+                    user.id
+                )
+                .into());
+            }
+        };
 
     if actual_state != target_state {
         println!(

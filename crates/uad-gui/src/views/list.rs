@@ -941,47 +941,41 @@ impl List {
                 return Vec::new();
             }
         }
-        if let Some(index) = single_package {
-            return self.run_pkg_action(device, settings, expert_mode, (i_user, index));
-        }
         // Only the packages shown in the review are applied.
-        let actions: Vec<(usize, usize)> = self
-            .selected_packages
-            .iter()
-            .copied()
-            .filter(|s| s.0 == i_user)
-            .collect();
-
-        actions
-            .into_iter()
-            .flat_map(|selection| self.run_pkg_action(device, settings, expert_mode, selection))
-            .collect()
-    }
-
-    /// Queue the action of `selection` for the users it applies to.
-    fn run_pkg_action(
-        &mut self,
-        device: &Phone,
-        settings: &DeviceSettings,
-        expert_mode: bool,
-        selection: (usize, usize),
-    ) -> Vec<Task<Message>> {
-        let plan = plan_pkg_action(
-            &self.phone_packages,
-            device,
-            settings,
-            expert_mode,
-            selection,
-        );
-        for (p_info, actions) in &plan {
+        let selections = match single_package {
+            Some(index) => vec![(i_user, index)],
+            None => self
+                .selected_packages
+                .iter()
+                .copied()
+                .filter(|s| s.0 == i_user)
+                .collect(),
+        };
+        let mut planned = Vec::new();
+        for selection in selections {
+            match plan_pkg_action(
+                &self.phone_packages,
+                device,
+                settings,
+                expert_mode,
+                selection,
+            ) {
+                Ok(plan) => planned.extend(plan),
+                Err(error) => {
+                    self.error_modal = Some(error);
+                    return Vec::new();
+                }
+            }
+        }
+        for (p_info, actions) in &planned {
             // Nothing reports back for another user already in the wanted state.
-            if actions.is_empty() && p_info.i_user != selection.0 {
+            if actions.is_empty() && p_info.i_user != i_user {
                 self.phone_packages[p_info.i_user][p_info.index].selected = false;
                 self.selected_packages
                     .retain(|&x| x != (p_info.i_user, p_info.index));
             }
         }
-        let tasks = pkg_action_tasks(plan);
+        let tasks = pkg_action_tasks(planned);
         if !tasks.is_empty() {
             *self
                 .pending_actions
@@ -1549,10 +1543,10 @@ fn plan_pkg_action(
     settings: &DeviceSettings,
     expert_mode: bool,
     selection: (usize, usize),
-) -> Vec<(PackageInfo, Vec<String>)> {
+) -> Result<Vec<(PackageInfo, Vec<String>)>, String> {
     let pkg = &packages[selection.0][selection.1];
     if needs_expert_mode(pkg) && !expert_mode {
-        return Vec::new();
+        return Ok(Vec::new());
     }
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
@@ -1582,7 +1576,7 @@ fn plan_pkg_action(
             // Will be filled asynchronously before running the adb action
             before_cross_user_states: vec![],
         };
-        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device)?;
         plan.push((p_info, actions));
     }
     // An action changes the package of its own user on purpose. To detect unexpected
@@ -1598,7 +1592,7 @@ fn plan_pkg_action(
             .user_list
             .retain(|u| u.id == own || !targeted.contains(&u.id));
     }
-    plan
+    Ok(plan)
 }
 
 /// Queue the ADB commands of a planned action.
@@ -1671,8 +1665,12 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
 
     let info = &result.info;
     let read_state = || {
-        query_package_state(&info.device.adb_id, &info.name, Some(info.user.id))
-            .map(|state| state.unwrap_or(PackageState::Uninstalled))
+        query_package_state(
+            &info.device.adb_id,
+            &info.name,
+            info.device.package_user_id(info.user.id)?,
+        )
+        .map(|state| state.unwrap_or(PackageState::Uninstalled))
     };
     let actual = read_state()?;
     result.new_state = Some(actual);
@@ -1841,7 +1839,8 @@ mod tests {
             &settings(false),
             false,
             selection,
-        );
+        )
+        .unwrap();
         VerifyAndFallbackResult {
             info: plan[0].0.clone(),
             new_state: Some(PackageState::Uninstalled),
@@ -1954,6 +1953,7 @@ mod tests {
             false,
             (0, 1),
         )
+        .unwrap()
         .into_iter()
         .map(|(info, commands)| (info.user.id, info.state, info.wanted_state, commands))
         .collect();
@@ -2109,15 +2109,17 @@ mod tests {
         // Apply also checks the action in case the selection outlived a state change.
         assert!(
             plan_pkg_action(&view.phone_packages, &phone, &settings(true), false, (1, 0))
+                .unwrap()
                 .is_empty()
         );
         assert_eq!(
-            view.run_pkg_action(&phone, &settings(true), false, (0, 0))
+            view.apply_actions(&phone, &settings(true), false, Some(0))
                 .len(),
             1
         );
+        view.selected_user = Some(phone.user_list[1]);
         assert_eq!(
-            view.run_pkg_action(&phone, &settings(true), true, (1, 0))
+            view.apply_actions(&phone, &settings(true), true, Some(0))
                 .len(),
             2
         );
@@ -2191,6 +2193,7 @@ mod tests {
                 false,
                 (0, 1),
             )
+            .unwrap()
             .iter()
             .map(|(info, _)| info.device.user_list.iter().map(|u| u.id).collect())
             .collect()
