@@ -436,14 +436,13 @@ fn parse_device_list(output: &str) -> Vec<(String, String)> {
 fn parse_user_list(output: &str) -> Result<Box<[UserInfo]>, String> {
     output
         .lines()
-        .skip(1) // omit header
-        .filter(|line| !line.trim_ascii().is_empty())
+        .map(str::trim_ascii)
+        .filter(|line| !line.is_empty() && *line != "Users:")
         .map(|line| {
             // this could be optimized by making more API-stability assumptions
-            let info = line.trim_ascii_start();
-            let info = info
+            let info = line
                 .strip_prefix("UserInfo")
-                .unwrap_or(info)
+                .unwrap_or(line)
                 .trim_ascii_start();
             let info = info.strip_prefix('{').unwrap_or(info).trim_ascii();
             let info = info
@@ -456,7 +455,14 @@ fn parse_user_list(output: &str) -> Result<Box<[UserInfo]>, String> {
                 .next()
                 .unwrap_or_default()
                 .parse()
-                .map_err(|e| format!("Invalid user ID in ADB output {line:?}: {e}"))?;
+                .map_err(|e| {
+                    if line.starts_with("UserInfo") || line.starts_with('{') {
+                        format!("Invalid user ID in ADB output {line:?}: {e}")
+                    } else {
+                        // pm can print a multiline diagnostic on stdout and exit successfully.
+                        output.to_owned()
+                    }
+                })?;
             Ok(UserInfo { id })
         })
         .collect()
@@ -519,6 +525,16 @@ mod tests {
     }
 
     #[test]
+    fn headerless_user_list_keeps_the_owner() {
+        let users = parse_user_list("UserInfo{0:Owner:13} running\nUserInfo{10:Work:31}")
+            .expect("valid user list");
+        assert_eq!(
+            users.iter().map(UserInfo::get_id).collect::<Vec<_>>(),
+            [0, 10]
+        );
+    }
+
+    #[test]
     fn malformed_user_lists_return_an_error_instead_of_a_partial_list() {
         for line in [
             "UserInfo{bad:Owner:13}",
@@ -527,6 +543,15 @@ mod tests {
         ] {
             assert!(parse_user_list(&format!("Users:\nUserInfo{{0:Owner:13}}\n{line}")).is_err());
         }
+    }
+
+    #[test]
+    fn user_list_keeps_multiline_diagnostics() {
+        let diagnostic = "ERROR: user service offline\n  detail: binder unavailable";
+        assert_eq!(
+            parse_user_list(diagnostic).expect_err("ADB diagnostic"),
+            diagnostic
+        );
     }
 
     #[test]

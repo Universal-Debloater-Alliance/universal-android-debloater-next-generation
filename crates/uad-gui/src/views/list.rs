@@ -1167,17 +1167,14 @@ impl List {
             self.selected_package_state = Some(PackageState::Enabled);
             self.selected_list = Some(UadList::All);
         }
-        self.selected_user = Some(
-            self.selected_user
-                .and_then(|previous| {
-                    selected_device
-                        .user_list
-                        .iter()
-                        .find(|u| u.id == previous.id && u.index < self.phone_packages.len())
-                        .copied()
-                })
-                .unwrap_or_default(),
-        );
+        // Keep the previous selection, then prefer the owner among the discovered users.
+        let preferred = self.selected_user.map_or(0, |user| user.id);
+        self.selected_user = selected_device
+            .user_list
+            .iter()
+            .filter(|u| u.index < self.phone_packages.len())
+            .min_by_key(|u| (u.id != preferred, u.id != 0))
+            .copied();
         Self::filter_package_lists(self);
         self.all_selected = keep_filters
             && !self.filtered_packages.is_empty()
@@ -2114,6 +2111,21 @@ mod tests {
         let _ = view.on_apply_filters("", vec![Ok(vec![])], &two_users(), false);
         assert_eq!(view.selected_packages, []);
         assert_eq!(view.selected_user, Some(User::default()));
+    }
+
+    #[test]
+    fn the_initial_selection_uses_the_discovered_user_and_index() {
+        let mut phone = two_users();
+        phone.user_list.swap(0, 1);
+        for (index, user) in phone.user_list.iter_mut().enumerate() {
+            user.index = index;
+        }
+        let mut view = List::default();
+        let _ = view.on_apply_filters("", vec![Ok(vec![]), Ok(vec![])], &phone, false);
+        assert_eq!(view.selected_user, Some(phone.user_list[1])); // owner at index 1
+        phone.user_list.truncate(1);
+        let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone, false);
+        assert_eq!(view.selected_user, Some(phone.user_list[0])); // only user 10 remains
     }
 
     #[test]
