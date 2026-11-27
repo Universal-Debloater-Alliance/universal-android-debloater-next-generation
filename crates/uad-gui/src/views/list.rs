@@ -155,8 +155,7 @@ impl List {
     ) -> Task<Message> {
         match message {
             Message::ModalValidate | Message::List(_, RowMessage::ActionPressed)
-                if !self.inventory_current(selected_device)
-                    || settings.restoring(selected_device).is_some() =>
+                if !self.actions_enabled(selected_device, settings) =>
             {
                 Task::none()
             }
@@ -368,7 +367,11 @@ impl List {
             .padding([5, 10]);
 
         let select_all_checkbox = checkbox(self.all_selected)
-            .on_toggle(Message::ToggleAllSelected)
+            .on_toggle_maybe(
+                self.selected_user
+                    .is_some_and(|u| !u.protected)
+                    .then_some(Message::ToggleAllSelected),
+            )
             .size(20)
             .style(style::CheckBox::SettingsEnabled)
             .spacing(0); // no label, so remove space entirely
@@ -441,14 +444,15 @@ impl List {
         settings: &Settings,
         selected_device: &Phone,
     ) -> Element<'_, Message, Theme, Renderer> {
-        let actions_enabled = self.inventory_current(selected_device);
+        let actions_enabled = self.actions_enabled(selected_device, settings);
+        let selectable = self.selected_user.is_some_and(|u| !u.protected);
         let packages = self
             .filtered_packages
             .iter()
             .fold(column![].spacing(6), |col, &i| {
                 col.push(
                     self.phone_packages[self.selected_user.unwrap_or_default().index][i]
-                        .view(settings, actions_enabled)
+                        .view(settings, actions_enabled, selectable)
                         .map(move |msg| Message::List(i, msg)),
                 )
             });
@@ -694,7 +698,7 @@ impl List {
             button(text("Cancel")).on_press(Message::ModalHide),
             Space::new().width(Length::Fill),
             button(text("Apply")).on_press_maybe(
-                (self.inventory_current(device) && packages.iter().any(eligible))
+                (self.actions_enabled(device, settings) && packages.iter().any(eligible))
                     .then_some(Message::ModalValidate)
             ),
         ]
@@ -1055,6 +1059,12 @@ impl List {
             && !self.pending_actions.contains_key(&phone.adb_id)
     }
 
+    fn actions_enabled(&self, phone: &Phone, settings: &Settings) -> bool {
+        self.selected_user.is_some_and(|u| !u.protected)
+            && self.inventory_current(phone)
+            && settings.restoring(phone).is_none()
+    }
+
     /// Re-read stale rows once the phone's last pending action is done.
     fn refresh_if_needed(&mut self, phone: &Phone) -> Task<Message> {
         if self.reread_packages
@@ -1223,6 +1233,9 @@ impl List {
         selected_device: &mut Phone,
         list_update_state: &mut UadListState,
     ) -> Task<Message> {
+        if self.selected_user.is_none_or(|user| user.protected) {
+            return Task::none();
+        }
         let i_user = self.selected_user.unwrap_or_default().index;
         for i in self.filtered_packages.clone() {
             if self.phone_packages[i_user][i].selected != selected {
@@ -1326,7 +1339,9 @@ impl List {
         expert_mode: bool,
         multi_user_mode: bool,
     ) {
-        let user = self.selected_user.unwrap_or_default();
+        let Some(user) = self.selected_user.filter(|u| !u.protected) else {
+            return;
+        };
         let package = &mut self.phone_packages[user.index][i_package];
         if toggle && needs_expert_mode(package) && !expert_mode {
             package.selected = false;
@@ -1633,6 +1648,13 @@ fn plan_pkg_action(
     expert_mode: bool,
     selection: (usize, usize),
 ) -> Result<Vec<(PackageInfo, Vec<String>)>, String> {
+    if device
+        .user_list
+        .get(selection.0)
+        .is_none_or(|user| user.protected)
+    {
+        return Ok(Vec::new());
+    }
     let pkg = &packages[selection.0][selection.1];
     if needs_expert_mode(pkg) && !expert_mode {
         return Ok(Vec::new());
@@ -2143,6 +2165,20 @@ mod tests {
             view.apply_actions(&phone, &settings(true), false, None)
                 .len(),
             2
+        );
+    }
+
+    #[test]
+    fn a_protected_profile_cannot_start_a_multi_user_action() {
+        let mut view = view_with_selection();
+        let mut phone = two_users();
+        phone.user_list[1].protected = true;
+        let _ = view.on_user_selected(phone.user_list[1]);
+        view.toggle_selection(&phone.user_list, 0, true, false, true);
+        assert!(!view.phone_packages[0][0].selected);
+        assert!(
+            view.apply_actions(&phone, &settings(true), false, Some(0))
+                .is_empty()
         );
     }
 

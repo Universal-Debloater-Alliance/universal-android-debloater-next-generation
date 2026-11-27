@@ -64,6 +64,7 @@ impl PackageRow {
         &self,
         settings: &Settings,
         actions_enabled: bool,
+        selectable: bool,
     ) -> Element<'_, Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
@@ -96,9 +97,10 @@ impl PackageRow {
             }
         }
         // Disable any removal action for unsafe packages if expert_mode is disabled
-        if self.removal != Removal::Unsafe
-            || self.state != PackageState::Enabled
-            || settings.general.expert_mode
+        if selectable
+            && (self.removal != Removal::Unsafe
+                || self.state != PackageState::Enabled
+                || settings.general.expert_mode)
         {
             selection_checkbox = checkbox(self.selected)
                 .on_toggle(Message::ToggleSelection)
@@ -113,7 +115,7 @@ impl PackageRow {
             .on_press_maybe(actions_enabled.then_some(Message::ActionPressed));
         } else {
             selection_checkbox = checkbox(self.selected)
-                .on_toggle(Message::ToggleSelection)
+                .on_toggle_maybe(selectable.then_some(Message::ToggleSelection))
                 .size(20)
                 .style(style::CheckBox::PackageDisabled);
 
