@@ -184,17 +184,9 @@ impl UadGui {
                     self.update(Message::SettingsAction(SettingsMessage::LoadDeviceSettings));
                 }
 
-                if previous.is_some()
-                    && let Some(phone) = &self.selected_device
-                {
-                    // Refresh already cleared this phone's inventory. Keep action messages
-                    // received while discovery was running.
-                    self.apps_view
-                        .load_uad_list(true, phone)
-                        .map(Message::AppsAction)
-                } else {
-                    self.update(Message::AppsAction(AppsMessage::LoadUadList(true)))
-                }
+                self.apps_view
+                    .load_uad_list(true, &self.selected_device.clone().unwrap_or_default())
+                    .map(Message::AppsAction)
             }
             Message::AppsPress => {
                 self.view = View::List;
@@ -228,7 +220,7 @@ impl UadGui {
                     return Task::none();
                 };
                 self.discovery_id += 1;
-                self.apps_view.reset_inventory();
+                self.apps_view.reset_package_rows();
                 self.devices_list.clear();
                 Task::perform(
                     async move { adb::ACommand::new().shell(phone.adb_id).reboot() },
@@ -412,10 +404,13 @@ impl UadGui {
     }
 
     fn reload_packages(&mut self) -> Task<Message> {
+        self.apps_view.reset_package_rows();
         if self.apps_view.uad_lists.is_empty() {
-            return self.update(Message::AppsAction(AppsMessage::LoadUadList(true)));
+            return self
+                .apps_view
+                .load_uad_list(true, &self.selected_device.clone().unwrap_or_default())
+                .map(Message::AppsAction);
         }
-        self.apps_view.reset_inventory();
         self.update(Message::AppsAction(AppsMessage::LoadPhonePackages(
             self.apps_view.load_id,
             (self.apps_view.uad_lists.clone(), self.update_state.uad_list),

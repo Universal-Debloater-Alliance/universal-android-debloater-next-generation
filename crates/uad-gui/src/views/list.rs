@@ -164,7 +164,7 @@ impl List {
             Message::ModalHide => self.on_modal_hide(),
             Message::ModalValidate => self.on_modal_validate(settings, selected_device),
             Message::LoadUadList(remote) => {
-                self.reset_inventory();
+                self.reset_package_rows();
                 self.load_uad_list(remote, selected_device)
             }
             Message::LoadPhonePackages(id, (uad_lists, list_state)) if id != self.load_id => {
@@ -244,12 +244,7 @@ impl List {
             self.fallback_notifications.push(notification);
         }
         if let Some(err) = result.error_modal {
-            if let Some(previous) = &mut self.error_modal {
-                previous.push_str("\n\n");
-                previous.push_str(&err);
-            } else {
-                self.error_modal = Some(err);
-            }
+            self.append_error(err);
         }
         if let Some((i_user, index)) = self.current_row(&result.info, selected_device) {
             let package = &mut self.phone_packages[i_user][index];
@@ -266,6 +261,15 @@ impl List {
             Self::filter_package_lists(self);
         }
         self.refresh_if_needed(selected_device)
+    }
+
+    fn append_error(&mut self, error: String) {
+        if let Some(previous) = &mut self.error_modal {
+            previous.push_str("\n\n");
+            previous.push_str(&error);
+        } else {
+            self.error_modal = Some(error);
+        }
     }
 
     /// Current row of the package an action was started for.
@@ -928,9 +932,13 @@ impl List {
 
     // === Split handlers to keep update short ===
     fn on_modal_hide(&mut self) -> Task<Message> {
-        self.selection_modal = false;
-        self.error_modal = None;
-        self.export_modal = None;
+        if self.selection_modal {
+            self.selection_modal = false;
+        } else if self.export_modal.is_some() {
+            self.export_modal = None;
+        } else {
+            self.error_modal = None;
+        }
         Task::none()
     }
 
@@ -939,7 +947,6 @@ impl List {
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
-        self.fallback_notifications.clear();
         let commands = self.apply_actions(
             selected_device,
             &settings.device,
@@ -969,7 +976,7 @@ impl List {
                 None => user.packages(&self.phone_packages),
             };
             if let Err(error) = inventory {
-                self.error_modal = Some(format!("{error}. Refresh the device and try again."));
+                self.append_error(format!("{error}. Refresh the device and try again."));
                 return Vec::new();
             }
         }
@@ -994,7 +1001,7 @@ impl List {
             ) {
                 Ok(plan) => planned.extend(plan),
                 Err(error) => {
-                    self.error_modal = Some(error);
+                    self.append_error(error);
                     return Vec::new();
                 }
             }
@@ -1020,11 +1027,18 @@ impl List {
     }
 
     pub(crate) fn reset_inventory(&mut self) {
+        self.fallback_notifications.clear();
+        self.reset_package_rows();
+    }
+
+    pub(crate) fn reset_package_rows(&mut self) {
         *self = Self {
             load_id: self.load_id + 1,
             pending_definitions: self.pending_definitions,
             is_adb_satisfied: self.is_adb_satisfied,
             pending_actions: std::mem::take(&mut self.pending_actions),
+            error_modal: self.error_modal.take(),
+            fallback_notifications: std::mem::take(&mut self.fallback_notifications),
             uad_lists: std::mem::take(&mut self.uad_lists),
             ..Self::default()
         };
@@ -1280,15 +1294,12 @@ impl List {
                 );
                 Task::none()
             }
-            RowMessage::ActionPressed => {
-                self.fallback_notifications.clear();
-                Task::batch(self.apply_actions(
-                    selected_device,
-                    &settings.device,
-                    settings.general.expert_mode,
-                    Some(i_package),
-                ))
-            }
+            RowMessage::ActionPressed => Task::batch(self.apply_actions(
+                selected_device,
+                &settings.device,
+                settings.general.expert_mode,
+                Some(i_package),
+            )),
             RowMessage::PackagePressed => {
                 // The previous row can belong to a longer list of another user.
                 if let Some(previous) =
@@ -1367,7 +1378,6 @@ impl List {
             return Task::none();
         }
         self.selected_user = Some(user);
-        self.fallback_notifications.clear();
         self.filtered_packages = (0..self.phone_packages[user.index].len()).collect();
         Self::filter_package_lists(self);
         Task::none()
@@ -2103,11 +2113,13 @@ mod tests {
         view.phone_packages[1].clear();
         view.inventory_errors.insert(1, "device offline".into());
         for single in [Some(1), None] {
+            view.error_modal = Some("Earlier refusal on another phone".into());
             assert!(
                 view.apply_actions(&phone, &settings(true), false, single)
                     .is_empty()
             );
             let error = view.error_modal.take().unwrap();
+            assert!(error.starts_with("Earlier refusal on another phone\n\n"));
             assert!(error.contains("user 10") && error.contains("device offline"));
         }
         assert!(view.pending_actions.is_empty());
@@ -2270,6 +2282,13 @@ mod tests {
             Some("com.example.b (user 0): refused\n\ncom.example.c (user 0): refused")
         );
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
+        // Review and export can both cover an unread error.
+        view.selection_modal = true;
+        view.export_modal = Some("selection.txt".into());
+        let _ = view.on_modal_hide();
+        let _ = view.on_modal_hide();
+        view.reset_inventory();
+        assert!(view.error_modal.is_some());
         let _ = view.on_modal_hide();
         assert!(view.error_modal.is_none());
     }
