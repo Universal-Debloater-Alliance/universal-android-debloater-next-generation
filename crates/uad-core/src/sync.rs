@@ -764,9 +764,6 @@ pub fn run_fallback_commands(
 
         // Case 3: Tried to enable but package was disabled -> try uninstall then reinstall
         (PackageState::Enabled, PackageState::Disabled) => {
-            let pkg = package_with_state(package, PackageState::Disabled);
-            let uninstall_cmds =
-                apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone)?;
             let pkg_uninstalled = package_with_state(package, PackageState::Uninstalled);
             let enable_cmds =
                 apply_pkg_state_commands(&pkg_uninstalled, PackageState::Enabled, user, phone)?;
@@ -775,7 +772,7 @@ pub fn run_fallback_commands(
                 return Err("No command available to reinstall the package".to_string());
             }
 
-            if phone.android_sdk >= 23 {
+            let uninstall_cmds = if phone.android_sdk >= 23 {
                 // Some devices lack install-existing, and older versions omit it from help.
                 // With no package argument, Android validates the command without changing a package.
                 let probe = format!("cmd package install-existing --user {}", user.id);
@@ -790,7 +787,11 @@ pub fn run_fallback_commands(
                         "Cannot confirm install-existing support for {user}. Skipping uninstall. {reply}"
                     ));
                 }
-            }
+                request_builder(&["pm uninstall -k"], &package.name, Some(user))
+            } else {
+                let pkg = package_with_state(package, PackageState::Disabled);
+                apply_pkg_state_commands(&pkg, PackageState::Uninstalled, user, phone)?
+            };
 
             execute_first_command(&uninstall_cmds, phone)
                 .map_err(|e| format!("Failed to uninstall for reinstall: {e}"))?;
