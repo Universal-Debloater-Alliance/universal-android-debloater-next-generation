@@ -74,7 +74,7 @@ pub enum Message {
     RestoreDevice,
     /// Name of the restored package, or why it failed
     RestorePackageFinished(Result<String, String>),
-    DeviceBackedUp(Result<bool, String>),
+    DeviceBackedUp(String, Result<bool, String>),
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
     ExportPackages,
@@ -114,6 +114,7 @@ impl Settings {
                         && !(user.protected && profile_access_denied(error))
                     {
                         return self.handle_device_backed_up(
+                            &phone.adb_id,
                             phone,
                             Err(format!("Could not read {user}: {error}")),
                         );
@@ -121,7 +122,9 @@ impl Settings {
                 }
                 self.handle_backup_device(phone, &apps.phone_packages)
             }
-            Message::DeviceBackedUp(result) => self.handle_device_backed_up(phone, result),
+            Message::DeviceBackedUp(serial, result) => {
+                self.handle_device_backed_up(&serial, phone, result)
+            }
             Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
             Message::RestoreDevice => self.handle_restore_device(phone, &apps.phone_packages),
             Message::RestorePackageFinished(_) => Task::none(),
@@ -239,23 +242,27 @@ impl Settings {
             .collect();
         // Avoid capturing &self and &phone in the future; clone owned data first.
         let user_list = phone.user_list.clone();
-        let device_id = self.device.device_id.clone();
+        let device_id = phone.adb_id.clone();
         let packages_owned = core_packages;
         let backup_dir = self.general.backup_folder.clone();
-        Task::perform(
-            async move { backup_phone(&backup_dir, user_list, device_id, &packages_owned) },
-            Message::DeviceBackedUp,
-        )
+        Task::future(async move {
+            let result = backup_phone(&backup_dir, user_list, device_id.clone(), &packages_owned);
+            Message::DeviceBackedUp(device_id, result)
+        })
     }
 
     fn handle_device_backed_up(
         &mut self,
+        serial: &str,
         phone: &Phone,
         result: Result<bool, String>,
     ) -> Task<Message> {
         match result {
             Ok(_) => {
-                info!("[BACKUP] Backup successfully created");
+                info!("[BACKUP] Backup successfully created for {serial}");
+                if phone.adb_id != serial {
+                    return Task::none();
+                }
                 self.backup_error.clear();
                 self.device.backup.backups = list_available_backups(&device_backup_dir(
                     &self.general.backup_folder,
@@ -264,8 +271,10 @@ impl Settings {
                 self.device.backup.selected = self.device.backup.backups.first().cloned();
             }
             Err(err) => {
-                error!("[BACKUP FAILED] Backup creation failed: {err:?}");
-                self.backup_error = err;
+                error!("[BACKUP FAILED] Backup creation failed for {serial}: {err:?}");
+                if phone.adb_id == serial {
+                    self.backup_error = err;
+                }
             }
         }
         Task::none()
@@ -899,14 +908,42 @@ mod tests {
     }
 
     #[test]
+    fn a_late_backup_keeps_the_other_phones_selection_and_error() {
+        let dir = tempfile::tempdir().unwrap();
+        let b = phone("B");
+        let backups = device_backup_dir(dir.path(), &b.adb_id);
+        std::fs::create_dir(&backups).unwrap();
+        for name in ["monday.json", "friday.json"] {
+            std::fs::write(backups.join(name), "{}").unwrap();
+        }
+
+        let mut settings = Settings::default();
+        settings.general.backup_folder = dir.path().to_path_buf();
+        settings.load_device_settings(&b, &Config::default());
+        let chosen = settings.device.backup.backups[1].clone();
+        let _ = settings.handle_backup_selected(chosen.clone());
+        settings.backup_error = "B's previous error".into();
+
+        for result in [Ok(true), Err("A is offline".into())] {
+            let _ = settings.update(
+                &b,
+                &AppsView::default(),
+                Message::DeviceBackedUp("A".into(), result),
+            );
+            assert_eq!(settings.device.backup.selected.as_ref(), Some(&chosen));
+            assert_eq!(settings.backup_error, "B's previous error");
+        }
+    }
+
+    #[test]
     fn a_failed_backup_is_shown_until_the_next_one() {
         let dir = tempfile::tempdir().unwrap();
         let mut settings = Settings::default();
         settings.general.backup_folder = dir.path().to_path_buf();
         let error = "The packages of user 10 could not be read".to_string();
-        let _ = settings.handle_device_backed_up(&phone("A"), Err(error.clone()));
+        let _ = settings.handle_device_backed_up("A", &phone("A"), Err(error.clone()));
         assert_eq!(settings.backup_error, error);
-        let _ = settings.handle_device_backed_up(&phone("A"), Ok(true));
+        let _ = settings.handle_device_backed_up("A", &phone("A"), Ok(true));
         assert_eq!(settings.backup_error, "");
     }
 }
