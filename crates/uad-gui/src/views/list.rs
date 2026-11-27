@@ -908,24 +908,43 @@ impl List {
         selected_device: &mut Phone,
     ) -> Task<Message> {
         self.fallback_notifications.clear();
-        let commands = self.apply_selection(
+        let commands = self.apply_actions(
             selected_device,
             &settings.device,
             settings.general.expert_mode,
+            None,
         );
         self.selection_modal = false;
         Task::batch(commands)
     }
 
-    /// Build the commands of the selection under review.
-    fn apply_selection(
+    /// Apply a row action or the selection under review.
+    fn apply_actions(
         &mut self,
         device: &Phone,
         settings: &DeviceSettings,
         expert_mode: bool,
+        single_package: Option<usize>,
     ) -> Vec<Task<Message>> {
-        // Only the packages shown in the review are applied: those of the user under review.
         let i_user = self.selected_user.unwrap_or_default().index;
+        for user in device
+            .user_list
+            .iter()
+            .filter(|u| !u.protected && (settings.multi_user_mode || u.index == i_user))
+        {
+            let inventory = match self.inventory_errors.get(&user.index) {
+                Some(error) => Err(format!("Could not read {user}: {error}")),
+                None => user.packages(&self.phone_packages),
+            };
+            if let Err(error) = inventory {
+                self.error_modal = Some(format!("{error}. Refresh the device and try again."));
+                return Vec::new();
+            }
+        }
+        if let Some(index) = single_package {
+            return self.run_pkg_action(device, settings, expert_mode, (i_user, index));
+        }
+        // Only the packages shown in the review are applied.
         let actions: Vec<(usize, usize)> = self
             .selected_packages
             .iter()
@@ -1223,11 +1242,11 @@ impl List {
             }
             RowMessage::ActionPressed => {
                 self.fallback_notifications.clear();
-                Task::batch(self.run_pkg_action(
+                Task::batch(self.apply_actions(
                     selected_device,
                     &settings.device,
                     settings.general.expert_mode,
-                    (i_user, i_package),
+                    Some(i_package),
                 ))
             }
             RowMessage::PackagePressed => {
@@ -1912,7 +1931,7 @@ mod tests {
 
         // The owner is under review: uninstall the second package for the owner only,
         // and the third one for both users.
-        let commands = view.apply_selection(&phone, &settings(true), false);
+        let commands = view.apply_actions(&phone, &settings(true), false, None);
         assert_eq!(commands.len(), 3);
         // A package stays selected until its own action succeeds.
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 2)]);
@@ -1973,7 +1992,7 @@ mod tests {
         assert!(!view.phone_packages[1][0].selected);
 
         // The third package is uninstalled for both users.
-        let commands = view.apply_selection(&phone, &settings(true), false);
+        let commands = view.apply_actions(&phone, &settings(true), false, None);
         assert_eq!(commands.len(), 2);
     }
 
@@ -1986,7 +2005,8 @@ mod tests {
                 view.phone_packages[1][i_package].selected = true;
                 view.selected_packages.push((1, i_package));
             }
-            let commands = view.apply_selection(&two_users(), &settings(multi_user_mode), false);
+            let commands =
+                view.apply_actions(&two_users(), &settings(multi_user_mode), false, None);
             (commands.len(), view.selected_packages)
         };
         let selection = vec![(0, 1), (0, 2), (1, 0), (1, 1)];
@@ -1995,6 +2015,34 @@ mod tests {
         assert_eq!(apply(false), (2, selection.clone()));
         // In multi-user mode, they are also uninstalled for the work profile.
         assert_eq!(apply(true), (4, selection));
+    }
+
+    #[test]
+    fn unreadable_target_blocks_row_and_bulk_actions() {
+        let mut view = view_with_selection();
+        let mut phone = two_users();
+        view.phone_packages[1].clear();
+        view.inventory_errors.insert(1, "device offline".into());
+        for single in [Some(1), None] {
+            assert!(
+                view.apply_actions(&phone, &settings(true), false, single)
+                    .is_empty()
+            );
+            let error = view.error_modal.take().unwrap();
+            assert!(error.contains("user 10") && error.contains("device offline"));
+        }
+        assert!(view.pending_actions.is_empty());
+        assert_eq!(
+            view.apply_actions(&phone, &settings(false), false, None)
+                .len(),
+            2
+        );
+        phone.user_list[1].protected = true;
+        assert_eq!(
+            view.apply_actions(&phone, &settings(true), false, None)
+                .len(),
+            2
+        );
     }
 
     #[test]
