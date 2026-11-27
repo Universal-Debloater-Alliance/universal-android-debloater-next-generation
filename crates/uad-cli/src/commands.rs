@@ -4,8 +4,8 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PackageId, PmListPacksFlag};
 use uad_core::sync::{
-    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list,
-    query_package_state, run_adb_shell_action,
+    AdbError, CorePackage, Phone, User, apply_pkg_state_commands, query_package_state,
+    run_adb_shell_action, try_get_devices_list,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 use uad_core::utils::{matches_search, truncate_description};
@@ -17,19 +17,22 @@ use crate::{Cli, print_or_exit, println_or_exit};
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
     println_or_exit!("Scanning for connected devices...");
-    let devices = get_devices_list();
+    let devices = try_get_devices_list()?;
 
     if devices.is_empty() {
         return Err(NO_DEVICES_FOUND.into());
     }
 
     println_or_exit!("\nFound {} device(s):\n", devices.len());
+    let mut errors = Vec::new();
     for device in &devices {
         println_or_exit!("  Model:       {}", device.model);
         println_or_exit!("  Serial:      {}", device.adb_id);
         println_or_exit!("  Android SDK: {}", device.android_sdk);
 
-        if !device.user_list.is_empty() {
+        if let Some(error) = &device.user_list_error {
+            errors.push(format!("{}: {error}", device.adb_id));
+        } else if !device.user_list.is_empty() {
             println_or_exit!("  Users:       {} user(s)", device.user_list.len());
             for user in &device.user_list {
                 let protected = if user.protected { " (protected)" } else { "" };
@@ -39,7 +42,11 @@ pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
         println_or_exit!();
     }
 
-    Ok(())
+    if errors.is_empty() {
+        Ok(())
+    } else {
+        Err(errors.join("\n").into())
+    }
 }
 
 /// Context for package filtering and display

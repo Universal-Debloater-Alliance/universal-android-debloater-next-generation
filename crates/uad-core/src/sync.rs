@@ -301,7 +301,6 @@ pub fn get_device_model(serial: &str) -> String {
         .shell(serial)
         .getprop("ro.product.model")
         .unwrap_or_else(|err| {
-            eprintln!("ERROR: {err}");
             error!("{err}");
             if err.contains("adb: no devices/emulators found") {
                 "no devices/emulators found".to_string()
@@ -552,16 +551,20 @@ fn user_listing_unsupported(error: &str) -> bool {
 /// that are authorized by the user.
 #[must_use]
 pub fn get_devices_list() -> Vec<Phone> {
+    try_get_devices_list().unwrap_or_else(|error| {
+        error!("Could not scan for devices: {error}");
+        Vec::new()
+    })
+}
+
+/// An empty scan is retried like a failed scan, but only a failed final scan is an error.
+pub fn try_get_devices_list() -> Result<Vec<Phone>, String> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 10 }),
         || match AdbCommand::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Phone> = vec![];
-                if devices.iter().all(|(_, stat)| stat != "device") {
-                    return OperationResult::Retry(vec![]);
-                }
-                for device in devices {
-                    let serial = &device.0;
+                for (serial, _) in devices.iter().filter(|(_, status)| status == "device") {
                     let android_sdk = get_android_sdk(serial);
                     let (user_list, user_list_error) = match list_users_idx_prot(serial) {
                         Ok(users) => (users, None),
@@ -576,16 +579,19 @@ pub fn get_devices_list() -> Vec<Phone> {
                         adb_id: serial.clone(),
                     });
                 }
-                OperationResult::Ok(device_list)
+                if device_list.is_empty() {
+                    OperationResult::Retry(None)
+                } else {
+                    OperationResult::Ok(device_list)
+                }
             }
-            Err(err) => {
-                error!("get_devices_list() -> {err}");
-                let test: Vec<Phone> = vec![];
-                OperationResult::Retry(test)
-            }
+            Err(err) => OperationResult::Retry(Some(err)),
         },
     )
-    .unwrap_or_default()
+    .or_else(|failure| match failure.error {
+        Some(error) => Err(error),
+        None => Ok(Vec::new()),
+    })
 }
 
 #[must_use]
