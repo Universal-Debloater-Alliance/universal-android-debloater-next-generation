@@ -1650,24 +1650,25 @@ fn run_package_action(actions: &[String], mut info: PackageInfo) -> VerifyAndFal
         notification: None,
         error_modal: None,
     };
-    for (index, command) in actions.iter().enumerate() {
+    let mut cleanup_complete = true;
+    for command in actions {
         if let Err(AdbError::Generic(error)) =
             run_adb_shell_action(&result.info.device.adb_id, command)
         {
-            if index > 0 {
-                add_note(
-                    &mut result,
-                    format!("Package cleanup incomplete. Failed command: {command}. {error}"),
-                );
-            } else {
+            if !result.ran {
                 result.error_modal = Some(error);
                 return result;
             }
+            add_note(
+                &mut result,
+                format!("Package cleanup incomplete. Failed command: {command}. {error}"),
+            );
+            cleanup_complete = false;
             break;
         }
+        result.ran = true;
     }
-    result.ran = true;
-    if let Err(error) = verify_action(&mut result) {
+    if let Err(error) = verify_action(&mut result, cleanup_complete) {
         // Listed with the other notifications: several packages can fail in one batch.
         let note = format!(
             "Package '{}' (user {}) verification failed: {error}",
@@ -1685,7 +1686,7 @@ fn add_note(result: &mut VerifyAndFallbackResult, note: String) {
     });
 }
 
-fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
+fn verify_action(result: &mut VerifyAndFallbackResult, allow_recovery: bool) -> Result<(), String> {
     use uad_core::sync::{
         CorePackage, detect_cross_user_behavior, run_fallback_commands, verify_fallback_state,
     };
@@ -1697,7 +1698,9 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
             .map(|state| state.unwrap_or(PackageState::Uninstalled))
     };
     let actual = finish_action(
-        info.state == PackageState::Uninstalled && info.wanted_state == PackageState::Enabled,
+        allow_recovery
+            && info.state == PackageState::Uninstalled
+            && info.wanted_state == PackageState::Enabled,
     )?;
     result.new_state = Some(actual);
     if actual == info.wanted_state {
@@ -1717,6 +1720,9 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
                 The package state has been successfully changed on the target user."
             )
         });
+        return Ok(());
+    }
+    if !allow_recovery {
         return Ok(());
     }
     // Recovery starts by removing or disabling the package, unless it is already uninstalled.
