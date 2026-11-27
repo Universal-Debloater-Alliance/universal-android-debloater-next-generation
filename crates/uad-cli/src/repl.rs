@@ -111,35 +111,18 @@ fn handle_repl_line(
         "info" => {
             handle_info_command(&parts[1..], device, user.id, uad_lists)?;
         }
-        "uninstall" | "rm" => {
-            handle_state_change_command(
-                &parts[1..],
-                device,
-                user,
-                PackageState::Uninstalled,
-                "Uninstalling",
-                uad_lists,
-            )?;
-        }
-        "enable" | "restore" => {
-            handle_state_change_command(
-                &parts[1..],
-                device,
-                user,
-                PackageState::Enabled,
-                "Enabling",
-                uad_lists,
-            )?;
-        }
-        "disable" => {
-            handle_state_change_command(
-                &parts[1..],
-                device,
-                user,
-                PackageState::Disabled,
-                "Disabling",
-                uad_lists,
-            )?;
+        command @ ("uninstall" | "rm" | "enable" | "restore" | "disable") => {
+            if parts.len() == 1 {
+                return Err(format!("Usage: {command} <package_name> [package_name...]").into());
+            }
+            let (target, action) = match command {
+                "uninstall" | "rm" => (PackageState::Uninstalled, "Uninstalling"),
+                "enable" | "restore" => (PackageState::Enabled, "Enabling"),
+                _ => (PackageState::Disabled, "Disabling"),
+            };
+            for name in &parts[1..] {
+                process_package_change(name, device, user, target, action, uad_lists)?;
+            }
         }
         "device" => {
             println!(
@@ -151,10 +134,11 @@ fn handle_repl_line(
             print!("\x1B[2J\x1B[1;1H");
         }
         _ => {
-            eprintln!(
+            return Err(format!(
                 "Unknown command: '{}'. Type 'help' for available commands.",
                 parts[0]
-            );
+            )
+            .into());
         }
     }
 
@@ -243,8 +227,7 @@ fn handle_info_command(
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     if args.is_empty() {
-        eprintln!("Usage: info <package_name>");
-        return Ok(());
+        return Err("Usage: info <package_name>".into());
     }
 
     let package = args[0];
@@ -261,30 +244,6 @@ fn handle_info_command(
     let state = query_package_state(&device.adb_id, package, device.package_user_id(user_id)?)?
         .ok_or("Package not found on device")?;
     println!("  State:       {}", state);
-
-    Ok(())
-}
-
-/// Handle state change command in REPL
-fn handle_state_change_command(
-    args: &[&str],
-    device: &Phone,
-    user: User,
-    target_state: PackageState,
-    action_name: &str,
-    uad_lists: &HashMap<String, Package>,
-) -> Result<(), Box<dyn std::error::Error>> {
-    if args.is_empty() {
-        eprintln!(
-            "Usage: {} <package_name> [package_name...]",
-            action_name.to_lowercase()
-        );
-        return Ok(());
-    }
-
-    for pkg_name in args {
-        process_package_change(pkg_name, device, user, target_state, action_name, uad_lists)?;
-    }
 
     Ok(())
 }
