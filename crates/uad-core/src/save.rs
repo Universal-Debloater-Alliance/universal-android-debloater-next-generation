@@ -148,18 +148,66 @@ impl PhoneBackup {
         })
     }
 
+    fn merge_user_entries(self) -> Result<Vec<UserBackup>, String> {
+        // A backup can repeat a user block. Read that user once and plan each package once.
+        let mut profiles: Vec<UserBackup> = Vec::new();
+        let mut saved_states = HashMap::new();
+        for entry in self.users {
+            let index = profiles
+                .iter()
+                .position(|u| u.id == entry.id)
+                .unwrap_or_else(|| {
+                    profiles.push(UserBackup {
+                        id: entry.id,
+                        packages: Vec::new(),
+                    });
+                    profiles.len() - 1
+                });
+            for package in entry.packages {
+                if let Some(previous) =
+                    saved_states.insert((entry.id, package.name.clone()), package.state)
+                {
+                    if previous != package.state {
+                        return Err(format!(
+                            "Conflicting saved states for {} on user {}: {previous} and {}.",
+                            package.name, entry.id, package.state
+                        ));
+                    }
+                } else {
+                    profiles[index].packages.push(package);
+                }
+            }
+        }
+        Ok(profiles)
+    }
+
     fn plan_restore<P: AsRef<[CorePackage]>>(
         self,
         selected_device: &Phone,
         read_packages: impl Fn(User, Option<u16>) -> Result<P, String>,
     ) -> Result<RestoreResult, String> {
+        if self
+            .users
+            .iter()
+            .any(|u| u.id == 0 && u.packages.is_empty())
+            && selected_device
+                .user_list
+                .iter()
+                .any(|u| u.id == 0 && !u.protected)
+        {
+            return Err("The backup contains no packages for user 0.".into());
+        }
         let mut commands = vec![];
         let mut skipped_packages = 0;
-        for u in self.users {
+        for u in self.merge_user_entries()? {
             if u.packages.is_empty() {
                 continue;
             }
-            let user = match selected_device.user_list.iter().find(|x| x.id == u.id) {
+            let user = match selected_device
+                .user_list
+                .iter()
+                .find(|user| user.id == u.id)
+            {
                 Some(user) => *user,
                 None => return Err(format!("user {} doesn't exist", u.id)),
             };
@@ -331,6 +379,45 @@ mod tests {
     }
 
     #[test]
+    fn repeated_saved_entries_cannot_queue_competing_actions() {
+        let phone = Phone {
+            android_sdk: 35,
+            user_list: vec![User::default()],
+            ..Phone::default()
+        };
+        let name = "com.example.app";
+        let entry = |state| UserBackup {
+            id: 0,
+            packages: vec![package(name, state)],
+        };
+        let mut backup = PhoneBackup {
+            device_id: "A".into(),
+            users: vec![entry(PackageState::Disabled), entry(PackageState::Disabled)],
+        };
+        let reads = std::cell::Cell::new(0);
+        let read = |_, _| {
+            reads.set(reads.get() + 1);
+            Ok(vec![package(name, PackageState::Enabled)])
+        };
+        assert_eq!(
+            backup
+                .clone()
+                .plan_restore(&phone, read)
+                .unwrap()
+                .packages
+                .len(),
+            1
+        );
+        assert_eq!(reads.get(), 1);
+        backup.users[1]
+            .packages
+            .push(package(name, PackageState::Uninstalled));
+        let error = backup.plan_restore(&phone, read).unwrap_err();
+        assert!(error.contains(name) && error.contains("user 0"));
+        assert_eq!(reads.get(), 1);
+    }
+
+    #[test]
     fn restore_skips_an_unsupported_reinstall_but_requires_a_known_sdk() {
         let dir = tempdir().unwrap();
         let path = dir.path().join("backup.json");
@@ -395,6 +482,33 @@ mod tests {
     }
 
     #[test]
+    fn legacy_backup_requires_only_a_name_and_state() {
+        let dir = tempdir().unwrap();
+        let file = DisplayablePath {
+            path: dir.path().join("backup.json"),
+        };
+        let save_entry = |entry| {
+            fs::write(
+                &file.path,
+                format!(r#"{{"device_id":"test","users":[{{"id":0,"packages":[{entry}]}}]}}"#),
+            )
+            .unwrap();
+        };
+        for invalid in [
+            r#"{"state":"Enabled"}"#,
+            r#"{"name":"com.example.app","description":""}"#,
+        ] {
+            save_entry(invalid);
+            assert!(PhoneBackup::read(&file).is_err());
+        }
+        save_entry(r#"{"name":"com.example.app","state":"Disabled"}"#);
+        let backup = PhoneBackup::read(&file).unwrap();
+        let saved = &backup.users[0].packages[0];
+        assert_eq!(saved.name, "com.example.app");
+        assert_eq!(saved.state, PackageState::Disabled);
+    }
+
+    #[test]
     fn restoring_a_blocked_package_preserves_its_data() {
         let backup = PhoneBackup {
             device_id: "test".into(),
@@ -418,6 +532,40 @@ mod tests {
                 .unwrap();
             assert_eq!(plan.packages[0].commands, ["pm unblock com.example.app"]);
         }
+    }
+
+    #[test]
+    fn empty_saved_owner_blocks_a_partial_restore() {
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let mut phone = Phone {
+            android_sdk: 35,
+            user_list: vec![User::default(), work],
+            ..Phone::default()
+        };
+        let backup = PhoneBackup {
+            device_id: "test".into(),
+            users: vec![
+                UserBackup {
+                    id: work.id,
+                    packages: vec![package("com.example.app", PackageState::Uninstalled)],
+                },
+                UserBackup::default(),
+            ],
+        };
+        let read = |_, _| Ok(vec![package("com.example.app", PackageState::Enabled)]);
+        assert!(
+            backup
+                .clone()
+                .plan_restore(&phone, read)
+                .unwrap_err()
+                .contains("user 0")
+        );
+        phone.user_list[0].protected = true;
+        assert_eq!(backup.plan_restore(&phone, read).unwrap().packages.len(), 1);
     }
 
     #[test]

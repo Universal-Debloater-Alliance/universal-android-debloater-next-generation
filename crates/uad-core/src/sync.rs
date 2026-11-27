@@ -274,10 +274,10 @@ pub fn user_flag(user_id: Option<User>) -> String {
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq, Eq)]
 pub struct CorePackage {
     pub name: String,
+    #[serde(default)]
     pub description: String,
     #[serde(default)]
     pub removal: crate::uad_lists::Removal,
-    #[serde(default)]
     pub state: PackageState,
     #[serde(default)]
     pub list: crate::uad_lists::UadList,
