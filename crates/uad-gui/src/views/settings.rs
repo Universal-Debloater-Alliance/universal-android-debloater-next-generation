@@ -14,8 +14,9 @@ use uad_core::{
     save::{backup_phone, device_backup_dir, list_available_backups, restore_backup_with_errors},
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, profile_access_denied,
-        query_package_state, run_adb_shell_action, supports_disabling, supports_multi_user,
+        run_adb_shell_action, supports_disabling, supports_multi_user,
     },
+    uad_lists::PackageState,
     utils::{DisplayablePath, Error, export_packages, open_url},
 };
 
@@ -293,25 +294,28 @@ impl Settings {
             Ok(restore_result) => {
                 let mut commands = vec![];
                 for package in restore_result.packages {
-                    let name = packages[package.i_user][package.index].name.clone();
-                    let user_id = phone.user_list[package.i_user].id;
-                    let query_user = supports_multi_user(phone).then_some(user_id);
-                    let serial = phone.adb_id.clone();
+                    let row = &packages[package.i_user][package.index];
+                    let name = row.name.clone();
+                    let reinstalled = row.state == PackageState::Uninstalled
+                        && package.target == PackageState::Enabled;
+                    let user = phone.user_list[package.i_user];
+                    let phone = phone.clone();
                     commands.push(Task::perform(
                         async move {
                             for command in package.commands {
                                 if let Err(AdbError::Generic(error)) =
-                                    run_adb_shell_action(&serial, &command)
+                                    run_adb_shell_action(&phone.adb_id, &command)
                                 {
-                                    return Err(format!("{name} (user {user_id}): {error}"));
+                                    return Err(format!("{name} ({user}): {error}"));
                                 }
                             }
-                            let actual = query_package_state(&serial, &name, query_user)
-                                .map_err(|error| format!("{name} (user {user_id}): {error}"))?
-                                .unwrap_or(uad_core::uad_lists::PackageState::Uninstalled);
+                            let actual = phone
+                                .finish_package_action(user, &name, reinstalled)
+                                .map_err(|error| format!("{name} ({user}): {error}"))?
+                                .unwrap_or(PackageState::Uninstalled);
                             if actual != package.target {
                                 return Err(format!(
-                                    "{name} (user {user_id}): expected {}, found {actual}",
+                                    "{name} ({user}): expected {}, found {actual}",
                                     package.target
                                 ));
                             }

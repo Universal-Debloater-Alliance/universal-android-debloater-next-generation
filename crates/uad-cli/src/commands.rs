@@ -373,20 +373,22 @@ pub fn execute_with_fallback(
 
     // Verify package state and attempt fallback if needed
     // A failed query does not mean that the package is uninstalled.
-    let actual_state =
-        match query_package_state(&device.adb_id, package, device.package_user_id(user.id)?)
-            .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
-        {
-            Some(state) => state,
-            None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
-            None => {
-                return Err(format!(
-                    "Package '{package}' was not found on device for user {}",
-                    user.id
-                )
-                .into());
-            }
-        };
+    let reinstalled =
+        core_pkg.state == PackageState::Uninstalled && target_state == PackageState::Enabled;
+    let actual_state = match device
+        .finish_package_action(user, package, reinstalled)
+        .map_err(|e| format!("Could not verify the state of '{package}': {e}"))?
+    {
+        Some(state) => state,
+        None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
+        None => {
+            return Err(format!(
+                "Package '{package}' was not found on device for user {}",
+                user.id
+            )
+            .into());
+        }
+    };
 
     if actual_state != target_state {
         println!(

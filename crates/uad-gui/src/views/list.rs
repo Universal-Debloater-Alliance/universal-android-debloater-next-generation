@@ -1687,20 +1687,18 @@ fn add_note(result: &mut VerifyAndFallbackResult, note: String) {
 
 fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
     use uad_core::sync::{
-        CorePackage, detect_cross_user_behavior, query_package_state, run_fallback_commands,
-        verify_fallback_state,
+        CorePackage, detect_cross_user_behavior, run_fallback_commands, verify_fallback_state,
     };
 
     let info = &result.info;
-    let read_state = || {
-        query_package_state(
-            &info.device.adb_id,
-            &info.name,
-            info.device.package_user_id(info.user.id)?,
-        )
-        .map(|state| state.unwrap_or(PackageState::Uninstalled))
+    let finish_action = |reinstalled| {
+        info.device
+            .finish_package_action(info.user, &info.name, reinstalled)
+            .map(|state| state.unwrap_or(PackageState::Uninstalled))
     };
-    let actual = read_state()?;
+    let actual = finish_action(
+        info.state == PackageState::Uninstalled && info.wanted_state == PackageState::Enabled,
+    )?;
     result.new_state = Some(actual);
     if actual == info.wanted_state {
         result.error_modal = detect_cross_user_behavior(
@@ -1734,7 +1732,7 @@ fn verify_action(result: &mut VerifyAndFallbackResult) -> Result<(), String> {
     };
     let fallback = run_fallback_commands(&pkg, info.wanted_state, actual, info.user, &info.device);
     // Even a failed recovery can have changed the package.
-    let confirmed = read_state()?;
+    let confirmed = finish_action(matches!(fallback, Ok((PackageState::Enabled, _))))?;
     result.new_state = Some(confirmed);
     let (expected, action) = fallback?;
     verify_fallback_state(expected, confirmed)?;

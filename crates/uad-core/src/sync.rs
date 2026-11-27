@@ -56,6 +56,26 @@ impl Phone {
             _ => Ok(Some(id)),
         }
     }
+
+    /// Check the resulting state. If a reinstall left the package disabled, enable it and verify again.
+    pub fn finish_package_action(
+        &self,
+        user: User,
+        name: &str,
+        reinstalled: bool,
+    ) -> Result<Option<PackageState>, String> {
+        let user_id = self.package_user_id(user.id)?;
+        let read_state = || query_package_state(&self.adb_id, name, user_id);
+        let actual = read_state()?;
+        if reinstalled && actual == Some(PackageState::Disabled) {
+            let commands = request_builder(&["pm enable"], name, user_id.map(|_| user));
+            execute_first_command(&commands, self)?;
+            let confirmed = read_state()?.unwrap_or(PackageState::Uninstalled);
+            verify_fallback_state(PackageState::Enabled, confirmed)?;
+            return Ok(Some(confirmed));
+        }
+        Ok(actual)
+    }
 }
 
 /// `UserInfo` but relevant to UAD
@@ -681,12 +701,10 @@ pub fn attempt_fallback(
 ) -> Result<String, String> {
     let (expected, message) =
         run_fallback_commands(package, wanted_state, actual_state, user, phone)?;
-    let confirmed = query_package_state(
-        &phone.adb_id,
-        &package.name,
-        phone.package_user_id(user.id)?,
-    )?
-    .unwrap_or(PackageState::Uninstalled);
+    // Recovery reinstalls the package when its target is Enabled.
+    let confirmed = phone
+        .finish_package_action(user, &package.name, expected == PackageState::Enabled)?
+        .unwrap_or(PackageState::Uninstalled);
     verify_fallback_state(expected, confirmed)?;
     Ok(message.to_owned())
 }
