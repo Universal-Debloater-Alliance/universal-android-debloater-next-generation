@@ -969,7 +969,7 @@ impl List {
         !phone.adb_id.is_empty() && self.loaded_serial.as_ref() == Some(&phone.adb_id)
     }
 
-    pub(crate) fn can_plan_restore(&self, phone: &Phone) -> bool {
+    pub(crate) fn inventory_current(&self, phone: &Phone) -> bool {
         self.inventory_ready(phone)
             && !self.reread_packages
             && !self.pending_actions.contains_key(&phone.adb_id)

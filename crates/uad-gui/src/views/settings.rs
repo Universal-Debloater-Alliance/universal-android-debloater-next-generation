@@ -102,12 +102,10 @@ impl Settings {
             Message::LoadDeviceSettings => self.handle_load_device_settings(phone),
             Message::BackupSelected(d_path) => self.handle_backup_selected(d_path),
             Message::BackupDevice | Message::RestoreDevice | Message::ExportPackages
-                if !apps.inventory_ready(phone) =>
+                if !apps.inventory_current(phone) || self.restoring(phone).is_some() =>
             {
                 Task::none()
             }
-            // It would save a half-restored device.
-            Message::BackupDevice if self.restoring(phone).is_some() => Task::none(),
             Message::BackupDevice => {
                 for user in &phone.user_list {
                     if let Some(error) = apps.inventory_errors.get(&user.index)
@@ -125,11 +123,7 @@ impl Settings {
             Message::DeviceBackedUp(serial, result) => {
                 self.handle_device_backed_up(&serial, phone, result)
             }
-            Message::RestoreDevice
-                if self.active_restore.is_some() || !apps.can_plan_restore(phone) =>
-            {
-                Task::none()
-            }
+            Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
             Message::RestoreDevice => self.handle_restore_device(phone, &apps.phone_packages),
             Message::RestorePackageFinished(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
@@ -706,18 +700,15 @@ impl Settings {
         )
         .padding(6);
 
-        let ready = apps_view.inventory_ready(phone);
+        let ready = apps_view.inventory_current(phone) && self.restoring(phone).is_none();
         let backup_btn = button_primary(text("Backup").align_x(alignment::Horizontal::Center))
-            .on_press_maybe(
-                (ready && self.restoring(phone).is_none()).then_some(Message::BackupDevice),
-            )
+            .on_press_maybe(ready.then_some(Message::BackupDevice))
             .width(77);
 
         let restore_btn = button(text("Restore").align_x(alignment::Horizontal::Center))
             .padding([5, 10])
             .on_press_maybe(
-                (apps_view.can_plan_restore(phone) && self.active_restore.is_none())
-                    .then_some(Message::RestoreDevice),
+                (ready && self.active_restore.is_none()).then_some(Message::RestoreDevice),
             )
             .width(77);
 

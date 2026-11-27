@@ -596,7 +596,7 @@ mod tests {
 
         select(&mut gui, "B");
         let _ = gui.update(inventory(gui.apps_view.load_id, "B", PackageState::Enabled));
-        assert!(gui.apps_view.can_plan_restore(&phone("B")));
+        assert!(gui.apps_view.inventory_current(&phone("B")));
         select(&mut gui, "A");
         let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
         let _ = gui.update(Message::SettingsPressed);
@@ -613,16 +613,25 @@ mod tests {
                 error_modal: None,
             },
         ));
+        for settings_action in [
+            SettingsMessage::BackupDevice,
+            SettingsMessage::ExportPackages,
+        ] {
+            assert_eq!(
+                gui.update(Message::SettingsAction(settings_action)).units(),
+                0
+            );
+        }
         assert_eq!(gui.update(done.clone()).units(), 0);
-        assert!(!gui.apps_view.can_plan_restore(&phone("A")));
+        assert!(!gui.apps_view.inventory_current(&phone("A")));
         assert_eq!(gui.update(done).units(), 1);
-        assert!(!gui.apps_view.can_plan_restore(&phone("A")));
+        assert!(!gui.apps_view.inventory_current(&phone("A")));
         let _ = gui.update(inventory(
             gui.apps_view.load_id,
             "A",
             PackageState::Disabled,
         ));
-        assert!(gui.apps_view.can_plan_restore(&phone("A")));
+        assert!(gui.apps_view.inventory_current(&phone("A")));
     }
 
     #[cfg(feature = "self-update")]
@@ -668,6 +677,11 @@ mod tests {
         assert_eq!(gui.update(restore).units(), 0);
         let backup = Message::SettingsAction(SettingsMessage::BackupDevice);
         assert_eq!(gui.update(backup.clone()).units(), 0);
+        assert_eq!(
+            gui.update(Message::SettingsAction(SettingsMessage::ExportPackages))
+                .units(),
+            0
+        );
         assert!(
             gui.settings_view
                 .device
