@@ -3,7 +3,7 @@ use crate::theme::Theme;
 use crate::views::settings::Settings;
 use crate::widgets::text;
 use log::warn;
-use uad_core::sync::{CorePackage, Phone};
+use uad_core::sync::CorePackage;
 use uad_core::uad_lists::{PackageState, Removal, UadList};
 
 use iced::widget::{Space, button, checkbox, row};
@@ -60,7 +60,7 @@ impl PackageRow {
     pub fn view(
         &self,
         settings: &Settings,
-        _phone: &Phone,
+        actions_enabled: bool,
     ) -> Element<'_, Message, Theme, Renderer> {
         //let trash_svg = format!("{}/resources/assets/trash.svg", env!("CARGO_MANIFEST_DIR"));
         //let restore_svg = format!("{}/resources/assets/rotate.svg", env!("CARGO_MANIFEST_DIR"));
@@ -107,7 +107,7 @@ impl PackageRow {
                     .align_x(alignment::Horizontal::Center)
                     .width(100),
             )
-            .on_press(Message::ActionPressed);
+            .on_press_maybe(actions_enabled.then_some(Message::ActionPressed));
         } else {
             selection_checkbox = checkbox(self.selected)
                 .on_toggle(Message::ToggleSelection)

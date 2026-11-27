@@ -213,7 +213,7 @@ impl UadGui {
             }
             Message::SettingsPressed => {
                 self.view = View::Settings;
-                self.refresh_settings_inventory()
+                Task::none()
             }
             Message::RefreshButtonPressed => {
                 self.apps_view.reset_inventory();
@@ -235,22 +235,15 @@ impl UadGui {
                     |_| Message::Nothing,
                 )
             }
-            Message::AppsAction(msg) => {
-                let task = self
-                    .apps_view
-                    .update(
-                        &mut self.settings_view,
-                        &mut self.selected_device.clone().unwrap_or_default(),
-                        &mut self.update_state.uad_list,
-                        msg,
-                    )
-                    .map(Message::AppsAction);
-                if matches!(self.view, View::Settings) {
-                    Task::batch([task, self.refresh_settings_inventory()])
-                } else {
-                    task
-                }
-            }
+            Message::AppsAction(msg) => self
+                .apps_view
+                .update(
+                    &mut self.settings_view,
+                    &mut self.selected_device.clone().unwrap_or_default(),
+                    &mut self.update_state.uad_list,
+                    msg,
+                )
+                .map(Message::AppsAction),
             Message::SettingsAction(msg) => {
                 match msg {
                     SettingsMessage::RestorePackageFinished(ref result) => {
@@ -405,16 +398,6 @@ impl UadGui {
             }
             Message::Nothing => Task::none(),
         }
-    }
-
-    fn refresh_settings_inventory(&mut self) -> Task<Message> {
-        self.selected_device
-            .as_ref()
-            .map_or_else(Task::none, |phone| {
-                self.apps_view
-                    .refresh_for_settings(phone)
-                    .map(Message::AppsAction)
-            })
     }
 
     fn reload_packages(&mut self) -> Task<Message> {
@@ -594,13 +577,29 @@ mod tests {
     #[test]
     fn restore_waits_for_actions_on_its_phone_and_the_next_inventory() {
         use crate::views::list::{PackageInfo, VerifyAndFallbackResult};
-        use crate::widgets::package_row::Message::ActionPressed;
+        use crate::widgets::package_row::Message::{ActionPressed, ToggleSelection};
         let mut gui = UadGui::default();
         select(&mut gui, "A");
         let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
-        let action = Message::AppsAction(AppsMessage::List(0, ActionPressed));
-        assert_eq!(gui.update(action.clone()).units(), 1);
-        assert_eq!(gui.update(action).units(), 1);
+        let mut second = gui.apps_view.phone_packages[0][0].clone();
+        second.name = "com.example.second".into();
+        gui.apps_view.phone_packages[0].push(second);
+        for index in 0..2 {
+            let _ = gui.update(Message::AppsAction(AppsMessage::List(
+                index,
+                ToggleSelection(true),
+            )));
+        }
+        assert_eq!(
+            gui.update(Message::AppsAction(AppsMessage::ModalValidate))
+                .units(),
+            2
+        );
+        assert_eq!(
+            gui.update(Message::AppsAction(AppsMessage::List(0, ActionPressed)))
+                .units(),
+            0
+        );
 
         select(&mut gui, "B");
         let _ = gui.update(inventory(gui.apps_view.load_id, "B", PackageState::Enabled));

@@ -46,6 +46,7 @@ pub enum LoadingState {
     #[default]
     FindingPhones,
     LoadingPackages,
+    WaitingForActions,
     UpdatingUad,
     Ready,
     FailedToUpdate,
@@ -59,7 +60,7 @@ pub struct List {
     loaded_serial: Option<String>,
     pub(crate) inventory_errors: HashMap<usize, String>,
     pending_actions: HashMap<String, usize>,
-    /// Keep filters and eligible selections during the same-phone Settings reread.
+    /// Keep filters and eligible selections during a same-phone reread.
     preserve_selection: bool,
     /// An action on this phone finished since the last inventory read started.
     reread_packages: bool,
@@ -153,6 +154,11 @@ impl List {
         message: Message,
     ) -> Task<Message> {
         match message {
+            Message::ModalValidate | Message::List(_, RowMessage::ActionPressed)
+                if !self.inventory_current(selected_device) =>
+            {
+                Task::none()
+            }
             Message::ModalHide => self.on_modal_hide(),
             Message::ModalValidate => self.on_modal_validate(settings, selected_device),
             Message::LoadUadList(remote) => {
@@ -241,7 +247,7 @@ impl List {
             }
             Self::filter_package_lists(self);
         }
-        Task::none()
+        self.refresh_if_needed(selected_device)
     }
 
     /// Current row of the package an action was started for.
@@ -306,6 +312,11 @@ impl List {
             }
             LoadingState::LoadingPackages => waiting_view(
                 "Pulling packages from the device. Please wait...",
+                None,
+                style::Text::Default,
+            ),
+            LoadingState::WaitingForActions => waiting_view(
+                "Waiting for package actions to finish...",
                 None,
                 style::Text::Default,
             ),
@@ -409,13 +420,14 @@ impl List {
         settings: &Settings,
         selected_device: &Phone,
     ) -> Element<'_, Message, Theme, Renderer> {
+        let actions_enabled = self.inventory_current(selected_device);
         let packages = self
             .filtered_packages
             .iter()
             .fold(column![].spacing(6), |col, &i| {
                 col.push(
                     self.phone_packages[self.selected_user.unwrap_or_default().index][i]
-                        .view(settings, selected_device)
+                        .view(settings, actions_enabled)
                         .map(move |msg| Message::List(i, msg)),
                 )
             });
@@ -661,9 +673,7 @@ impl List {
             button(text("Cancel")).on_press(Message::ModalHide),
             Space::new().width(Length::Fill),
             button(text("Apply")).on_press_maybe(
-                packages
-                    .iter()
-                    .any(eligible)
+                (self.inventory_current(device) && packages.iter().any(eligible))
                     .then_some(Message::ModalValidate)
             ),
         ]
@@ -1011,13 +1021,14 @@ impl List {
             && !self.pending_actions.contains_key(&phone.adb_id)
     }
 
-    /// Re-read once after the last action, when settings needs the inventory.
-    pub(crate) fn refresh_for_settings(&mut self, phone: &Phone) -> Task<Message> {
+    /// Re-read stale rows once the phone's last pending action is done.
+    fn refresh_if_needed(&mut self, phone: &Phone) -> Task<Message> {
         if self.reread_packages
-            && self.inventory_ready(phone)
+            && (self.inventory_ready(phone)
+                || matches!(self.loading_state, LoadingState::WaitingForActions))
             && !self.pending_actions.contains_key(&phone.adb_id)
         {
-            self.preserve_selection = true;
+            self.preserve_selection = self.selected_user.is_some();
             self.loaded_serial = None;
             self.load_id += 1;
             self.loading_state = LoadingState::LoadingPackages;
@@ -1089,8 +1100,13 @@ impl List {
         if device_serial != selected_device.adb_id {
             return Task::none();
         }
-        // These packages may have been read before an action that finished since.
+        // An action may have finished while these rows were loading.
         if self.reread_packages {
+            if self.pending_actions.contains_key(device_serial) {
+                // The last action will start a fresh read. Discard these obsolete rows.
+                self.loading_state = LoadingState::WaitingForActions;
+                return Task::none();
+            }
             return self.read_packages(selected_device);
         }
         self.loaded_serial = Some(device_serial.to_owned());
@@ -1112,7 +1128,7 @@ impl List {
         self.selected_packages.clear();
         let keep_filters = std::mem::take(&mut self.preserve_selection);
         if keep_filters {
-            // A Settings reread keeps the same user list. Take the latest selections
+            // A same-phone reread keeps the same user list. Take the latest selections
             // from each user's old rows, including changes made while the read ran.
             for user in selected_device
                 .user_list
@@ -2055,7 +2071,7 @@ mod tests {
     }
 
     #[test]
-    fn settings_reread_preserves_filters_and_eligible_selections() {
+    fn reread_preserves_filters_and_eligible_selections() {
         let mut view = view_with_selection();
         let phone = Phone {
             adb_id: "A".into(),
@@ -2064,7 +2080,7 @@ mod tests {
         view.loaded_serial = Some(phone.adb_id.clone());
         view.selected_list = Some(UadList::Misc);
         view.reread_packages = true;
-        assert_eq!(view.refresh_for_settings(&phone).units(), 1);
+        assert_eq!(view.refresh_if_needed(&phone).units(), 1);
 
         let mut fresh = view.phone_packages.clone();
         // Multi-user mode was enabled in Settings while the read was in flight.
@@ -2226,6 +2242,34 @@ mod tests {
         let _ = view.load_uad_list(true, &phone);
         let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone, false);
         assert_eq!(view.fallback_notifications, ["Retry failed"]);
+    }
+
+    #[test]
+    fn an_obsolete_read_waits_for_the_rest_of_the_batch() {
+        let mut view = view_with_selection();
+        let phone = Phone {
+            adb_id: "A".into(),
+            ..two_users()
+        };
+        let stale: Vec<_> = view.phone_packages.clone().into_iter().map(Ok).collect();
+        view.pending_actions.insert(phone.adb_id.clone(), 2);
+        for index in [1, 2] {
+            let mut result = finished(&view, (0, index));
+            result.info.device = phone.clone();
+            let task = view.on_verify_and_fallback_finished(result, &phone);
+            if index == 1 {
+                assert_eq!(task.units(), 0);
+                assert_eq!(
+                    view.on_apply_filters("A", stale.clone(), &phone, false)
+                        .units(),
+                    0
+                );
+                assert_eq!(view.phone_packages[0][1].state, PackageState::Uninstalled);
+                assert!(!view.inventory_current(&phone));
+            } else {
+                assert_eq!(task.units(), 1);
+            }
+        }
     }
 
     #[test]
