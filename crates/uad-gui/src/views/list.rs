@@ -201,9 +201,11 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::VerifyAndFallbackFinished(result) => {
-                self.on_verify_and_fallback_finished(result, selected_device)
-            }
+            Message::VerifyAndFallbackFinished(result) => self.on_verify_and_fallback_finished(
+                result,
+                selected_device,
+                settings.device.disable_mode,
+            ),
             Message::ModalUserSelected(user) => {
                 self.on_modal_user_selected(user, settings, selected_device, list_update_state)
             }
@@ -224,6 +226,7 @@ impl List {
         &mut self,
         result: VerifyAndFallbackResult,
         selected_device: &Phone,
+        disable_mode: bool,
     ) -> Task<Message> {
         let serial = &result.info.device.adb_id;
         if let Some(count) = self.pending_actions.get_mut(serial) {
@@ -252,9 +255,12 @@ impl List {
             if let Some(state) = result.new_state {
                 package.state = state;
             }
-            if result.ran {
+            if result.ran || package.state.opposite(disable_mode) != result.info.wanted_state {
                 package.selected = false;
+                package.retry_target = None;
                 self.selected_packages.retain(|&x| x != (i_user, index));
+            } else if package.selected {
+                package.retry_target = Some(result.info.wanted_state);
             }
             Self::filter_package_lists(self);
         }
@@ -995,7 +1001,9 @@ impl List {
         for (p_info, actions) in &planned {
             // Nothing reports back for another user already in the wanted state.
             if actions.is_empty() && p_info.i_user != i_user {
-                self.phone_packages[p_info.i_user][p_info.index].selected = false;
+                let row = &mut self.phone_packages[p_info.i_user][p_info.index];
+                row.selected = false;
+                row.retry_target = None;
                 self.selected_packages
                     .retain(|&x| x != (p_info.i_user, p_info.index));
             }
@@ -1155,13 +1163,15 @@ impl List {
                     let selected: HashMap<_, _> = old_rows
                         .iter()
                         .filter(|row| row.selected)
-                        .map(|row| (row.name.as_str(), row.state))
+                        .map(|row| (row.name.as_str(), row))
                         .collect();
                     for (index, row) in rows.iter_mut().enumerate() {
-                        if selected.get(row.name.as_str()) == Some(&row.state)
+                        if let Some(old) = selected.get(row.name.as_str())
+                            && old.state == row.state
                             && (expert_mode || !needs_expert_mode(row))
                         {
                             row.selected = true;
+                            row.retry_target = old.retry_target;
                             self.selected_packages.push((user.index, index));
                         }
                     }
@@ -1315,7 +1325,7 @@ impl List {
         } else {
             std::slice::from_ref(&user)
         };
-        self.toggle_for_users(users, (user.index, i_package), toggle, expert_mode);
+        self.toggle_for_users(users, (user.index, i_package), toggle, expert_mode, None);
     }
 
     /// Deselect the packages that can only be selected in expert mode.
@@ -1325,8 +1335,24 @@ impl List {
             let package = &mut packages[i_user][i_package];
             if needs_expert_mode(package) {
                 package.selected = false;
+                package.retry_target = None;
             }
             package.selected
+        });
+    }
+
+    pub(crate) fn deselect_changed_retries(&mut self, disable_mode: bool) {
+        self.selected_packages.retain(|&(user, index)| {
+            let row = &mut self.phone_packages[user][index];
+            if row
+                .retry_target
+                .is_some_and(|target| row.state.opposite(disable_mode) != target)
+            {
+                row.selected = false;
+                row.retry_target = None;
+                self.all_selected = false;
+            }
+            row.selected
         });
     }
 
@@ -1365,7 +1391,8 @@ impl List {
     /// as if they had been selected with multi-user mode enabled.
     pub fn select_for_all_users(&mut self, users: &[User], expert_mode: bool) {
         for selection in self.selected_packages.clone() {
-            self.toggle_for_users(users, selection, true, expert_mode);
+            let retry_target = self.phone_packages[selection.0][selection.1].retry_target;
+            self.toggle_for_users(users, selection, true, expert_mode, retry_target);
         }
     }
 
@@ -1376,14 +1403,20 @@ impl List {
         selection: (usize, usize),
         toggle: bool,
         expert_mode: bool,
+        retry_target: Option<PackageState>,
     ) {
         for u in users.iter().filter(|u| !u.protected) {
             let Some(i_package) = same_package(&self.phone_packages, selection, u.index) else {
                 continue;
             };
             let row = &mut self.phone_packages[u.index][i_package];
-            let toggle = toggle && (expert_mode || !needs_expert_mode(row));
+            // A retry already records whether the user requested Disable or Uninstall.
+            let same_action = retry_target.is_none_or(|target| {
+                row.state.opposite(target == PackageState::Disabled) == target
+            });
+            let toggle = toggle && same_action && (expert_mode || !needs_expert_mode(row));
             row.selected = toggle;
+            row.retry_target = retry_target.filter(|_| toggle);
             if !toggle {
                 self.selected_packages
                     .retain(|&x| x != (u.index, i_package));
@@ -1899,7 +1932,7 @@ mod tests {
     fn finished_action_keeps_the_other_packages_selected() {
         let mut view = view_with_selection();
         let result = finished(&view, (0, 1));
-        let _ = view.on_verify_and_fallback_finished(result, &two_users());
+        let _ = view.on_verify_and_fallback_finished(result, &two_users(), false);
         assert!(!view.phone_packages[0][1].selected);
         assert!(view.phone_packages[0][2].selected);
         assert_eq!(view.selected_packages, [(0, 2)]);
@@ -1915,14 +1948,14 @@ mod tests {
             adb_id: "other".to_string(),
             ..two_users()
         };
-        let _ = view.on_verify_and_fallback_finished(result.clone(), &other);
+        let _ = view.on_verify_and_fallback_finished(result.clone(), &other, false);
         assert_eq!(view.phone_packages[0][1].state, PackageState::Enabled);
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
 
         // The list was reloaded without its first package: the rows are shifted.
         view.phone_packages[0].remove(0);
         view.selected_packages = vec![(0, 0), (0, 1)];
-        let _ = view.on_verify_and_fallback_finished(result, &two_users());
+        let _ = view.on_verify_and_fallback_finished(result, &two_users(), false);
         let states: Vec<_> = view.phone_packages[0].iter().map(|p| p.state).collect();
         assert_eq!(states, [PackageState::Uninstalled, PackageState::Enabled]);
         assert_eq!(view.selected_packages, [(0, 1)]);
@@ -2032,7 +2065,7 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 1), (0, 2), (1, 0), (1, 1)]);
 
         // Deselecting the second package deselects it for the work profile too.
-        view.toggle_for_users(&phone.user_list, (0, 1), false, false);
+        view.toggle_for_users(&phone.user_list, (0, 1), false, false, None);
         assert_eq!(view.selected_packages, [(0, 2), (1, 1)]);
         assert!(!view.phone_packages[1][0].selected);
 
@@ -2203,12 +2236,12 @@ mod tests {
             adb_id: "other".to_string(),
             ..two_users()
         };
-        let _ = view.on_verify_and_fallback_finished(unverified.clone(), &other);
+        let _ = view.on_verify_and_fallback_finished(unverified.clone(), &other, false);
         assert!(!view.reread_packages);
-        let _ = view.on_verify_and_fallback_finished(refused, &two_users());
+        let _ = view.on_verify_and_fallback_finished(refused, &two_users(), false);
         // A failed command may have changed the phone before ADB lost the reply.
         assert!(view.reread_packages);
-        let _ = view.on_verify_and_fallback_finished(unverified, &two_users());
+        let _ = view.on_verify_and_fallback_finished(unverified, &two_users(), false);
 
         assert_eq!(view.fallback_notifications, ["unverified", "unverified"]);
         assert_eq!(view.error_modal.as_deref(), Some("refused"));
@@ -2229,7 +2262,7 @@ mod tests {
             result.ran = false;
             result.new_state = None;
             result.error_modal = Some(format!("{} (user 0): refused", result.info.name));
-            let _ = view.on_verify_and_fallback_finished(result, &phone);
+            let _ = view.on_verify_and_fallback_finished(result, &phone, false);
         }
         assert_eq!(
             view.error_modal.as_deref(),
@@ -2238,6 +2271,81 @@ mod tests {
         assert_eq!(view.selected_packages, [(0, 1), (0, 2)]);
         let _ = view.on_modal_hide();
         assert!(view.error_modal.is_none());
+    }
+
+    #[test]
+    fn a_refused_mirrored_uninstall_only_stays_selected_for_an_uninstall_retry() {
+        let phone = two_users();
+        for state in [PackageState::Enabled, PackageState::Disabled] {
+            let mut view = view_with_selection();
+            view.phone_packages[1][1].state = state;
+            view.select_for_all_users(&phone.user_list, false);
+            let plan =
+                plan_pkg_action(&view.phone_packages, &phone, &settings(true), false, (0, 1))
+                    .unwrap();
+            let mut result = finished(&view, (0, 1));
+            result.info = plan[1].0.clone();
+            result.ran = false;
+            result.new_state = None;
+            let _ = view.on_verify_and_fallback_finished(result, &phone, false);
+            assert_eq!(
+                view.phone_packages[1][1].selected,
+                state == PackageState::Enabled
+            );
+            assert_eq!(
+                view.selected_packages.contains(&(1, 1)),
+                state == PackageState::Enabled
+            );
+        }
+    }
+
+    #[test]
+    fn mirroring_a_retry_cannot_reverse_a_successful_uninstall() {
+        let mut view = view_with_selection();
+        let phone = two_users();
+        view.select_for_all_users(&phone.user_list, false);
+        let completed = finished(&view, (0, 1));
+        let mut refused = finished(&view, (1, 1));
+        refused.ran = false;
+        refused.new_state = None;
+        let _ = view.on_verify_and_fallback_finished(completed, &phone, false);
+        let _ = view.on_verify_and_fallback_finished(refused, &phone, false);
+        view.select_for_all_users(&phone.user_list, false);
+        assert!(!view.phone_packages[0][1].selected);
+        assert_eq!(
+            view.phone_packages[1][1].retry_target,
+            Some(PackageState::Uninstalled)
+        );
+        assert!(view.phone_packages[1][1].selected);
+    }
+
+    #[test]
+    fn changing_disable_mode_cannot_turn_a_refusal_into_an_uninstall_retry() {
+        let phone = Phone {
+            adb_id: "A".into(),
+            ..two_users()
+        };
+        for mode_at_refusal in [true, false] {
+            let mut view = view_with_selection();
+            view.loaded_serial = Some(phone.adb_id.clone());
+            view.select_for_all_users(&phone.user_list, false);
+            let mut result = finished(&view, (1, 1));
+            result.info.device = phone.clone();
+            result.info.wanted_state = PackageState::Disabled;
+            result.ran = false;
+            result.new_state = None;
+            let mut fresh = view.phone_packages.clone();
+            for row in fresh.iter_mut().flatten() {
+                row.selected = false;
+            }
+            let _ = view.on_verify_and_fallback_finished(result, &phone, mode_at_refusal);
+            assert_eq!(view.phone_packages[1][1].selected, mode_at_refusal);
+            let _ = view.on_apply_filters("A", fresh.into_iter().map(Ok).collect(), &phone, false);
+            view.deselect_changed_retries(false);
+            assert!(!view.phone_packages[1][1].selected);
+            assert!(!view.selected_packages.contains(&(1, 1)));
+            assert!(view.selected_packages.contains(&(1, 2)));
+        }
     }
 
     #[test]
@@ -2323,7 +2431,7 @@ mod tests {
         view.fallback_notifications.push("Old warning".into());
 
         view.reset_inventory();
-        let _ = view.on_verify_and_fallback_finished(action, &phone);
+        let _ = view.on_verify_and_fallback_finished(action, &phone, false);
         let _ = view.load_uad_list(true, &phone);
         let _ = view.on_apply_filters("", vec![Ok(vec![])], &phone, false);
         assert_eq!(view.fallback_notifications, ["Retry failed"]);
@@ -2341,7 +2449,7 @@ mod tests {
         for index in [1, 2] {
             let mut result = finished(&view, (0, index));
             result.info.device = phone.clone();
-            let task = view.on_verify_and_fallback_finished(result, &phone);
+            let task = view.on_verify_and_fallback_finished(result, &phone, false);
             if index == 1 {
                 assert_eq!(task.units(), 0);
                 assert_eq!(
@@ -2372,7 +2480,7 @@ mod tests {
         let load =
             Message::LoadPhonePackages(view.load_id, (PackageHashMap::new(), UadListState::Done));
         let _ = view.update(&mut settings, &mut phone, &mut state, load);
-        let _ = view.on_verify_and_fallback_finished(action, &phone);
+        let _ = view.on_verify_and_fallback_finished(action, &phone, false);
 
         // What was read is dropped for a new read.
         let mut loaded = |packages| {

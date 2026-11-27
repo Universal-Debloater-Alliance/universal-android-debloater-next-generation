@@ -267,7 +267,12 @@ impl UadGui {
                 }
                 let device = self.selected_device.clone().unwrap_or_default();
                 let restore = matches!(msg, SettingsMessage::RestoreDevice);
+                let previous_mode = self.settings_view.device.disable_mode;
                 let task = self.settings_view.update(&device, &self.apps_view, msg);
+                if previous_mode != self.settings_view.device.disable_mode {
+                    self.apps_view
+                        .deselect_changed_retries(self.settings_view.device.disable_mode);
+                }
                 // The package list shows the progress, then the restored packages.
                 if restore && self.settings_view.restoring(&device).is_some() {
                     self.view = View::List;

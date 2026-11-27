@@ -17,6 +17,8 @@ pub struct PackageRow {
     pub state: PackageState,
     pub list: UadList,
     pub selected: bool,
+    /// The action a retained selection would retry after a refusal.
+    pub retry_target: Option<PackageState>,
     pub current: bool,
 }
 
@@ -45,6 +47,7 @@ impl PackageRow {
             state,
             list,
             selected,
+            retry_target: None,
             current,
         }
     }
@@ -156,7 +159,8 @@ impl From<CorePackage> for PackageRow {
             state: core.state,
             list: core.list,
             selected: false, // Default to not selected
-            current: false,  // Default to not current
+            retry_target: None,
+            current: false, // Default to not current
         }
     }
 }
@@ -170,6 +174,7 @@ impl From<&CorePackage> for PackageRow {
             state: core.state,
             list: core.list,
             selected: false,
+            retry_target: None,
             current: false,
         }
     }
