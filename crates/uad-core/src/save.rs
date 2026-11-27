@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::{
     collections::HashMap,
     fs,
+    io::{ErrorKind, Write},
     path::{Path, PathBuf},
 };
 
@@ -105,10 +106,26 @@ fn write_backup(
     }
     let json = serde_json::to_string_pretty(&backup).map_err(|error| error.to_string())?;
     fs::create_dir_all(&backup_path).map_err(|error| error.to_string())?;
-    let filename = format!("{}.json", chrono::Local::now().format("%Y-%m-%d_%H-%M-%S"));
-    let path = backup_path.join(filename);
-    fs::write(&path, json).map_err(|error| error.to_string())?;
-    Ok(path)
+    let timestamp = chrono::Local::now().format("%Y-%m-%d_%H-%M-%S").to_string();
+    let mut path = backup_path.join(format!("{timestamp}.json"));
+    let mut suffix = 1;
+    loop {
+        match fs::File::create_new(&path) {
+            Ok(mut file) => {
+                if let Err(error) = file.write_all(json.as_bytes()) {
+                    drop(file);
+                    let _ = fs::remove_file(&path);
+                    return Err(error.to_string());
+                }
+                return Ok(path);
+            }
+            Err(error) if error.kind() == ErrorKind::AlreadyExists => {
+                path = backup_path.join(format!("{timestamp}-{suffix}.json"));
+                suffix += 1;
+            }
+            Err(error) => return Err(error.to_string()),
+        }
+    }
 }
 
 pub fn list_available_backups(dir: &Path) -> Vec<DisplayablePath> {
@@ -525,6 +542,32 @@ mod tests {
             serde_json::from_slice(&fs::read(&backups[0].path).unwrap()).unwrap();
         assert_eq!(saved.device_id, serial);
         assert_eq!(saved.users[0].packages, packages[0]);
+    }
+
+    #[test]
+    fn each_backup_keeps_its_own_snapshot() {
+        let dir = tempdir().unwrap();
+        let mut snapshots = Vec::new();
+        for state in [
+            PackageState::Enabled,
+            PackageState::Disabled,
+            PackageState::Uninstalled,
+        ] {
+            let path = backup_phone(
+                dir.path(),
+                vec![User::default()],
+                "phone".into(),
+                &[vec![package("com.example.app", state)]],
+            )
+            .unwrap();
+            snapshots.push((DisplayablePath { path }, state));
+        }
+        for (file, state) in snapshots {
+            assert_eq!(
+                PhoneBackup::read(&file).unwrap().users[0].packages[0].state,
+                state
+            );
+        }
     }
 
     #[test]
