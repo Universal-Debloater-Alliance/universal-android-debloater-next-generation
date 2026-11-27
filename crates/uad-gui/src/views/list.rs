@@ -156,7 +156,8 @@ impl List {
     ) -> Task<Message> {
         match message {
             Message::ModalValidate | Message::List(_, RowMessage::ActionPressed)
-                if !self.inventory_current(selected_device) =>
+                if !self.inventory_current(selected_device)
+                    || settings.restoring(selected_device).is_some() =>
             {
                 Task::none()
             }

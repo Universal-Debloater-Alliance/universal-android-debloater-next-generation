@@ -11,10 +11,10 @@ use log::{debug, error, info};
 use std::{collections::HashMap, path::PathBuf};
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, device_backup_dir, list_available_backups, restore_backup_with_errors},
+    save::{PhoneBackup, RestoreResult, backup_phone, device_backup_dir, list_available_backups},
     sync::{
-        CorePackage, Phone, User, get_android_sdk, profile_access_denied, run_adb_shell_action,
-        supports_disabling, supports_multi_user,
+        CorePackage, Phone, User, profile_access_denied, run_adb_shell_action, supports_disabling,
+        supports_multi_user,
     },
     uad_lists::PackageState,
     utils::{DisplayablePath, Error, export_packages, open_url},
@@ -75,6 +75,7 @@ pub enum Message {
     RestoreDevice,
     /// Name of the restored package, or why it failed
     RestorePackageFinished(Result<String, String>),
+    RestorePlanned(Phone, Result<RestoreResult, String>),
     DeviceBackedUp(String, Result<bool, String>),
     ChooseBackUpFolder,
     FolderChosen(Result<PathBuf, Error>),
@@ -125,7 +126,8 @@ impl Settings {
                 self.handle_device_backed_up(&serial, phone, result)
             }
             Message::RestoreDevice if self.active_restore.is_some() => Task::none(),
-            Message::RestoreDevice => self.handle_restore_device(phone, apps),
+            Message::RestoreDevice => self.handle_restore_device(phone),
+            Message::RestorePlanned(origin, plan) => self.handle_restore_plan(&origin, plan),
             Message::RestorePackageFinished(_) => Task::none(),
             Message::FolderChosen(result) => self.handle_folder_chosen(phone, result),
             Message::ChooseBackUpFolder => self.handle_choose_backup_folder(),
@@ -279,26 +281,57 @@ impl Settings {
         Task::none()
     }
 
-    fn handle_restore_device(&mut self, phone: &Phone, apps: &AppsView) -> Task<Message> {
-        let packages = &apps.phone_packages;
-        let core_packages: Vec<Vec<_>> = packages
-            .iter()
-            .map(|user_packages| user_packages.iter().map(CorePackage::from).collect())
-            .collect();
-        match restore_backup_with_errors(
-            phone,
-            &core_packages,
-            &self.device,
-            &apps.inventory_errors,
-        ) {
+    fn handle_restore_device(&mut self, phone: &Phone) -> Task<Message> {
+        let Some(file) = &self.device.backup.selected else {
+            self.set_restore_report(&phone.adb_id, "No backup selected".into());
+            return Task::none();
+        };
+        let backup = match PhoneBackup::read(file) {
+            Ok(backup) => backup,
+            Err(error) => {
+                error!("[RESTORE] {file} - {error}");
+                self.set_restore_report(&phone.adb_id, error);
+                return Task::none();
+            }
+        };
+        info!("[RESTORE] Restoring backup {file} on {}", phone.adb_id);
+        let phone = phone.clone();
+        self.active_restore = Some(RestoreBatch {
+            serial: phone.adb_id.clone(),
+            remaining: 0,
+            skipped: 0,
+            restored: String::new(),
+            failures: Vec::new(),
+        });
+        self.set_restore_report(
+            &phone.adb_id,
+            "Restoring: checking current package states…".into(),
+        );
+        Task::future(async move {
+            let plan = backup.plan_device_restore(&phone);
+            Message::RestorePlanned(phone, plan)
+        })
+    }
+
+    fn handle_restore_plan(
+        &mut self,
+        phone: &Phone,
+        plan: Result<RestoreResult, String>,
+    ) -> Task<Message> {
+        let Some(batch) = self.active_restore.as_mut() else {
+            return Task::none();
+        };
+        if batch.serial != phone.adb_id || batch.remaining != 0 {
+            return Task::none();
+        }
+        match plan {
             Ok(restore_result) => {
                 let mut commands = vec![];
                 for package in restore_result.packages {
-                    let row = &packages[package.i_user][package.index];
-                    let name = row.name.clone();
-                    let reinstalled = row.state == PackageState::Uninstalled
+                    let name = package.name;
+                    let reinstalled = package.state == PackageState::Uninstalled
                         && package.target == PackageState::Enabled;
-                    let user = phone.user_list[package.i_user];
+                    let user = package.user;
                     let phone = phone.clone();
                     commands.push(Task::perform(
                         async move {
@@ -323,46 +356,37 @@ impl Settings {
                     ));
                 }
                 let skipped = restore_result.skipped_count;
-                let status = if !commands.is_empty() {
-                    self.active_restore = Some(RestoreBatch {
-                        serial: phone.adb_id.clone(),
-                        remaining: commands.len(),
-                        skipped,
-                        restored: String::new(),
-                        failures: Vec::new(),
-                    });
-                    format!("Restoring {} package entries…", commands.len())
-                } else if skipped > 0 {
-                    format!(
-                        "Nothing was restored: {skipped} packages skipped \
-                         (not found, or cannot be put in their saved state)"
-                    )
-                } else if get_android_sdk(&phone.adb_id) == 0 {
-                    "Device is not connected".to_string()
+                batch.remaining = commands.len();
+                batch.skipped = skipped;
+                let status = if commands.is_empty() {
+                    self.active_restore = None;
+                    if skipped > 0 {
+                        format!(
+                            "Nothing was restored: {skipped} packages skipped (not found, or cannot be put in their saved state)"
+                        )
+                    } else {
+                        "Device state is already restored".to_owned()
+                    }
                 } else {
-                    "Device state is already restored".to_string()
+                    format!("Restoring {} package entries…", commands.len())
                 };
-                // Every result replaces the one kept for the next reload.
-                self.restore_reports
-                    .insert(phone.adb_id.clone(), status.clone());
-                self.device.backup.backup_state = status;
-                info!(
-                    "[RESTORE] Restoring backup {}",
-                    self.device.backup.selected.as_ref().unwrap()
-                );
+                self.set_restore_report(&phone.adb_id, status);
                 Task::batch(commands)
             }
-            Err(e) => {
-                self.restore_reports.insert(phone.adb_id.clone(), e.clone());
-                self.device.backup.backup_state.clone_from(&e);
-                if let Some(backup) = &self.device.backup.selected {
-                    error!("{backup} - {e}");
-                } else {
-                    error!("{e}");
-                }
+            Err(error) => {
+                self.active_restore = None;
+                error!("[RESTORE] {}: {error}", phone.adb_id);
+                self.set_restore_report(&phone.adb_id, error);
                 Task::none()
             }
         }
+    }
+
+    fn set_restore_report(&mut self, serial: &str, report: String) {
+        if self.device.device_id == serial {
+            self.device.backup.backup_state.clone_from(&report);
+        }
+        self.restore_reports.insert(serial.to_owned(), report);
     }
 
     /// Name of the package restored last, while a restore is running on this phone.
@@ -378,6 +402,9 @@ impl Settings {
         let Some(active) = self.active_restore.as_mut() else {
             return false;
         };
+        if active.remaining == 0 {
+            return false;
+        }
         match result {
             Ok(name) => active.restored.clone_from(name),
             Err(error) => active.failures.push(error.clone()),
@@ -416,10 +443,7 @@ impl Settings {
         }
         // Also kept for the next reload of its device: it may not have been seen yet.
         let displayed = self.device.device_id == batch.serial;
-        if displayed {
-            self.device.backup.backup_state.clone_from(&report);
-        }
-        self.restore_reports.insert(batch.serial, report);
+        self.set_restore_report(&batch.serial, report);
         displayed
     }
 
@@ -909,7 +933,7 @@ mod tests {
         settings.device.backup.selected = Some(DisplayablePath {
             path: dir.path().join("missing.json"),
         });
-        let _ = settings.handle_restore_device(&phone("A"), &AppsView::default());
+        let _ = settings.handle_restore_device(&phone("A"));
         let error = settings.device.backup.backup_state.clone();
         assert!(!error.starts_with("Restore finished"));
         settings.load_device_settings(&phone("A"), &config);

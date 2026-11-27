@@ -42,6 +42,27 @@ impl std::fmt::Display for Phone {
 }
 
 impl Phone {
+    /// Discover the current profiles, including the owner on devices too old to list users.
+    pub fn refresh_users(&mut self) -> Result<(), String> {
+        match list_users_idx_prot(&self.adb_id) {
+            Ok(users) => self.user_list = users,
+            Err(error)
+                if (1..21).contains(&self.android_sdk) && user_listing_unsupported(&error) =>
+            {
+                self.user_list = vec![User::default()];
+            }
+            Err(error) => {
+                self.user_list.clear();
+                let message =
+                    format!("Could not list device users: {error}. Refresh the device and retry.");
+                self.user_list_error = Some(message.clone());
+                return Err(message);
+            }
+        }
+        self.user_list_error = None;
+        Ok(())
+    }
+
     /// Only the owner on a known legacy device can be addressed without `--user`.
     pub fn package_user_id(&self, id: u16) -> Result<Option<u16>, String> {
         match self.android_sdk {
@@ -616,19 +637,15 @@ pub fn try_get_devices_list() -> Result<Vec<Phone>, String> {
             Ok(devices) => {
                 let mut device_list: Vec<Phone> = vec![];
                 for (serial, _) in devices.iter().filter(|(_, status)| status == "device") {
-                    let android_sdk = get_android_sdk(serial);
-                    let (user_list, user_list_error) = match list_users_idx_prot(serial) {
-                        Ok(users) => (users, None),
-                        Err(error) if (1..21).contains(&android_sdk) && user_listing_unsupported(&error) => (vec![User::default()], None),
-                        Err(error) => (Vec::new(), Some(format!("Could not list device users: {error}. Refresh the device and retry."))),
-                    };
-                    device_list.push(Phone {
+                    let mut phone = Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
-                        android_sdk,
-                        user_list,
-                        user_list_error,
+                        android_sdk: get_android_sdk(serial),
                         adb_id: serial.clone(),
-                    });
+                        ..Phone::default()
+                    };
+                    // Keep the phone and its discovery error available to the device picker.
+                    let _ = phone.refresh_users();
+                    device_list.push(phone);
                 }
                 if device_list.is_empty() {
                     OperationResult::Retry(None)

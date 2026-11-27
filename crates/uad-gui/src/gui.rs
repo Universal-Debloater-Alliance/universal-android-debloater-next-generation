@@ -268,6 +268,7 @@ impl UadGui {
                 let device = self.selected_device.clone().unwrap_or_default();
                 let restore = matches!(msg, SettingsMessage::RestoreDevice);
                 let previous_mode = self.settings_view.device.disable_mode;
+                let plan_for_displayed = matches!(&msg, SettingsMessage::RestorePlanned(phone, _) if phone.adb_id == device.adb_id);
                 let task = self.settings_view.update(&device, &self.apps_view, msg);
                 if previous_mode != self.settings_view.device.disable_mode {
                     self.apps_view
@@ -276,6 +277,11 @@ impl UadGui {
                 // The package list shows the progress, then the restored packages.
                 if restore && self.settings_view.restoring(&device).is_some() {
                     self.view = View::List;
+                } else if plan_for_displayed && self.settings_view.restoring(&device).is_none() {
+                    if matches!(self.view, View::List) {
+                        self.view = View::Settings;
+                    }
+                    return self.reload_packages();
                 }
                 task.map(Message::SettingsAction)
             }
@@ -680,7 +686,11 @@ mod tests {
         .unwrap();
         let mut gui = UadGui::default();
         select(&mut gui, "A");
-        let _ = gui.update(inventory(gui.apps_view.load_id, "A", PackageState::Enabled));
+        let _ = gui.update(inventory(
+            gui.apps_view.load_id,
+            "A",
+            PackageState::Disabled,
+        ));
         gui.settings_view.device.backup.selected = Some(DisplayablePath { path: file });
         let restore = Message::SettingsAction(SettingsMessage::RestoreDevice);
         gui.view = View::Settings;
@@ -700,6 +710,20 @@ mod tests {
                 .backup
                 .backup_state
                 .starts_with("Restoring")
+        );
+        // The cache matched the backup, but the fresh inventory needs a disable.
+        let mut fresh = uad_core::sync::CorePackage::from(&gui.apps_view.phone_packages[0][0]);
+        fresh.state = PackageState::Enabled;
+        let plan =
+            uad_core::save::restore_backup(&phone("A"), &[vec![fresh]], &gui.settings_view.device)
+                .unwrap();
+        assert_eq!(
+            gui.update(Message::SettingsAction(SettingsMessage::RestorePlanned(
+                phone("A"),
+                Ok(plan)
+            )))
+            .units(),
+            1
         );
         let error = "com.example.app (user 0): device offline";
         let done =
