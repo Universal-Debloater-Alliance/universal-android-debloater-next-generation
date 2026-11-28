@@ -16,7 +16,10 @@ use log::{debug, error, info};
 use std::path::PathBuf;
 use uad_core::{
     config::{BackupSettings, Config, DeviceSettings, GeneralSettings},
-    save::{backup_phone, list_available_backup_user, list_available_backups, restore_backup},
+    save::{
+        backup_phone, list_available_backup_user, list_available_backups, restore_backup,
+        validate_backup_inventory,
+    },
     sync::{
         AdbError, CorePackage, Phone, User, get_android_sdk, run_adb_shell_action,
         supports_disabling, supports_multi_user,
@@ -242,7 +245,7 @@ impl Settings {
                         i_user: p.i_user,
                         index: p.index,
                         removal: "RESTORE".to_string(),
-                        before_cross_user_states: vec![],
+                        ..PackageInfo::default()
                     };
                     for command in p.commands.clone() {
                         *nb_running_async_adb_commands += 1;
@@ -570,9 +573,18 @@ impl Settings {
         )
         .padding(6);
 
+        let backup_error =
+            validate_backup_inventory(&phone.user_list, &apps_view.phone_packages).err();
         let backup_btn = button_primary(text("Backup").align_x(alignment::Horizontal::Center))
-            .on_press(Message::BackupDevice)
+            .on_press_maybe(backup_error.is_none().then_some(Message::BackupDevice))
             .width(77);
+        let backup_description = backup_error.map_or_else(
+            || text("Backup the current state of the phone"),
+            |error| {
+                text(format!("{error}. Refresh the device and try again."))
+                    .style(style::Text::Danger)
+            },
+        );
 
         let restore_btn = |enabled| {
             if enabled {
@@ -603,7 +615,7 @@ impl Settings {
 
         let backup_row = row![
             backup_btn,
-            "Backup the current state of the phone",
+            backup_description,
             Space::new().width(Length::Fill).height(Length::Shrink),
             locate_backup_btn,
         ]

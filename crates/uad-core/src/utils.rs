@@ -71,25 +71,29 @@ pub fn fetch_packages(
     device_serial: &str,
     user_id: Option<u16>,
 ) -> Vec<CorePackage> {
-    let all_sys_packs = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
-        .unwrap_or_default();
-    let enabled_sys_packs: HashSet<String> = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
-    let disabled_sys_packs: HashSet<String> = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
-        .unwrap_or_default()
-        .into_iter()
-        .collect();
+    try_fetch_packages(uad_lists, device_serial, user_id).unwrap_or_else(|error| {
+        error!("Could not list the packages of user {user_id:?}: {error}");
+        Vec::new()
+    })
+}
+
+pub fn try_fetch_packages(
+    uad_lists: &PackageHashMap,
+    device_serial: &str,
+    user_id: Option<u16>,
+) -> Result<Vec<CorePackage>, String> {
+    let query = |flag| {
+        AdbCommand::new()
+            .shell(device_serial)
+            .pm()
+            .list_packages_sys(Some(flag), user_id)
+    };
+    // Without all three lists, packages would be given the wrong state.
+    let all_sys_packs = query(PmListPacksFlag::IncludeUninstalled)?;
+    let enabled = query(PmListPacksFlag::OnlyEnabled)?;
+    let disabled = query(PmListPacksFlag::OnlyDisabled)?;
+    let enabled_sys_packs: HashSet<String> = enabled.into_iter().collect();
+    let disabled_sys_packs: HashSet<String> = disabled.into_iter().collect();
 
     let mut description;
     let mut removal;
@@ -128,7 +132,7 @@ pub fn fetch_packages(
         user_package.push(package);
     }
     user_package.sort_by_key(|package| package.name.to_lowercase());
-    user_package
+    Ok(user_package)
 }
 
 #[must_use]

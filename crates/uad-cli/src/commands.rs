@@ -4,8 +4,8 @@ use std::collections::{HashMap, HashSet};
 use std::io::Write;
 use uad_core::adb::{ACommand, PmListPacksFlag};
 use uad_core::sync::{
-    CorePackage, Phone, User, apply_pkg_state_commands, get_devices_list, get_package_state,
-    run_adb_shell_action,
+    CorePackage, Phone, User, apply_pkg_state_commands, get_package_state, query_package_state,
+    run_adb_shell_action, try_get_devices_list,
 };
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 use uad_core::utils::{matches_search, truncate_description};
@@ -17,19 +17,22 @@ use crate::{Cli, print_or_exit, println_or_exit};
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
     println_or_exit!("Scanning for connected devices...");
-    let devices = get_devices_list();
+    let devices = try_get_devices_list()?;
 
     if devices.is_empty() {
         return Err(NO_DEVICES_FOUND.into());
     }
 
     println_or_exit!("\nFound {} device(s):\n", devices.len());
+    let mut errors = Vec::new();
     for device in &devices {
         println_or_exit!("  Model:       {}", device.model);
         println_or_exit!("  Serial:      {}", device.adb_id);
         println_or_exit!("  Android SDK: {}", device.android_sdk);
 
-        if !device.user_list.is_empty() {
+        if let Some(error) = &device.user_list_error {
+            errors.push(format!("{}: {error}", device.adb_id));
+        } else if !device.user_list.is_empty() {
             println_or_exit!("  Users:       {} user(s)", device.user_list.len());
             for user in &device.user_list {
                 let protected = if user.protected { " (protected)" } else { "" };
@@ -39,7 +42,11 @@ pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
         println_or_exit!();
     }
 
-    Ok(())
+    if errors.is_empty() {
+        Ok(())
+    } else {
+        Err(errors.join("\n").into())
+    }
 }
 
 /// Context for package filtering and display
@@ -369,17 +376,20 @@ pub fn execute_with_fallback(
     }
 
     // Verify package state and attempt fallback if needed
-    let actual_state = match get_package_state(&device.adb_id, package, Some(user.id)) {
-        Some(state) => state,
-        None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
-        None => {
-            return Err(format!(
-                "Package '{package}' was not found on device for user {}",
-                user.id
-            )
-            .into());
-        }
-    };
+    let actual_state =
+        match query_package_state(&device.adb_id, package, device.package_user_id(user.id)?)
+            .map_err(|error| format!("Could not verify the state of '{package}': {error}"))?
+        {
+            Some(state) => state,
+            None if target_state == PackageState::Uninstalled => PackageState::Uninstalled,
+            None => {
+                return Err(format!(
+                    "Package '{package}' was not found on device for user {}",
+                    user.id
+                )
+                .into());
+            }
+        };
 
     if actual_state != target_state {
         println!(
@@ -387,14 +397,9 @@ pub fn execute_with_fallback(
             indent, target_state, actual_state
         );
 
-        // Attempt fallback
-        if let Ok(fallback_action) =
-            uad_core::sync::attempt_fallback(core_pkg, target_state, actual_state, user, device)
-        {
-            println!("{}↻ Fallback: {}", indent, fallback_action);
-        } else {
-            println!("{}✗ No fallback available", indent);
-        }
+        let fallback_action =
+            uad_core::sync::attempt_fallback(core_pkg, target_state, actual_state, user, device)?;
+        println!("{}↻ Fallback: {}", indent, fallback_action);
     }
 
     // Check for cross-user behavior if operation succeeded

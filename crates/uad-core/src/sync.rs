@@ -6,6 +6,8 @@ use log::{error, info};
 use retry::{OperationResult, delay::Fixed, retry};
 use serde::{Deserialize, Serialize};
 
+pub use crate::adb::profile_access_denied;
+
 /// An Android device, typically a phone
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Phone {
@@ -16,6 +18,7 @@ pub struct Phone {
     /// In theory, `len < u16::MAX` _should_ always be `true`.
     /// In practice, `len <= u8::MAX`.
     pub user_list: Vec<User>,
+    pub user_list_error: Option<String>,
     /// Unique serial identifier
     pub adb_id: String, // could be `Copy`
 }
@@ -26,6 +29,7 @@ impl Default for Phone {
             model: "fetching devices...".to_string(),
             android_sdk: 0,
             user_list: vec![],
+            user_list_error: None,
             adb_id: String::default(),
         }
     }
@@ -37,12 +41,63 @@ impl std::fmt::Display for Phone {
     }
 }
 
+impl Phone {
+    /// Discover the current profiles, including the owner on devices too old to list users.
+    pub fn refresh_users(&mut self) -> Result<(), String> {
+        match list_users_idx_prot(&self.adb_id) {
+            Ok(users) => self.user_list = users,
+            Err(error)
+                if (1..21).contains(&self.android_sdk) && user_listing_unsupported(&error) =>
+            {
+                self.user_list = vec![User::default()];
+            }
+            Err(error) => {
+                self.user_list.clear();
+                let message =
+                    format!("Could not list device users: {error}. Refresh the device and retry.");
+                self.user_list_error = Some(message.clone());
+                return Err(message);
+            }
+        }
+        self.user_list_error = None;
+        Ok(())
+    }
+
+    /// Only the owner on a known legacy device can be addressed without `--user`.
+    pub fn package_user_id(&self, id: u16) -> Result<Option<u16>, String> {
+        match self.android_sdk {
+            0 => Err(
+                "Could not determine the Android SDK version. Refresh the device and retry.".into(),
+            ),
+            1..21 if id == 0 => Ok(None),
+            1..21 => Err(format!(
+                "Cannot target user {id} on Android SDK {}.",
+                self.android_sdk
+            )),
+            _ => Ok(Some(id)),
+        }
+    }
+}
+
 /// `UserInfo` but relevant to UAD
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct User {
     pub id: u16,
     pub index: usize,
     pub protected: bool,
+}
+
+impl User {
+    /// System packages loaded for this user. Only a protected profile can have an empty list.
+    pub fn packages<T>(self, inventory: &[Vec<T>]) -> Result<&[T], String> {
+        let packages = inventory
+            .get(self.index)
+            .ok_or_else(|| format!("No package list loaded for {self}"))?;
+        if packages.is_empty() && !self.protected {
+            return Err(format!("The packages of {self} could not be read"));
+        }
+        Ok(packages)
+    }
 }
 
 impl std::fmt::Display for User {
@@ -234,7 +289,6 @@ pub fn get_device_model(serial: &str) -> String {
         .shell(serial)
         .getprop("ro.product.model")
         .unwrap_or_else(|err| {
-            eprintln!("ERROR: {err}");
             error!("{err}");
             if err.contains("adb: no devices/emulators found") {
                 "no devices/emulators found".to_string()
@@ -425,68 +479,93 @@ pub const fn supports_multi_user(dev: &Phone) -> bool {
 ///
 /// If `device_serial` is empty, it lets ADB choose the default device.
 pub fn is_protected_user<S: AsRef<str>>(user_id: u16, device_serial: S) -> bool {
-    AdbCommand::new()
+    match AdbCommand::new()
         .shell(device_serial)
         .pm()
         .list_packages_sys(None, Some(user_id))
-        .is_err()
+    {
+        Ok(_) => false,
+        Err(error) if profile_access_denied(&error) => true,
+        Err(error) => {
+            error!("Could not check access to user {user_id}: {error}");
+            false
+        }
+    }
 }
 
-#[must_use]
-pub fn list_users_idx_prot(device_serial: &str) -> Vec<User> {
-    AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_users()
-        .map_or_else(
-            |_| Vec::new(),
-            |out| {
-                out.into_iter()
-                    .enumerate()
-                    .map(|(i, user)| {
-                        let id = user.get_id();
-                        User {
-                            id,
-                            index: i,
-                            protected: is_protected_user(id, device_serial),
-                        }
-                    })
-                    .collect()
-            },
-        )
+pub fn list_users_idx_prot(device_serial: &str) -> Result<Vec<User>, String> {
+    let users = AdbCommand::new().shell(device_serial).pm().list_users()?;
+    if users.is_empty() {
+        return Err("ADB returned an empty user list".into());
+    }
+    Ok(users
+        .into_iter()
+        .enumerate()
+        .map(|(i, user)| {
+            let id = user.get_id();
+            User {
+                id,
+                index: i,
+                protected: is_protected_user(id, device_serial),
+            }
+        })
+        .collect())
+}
+
+/// Older versions of pm print this diagnostic followed by their usage text.
+fn user_listing_unsupported(error: &str) -> bool {
+    error.trim_start().lines().next().is_some_and(|line| {
+        [
+            "Error: unknown list type 'users'",
+            "Unknown command: list users",
+            "Unknown command: users",
+        ]
+        .iter()
+        .any(|message| line.trim_end().eq_ignore_ascii_case(message))
+    })
 }
 
 /// This matches serials (`getprop ro.serialno`)
 /// that are authorized by the user.
 #[must_use]
 pub fn get_devices_list() -> Vec<Phone> {
+    try_get_devices_list().unwrap_or_else(|error| {
+        error!("Could not scan for devices: {error}");
+        Vec::new()
+    })
+}
+
+/// An empty scan is retried like a failed scan, but only a failed final scan is an error.
+pub fn try_get_devices_list() -> Result<Vec<Phone>, String> {
     retry(
         Fixed::from_millis(500).take(if cfg!(debug_assertions) { 3 } else { 10 }),
         || match AdbCommand::new().devices() {
             Ok(devices) => {
                 let mut device_list: Vec<Phone> = vec![];
-                if devices.iter().all(|(_, stat)| stat != "device") {
-                    return OperationResult::Retry(vec![]);
-                }
-                for device in devices {
-                    let serial = &device.0;
-                    device_list.push(Phone {
+                for (serial, _) in devices.iter().filter(|(_, status)| status == "device") {
+                    let mut phone = Phone {
                         model: format!("{} {}", get_device_brand(serial), get_device_model(serial)),
                         android_sdk: get_android_sdk(serial),
-                        user_list: list_users_idx_prot(serial),
                         adb_id: serial.clone(),
-                    });
+                        ..Phone::default()
+                    };
+                    // Keep the phone and its discovery error available to the device picker.
+                    let _ = phone.refresh_users();
+                    device_list.push(phone);
                 }
-                OperationResult::Ok(device_list)
+                if device_list.is_empty() {
+                    OperationResult::Retry(None)
+                } else {
+                    OperationResult::Ok(device_list)
+                }
             }
-            Err(err) => {
-                error!("get_devices_list() -> {err}");
-                let test: Vec<Phone> = vec![];
-                OperationResult::Retry(test)
-            }
+            Err(err) => OperationResult::Retry(Some(err)),
         },
     )
-    .unwrap_or_default()
+    .or_else(|failure| match failure.error {
+        Some(error) => Err(error),
+        None => Ok(Vec::new()),
+    })
 }
 
 #[must_use]
@@ -504,40 +583,40 @@ pub fn get_package_state(
     package_name: &str,
     user_id: Option<u16>,
 ) -> Option<PackageState> {
-    use crate::adb::{ACommand as AdbCommand, PmListPacksFlag};
+    query_package_state(device_serial, package_name, user_id)
+        .ok()
+        .flatten()
+}
 
-    // Check if package is enabled
-    if let Ok(enabled_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyEnabled), user_id)
-        && enabled_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Enabled);
+/// Distinguish a successful search with no match from a failed ADB query.
+pub fn query_package_state(
+    device_serial: &str,
+    package_name: &str,
+    user_id: Option<u16>,
+) -> Result<Option<PackageState>, String> {
+    use crate::adb::PmListPacksFlag;
+    let query = |flag| {
+        AdbCommand::new()
+            .shell(device_serial)
+            .pm()
+            .list_packages_sys(Some(flag), user_id)
+    };
+    let all = query(PmListPacksFlag::IncludeUninstalled)?;
+    if all.is_empty() {
+        return Err("ADB returned an empty system package list".into());
     }
-
-    // Check if package is disabled
-    if let Ok(disabled_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::OnlyDisabled), user_id)
-        && disabled_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Disabled);
+    let contains = |packages: &[String]| packages.iter().any(|name| name == package_name);
+    let enabled = contains(&query(PmListPacksFlag::OnlyEnabled)?);
+    let disabled = contains(&query(PmListPacksFlag::OnlyDisabled)?);
+    match (contains(&all), enabled, disabled) {
+        (true, true, false) => Ok(Some(PackageState::Enabled)),
+        (true, false, true) => Ok(Some(PackageState::Disabled)),
+        (true, false, false) => Ok(Some(PackageState::Uninstalled)),
+        (false, false, false) => Ok(None),
+        _ => Err(format!(
+            "ADB returned inconsistent package states for {package_name}. Retry the operation."
+        )),
     }
-
-    // Check if package exists at all (including uninstalled)
-    if let Ok(all_packages) = AdbCommand::new()
-        .shell(device_serial)
-        .pm()
-        .list_packages_sys(Some(PmListPacksFlag::IncludeUninstalled), user_id)
-        && all_packages.contains(&package_name.to_string())
-    {
-        return Some(PackageState::Uninstalled);
-    }
-
-    // Package not found at all - it doesn't exist on this device/user
-    None
 }
 
 /// Verify the current state of a package on a device.
@@ -624,7 +703,11 @@ pub fn attempt_fallback(
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
             // Verify the package was actually uninstalled
-            match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+            match query_package_state(
+                &phone.adb_id,
+                &package.name,
+                phone.package_user_id(user.id)?,
+            )? {
                 Some(PackageState::Uninstalled) | None => {
                     Ok("uninstalled package instead of disabling".to_string())
                 }
@@ -658,5 +741,37 @@ pub fn attempt_fallback(
         _ => Err(format!(
             "No fallback available for wanted state {wanted_state:?} and actual state {actual_state:?}"
         )),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn only_an_unsupported_user_list_can_fall_back_to_the_owner() {
+        assert!(user_listing_unsupported(
+            "Error: unknown list type 'users'\nusage: pm ..."
+        ));
+        for error in [
+            "error: device offline",
+            "Can't find service: package",
+            "ADB returned an empty user list",
+            "Invalid user ID",
+            "Unknown command: packages",
+        ] {
+            assert!(!user_listing_unsupported(error), "{error}");
+        }
+    }
+
+    #[test]
+    fn only_a_known_legacy_owner_uses_unscoped_commands() {
+        let mut phone = Phone::default();
+        assert!(phone.package_user_id(0).is_err());
+        phone.android_sdk = 19;
+        assert_eq!(phone.package_user_id(0), Ok(None));
+        assert!(phone.package_user_id(10).is_err());
+        phone.android_sdk = 35;
+        assert_eq!(phone.package_user_id(10), Ok(Some(10)));
     }
 }
