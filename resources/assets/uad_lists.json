@@ -20166,7 +20166,6 @@
     "labels": []
   },
   "com.meizu.net.search": {
-    "leabel": "com.meizu.net.search",
     "description": "Chinese Search",
     "removal": "Recommended",
     "list": "Oem",
@@ -32501,14 +32500,6 @@
     "labels": [],
     "removal": "Advanced"
   },
-  "com.aura.oobe.kddi": {
-    "list": "Carrier",
-    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some au carrier phones\nSafe to remove.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
   "com.aura.oobe.ntt": {
     "list": "Carrier",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some docomo carrier phones\nSafe to remove.",
@@ -32552,22 +32543,6 @@
   "com.aura.oobe.ml": {
     "list": "Oem",
     "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.aura.oobe.motorola": {
-    "list": "Oem",
-    "description": "Aura from Unity\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
-    "dependencies": [],
-    "neededBy": [],
-    "labels": [],
-    "removal": "Recommended"
-  },
-  "com.dti.motorola": {
-    "list": "Oem",
-    "description": "Digital Turbine\nPersistent notification until you click on it and agree to install games. Sort of game cloud pre-installed in some Motorola\nSafe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33914,7 +33889,7 @@
   },
   "com.aura.oobe.motorola": {
     "list": "Carrier",
-    "description": "MotoApps\nIt's something to install apps, but it's an advertising company.",
+    "description": "Aura (also called AppCloud or MotoApps), an app-promotion service by Unity (formerly ironSource), preinstalled on some Motorola phones. It shows a persistent notification after setup until you agree to install suggested apps and games. It provides no system function. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -33922,7 +33897,7 @@
   },
   "com.dti.motorola": {
     "list": "Carrier",
-    "description": "Mobile Services Manager\nit's something for install apps but it's useless and a lot permissions.",
+    "description": "Digital Turbine app installer, shown as Mobile Services Manager. Digital Turbine is an advertising company that installs promoted apps through deals with phone makers and carriers. It shows a persistent notification until you agree to install games, and it holds many permissions, including installing apps. It provides no system function. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
@@ -41454,7 +41429,7 @@
   },
   "com.aura.oobe.kddi": {
     "list": "Carrier",
-    "description": "AppCloud\nSeems to exist to try to get you to download games and another testimonial.",
+    "description": "Aura (also called AppCloud), an app-promotion service by Unity (formerly ironSource), preinstalled on some au (KDDI) carrier phones. It shows a persistent notification until you agree to install suggested apps and games. It provides no system function. Safe to remove.",
     "dependencies": [],
     "neededBy": [],
     "labels": [],
