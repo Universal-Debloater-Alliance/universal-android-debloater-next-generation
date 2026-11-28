@@ -47,8 +47,7 @@ pub struct Settings {
     active_restore: Option<RestoreBatch>,
     backups_in_progress: HashSet<String>,
     restore_reports: HashMap<String, String>,
-    /// Why the last backup could not be made
-    backup_error: String,
+    backup_errors: HashMap<String, String>,
     is_loading: bool,
     modal: Option<PopUpModal>,
 }
@@ -62,7 +61,7 @@ impl Default for Settings {
             active_restore: None,
             backups_in_progress: HashSet::new(),
             restore_reports: HashMap::new(),
-            backup_error: String::new(),
+            backup_errors: HashMap::new(),
             is_loading: false,
             modal: None,
         }
@@ -189,7 +188,6 @@ impl Settings {
     }
 
     fn load_device_settings(&mut self, phone: &Phone, config: &Config) {
-        self.backup_error.clear();
         let backups = list_available_backups(&device_backup_dir(
             &self.general.backup_folder,
             &phone.adb_id,
@@ -258,10 +256,10 @@ impl Settings {
         match result {
             Ok(path) => {
                 info!("[BACKUP] Backup successfully created for {serial}");
+                self.backup_errors.remove(serial);
                 if phone.adb_id != serial {
                     return;
                 }
-                self.backup_error.clear();
                 self.device.backup.backups = list_available_backups(&device_backup_dir(
                     &self.general.backup_folder,
                     &phone.adb_id,
@@ -280,9 +278,7 @@ impl Settings {
             }
             Err(err) => {
                 error!("[BACKUP FAILED] Backup creation failed for {serial}: {err:?}");
-                if phone.adb_id == serial {
-                    self.backup_error = err;
-                }
+                self.backup_errors.insert(serial.to_owned(), err);
             }
         }
     }
@@ -768,20 +764,27 @@ impl Settings {
             backup_btn,
             "Backup the current state of the phone",
             Space::new().width(Length::Fill).height(Length::Shrink),
-            text(self.backup_error.clone()).style(style::Text::Danger),
+            text(
+                self.backup_errors
+                    .get(&phone.adb_id)
+                    .cloned()
+                    .unwrap_or_default()
+            )
+            .style(style::Text::Danger),
             locate_backup_btn,
         ]
         .spacing(10)
         .align_y(Alignment::Center);
 
+        let report = text(self.device.backup.backup_state.clone()).style(style::Text::Danger);
         let restore_row = if self.device.backup.backups.is_empty() {
-            row![]
+            row![].extend((!self.device.backup.backup_state.is_empty()).then_some(report.into()))
         } else {
             row![
                 restore_btn,
                 "Restore the state of the device",
                 Space::new().width(Length::Fill).height(Length::Shrink),
-                text(self.device.backup.backup_state.clone()).style(style::Text::Danger),
+                report,
                 backup_pick_list,
             ]
             .spacing(10)
@@ -962,13 +965,17 @@ mod tests {
         settings.load_device_settings(&b, &Config::default());
         let chosen = settings.device.backup.backups[1].clone();
         let _ = settings.handle_backup_selected(chosen.clone());
-        settings.backup_error = "B's previous error".into();
+        settings
+            .backup_errors
+            .insert("B".into(), "B's previous error".into());
 
         for result in [Ok(backups.join("from-A.json")), Err("A is offline".into())] {
             settings.finish_backup("A", &b, result);
             assert_eq!(settings.device.backup.selected.as_ref(), Some(&chosen));
-            assert_eq!(settings.backup_error, "B's previous error");
+            assert_eq!(settings.backup_errors["B"], "B's previous error");
         }
+        settings.load_device_settings(&phone("A"), &Config::default());
+        assert_eq!(settings.backup_errors["A"], "A is offline");
     }
 
     #[test]
@@ -993,7 +1000,7 @@ mod tests {
         settings.general.backup_folder = dir.path().to_path_buf();
         let error = "The packages of user 10 could not be read".to_string();
         settings.finish_backup("A", &phone("A"), Err(error.clone()));
-        assert_eq!(settings.backup_error, error);
+        assert_eq!(settings.backup_errors["A"], error);
         let written = device_backup_dir(dir.path(), "A").join("new.json");
         std::fs::create_dir(written.parent().unwrap()).unwrap();
         std::fs::write(&written, "{}").unwrap();
@@ -1002,6 +1009,6 @@ mod tests {
             settings.device.backup.selected.as_ref().unwrap().path,
             written
         );
-        assert_eq!(settings.backup_error, "");
+        assert!(!settings.backup_errors.contains_key("A"));
     }
 }
