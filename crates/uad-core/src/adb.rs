@@ -53,6 +53,49 @@ pub fn to_trimmed_utf8(v: &[u8]) -> String {
     String::from_utf8_lossy(v).trim_end().to_string()
 }
 
+pub(crate) fn command_failed(output: &str) -> bool {
+    output.lines().any(|line| {
+        let line = line.trim();
+        if line.eq_ignore_ascii_case("failed")
+            || matches!(
+                line,
+                "/system/bin/sh: cmd: not found"
+                    | "sh: cmd: not found"
+                    | "/system/bin/sh: cmd: inaccessible or not found"
+                    | "sh: cmd: inaccessible or not found"
+            )
+        {
+            return true;
+        }
+        [
+            "error",
+            "failure",
+            "unknown command",
+            "cmd: can't find service",
+            "can't find service",
+            "exception occurred while executing",
+            "security exception",
+            "java.lang.SecurityException",
+        ]
+        .iter()
+        .any(|prefix| {
+            line.split_at_checked(prefix.len())
+                .is_some_and(|(label, rest)| {
+                    label.eq_ignore_ascii_case(prefix)
+                        && (rest.is_empty() || rest.starts_with([':', '[', ' ', '\t']))
+                })
+        })
+    })
+}
+
+/// Android denies the shell access to some secondary users.
+#[must_use]
+pub fn profile_access_denied(error: &str) -> bool {
+    error.contains("Shell does not have permission to access user")
+        || (error.contains("SecurityException")
+            && error.contains("android.permission.INTERACT_ACROSS_USERS"))
+}
+
 #[cfg(debug_assertions)]
 #[must_use]
 fn is_version_triple(s: &str) -> bool {
@@ -107,25 +150,7 @@ impl ACommand {
     /// - "device"
     pub fn devices(mut self) -> Result<Vec<(String, String)>, String> {
         self.0.arg("devices");
-        Ok(self
-            .run()?
-            .lines()
-            .skip(1) // header
-            .map(|dev_stat| {
-                let tab_idx = dev_stat
-                    // OS-specific?
-                    .find('\t')
-                    // True on Linux,
-                    // no matter if ADB is piped or connected to terminal
-                    .expect("There must be 1 tab after serial");
-                (
-                    // serial
-                    dev_stat[..tab_idx].to_string(),
-                    // status
-                    dev_stat[(tab_idx + 1)..].to_string(),
-                )
-            })
-            .collect())
+        Ok(parse_device_list(&self.run()?))
     }
 
     /// `version` sub-command
@@ -198,10 +223,13 @@ impl ACommand {
             }
             Ok(o) => {
                 let stdout = to_trimmed_utf8(&o.stdout);
+                let stderr = to_trimmed_utf8(&o.stderr);
+                if command_failed(&stderr) || profile_access_denied(&stderr) {
+                    return Err(stderr);
+                }
                 if o.status.success() {
                     Ok(stdout)
                 } else {
-                    let stderr = to_trimmed_utf8(&o.stderr);
                     // ADB does really weird things:
                     // Some errors are not redirected to `stderr`
                     let err = if stdout.is_empty() { stderr } else { stdout };
@@ -329,21 +357,27 @@ impl ToString for PmListPacksFlag {
 
 const PACK_PREFIX: &str = "package:";
 
-fn parse_package_list(pack_ls: &str) -> Vec<String> {
-    pack_ls
-        .lines()
-        .filter_map(|p_ln| {
-            debug_assert!(p_ln.starts_with(PACK_PREFIX));
-            // `.lines()` handles CRLF; older ADB output may contain extra `\r`s.
-            let p = p_ln[PACK_PREFIX.len()..].trim_end_matches('\r');
-            if PackageId::new(p).is_some() {
-                Some(String::from(p))
-            } else {
-                warn!("skipping nonstandard package name: {p:?}");
-                None
-            }
-        })
-        .collect()
+fn parse_package_list(pack_ls: &str) -> Result<Vec<String>, String> {
+    let mut packages = Vec::new();
+    let mut remaining = pack_ls;
+    while !remaining.is_empty() {
+        let (line, rest) = remaining.split_once('\n').unwrap_or((remaining, ""));
+        if line.trim().is_empty() {
+            remaining = rest;
+            continue;
+        }
+        let Some(name) = line.strip_prefix(PACK_PREFIX) else {
+            return Err(remaining.trim_end_matches(['\r', '\n']).to_owned());
+        };
+        remaining = rest;
+        let name = name.trim_end_matches('\r');
+        if PackageId::new(name).is_some() {
+            packages.push(name.to_owned());
+        } else {
+            warn!("skipping nonstandard package name: {name:?}");
+        }
+    }
+    Ok(packages)
 }
 
 pub const PM_CLEAR_PACK: &str = "pm clear";
@@ -377,7 +411,10 @@ impl PmCommand {
             cmd.arg(u.to_string());
         }
 
-        self.0.0.run().map(|pack_ls| parse_package_list(&pack_ls))
+        self.0
+            .0
+            .run()
+            .and_then(|pack_ls| parse_package_list(&pack_ls))
     }
 
     /// `list users` sub-command, deserialized/parsed.
@@ -386,57 +423,60 @@ impl PmCommand {
     /// - <https://stackoverflow.com/questions/37495126/android-get-list-of-users-and-profile-name>
     pub fn list_users(mut self) -> Result<Box<[UserInfo]>, String> {
         self.0.0.0.args(["list", "users"]);
-        Ok(self
-            .0
-            .0
-            .run()?
-            .lines()
-            .skip(1) // omit header
-            .map(|ln| {
-                // this could be optimized by making more API-stability assumptions
-                let ln = ln.trim_ascii_start();
-                let ln = ln.strip_prefix("UserInfo").unwrap_or(ln).trim_ascii_start();
-                let ln = ln.strip_prefix('{').unwrap_or(ln).trim_ascii();
-                //let run;
-                let ln = if let Some(l) = ln.strip_suffix("running") {
-                    //run = true;
-                    l.trim_ascii_end()
-                } else {
-                    //run = false;
-                    ln
-                };
-                let ln = ln.strip_suffix('}').unwrap_or(ln).trim_ascii_end();
-                // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
-                // The format looks stable today, but google may change it in future Android versions
-                // (and very old Androids might differ). Keep parsing defensive.
-                // Expected shape: "UserInfo{<id>:<name>:<flags>}[ running]"
-
-                let mut comps = ln.split(':');
-
-                let id = comps
-                    .next()
-                    .expect("There must be at least 1 ':'-separated component")
-                    .parse()
-                    .expect("string assumed to be UID numeral");
-                //let name = comps
-                //    .next()
-                //    .expect("There must be at least 2 ':'-separated components. 2nd is user-name");
-                //let flags = u32::from_str_radix(
-                //    comps.next().expect(
-                //        "There must be at least 3 ':'-separated components. 3rd is user bit-flags",
-                //    ),
-                //    16,
-                //)
-                //.expect("string assumed to be hexadecimal bit-flags");
-                UserInfo {
-                    id,
-                    //name: name.into(),
-                    //flags,
-                    //running: run,
-                }
-            })
-            .collect())
+        parse_user_list(&self.0.0.run()?)
     }
+}
+
+fn parse_device_list(output: &str) -> Vec<(String, String)> {
+    output
+        .lines()
+        .filter_map(|line| {
+            // ADB separates serial and status with a tab, including when piped.
+            // Statuses such as "no permissions" contain spaces.
+            let (serial, status) = line.split_once('\t')?;
+            let (serial, status) = (serial.trim(), status.trim());
+            (!serial.is_empty() && !status.is_empty())
+                .then(|| (serial.to_string(), status.to_string()))
+        })
+        .collect()
+}
+
+// https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/content/pm/UserInfo.java
+// Expected shape: "UserInfo{<id>:<name>:<flags>}[ running]".
+// The format may differ on old Android versions or change in future versions.
+fn parse_user_list(output: &str) -> Result<Box<[UserInfo]>, String> {
+    output
+        .lines()
+        .map(str::trim_ascii)
+        .filter(|line| !line.is_empty() && *line != "Users:")
+        .map(|line| {
+            // this could be optimized by making more API-stability assumptions
+            let info = line
+                .strip_prefix("UserInfo")
+                .unwrap_or(line)
+                .trim_ascii_start();
+            let info = info.strip_prefix('{').unwrap_or(info).trim_ascii();
+            let info = info
+                .strip_suffix("running")
+                .unwrap_or(info)
+                .trim_ascii_end();
+            let info = info.strip_suffix('}').unwrap_or(info).trim_ascii_end();
+            let id = info
+                .split(':')
+                .next()
+                .unwrap_or_default()
+                .parse()
+                .map_err(|e| {
+                    if line.starts_with("UserInfo") || line.starts_with('{') {
+                        format!("Invalid user ID in ADB output {line:?}: {e}")
+                    } else {
+                        // pm can print a multiline diagnostic on stdout and exit successfully.
+                        output.to_owned()
+                    }
+                })?;
+            Ok(UserInfo { id })
+        })
+        .collect()
 }
 
 /// Mirror of AOSP `UserInfo` Java Class, with an extra field
@@ -467,12 +507,71 @@ mod tests {
     use super::*;
 
     #[test]
+    fn device_list_tolerates_notices_and_malformed_lines() {
+        let output = "* daemon started successfully\r\nList of devices attached\r\nUSB123\tdevice\r\n192.168.1.5:5555\tunauthorized\r\nserial\tno permissions (missing udev rules)\ninvalid\n\tdevice\nmissing-status\t\n";
+        assert_eq!(
+            parse_device_list(output),
+            vec![
+                ("USB123".to_string(), "device".to_string()),
+                ("192.168.1.5:5555".to_string(), "unauthorized".to_string()),
+                (
+                    "serial".to_string(),
+                    "no permissions (missing udev rules)".to_string()
+                ),
+            ]
+        );
+        assert_eq!(parse_device_list(""), Vec::<(String, String)>::new());
+    }
+
+    #[test]
+    fn user_list_preserves_format_tolerance() {
+        let users = parse_user_list(
+            "Users:\r\n\tUserInfo{0:Owner:c13} running\r\n\r\n\tUserInfo{10:Work: profile:30}\r\n\tUserInfo {11:Vendor:unknown-flags} vendor-status\r\n\tUserInfo{12} running\r\n \r\n",
+        )
+        .expect("valid user list");
+        assert_eq!(
+            users.iter().map(UserInfo::get_id).collect::<Vec<_>>(),
+            [0, 10, 11, 12]
+        );
+    }
+
+    #[test]
+    fn headerless_user_list_keeps_the_owner() {
+        let users = parse_user_list("UserInfo{0:Owner:13} running\nUserInfo{10:Work:31}")
+            .expect("valid user list");
+        assert_eq!(
+            users.iter().map(UserInfo::get_id).collect::<Vec<_>>(),
+            [0, 10]
+        );
+    }
+
+    #[test]
+    fn malformed_user_lists_return_an_error_instead_of_a_partial_list() {
+        for line in [
+            "UserInfo{bad:Owner:13}",
+            "UserInfo{65536:Owner:13}",
+            "unexpected output",
+        ] {
+            assert!(parse_user_list(&format!("Users:\nUserInfo{{0:Owner:13}}\n{line}")).is_err());
+        }
+    }
+
+    #[test]
+    fn user_list_keeps_multiline_diagnostics() {
+        let diagnostic = "ERROR: user service offline\n  detail: binder unavailable";
+        assert_eq!(
+            parse_user_list(diagnostic).expect_err("ADB diagnostic"),
+            diagnostic
+        );
+    }
+
+    #[test]
     fn package_list_lf_and_crlf() {
         for newline in ["\n", "\r\n"] {
             let output =
                 format!("package:android{newline}package:com.android.MtpApplication{newline}");
             assert_eq!(
-                parse_package_list(&output),
+                parse_package_list(&output).expect("valid package list"),
                 ["android", "com.android.MtpApplication"]
             );
         }
@@ -482,7 +581,7 @@ mod tests {
     fn package_list_extra_carriage_returns() {
         let output = "package:android\r\r\npackage:com.android.MtpApplication\r\r\n";
         assert_eq!(
-            parse_package_list(&to_trimmed_utf8(output.as_bytes())),
+            parse_package_list(&to_trimmed_utf8(output.as_bytes())).expect("valid package list"),
             ["android", "com.android.MtpApplication"]
         );
     }
@@ -490,9 +589,15 @@ mod tests {
     #[test]
     fn package_list_without_final_newline() {
         for output in ["package:com.example", "package:com.example\r"] {
-            assert_eq!(parse_package_list(output), ["com.example"]);
+            assert_eq!(
+                parse_package_list(output).expect("valid package list"),
+                ["com.example"]
+            );
         }
-        assert_eq!(parse_package_list(""), Vec::<String>::new());
+        assert_eq!(
+            parse_package_list("").expect("empty package list"),
+            Vec::<String>::new()
+        );
     }
 
     #[test]
@@ -505,7 +610,46 @@ mod tests {
             "package:com.example\u{a0}\n",
             "package:com.example\n",
         );
-        assert_eq!(parse_package_list(output), ["com.example"]);
+        assert_eq!(
+            parse_package_list(output).expect("package lines"),
+            ["com.example"]
+        );
+    }
+
+    #[test]
+    fn package_list_propagates_a_diagnostic_after_valid_rows() {
+        let diagnostic = "Exception occurred while executing 'list':\r\n  java.lang.SecurityException: Shell does not have permission to access user 10";
+        let output = format!("package:android\r\n\r\n{diagnostic}\r\n");
+        assert_eq!(
+            parse_package_list(&output).expect_err("ADB diagnostic"),
+            diagnostic
+        );
+    }
+
+    #[test]
+    fn command_failures_are_recognized_by_their_label() {
+        for reply in [
+            "ERROR: refused",
+            "some output\n  error: refused",
+            "Failure [restricted]",
+            "Error type 3",
+            "Unknown command: install-existing",
+            "/system/bin/sh: cmd: not found",
+            "sh: cmd: not found",
+            "/system/bin/sh: cmd: inaccessible or not found",
+            "sh: cmd: inaccessible or not found",
+            "cmd: Can't find service: activity",
+            "Can't find service: package",
+            "  Failed\r\n",
+            "FAILED",
+        ] {
+            assert!(command_failed(reply), "{reply}");
+        }
+        assert!(!command_failed(
+            "Package com.sec.app.RilErrorNotifier new state: disabled-user"
+        ));
+        assert!(!command_failed("FailureNotifier started"));
+        assert!(!command_failed("Failed to match that name"));
     }
 
     #[test]
