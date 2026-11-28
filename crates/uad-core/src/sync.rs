@@ -689,26 +689,28 @@ pub fn query_package_state(
     user_id: Option<u16>,
 ) -> Result<Option<PackageState>, String> {
     use crate::adb::PmListPacksFlag;
-    for (flag, state) in [
-        (PmListPacksFlag::OnlyEnabled, PackageState::Enabled),
-        (PmListPacksFlag::OnlyDisabled, PackageState::Disabled),
-        (
-            PmListPacksFlag::IncludeUninstalled,
-            PackageState::Uninstalled,
-        ),
-    ] {
-        let packages = AdbCommand::new()
+    let query = |flag| {
+        AdbCommand::new()
             .shell(device_serial)
             .pm()
-            .list_packages_sys(Some(flag), user_id)?;
-        if flag == PmListPacksFlag::IncludeUninstalled && packages.is_empty() {
-            return Err("ADB returned an empty system package list".into());
-        }
-        if packages.iter().any(|name| name == package_name) {
-            return Ok(Some(state));
-        }
+            .list_packages_sys(Some(flag), user_id)
+    };
+    let all = query(PmListPacksFlag::IncludeUninstalled)?;
+    if all.is_empty() {
+        return Err("ADB returned an empty system package list".into());
     }
-    Ok(None)
+    let contains = |packages: &[String]| packages.iter().any(|name| name == package_name);
+    let enabled = contains(&query(PmListPacksFlag::OnlyEnabled)?);
+    let disabled = contains(&query(PmListPacksFlag::OnlyDisabled)?);
+    match (contains(&all), enabled, disabled) {
+        (true, true, false) => Ok(Some(PackageState::Enabled)),
+        (true, false, true) => Ok(Some(PackageState::Disabled)),
+        (true, false, false) => Ok(Some(PackageState::Uninstalled)),
+        (false, false, false) => Ok(None),
+        _ => Err(format!(
+            "ADB returned inconsistent package states for {package_name}. Retry the operation."
+        )),
+    }
 }
 
 /// Verify the current state of a package on a device.

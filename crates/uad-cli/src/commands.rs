@@ -302,6 +302,9 @@ pub fn action_package_state(
     name: &str,
     target: PackageState,
 ) -> Result<Option<PackageState>, Box<dyn std::error::Error>> {
+    if user.protected {
+        return Err(format!("Cannot modify packages for protected {user}.").into());
+    }
     match query_package_state(&device.adb_id, name, device.package_user_id(user.id)?)? {
         Some(state) => Ok(Some(state)),
         None if target == PackageState::Uninstalled && PackageId::new(name).is_some() => Ok(None),
