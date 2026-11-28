@@ -30,6 +30,17 @@ pub struct Cli {
     command: Commands,
 }
 
+#[derive(Clone, Copy, Default, clap::Args)]
+pub struct ActionOptions {
+    /// Show the commands without running them
+    #[arg(long)]
+    dry_run: bool,
+
+    /// Allow disabling or uninstalling Unsafe packages, including a temporary uninstall during Enable recovery
+    #[arg(long)]
+    allow_unsafe: bool,
+}
+
 #[derive(Subcommand)]
 enum Commands {
     /// List connected Android devices
@@ -77,9 +88,8 @@ enum Commands {
         #[arg(short, long)]
         user: Option<u16>,
 
-        /// Dry run - show what would be done without actually doing it
-        #[arg(long)]
-        dry_run: bool,
+        #[command(flatten)]
+        options: ActionOptions,
     },
 
     /// Restore (reinstall) packages
@@ -96,9 +106,8 @@ enum Commands {
         #[arg(short, long)]
         user: Option<u16>,
 
-        /// Dry run - show what would be done without actually doing it
-        #[arg(long)]
-        dry_run: bool,
+        #[command(flatten)]
+        options: ActionOptions,
     },
 
     /// Disable packages (clears their data and prevents execution)
@@ -114,9 +123,8 @@ enum Commands {
         #[arg(short, long)]
         user: Option<u16>,
 
-        /// Dry run - show what would be done without actually doing it
-        #[arg(long)]
-        dry_run: bool,
+        #[command(flatten)]
+        options: ActionOptions,
     },
 
     /// Show detailed information about a package
@@ -187,13 +195,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             packages,
             device,
             user,
-            dry_run,
+            options,
         } => {
             commands::change_package_state(
                 &packages,
                 device,
                 user,
-                dry_run,
+                options,
                 PackageState::Uninstalled,
                 "Uninstalling",
             )?;
@@ -202,13 +210,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             packages,
             device,
             user,
-            dry_run,
+            options,
         } => {
             commands::change_package_state(
                 &packages,
                 device,
                 user,
-                dry_run,
+                options,
                 PackageState::Enabled,
                 "Enabling",
             )?;
@@ -217,13 +225,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             packages,
             device,
             user,
-            dry_run,
+            options,
         } => {
             commands::change_package_state(
                 &packages,
                 device,
                 user,
-                dry_run,
+                options,
                 PackageState::Disabled,
                 "Disabling",
             )?;

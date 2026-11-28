@@ -5,6 +5,7 @@ use std::io::Write;
 use uad_core::sync::{CorePackage, Phone, User, query_package_state};
 use uad_core::uad_lists::{Package, PackageState, Removal, UadList, load_debloat_lists};
 
+use crate::ActionOptions;
 use crate::commands::{
     PackageListContext, action_package_state, display_package_list, execute_with_fallback,
 };
@@ -112,16 +113,30 @@ fn handle_repl_line(
             handle_info_command(&parts[1..], device, user.id, uad_lists)?;
         }
         command @ ("uninstall" | "rm" | "enable" | "restore" | "disable") => {
-            if parts.len() == 1 {
-                return Err(format!("Usage: {command} <package_name> [package_name...]").into());
+            let mut names = Vec::new();
+            let mut options = ActionOptions::default();
+            for &arg in &parts[1..] {
+                match arg {
+                    "--allow-unsafe" => options.allow_unsafe = true,
+                    value if value.starts_with('-') => {
+                        return Err(format!("Unknown option: {value}").into());
+                    }
+                    name => names.push(name),
+                }
+            }
+            if names.is_empty() {
+                return Err(format!(
+                    "Usage: {command} [--allow-unsafe] <package_name> [package_name...]"
+                )
+                .into());
             }
             let (target, action) = match command {
                 "uninstall" | "rm" => (PackageState::Uninstalled, "Uninstalling"),
                 "enable" | "restore" => (PackageState::Enabled, "Enabling"),
                 _ => (PackageState::Disabled, "Disabling"),
             };
-            for name in &parts[1..] {
-                process_package_change(name, device, user, target, action, uad_lists)?;
+            for name in names {
+                process_package_change(name, device, user, target, action, uad_lists, options)?;
             }
         }
         "device" => {
@@ -256,6 +271,7 @@ fn process_package_change(
     target_state: PackageState,
     action_name: &str,
     uad_lists: &HashMap<String, Package>,
+    options: ActionOptions,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let Some(current_state) = action_package_state(device, user, pkg_name, target_state)? else {
         println!("  → {pkg_name} is already absent, skipping");
@@ -270,12 +286,6 @@ fn process_package_change(
     }
 
     let pkg_info = uad_lists.get(pkg_name);
-    if let Some(info) = pkg_info {
-        if info.removal == Removal::Unsafe {
-            println!("  ⚠ WARNING: This package is marked as UNSAFE to remove!");
-        }
-    }
-
     let core_pkg = CorePackage {
         name: pkg_name.to_string(),
         description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
@@ -284,7 +294,15 @@ fn process_package_change(
         list: pkg_info.map(|p| p.list).unwrap_or(UadList::Unlisted),
     };
 
-    execute_with_fallback(pkg_name, target_state, &core_pkg, user, device, false, "  ")
+    execute_with_fallback(
+        pkg_name,
+        target_state,
+        &core_pkg,
+        user,
+        device,
+        options,
+        "  ",
+    )
 }
 
 /// Print REPL help message
@@ -294,12 +312,15 @@ fn print_repl_help() {
     println!("      List packages with optional filters");
     println!("  info <package_name>");
     println!("      Show information about a package");
-    println!("  uninstall <package_name> [package_name...]");
+    println!("  uninstall [--allow-unsafe] <package_name> [package_name...]");
     println!("      Uninstall one or more packages");
-    println!("  enable <package_name> [package_name...]");
+    println!("  enable [--allow-unsafe] <package_name> [package_name...]");
     println!("      Enable/restore one or more packages");
-    println!("  disable <package_name> [package_name...]");
+    println!("  disable [--allow-unsafe] <package_name> [package_name...]");
     println!("      Disable one or more packages");
+    println!(
+        "      --allow-unsafe permits removal of Unsafe packages for this command, including Enable recovery"
+    );
     println!("  device");
     println!("      Show current device information");
     println!("  clear");

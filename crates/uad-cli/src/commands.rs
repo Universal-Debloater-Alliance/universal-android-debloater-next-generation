@@ -12,7 +12,7 @@ use uad_core::utils::{matches_search, truncate_description};
 
 use crate::device::{NO_DEVICES_FOUND, get_target_device, get_user};
 use crate::filters::{ListFilter, RemovalFilter, StateFilter};
-use crate::{Cli, print_or_exit, println_or_exit};
+use crate::{ActionOptions, Cli, print_or_exit, println_or_exit};
 
 /// List all connected Android devices
 pub fn list_devices() -> Result<(), Box<dyn std::error::Error>> {
@@ -250,7 +250,7 @@ pub fn change_package_state(
     packages: &[String],
     device: Option<String>,
     user_id: Option<u16>,
-    dry_run: bool,
+    options: ActionOptions,
     target_state: PackageState,
     action_name: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -270,7 +270,7 @@ pub fn change_package_state(
         target_device.adb_id
     );
 
-    if dry_run {
+    if options.dry_run {
         println!("DRY RUN - No changes will be made\n");
     }
 
@@ -280,13 +280,13 @@ pub fn change_package_state(
             &target_device,
             user,
             target_state,
-            dry_run,
+            options,
             &uad_lists,
         )?;
         println!();
     }
 
-    if dry_run {
+    if options.dry_run {
         println!("Dry run completed. No changes were made.");
     } else {
         println!("Operation completed successfully.");
@@ -318,7 +318,7 @@ fn process_package_state_change(
     device: &Phone,
     user: User,
     target_state: PackageState,
-    dry_run: bool,
+    options: ActionOptions,
     uad_lists: &HashMap<String, Package>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let Some(current_state) = action_package_state(device, user, pkg_name, target_state)? else {
@@ -334,12 +334,6 @@ fn process_package_state_change(
     }
 
     let pkg_info = uad_lists.get(pkg_name);
-    if let Some(info) = pkg_info {
-        if info.removal == Removal::Unsafe {
-            println!("    ⚠ WARNING: This package is marked as UNSAFE to remove!");
-        }
-    }
-
     let core_pkg = CorePackage {
         name: pkg_name.to_string(),
         description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
@@ -354,7 +348,7 @@ fn process_package_state_change(
         &core_pkg,
         user,
         device,
-        dry_run,
+        options,
         "    ",
     )
 }
@@ -366,7 +360,7 @@ pub fn execute_with_fallback(
     core_pkg: &CorePackage,
     user: User,
     device: &Phone,
-    dry_run: bool,
+    options: ActionOptions,
     indent: &str,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let commands = apply_pkg_state_commands(core_pkg, target_state, user, device)?;
@@ -377,7 +371,19 @@ pub fn execute_with_fallback(
         )
         .into());
     }
-    if dry_run {
+    let removal_needs_permission = core_pkg.removal == Removal::Unsafe && !options.allow_unsafe;
+    if removal_needs_permission
+        && matches!(
+            target_state,
+            PackageState::Disabled | PackageState::Uninstalled
+        )
+    {
+        return Err(format!(
+            "Disabling or uninstalling {package} (Unsafe) requires --allow-unsafe."
+        )
+        .into());
+    }
+    if options.dry_run {
         for cmd in &commands {
             println!("{indent}Would run: {cmd}");
         }
@@ -419,7 +425,12 @@ pub fn execute_with_fallback(
             indent, target_state, actual_state
         );
 
-        // Attempt fallback
+        if removal_needs_permission
+            && target_state == PackageState::Enabled
+            && actual_state == PackageState::Disabled
+        {
+            return Err(format!("Recovery would uninstall {package} (Unsafe). Repeat this command with --allow-unsafe to allow it.").into());
+        }
         let fallback_action =
             uad_core::sync::attempt_fallback(core_pkg, target_state, actual_state, user, device)?;
         println!("{}↻ Fallback: {}", indent, fallback_action);
@@ -499,4 +510,48 @@ pub fn generate_completions(shell: Shell) {
     let mut cmd = Cli::command();
     let name = cmd.get_name().to_string();
     generate(shell, &mut cmd, name, &mut std::io::stdout());
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn planning_an_unsafe_removal_requires_per_command_permission() {
+        let phone = Phone {
+            android_sdk: 35,
+            ..Phone::default()
+        };
+        let plan = |state, target, allow_unsafe| {
+            let pkg = CorePackage {
+                name: "com.example.system".into(),
+                state,
+                removal: Removal::Unsafe,
+                list: UadList::Misc,
+                description: String::new(),
+            };
+            execute_with_fallback(
+                &pkg.name,
+                target,
+                &pkg,
+                User::default(),
+                &phone,
+                ActionOptions {
+                    dry_run: true,
+                    allow_unsafe,
+                },
+                "",
+            )
+        };
+        for removal in [PackageState::Disabled, PackageState::Uninstalled] {
+            assert!(
+                plan(PackageState::Enabled, removal, false)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("--allow-unsafe")
+            );
+            assert!(plan(PackageState::Enabled, removal, true).is_ok());
+            assert!(plan(removal, PackageState::Enabled, false).is_ok());
+        }
+    }
 }
