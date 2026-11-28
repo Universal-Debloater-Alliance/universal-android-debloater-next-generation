@@ -3,14 +3,14 @@ use crate::style;
 use crate::theme::Theme;
 use crate::widgets::navigation_menu::ICONS;
 use log::{error, info, warn};
-use std::path::PathBuf;
+use std::{collections::HashMap, path::PathBuf};
 use uad_core::config::DeviceSettings;
-use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands};
+use uad_core::sync::{AdbError, Phone, User, apply_pkg_state_commands, query_package_state};
 use uad_core::uad_lists::{
     Opposite, PackageHashMap, PackageState, Removal, UadList, UadListState, load_debloat_lists,
 };
 use uad_core::utils::{
-    EXPORT_FILE_NAME, NAME, export_selection, fetch_packages, matches_search, open_url,
+    EXPORT_FILE_NAME, NAME, export_selection, matches_search, open_url, try_fetch_packages,
 };
 
 use crate::views::settings::Settings;
@@ -51,6 +51,7 @@ pub struct List {
     pub uad_lists: PackageHashMap,
     /// packages of all users of the phone
     pub phone_packages: Vec<Vec<PackageRow>>,
+    inventory_errors: HashMap<usize, String>,
     /// `phone_packages` indexes of the selected user (= what you see on screen)
     filtered_packages: Vec<usize>,
     /// Vec of `(user_index, pkg_index)`
@@ -77,7 +78,7 @@ pub enum Message {
     LoadUadList(bool),
     LoadPhonePackages((PackageHashMap, UadListState)),
     RestoringDevice(Result<PackageInfo, AdbError>),
-    ApplyFilters(Vec<Vec<PackageRow>>),
+    ApplyFilters(String, Vec<Result<Vec<PackageRow>, String>>),
     DismissFallbackNotifications,
     VerifyAndFallbackFinished(VerifyAndFallbackResult),
     SearchInputChanged(String),
@@ -145,7 +146,9 @@ impl List {
             Message::LoadPhonePackages(payload) => {
                 self.on_load_phone_packages(payload, selected_device, list_update_state)
             }
-            Message::ApplyFilters(packages) => self.on_apply_filters(packages),
+            Message::ApplyFilters(serial, packages) => {
+                self.on_apply_filters(&serial, packages, selected_device)
+            }
             Message::DismissFallbackNotifications => self.on_dismiss_fallback_notifications(),
             Message::ToggleAllSelected(selected) => {
                 self.on_toggle_all_selected(selected, settings, selected_device, list_update_state)
@@ -388,21 +391,6 @@ impl List {
         .spacing(10)
         .align_y(Alignment::Center);
 
-        let unavailable = container(
-                    column![
-                        text("ADB is not authorized to access this user!").size(20)
-                            .style(style::Text::Danger),
-                        text("The most likely reason is that it is the user of your work profile (also called Secure Folder on Samsung devices). There's really no solution, other than completely disabling your work profile in your device settings.")
-                            .style(style::Text::Commentary)
-                            .align_x(alignment::Horizontal::Center),
-                    ]
-                    .spacing(6)
-                    .align_x(Alignment::Center)
-                )
-                .padding(10)
-                .center_x(Length::Shrink)
-                .style(style::Container::BorderedFrame);
-
         let control_panel = self.control_panel(selected_device);
 
         // Fallback notifications area
@@ -435,16 +423,11 @@ impl List {
                 .into()
             };
 
-        let content = if selected_device.user_list.is_empty()
-            || match self.selected_user {
-                Some(u) => !self.phone_packages[u.index].is_empty(),
-                // If no user has been selected,
-                // then it could be considered as "equivalent"
-                // to the case where the `user_list` is empty?
-                // However, this is inconsistent,
-                // because other parts of the code simply use a `default` `User`.
-                None => true,
-            } {
+        let content = if self
+            .phone_packages
+            .get(self.selected_user.unwrap_or_default().index)
+            .is_some_and(|rows| !rows.is_empty())
+        {
             column![
                 control_panel,
                 notifications_area,
@@ -456,7 +439,7 @@ impl List {
             column![
                 control_panel,
                 notifications_area,
-                container(unavailable)
+                container(self.unavailable_packages(selected_device))
                     .height(Length::Fill)
                     .center_y(Length::Fill),
             ]
@@ -739,6 +722,42 @@ impl List {
         .into()
     }
 
+    fn unavailable_packages(&self, phone: &Phone) -> Element<'_, Message, Theme, Renderer> {
+        let user = self.selected_user.unwrap_or_default();
+        let retry = Some("Check the device connection and press Refresh to try again.");
+        let (title, detail) = if let Some(error) = &phone.user_list_error {
+            (error.clone(), None)
+        } else {
+            match self.inventory_errors.get(&user.index) {
+                Some(error) if uad_core::sync::profile_access_denied(error) => (
+                    format!("ADB is not authorized to access {user}."),
+                    Some("This may be a work profile or a Secure Folder."),
+                ),
+                Some(error) => (
+                    format!("Could not read packages for {user}: {error}"),
+                    retry,
+                ),
+                None => match user.packages(&self.phone_packages) {
+                    Err(error) => (error, retry),
+                    Ok(_) => (format!("No system packages found for {user}."), None),
+                },
+            }
+        };
+        container(
+            column![text(title).size(20)]
+                .extend(
+                    detail
+                        .into_iter()
+                        .map(|line| text(line).style(style::Text::Commentary).into()),
+                )
+                .spacing(6)
+                .align_x(Alignment::Center),
+        )
+        .padding(10)
+        .style(style::Container::BorderedFrame)
+        .into()
+    }
+
     fn filter_package_lists(&mut self) {
         let list_filter: UadList = self.selected_list.expect("UAD-list type must be selected");
         let package_filter: PackageState = self
@@ -748,9 +767,11 @@ impl List {
             .selected_removal
             .expect("removal recommendation must be selected");
 
-        self.filtered_packages = self.phone_packages
-            [self.selected_user.expect("User must be selected").index]
-            .iter()
+        self.filtered_packages = self
+            .phone_packages
+            .get(self.selected_user.unwrap_or_default().index)
+            .into_iter()
+            .flatten()
             // we must filter the indices associated with pack-rows,
             // that's why `enumerate` is before `filter`.
             .enumerate()
@@ -767,27 +788,23 @@ impl List {
 
     fn load_packages(
         uad_list: &PackageHashMap,
-        device_serial: &str,
-        user_list: &[User],
-    ) -> Vec<Vec<PackageRow>> {
-        if user_list.len() <= 1 {
-            vec![
-                fetch_packages(uad_list, device_serial, None)
-                    .into_iter()
-                    .map(PackageRow::from)
-                    .collect(),
-            ]
-        } else {
-            user_list
-                .iter()
-                .map(|user| {
-                    fetch_packages(uad_list, device_serial, Some(user.id))
-                        .into_iter()
-                        .map(PackageRow::from)
-                        .collect()
-                })
-                .collect()
+        phone: &Phone,
+    ) -> Vec<Result<Vec<PackageRow>, String>> {
+        if phone.user_list.is_empty() {
+            // Settings still expects one row list when discovery fails.
+            return vec![Err(phone
+                .user_list_error
+                .clone()
+                .unwrap_or_else(|| "No device profiles found.".into()))];
         }
+        phone
+            .user_list
+            .iter()
+            .map(|user| {
+                try_fetch_packages(uad_list, &phone.adb_id, phone.package_user_id(user.id)?)
+                    .map(|packages| packages.into_iter().map(PackageRow::from).collect())
+            })
+            .collect()
     }
 
     fn init_apps_view(remote: bool, phone: &Phone) -> (PackageHashMap, UadListState) {
@@ -816,11 +833,44 @@ impl List {
         Task::none()
     }
 
+    fn validate_action_inventories(
+        &self,
+        device: &Phone,
+        multi_user_mode: bool,
+        selected_users: &(impl Iterator<Item = usize> + Clone),
+    ) -> Result<(), String> {
+        if let Some(error) = &device.user_list_error {
+            return Err(error.clone());
+        }
+        for user in device.user_list.iter().filter(|user| {
+            !user.protected
+                && (multi_user_mode || selected_users.clone().any(|index| index == user.index))
+        }) {
+            let inventory = match self.inventory_errors.get(&user.index) {
+                Some(error) => Err(format!("Could not read {user}: {error}")),
+                None => user.packages(&self.phone_packages),
+            };
+            if let Err(error) = inventory {
+                return Err(format!("{error}. Refresh the device and try again."));
+            }
+        }
+        Ok(())
+    }
+
     fn on_modal_validate(
         &mut self,
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
+        if let Err(error) = self.validate_action_inventories(
+            selected_device,
+            settings.device.multi_user_mode,
+            &self.selected_packages.iter().map(|&(user, _)| user),
+        ) {
+            self.error_modal = Some(error);
+            self.selection_modal = false;
+            return Task::none();
+        }
         self.fallback_notifications.clear();
         let mut commands = vec![];
         self.selected_packages.sort_unstable();
@@ -873,22 +923,56 @@ impl List {
         self.loading_state = LoadingState::LoadingPackages;
         self.uad_lists.clone_from(&uad_list);
         *list_update_state = list_state;
-        let device_serial = selected_device.adb_id.clone();
-        let user_list = selected_device.user_list.clone();
+        let phone = selected_device.clone();
         Task::perform(
-            async move { Self::load_packages(&uad_list, &device_serial, &user_list) },
-            Message::ApplyFilters,
+            async move {
+                let packages = Self::load_packages(&uad_list, &phone);
+                (phone.adb_id, packages)
+            },
+            |(serial, packages)| Message::ApplyFilters(serial, packages),
         )
     }
 
-    fn on_apply_filters(&mut self, packages: Vec<Vec<PackageRow>>) -> Task<Message> {
-        let i_user = self.selected_user.unwrap_or_default().index;
-        self.phone_packages = packages;
-        self.filtered_packages = (0..self.phone_packages[i_user].len()).collect();
+    fn on_apply_filters(
+        &mut self,
+        device_serial: &str,
+        packages: Vec<Result<Vec<PackageRow>, String>>,
+        selected_device: &Phone,
+    ) -> Task<Message> {
+        // Another device was selected while these packages were loading.
+        if device_serial != selected_device.adb_id {
+            return Task::none();
+        }
+        self.inventory_errors.clear();
+        self.description_content = text_editor::Content::new();
+        self.current_package_index = 0;
+        self.phone_packages = packages
+            .into_iter()
+            .enumerate()
+            .map(|(index, result)| {
+                result.unwrap_or_else(|error| {
+                    error!(
+                        "Could not read packages on {device_serial} for user index {index}: {error}"
+                    );
+                    self.inventory_errors.insert(index, error);
+                    Vec::new()
+                })
+            })
+            .collect();
+
+        // The selection refers to rows of the previous list.
+        self.selected_packages.clear();
+        self.all_selected = false;
         self.selected_removal = Some(Removal::Recommended);
         self.selected_package_state = Some(PackageState::Enabled);
         self.selected_list = Some(UadList::All);
-        self.selected_user = Some(User::default());
+        self.selected_user = selected_device
+            .user_list
+            .iter()
+            .find(|user| user.id == 0)
+            .or_else(|| selected_device.user_list.first())
+            .copied();
+        self.description.clear();
         self.fallback_notifications.clear();
         Self::filter_package_lists(self);
         self.loading_state = LoadingState::Ready;
@@ -967,21 +1051,11 @@ impl List {
                 }
 
                 if settings.device.multi_user_mode {
-                    for u in selected_device.user_list.iter().filter(|&u| !u.protected) {
-                        if let Some(pkg) = self
-                            .phone_packages
-                            .get_mut(u.index)
-                            .and_then(|pkgs| pkgs.get_mut(i_package))
-                        {
-                            pkg.selected = toggle;
-                            if toggle && !self.selected_packages.contains(&(u.index, i_package)) {
-                                self.selected_packages.push((u.index, i_package));
-                            }
-                        }
-                    }
-                    if !toggle {
-                        self.selected_packages.retain(|&x| x.1 != i_package);
-                    }
+                    self.toggle_for_all_users(
+                        &selected_device.user_list,
+                        (i_user, i_package),
+                        toggle,
+                    );
                 } else {
                     package.selected = toggle;
                     if toggle {
@@ -996,6 +1070,14 @@ impl List {
                 Task::none()
             }
             RowMessage::ActionPressed => {
+                if let Err(error) = self.validate_action_inventories(
+                    selected_device,
+                    settings.device.multi_user_mode,
+                    &std::iter::once(i_user),
+                ) {
+                    self.error_modal = Some(error);
+                    return Task::none();
+                }
                 self.fallback_notifications.clear();
                 self.phone_packages[i_user][i_package].selected = true;
                 Task::batch(build_action_pkg_commands(
@@ -1061,21 +1143,35 @@ impl List {
                 Task::perform(
                     async move {
                         // Blocking ADB calls happen here (off UI thread)
-                        let actual_state_opt = uad_core::sync::verify_package_state(
-                            &pkg_name,
-                            device.adb_id.as_str(),
-                            Some(user_id),
-                        );
+                        let actual_state_opt = device
+                            .package_user_id(user_id)
+                            .and_then(|user| query_package_state(&device.adb_id, &pkg_name, user));
+                        let actual_state_opt = match actual_state_opt {
+                            Ok(state) => state,
+                            Err(error) => {
+                                return verification_error(
+                                    i_user,
+                                    index,
+                                    current_state,
+                                    &pkg_name,
+                                    &error,
+                                );
+                            }
+                        };
 
                         match actual_state_opt {
-                            Some(actual_state) if actual_state == wanted_state => {
+                            state
+                                if state == Some(wanted_state)
+                                    || (state.is_none()
+                                        && wanted_state == PackageState::Uninstalled) =>
+                            {
                                 // Check cross-user behavior
                                 let error_modal = uad_core::sync::detect_cross_user_behavior(
                                     &pkg_name,
                                     device.adb_id.as_str(),
                                     user_id,
                                     wanted_state,
-                                    actual_state,
+                                    wanted_state,
                                     &device,
                                     &before_cross_user_states,
                                 )
@@ -1199,6 +1295,7 @@ impl List {
                                     let user = *user_ref;
                                     let device = selected_device.clone();
                                     let pkg_name = pkg_name_str.to_string();
+                                    let current_state = self.phone_packages[i_user][index].state;
 
                                     // fallback task
                                     return Task::perform(
@@ -1253,14 +1350,28 @@ impl List {
                                                 );
                                             }
 
-                                            //verifies the final state for thread confirmation
-                                            let actual_state =
-                                                uad_core::sync::verify_package_state(
-                                                    &pkg_name,
-                                                    &device.adb_id,
-                                                    Some(user.id),
-                                                )
-                                                .unwrap_or(PackageState::Uninstalled);
+                                            let actual_state = match device
+                                                .package_user_id(user.id)
+                                                .and_then(|id| {
+                                                    query_package_state(
+                                                        &device.adb_id,
+                                                        &pkg_name,
+                                                        id,
+                                                    )
+                                                }) {
+                                                Ok(state) => {
+                                                    state.unwrap_or(PackageState::Uninstalled)
+                                                }
+                                                Err(error) => {
+                                                    return verification_error(
+                                                        i_user,
+                                                        index,
+                                                        current_state,
+                                                        &pkg_name,
+                                                        &error,
+                                                    );
+                                                }
+                                            };
                                             VerifyAndFallbackResult {
                                                 i_user,
                                                 index,
@@ -1305,6 +1416,30 @@ impl List {
     fn on_clear_selected_packages(&mut self) -> Task<Message> {
         self.selected_packages = Vec::new();
         Task::none()
+    }
+
+    /// Select the already selected packages for every user,
+    /// as if they had been selected with multi-user mode enabled.
+    pub fn select_for_all_users(&mut self, users: &[User]) {
+        for selection in self.selected_packages.clone() {
+            self.toggle_for_all_users(users, selection, true);
+        }
+    }
+
+    /// Select or deselect the package of `selection` for every user.
+    fn toggle_for_all_users(&mut self, users: &[User], selection: (usize, usize), toggle: bool) {
+        for u in users.iter().filter(|u| !u.protected) {
+            let Some(i_package) = same_package(&self.phone_packages, selection, u.index) else {
+                continue;
+            };
+            self.phone_packages[u.index][i_package].selected = toggle;
+            if !toggle {
+                self.selected_packages
+                    .retain(|&x| x != (u.index, i_package));
+            } else if !self.selected_packages.contains(&(u.index, i_package)) {
+                self.selected_packages.push((u.index, i_package));
+            }
+        }
     }
 
     fn on_adb_satisfied(&mut self, result: bool) -> Task<Message> {
@@ -1377,6 +1512,22 @@ impl List {
         Task::none()
     }
 }
+fn verification_error(
+    i_user: usize,
+    index: usize,
+    state: PackageState,
+    name: &str,
+    error: &str,
+) -> VerifyAndFallbackResult {
+    VerifyAndFallbackResult {
+        i_user,
+        index,
+        new_state: state,
+        notification: Some(format!("Could not verify the state of '{name}': {error}")),
+        error_modal: None,
+    }
+}
+
 fn error_view<'a>(
     error: &'a str,
     content: Column<'a, Message, Theme, Renderer>,
@@ -1458,6 +1609,26 @@ fn waiting_view<'a>(
         .into()
 }
 
+/// Find the package of `selection` in the list of another user.
+///
+/// Each user has its own list, and a package can be missing from some of them,
+/// so the same package is not always on the same row.
+fn same_package(
+    packages: &[Vec<PackageRow>],
+    selection: (usize, usize),
+    i_user: usize,
+) -> Option<usize> {
+    let name = &packages.get(selection.0)?.get(selection.1)?.name;
+    let user_packages = packages.get(i_user)?;
+    if user_packages
+        .get(selection.1)
+        .is_some_and(|p| p.name == *name)
+    {
+        return Some(selection.1);
+    }
+    user_packages.iter().position(|p| p.name == *name)
+}
+
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
     device: &Phone,
@@ -1468,18 +1639,14 @@ fn build_action_pkg_commands(
     let wanted_state = pkg.state.opposite(settings.disable_mode);
 
     let mut commands = vec![];
-    for u in device.user_list.iter().filter(|&&u| {
-        !u.protected
-            && packages
-                .get(u.index)
-                .and_then(|user_pkgs| user_pkgs.get(selection.1))
-                .is_some_and(|row_pkg| {
-                    // Only apply to users where package is explicitly selected
-                    // OR if multi_user_mode is enabled AND this is the initiating user
-                    row_pkg.selected || (settings.multi_user_mode && u.index == selection.0)
-                })
-    }) {
-        let u_pkg = &packages[u.index][selection.1];
+    for u in device.user_list.iter().filter(|u| !u.protected) {
+        let Some(index) = same_package(packages, selection, u.index) else {
+            continue;
+        };
+        let u_pkg = &packages[u.index][index];
+        if !(u_pkg.selected || settings.multi_user_mode && u.index == selection.0) {
+            continue;
+        }
         let wanted_state = if settings.multi_user_mode {
             wanted_state
         } else {
@@ -1491,7 +1658,7 @@ fn build_action_pkg_commands(
         for (j, action) in actions.into_iter().enumerate() {
             let p_info = PackageInfo {
                 i_user: u.index,
-                index: selection.1,
+                index,
                 removal: pkg.removal.to_string(),
                 // Will be filled asynchronously before running the adb action
                 before_cross_user_states: vec![],
@@ -1590,4 +1757,57 @@ fn recap<'a>(settings: &Settings, recap: &SummaryEntry) -> Element<'a, Message, 
     .height(45)
     .style(style::Container::Frame)
     .into()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn failed_profile_load_allows_selection_but_blocks_actions_targeting_that_profile() {
+        let owner = User::default();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let phone = Phone {
+            adb_id: "test phone".into(),
+            user_list: vec![owner, work],
+            ..Phone::default()
+        };
+        let package = PackageRow::new(
+            "com.example.app",
+            "",
+            Removal::Recommended,
+            PackageState::Enabled,
+            UadList::Misc,
+            false,
+            false,
+        );
+        let mut view = List::default();
+        let _ = view.on_apply_filters(
+            &phone.adb_id,
+            vec![Ok(vec![package]), Err("device offline".into())],
+            &phone,
+        );
+        assert_eq!(
+            view.inventory_errors.get(&work.index).map(String::as_str),
+            Some("device offline")
+        );
+
+        view.toggle_for_all_users(&[owner], (0, 0), true);
+        view.select_for_all_users(&phone.user_list);
+        assert_eq!(view.selected_packages, [(0, 0)]);
+        assert!(view.phone_packages[work.index].is_empty());
+
+        assert!(
+            view.validate_action_inventories(&phone, false, &std::iter::once(0))
+                .is_ok()
+        );
+        assert_eq!(
+            view.validate_action_inventories(&phone, true, &std::iter::once(0)),
+            Err("Could not read user 10: device offline. Refresh the device and try again.".into())
+        );
+    }
 }

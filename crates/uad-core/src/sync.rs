@@ -703,7 +703,11 @@ pub fn attempt_fallback(
                 .map_err(|e| format!("Failed to uninstall: {e}"))?;
 
             // Verify the package was actually uninstalled
-            match verify_package_state(&package.name, &phone.adb_id, Some(user.id)) {
+            match query_package_state(
+                &phone.adb_id,
+                &package.name,
+                phone.package_user_id(user.id)?,
+            )? {
                 Some(PackageState::Uninstalled) | None => {
                     Ok("uninstalled package instead of disabling".to_string())
                 }
