@@ -98,7 +98,10 @@ pub fn nav_menu<'a>(
         .gap(4);
 
     let device_list_text = match apps_view.loading_state {
-        ListLoadingState::FindingPhones => text("Finding connected devices..."),
+        ListLoadingState::FindingPhones => apps_view.discovery_issue.as_ref().map_or_else(
+            || text("Finding connected devices..."),
+            |issue| text(issue.to_string()),
+        ),
         _ => text("No devices/emulators found"),
     };
 

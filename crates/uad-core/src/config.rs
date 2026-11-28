@@ -1,9 +1,10 @@
 use crate::CACHE_DIR;
 use crate::CONFIG_DIR;
+use crate::adb::AdbBackend;
 use crate::sync::User;
 use crate::utils::DisplayablePath;
 use log::error;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
@@ -22,6 +23,28 @@ pub struct GeneralSettings {
     pub theme: String,
     pub expert_mode: bool,
     pub backup_folder: PathBuf,
+    /// ADB backend to use: Builtin (direct USB) or System (installed adb)
+    #[serde(default, deserialize_with = "deserialize_adb_backend")]
+    pub adb_backend: AdbBackend,
+}
+
+#[derive(Deserialize)]
+enum PersistedAdbBackend {
+    Builtin,
+    System,
+}
+
+fn deserialize_adb_backend<'de, D>(deserializer: D) -> Result<AdbBackend, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    match PersistedAdbBackend::deserialize(deserializer)? {
+        #[cfg(feature = "builtin-adb")]
+        PersistedAdbBackend::Builtin => Ok(AdbBackend::Builtin),
+        #[cfg(not(feature = "builtin-adb"))]
+        PersistedAdbBackend::Builtin => Ok(AdbBackend::System),
+        PersistedAdbBackend::System => Ok(AdbBackend::System),
+    }
 }
 
 #[derive(Default, Debug, Clone)]
@@ -49,6 +72,7 @@ impl Default for GeneralSettings {
             theme: DEFAULT_THEME.to_string(),
             expert_mode: false,
             backup_folder: CACHE_DIR.join("backups"),
+            adb_backend: AdbBackend::default(),
         }
     }
 }
@@ -123,6 +147,27 @@ mod tests {
     }
 
     #[test]
+    fn builtin_backend_config_is_preserved_or_safely_downgraded() {
+        let config: Config = toml::from_str(
+            r#"
+                [general]
+                theme = "Custom"
+                expert_mode = true
+                backup_folder = "/tmp/uad-backups"
+                adb_backend = "Builtin"
+            "#,
+        )
+        .expect("Builtin backend config should remain readable");
+
+        assert_eq!(config.general.theme, "Custom");
+        assert!(config.general.expert_mode);
+        #[cfg(feature = "builtin-adb")]
+        assert_eq!(config.general.adb_backend, AdbBackend::Builtin);
+        #[cfg(not(feature = "builtin-adb"))]
+        assert_eq!(config.general.adb_backend, AdbBackend::System);
+    }
+
+    #[test]
     fn valid_config_preserves_settings_and_file_contents() {
         let dir = tempdir().unwrap();
         let path = dir.path().join("config.toml");
@@ -173,6 +218,7 @@ multi_user_mode = false
             theme: "Light".to_string(),
             expert_mode: true,
             backup_folder: dir.path().join("backups"),
+            adb_backend: AdbBackend::System,
         };
         config.save_device_settings_to_path(device, general, &path);
 
@@ -184,6 +230,7 @@ multi_user_mode = false
         assert_eq!(saved.general.theme, "Light");
         assert!(saved.general.expert_mode);
         assert_eq!(saved.general.backup_folder, dir.path().join("backups"));
+        assert_eq!(saved.general.adb_backend, AdbBackend::System);
     }
 
     #[test]
