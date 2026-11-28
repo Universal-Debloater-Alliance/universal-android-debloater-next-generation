@@ -20,27 +20,38 @@ pub struct UserBackup {
     pub packages: Vec<CorePackage>,
 }
 
-/// Backup all `Uninstalled` and `Disabled` packages
+/// A snapshot needs an inventory for every readable profile.
+pub fn validate_backup_inventory<T>(
+    users: &[User],
+    phone_packages: &[Vec<T>],
+) -> Result<(), String> {
+    if users.is_empty() {
+        return Err("No user was found on the device".into());
+    }
+    for user in users {
+        user.packages(phone_packages)?;
+    }
+    Ok(())
+}
+
+/// Save the package states of every user.
 pub fn backup_phone(
     users: Vec<User>,
     device_id: String,
     phone_packages: &[Vec<CorePackage>],
 ) -> Result<bool, String> {
+    validate_backup_inventory(&users, phone_packages)?;
+
     let mut backup = PhoneBackup {
         device_id: device_id.clone(),
         ..PhoneBackup::default()
     };
 
-    for u in users {
-        let mut user_backup = UserBackup {
-            id: u.id,
-            ..UserBackup::default()
-        };
-
-        for p in phone_packages[u.index].iter().cloned() {
-            user_backup.packages.push(p);
-        }
-        backup.users.push(user_backup);
+    for user in users {
+        backup.users.push(UserBackup {
+            id: user.id,
+            packages: phone_packages[user.index].clone(),
+        });
     }
 
     match serde_json::to_string_pretty(&backup) {
@@ -282,5 +293,39 @@ mod tests {
         };
         assert!(restore_backup(&Phone::default(), &[], &settings).is_err());
         assert!(restore_backup(&Phone::default(), &[], &DeviceSettings::default()).is_err());
+    }
+
+    #[test]
+    fn backup_rejects_unreadable_profiles() {
+        let owner = User::default();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let serial = "unreadable-profile-test".to_string();
+        let owner_packages = vec![package("com.example.app", PackageState::Enabled)];
+        let inventory = vec![owner_packages.clone(), vec![]];
+        assert_eq!(
+            backup_phone(vec![owner, work], serial.clone(), &inventory),
+            Err("The packages of user 10 could not be read".into())
+        );
+        assert_eq!(
+            backup_phone(vec![owner, work], serial.clone(), &[owner_packages]),
+            Err("No package list loaded for user 10".into())
+        );
+        assert_eq!(
+            backup_phone(vec![], serial, &inventory),
+            Err("No user was found on the device".into())
+        );
+
+        let protected_work = User {
+            protected: true,
+            ..work
+        };
+        assert_eq!(
+            validate_backup_inventory(&[owner, protected_work], &inventory),
+            Ok(())
+        );
     }
 }
