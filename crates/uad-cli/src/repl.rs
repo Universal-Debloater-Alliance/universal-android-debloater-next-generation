@@ -331,6 +331,7 @@ fn process_package_change(
 
     let core_pkg = CorePackage {
         name: pkg_name.to_string(),
+        app_name: pkg_info.and_then(|p| p.app_name.clone()),
         description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
         removal: pkg_info.map(|p| p.removal).unwrap_or(Removal::Unlisted),
         state: current_state,

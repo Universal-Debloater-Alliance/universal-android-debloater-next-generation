@@ -95,6 +95,7 @@ pub fn fetch_packages(
     let mut removal;
     let mut state;
     let mut list;
+    let mut app_name: Option<String>;
     let mut user_package: Vec<CorePackage> = Vec::new();
 
     for pack_name in all_sys_packs {
@@ -103,6 +104,7 @@ pub fn fetch_packages(
         removal = Removal::Unlisted;
         state = PackageState::Uninstalled;
         list = UadList::Unlisted;
+        app_name = None;
 
         if let Some(package) = uad_lists.get(p_name) {
             if !package.description.is_empty() {
@@ -110,6 +112,7 @@ pub fn fetch_packages(
             }
             removal = package.removal;
             list = package.list;
+            app_name = package.app_name.clone();
         }
 
         if enabled_sys_packs.contains(p_name) {
@@ -120,6 +123,7 @@ pub fn fetch_packages(
 
         let package = CorePackage {
             name: p_name.clone(),
+            app_name,
             description,
             removal,
             state,

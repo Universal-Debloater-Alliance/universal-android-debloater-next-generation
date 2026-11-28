@@ -22,6 +22,11 @@ pub static DATA: &str = include_str!("../../../resources/assets/uad_lists.json")
 #[serde(rename_all = "camelCase")]
 pub struct Package {
     pub list: UadList,
+    /// Human-readable app name (e.g. "Google Maps"), when known.
+    /// ADB cannot resolve package names to app names, so this is
+    /// contributed per-package in the debloat lists.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub app_name: Option<String>,
     pub description: String,
     dependencies: Vec<String>,
     needed_by: Vec<String>,

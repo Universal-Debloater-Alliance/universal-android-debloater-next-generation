@@ -12,6 +12,7 @@ use iced::{Alignment, Element, Length, Renderer, Task, alignment};
 #[derive(Clone, Debug)]
 pub struct PackageRow {
     pub name: String,
+    pub app_name: Option<String>,
     pub description: String,
     pub removal: Removal,
     pub state: PackageState,
@@ -29,8 +30,13 @@ pub enum Message {
 
 impl PackageRow {
     #[must_use]
+    #[allow(
+        clippy::too_many_arguments,
+        reason = "Row fields are explicit at the only construction site"
+    )]
     pub fn new(
         name: &str,
+        app_name: Option<String>,
         description: &str,
         removal: Removal,
         state: PackageState,
@@ -40,6 +46,7 @@ impl PackageRow {
     ) -> Self {
         Self {
             name: name.to_string(),
+            app_name,
             description: description.to_string(),
             removal,
             state,
@@ -121,11 +128,18 @@ impl PackageRow {
             );
         }
 
+        // Show the human-readable app name (when known) next to the package
+        // name, so users can identify apps at a glance.
+        let display_name: String = match &self.app_name {
+            Some(app_name) => format!("{app_name} ({})", self.name),
+            None => self.name.clone(),
+        };
+
         row![
             button(
                 row![
                     selection_checkbox,
-                    text(&self.name).width(Length::FillPortion(8)),
+                    text(display_name).width(Length::FillPortion(8)),
                     action_btn.style(button_style)
                 ]
                 .spacing(8)
@@ -151,6 +165,7 @@ impl From<CorePackage> for PackageRow {
     fn from(core: CorePackage) -> Self {
         Self {
             name: core.name.clone(),
+            app_name: core.app_name,
             description: core.description,
             removal: core.removal,
             state: core.state,
@@ -165,6 +180,7 @@ impl From<&CorePackage> for PackageRow {
     fn from(core: &CorePackage) -> Self {
         Self {
             name: core.name.clone(),
+            app_name: core.app_name.clone(),
             description: core.description.clone(),
             removal: core.removal,
             state: core.state,
@@ -179,6 +195,7 @@ impl From<&PackageRow> for CorePackage {
     fn from(row: &PackageRow) -> Self {
         Self {
             name: row.name.clone(),
+            app_name: row.app_name.clone(),
             description: row.description.clone(),
             removal: row.removal,
             state: row.state,
@@ -191,6 +208,7 @@ impl From<PackageRow> for CorePackage {
     fn from(row: PackageRow) -> Self {
         Self {
             name: row.name,
+            app_name: row.app_name,
             description: row.description,
             removal: row.removal,
             state: row.state,

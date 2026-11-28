@@ -3339,6 +3339,7 @@
   },
   "com.huawei.appmarket": {
     "list": "Oem",
+    "appName": "AppGallery",
     "description": "Huawei app store (AppGallery)\nhttps://www.xda-developers.com/appgallery-huawei-alternative-google-play-store-android/\n",
     "dependencies": [],
     "neededBy": [],
@@ -3371,6 +3372,7 @@
   },
   "com.huawei.browser": {
     "list": "Oem",
+    "appName": "Huawei Browser",
     "description": "Huawei Browser app. Don't expect privacy using it\n",
     "dependencies": [],
     "neededBy": [],
@@ -3769,6 +3771,7 @@
   },
   "com.huawei.health": {
     "list": "Oem",
+    "appName": "Huawei Health",
     "description": "Huawei Health (discontinued?)\nConnect Huawei wearables to your phone and all sorts of stats like all fitness tracking apps.\nRequire HMS.",
     "dependencies": [
       "com.huawei.hwid"
@@ -3795,6 +3798,7 @@
   },
   "com.huawei.music": {
     "list": "Oem",
+    "appName": "Huawei Music",
     "description": "Huawei Music app. Fat music player developed by Huawei (137Mo. Seriously?). There are a lof of better alternatives (e.g Metro on F-droid)",
     "dependencies": [],
     "neededBy": [],
@@ -3971,6 +3975,7 @@
   },
   "com.huawei.android.launcher": {
     "list": "Oem",
+    "appName": "Huawei Home",
     "description": "Huawei launcher app.\nIt's basically the home screen, the way icons apps are organized and displayed.\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER !\nYou will maybe need this package for the recent apps feature to work (even if you have another launcher)\n",
     "dependencies": [],
     "neededBy": [],
@@ -4051,6 +4056,7 @@
   },
   "com.android.messaging": {
     "list": "Oem",
+    "appName": "Messaging",
     "description": "Android default messaging app",
     "dependencies": [],
     "neededBy": [],
@@ -5011,6 +5017,7 @@
   },
   "com.samsung.android.app.spage": {
     "list": "Oem",
+    "appName": "Samsung Free",
     "description": "Samsung Free (previously known as 'Bixby Home') is a vertically scrolling list of information that Bixby can interact with for example weather, fitness activity and buttons\nfor controlling their smart home gadgets.\nRelated to \"Briefing\"?\nhttps://galaxystore.samsung.com/prepost/000005445489?appId=com.samsung.android.app.spage",
     "dependencies": [],
     "neededBy": [],
@@ -5091,6 +5098,7 @@
   },
   "com.samsung.android.arzone": {
     "list": "Oem",
+    "appName": "AR Zone",
     "description": "AR Zone\nhttps://www.samsung.com/levant/support/mobile-devices/which-features-are-available-in-the-ar-zone-in-the-galaxy-z-flip/\nLets you access other AR apps.\n",
     "dependencies": [],
     "neededBy": [],
@@ -5171,6 +5179,7 @@
   },
   "com.samsung.android.bixby.agent": {
     "list": "Oem",
+    "appName": "Bixby",
     "description": "Removing this will disable the bixby hardware key without breaking Bixby itself.\n",
     "dependencies": [],
     "neededBy": [],
@@ -5187,6 +5196,7 @@
   },
   "com.samsung.android.calendar": {
     "list": "Oem",
+    "appName": "Samsung Calendar",
     "description": "Samsung Calendar App\n",
     "dependencies": [],
     "neededBy": [],
@@ -5293,6 +5303,7 @@
   },
   "com.samsung.android.game.gamehome": {
     "list": "Oem",
+    "appName": "Game Launcher",
     "description": "Samsung Game Launcher\nhttps://www.samsung.com/global/galaxy/apps/game-launcher/\nAll in one hub for mobiles games\n",
     "dependencies": [],
     "neededBy": [],
@@ -5301,6 +5312,7 @@
   },
   "com.samsung.android.game.gametools": {
     "list": "Oem",
+    "appName": "Game Tools",
     "description": "Samsung Game Tools/Booster (https://www.samsung.com/au/support/mobile-devices/how-to-use-game-tools/)\nLet you record and share screenshots of your game-play.\n",
     "dependencies": [],
     "neededBy": [],
@@ -5661,6 +5673,7 @@
   },
   "com.samsung.android.scloud": {
     "list": "Oem",
+    "appName": "Samsung Cloud",
     "description": "Samsung Cloud (https://www.samsung.com/us/support/owners/app/samsung-cloud)",
     "dependencies": [],
     "neededBy": [],
@@ -5908,6 +5921,7 @@
   },
   "com.samsung.android.voc": {
     "list": "Oem",
+    "appName": "Samsung Members",
     "description": "Samsung Members (https://play.google.com/store/apps/details?id=com.samsung.android.voc)\nThe other version is \"com.samsung.oh\".",
     "dependencies": [],
     "neededBy": [],
@@ -6336,6 +6350,7 @@
   },
   "com.sec.android.app.camera": {
     "list": "Oem",
+    "appName": "Camera",
     "description": "Samsung camera app\nSafe to remove (but not recommended)\n",
     "dependencies": [],
     "neededBy": [],
@@ -6472,6 +6487,7 @@
   },
   "com.sec.android.app.samsungapps": {
     "list": "Oem",
+    "appName": "Galaxy Store",
     "description": "Samsung Galaxy Store\nSamsung's app store, required for the Samsung Pay feature to work.\nYou probably don't want this app, it's just a worse version of the Play Store with a few proprietary exclusives from Samsung. Uninstalling it will not cause a bootloop, so its priority shouldn't be any higher than Advanced.\nhttps://en.wikipedia.org/wiki/Samsung_Galaxy_Store",
     "dependencies": [],
     "neededBy": [
@@ -6626,6 +6642,7 @@
   },
   "com.sec.android.daemonapp": {
     "list": "Oem",
+    "appName": "Samsung Weather",
     "description": "Unified Daemon app\nprovides support for a number of different apps on your device. These include the Weather, Yahoo Finance and Yahoo News apps amongst others.\nThe data is used by apps such as the Alarm, Calendar app and the camera.\n",
     "dependencies": [],
     "neededBy": [],
@@ -7378,6 +7395,7 @@
   },
   "com.samsung.android.messaging": {
     "list": "Oem",
+    "appName": "Samsung Messages",
     "description": "Samsung Messaging app\n",
     "dependencies": [],
     "neededBy": [],
@@ -7540,6 +7558,7 @@
   },
   "com.sec.android.app.launcher": {
     "list": "Oem",
+    "appName": "One UI Home",
     "description": "Samsung One UI Home launcher (homescreen) (https://play.google.com/store/apps/details?id=com.sec.android.app.launcher)\nIt is also Samsung's TouchWiz default launcher\nWARNING: disabling this package breaks the multitasking navigation button on all newer versions of One UI, nothing would happen when pressing it.",
     "dependencies": [],
     "neededBy": [],
@@ -7948,6 +7967,7 @@
   },
   "com.android.egg": {
     "list": "Aosp",
+    "appName": "Android Easter Egg",
     "description": "Android's easter egg feature (spam-tap on the android version in the settings)",
     "dependencies": [],
     "neededBy": [],
@@ -8164,6 +8184,7 @@
   },
   "com.android.soundrecorder": {
     "list": "Aosp",
+    "appName": "Sound Recorder",
     "description": "AOSP Sound recorder\nOEMs often use their own solution\nNOTE: On some phones, Huawei & Xiaomi also use this package name for their own browser app.",
     "dependencies": [],
     "neededBy": [],
@@ -8182,6 +8203,7 @@
   },
   "com.android.stk": {
     "list": "Aosp",
+    "appName": "SIM Toolkit",
     "description": "SIM toolkit\nEnables carriers to initiate \"value-added services\". Basically, some operators provide SIM-cards with applications installed on them.\nhttps://en.wikipedia.org/wiki/SIM_Application_Toolkit#cite_note-CellularZA-1\nHas been abused:\n- SimJacker: https://thehackernews.com/2019/09/simjacker-mobile-hacking.html\n- WIBattack: https://www.zdnet.com/article/new-sim-card-attack-disclosed-similar-to-simjacker/\nWARNING: do mind that disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your Bank) to authenticate you. See https://en.wikipedia.org/wiki/Mobile_identity_management\nNOTE: removing this package removes the launcher icon. `com.android.stk` relies on `com.android.stk2` and vice-versa.",
     "dependencies": [],
     "neededBy": [],
@@ -8272,6 +8294,7 @@
   },
   "com.android.bluetooth": {
     "list": "Aosp",
+    "appName": "Bluetooth",
     "description": "Bluetooth service\nHandles all Bluetooth functionality including device discovery, pairing, and data transfer.\nRemoving this will completely break Bluetooth functionality on the device.\n",
     "dependencies": [],
     "neededBy": [],
@@ -8280,6 +8303,7 @@
   },
   "com.android.browser": {
     "list": "Aosp",
+    "appName": "Browser",
     "description": "Mi Browser and browser for the LDPlayer emulator\nYou really should use something else.\nFYI https://www.xda-developers.com/xiaomi-mi-web-browser-pro-mint-collecting-browsing-data-incognito-mode/\n",
     "dependencies": [],
     "neededBy": [],
@@ -8296,6 +8320,7 @@
   },
   "com.android.calendar": {
     "list": "Aosp",
+    "appName": "Calendar",
     "description": "AOSP Calendar app\nNOTE: Some OEMs (like Huawei & Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
@@ -8304,6 +8329,7 @@
   },
   "com.android.calculator2": {
     "list": "Aosp",
+    "appName": "Calculator",
     "description": "AOSP calculator app\nNOTE: Some OEMs (like Huawei & Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
@@ -8344,6 +8370,7 @@
   },
   "com.android.cellbroadcastreceiver": {
     "list": "Aosp",
+    "appName": "Cell Broadcasts",
     "description": "Cell broadcast is designed to deliver messages to multiple users in an area.\nThis is notably used by ISPs to send Emergency/Government alerts.\nRuns at boot time and is also triggered after exiting airplane mode.\nhttps://en.wikipedia.org/wiki/Cell_Broadcast\nhttps://www.androidcentral.com/amber-alerts-and-android-what-you-need-know\nhttps://android.googlesource.com/platform/packages/apps/CellBroadcastReceiver/+/refs/heads/master/src/com/android/cellbroadcastreceiver",
     "dependencies": [],
     "neededBy": [],
@@ -8362,6 +8389,7 @@
   },
   "com.android.contacts": {
     "list": "Aosp",
+    "appName": "Contacts",
     "description": "AOSP Contacts\nSome OEMs(for example Xiaomi) use the same package name for their app.",
     "dependencies": [],
     "neededBy": [],
@@ -8386,6 +8414,7 @@
   },
   "com.android.deskclock": {
     "list": "Aosp",
+    "appName": "Clock",
     "description": "AOSP Clock app\nSome OEMs (like Huawei & Xiaomi) use the same package name for their app.\n",
     "dependencies": [],
     "neededBy": [],
@@ -8394,6 +8423,7 @@
   },
   "com.android.email": {
     "list": "Aosp",
+    "appName": "Email",
     "description": "Xiaomi closed-source email app based on the AOSP version. Really confusing package name.\n",
     "dependencies": [],
     "neededBy": [],
@@ -8426,6 +8456,7 @@
   },
   "com.android.gallery3d": {
     "list": "Aosp",
+    "appName": "Gallery",
     "description": "Huawei Gallery app and the AOSP Gallery app\nIt may appear on Chinese OEMs as documented.",
     "dependencies": [],
     "neededBy": [],
@@ -8602,6 +8633,7 @@
   },
   "com.android.mms": {
     "list": "Aosp",
+    "appName": "Messaging",
     "description": "AOSP SMS app.\nOccasionally runs in the background.\nSome OEMs (like Huawei, Xiaomi, Vivo, Oppo) use the same package name for their app.\nQKSMS is a good FOSS replacement: https://f-droid.org/en/packages/com.moez.QKSMS/",
     "dependencies": [],
     "neededBy": [],
@@ -8610,6 +8642,7 @@
   },
   "com.android.nfc": {
     "list": "Aosp",
+    "appName": "NFC",
     "description": "NFC Service\nRuns in the background as part of the System.\nI assume NFC breaks when disabled.\nWill probably run even if disabled, like most system packages. So disabling/uninstalling is probably pointless.",
     "dependencies": [],
     "neededBy": [],
@@ -8682,6 +8715,7 @@
   },
   "com.android.providers.calendar": {
     "list": "Aosp",
+    "appName": "Calendar Storage",
     "description": "Calendar Storage\nNecessary for the stock Calendar app to work correctly.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
@@ -8858,6 +8892,7 @@
   },
   "com.android.certinstaller": {
     "list": "Aosp",
+    "appName": "Certificate Installer",
     "description": "Certificate installer\nUsed for accepting and revoking Internet certificates.\nCertificates identify ownership of public keys, for use in secure communications.\nBreaks Wi-Fi if disabled.",
     "dependencies": [],
     "neededBy": [],
@@ -8874,6 +8909,7 @@
   },
   "com.android.documentsui": {
     "list": "Aosp",
+    "appName": "Files",
     "description": "Occasionally runs in the background.\nFile selector for other apps.\nStorage Access Framework (SAF) will break if this is disabled.",
     "dependencies": [],
     "neededBy": [],
@@ -8906,6 +8942,7 @@
   },
   "com.android.keychain": {
     "list": "Aosp",
+    "appName": "Key Chain",
     "description": "Enables apps to use system wide credential KeyChain (shared credentials between apps)\nhttps://security.stackexchange.com/questions/216716/android-keychain-what-is-a-system-wide-credential\n",
     "dependencies": [],
     "neededBy": [],
@@ -8978,6 +9015,7 @@
   },
   "com.android.providers.contacts": {
     "list": "Aosp",
+    "appName": "Contacts Storage",
     "description": "Contacts Storage\nProvider for contact data.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html\nBreaks contact functionality if disabled. Not recommended to disable if you plan to use your device as a phone.\nOn POCO Pad M1, disabling this will cause Bluetooth to malfunction, turning on and off continuously.",
     "dependencies": [],
     "neededBy": [],
@@ -8986,6 +9024,7 @@
   },
   "com.android.providers.downloads": {
     "list": "Aosp",
+    "appName": "Download Manager",
     "description": "Downloads Manager\nProvider for downloaded files.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
@@ -9002,6 +9041,7 @@
   },
   "com.android.providers.media": {
     "list": "Aosp",
+    "appName": "Media Storage",
     "description": "Provider of media files (images, videos and such).\nScans the device for media files and allows permitted apps access to them.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
@@ -9018,6 +9058,7 @@
   },
   "com.android.providers.telephony": {
     "list": "Aosp",
+    "appName": "Phone and Messaging Storage",
     "description": "Provider for telephony data.\nHandles phone-related data such as text messages, APN list, etc.\nContent providers encapsulate data, providing centralized management of data shared between apps.\nhttps://developer.android.com/guide/topics/providers/content-providers.html",
     "dependencies": [],
     "neededBy": [],
@@ -9042,6 +9083,7 @@
   },
   "com.android.settings": {
     "list": "Aosp",
+    "appName": "Settings",
     "description": "AOSP Settings app.",
     "dependencies": [],
     "neededBy": [],
@@ -9082,6 +9124,7 @@
   },
   "com.android.systemui": {
     "list": "Aosp",
+    "appName": "System UI",
     "description": "Everything you see in Android that's not an app. User interface of Android\n",
     "dependencies": [],
     "neededBy": [],
@@ -9090,6 +9133,7 @@
   },
   "com.android.vpndialogs": {
     "list": "Aosp",
+    "appName": "VPN Dialogs",
     "description": "Provide VPN support to Android\nhttps://en.wikipedia.org/wiki/Dialog_(software)\nSafe to remove if you don't plan to use a VPN.\n",
     "dependencies": [],
     "neededBy": [],
@@ -9684,6 +9728,7 @@
   },
   "com.android.dialer": {
     "list": "Aosp",
+    "appName": "Dialer",
     "description": "AOSP Dialer/Phone app\nDefault phone app on some older phones(like Oneplus 3). WARNING: Uninstalling it may break the entire phone app; emergency calls; SIM card detection, and the software update screen on Samsung.",
     "dependencies": [],
     "neededBy": [],
@@ -11048,6 +11093,7 @@
   },
   "com.google.android.as": {
     "list": "Google",
+    "appName": "Android System Intelligence",
     "description": "Android System Intelligence (previously Device Personalization Services) (https://play.google.com/store/apps/details?id=com.google.android.as)\nRuns in the background.\n \"Enables intelligent features across Android\", like: Live Caption, Screen Attention, Improved Copy-Paste, App Predictions in the launcher, Notification Smart Actions, Smart Text Selection and Linkifying text in apps.\nAlso known as device learning, e.g. enhanced keyboard auto suggestions, keeps the screen on when looking at it (with help of the camera), smart replies.\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
@@ -11056,6 +11102,7 @@
   },
   "com.google.android.as.oss": {
     "list": "Google",
+    "appName": "Private Compute Services",
     "description": "Private Compute Services. On-device behavior analysis\nEnables live caption, music recognition and smart replies.\nSeems to be a dependency of System Intelligence.\nhttps://play.google.com/store/apps/details?id=com.google.android.as.oss\nhttps://milaq.net/android-bloatware",
     "dependencies": [],
     "neededBy": [],
@@ -11756,6 +11803,7 @@
   },
   "com.samsung.android.dialer": {
     "list": "Oem",
+    "appName": "Phone",
     "description": "Stock Samsung Phone dialer",
     "dependencies": [],
     "neededBy": [],
@@ -13848,6 +13896,7 @@
   },
   "com.amazon.mp3": {
     "list": "Misc",
+    "appName": "Amazon Music",
     "description": "Amazon Music (https://play.google.com/store/apps/details?id=com.amazon.mp3)\nAmazon streaming app\n",
     "dependencies": [],
     "neededBy": [],
@@ -13888,6 +13937,7 @@
   },
   "com.amazon.mShop.android.shopping": {
     "list": "Misc",
+    "appName": "Amazon Shopping",
     "description": "Amazon Shopping (https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping)\nSame package as com.amazon.mShop.android.\n",
     "dependencies": [],
     "neededBy": [],
@@ -13920,6 +13970,7 @@
   },
   "com.facebook.katana": {
     "list": "Misc",
+    "appName": "Facebook",
     "description": "Facebook app (https://play.google.com/store/apps/details?id=com.facebook.katana)\n",
     "dependencies": [],
     "neededBy": [],
@@ -13928,6 +13979,7 @@
   },
   "com.facebook.system": {
     "list": "Misc",
+    "appName": "Facebook App Installer",
     "description": "Facebook App Installer (empty shell app which incites you to install the Facebook app)\n",
     "dependencies": [],
     "neededBy": [],
@@ -13936,6 +13988,7 @@
   },
   "com.facebook.appmanager": {
     "list": "Misc",
+    "appName": "Facebook App Manager",
     "description": "Facebook app manager handles Facebook apps updates.\n",
     "dependencies": [],
     "neededBy": [],
@@ -13944,6 +13997,7 @@
   },
   "com.facebook.services": {
     "list": "Misc",
+    "appName": "Facebook Services",
     "description": "Facebook Services is a tool that lets you manage different Facebook services automatically using your Android device.\nIn particular, the tool focuses on searching for nearby shops and establishments based on your interests.\nI don't know if this a dependency for com.facebook.katana but nobody cares because we all want to delete all the Facebook stuff right ?!!\n",
     "dependencies": [],
     "neededBy": [],
@@ -13960,6 +14014,7 @@
   },
   "com.instagram.android": {
     "list": "Misc",
+    "appName": "Instagram",
     "description": "Instagram  (https://play.google.com/store/apps/details?id=com.instagram.android)\n",
     "dependencies": [],
     "neededBy": [],
@@ -13968,6 +14023,7 @@
   },
   "com.whatsapp": {
     "list": "Misc",
+    "appName": "WhatsApp",
     "description": "Whatsapp messenger.\nRequires Google Play Services to receive messages in the background.\nhttps://play.google.com/store/apps/details?id=com.whatsapp",
     "dependencies": [],
     "neededBy": [],
@@ -13976,6 +14032,7 @@
   },
   "com.microsoft.skydrive": {
     "list": "Misc",
+    "appName": "Microsoft OneDrive",
     "description": "Microsoft OneDrive (Cloud) (https://play.google.com/store/apps/details?id=com.microsoft.skydrive)\n",
     "dependencies": [],
     "neededBy": [],
@@ -14024,6 +14081,7 @@
   },
   "com.microsoft.office.officehubrow": {
     "list": "Misc",
+    "appName": "Microsoft 365",
     "description": "Microsoft Mobile Office Beta\n",
     "dependencies": [],
     "neededBy": [],
@@ -14912,6 +14970,7 @@
   },
   "com.audible.application": {
     "list": "Misc",
+    "appName": "Audible",
     "description": "Cover Audible Audiobooks (https://play.google.com/store/apps/details?id=com.audible.application)\n",
     "dependencies": [],
     "neededBy": [],
@@ -15056,6 +15115,7 @@
   },
   "com.ebay.mobile": {
     "list": "Misc",
+    "appName": "eBay",
     "description": "Ebay app (https://play.google.com/store/apps/details?id=com.ebay.mobile)\n",
     "dependencies": [],
     "neededBy": [],
@@ -15240,6 +15300,7 @@
   },
   "com.linkedin.android": {
     "list": "Misc",
+    "appName": "LinkedIn",
     "description": "Linkedin app (https://play.google.com/store/apps/details?id=com.linkedin.android)\n",
     "dependencies": [],
     "neededBy": [],
@@ -15288,6 +15349,7 @@
   },
   "com.netflix.mediaclient": {
     "list": "Misc",
+    "appName": "Netflix",
     "description": "Netflix app (https://play.google.com/store/apps/details?id=com.netflix.mediaclient)\n",
     "dependencies": [],
     "neededBy": [],
@@ -15536,6 +15598,7 @@
   },
   "com.spotify.music": {
     "list": "Misc",
+    "appName": "Spotify",
     "description": "Spotify app (https://play.google.com/store/apps/details?id=com.spotify.music)\n",
     "dependencies": [],
     "neededBy": [],
@@ -15768,6 +15831,7 @@
   },
   "com.zhiliaoapp.musically": {
     "list": "Misc",
+    "appName": "TikTok",
     "description": "TikTok App\nWorth reading : https://en.wikipedia.org/wiki/TikTok#Privacy,_cyberbullying_and_addiction_concerns\n",
     "dependencies": [],
     "neededBy": [],
@@ -16424,6 +16488,7 @@
   },
   "com.miui.cloudservice": {
     "list": "Oem",
+    "appName": "Mi Cloud",
     "description": "Dependency for synchronizing data with Xiaomi Cloud, including photos, contacts, messages, etc.\nThis feature is essential for Xiaomi phone users in China, as Xiaomi Cloud is their primary cloud storage service.\n",
     "dependencies": [],
     "neededBy": [],
@@ -16640,6 +16705,7 @@
   },
   "com.miui.compass": {
     "list": "Oem",
+    "appName": "Compass",
     "description": "Mi Compass\nI think you understand its purpose...\n",
     "dependencies": [],
     "neededBy": [],
@@ -16672,6 +16738,7 @@
   },
   "com.miui.gallery": {
     "list": "Oem",
+    "appName": "Gallery",
     "description": "MIUI Gallery app.\nNote: Removing the Gallery will break the send screenshot feature (swipe 3 fingers to show the screenshot preview).\nIt has several trackers and sometimes connects to micloud, even if the account is not added.",
     "dependencies": [],
     "neededBy": [],
@@ -16728,6 +16795,7 @@
   },
   "com.miui.player": {
     "list": "Oem",
+    "appName": "Mi Music",
     "description": "Mi Music (https://play.google.com/store/apps/details?id=com.miui.player)\n",
     "dependencies": [],
     "neededBy": [],
@@ -16744,6 +16812,7 @@
   },
   "com.miui.screenrecorder": {
     "list": "Oem",
+    "appName": "Screen Recorder",
     "description": "Mi Screen Recorder\n",
     "dependencies": [],
     "neededBy": [],
@@ -16808,6 +16877,7 @@
   },
   "com.miui.videoplayer": {
     "list": "Oem",
+    "appName": "Mi Video",
     "description": "Mi Video (https://play.google.com/store/apps/details?id=com.miui.videoplayer)\nHas a lot of ads, tracking.",
     "dependencies": [],
     "neededBy": [],
@@ -16872,6 +16942,7 @@
   },
   "com.miui.weather2": {
     "list": "Oem",
+    "appName": "Weather",
     "description": "Mi Weather app\n",
     "dependencies": [],
     "neededBy": [],
@@ -17104,6 +17175,7 @@
   },
   "com.xiaomi.mipicks": {
     "list": "Oem",
+    "appName": "GetApps",
     "description": "Mi Picks (becomed Mi Apps Store and now Get Apps -- Xiaomi app store)\nI believe this package is discontinued.\nhttps://play.google.com/store/apps/details?id=com.mi.global.shop\n",
     "dependencies": [],
     "neededBy": [],
@@ -17328,6 +17400,7 @@
   },
   "com.android.camera2": {
     "list": "Oem",
+    "appName": "Camera",
     "description": "Xiaomi Camera (I don't know why they kept this package name. It's really confusing.)\nIt's a proprietary app based on the AOSP sources:\nhttps://android.googlesource.com/platform/packages/apps/Camera2/+/master/src/com/android/camera\n",
     "dependencies": [],
     "neededBy": [],
@@ -17432,6 +17505,7 @@
   },
   "com.miui.calculator": {
     "list": "Oem",
+    "appName": "Calculator",
     "description": "MIUI Calculator (https://play.google.com/store/apps/details?id=com.miui.calculator)\n",
     "dependencies": [],
     "neededBy": [],
@@ -17466,6 +17540,7 @@
   },
   "com.miui.home": {
     "list": "Oem",
+    "appName": "MIUI Home",
     "description": "MIUI System Launcher\nIt's basically the home screen, the way icons and apps are organized and displayed.\n\nNote: If you remove this package on devices based on MIUI 12+ with Android 11+, you will lose navigation gestures and recent apps view EVEN with a 3rd party launcher...\nhttps://web.archive.org/web/20220926221620/https://libreddit.spike.codes/r/Xiaomi/comments/o6vk5z/miui_12125_and_android_11_gestures/\n\nDON'T REMOVE THIS IF YOU DIDN'T INSTALL ANOTHER LAUNCHER!\n",
     "dependencies": [],
     "neededBy": [],
@@ -28319,6 +28394,7 @@
   },
   "com.miui.securitycenter": {
     "list": "Oem",
+    "appName": "Security",
     "description": "MIUI Security app\nProvides \"protection and optimization tools\"\nApp lock, Data usage, Security scan, Cleaner, Battery saver, Blocklist and other features.\nThis package is mostly the front-end (UI).\nhttps://beta.pithus.org/report/f8c24ccfc526389ff9084505c60fba3d3463565f92e2015190e2974b370e7c4e\nNOTE: REMOVING THIS WILL MOST LIKELY BOOTLOOP YOUR DEVICE! Uninstalling this on the Redmi Pad or Miui 13 and above is not causing any bootloop, but you will lose some functionality like the battery status/usage page, as well as the app usage/removal page.",
     "dependencies": [],
     "neededBy": [],
@@ -28423,6 +28499,7 @@
   },
   "com.android.chrome": {
     "list": "Google",
+    "appName": "Chrome",
     "description": "Google Chrome (https://play.google.com/store/apps/details?id=com.android.chrome)\nOccasionally runs in the background.\nNOTE: Disabling or uninstalling Chrome may break functionality for creating and storing passkeys (https://fidoalliance.org/passkeys/) on your phone, so keep this enabled if you want to use that form of authentication. G Play Services can provide this functionality on some devices.\nWhen Chrome is updated via the Play Store, the Trichrome Library is also updated automatically. If Chrome is disabled or removed, it may impact WebView functionality.\nThis is because Chrome, WebView, and the Trichrome Library work together as a bundle starting from Android 10 (API 29) and above.",
     "dependencies": [],
     "neededBy": [],
@@ -28511,6 +28588,7 @@
   },
   "com.google.android.apps.chromecast.app": {
     "list": "Google",
+    "appName": "Google Home",
     "description": "Google Home (https://play.google.com/store/apps/details?id=com.google.android.apps.chromecast.app)",
     "dependencies": [],
     "neededBy": [],
@@ -28543,6 +28621,7 @@
   },
   "com.google.android.apps.docs": {
     "list": "Google",
+    "appName": "Google Drive",
     "description": "Google Drive (https://play.google.com/store/apps/details?id=com.google.android.apps.docs)",
     "dependencies": [],
     "neededBy": [],
@@ -28711,6 +28790,7 @@
   },
   "com.google.android.apps.messaging": {
     "list": "Google",
+    "appName": "Google Messages",
     "description": "Google Messages (https://play.google.com/store/apps/details?id=com.google.android.apps.messaging)\nSMS and RCS app.\nNOTE: possibly a global dependency for SMS, MMS, RCS, OTP, and other services/verifications.\nWARNING: once disabled/uninstalled, even if reinstalled, a factory reset may be required to re-obtain full functionality.",
     "dependencies": [],
     "neededBy": [],
@@ -28743,6 +28823,7 @@
   },
   "com.google.android.apps.photos": {
     "list": "Google",
+    "appName": "Google Photos",
     "description": "Google Photos (https://play.google.com/store/apps/details?id=com.google.android.apps.photos)",
     "dependencies": [],
     "neededBy": [],
@@ -28775,6 +28856,7 @@
   },
   "com.google.android.apps.restore": {
     "list": "Google",
+    "appName": "Android Switch",
     "description": "The backup restore wizard used for pulling Android system backups from your Google account.\nRuns on boot.\nYou only need this if you factory restore, in which case it’s automatically re-enabled for you.",
     "dependencies": [],
     "neededBy": [],
@@ -28783,6 +28865,7 @@
   },
   "com.google.android.apps.recorder": {
     "list": "Google",
+    "appName": "Recorder",
     "description": "Google (audio)Recorder (https://play.google.com/store/apps/details?id=com.google.android.apps.recorder)",
     "dependencies": [],
     "neededBy": [],
@@ -28823,6 +28906,7 @@
   },
   "com.google.android.apps.tachyon": {
     "list": "Google",
+    "appName": "Google Meet",
     "description": "Google Duo (Video Calls) (https://play.google.com/store/apps/details?id=com.google.android.apps.tachyon)\n",
     "dependencies": [],
     "neededBy": [],
@@ -28839,6 +28923,7 @@
   },
   "com.google.android.apps.translate": {
     "list": "Google",
+    "appName": "Google Translate",
     "description": "Google Translate (https://play.google.com/store/apps/details?id=com.google.android.apps.translate)\n",
     "dependencies": [],
     "neededBy": [],
@@ -28871,6 +28956,7 @@
   },
   "com.google.android.apps.walletnfcrel": {
     "list": "Google",
+    "appName": "Google Wallet",
     "description": "Google Pay (https://play.google.com/store/apps/details?id=com.google.android.apps.walletnfcrel)\n",
     "dependencies": [],
     "neededBy": [],
@@ -28887,6 +28973,7 @@
   },
   "com.google.android.apps.wellbeing": {
     "list": "Google",
+    "appName": "Digital Wellbeing",
     "description": "Digital Wellbeing (https://play.google.com/store/apps/details?id=com.google.android.apps.wellbeing)\nLets you track device and app usage and set usage limits.\nWARNING: It is now a hard dependency for the Settings app on Android 12+ for Pixel phones. After uninstalling, there will be an empty entry on Settings. Rebooting should make it disappear..",
     "dependencies": [],
     "neededBy": [],
@@ -28919,6 +29006,7 @@
   },
   "com.google.android.apps.youtube.music": {
     "list": "Google",
+    "appName": "YouTube Music",
     "description": "YouTube Music (https://play.google.com/store/apps/details?id=com.google.android.apps.youtube.music)\n",
     "dependencies": [],
     "neededBy": [],
@@ -28951,6 +29039,7 @@
   },
   "com.google.android.calendar": {
     "list": "Google",
+    "appName": "Google Calendar",
     "description": "Google Calendar (https://play.google.com/store/apps/details?id=com.google.android.calendar)\n",
     "dependencies": [],
     "neededBy": [],
@@ -28991,6 +29080,7 @@
   },
   "com.google.android.googlequicksearchbox": {
     "list": "Google",
+    "appName": "Google",
     "description": "Google Search box (https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)\nRuns in the background.\nPointless. If you need a shortcut to Google on your homescreen just use a web-browser shortcut. Does also remove the Google Sound Search widget, but you can get that functionality from an app like Shazam, that additionally doesn't run in the background constantly like this package does.\nThis app also powers the Google Discover page (the news 'widget' when you go to the left of the home screen) and the app symbol called 'Google'.\nWARNING: disabling this package also breaks the Ok Google Search functionality as well as Circle to Search functionality.",
     "dependencies": [],
     "neededBy": [],
@@ -29047,6 +29137,7 @@
   },
   "com.google.android.play.games": {
     "list": "Google",
+    "appName": "Google Play Games",
     "description": "Google Play Games (https://play.google.com/store/apps/details?id=com.google.android.play.games)\n",
     "dependencies": [],
     "neededBy": [],
@@ -29055,6 +29146,7 @@
   },
   "com.google.android.printservice.recommendation": {
     "list": "Aosp",
+    "appName": "Print Service Recommender",
     "description": "I think this has to do with recommending a printservice app you can get from the Play store.\nI think printing still works with this off.",
     "dependencies": [],
     "neededBy": [],
@@ -29119,6 +29211,7 @@
   },
   "com.google.android.syncadapters.contacts": {
     "list": "Google",
+    "appName": "Google Contacts Sync",
     "description": "Synchronisation for Google Contacts.\n",
     "dependencies": [],
     "neededBy": [],
@@ -29135,6 +29228,7 @@
   },
   "com.google.android.tts": {
     "list": "Google",
+    "appName": "Google Speech Services",
     "description": "Speech Recognition and Synthesis from Google (https://play.google.com/store/apps/details?id=com.google.android.tts)\nDefault Text To Speech (TTS) engine on most of Android devices. It enables apps to convert text into voice.\n\nPithus analysis (2024-03-03): https://beta.pithus.org/report/f0a2303e1c1bd049bf1cdc5a3454dfe19b2aaf26008662c7a307aaec2538558b\n\nNote: Many navigation and health/sports apps rely on a TTS engine to provide speech services. Open-source TTS engines available on Android exists but, as of the end of 2022, there is only RHVoice (https://f-droid.org/en/packages/com.github.olga_yakovleva.rhvoice.android/) and it doesn't support a lot of languages. Mimic3 (https://mycroft.ai/mimic-3/) is probably the future of IoT open-source TTS engine but there is no Android support yet",
     "dependencies": [],
     "neededBy": [],
@@ -29167,6 +29261,7 @@
   },
   "com.google.android.videos": {
     "list": "Google",
+    "appName": "Google TV",
     "description": "Google TV (previously Google Play Movies & TV) (https://play.google.com/store/apps/details?id=com.google.android.videos)",
     "dependencies": [],
     "neededBy": [],
@@ -29207,6 +29302,7 @@
   },
   "com.google.ar.core": {
     "list": "Google",
+    "appName": "Google Play Services for AR",
     "description": "Google Play Services for AR (Augmented Reality) (https://play.google.com/store/apps/details?id=com.google.ar.core)\nNote: Disabling it can mess with apps that use it, like Pokemon GO.\nhttps://beta.pithus.org/report/99ea324529f950fe351d22724f8b894cce19c16607fcc9c2855bc906b1f8e644",
     "dependencies": [],
     "neededBy": [],
@@ -29295,6 +29391,7 @@
   },
   "com.google.android.apps.maps": {
     "list": "Google",
+    "appName": "Google Maps",
     "description": "Google Maps (https://play.google.com/store/apps/details?id=com.google.android.apps.maps)",
     "dependencies": [],
     "neededBy": [],
@@ -29303,6 +29400,7 @@
   },
   "com.google.android.apps.nexuslauncher": {
     "list": "Google",
+    "appName": "Pixel Launcher",
     "description": "Pixel Launcher (https://play.google.com/store/apps/details?id=com.google.android.apps.nexuslauncher)\nUsed to be called Nexus Launcher(back when Google's phones were called Nexus, not Pixel).\nA launcher is basically your homescreen.\nDON'T REMOVE IF YOU HAVEN'T INSTALLED ANOTHER LAUNCHER!\nREMOVING CAUSES GESTURES/THREE BUTTON NAVIGATION TO DISAPPEAR ENTIRELY!\nhttps://vikrant.is-a.dev/Android-Launcher-Comparison-Table/ has a comprehensive comparison of many alternative launchers\n",
     "dependencies": [],
     "neededBy": [],
@@ -29311,6 +29409,7 @@
   },
   "com.google.android.apps.turbo": {
     "list": "Google",
+    "appName": "Device Health Services",
     "description": "Device Health Services.\nBreaks battery settings.",
     "dependencies": [],
     "neededBy": [],
@@ -29343,6 +29442,7 @@
   },
   "com.google.android.contacts": {
     "list": "Google",
+    "appName": "Google Contacts",
     "description": "Google Contacts (https://play.google.com/store/apps/details?id=com.google.android.contacts)\nOccasionally runs in the background.",
     "dependencies": [],
     "neededBy": [],
@@ -29351,6 +29451,7 @@
   },
   "com.google.android.dialer": {
     "list": "Google",
+    "appName": "Google Phone",
     "description": "Google Dialer (https://play.google.com/store/apps/details?id=com.google.android.dialer)\nDefault dialer on some phones.\nGoogle Analytics are embedded in the app, assume everything is datamined.\nhttps://www.virustotal.com/gui/file/a978d90f27d5947dca33ed59b73bd8efbac67253f9ef7a343beb9197c8913d1a/details",
     "dependencies": [],
     "neededBy": [],
@@ -29359,6 +29460,7 @@
   },
   "com.google.android.documentsui": {
     "list": "Aosp",
+    "appName": "Files",
     "description": "Occasionally runs in the background.\nFile selector for other apps.\nStorage Access Framework (SAF) will break if this is disabled.",
     "dependencies": [],
     "neededBy": [],
@@ -29407,6 +29509,7 @@
   },
   "com.google.android.gms": {
     "list": "Google",
+    "appName": "Google Play services",
     "description": "Google Play Services\nGMS = Google Mobile Services.\nIt is a layer that sits on top of the OS and provides a lot of proprietary Google APIs, giving apps access to various Google Services, such as:\"fused\"-location (internet and GPS chip), QR Code scanner, 2FA, G-Drive storage, Firebase API, Cloud Messaging, etc...\nIf you remove it, all the apps relying on it will either:\n- detect the lack of Play-Services and refuse to run\n- detect the lack of Play-Services but allow you to run (improperly) by dismissing an annoying popup\nRemoving Google Play Services can boot-loop some devices, so be careful.\nDisabling this package will improve battery life significantly, as it always runs in the background.\nIMPORTANT: You need to uncheck \"Find My Device\" from the \"Device admin apps\" settings panel to be able to disable this package.\nSearch \"admin\" in the Settings-app search bar, or go to the Security category.",
     "dependencies": [],
     "neededBy": [],
@@ -29471,6 +29574,7 @@
   },
   "com.google.android.partnersetup": {
     "list": "Google",
+    "appName": "Google Partner Setup",
     "description": "Google Partner Setup\nOccasionally runs in the background.\nBased on an unclear explanation online:\"Enables applications to interact with your Google account/apps, for example: adding a Google Calendar event from a To-Do app.\"\nProbably safe to disable; haven't noticed any consequences of disabling from weeks of use.",
     "dependencies": [],
     "neededBy": [],
@@ -29479,6 +29583,7 @@
   },
   "com.google.android.webview": {
     "list": "Google",
+    "appName": "Android System WebView",
     "description": "Android System WebView (https://play.google.com/store/apps/details?id=com.google.android.webview) enables Android apps to display web content within the app itself, based on Chrome.\nIf you delete WebView, make sure to install a replacement.\nMany third-party apps, such as banks, VPNs, GitHub, Discord and Reddit use web-based content and will crash without it.\nIt can cause notifications problems",
     "dependencies": [],
     "neededBy": [],
@@ -29495,6 +29600,7 @@
   },
   "com.google.android.gm": {
     "list": "Google",
+    "appName": "Gmail",
     "description": "Gmail (https://play.google.com/store/apps/details?id=com.google.android.gm)",
     "dependencies": [],
     "neededBy": [],
@@ -29535,6 +29641,7 @@
   },
   "com.android.vending": {
     "list": "Google",
+    "appName": "Google Play Store",
     "description": "Google Play Store",
     "dependencies": [],
     "neededBy": [],
@@ -29543,6 +29650,7 @@
   },
   "com.google.android.inputmethod.latin": {
     "list": "Google",
+    "appName": "Gboard",
     "description": "Gboard – the Google Keyboard (https://play.google.com/store/apps/details?id=com.google.android.inputmethod.latin)\nSometimes the only keyboard app on a phone; Make sure you have another installed before you disable. On some phones, disabling may lock you out after restart due to hard dependancy.",
     "dependencies": [],
     "neededBy": [],
@@ -30453,6 +30561,7 @@
   },
   "com.samsung.android.contacts": {
     "list": "Oem",
+    "appName": "Samsung Contacts",
     "description": "Samsung contacts app?",
     "dependencies": [],
     "neededBy": [],
@@ -30839,6 +30948,7 @@
   },
   "com.google.android.setupwizard": {
     "list": "Google",
+    "appName": "Setup Wizard",
     "description": "Android Setup\nThe factory reset device basic configuration setup guides you through the basics of setting up your device.\nWARNING: Oddly enough, disabling/uninstalling this package will break mobile identity management which could be used by apps (for example your bank) to authenticate you. Also breaks syncing of Google accounts setup after this package is removed.\nSee https://en.wikipedia.org/wiki/Mobile_identity_management for Mobile Identity Management.",
     "dependencies": [],
     "neededBy": [],
@@ -30857,6 +30967,7 @@
   },
   "com.google.android.youtube": {
     "list": "Google",
+    "appName": "YouTube",
     "description": "YouTube (https://play.google.com/store/apps/details?id=com.google.android.youtube)",
     "dependencies": [],
     "neededBy": [],
@@ -36810,6 +36921,7 @@
   },
   "com.android.music": {
     "list": "Oem",
+    "appName": "Music",
     "description": "The com.android.music package is the default music player app that comes pre-installed on many Android devices. It provides basic music playback functionality and may include features like playlists and library management. Since there are many better and more feature-rich music player apps available on Google Play, and this app does not offer any unique features specific to your device, removing it should not impact the core functionality of the operating system.",
     "dependencies": [],
     "neededBy": [],
