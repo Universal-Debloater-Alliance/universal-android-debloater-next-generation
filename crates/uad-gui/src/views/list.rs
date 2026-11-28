@@ -29,6 +29,7 @@ pub struct PackageInfo {
     pub i_user: usize,
     pub index: usize,
     pub removal: String,
+    pub wanted_state: PackageState,
     pub before_cross_user_states: Vec<(u16, PackageState)>,
 }
 
@@ -160,9 +161,7 @@ impl List {
             Message::List(i, row_msg) => self.on_list_row(i, &row_msg, settings, selected_device),
             Message::ApplyActionOnSelection => self.on_apply_action_on_selection(),
             Message::UserSelected(user) => self.on_user_selected(user),
-            Message::VerifyAndFallback(res) => {
-                self.on_verify_and_fallback(res, settings, selected_device)
-            }
+            Message::VerifyAndFallback(res) => self.on_verify_and_fallback(res, selected_device),
             Message::VerifyAndFallbackFinished(result) => {
                 self.on_verify_and_fallback_finished(result)
             }
@@ -862,29 +861,37 @@ impl List {
         settings: &Settings,
         selected_device: &mut Phone,
     ) -> Task<Message> {
+        let i_user = self.selected_user.unwrap_or_default().index;
         if let Err(error) = self.validate_action_inventories(
             selected_device,
             settings.device.multi_user_mode,
-            &self.selected_packages.iter().map(|&(user, _)| user),
+            &std::iter::once(i_user),
         ) {
             self.error_modal = Some(error);
             self.selection_modal = false;
             return Task::none();
         }
         self.fallback_notifications.clear();
-        let mut commands = vec![];
-        self.selected_packages.sort_unstable();
-        self.selected_packages.dedup();
-        for selection in &self.selected_packages {
-            commands.append(&mut build_action_pkg_commands(
-                &self.phone_packages,
-                selected_device,
-                &settings.device,
-                *selection,
-            ));
-        }
+        let commands = self.apply_selection(selected_device, &settings.device);
         self.selection_modal = false;
         Task::batch(commands)
+    }
+
+    /// Build the commands of the selection under review.
+    fn apply_selection(&mut self, device: &Phone, settings: &DeviceSettings) -> Vec<Task<Message>> {
+        let i_user = self.selected_user.unwrap_or_default().index;
+        self.selected_packages.sort_unstable();
+        self.selected_packages.dedup();
+        let mut commands = vec![];
+        for &selection in self.selected_packages.iter().filter(|s| s.0 == i_user) {
+            commands.extend(build_action_pkg_commands(
+                &self.phone_packages,
+                device,
+                settings,
+                selection,
+            ));
+        }
+        commands
     }
 
     fn on_restoring_device(&mut self, output: Result<PackageInfo, AdbError>) -> Task<Message> {
@@ -1124,7 +1131,6 @@ impl List {
     fn on_verify_and_fallback(
         &mut self,
         res: Result<PackageInfo, AdbError>,
-        settings: &Settings,
         selected_device: &Phone,
     ) -> Task<Message> {
         match res {
@@ -1134,7 +1140,7 @@ impl List {
                 let index = p.index;
                 let pkg_name = self.phone_packages[i_user][index].name.clone();
                 let current_state = self.phone_packages[i_user][index].state;
-                let wanted_state = current_state.opposite(settings.device.disable_mode);
+                let wanted_state = p.wanted_state;
                 let before_cross_user_states = p.before_cross_user_states.clone();
                 let device = selected_device.clone();
                 let user_id = device.user_list[i_user].id;
@@ -1629,43 +1635,55 @@ fn same_package(
     user_packages.iter().position(|p| p.name == *name)
 }
 
+/// The users the action of `selection` applies to, with the ADB commands to run for each.
+fn plan_pkg_action(
+    packages: &[Vec<PackageRow>],
+    device: &Phone,
+    settings: &DeviceSettings,
+    selection: (usize, usize),
+) -> Vec<(User, PackageInfo, Vec<String>)> {
+    let pkg = &packages[selection.0][selection.1];
+    let wanted_state = pkg.state.opposite(settings.disable_mode);
+
+    let mut plan = vec![];
+    for u in device.user_list.iter().filter(|u| !u.protected) {
+        let Some(index) = same_package(packages, selection, u.index) else {
+            continue;
+        };
+        let u_pkg = &packages[u.index][index];
+        // Only the initiating user, unless multi-user mode extends the action
+        // to the other users the package is selected for.
+        if u.index != selection.0 && !(settings.multi_user_mode && u_pkg.selected) {
+            continue;
+        }
+        let p_info = PackageInfo {
+            i_user: u.index,
+            index,
+            removal: pkg.removal.to_string(),
+            wanted_state,
+            // Will be filled asynchronously before running the adb action
+            before_cross_user_states: vec![],
+        };
+        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
+        plan.push((*u, p_info, actions));
+    }
+    plan
+}
+
 fn build_action_pkg_commands(
     packages: &[Vec<PackageRow>],
     device: &Phone,
     settings: &DeviceSettings,
     selection: (usize, usize),
 ) -> Vec<Task<Message>> {
-    let pkg = &packages[selection.0][selection.1];
-    let wanted_state = pkg.state.opposite(settings.disable_mode);
-
     let mut commands = vec![];
-    for u in device.user_list.iter().filter(|u| !u.protected) {
-        let Some(index) = same_package(packages, selection, u.index) else {
-            continue;
-        };
-        let u_pkg = &packages[u.index][index];
-        if !(u_pkg.selected || settings.multi_user_mode && u.index == selection.0) {
-            continue;
-        }
-        let wanted_state = if settings.multi_user_mode {
-            wanted_state
-        } else {
-            u_pkg.state.opposite(settings.disable_mode)
-        };
-
-        let actions = apply_pkg_state_commands(&u_pkg.into(), wanted_state, *u, device);
-
+    let plan = plan_pkg_action(packages, device, settings, selection);
+    for (u, p_info, actions) in plan {
         for (j, action) in actions.into_iter().enumerate() {
-            let p_info = PackageInfo {
-                i_user: u.index,
-                index,
-                removal: pkg.removal.to_string(),
-                // Will be filled asynchronously before running the adb action
-                before_cross_user_states: vec![],
-            };
+            let p_info = p_info.clone();
             // Clone data before async block to avoid borrowing issues
             let device_serial = device.adb_id.clone();
-            let package_name = u_pkg.name.clone();
+            let package_name = packages[p_info.i_user][p_info.index].name.clone();
             let user_id = u.id;
             let phone = device.clone();
             // In the end there is only one package state change
@@ -1809,5 +1827,69 @@ mod tests {
             view.validate_action_inventories(&phone, true, &std::iter::once(0)),
             Err("Could not read user 10: device offline. Refresh the device and try again.".into())
         );
+    }
+
+    #[test]
+    fn apply_uses_the_reviewed_profile_state_for_each_copy() {
+        let owner = User::default();
+        let work = User {
+            id: 10,
+            index: 1,
+            protected: false,
+        };
+        let phone = Phone {
+            adb_id: "test phone".into(),
+            android_sdk: 35,
+            user_list: vec![owner, work],
+            ..Phone::default()
+        };
+        let owner_package = PackageRow::new(
+            "com.example.app",
+            "",
+            Removal::Recommended,
+            PackageState::Enabled,
+            UadList::Misc,
+            true,
+            false,
+        );
+        let work_package = PackageRow {
+            state: PackageState::Disabled,
+            selected: false,
+            ..owner_package.clone()
+        };
+        let mut view = List {
+            selected_user: Some(owner),
+            phone_packages: vec![vec![owner_package], vec![work_package]],
+            selected_packages: vec![(0, 0)],
+            ..List::default()
+        };
+        view.select_for_all_users(&phone.user_list);
+        assert_eq!(view.selected_packages, [(0, 0), (1, 0)]);
+
+        let settings = DeviceSettings {
+            multi_user_mode: true,
+            ..DeviceSettings::default()
+        };
+        let plan = plan_pkg_action(&view.phone_packages, &phone, &settings, (0, 0));
+        let actions: Vec<_> = plan
+            .into_iter()
+            .map(|(user, info, commands)| (user.id, info.wanted_state, commands))
+            .collect();
+        assert_eq!(
+            actions,
+            [
+                (
+                    0,
+                    PackageState::Uninstalled,
+                    vec!["pm uninstall --user 0 com.example.app".to_string()]
+                ),
+                (
+                    10,
+                    PackageState::Uninstalled,
+                    vec!["pm uninstall --user 10 com.example.app".to_string()]
+                ),
+            ]
+        );
+        assert_eq!(view.apply_selection(&phone, &settings).len(), 2);
     }
 }

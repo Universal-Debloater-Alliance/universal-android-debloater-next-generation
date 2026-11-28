@@ -242,7 +242,7 @@ impl Settings {
                         i_user: p.i_user,
                         index: p.index,
                         removal: "RESTORE".to_string(),
-                        before_cross_user_states: vec![],
+                        ..PackageInfo::default()
                     };
                     for command in p.commands.clone() {
                         *nb_running_async_adb_commands += 1;
