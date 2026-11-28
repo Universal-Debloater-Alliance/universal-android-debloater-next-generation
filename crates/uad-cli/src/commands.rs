@@ -317,6 +317,7 @@ fn process_package_state_change(
 
     let core_pkg = CorePackage {
         name: pkg_name.to_string(),
+        app_name: pkg_info.and_then(|p| p.app_name.clone()),
         description: pkg_info.map(|p| p.description.clone()).unwrap_or_default(),
         removal: pkg_info.map(|p| p.removal).unwrap_or(Removal::Unlisted),
         state: current_state,
@@ -428,6 +429,9 @@ pub fn show_package_info(
     if let Some(pkg_info) = uad_lists.get(package) {
         println!("UAD Information:");
         println!("  List:        {}", pkg_info.list);
+        if let Some(app_name) = &pkg_info.app_name {
+            println!("  App name:    {app_name}");
+        }
         println!("  Removal:     {}", pkg_info.removal);
         println!("  Description: {}", pkg_info.description);
         println!();

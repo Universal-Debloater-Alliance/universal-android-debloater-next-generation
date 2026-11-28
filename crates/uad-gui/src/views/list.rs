@@ -1102,6 +1102,7 @@ impl List {
                                 // Create CorePackage for fallback
                                 let core_package = uad_core::sync::CorePackage {
                                     name: pkg_name.clone(),
+                                    app_name: None,
                                     description: String::new(),
                                     removal: Removal::All,
                                     state: current_state,
@@ -1205,6 +1206,7 @@ impl List {
                                         async move {
                                             let temp_pkg = uad_core::sync::CorePackage {
                                                 name: pkg_name.clone(),
+                                                app_name: None,
                                                 description: String::new(),
                                                 removal: Removal::All,
                                                 state: PackageState::Disabled,
@@ -1231,6 +1233,7 @@ impl List {
                                             let temp_pkg_uninstalled =
                                                 uad_core::sync::CorePackage {
                                                     name: pkg_name.clone(),
+                                                    app_name: None,
                                                     description: String::new(),
                                                     removal: Removal::All,
                                                     state: PackageState::Uninstalled,

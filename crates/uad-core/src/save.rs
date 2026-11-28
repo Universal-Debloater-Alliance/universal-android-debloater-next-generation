@@ -207,6 +207,7 @@ mod tests {
     fn package(name: &str, state: PackageState) -> CorePackage {
         CorePackage {
             name: name.to_string(),
+            app_name: None,
             description: String::new(),
             state,
             removal: Removal::Recommended,
